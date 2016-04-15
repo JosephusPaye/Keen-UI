@@ -13,6 +13,7 @@ MIT
 * [x] Setup project site on Github Pages
 * [ ] Add introduction and usage documentation
 * [ ] Add CodePen demos
+* [ ] Publish to NPM and Bower
 * [ ] Test browser compatibility (IE 9+)
 * [ ] Add new components
   * [ ] Slider
