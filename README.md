@@ -2,8 +2,11 @@
 
 > A collection of essential UI components written with Vue and inspired by Material Design.
 
+## Licence
+MIT
+
 ## Todo
-* [ ] Add License
+* [x] Add License
 * [ ] Add usage information
 * [ ] Setup project site on Github Pages
 * [ ] Add CodePen demos
