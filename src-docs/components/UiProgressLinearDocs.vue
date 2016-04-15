@@ -106,10 +106,10 @@
 </template>
 
 <script>
-import UiTab from '../../source/UiTab.vue';
-import UiTabs from '../../source/UiTabs.vue';
-import UiButton from '../../source/UiButton.vue';
-import UiProgressLinear from '../../source/UiProgressLinear.vue';
+import UiTab from '../../src/UiTab.vue';
+import UiTabs from '../../src/UiTabs.vue';
+import UiButton from '../../src/UiButton.vue';
+import UiProgressLinear from '../../src/UiProgressLinear.vue';
 
 export default {
     data() {

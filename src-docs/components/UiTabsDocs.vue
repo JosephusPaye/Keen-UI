@@ -485,8 +485,8 @@
 </template>
 
 <script>
-import UiTab from '../../source/UiTab.vue';
-import UiTabs from '../../source/UiTabs.vue';
+import UiTab from '../../src/UiTab.vue';
+import UiTabs from '../../src/UiTabs.vue';
 
 export default {
     components: {

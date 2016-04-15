@@ -154,9 +154,9 @@
 </template>
 
 <script>
-import UiTab from '../../source/UiTab.vue';
-import UiTabs from '../../source/UiTabs.vue';
-import UiAlert from '../../source/UiAlert.vue';
+import UiTab from '../../src/UiTab.vue';
+import UiTabs from '../../src/UiTabs.vue';
+import UiAlert from '../../src/UiAlert.vue';
 
 export default {
     components: {

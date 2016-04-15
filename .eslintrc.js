@@ -15,14 +15,7 @@ module.exports = {
         expect: false,
         describe: false,
         beforeEach: false,
-        afterEach: false,
-
-        TweenLite: false,
-        Power0: false,
-        Power1: false,
-        Power2: false,
-        Expo0: false,
-        Expo1: false
+        afterEach: false
     },
 
     plugins: [

@@ -103,9 +103,9 @@
 </template>
 
 <script>
-import UiFab from '../../source/UiFab.vue';
-import UiTab from '../../source/UiTab.vue';
-import UiTabs from '../../source/UiTabs.vue';
+import UiFab from '../../src/UiFab.vue';
+import UiTab from '../../src/UiTab.vue';
+import UiTabs from '../../src/UiTabs.vue';
 
 export default {
     components: {

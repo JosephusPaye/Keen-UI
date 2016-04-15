@@ -237,10 +237,10 @@
 </template>
 
 <script>
-import UiTab from '../../source/UiTab.vue';
-import UiTabs from '../../source/UiTabs.vue';
-import UiButton from '../../source/UiButton.vue';
-import UiConfirm from '../../source/UiConfirm.vue';
+import UiTab from '../../src/UiTab.vue';
+import UiTabs from '../../src/UiTabs.vue';
+import UiButton from '../../src/UiButton.vue';
+import UiConfirm from '../../src/UiConfirm.vue';
 
 export default {
     data() {

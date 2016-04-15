@@ -215,11 +215,11 @@
 </template>
 
 <script>
-import UiTab from '../../source/UiTab.vue';
-import UiTabs from '../../source/UiTabs.vue';
-import UiButton from '../../source/UiButton.vue';
-import UiRating from '../../source/UiRating.vue';
-import UiRatingPreview from '../../source/UiRatingPreview.vue';
+import UiTab from '../../src/UiTab.vue';
+import UiTabs from '../../src/UiTabs.vue';
+import UiButton from '../../src/UiButton.vue';
+import UiRating from '../../src/UiRating.vue';
+import UiRatingPreview from '../../src/UiRatingPreview.vue';
 
 export default {
     data() {

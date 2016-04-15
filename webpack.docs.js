@@ -6,7 +6,7 @@ delete config.devtool;
 delete config.watch;
 delete config.plugins;
 
-config.entry = './source-docs/main.js';
+config.entry = './src-docs/main.js';
 config.plugins = [
     new ExtractTextPlugin('./docs.bundle.css'),
 

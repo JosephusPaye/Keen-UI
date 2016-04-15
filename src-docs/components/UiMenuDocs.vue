@@ -198,11 +198,11 @@
 </template>
 
 <script>
-import UiTab from '../../source/UiTab.vue';
-import UiTabs from '../../source/UiTabs.vue';
+import UiTab from '../../src/UiTab.vue';
+import UiTabs from '../../src/UiTabs.vue';
 
-import UiMenu from '../../source/UiMenu.vue';
-import UiButton from '../../source/UiButton.vue';
+import UiMenu from '../../src/UiMenu.vue';
+import UiButton from '../../src/UiButton.vue';
 
 let menuOptions = [
     {
