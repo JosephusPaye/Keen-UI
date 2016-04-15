@@ -1,0 +1,85 @@
+<template>
+    <section class="section section-ui-preloader">
+        <h2 class="section-heading">UiPreloader</h2>
+
+        <p>This component shows an indeterminate progress bar using the primary Material Design colors. Useful for indicating activity like a page load.</p>
+
+        <p>UiPreloader is not from the Material Design spec, but inspired by a similar component in Google's Inbox app.</p>
+
+        <h3>Example</h3>
+
+        <div class="demo">
+            <ui-preloader :show="loading"></ui-preloader>
+
+            <ui-button @click="loading = !loading">Toggle Loading</ui-button>
+        </div>
+
+        <h3>API</h3>
+
+        <ui-tabs raised>
+
+            <ui-tab header="Props">
+                <div class="table-responsive">
+
+                    <table class="table">
+                        <thead>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>show *</td>
+                                <td>Boolean</td>
+                                <td>(required)</td>
+                                <td>Determines whether or not the preloader is shown. Changing this value will show/hide the preloader.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                * Required prop
+            </ui-tab>
+
+        </ui-tabs>
+
+    </section>
+</template>
+
+<script>
+import UiTab from '../../source/UiTab.vue';
+import UiTabs from '../../source/UiTabs.vue';
+import UiButton from '../../source/UiButton.vue';
+import UiPreloader from '../../source/UiPreloader.vue';
+
+export default {
+    data() {
+        return {
+            loading: true
+        };
+    },
+
+    components: {
+        UiTab,
+        UiTabs,
+        UiButton,
+        UiPreloader
+    }
+};
+</script>
+
+<style lang="stylus">
+.section-ui-preloader {
+    .ui-button {
+        margin-top: 24px;
+    }
+
+    .pull-right {
+        margin-top: 0;
+        float: right;
+    }
+}
+</style>

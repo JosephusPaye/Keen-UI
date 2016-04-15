@@ -1,0 +1,231 @@
+<template>
+    <section class="section section-ui-switch">
+        <h2 class="section-heading">UiSwitch</h2>
+
+        <p>A switch component that allows the user to toggle between two values like on and off. Supports keyboard focus, a disabled state and showing the label to the left of the switch.</p>
+
+        <h3>Examples</h3>
+
+        <div class="demo">
+            <h4>Default</h4>
+
+            <div class="group">
+                <ui-switch name="do_it_now" :value.sync="true">Do it now</ui-switch>
+                <ui-switch name="do_it_well" :value.sync="false">Do it well</ui-switch>
+                <ui-switch name="look_cool" :value.sync="true">Look cool while at it</ui-switch>
+
+                <ui-switch
+                    name="try_checking" disabled :value.sync="true"
+                >Can't change this</ui-switch>
+
+                <ui-switch
+                    name="try_checking_another" disabled :value.sync="false"
+                >Can't change this too</ui-switch>
+            </div>
+
+            <h4>Label Left</h4>
+
+            <div class="group label-left">
+                <ui-switch
+                    name="do_it_now" :value.sync="true" label-left
+                >Do it now</ui-switch>
+
+                <ui-switch
+                    name="do_it_well" :value.sync="false" label-left
+                >Do it well</ui-switch>
+
+                <ui-switch
+                    name="look_cool" :value.sync="true" label-left
+                >Look cool while at it</ui-switch>
+
+                <ui-switch
+                    name="try_checking" disabled :value.sync="true" label-left
+                >Can't change this</ui-switch>
+
+                <ui-switch
+                    name="try_checking_another" disabled :value.sync="false" label-left
+                >Can't change this too</ui-switch>
+            </div>
+
+            <h4>HTML in Label</h4>
+
+            <div class="group">
+                <ui-switch
+                    name="look_cool" :value.sync="true"
+                >Just <b><i>do</i></b> it!</ui-switch>
+            </div>
+
+            <ui-button @click="resetSwitches">Reset switches</ui-button>
+        </div>
+
+        <h3>API</h3>
+
+        <ui-tabs raised>
+
+            <ui-tab header="Props">
+                <div class="table-responsive">
+
+                    <table class="table">
+                        <thead>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Binding</th>
+                            <th>Description</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>id</td>
+                                <td>String</td>
+                                <td></td>
+                                <td></td>
+                                <td>A unique identifier for the switch. Applied as the <code>id</code> attribute of the switch input and used when targeting a specific switch for reset.</td>
+                            </tr>
+
+                            <tr>
+                                <td>name</td>
+                                <td>String</td>
+                                <td></td>
+                                <td></td>
+                                <td>The switch input <code>name</code> attribute.</td>
+                            </tr>
+
+                            <tr>
+                                <td>value *</td>
+                                <td>Boolean</td>
+                                <td>(required)</td>
+                                <td>Two way</td>
+                                <td>The model that the switch value syncs to.</td>
+                            </tr>
+
+                            <tr>
+                                <td>label</td>
+                                <td>String</td>
+                                <td></td>
+                                <td></td>
+                                <td>The switch label (text only). To use HTML in the label, use the default slot.</td>
+                            </tr>
+
+                            <tr>
+                                <td>hideLabel</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td></td>
+                                <td>Determines whether or not the switch label is hidden. Set to <code>true</code> to hide the label.</td>
+                            </tr>
+
+                            <tr>
+                                <td>labelLeft</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td></td>
+                                <td>Whether or not the label is shown to the left of the switch. Set to <code>true</code> to show the label on the left.</td>
+                            </tr>
+
+                            <tr>
+                                <td>disabled</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td></td>
+                                <td>Determines whether or not the switch is disabled. Set to <code>true</code> to disable the switch.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                * Required prop
+            </ui-tab>
+
+            <ui-tab header="Slots">
+                <div class="table-responsive">
+
+                    <table class="table">
+                        <thead>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>(default)</td>
+                                <td>The default slot holds the switch label and can contain HTML.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </ui-tab>
+
+            <ui-tab header="Events">
+                <div class="table-responsive">
+
+                    <table class="table">
+                        <thead>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="no-wrap">ui-input::reset</td>
+                                <td>Received</td>
+                                <td>
+                                    <p>Trigger this event to reset the switch to its initial state. This event resets the <code>value</code> prop.</p>
+
+                                    <p>You can optionally pass in an <code>id</code> to reset only a specific switch (whose <code>id</code> you have set).</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </ui-tab>
+
+        </ui-tabs>
+
+    </section>
+</template>
+
+<script>
+import UiTab from '../../source/UiTab.vue';
+import UiTabs from '../../source/UiTabs.vue';
+import UiButton from '../../source/UiButton.vue';
+import UiSwitch from '../../source/UiSwitch.vue';
+
+export default {
+    components: {
+        UiTab,
+        UiTabs,
+        UiButton,
+        UiSwitch
+    },
+
+    methods: {
+        resetSwitches() {
+            this.$broadcast('ui-input::reset');
+        }
+    }
+};
+</script>
+
+<style lang="stylus">
+.section-ui-switch {
+    .ui-switch {
+        margin-bottom: 8px;
+    }
+
+    .group {
+        margin-bottom: 32px;
+
+        &.label-left {
+            max-width: 200px;
+        }
+    }
+
+    .ui-button {
+        margin-top: 24px;
+    }
+}
+</style>

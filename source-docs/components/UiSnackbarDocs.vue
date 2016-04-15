@@ -1,0 +1,377 @@
+<template>
+    <section class="section section-ui-snackbar">
+        <h2 class="section-heading">UiSnackbar &amp; UiSnackbarContainer</h2>
+
+        <p>UiSnackbar provides lightweight feedback about an operation by showing a brief message at the bottom of the screen. Snackbars can contain an action.</p>
+
+        <p>UiSnackbarContainer is a container that allows you to create snackbars using events, and it manages their visibility to ensure only one snackbar is shown at a time. It also allows you to position snackbars to the left, center or right of the container.</p>
+
+        <h3>Examples</h3>
+
+        <div class="demo">
+            <h4>Default</h4>
+            <ui-snackbar show persistent>Post published</ui-snackbar>
+
+            <h4>With action</h4>
+            <ui-snackbar show persistent action="Retry">Database connection failed</ui-snackbar>
+
+            <h4>Multi-line</h4>
+            <ui-snackbar show persistent>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Set sur illo hic ullam atque omnis.
+            </ui-snackbar>
+
+            <h4>Multi-line with action, action color primary</h4>
+            <ui-snackbar
+                show persistent action="Undo" action-color="primary"
+            >
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Set sur illo hic ullam atque omnis.
+            </ui-snackbar>
+        </div>
+
+        <h3>UiSnackbarContainer Demo</h3>
+
+        <div class="preview-pane">
+            <ui-snackbar-container
+                :position="position" :queue-snackbars="queueSnackbars"
+            ></ui-snackbar-container>
+        </div>
+
+        <div class="preview-controls">
+            <ui-textbox
+                label="Snackbar message" :value.sync="message" name="message"
+                placeholder="Enter a message"
+            ></ui-textbox>
+
+            <ui-textbox
+                label="Action text" :value.sync="action" name="action_text"
+                placeholder="Enter action button text"
+            ></ui-textbox>
+
+            <ui-textbox
+                label="Duration (seconds)" :value.sync="duration" name="duration"
+                placeholder="Enter the duration in seconds" type="number"
+            ></ui-textbox>
+
+            <ui-radio-group
+                label="Action color" name="action_color" :options="['accent', 'primary']"
+                :value.sync="actionColor"
+            ></ui-radio-group>
+
+            <ui-radio-group
+                label="Position" name="position" :options="['left', 'center', 'right']"
+                :value.sync="position"
+            ></ui-radio-group>
+
+            <ui-switch :value.sync="queueSnackbars">Queue snackbars</ui-switch>
+
+            <ui-button @click="createSnackbar">Create snackbar</ui-button>
+        </div>
+
+        <h3>API: UiSnackbar</h3>
+
+        <ui-tabs raised>
+
+            <ui-tab header="Props">
+                <div class="table-responsive">
+
+                    <table class="table">
+                        <thead>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Binding</th>
+                            <th>Description</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>id</td>
+                                <td>String</td>
+                                <td class="no-wrap">(Auto-generated unique ID)</td>
+                                <td></td>
+                                <td>A unique identifier for the snackbar. Applied as the <code>id</code> attribute of the snackbar root element.</td>
+                            </tr>
+
+                            <tr>
+                                <td>show</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>Two way</td>
+                                <td>Determines whether or not the snackbar is shown. Changing this value will show/hide the snackbar.</td>
+                            </tr>
+
+                            <tr>
+                                <td>message</td>
+                                <td>String</td>
+                                <td></td>
+                                <td></td>
+                                <td>The snackbar message. To use HTML in the snackbar, use the default slot.</td>
+                            </tr>
+
+                            <tr>
+                                <td>action</td>
+                                <td>String</td>
+                                <td></td>
+                                <td></td>
+                                <td>The snackbar action button text. Setting this prop will show an action button. Otherwise, no action button is shown.</td>
+                            </tr>
+
+                            <tr>
+                                <td>actionColor</td>
+                                <td>String</td>
+                                <td><code>"accent"</code></td>
+                                <td></td>
+                                <td>The snackbar action button text color. One of <code>accent</code> or <code>primary</code>.</td>
+                            </tr>
+
+                            <tr>
+                                <td>duration</td>
+                                <td>Number</td>
+                                <td><code>5000</code></td>
+                                <td></td>
+                                <td>The duration of the snackbar in milliseconds. After this amount of time, the snackbar will be hidden if <code>autoHide</code> is enabled.</td>
+                            </tr>
+
+                            <tr>
+                                <td>autoHide</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td></td>
+                                <td>Determines whether or not the snackbar is automatically hidden after the given duration. Set to <code>false</code> to disable auto hiding.</td>
+                            </tr>
+
+                            <tr>
+                                <td>persistent</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td></td>
+                                <td>Determines whether or not the snackbar is persistent and cannot be hidden. Set to <code>true</code> for a persistent snackbar.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ui-tab>
+
+            <ui-tab header="Slots">
+                <div class="table-responsive">
+
+                    <table class="table">
+                        <thead>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>(default)</td>
+                                <td>The default slot holds the snackbar message and can contain HTML.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </ui-tab>
+
+            <ui-tab header="Events">
+                <div class="table-responsive">
+
+                    <table class="table">
+                        <thead>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>shown</td>
+                                <td>Dispatched</td>
+                                <td>Dispatched when the snackbar is shown. Listen for it using <code>@shown</code>.</td>
+                            </tr>
+
+                            <tr>
+                                <td>hidden</td>
+                                <td>Dispatched</td>
+                                <td>Dispatched when the snackbar is hidden. Listen for it using <code>@hidden</code>.</td>
+                            </tr>
+
+                            <tr>
+                                <td>clicked</td>
+                                <td>Dispatched</td>
+                                <td>Dispatched when the snackbar is clicked. Listen for it using <code>@clicked</code>.</td>
+                            </tr>
+
+                            <tr>
+                                <td>action-clicked</td>
+                                <td>Dispatched</td>
+                                <td>Dispatched when the snackbar is action-clicked. Listen for it using <code>@action-clicked</code>.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </ui-tab>
+
+        </ui-tabs>
+
+        <h3>API: UiSnackbarContainer</h3>
+
+        <ui-tabs raised>
+
+            <ui-tab header="Props">
+                <div class="table-responsive">
+
+                    <table class="table">
+                        <thead>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>defaultDuration</td>
+                                <td>Number</td>
+                                <td><code>5000</code></td>
+                                <td>The default duration in milliseconds of snackbars shown in this container. Only applies to snackbars created without a duration.</td>
+                            </tr>
+
+                            <tr>
+                                <td>queueSnackbars</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>
+                                    <p>Determines whether or not snackbars should be queued and shown one after the other.</p>
+
+                                    <p>By default, creating a new snackbar while one is visible will cause the visible one to immediately transition out for the new one.</p>
+
+                                    <p>Set this prop to <code>true</code> to ensure that each snackbar is shown for its complete duration.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>position</td>
+                                <td>String</td>
+                                <td><code>"left"</code></td>
+                                <td>The position of snackbars relative to the container. One of <code>left</code>, <code>center</code> or <code>right</code>.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ui-tab>
+
+            <ui-tab header="Events">
+                <div class="table-responsive">
+
+                    <table class="table">
+                        <thead>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="no-wrap">ui-snackbar::create</td>
+                                <td>Received</td>
+                                <td>
+                                    <p>Trigger this event to create a new snackbar, passing in an options object with any of the props of UiSnackbar.</p>
+
+                                    <p>You can also specify the following callback functions on the options object:</p>
+
+                                    <ul>
+                                        <li><b>onShow</b>: called when the snackbar is shown, passed the snackbar object.</li>
+                                        <li><b>onHide</b>: called when the snackbar is hidden, passed the snackbar object.</li>
+                                        <li><b>onClick</b>: called when the snackbar is clicked, passed the snackbar object.</li>
+                                        <li><b>onActionClick</b>: called when the snackbar action is clicked, passed the snackbar object.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </ui-tab>
+
+        </ui-tabs>
+
+    </section>
+</template>
+
+<script>
+import UiTab from '../../source/UiTab.vue';
+import UiTabs from '../../source/UiTabs.vue';
+import UiButton from '../../source/UiButton.vue';
+import UiSwitch from '../../source/UiSwitch.vue';
+import UiTextbox from '../../source/UiTextbox.vue';
+import UiRadioGroup from '../../source/UiRadioGroup.vue';
+
+import UiSnackbar from '../../source/UiSnackbar.vue';
+import UiSnackbarContainer from '../../source/UiSnackbarContainer.vue';
+
+export default {
+    components: {
+        UiTab,
+        UiTabs,
+        UiButton,
+        UiSwitch,
+        UiTextbox,
+        UiRadioGroup,
+
+        UiSnackbar,
+        UiSnackbarContainer
+    },
+
+    data() {
+        return {
+            position: 'left',
+            queueSnackbars: false,
+
+            action: '',
+            duration: 5,
+            actionColor: 'accent',
+            message: 'Post deleted'
+        };
+    },
+
+    methods: {
+        createSnackbar() {
+            this.$broadcast('ui-snackbar::create', {
+                message: this.message,
+                action: this.action,
+                actionColor: this.actionColor,
+                duration: this.duration * 1000
+            });
+        }
+    }
+};
+</script>
+
+<style lang="stylus">
+.section-ui-snackbar {
+    .preview-pane {
+        position: relative;
+        height: 148px;
+        border: 2px solid #777;
+    }
+
+    .preview-controls {
+        margin-top: 24px;
+        max-width: 400px;
+    }
+
+    .ui-button {
+        margin-top: 16px;
+    }
+
+    .ui-textbox,
+    .ui-radio-group {
+        margin-bottom: 18px;
+    }
+
+    .ui-switch {
+        margin-bottom: 8px;
+    }
+}
+</style>

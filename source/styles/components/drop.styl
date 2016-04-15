@@ -1,0 +1,28 @@
+.drop-element {
+    position: absolute;
+    display: none;
+    z-index: $z-index-dropdown;
+
+    max-width: 100%;
+    max-height: 100%;
+
+    transition: opacity 0.2s ease;
+    opacity: 0;
+
+    &,
+    &:after,
+    &:before,
+    & *,
+    & *:after,
+    & *:before {
+        box-sizing: border-box;
+    }
+
+    &.drop-open {
+        display: block;
+    }
+
+    &.drop-after-open {
+        opacity: 1;
+    }
+}
