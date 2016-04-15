@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import UiIcon from '../source/UiIcon.vue';
+import UiIcon from '../src/UiIcon.vue';
 
 describe('UiIcon.vue', function() {
     it('should initialize with correct data/props', function() {

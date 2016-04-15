@@ -189,10 +189,10 @@
 </template>
 
 <script>
-import UiTab from '../../source/UiTab.vue';
-import UiTabs from '../../source/UiTabs.vue';
-import UiButton from '../../source/UiButton.vue';
-import UiCheckbox from '../../source/UiCheckbox.vue';
+import UiTab from '../../src/UiTab.vue';
+import UiTabs from '../../src/UiTabs.vue';
+import UiButton from '../../src/UiButton.vue';
+import UiCheckbox from '../../src/UiCheckbox.vue';
 
 export default {
     components: {

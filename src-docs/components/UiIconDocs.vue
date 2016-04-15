@@ -85,9 +85,9 @@
 </template>
 
 <script>
-import UiTab from '../../source/UiTab.vue';
-import UiTabs from '../../source/UiTabs.vue';
-import UiIcon from '../../source/UiIcon.vue';
+import UiTab from '../../src/UiTab.vue';
+import UiTabs from '../../src/UiTabs.vue';
+import UiIcon from '../../src/UiIcon.vue';
 
 export default {
     components: {
@@ -99,7 +99,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '../../source/styles/variables';
+@import '../../src/styles/variables';
 
 .section-ui-icon {
     .demo {

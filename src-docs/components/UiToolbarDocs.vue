@@ -385,10 +385,10 @@
 </template>
 
 <script>
-import UiTab from '../../source/UiTab.vue';
-import UiTabs from '../../source/UiTabs.vue';
-import UiToolbar from '../../source/UiToolbar.vue';
-import UiIconButton from '../../source/UiIconButton.vue';
+import UiTab from '../../src/UiTab.vue';
+import UiTabs from '../../src/UiTabs.vue';
+import UiToolbar from '../../src/UiToolbar.vue';
+import UiIconButton from '../../src/UiIconButton.vue';
 
 export default {
     data() {
@@ -416,7 +416,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '../../source/styles/variables';
+@import '../../src/styles/variables';
 
 .section-ui-toolbar {
     .group {

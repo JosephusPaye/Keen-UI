@@ -5,7 +5,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 delete config.watch;
 delete config.plugins;
 
-config.entry = './source/index.js';
+config.entry = './src/index.js';
 config.devtool = 'source-map';
 config.plugins = [
     new ExtractTextPlugin('./keen-ui.css')

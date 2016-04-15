@@ -300,15 +300,15 @@
 </template>
 
 <script>
-import UiTab from '../../source/UiTab.vue';
-import UiTabs from '../../source/UiTabs.vue';
-import UiButton from '../../source/UiButton.vue';
-import UiSwitch from '../../source/UiSwitch.vue';
-import UiTextbox from '../../source/UiTextbox.vue';
-import UiRadioGroup from '../../source/UiRadioGroup.vue';
+import UiTab from '../../src/UiTab.vue';
+import UiTabs from '../../src/UiTabs.vue';
+import UiButton from '../../src/UiButton.vue';
+import UiSwitch from '../../src/UiSwitch.vue';
+import UiTextbox from '../../src/UiTextbox.vue';
+import UiRadioGroup from '../../src/UiRadioGroup.vue';
 
-import UiSnackbar from '../../source/UiSnackbar.vue';
-import UiSnackbarContainer from '../../source/UiSnackbarContainer.vue';
+import UiSnackbar from '../../src/UiSnackbar.vue';
+import UiSnackbarContainer from '../../src/UiSnackbarContainer.vue';
 
 export default {
     components: {

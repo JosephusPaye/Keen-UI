@@ -174,9 +174,9 @@
 </template>
 
 <script>
-import UiTab from '../../source/UiTab.vue';
-import UiTabs from '../../source/UiTabs.vue';
-import UiCollapsible from '../../source/UiCollapsible.vue';
+import UiTab from '../../src/UiTab.vue';
+import UiTabs from '../../src/UiTabs.vue';
+import UiCollapsible from '../../src/UiCollapsible.vue';
 
 export default {
     components: {

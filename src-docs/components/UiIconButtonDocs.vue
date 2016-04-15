@@ -302,9 +302,9 @@
 </template>
 
 <script>
-import UiTab from '../../source/UiTab.vue';
-import UiTabs from '../../source/UiTabs.vue';
-import UiIconButton from '../../source/UiIconButton.vue';
+import UiTab from '../../src/UiTab.vue';
+import UiTabs from '../../src/UiTabs.vue';
+import UiIconButton from '../../src/UiIconButton.vue';
 
 let menu = [
     {
@@ -359,7 +359,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '../../source/styles/variables';
+@import '../../src/styles/variables';
 
 .section-ui-icon-button {
     .group {

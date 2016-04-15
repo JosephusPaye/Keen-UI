@@ -5,7 +5,7 @@ module.exports = {
     watch: true,
     devtool: '#eval-source-map',
 
-    entry: './source-docs/main.js',
+    entry: './src-docs/main.js',
     output: {
         path: path.join(__dirname, 'docs'),
         filename: 'docs.bundle.js'

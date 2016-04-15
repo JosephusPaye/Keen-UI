@@ -80,9 +80,9 @@
 </template>
 
 <script>
-import UiRippleInk from '../../source/UiRippleInk.vue';
-import UiTab from '../../source/UiTab.vue';
-import UiTabs from '../../source/UiTabs.vue';
+import UiRippleInk from '../../src/UiRippleInk.vue';
+import UiTab from '../../src/UiTab.vue';
+import UiTabs from '../../src/UiTabs.vue';
 
 let tvShows = [
     {
@@ -140,7 +140,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '../../source/styles/variables';
+@import '../../src/styles/variables';
 
 .section-ui-ripple-ink {
     .group {

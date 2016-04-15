@@ -185,9 +185,9 @@ f<template>
 </template>
 
 <script>
-import UiTab from '../../source/UiTab.vue';
-import UiTabs from '../../source/UiTabs.vue';
-import UiRadio from '../../source/UiRadio.vue';
+import UiTab from '../../src/UiTab.vue';
+import UiTabs from '../../src/UiTabs.vue';
+import UiRadio from '../../src/UiRadio.vue';
 
 export default {
     data() {

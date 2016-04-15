@@ -276,10 +276,10 @@
 </template>
 
 <script>
-import UiTab from '../../source/UiTab.vue';
-import UiTabs from '../../source/UiTabs.vue';
-import UiButton from '../../source/UiButton.vue';
-import UiAutocomplete from '../../source/UiAutocomplete.vue';
+import UiTab from '../../src/UiTab.vue';
+import UiTabs from '../../src/UiTabs.vue';
+import UiButton from '../../src/UiButton.vue';
+import UiAutocomplete from '../../src/UiAutocomplete.vue';
 
 let months = 'January Febuary March April May June July August September October November December'.split(' ');
 

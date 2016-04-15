@@ -1,6 +1,6 @@
 <script>
-import UiButton from '../source/UiButton.vue';
-import UiToolbar from '../source/UiToolbar.vue';
+import UiButton from '../src/UiButton.vue';
+import UiToolbar from '../src/UiToolbar.vue';
 
 import UiAlertDocs from './components/UiAlertDocs.vue';
 import UiAutocompleteDocs from './components/UiAutocompleteDocs.vue';

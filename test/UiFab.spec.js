@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import UiFab from '../source/UiFab.vue';
+import UiFab from '../src/UiFab.vue';
 
 describe('UiFab.vue', function() {
     it('should initialize with correct data/props', function() {
