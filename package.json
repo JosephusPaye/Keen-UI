@@ -33,7 +33,7 @@
   "bugs": {
     "url": "https://github.com/JosephusPaye/keen-ui/issues"
   },
-  "homepage": "https://github.com/JosephusPaye/keen-ui#readme",
+  "homepage": "http://josephuspaye.github.io/keen-ui/",
   "dependencies": {
     "dominus": "^5.0.6",
     "horsey": "^3.0.0",
