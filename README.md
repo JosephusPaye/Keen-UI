@@ -5,6 +5,9 @@
 ## Documentation and Demo
 [http://josephuspaye.github.io/keen-ui/](http://josephuspaye.github.io/keen-ui/)
 
+## Browser Support
+* The goal is IE 9+ (currently only tested in Chrome)
+
 ## Licence
 MIT
 
