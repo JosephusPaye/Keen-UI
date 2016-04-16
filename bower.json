@@ -32,6 +32,8 @@
     "bower_components",
     "docs",
     "src-docs",
+    "karma.config.js",
+    "webpack.*",
     "test",
     "tests"
   ]
