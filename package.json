@@ -2,7 +2,7 @@
   "name": "keen-ui",
   "version": "0.8.0",
   "description": "Collection of essential UI components written with Vue and inspired by Material Design.",
-  "main": "src/index.js",
+  "main": "dist/keen-ui.js",
   "scripts": {
     "dev": "webpack --config webpack.config.js",
     "build-docs": "mkdir docs && cp ./src-docs/index.html docs/index.html && webpack --progress --hide-modules --config webpack.docs.js",
@@ -10,7 +10,8 @@
     "build-min": "webpack --progress --hide-modules --config webpack.build.min.js",
     "clean-dist": "rm -r ./dist",
     "clean-docs": "rm -r ./docs",
-    "test": "karma start karma.conf.js"
+    "test": "karma start karma.conf.js",
+    "prepublish": "npm run build && npm run build-min"
   },
   "repository": {
     "type": "git",
@@ -19,9 +20,7 @@
   "keywords": [
     "vue",
     "vuejs",
-    "vue-component",
-    "material",
-    "design",
+    "material design",
     "components"
   ],
   "files": [
@@ -30,12 +29,14 @@
     "LICENSE",
     "README.md"
   ],
-  "author": "Josephus Paye II",
+  "author": {
+    "name": "Josephus Paye II"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/JosephusPaye/keen-ui/issues"
   },
-  "homepage": "http://josephuspaye.github.io/keen-ui/",
+  "homepage": "https://github.com/JosephusPaye/keen-ui/",
   "dependencies": {
     "dominus": "^5.0.6",
     "horsey": "^3.0.0",
