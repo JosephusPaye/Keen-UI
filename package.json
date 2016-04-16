@@ -26,7 +26,9 @@
   ],
   "files": [
     "dist",
-    "src"
+    "src",
+    "LICENSE",
+    "README.md"
   ],
   "author": "Josephus Paye II",
   "license": "MIT",
