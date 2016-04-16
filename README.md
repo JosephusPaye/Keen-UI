@@ -30,7 +30,7 @@ bower install keen-ui --save
 ```
 
 ## Usage
-> Make sure to include the `dist/keen-ui.css` or `dist/min/keen-ui.min.css` file if you are not buidling individual components from source as the styles have been extracted into a single CSS file.
+> Make sure to include the `dist/keen-ui.css` file if you are not buidling individual components from source as the styles have been extracted into a single CSS file.
 
 ### Globals (script tag)
 The `keen-ui.js` file in the `dist` folder contains all the components exported on a global  `window.Keen` object.
@@ -39,14 +39,14 @@ The `keen-ui.js` file in the `dist` folder contains all the components exported 
 <html>
 <head>
     ...
-    <link rel="stylesheet" href="path/to/keen.min.css">
+    <link rel="stylesheet" href="path/to/keen-ui.css">
     ...
 </head>
 <body>
     ...
 
-    <script src="path/to/vue.min.js"></script>
-    <script src="path/to/keen.min.js"></script>
+    <script src="path/to/vue.js"></script>
+    <script src="path/to/keen-ui.js"></script>
     <script>
         Vue.use(Keen);
 
