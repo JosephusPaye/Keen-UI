@@ -53,6 +53,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@import './styles/imports';
+
 .ui-popover {
     padding: 16px;
     outline: none;

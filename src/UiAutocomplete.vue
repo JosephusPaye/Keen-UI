@@ -272,9 +272,10 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
+@import './styles/imports';
 
 .ui-autocomplete {
+    font-family: $font-stack;
     display: flex;
     position: relative;
     margin-bottom: 12px;

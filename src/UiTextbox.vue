@@ -270,9 +270,10 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
+@import './styles/imports';
 
 .ui-textbox {
+    font-family: $font-stack;
     display: flex;
     align-items: flex-start;
     margin-bottom: 12px;

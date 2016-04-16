@@ -140,10 +140,10 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
-@import './styles/mixins';
+@import './styles/imports';
 
 .ui-toolbar {
+    font-family: $font-stack;
     display: flex;
     height: 56px;
     align-items: center;

@@ -108,10 +108,11 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/mixins';
-@import './styles/variables';
+@import './styles/imports';
 
 .ui-menu {
+    font-family: $font-stack;
+
     margin: 0;
     padding: 4px 0;
     outline: none;

@@ -94,14 +94,14 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
-@import './styles/mixins';
+@import './styles/imports';
 
 $border-width = 2px;
 $checkmark-width = 2px;
 $focus-ring-transition-duration = 0.2s;
 
 .ui-checkbox {
+    font-family: $font-stack;
     font-weight: normal;
     display: flex;
     align-items: center;

@@ -109,11 +109,12 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
+@import './styles/imports';
 
 $md-snackbar-bg = #323232;
 
 .ui-snackbar {
+    font-family: $font-stack;
     display: inline-flex;
     align-items: center;
 

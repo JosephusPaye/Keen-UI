@@ -64,10 +64,11 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/mixins';
-@import './styles/variables';
+@import './styles/imports';
 
 .ui-menu-item {
+    font-family: $font-stack;
+
     position: relative;
     display: block;
     height: 40px;

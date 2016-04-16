@@ -86,8 +86,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
-@import './styles/mixins';
+@import './styles/imports';
 
 $thumb-size = 20px;
 $thumb-bg-color = $md-grey-50;
@@ -100,6 +99,7 @@ $focus-ring-left = -(($focus-ring-size - $thumb-size) / 2);
 $focus-ring-top = -(($focus-ring-size - $thumb-size) / 2);
 
 .ui-switch {
+    font-family: $font-stack;
     position: relative;
     height: 32px;
     display: flex;

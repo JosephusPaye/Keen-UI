@@ -124,7 +124,10 @@ export default {
 </script>
 
 <style lang="stylus">
+@import './styles/imports';
+
 .ui-confirm-message {
+    font-family: $font-stack;
     font-size: 15px;
 }
 </style>

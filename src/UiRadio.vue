@@ -82,14 +82,14 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
-@import './styles/mixins';
+@import './styles/imports';
 
 $size = 20px;
 $border-width = 2px;
 $transition-duration = 0.3s;
 
 .ui-radio {
+    font-family: $font-stack;
     display: flex;
     align-items: center;
     height: $size;

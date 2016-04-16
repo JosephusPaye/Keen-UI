@@ -142,9 +142,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
-@import './styles/mixins';
-
+@import './styles/imports';
 @require './styles/components/drop';
 
 .ui-button {

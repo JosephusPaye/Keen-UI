@@ -143,6 +143,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@import './styles/imports';
+
 .ui-ripple-ink {
     display: block;
     overflow: hidden;
@@ -156,20 +158,6 @@ export default {
 
     // Forces webkit to properly contain content within border-radius
     -webkit-mask-image: -webkit-radial-gradient(circle, white, black);
-
-    // Adds default border-radius
-    &.fill {
-        border-radius: 1000000px; // Arbitrary large number, but not 100%
-
-        &::after {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            content: "";
-        }
-    }
 }
 
 .ui-ripple-ink .ripple {

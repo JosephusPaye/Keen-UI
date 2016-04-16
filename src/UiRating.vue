@@ -180,9 +180,10 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
+@import './styles/imports';
 
 .ui-rating {
+    font-family: $font-stack;
     outline: none;
     flex-direction: column;
 

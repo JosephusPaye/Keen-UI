@@ -40,6 +40,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@import './styles/imports';
+
 .ui-tab {
     outline: none;
 }
