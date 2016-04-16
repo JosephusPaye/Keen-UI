@@ -10,7 +10,7 @@
     "build-min": "webpack --progress --hide-modules --config webpack.build.min.js",
     "clean-dist": "rm -r ./dist",
     "clean-docs": "rm -r ./docs",
-    "test": "karma start karma.conf.js",
+    "test": "karma start karma.config.js",
     "prepublish": "npm run build && npm run build-min"
   },
   "repository": {
