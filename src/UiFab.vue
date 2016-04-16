@@ -61,8 +61,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
-@import './styles/mixins';
+@import './styles/imports';
 
 .ui-fab {
     position: relative;

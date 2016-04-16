@@ -63,10 +63,10 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
-@import './styles/mixins';
+@import './styles/imports';
 
 .ui-tab-header-item {
+    font-family: $font-stack;
     position: relative;
 
     display: flex;

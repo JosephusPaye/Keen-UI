@@ -21,6 +21,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@import './styles/imports';
+
 $duration = 3s;
 $height = 3px;
 

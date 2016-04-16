@@ -154,10 +154,10 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
-@import './styles/mixins';
+@import './styles/imports';
 
 .ui-collapsible {
+    font-family: $font-stack;
     width: 100%;
     margin-bottom: 8px;
 }

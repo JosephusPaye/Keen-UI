@@ -23,6 +23,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@import './styles/imports';
+
 .ui-icon {
     font-size: 24px;
     width: 1em;

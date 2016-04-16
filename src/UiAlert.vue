@@ -75,9 +75,10 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
+@import './styles/imports';
 
 .ui-alert {
+    font-family: $font-stack;
     font-size: 15px;
     line-height: 1.4em;
     overflow: hidden;

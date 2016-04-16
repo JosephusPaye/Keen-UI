@@ -106,7 +106,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
+@import './styles/imports';
 
 .ui-snackbar-container {
     position: absolute;

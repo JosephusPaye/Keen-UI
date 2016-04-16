@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
+@import './styles/imports';
 
 .ui-progress-linear {
     position: relative;

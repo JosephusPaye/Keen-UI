@@ -184,12 +184,12 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
-@import './styles/mixins';
+@import './styles/imports';
 
 $transition-duration = 0.2s;
 
 .ui-modal {
+    font-family: $font-stack;
     font-size: 14px;
 
     &.ui-modal-large {

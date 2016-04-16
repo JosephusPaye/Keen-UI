@@ -112,7 +112,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/variables';
+@import './styles/imports';
 
 $indeterminate-rotation-duration = 1.4s;
 $indeterminate-color-duration = 6s;
@@ -120,12 +120,6 @@ $determinate-transition-duration = 0.3s;
 
 .ui-progress-circular {
     position: relative;
-
-    // &:before {
-    //     content: '';
-    //     display: block;
-    //     padding-top: 100%;
-    // }
 
     .ui-progress-circular-determinate {
         transform: rotate(270deg);
