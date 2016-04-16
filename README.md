@@ -8,9 +8,6 @@
 ## Browser Support
 * The goal is IE 9+ (currently only tested in Chrome)
 
-## Licence
-MIT
-
 ## Todo
 * [x] Add License
 * [x] Setup project site on Github Pages
@@ -23,3 +20,8 @@ MIT
   * [ ] Tooltip
 * [ ] Add customization guide
 * [ ] Add unit tests
+
+## Licence
+Keen UI is open source and licenced under the [MIT Licence](LICENCE)
+
+Copyright (c) 2016 Josephus Paye II
