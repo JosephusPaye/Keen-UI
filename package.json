@@ -4,14 +4,14 @@
   "description": "Collection of essential UI components written with Vue and inspired by Material Design.",
   "main": "dist/keen-ui.js",
   "scripts": {
-    "dev": "webpack --config webpack.config.js",
-    "build-docs": "mkdir docs && cp ./src-docs/index.html docs/index.html && webpack --progress --hide-modules --config webpack.docs.js",
-    "build": "webpack --progress --hide-modules --config webpack.build.js",
-    "build-min": "webpack --progress --hide-modules --config webpack.build.min.js",
+    "copy-docs-html": "mkdir docs && cp ./src-docs/index.html docs/index.html",
+    "dev": "npm run copy-docs-html && webpack --config webpack.config.js",
+    "build-docs": "npm run copy-docs-html && webpack --progress --hide-modules --config webpack.docs.js",
+    "build": "webpack --progress --hide-modules --config webpack.build.js && webpack --progress --hide-modules --config webpack.build.min.js",
     "clean-dist": "rm -r ./dist",
     "clean-docs": "rm -r ./docs",
     "test": "karma start karma.config.js",
-    "prepublish": "npm run build && npm run build-min"
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
