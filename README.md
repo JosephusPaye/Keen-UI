@@ -2,15 +2,19 @@
 
 > A collection of essential UI components written with Vue and inspired by Material Design.
 
-Keen is designed to be a lightweight but complete [Vue.js](http://vuejs.org/) UI framework with a simple API. Keen's design is "inspired" by [Material Design](https://www.google.com/design/spec/material-design/introduction.html) but it doesn't aim to be a full implementation of the spec.
+Keen is designed to be a lightweight but complete [Vue.js](http://vuejs.org/) UI framework with a simple API. Though the design is inspired by Google's [Material Design](https://www.google.com/design/spec/material-design/introduction.html), Keen is not meant to be a full implementation of the spec.
+
+Keen is **not** a CSS framework, and as such you won't find a grid system or styles for typography in it. Instead, the focus is on creating reusable components that have interactivity.
 
 ## Documentation and Demo
 [http://josephuspaye.github.io/keen-ui/](http://josephuspaye.github.io/keen-ui/)
 
 ## Requirements
-* [Vue.js](http://vuejs.org/) (^1.0.21)
-* [Roboto Web Font](https://www.google.com/fonts/specimen/Roboto) (Normal 400, Medium 500)
+* [Vue.js](http://vuejs.org/) (^v1.0.21)
 * [Material Icons Web Font](http://google.github.io/material-design-icons/#icon-font-for-the-web)
+
+Optional
+* [Roboto Web Font](https://www.google.com/fonts/specimen/Roboto) (Normal 400, Medium 500)
 
 ## Browser Support
 IE 9+ (currently only tested in Chrome)
@@ -30,40 +34,50 @@ bower install keen-ui --save
 ```
 
 ## Usage
-> Make sure to include the `dist/keen-ui.css` file if you are not buidling individual components from source as the styles have been extracted into a single CSS file.
+> Make sure to include the `dist/keen-ui.css` file if you are not using  individual components from `lib/` as the styles have been extracted into a single CSS file.
 
 ### Globals (script tag)
 The `keen-ui.js` file in the `dist` folder contains all the components exported on a global  `window.Keen` object.
+
+First, include the JS and CSS files in your page:
 
 ```html
 <html>
 <head>
     ...
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="path/to/keen-ui.css">
     ...
 </head>
 <body>
-    ...
+    <!-- Example usage of UiButton -->
+    <ui-button>Say Hello</ui-button>
 
     <script src="path/to/vue.js"></script>
     <script src="path/to/keen-ui.js"></script>
-    <script>
-        Vue.use(Keen);
-
-        new Vue({
-            el: 'body',
-            components: {
-                // all components already registered
-            }
-        });
-    </script>
+    <script src="path/to/app.js"></script>
 </body>
 </html>
 ```
 
+Then, register the components globally for use in your templates:
+
+```js
+// app.js
+
+Vue.use(Keen);
+
+new Vue({
+    el: 'body',
+    components: {
+        // all components already registered
+    }
+});
+```
+
 ### CommonJS
 
-#### Plugin (registers all components)
+Use as a plugin (registers all components globally):
 
 ```js
 var Vue = require('vue');
@@ -79,12 +93,10 @@ new Vue({
 });
 ```
 
-#### Individual components
+Use individual components:
 
 ```js
 var Vue = require('vue');
-var UiButton = require('keen-ui/src/UiAlert');
-// or
 var UiButton = require('keen-ui').UiButton;
 
 new Vue({
@@ -97,7 +109,7 @@ new Vue({
 
 ### ES6
 
-#### Plugin (registers all components)
+Use as a plugin (registers all components globally):
 
 ```js
 import Vue from 'vue';
@@ -112,17 +124,88 @@ new Vue({
 });
 ```
 
-#### Individual components
+Use individual components:
 
 ```js
 import Vue from 'vue';
-import UiButton from 'keen-ui/src/UiButton';
-// or
-import { UiButton } from 'keen-ui';
+import { UiAlert, UiButton } from 'keen-ui';
 
 new Vue({
     components: {
-        UiButton
+        UiAlert,
+        UiButton        
+    }
+});
+```
+
+### AMD
+
+```js
+define(['keen-ui'], function(Keen) {
+    new Vue({
+        components: {
+            'ui-button': Keen.UiButton
+        }
+    });
+});
+```
+
+## Using standalone individual components
+
+Each component has been built as an standalone component which you can use without importing the rest of the framework. The standalone files are located in the `lib` folder and they contain their own CSS.
+
+This is only recommended if you are using just a few components.
+
+### Globals (script tag)
+Include the component JS file in your page and it will be available as the global `Keen.[ComponentName]`.
+
+```html
+<html>
+<head>
+    ...
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    ...
+</head>
+<body>
+    <ui-button>Hello world!</ui-button>
+
+    <script src="path/to/vue.js"></script>
+    <script src="path/to/UiButton.js"></script>
+    <script>
+        new Vue({
+            el: 'body',
+            components: {
+                'ui-button': Keen.UiButton
+            }
+        });
+    </script>
+</body>
+</html>
+```
+
+### CommonJS
+
+```js
+var Vue = require('vue');
+var UiButton = require('keen-ui/lib/UiButton');
+
+new Vue({
+    el: 'body',
+    components: {
+        'ui-button': UiButton
+    }
+});
+```
+
+### ES6
+
+```js
+import Vue from 'vue';
+import UiButton from 'keen-ui/lib/UiButton';
+
+new Vue({
+    components: {
+        UiButton        
     }
 });
 ```
@@ -138,6 +221,6 @@ new Vue({
 * [ ] Add unit tests
 
 ## Licence
-Keen UI is open source and licenced under the [MIT Licence](LICENCE)
+Keen UI is open source and released under the [MIT Licence](LICENCE).
 
 Copyright (c) 2016 Josephus Paye II
