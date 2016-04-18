@@ -1,17 +1,21 @@
 {
   "name": "keen-ui",
   "version": "0.8.4",
-  "description": "Collection of essential UI components written with Vue and inspired by Material Design.",
+  "description": "A collection of essential UI components written with Vue and inspired by Material Design.",
   "main": "dist/keen-ui.js",
   "scripts": {
-    "copy-docs-html": "mkdir docs && cp ./src-docs/index.html docs/index.html",
     "dev": "npm run copy-docs-html && webpack --config webpack.config.js",
-    "build-docs": "npm run copy-docs-html && webpack --progress --hide-modules --config webpack.docs.js",
-    "build": "webpack --progress --hide-modules --config webpack.build.js && webpack --progress --hide-modules --config webpack.build.min.js",
-    "clean-dist": "rm -r ./dist",
-    "clean-docs": "rm -r ./docs",
-    "test": "karma start karma.config.js",
-    "prepublish": "npm run build"
+    "copy-docs-html": "mkdir docs && cp ./src-docs/index.html docs/index.html",
+    "build": "webpack --progress --hide-modules --config webpack.build.js",
+    "build:min": "webpack --progress --hide-modules --config webpack.build.min.js",
+    "build:lib": "webpack --progress --hide-modules --config webpack.lib.js",
+    "build:docs": "npm run copy-docs-html && webpack --progress --hide-modules --config webpack.docs.js",
+    "build:all": "npm run build && npm run build:min && npm run build:lib",
+    "clean:dist": "rm -r dist",
+    "clean:docs": "rm -r docs",
+    "clean:lib": "rm -r lib",
+    "clean:all": "npm run clean:dist && npm run clean:docs && npm run clean:lib",
+    "test": "karma start karma.config.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +29,7 @@
   ],
   "files": [
     "dist",
+    "lib",
     "src",
     "LICENSE",
     "README.md"
