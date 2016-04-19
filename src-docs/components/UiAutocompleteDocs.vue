@@ -2,33 +2,31 @@
     <section class="section section-ui-autocomplete">
         <h2 class="section-heading">UiAutocomplete</h2>
 
-        <p>UiAutocomplete shows a dropdown of suggestions below an input that the user can select from. The list of suggestions can be shown on click (like a <code>&lt;select&gt;</code>) or shown when the user starts typing. It uses <a href="https://github.com/bevacqua/horsey" target="_blank">horsey</a> to manage the dropdown and handle the autocomplete functionality.</p>
+        <p>UiAutocomplete shows a dropdown of suggestions below an input that the user can select from as they type.</p>
 
-        <p>An autocomplete can show a label above the input as well as help text below the input. It also supports keyboard navigation and optional validation (required only).</p>
-
-        <p>Required validation makes sure that the user has selected a suggestion or has entered text that corresponds directly to a suggestion. If not, an error is shown.</p>
+        <p>An autocomplete can show a label above the input as well as help text below the input. It also supports keyboard navigation and validation.</p>
 
         <h3>Examples</h3>
 
         <div class="examples">
-            <h4>Default (with label and help text)</h4>
+            <h4>Default (with label and help text), minimum characters: 2</h4>
 
             <ui-autocomplete
                 label="Favourite Month" :suggestions="months" :value.sync="favouriteMonth"
                 name="favourite_month" help-text="Pick your favourite month of the year"
-                placeholder="Choose your favourite month"
+                placeholder="Enter your favourite month"
             ></ui-autocomplete>
 
-            <h4>Open on click, custom render handler, validation</h4>
+            <h4>Custom template partial, minimum characters: 0, validation</h4>
 
             <ui-autocomplete
-                label="Favourite Simpson" :suggestions="theSimpsons" :value.sync="favouriteSimpson"
-                :render="renderAutocomplete" name="favourite_simpson" validation-rules="required"
+                label="Favourite Simpson" icon="face" :min-chars="0" :suggestions="theSimpsons"
+                :value.sync="favouriteSimpson" name="favourite_simpson" validation-rules="required"
+                partial="ui-autocomplete-image" placeholder="Choose your favourite Simpson"
                 help-text="Pick your favourite member of the Simpsons family"
-                placeholder="Choose your favourite Simpson" icon="face" open-on-click
             ></ui-autocomplete>
 
-            <p>Suggestions can be updated dynamically</p>
+            <p>Suggestions are updated dynamically when the suggestions array changes.</p>
 
             <ui-button
                 :disabled="addedExtendedFamily" @click="add"
@@ -80,7 +78,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>Two way</td>
-                                <td>The selected autocomplete value (not the search input from the user, but the value of a suggestion after it is selected). This can be set initially as a default value.</td>
+                                <td>The autocomplete input value (is updated when the user types or makes a selection from the dropdown). This can be set initially as a default value.</td>
                             </tr>
 
                             <tr>
@@ -91,35 +89,9 @@
                                 <td>
                                     <p>An array of suggestions to show to the user. The array can either be of strings or objects (but not both).</p>
 
-                                    <p>For an array of objects, each object should have <code>text</code> and <code>value</code> properties. The <code>text</code> is shown to the user and the <code>value</code> is written to the model when the user makes a selection.</p>
+                                    <p>For an array of objects, each object should have <code>text</code> and <code>value</code> properties. The <code>text</code> is shown to the user and the <code>value</code> is written to input when the user makes a selection.</p>
 
                                     <p>For an array of strings, each string is used as both the label and the value.</p>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>openOnClick</td>
-                                <td>Boolean</td>
-                                <td><code>false</code></td>
-                                <td></td>
-                                <td>
-                                    <p>Determines whether the list of suggestions is shown to the user when they click the input.</p>
-
-                                    <p>Set to <code>true</code> to show suggestions when the user clicks the input.</p>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>render</td>
-                                <td>Function</td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <p>A custom render function that is called to display each suggestion. The function is passed directly to <a href="https://github.com/bevacqua/horsey#render" target="_blank">horsey</a>'s <code>render</code> option.</p>
-
-                                    <p>The function is passed two arguments: the suggestion <code>&lt;li&gt;</code> element, and the <code>suggestion</code> object.</p>
-
-                                    <p>Using these you can display the suggestion however you wish. See the second example above for displaying an image with each suggestion.</p>
                                 </td>
                             </tr>
 
@@ -129,6 +101,72 @@
                                 <td><code>8</code></td>
                                 <td></td>
                                 <td>The maximum number of suggestions to show to the user at any one time.</td>
+                            </tr>
+
+                            <tr>
+                                <td>append</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td></td>
+                                <td>
+                                    <p>Determines whether or not the value of the selected suggestion should be appended to the current value (instead of replaced).</p>
+
+                                    <p>Set to <code>true</code> to append selected suggestions.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>appendDelimiter</td>
+                                <td>String</td>
+                                <td><code>", "</code></td>
+                                <td></td>
+                                <td>
+                                    <p>The delimiter (separator) to use when appending selected suggestions.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>debounce</td>
+                                <td>Number</td>
+                                <td></td>
+                                <td></td>
+                                <td>Allows you to set a minimum delay (in milliseconds) after each keystroke before the input’s value is synced to the model. You may want to use this if you are watching the value and making AJAX calls.</td>
+                            </tr>
+
+                            <tr>
+                                <td>partial</td>
+                                <td>String</td>
+                                <td><code>"ui-autocomplete-simple"</code></td>
+                                <td></td>
+                                <td>
+                                    <p>The ID of a registered <a href="http://vuejs.org/api/#partial" target="_blank">Vue partial</a> to use as the template for each suggestion.</p>
+
+                                    <p>This partial is rendered into an <code>&lt;li&gt;</code> which has the partial's ID as a class. In the partial template, you have access to an <code>item</code> String/Object from the suggestions array which you can use to render the suggestion however you like.</p>
+
+                                    <p>The default partial simply renders the suggestion text.</p>
+
+                                    <p>There is another default partial, <code>ui-autocomplete-image</code>, which you can use to render the items with an image. To use, set an image URL as the <code>image</code> property on each suggestion and set the partial to <code>ui-autocomplete-image</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>minChars</td>
+                                <td>Number</td>
+                                <td><code>2</code></td>
+                                <td></td>
+                                <td>
+                                    <p>The minimum number of characters the user should type before the list of suggestions is shown.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>showOnUpDown</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td></td>
+                                <td>
+                                    <p>Determines whether the list of suggestions should be shown when the user presses the Up or Down arrow keys in the input.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -216,7 +254,15 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>The rules for validation. UiAutocomplete only supports the <code>required</code> validation rule. Omitting this prop will disable validation.</td>
+                                <td>
+                                    <p>A pipe <code>|</code> seperated list of rules for validating the input. Can be any of the rules supported by <a href="https://github.com/skaterdav85/validatorjs#available-rules" target="_blank">validatorjs Validation Rules</a>, <b>except</b> the ones that involve multiple fields.</p>
+
+                                    <p>Example to validate a required email field: <code>validation-rules="required|email"</code>.</p>
+
+                                    <p>These rules will be applied and validation will occur automatically when the input is changed or blurred. The error message of the first failing validation rule will then be shown to the user.</p>
+
+                                    <p>See the <code>validationMessages</code> prop for customizing the error message.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -258,15 +304,6 @@
                                 <p>You can optionally pass in an <code>id</code> to reset only a specific autocomplete (whose <code>id</code> you have set).</p>
                             </td>
                         </tr>
-
-                        <tr>
-                            <td class="no-wrap">ui-dropdown::reposition</td>
-                            <td>Received</td>
-                            <td>
-                                <p>Trigger this event to reposition the autocomplete dropdown when the position of the input to which it is attached has changed.</p>
-                                <p>You can optionally pass in an <code>id</code> to reposition only a specific autocomplete (whose <code>id</code> you have set).</p>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </ui-tab>
@@ -281,7 +318,8 @@ import UiTabs from '../../src/UiTabs.vue';
 import UiButton from '../../src/UiButton.vue';
 import UiAutocomplete from '../../src/UiAutocomplete.vue';
 
-let months = 'January Febuary March April May June July August September October November December'.split(' ');
+let months = 'January Febuary March April May June July August September October November December';
+months = months.split(' ');
 
 let theSimpsons = [
     {
@@ -334,14 +372,6 @@ export default {
         add() {
             this.theSimpsons = this.theSimpsons.concat(externalFamily);
             this.addedExtendedFamily = true;
-        },
-
-        renderAutocomplete(li, suggestion) {
-            li.classList.add('sey-item-image');
-
-            li.innerHTML =
-                `<div class="image" style="background-image: url(${suggestion.image})"></div>
-                <div class="text">${suggestion.text}</div>`;
         }
     },
 
@@ -358,22 +388,6 @@ export default {
 .section-ui-autocomplete {
     .ui-button {
         margin-bottom: 12px;
-    }
-}
-
-.sey-item-image {
-    &:not(.sey-hide) {
-        display: flex;
-        align-items: center;
-    }
-
-    .image {
-        width: 32px;
-        height: 32px;
-        background-size: cover;
-        background-position: 50%;
-        margin-right: 12px;
-        border-radius: 50%;
     }
 }
 </style>
