@@ -44,7 +44,7 @@
   "homepage": "https://github.com/JosephusPaye/keen-ui/",
   "dependencies": {
     "dominus": "^5.0.6",
-    "horsey": "^3.0.0",
+    "fuzzysearch": "^1.0.3",
     "tether-drop": "^1.4.2",
     "validatorjs": "^2.0.5",
     "vue": "^1.0.21"
