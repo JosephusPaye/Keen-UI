@@ -34,7 +34,7 @@ let menu = [
     }, {
         id: 'ui-autocomplete-docs',
         text: 'UiAutocomplete'
-    },  {
+    }, {
         id: 'ui-button-docs',
         text: 'UiButton'
     }, {

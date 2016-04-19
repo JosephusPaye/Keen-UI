@@ -1,6 +1,6 @@
 {
   "name": "keen-ui",
-  "description": "Collection of essential UI components written with Vue and inspired by Material Design.",
+  "description": "A collection of essential UI components written with Vue and inspired by Material Design.",
   "main": [
     "dist/keen-ui.js",
     "dist/keen-ui.css"

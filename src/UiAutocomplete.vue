@@ -1,6 +1,6 @@
 <template>
     <div
-        class="ui-autocomplete"
+        class="ui-autocomplete" v-el:autocomplete
         :class="{
             'disabled': disabled, 'invalid': !valid, 'dirty': dirty, 'active': active,
             'has-label': !hideLabel, 'icon-right': iconRight
@@ -11,19 +11,32 @@
         </div>
 
         <div class="ui-autocomplete-content">
-            <label class="ui-autocomplete-label" @click="openDropdown">
+            <label class="ui-autocomplete-label">
                 <div class="ui-autocomplete-label-text" v-text="label" v-if="!hideLabel"></div>
 
                 <ui-icon
                     class="ui-autocomplete-clear-button" icon="&#xE5CD" title="Clear"
-                    @click="clearSearch" v-show="searchQuery.length"
+                    @click="clearSearch" v-show="value.length"
                 ></ui-icon>
 
                 <input
-                    class="ui-autocomplete-input" :placeholder="placeholder" :name="name" :id="id"
-                    autocomplete="off" @focus="focus" @blur="blur" v-model="searchQuery"
-                    v-disabled="disabled" v-el:input
+                    class="ui-autocomplete-input" :placeholder="placeholder" :name="name"
+                    :id="id" autocomplete="off"
+
+                    @focus="focus" @blur="blur" @keydown.up="highlight(highlightedItem - 1)"
+                    @keydown.down="highlight(highlightedItem + 1)" @keydown.tab="close"
+                    @keydown.enter="selectHighlighted(highlightedItem, $event)"
+
+                    v-model="value" v-disabled="disabled" v-el:input
                 >
+
+                <ul class="ui-autocomplete-suggestions" v-show="showDropdown">
+                    <ui-autocomplete-suggestion
+                        :highlighted="highlightedItem === index" :item="item" :partial="partial"
+                        v-for="(index, item) in suggestions | filterBy search | limitBy limit"
+                        v-ref:items @click="select(item)"
+                    ></ui-autocomplete-suggestion>
+                </ul>
             </label>
 
             <div class="ui-autocomplete-feedback" v-if="showFeedback">
@@ -43,9 +56,11 @@
 </template>
 
 <script>
-import horsey from 'horsey';
+import Validator from 'validatorjs';
+import fuzzysearch from 'fuzzysearch';
 
 import UiIcon from './UiIcon.vue';
+import UiAutocompleteSuggestion from './UiAutocompleteSuggestion.vue';
 
 import HasTextInput from './mixins/HasTextInput';
 
@@ -57,47 +72,40 @@ export default {
             type: Array,
             default: []
         },
-        openOnClick: {
-            type: Boolean,
-            default: false
-        },
-        render: Function,
         limit: {
             type: Number,
             default: 8
+        },
+        partial: String,
+        append: {
+            type: Boolean,
+            default: false
+        },
+        appendDelimiter: {
+            type: String,
+            default: ', '
+        },
+        minChars: {
+            type: Number,
+            default: 2
+        },
+        showOnUpDown: {
+            type: Boolean,
+            default: true
         }
     },
 
     data() {
         return {
-            searchQuery: '',
-            horsey: null
+            showDropdown: false,
+            highlightedItem: -1,
+            ignoreValueChange: false
         };
     },
 
     computed: {
         showIcon() {
             return Boolean(this.icon);
-        }
-    },
-
-    ready() {
-        // Set the validation error, only shown when this.valid is set to false
-        if (this.validationMessages && this.validationMessages.required) {
-            this.validationError = this.validationMessages.required;
-        } else {
-            this.validationError = 'The ' + this.name.replace(/_/g, ' ') + ' field is required.';
-        }
-
-        // Instantiate horsey instance if suggestions are available
-        if (this.suggestions.length) {
-            this.setupDropdown();
-        }
-    },
-
-    beforeDestroy() {
-        if (this.horsey) {
-            this.horsey.destroy();
         }
     },
 
@@ -115,88 +123,93 @@ export default {
             }
 
             // Reset state
-            this.searchQuery = '';
             this.value = this.initialValue;
             this.dirty = false;
             this.valid = true;
-        },
-
-        'ui-dropdown::reposition'(id) {
-            // Abort if reset event isn't meant for this component
-            if (!this.eventTargetsComponent(id)) {
-                return;
-            }
-
-            if (this.horsey) {
-                if (this.horsey.list) {
-                    this.horsey.list.style.width = this.$els.input.offsetWidth + 'px';
-                }
-
-                this.horsey.refreshPosition();
-            }
         }
     },
 
     watch: {
-        suggestions() {
-            // Refresh suggestions if a dropdown instance is already available
-            if (this.horsey) {
-                this.updateSuggestions();
-            } else {
-                // Otherwise, initialize now if new suggestions are available
-                if (this.suggestions.length) {
-                    this.setupDropdown();
-                }
+        value() {
+            if (!this.ignoreValueChange && this.value.length >= this.minChars) {
+                this.open();
             }
+
+            this.highlightedItem = 0;
         }
     },
 
+    ready() {
+        document.addEventListener('click', this.closeOnExternalClick);
+    },
+
+    beforeDestroy() {
+        document.removeEventListener('click', this.closeOnExternalClick);
+    },
+
     methods: {
-        setupDropdown() {
-            this.setInitialText();
+        search(item) {
+            let text = item.text || item;
+            let query = this.value.toLowerCase();
 
-            this.horsey = horsey(this.$els.input, {
-                render: this.render ? this.render : null,
-                suggestions: this.suggestions,
-                autoHideOnClick: true,
-                limit: this.limit,
-                set: this.select
+            return fuzzysearch(query, text.toLowerCase());
+        },
+
+        select(item) {
+            if (this.append) {
+                this.value += this.appendDelimiter + (item.text || item);
+            } else {
+                this.value = item.text || item;
+            }
+
+            if (this.validationRules) {
+                this.validate();
+            }
+
+            this.$nextTick(() => {
+                this.close();
+                this.$els.input.focus();
             });
-
-            this.horsey.list.style.width = this.$els.input.offsetWidth + 'px';
         },
 
-        updateSuggestions() {
-            this.horsey.clear();
-            this.suggestions.forEach(this.horsey.add);
-        },
+        highlight(index) {
+            if (index < 0) {
+                index = this.$refs.items.length - 1;
+            } else if (index >= this.$refs.items.length) {
+                index = 0;
+            }
 
-        openDropdown() {
-            if (this.horsey && this.openOnClick) {
-                this.horsey.show();
+            this.highlightedItem = index;
+
+            if (this.showOnUpDown) {
+                this.open();
             }
         },
 
-        setInitialText() {
-            if (!this.value || this.value === '') {
-                return;
-            }
-
-            let initialText = this.findText(this.value);
-
-            if (initialText) {
-                this.searchQuery = initialText;
+        selectHighlighted(index, e) {
+            if (this.showDropdown && this.$refs.items.length) {
+                e.preventDefault();
+                this.select(this.$refs.items[index].item);
             }
         },
 
-        select(value) {
-            this.value = value;
+        clearSearch() {
+            this.value = '';
+        },
 
-            let text = this.findText(value);
+        open() {
+            this.showDropdown = true;
+        },
 
-            if (text) {
-                this.searchQuery = text;
-                this.valid = true;
+        close() {
+            this.showDropdown = false;
+
+            this.validate();
+        },
+
+        closeOnExternalClick(e) {
+            if (! this.$els.autocomplete.contains(e.target) && this.showDropdown) {
+                this.close();
             }
         },
 
@@ -210,59 +223,35 @@ export default {
             if (!this.dirty) {
                 this.dirty = true;
             }
-
-            if (this.validationRules) {
-                this.validate();
-            }
-        },
-
-        clearSearch() {
-            this.searchQuery = '';
         },
 
         validate() {
-            if (this.validationRules === 'required') {
-                let value = this.findValue(this.searchQuery);
-
-                this.valid = Boolean(value);
-            }
-        },
-
-        findText(value) {
-            // Just return the value if suggestions is an array of strings
-            if (this.suggestions[0] && typeof this.suggestions[0] === 'string') {
-                return value;
+            if (!this.validationRules || !this.dirty) {
+                return;
             }
 
-            for (let i = 0; i < this.suggestions.length; i++) {
-                if (this.suggestions[i].value == value) {
-                    return this.suggestions[i].text;
-                }
+            let data = {
+                value: this.value
+            };
+
+            let rules = {
+                value: this.validationRules
+            };
+
+            let validation = new Validator(data, rules, this.validationMessages);
+            validation.setAttributeNames({ value: this.name.replace(/_/g, ' ') });
+
+            this.valid = validation.passes();
+
+            if (!this.valid) {
+                this.validationError = validation.errors.first('value');
             }
-
-            return null;
-        },
-
-        findValue(text) {
-            // Just return the text if suggestions is an array of strings
-            if (this.suggestions[0] && typeof this.suggestions[0] === 'string') {
-                return text;
-            }
-
-            text = text.toLowerCase();
-
-            for (let i = 0; i < this.suggestions.length; i++) {
-                if (this.suggestions[i].text.toLowerCase() === text) {
-                    return this.suggestions[i].value;
-                }
-            }
-
-            return null;
         }
     },
 
     components: {
-        UiIcon
+        UiIcon,
+        UiAutocompleteSuggestion
     },
 
     mixins: [
@@ -443,9 +432,9 @@ export default {
    margin-top: -20px;
 }
 
-// Horsey styles
-.sey-list {
-    display: none;
+.ui-autocomplete-suggestions {
+    min-width: 100%;
+    display: block;
     position: absolute;
     padding: 0;
     margin: 0;
@@ -456,31 +445,5 @@ export default {
     color: $md-dark-text;
     transition: left 0.1s ease-in-out;
     z-index: $z-index-dropdown;
-}
-
-.sey-show {
-    display: block;
-}
-
-.sey-hide {
-    display: none;
-}
-
-.sey-item {
-    cursor: pointer;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    padding: 8px 12px;
-    font-weight: normal;
-    font-size: 15px;
-
-    &:hover {
-        background-color: alpha(black, 0.06);
-    }
-}
-
-.sey-selected {
-    background-color: alpha(black, 0.1);
 }
 </style>

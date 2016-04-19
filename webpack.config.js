@@ -1,5 +1,13 @@
 var path = require('path');
+var version = require('./package.json').version;
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+var banner =
+  '/*!\n' +
+  ' * Keen UI v' + version + ' (https://github.com/JosephusPaye/keen-ui)\n' +
+  ' * (c) ' + new Date().getFullYear() + ' Josephus Paye II\n' +
+  ' * Released under the MIT License.\n' +
+  ' */';
 
 module.exports = {
     watch: true,
@@ -58,5 +66,7 @@ module.exports = {
 
     plugins: [
         new ExtractTextPlugin('docs.bundle.css')
-    ]
+    ],
+
+    banner: banner
 };
