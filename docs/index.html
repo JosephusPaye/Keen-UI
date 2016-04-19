@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Keen UI - Vue UI Components inspired by Material Design</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="docs.bundle.css">
+
+	<style>
+		[v-cloak] {
+		    display: none;
+		}
+	</style>
+</head>
+<body>
+	<app inline-template>
+		<div id="app">
+		    <div class="sidebar desktop">
+		        <div class="brand">
+		            <h1 class="title">Keen UI</h1>
+		        </div>
+
+		        <div class="subhead">
+		            A collection of essential UI components written with <a href="http://vuejs.org/" title="VueJS">Vue</a> and inspired by <a href="https://www.google.com/design/spec/material-design/introduction.html">Material Design</a>.
+
+		            <ui-button @click="openGithub">Github</ui-button>
+		        </div>
+
+		        <ul class="menu">
+		            <div class="menu-header">Components</div>
+
+		            <a
+		                class="menu-item" :class="{ 'active': currentComponent.id === item.id }"
+		                v-for="item in menu | orderBy 'id'" v-text="item.text" :href="'#/' + item.id"
+		            ></a>
+		        </ul>
+		    </div>
+
+		    <div
+		        class="sidebar-overlay" v-show="showSidebar" transition="overlay-fade"
+		        @click="toggleSidebar" v-cloak
+		    ></div>
+
+		    <div class="sidebar mobile" v-show="showSidebar" transition="sidebar-toggle" v-cloak>
+		        <div class="brand">
+		            <h1 class="title">Keen UI</h1>
+		        </div>
+
+		        <div class="subhead">
+		            A collection of essential UI components written with <a href="http://vuejs.org/" title="VueJS">Vue</a> and inspired by <a href="https://www.google.com/design/spec/material-design/introduction.html">Material Design</a>.
+
+		            <ui-button @click="openGithub">Github</ui-button>
+		        </div>
+
+		        <ul class="menu">
+		            <div class="menu-header">Components</div>
+
+		            <a
+		                class="menu-item" :class="{ 'active': currentComponent.id === item.id }"
+		                v-for="item in menu | orderBy 'id'" v-text="item.text" :href="'#/' + item.id"
+		            ></a>
+		        </ul>
+		    </div>
+
+		    <div class="page">
+		        <ui-toolbar
+		            :title="'Keen UI - ' + currentComponent.text" class="page-toolbar"
+		            text-color="black" @nav-icon-clicked="toggleSidebar"
+		        ></ui-toolbar>
+
+		        <div class="container">
+		            <component :is="currentComponent.id"></component>
+		        </div>
+		    </div>
+		</div>
+	</app>
+
+	<script src="docs.bundle.js"></script>
+</body>
+</html>
