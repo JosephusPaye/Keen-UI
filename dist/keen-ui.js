@@ -1,5 +1,5 @@
 /*!
- * Keen UI v0.8.4 (https://github.com/JosephusPaye/keen-ui)
+ * Keen UI v0.8.5 (https://github.com/JosephusPaye/keen-ui)
  * (c) 2016 Josephus Paye II
  * Released under the MIT License.
  */
@@ -71,15 +71,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _UiAutocomplete2 = _interopRequireDefault(_UiAutocomplete);
 	
-	var _UiButton = __webpack_require__(81);
+	var _UiButton = __webpack_require__(82);
 	
 	var _UiButton2 = _interopRequireDefault(_UiButton);
 	
-	var _UiCheckbox = __webpack_require__(85);
+	var _UiCheckbox = __webpack_require__(86);
 	
 	var _UiCheckbox2 = _interopRequireDefault(_UiCheckbox);
 	
-	var _UiCollapsible = __webpack_require__(89);
+	var _UiCollapsible = __webpack_require__(90);
 	
 	var _UiCollapsible2 = _interopRequireDefault(_UiCollapsible);
 	
@@ -171,7 +171,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _UiTextbox2 = _interopRequireDefault(_UiTextbox);
 	
-	var _UiToolbar = __webpack_require__(169);
+	var _UiToolbar = __webpack_require__(158);
 	
 	var _UiToolbar2 = _interopRequireDefault(_UiToolbar);
 	
@@ -4971,7 +4971,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiAutocomplete.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(80)
+	__vue_template__ = __webpack_require__(81)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -5005,15 +5005,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	
-	var _horsey = __webpack_require__(62);
+	var _validatorjs = __webpack_require__(62);
 	
-	var _horsey2 = _interopRequireDefault(_horsey);
+	var _validatorjs2 = _interopRequireDefault(_validatorjs);
+	
+	var _fuzzysearch = __webpack_require__(73);
+	
+	var _fuzzysearch2 = _interopRequireDefault(_fuzzysearch);
 	
 	var _UiIcon = __webpack_require__(6);
 	
 	var _UiIcon2 = _interopRequireDefault(_UiIcon);
 	
-	var _HasTextInput = __webpack_require__(78);
+	var _UiAutocompleteSuggestion = __webpack_require__(74);
+	
+	var _UiAutocompleteSuggestion2 = _interopRequireDefault(_UiAutocompleteSuggestion);
+	
+	var _HasTextInput = __webpack_require__(79);
 	
 	var _HasTextInput2 = _interopRequireDefault(_HasTextInput);
 	
@@ -5027,21 +5035,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	            type: Array,
 	            default: []
 	        },
-	        openOnClick: {
-	            type: Boolean,
-	            default: false
-	        },
-	        render: Function,
 	        limit: {
 	            type: Number,
 	            default: 8
+	        },
+	        partial: String,
+	        append: {
+	            type: Boolean,
+	            default: false
+	        },
+	        appendDelimiter: {
+	            type: String,
+	            default: ', '
+	        },
+	        minChars: {
+	            type: Number,
+	            default: 2
+	        },
+	        showOnUpDown: {
+	            type: Boolean,
+	            default: true
 	        }
 	    },
 	
 	    data: function data() {
 	        return {
-	            searchQuery: '',
-	            horsey: null
+	            showDropdown: false,
+	            highlightedItem: -1,
+	            ignoreValueChange: false
 	        };
 	    },
 	
@@ -5051,24 +5072,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return Boolean(this.icon);
 	        }
 	    },
-	
-	    ready: function ready() {
-	        if (this.validationMessages && this.validationMessages.required) {
-	            this.validationError = this.validationMessages.required;
-	        } else {
-	            this.validationError = 'The ' + this.name.replace(/_/g, ' ') + ' field is required.';
-	        }
-	
-	        if (this.suggestions.length) {
-	            this.setupDropdown();
-	        }
-	    },
-	    beforeDestroy: function beforeDestroy() {
-	        if (this.horsey) {
-	            this.horsey.destroy();
-	        }
-	    },
-	
 	
 	    events: {
 	        'ui-input::reset': function uiInputReset(id) {
@@ -5080,80 +5083,88 @@ return /******/ (function(modules) { // webpackBootstrap
 	                document.activeElement.blur();
 	            }
 	
-	            this.searchQuery = '';
 	            this.value = this.initialValue;
 	            this.dirty = false;
 	            this.valid = true;
-	        },
-	        'ui-dropdown::reposition': function uiDropdownReposition(id) {
-	            if (!this.eventTargetsComponent(id)) {
-	                return;
-	            }
-	
-	            if (this.horsey) {
-	                if (this.horsey.list) {
-	                    this.horsey.list.style.width = this.$els.input.offsetWidth + 'px';
-	                }
-	
-	                this.horsey.refreshPosition();
-	            }
 	        }
 	    },
 	
 	    watch: {
-	        suggestions: function suggestions() {
-	            if (this.horsey) {
-	                this.updateSuggestions();
-	            } else {
-	                if (this.suggestions.length) {
-	                    this.setupDropdown();
-	                }
+	        value: function value() {
+	            if (!this.ignoreValueChange && this.value.length >= this.minChars) {
+	                this.open();
 	            }
+	
+	            this.highlightedItem = 0;
 	        }
 	    },
 	
+	    ready: function ready() {
+	        document.addEventListener('click', this.closeOnExternalClick);
+	    },
+	    beforeDestroy: function beforeDestroy() {
+	        document.removeEventListener('click', this.closeOnExternalClick);
+	    },
+	
+	
 	    methods: {
-	        setupDropdown: function setupDropdown() {
-	            this.setInitialText();
+	        search: function search(item) {
+	            var text = item.text || item;
+	            var query = this.value.toLowerCase();
 	
-	            this.horsey = (0, _horsey2.default)(this.$els.input, {
-	                render: this.render ? this.render : null,
-	                suggestions: this.suggestions,
-	                autoHideOnClick: true,
-	                limit: this.limit,
-	                set: this.select
+	            return (0, _fuzzysearch2.default)(query, text.toLowerCase());
+	        },
+	        select: function select(item) {
+	            var _this = this;
+	
+	            if (this.append) {
+	                this.value += this.appendDelimiter + (item.text || item);
+	            } else {
+	                this.value = item.text || item;
+	            }
+	
+	            if (this.validationRules) {
+	                this.validate();
+	            }
+	
+	            this.$nextTick(function () {
+	                _this.close();
+	                _this.$els.input.focus();
 	            });
-	
-	            this.horsey.list.style.width = this.$els.input.offsetWidth + 'px';
 	        },
-	        updateSuggestions: function updateSuggestions() {
-	            this.horsey.clear();
-	            this.suggestions.forEach(this.horsey.add);
-	        },
-	        openDropdown: function openDropdown() {
-	            if (this.horsey && this.openOnClick) {
-	                this.horsey.show();
-	            }
-	        },
-	        setInitialText: function setInitialText() {
-	            if (!this.value || this.value === '') {
-	                return;
+	        highlight: function highlight(index) {
+	            if (index < 0) {
+	                index = this.$refs.items.length - 1;
+	            } else if (index >= this.$refs.items.length) {
+	                index = 0;
 	            }
 	
-	            var initialText = this.findText(this.value);
+	            this.highlightedItem = index;
 	
-	            if (initialText) {
-	                this.searchQuery = initialText;
+	            if (this.showOnUpDown) {
+	                this.open();
 	            }
 	        },
-	        select: function select(value) {
-	            this.value = value;
+	        selectHighlighted: function selectHighlighted(index, e) {
+	            if (this.showDropdown && this.$refs.items.length) {
+	                e.preventDefault();
+	                this.select(this.$refs.items[index].item);
+	            }
+	        },
+	        clearSearch: function clearSearch() {
+	            this.value = '';
+	        },
+	        open: function open() {
+	            this.showDropdown = true;
+	        },
+	        close: function close() {
+	            this.showDropdown = false;
 	
-	            var text = this.findText(value);
-	
-	            if (text) {
-	                this.searchQuery = text;
-	                this.valid = true;
+	            this.validate();
+	        },
+	        closeOnExternalClick: function closeOnExternalClick(e) {
+	            if (!this.$els.autocomplete.contains(e.target) && this.showDropdown) {
+	                this.close();
 	            }
 	        },
 	        focus: function focus() {
@@ -5165,53 +5176,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (!this.dirty) {
 	                this.dirty = true;
 	            }
-	
-	            if (this.validationRules) {
-	                this.validate();
-	            }
-	        },
-	        clearSearch: function clearSearch() {
-	            this.searchQuery = '';
 	        },
 	        validate: function validate() {
-	            if (this.validationRules === 'required') {
-	                var value = this.findValue(this.searchQuery);
-	
-	                this.valid = Boolean(value);
-	            }
-	        },
-	        findText: function findText(value) {
-	            if (this.suggestions[0] && typeof this.suggestions[0] === 'string') {
-	                return value;
+	            if (!this.validationRules || !this.dirty) {
+	                return;
 	            }
 	
-	            for (var i = 0; i < this.suggestions.length; i++) {
-	                if (this.suggestions[i].value == value) {
-	                    return this.suggestions[i].text;
-	                }
+	            var data = {
+	                value: this.value
+	            };
+	
+	            var rules = {
+	                value: this.validationRules
+	            };
+	
+	            var validation = new _validatorjs2.default(data, rules, this.validationMessages);
+	            validation.setAttributeNames({ value: this.name.replace(/_/g, ' ') });
+	
+	            this.valid = validation.passes();
+	
+	            if (!this.valid) {
+	                this.validationError = validation.errors.first('value');
 	            }
-	
-	            return null;
-	        },
-	        findValue: function findValue(text) {
-	            if (this.suggestions[0] && typeof this.suggestions[0] === 'string') {
-	                return text;
-	            }
-	
-	            text = text.toLowerCase();
-	
-	            for (var i = 0; i < this.suggestions.length; i++) {
-	                if (this.suggestions[i].text.toLowerCase() === text) {
-	                    return this.suggestions[i].value;
-	                }
-	            }
-	
-	            return null;
 	        }
 	    },
 	
 	    components: {
-	        UiIcon: _UiIcon2.default
+	        UiIcon: _UiIcon2.default,
+	        UiAutocompleteSuggestion: _UiAutocompleteSuggestion2.default
 	    },
 	
 	    mixins: [_HasTextInput2.default]
@@ -5221,1537 +5213,1467 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	// Get required modules
+	var Rules = __webpack_require__(63);
+	var Lang = __webpack_require__(64);
+	var Errors = __webpack_require__(71);
+	var Attributes = __webpack_require__(66);
+	var AsyncResolvers = __webpack_require__(72);
 	
-	var sell = __webpack_require__(63);
-	var crossvent = __webpack_require__(64);
-	var bullseye = __webpack_require__(66);
-	var fuzzysearch = __webpack_require__(77);
-	var KEY_BACKSPACE = 8;
-	var KEY_ENTER = 13;
-	var KEY_ESC = 27;
-	var KEY_UP = 38;
-	var KEY_DOWN = 40;
-	var KEY_TAB = 9;
-	var cache = [];
-	var doc = document;
-	var docElement = doc.documentElement;
+	var Validator = function(input, rules, customMessages) {
+		var lang = Validator.getDefaultLang();
+		this.input = input;
 	
-	function find (el) {
-	  var entry;
-	  var i;
-	  for (i = 0; i < cache.length; i++) {
-	    entry = cache[i];
-	    if (entry.el === el) {
-	      return entry.api;
-	    }
-	  }
-	  return null;
-	}
+		this.messages = Lang._make(lang);
+		this.messages._setCustom(customMessages);
+		this.setAttributeFormatter(Validator.prototype.attributeFormatter);
 	
-	function horsey (el, options) {
-	  var cached = find(el);
-	  if (cached) {
-	    return cached;
-	  }
+		this.errors = new Errors();
+		this.errorCount = 0;
+		
+		this.hasAsync = false;
+		this.rules = this._parseRules(rules);
+	};
 	
-	  var o = options || {};
-	  var parent = o.appendTo || doc.body;
-	  var render = o.render || defaultRenderer;
-	  var getText = o.getText || defaultGetText;
-	  var getValue = o.getValue || defaultGetValue;
-	  var form = o.form;
-	  var limit = typeof o.limit === 'number' ? o.limit : Infinity;
-	  var suggestions = o.suggestions;
-	  var userFilter = o.filter || defaultFilter;
-	  var userSet = o.set || defaultSetter;
-	  var ul = tag('ul', 'sey-list');
-	  var selection = null;
-	  var eye;
-	  var deferredFiltering = defer(filtering);
-	  var attachment = el;
-	  var textInput;
-	  var anyInput;
-	  var ranchorleft;
-	  var ranchorright;
-	  var suggestionsLoad = { counter: 0, value: null };
+	Validator.prototype = {
 	
-	  if (o.autoHideOnBlur === void 0) { o.autoHideOnBlur = true; }
-	  if (o.autoHideOnClick === void 0) { o.autoHideOnClick = true; }
-	  if (o.autoShowOnUpDown === void 0) { o.autoShowOnUpDown = el.tagName === 'INPUT'; }
-	  if (o.anchor) {
-	    ranchorleft = new RegExp('^' + o.anchor);
-	    ranchorright = new RegExp(o.anchor + '$');
-	  }
+		constructor: Validator,
 	
-	  var api = {
-	    add: add,
-	    anchor: o.anchor,
-	    clear: clear,
-	    show: show,
-	    hide: hide,
-	    toggle: toggle,
-	    destroy: destroy,
-	    refreshPosition: refreshPosition,
-	    appendText: appendText,
-	    appendHTML: appendHTML,
-	    filterAnchoredText: filterAnchoredText,
-	    filterAnchoredHTML: filterAnchoredHTML,
-	    defaultAppendText: appendText,
-	    defaultFilter: defaultFilter,
-	    defaultGetText: defaultGetText,
-	    defaultGetValue: defaultGetValue,
-	    defaultRenderer: defaultRenderer,
-	    defaultSetter: defaultSetter,
-	    retarget: retarget,
-	    attachment: attachment,
-	    list: ul,
-	    suggestions: []
-	  };
-	  var entry = { el: el, api: api };
+		/**
+		 * Default language
+		 *
+		 * @type {string}
+		 */
+		lang: 'en',
 	
-	  retarget(el);
-	  cache.push(entry);
-	  parent.appendChild(ul);
-	  el.setAttribute('autocomplete', 'off');
+		/**
+		 * Numeric based rules
+		 *
+		 * @type {array}
+		 */
+		numericRules: ['integer', 'numeric', 'between'],
 	
-	  if (Array.isArray(suggestions)) {
-	    loaded(suggestions, false);
-	  }
+		/**
+		 * Attribute formatter.
+		 *
+		 * @type {function}
+		 */
+		attributeFormatter: Attributes.formatter,
 	
-	  return api;
+		/**
+		 * Run validator
+		 *
+		 * @return {boolean} Whether it passes; true = passes, false = fails
+		 */
+		check: function() {
+			var self = this;
 	
-	  function retarget (el) {
-	    inputEvents(true);
-	    attachment = api.attachment = el;
-	    textInput = attachment.tagName === 'INPUT' || attachment.tagName === 'TEXTAREA';
-	    anyInput = textInput || isEditable(attachment);
-	    inputEvents();
-	  }
+			for (var attribute in this.rules) {
+				var attributeRules = this.rules[attribute];
+				var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
 	
-	  function refreshPosition () {
-	    if (eye) { eye.refresh(); }
-	  }
+				for (var i = 0, len = attributeRules.length, rule, ruleOptions, rulePassed; i < len; i++) {
+					ruleOptions = attributeRules[i];
+					rule = this.getRule(ruleOptions.name);
 	
-	  function loading (forceShow) {
-	    if (typeof suggestions === 'function') {
-	      crossvent.remove(attachment, 'focus', loading);
-	      var value = textInput ? el.value : el.innerHTML;
-	      if (value !== suggestionsLoad.value) {
-	        suggestionsLoad.counter++;
-	        suggestionsLoad.value = value;
+					if (!this._isValidatable(rule, inputValue)) {
+						continue;
+					}
+					
+					rulePassed = rule.validate(inputValue, ruleOptions.value, attribute);
+					if (!rulePassed) {
+						this._addFailure(rule);
+					}
 	
-	        var counter = suggestionsLoad.counter;
-	        suggestions(value, function(s) {
-	          if (suggestionsLoad.counter === counter) {
-	            loaded(s, forceShow);
-	          }
-	        });
-	      }
-	    }
-	  }
+					if (this._shouldStopValidating(attribute, rulePassed)) {
+						break;
+					}
+				}
+			}
 	
-	  function loaded (suggestions, forceShow) {
-	    clear();
-	    suggestions.forEach(add);
-	    api.suggestions = suggestions;
-	    if (forceShow) {
-	      show();
-	    }
-	    filtering();
-	  }
+			return this.errorCount === 0;
+		},
 	
-	  function clear () {
-	    unselect();
-	    while (ul.lastChild) {
-	      ul.removeChild(ul.lastChild);
-	    }
-	  }
+		/**
+		 * Run async validator
+		 *
+		 * @param {function} passes
+		 * @param {function} fails
+		 * @return {void}
+		 */
+		/**
+		 * Run async validator
+		 *
+		 * @param {function} passes
+		 * @param {function} fails
+		 * @return {void}
+		 */
+		checkAsync: function(passes, fails) {
+			var _this = this;
+			passes = passes || function() {};
+			fails = fails || function() {};
 	
-	  function add (suggestion) {
-	    var li = tag('li', 'sey-item');
-	    render(li, suggestion);
-	    crossvent.add(li, 'click', clickedSuggestion);
-	    crossvent.add(li, 'horsey-filter', filterItem);
-	    crossvent.add(li, 'horsey-hide', hideItem);
-	    ul.appendChild(li);
-	    api.suggestions.push(suggestion);
-	    return li;
+			var failsOne = function(rule, message) {
+				_this._addFailure(rule, message);
+			};
 	
-	    function clickedSuggestion () {
-	      var value = getValue(suggestion);
-	      set(value);
-	      hide();
-	      attachment.focus();
-	      crossvent.fabricate(attachment, 'horsey-selected', value);
-	    }
+			var resolvedAll = function(allPassed) {
+				if (allPassed) {
+					passes();
+				}
+				else {
+					fails();
+				}
+			};
 	
-	    function filterItem () {
-	      var value = textInput ? el.value : el.innerHTML;
-	      if (filter(value, suggestion)) {
-	        li.className = li.className.replace(/ sey-hide/g, '');
-	      } else {
-	        crossvent.fabricate(li, 'horsey-hide');
-	      }
-	    }
+			var validateRule = function(inputValue, ruleOptions, attribute, rule) {
+				return function() {
+					var resolverIndex = asyncResolvers.add(rule);
+					rule.validate(inputValue, ruleOptions.value, attribute, function() { asyncResolvers.resolve(resolverIndex); });
+				};
+			};
 	
-	    function hideItem () {
-	      if (!hidden(li)) {
-	        li.className += ' sey-hide';
-	        if (selection === li) {
-	          unselect();
-	        }
-	      }
-	    }
-	  }
+			var asyncResolvers = new AsyncResolvers(failsOne, resolvedAll);
 	
-	  function set (value) {
-	    if (o.anchor) {
-	      return (isText() ? api.appendText : api.appendHTML)(value);
-	    }
-	    userSet(value);
-	  }
+			for (var attribute in this.rules) {
+				var attributeRules = this.rules[attribute];
+				var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
 	
-	  function filter (value, suggestion) {
-	    if (o.anchor) {
-	      var il = (isText() ? api.filterAnchoredText : api.filterAnchoredHTML)(value, suggestion);
-	      return il ? userFilter(il.input, il.suggestion) : false;
-	    }
-	    return userFilter(value, suggestion);
-	  }
+				for (var i = 0, len = attributeRules.length, rule, ruleOptions; i < len; i++) {
+					ruleOptions = attributeRules[i];
 	
-	  function isText () { return isInput(attachment); }
-	  function visible () { return ul.className.indexOf('sey-show') !== -1; }
-	  function hidden (li) { return li.className.indexOf('sey-hide') !== -1; }
+					rule = this.getRule(ruleOptions.name);
 	
-	  function show () {
-	    if (!visible()) {
-	      ul.className += ' sey-show';
-	      eye.refresh();
-	      crossvent.fabricate(attachment, 'horsey-show');
-	    }
-	  }
+					if (!this._isValidatable(rule, inputValue)) {
+						continue;
+					}
 	
-	  function toggler (e) {
-	    var left = e.which === 1 && !e.metaKey && !e.ctrlKey;
-	    if (left === false) {
-	      return; // we only care about honest to god left-clicks
-	    }
-	    toggle();
-	  }
+					validateRule(inputValue, ruleOptions, attribute, rule)();
+				}
+			}
 	
-	  function toggle () {
-	    if (!visible()) {
-	      show();
-	    } else {
-	      hide();
-	    }
-	  }
+			asyncResolvers.enableFiring();
+			asyncResolvers.fire();
+		},
 	
-	  function select (suggestion) {
-	    unselect();
-	    if (suggestion) {
-	      selection = suggestion;
-	      selection.className += ' sey-selected';
-	    }
-	  }
+		/**
+		 * Add failure and error message for given rule
+		 *
+		 * @param {Rule} rule
+		 */
+		_addFailure: function(rule) {
+			var msg = this.messages.render(rule);	
+			this.errors.add(rule.attribute, msg);
+			this.errorCount++;
+		},
 	
-	  function unselect () {
-	    if (selection) {
-	      selection.className = selection.className.replace(/ sey-selected/g, '');
-	      selection = null;
-	    }
-	  }
+		/**
+		 * Parse rules, normalizing format into: { attribute: [{ name: 'age', value: 3 }] }
+		 *
+		 * @param  {object} rules
+		 * @return {object}
+		 */
+		_parseRules: function(rules) {
+			var parsedRules = {};
+			for (var attribute in rules) {
+				var rulesArray = rules[attribute];
+				var attributeRules = [];
 	
-	  function move (up, moves) {
-	    var total = ul.children.length;
-	    if (total < moves) {
-	      unselect();
-	      return;
-	    }
-	    if (total === 0) {
-	      return;
-	    }
-	    var first = up ? 'lastChild' : 'firstChild';
-	    var next = up ? 'previousSibling' : 'nextSibling';
-	    var suggestion = selection && selection[next] || ul[first];
+				if (typeof rulesArray === 'string') {
+					rulesArray = rulesArray.split('|');
+				}
+				
+				for (var i = 0, len = rulesArray.length, rule; i < len; i++) {
+					rule = this._extractRuleAndRuleValue(rulesArray[i]);
+					if (Rules.isAsync(rule.name)) {
+						this.hasAsync = true;
+					}
+					attributeRules.push(rule);
+				}
 	
-	    select(suggestion);
+				parsedRules[attribute] = attributeRules;
+			}
+			return parsedRules;
+		},
 	
-	    if (hidden(suggestion)) {
-	      move(up, moves ? moves + 1 : 1);
-	    }
-	  }
+		/**
+		 * Extract a rule and a value from a ruleString (i.e. min:3), rule = min, value = 3
+		 * 
+		 * @param  {string} ruleString min:3
+		 * @return {object} object containing the name of the rule and value
+		 */
+		_extractRuleAndRuleValue: function(ruleString) {
+			var rule = {}, ruleArray;
 	
-	  function hide () {
-	    eye.sleep();
-	    ul.className = ul.className.replace(/ sey-show/g, '');
-	    unselect();
-	    crossvent.fabricate(attachment, 'horsey-hide');
-	  }
+			rule.name = ruleString;
 	
-	  function keydown (e) {
-	    var shown = visible();
-	    var which = e.which || e.keyCode;
-	    if (which === KEY_DOWN) {
-	      if (anyInput && o.autoShowOnUpDown) {
-	        show();
-	      }
-	      if (shown) {
-	        move();
-	        stop(e);
-	      }
-	    } else if (which === KEY_UP) {
-	      if (anyInput && o.autoShowOnUpDown) {
-	        show();
-	      }
-	      if (shown) {
-	        move(true);
-	        stop(e);
-	      }
-	    } else if (which === KEY_BACKSPACE) {
-	      if (anyInput && o.autoShowOnUpDown) {
-	        show();
-	      }
-	    } else if (shown) {
-	      if (which === KEY_ENTER) {
-	        if (selection) {
-	          crossvent.fabricate(selection, 'click');
-	        } else {
-	          hide();
-	        }
-	        stop(e);
-	      } else if (which === KEY_ESC) {
-	        hide();
-	        stop(e);
-	      }
-	    }
-	  }
+			if (ruleString.indexOf(':') >= 0) {
+				ruleArray = ruleString.split(':');
+				rule.name = ruleArray[0];
+				rule.value = ruleArray.slice(1).join(":");
+			}
 	
-	  function stop (e) {
-	    e.stopPropagation();
-	    e.preventDefault();
-	  }
+			return rule;
+		},
 	
-	  function filtering () {
-	    if (!visible()) {
-	      return;
-	    }
-	    loading(true);
-	    crossvent.fabricate(attachment, 'horsey-filter');
-	    var li = ul.firstChild;
-	    var count = 0;
-	    while (li) {
-	      if (count >= limit) {
-	        crossvent.fabricate(li, 'horsey-hide');
-	      }
-	      if (count < limit) {
-	        crossvent.fabricate(li, 'horsey-filter');
-	        if (li.className.indexOf('sey-hide') === -1) {
-	          count++;
-	        }
-	      }
-	      li = li.nextSibling;
-	    }
-	    if (!selection) {
-	      move();
-	    }
-	    if (!selection) {
-	      hide();
-	    }
-	  }
+		/**
+		 * Determine if attribute has any of the given rules
+		 *
+		 * @param  {string}  attribute
+		 * @param  {array}   findRules
+		 * @return {boolean}
+		 */
+		_hasRule: function(attribute, findRules) {
+			var rules = this.rules[attribute] || [];
+			for (var i = 0, len = rules.length; i < len; i++) {
+				if (findRules.indexOf(rules[i].name) > -1) {
+					return true;
+				}
+			}
+			return false;
+		},
 	
-	  function deferredFilteringNoEnter (e) {
-	    var which = e.which || e.keyCode;
-	    if (which === KEY_ENTER) {
-	      return;
-	    }
-	    deferredFiltering();
-	  }
+		/**
+		 * Determine if attribute has any numeric-based rules.
+		 *
+		 * @param  {string}  attribute
+		 * @return {Boolean}
+		 */
+		_hasNumericRule: function(attribute) {
+			return this._hasRule(attribute, this.numericRules);
+		},
 	
-	  function deferredShow (e) {
-	    var which = e.which || e.keyCode;
-	    if (which === KEY_ENTER) {
-	      return;
-	    }
-	    setTimeout(show, 0);
-	  }
+		/**
+		 * Determine if rule is validatable
+		 *
+		 * @param  {Rule}   rule
+		 * @param  {mixed}  value
+		 * @return {boolean} 
+		 */
+		_isValidatable: function(rule, value) {
+			if (Rules.isImplicit(rule.name)) {
+				return true;
+			}
 	
-	  function horseyEventTarget (e) {
-	    var target = e.target;
-	    if (target === attachment) {
-	      return true;
-	    }
-	    while (target) {
-	      if (target === ul || target === attachment) {
-	        return true;
-	      }
-	      target = target.parentNode;
-	    }
-	  }
+			return this.getRule('required').validate(value);
+		},
 	
-	  function hideOnBlur (e) {
-	    var which = e.which || e.keyCode;
-	    if (which === KEY_TAB) {
-	      hide();
-	    }
-	  }
 	
-	  function hideOnClick (e) {
-	    if (horseyEventTarget(e)) {
-	      return;
-	    }
-	    hide();
-	  }
+		/**
+		 * Determine if we should stop validating.
+		 *
+		 * @param  {string} attribute
+		 * @param  {boolean} rulePassed
+		 * @return {boolean}
+		 */
+		_shouldStopValidating: function(attribute, rulePassed) {
 	
-	  function inputEvents (remove) {
-	    var op = remove ? 'remove' : 'add';
-	    if (eye) {
-	      eye.destroy();
-	      eye = null;
-	    }
-	    if (!remove) {
-	      eye = bullseye(ul, attachment, { caret: anyInput && attachment.tagName !== 'INPUT' });
-	      if (!visible()) { eye.sleep(); }
-	    }
-	    if (remove || (anyInput && doc.activeElement !== attachment)) {
-	      crossvent[op](attachment, 'focus', loading);
-	    } else {
-	      loading();
-	    }
-	    if (anyInput) {
-	      crossvent[op](attachment, 'keypress', deferredShow);
-	      crossvent[op](attachment, 'keypress', deferredFiltering);
-	      crossvent[op](attachment, 'keydown', deferredFilteringNoEnter);
-	      crossvent[op](attachment, 'paste', deferredFiltering);
-	      crossvent[op](attachment, 'keydown', keydown);
-	      if (o.autoHideOnBlur) { crossvent[op](attachment, 'keydown', hideOnBlur); }
-	    } else {
-	      crossvent[op](attachment, 'click', toggler);
-	      crossvent[op](docElement, 'keydown', keydown);
-	    }
-	    if (o.autoHideOnClick) { crossvent[op](doc, 'click', hideOnClick); }
-	    if (form) { crossvent[op](form, 'submit', hide); }
-	  }
+			var stopOnAttributes = this.stopOnAttributes;
+			if (stopOnAttributes === false || rulePassed === true) {
+				return false;
+			}
 	
-	  function destroy () {
-	    inputEvents(true);
-	    if (parent.contains(ul)) { parent.removeChild(ul); }
-	    cache.splice(cache.indexOf(entry), 1);
-	  }
+			if (stopOnAttributes instanceof Array) {
+				return stopOnAttributes.indexOf(attribute) > -1;
+			}
 	
-	  function defaultSetter (value) {
-	    if (textInput) {
-	      el.value = value;
-	    } else {
-	      el.innerHTML = value;
-	    }
-	  }
+			return true;
+		},
 	
-	  function defaultRenderer (li, suggestion) {
-	    li.innerText = li.textContent = getText(suggestion);
-	  }
+		/**
+		 * Set custom attribute names.
+		 *
+		 * @param {object} attributes
+		 * @return {void}
+		 */
+		setAttributeNames: function(attributes) {
+			this.messages._setAttributeNames(attributes);
+		},
 	
-	  function defaultFilter (q, suggestion) {
-	    var text = getText(suggestion) || '';
-	    var value = getValue(suggestion) || '';
-	    var needle = q.toLowerCase();
-	    return fuzzysearch(needle, text.toLowerCase()) || fuzzysearch(needle, value.toLowerCase());
-	  }
+		/**
+		 * Set the attribute formatter.
+		 *
+		 * @param {fuction} func
+		 * @return {void}
+		 */
+		setAttributeFormatter: function(func) {
+			this.messages._setAttributeFormatter(func);
+		},
 	
-	  function loopbackToAnchor (text, p) {
-	    var result = '';
-	    var anchored = false;
-	    var start = p.start;
-	    while (anchored === false && start >= 0) {
-	      result = text.substr(start - 1, p.start - start + 1);
-	      anchored = ranchorleft.test(result);
-	      start--;
-	    }
-	    return {
-	      text: anchored ? result : null,
-	      start: start
-	    };
-	  }
+		/**
+		 * Get validation rule
+		 *
+		 * @param  {string} name
+		 * @return {Rule}
+		 */
+		getRule: function(name) {
+			return Rules.make(name, this);
+		},
 	
-	  function filterAnchoredText (q, suggestion) {
-	    var position = sell(el);
-	    var input = loopbackToAnchor(q, position).text;
-	    if (input) {
-	      return { input: input, suggestion: suggestion };
-	    }
-	  }
+		/**
+		 * Stop on first error.
+		 *
+		 * @param  {boolean|array} An array of attributes or boolean true/false for all attributes.
+		 * @return {void}
+		 */
+		stopOnError: function(attributes) {
+			this.stopOnAttributes = attributes;
+		},
 	
-	  function appendText (value) {
-	    var current = el.value;
-	    var position = sell(el);
-	    var input = loopbackToAnchor(current, position);
-	    var left = current.substr(0, input.start);
-	    var right = current.substr(input.start + input.text.length + (position.end - position.start));
-	    var before = left + value + ' ';
+		/**
+		 * Determine if validation passes
+		 *
+		 * @param {function} passes
+		 * @return {boolean|undefined}
+		 */
+		passes: function(passes) {
+			var async = this._checkAsync('passes', passes);
+			if (async) {
+				return this.checkAsync(passes);
+			}
+			return this.check();
+		},
 	
-	    el.value = before + right;
-	    sell(el, { start: before.length, end: before.length });
-	  }
+		/**
+		 * Determine if validation fails
+		 *
+		 * @param {function} fails
+		 * @return {boolean|undefined}
+		 */
+		fails: function(fails) {
+			var async = this._checkAsync('fails', fails);
+			if (async) {
+				return this.checkAsync(function() {}, fails);
+			}
+			return !this.check();
+		},
 	
-	  function filterAnchoredHTML () {
-	    throw new Error('Anchoring in editable elements is disabled by default.');
-	  }
+		/**
+		 * Check if validation should be called asynchronously
+		 *
+	 	 * @param  {string}   funcName Name of the caller
+		 * @param  {function} callback
+		 * @return {boolean}
+		 */
+		_checkAsync: function(funcName, callback) {
+			var hasCallback = typeof callback === 'function';
+			if (this.hasAsync && !hasCallback) {
+				throw funcName + ' expects a callback when async rules are being tested.';
+			}
 	
-	  function appendHTML () {
-	    throw new Error('Anchoring in editable elements is disabled by default.');
-	  }
-	}
+			return this.hasAsync || hasCallback;
+		}
 	
-	function isInput (el) { return el.tagName === 'INPUT' || el.tagName === 'TEXTAREA'; }
+	};
 	
-	function defaultGetValue (suggestion) {
-	  return defaultGet('value', suggestion);
-	}
+	/**
+	 * Set messages for language
+	 *
+	 * @param {string} lang
+	 * @param {object} messages
+	 * @return {this}
+	 */
+	Validator.setMessages = function(lang, messages) {
+		Lang._set(lang, messages);
+		return this;
+	};
 	
-	function defaultGetText (suggestion) {
-	  return defaultGet('text', suggestion);
-	}
+	/**
+	 * Get messages for given language
+	 *
+	 * @param  {string} lang
+	 * @return {Messages}
+	 */
+	Validator.getMessages = function(lang) {
+		return Lang._get(lang);
+	};
 	
-	function defaultGet (type, value) {
-	  return value && value[type] !== void 0 ? value[type] : value;
-	}
+	/**
+	 * Set default language to use
+	 *
+	 * @param {string} lang
+	 * @return {void}
+	 */
+	Validator.useLang = function(lang) {
+		this.prototype.lang = lang;
+	};
 	
-	function tag (type, className) {
-	  var el = doc.createElement(type);
-	  el.className = className;
-	  return el;
-	}
+	/**
+	 * Get default language
+	 *
+	 * @return {string}
+	 */
+	Validator.getDefaultLang = function() {
+		return this.prototype.lang;
+	};
 	
-	function defer (fn) { return function () { setTimeout(fn, 0); }; }
+	/**
+	 * Set the attribute formatter.
+	 *
+	 * @param {fuction} func
+	 * @return {void}
+	 */
+	Validator.setAttributeFormatter = function(func) {
+		this.prototype.attributeFormatter = func;
+	};
 	
-	function isEditable (el) {
-	  var value = el.getAttribute('contentEditable');
-	  if (value === 'false') {
-	    return false;
-	  }
-	  if (value === 'true') {
-	    return true;
-	  }
-	  if (el.parentElement) {
-	    return isEditable(el.parentElement);
-	  }
-	  return false;
-	}
+	/**
+	 * Stop on first error.
+	 *
+	 * @param  {boolean|array} An array of attributes or boolean true/false for all attributes.
+	 * @return {void}
+	 */
+	Validator.stopOnError = function(attributes) {
+		this.prototype.stopOnAttributes = attributes;
+	};
 	
-	horsey.find = find;
-	module.exports = horsey;
+	/**
+	 * Register custom validation rule
+	 *
+	 * @param  {string}   name
+	 * @param  {function} fn
+	 * @param  {string}   message
+	 * @return {void}
+	 */
+	Validator.register = function(name, fn, message) {
+		var lang = Validator.getDefaultLang();
+		Rules.register(name, fn);
+		Lang._setRuleMessage(lang, name, message);
+	};
+	
+	/**
+	 * Register asynchronous validation rule
+	 *
+	 * @param  {string}   name
+	 * @param  {function} fn
+	 * @param  {string}   message
+	 * @return {void}
+	 */
+	Validator.registerAsync = function(name, fn, message) {
+		var lang = Validator.getDefaultLang();
+		Rules.registerAsync(name, fn);
+		Lang._setRuleMessage(lang, name, message);
+	};
+	
+	module.exports = Validator;
 
 
 /***/ },
 /* 63 */
 /***/ function(module, exports) {
 
-	'use strict';
+	var rules = {
 	
-	var get = easyGet;
-	var set = easySet;
+		required: function(val) {
+			var str;
 	
-	if (document.selection && document.selection.createRange) {
-	  get = hardGet;
-	  set = hardSet;
+			if (val === undefined || val === null) {
+				return false;
+			}
+	
+			str = String(val).replace(/\s/g, "");
+			return str.length > 0 ? true : false;
+		},
+	
+		required_if: function(val, req, attribute) {
+			req = this.getParameters();
+			if (this.validator.input[req[0]] === req[1]) {
+				return this.validator.getRule('required').validate(val);
+			}
+	
+			return true;
+		},
+	
+		// compares the size of strings
+		// with numbers, compares the value
+		size: function(val, req, attribute) {
+			if (val) {
+				req = parseFloat(req);
+	
+				var size = this.getSize();
+	
+				return size === req;
+			}
+	
+			return true;
+		},
+	
+		/**
+		 * Compares the size of strings or the value of numbers if there is a truthy value
+		 */
+		min: function(val, req, attribute) {
+			var size = this.getSize();
+			return size >= req;
+		},
+	
+		/**
+		 * Compares the size of strings or the value of numbers if there is a truthy value
+		 */
+		max: function(val, req, attribute) {
+			var size = this.getSize();
+			return size <= req;
+		},
+	
+		between: function(val, req, attribute) {
+			req = this.getParameters();
+			var size = this.getSize();
+			var min = parseFloat(req[0], 10);
+			var max = parseFloat(req[1], 10);
+			return size >= min && size <= max;
+		},
+	
+		email: function(val) {
+			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return re.test(val);
+		},
+	
+		numeric: function(val) {
+			var num;
+	
+			num = Number(val); // tries to convert value to a number. useful if value is coming from form element
+	
+			if (typeof num === 'number' && !isNaN(num) && typeof val !== 'boolean') {
+				return true;
+			} else {
+				return false;
+			}
+		},
+	
+		array: function(val) {
+			return val instanceof Array;
+		},
+	
+		url: function(url) {
+			return (/^https?:\/\/\S+/).test(url);
+		},
+	
+		alpha: function(val) {
+			return (/^[a-zA-Z]+$/).test(val);
+		},
+	
+		alpha_dash: function(val) {
+			return (/^[a-zA-Z0-9_\-]+$/).test(val);
+		},
+	
+		alpha_num: function(val) {
+			return (/^[a-zA-Z0-9]+$/).test(val);
+		},
+	
+		same: function(val, req) {
+			var val1 = this.validator.input[req];
+			var val2 = val;
+	
+			if (val1 === val2) {
+				return true;
+			}
+	
+			return false;
+		},
+	
+		different: function(val, req) {
+			var val1 = this.validator.input[req];
+			var val2 = val;
+	
+			if (val1 !== val2) {
+				return true;
+			}
+	
+			return false;
+		},
+	
+		"in": function(val, req) {
+			var list, i;
+	
+			if (val) {
+				list = req.split(',');
+			}
+	
+			if (val && !(val instanceof Array)) {
+				val = String(val); // if it is a number
+	
+				for (i = 0; i < list.length; i++) {
+					if (val === list[i]) {
+						return true;
+					}
+				}
+	
+				return false;
+			}
+	
+			if (val && val instanceof Array) {
+				for (i = 0; i < val.length; i++) {
+					if (list.indexOf(val[i]) < 0) {
+						return false;
+					}
+				}
+			}
+	
+			return true;
+		},
+	
+		not_in: function(val, req) {
+			var list = req.split(',');
+			var len = list.length;
+			var returnVal = true;
+	
+			val = String(val); // convert val to a string if it is a number
+	
+			for (var i = 0; i < len; i++) {
+				if (val === list[i]) {
+					returnVal = false;
+					break;
+				}
+			}
+	
+			return returnVal;
+		},
+	
+		accepted: function(val) {
+			if (val === 'on' || val === 'yes' || val === 1 || val === '1') {
+				return true;
+			}
+	
+			return false;
+		},
+	
+		confirmed: function(val, req, key) {
+			var confirmedKey = key + '_confirmation';
+	
+			if (this.validator.input[confirmedKey] === val) {
+				return true;
+			}
+	
+			return false;
+		},
+	
+		integer: function(val) {
+			return String(parseInt(val, 10)) === String(val);
+		},
+	
+		digits: function(val, req) {
+			var numericRule = this.validator.getRule('numeric');
+			if (numericRule.validate(val) && String(val).length === parseInt(req)) {
+				return true;
+			}
+	
+			return false;
+		},
+	
+		regex: function(val, req) {
+			var mod = /[g|i|m]{1,3}$/;
+			var flag = req.match(mod);
+			flag = flag ? flag[0] : "i";
+			req = req.replace(mod,"").slice(1,-1);
+			req = new RegExp(req,flag);
+			return !!val.match(req);
+		}
+	
+	};
+	
+	function Rule(name, fn, async) {
+		this.name = name;
+		this.fn = fn;
+		this.passes = null;
+		this.customMessage = undefined;
+		this.async = async;
 	}
 	
-	function easyGet (el) {
-	  return {
-	    start: el.selectionStart,
-	    end: el.selectionEnd
-	  };
-	}
+	Rule.prototype = {
 	
-	function hardGet (el) {
-	  var active = document.activeElement;
-	  if (active !== el) {
-	    el.focus();
-	  }
+		/**
+		 * Validate rule
+		 *
+		 * @param  {mixed} inputValue
+		 * @param  {mixed} ruleValue
+		 * @param  {string} attribute
+		 * @param  {function} callback
+		 * @return {boolean|undefined}
+		 */
+		validate: function(inputValue, ruleValue, attribute, callback) {
+			var _this = this;
+			this._setValidatingData(attribute, inputValue, ruleValue);
+			if (typeof callback === 'function') {
+				this.callback = callback;
+				var handleResponse = function(passes, message) {
+					_this.response(passes, message);
+				};
 	
-	  var range = document.selection.createRange();
-	  var bookmark = range.getBookmark();
-	  var original = el.value;
-	  var marker = getUniqueMarker(original);
-	  var parent = range.parentElement();
-	  if (parent === null || !inputs(parent)) {
-	    return result(0, 0);
-	  }
-	  range.text = marker + range.text + marker;
+				if (this.async) {
+					return this.fn.apply(this, [inputValue, ruleValue, attribute, handleResponse]);
+				}
+				else {
+					return handleResponse(this.fn.apply(this, [inputValue, ruleValue, attribute]));
+				}
+			}
+			return this.fn.apply(this, [inputValue, ruleValue, attribute]);
+		},
 	
-	  var contents = el.value;
+		/**
+		 * Set validating data
+		 *
+		 * @param {string} attribute
+		 * @param {mixed} inputValue
+		 * @param {mixed} ruleValue
+		 * @return {void}
+		 */
+		_setValidatingData: function(attribute, inputValue, ruleValue) {
+			this.attribute = attribute;
+			this.inputValue = inputValue;
+			this.ruleValue = ruleValue;
+		},
 	
-	  el.value = original;
-	  range.moveToBookmark(bookmark);
-	  range.select();
+		/**
+		 * Get parameters
+		 *
+		 * @return {array}
+		 */
+		getParameters: function() {
+			return this.ruleValue ? this.ruleValue.split(',') : [];
+		},
 	
-	  return result(contents.indexOf(marker), contents.lastIndexOf(marker) - marker.length);
+		/**
+		 * Get true size of value
+		 *
+		 * @return {integer|float}
+		 */
+		getSize: function() {
+			var value = this.inputValue;
 	
-	  function result (start, end) {
-	    if (active !== el) { // don't disrupt pre-existing state
-	      if (active) {
-	        active.focus();
-	      } else {
-	        el.blur();
-	      }
-	    }
-	    return { start: start, end: end };
-	  }
-	}
+			if (value instanceof Array) {
+				return value.length;
+			}
 	
-	function getUniqueMarker (contents) {
-	  var marker;
-	  do {
-	    marker = '@@marker.' + Math.random() * new Date();
-	  } while (contents.indexOf(marker) !== -1);
-	  return marker;
-	}
+			if (typeof value === 'number') {
+				return value;
+			}
 	
-	function inputs (el) {
-	  return ((el.tagName === 'INPUT' && el.type === 'text') || el.tagName === 'TEXTAREA');
-	}
+			if (this.validator._hasNumericRule(this.attribute)) {
+				return parseFloat(value, 10);
+			}
 	
-	function easySet (el, p) {
-	  el.selectionStart = parse(el, p.start);
-	  el.selectionEnd = parse(el, p.end);
-	}
+			return value.length;
+		},
 	
-	function hardSet (el, p) {
-	  var range = el.createTextRange();
+		/**
+		 * Get the type of value being checked; numeric or string.
+		 *
+		 * @return {string}
+		 */
+		_getValueType: function() {
+			
+			if (typeof this.inputValue === 'number' || this.validator._hasNumericRule(this.attribute))
+			{
+				return 'numeric';
+			}
 	
-	  if (p.start === 'end' && p.end === 'end') {
-	    range.collapse(false);
-	    range.select();
-	  } else {
-	    range.collapse(true);
-	    range.moveEnd('character', parse(el, p.end));
-	    range.moveStart('character', parse(el, p.start));
-	    range.select();
-	  }
-	}
+			return 'string';
+		},
 	
-	function parse (el, value) {
-	  return value === 'end' ? el.value.length : value || 0;
-	}
+		/**
+		 * Set the async callback response
+		 *
+		 * @param  {boolean|undefined} passes  Whether validation passed
+		 * @param  {string|undefined} message Custom error message
+		 * @return {void}
+		 */
+		response: function(passes, message) {
+			this.passes = (passes === undefined || passes === true);
+			this.customMessage = message;
+			this.callback(this.passes, message);
+		},
 	
-	function sell (el, p) {
-	  if (arguments.length === 2) {
-	    set(el, p);
-	  }
-	  return get(el);
-	}
+		/**
+		 * Set validator instance
+		 *
+		 * @param {Validator} validator
+		 * @return {void}
+		 */
+		setValidator: function(validator) {
+			this.validator = validator;
+		}
 	
-	module.exports = sell;
+	};
+	
+	var manager = {
+	
+		/**
+		 * List of async rule names
+		 *
+		 * @type {Array}
+		 */
+		asyncRules: [],
+	
+		/**
+		 * Implicit rules (rules to always validate)
+		 *
+		 * @type {Array}
+		 */
+		implicitRules: ['required', 'required_if', 'accepted'],
+	
+		/**
+		 * Get rule by name
+		 *
+		 * @param  {string} name
+		 * @param {Validator}
+		 * @return {Rule}
+		 */
+		make: function(name, validator) {
+			var async = this.isAsync(name);
+			var rule = new Rule(name, rules[name], async);
+			rule.setValidator(validator);
+			return rule;
+		},
+	
+		/**
+		 * Determine if given rule is async
+		 *
+		 * @param  {string}  name
+		 * @return {boolean}
+		 */
+		isAsync: function(name) {
+			for (var i = 0, len = this.asyncRules.length; i < len; i++) {
+				if (this.asyncRules[i] === name) {
+					return true;
+				}
+			}
+			return false;
+		},
+	
+		/**
+		 * Determine if rule is implicit (should always validate)
+		 *
+		 * @param {string} name
+		 * @return {boolean}
+		 */
+		isImplicit: function(name) {
+			return this.implicitRules.indexOf(name) > -1;
+		},
+	
+		/**
+		 * Register new rule
+		 *
+		 * @param  {string}   name
+		 * @param  {function} fn
+		 * @return {void}
+		 */
+		register: function(name, fn) {
+			rules[name] = fn;
+		},
+	
+		/**
+		 * Register async rule
+		 *
+		 * @param  {string}   name
+		 * @param  {function} fn
+		 * @return {void}
+		 */
+		registerAsync: function(name, fn) {
+			this.register(name, fn);
+			this.asyncRules.push(name);
+		}
+	
+	};
+	
+	
+	module.exports = manager;
 
 
 /***/ },
 /* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+	var Messages = __webpack_require__(65);
 	
-	var customEvent = __webpack_require__(29);
-	var eventmap = __webpack_require__(65);
-	var doc = document;
-	var addEvent = addEventEasy;
-	var removeEvent = removeEventEasy;
-	var hardCache = [];
+	__webpack_require__(67);
 	
-	if (!global.addEventListener) {
-	  addEvent = addEventHard;
-	  removeEvent = removeEventHard;
-	}
+	var container = {
 	
-	function addEventEasy (el, type, fn, capturing) {
-	  return el.addEventListener(type, fn, capturing);
-	}
+		messages: {},
 	
-	function addEventHard (el, type, fn) {
-	  return el.attachEvent('on' + type, wrap(el, type, fn));
-	}
+		/**
+		 * Set messages for language
+		 *
+		 * @param {string} lang
+		 * @param {object} rawMessages
+		 * @return {void}
+		 */
+		_set: function(lang, rawMessages) {
+			this.messages[lang] = rawMessages;
+		},
 	
-	function removeEventEasy (el, type, fn, capturing) {
-	  return el.removeEventListener(type, fn, capturing);
-	}
+		/**
+		 * Set message for given language's rule.
+		 *
+		 * @param {string} lang
+		 * @param {string} attribute
+		 * @param {string|object} message
+		 * @return {void}
+		 */
+		_setRuleMessage: function(lang, attribute, message) {
+			this._load(lang);
+			if (message === undefined) {
+				message = this.messages[lang].def;
+			}
 	
-	function removeEventHard (el, type, fn) {
-	  return el.detachEvent('on' + type, unwrap(el, type, fn));
-	}
+			this.messages[lang][attribute] = message;
+		},
 	
-	function fabricateEvent (el, type, model) {
-	  var e = eventmap.indexOf(type) === -1 ? makeCustomEvent() : makeClassicEvent();
-	  if (el.dispatchEvent) {
-	    el.dispatchEvent(e);
-	  } else {
-	    el.fireEvent('on' + type, e);
-	  }
-	  function makeClassicEvent () {
-	    var e;
-	    if (doc.createEvent) {
-	      e = doc.createEvent('Event');
-	      e.initEvent(type, true, true);
-	    } else if (doc.createEventObject) {
-	      e = doc.createEventObject();
-	    }
-	    return e;
-	  }
-	  function makeCustomEvent () {
-	    return new customEvent(type, { detail: model });
-	  }
-	}
+		/**
+		 * Load messages (if not already loaded)
+		 *
+		 * @param  {string} lang 
+		 * @return {void}
+		 */
+		_load: function(lang) {
+			if (!this.messages[lang]) {
+				var rawMessages = __webpack_require__(68)("./" + lang);
+				this._set(lang, rawMessages);
+			}
+		},
 	
-	function wrapperFactory (el, type, fn) {
-	  return function wrapper (originalEvent) {
-	    var e = originalEvent || global.event;
-	    e.target = e.target || e.srcElement;
-	    e.preventDefault = e.preventDefault || function preventDefault () { e.returnValue = false; };
-	    e.stopPropagation = e.stopPropagation || function stopPropagation () { e.cancelBubble = true; };
-	    e.which = e.which || e.keyCode;
-	    fn.call(el, e);
-	  };
-	}
+		/**
+		 * Get raw messages for language
+		 *
+		 * @param  {string} lang
+		 * @return {object}
+		 */
+		_get: function(lang) {
+			this._load(lang);
+			return this.messages[lang];
+		},
 	
-	function wrap (el, type, fn) {
-	  var wrapper = unwrap(el, type, fn) || wrapperFactory(el, type, fn);
-	  hardCache.push({
-	    wrapper: wrapper,
-	    element: el,
-	    type: type,
-	    fn: fn
-	  });
-	  return wrapper;
-	}
+		/**
+		 * Make messages for given language
+		 *
+		 * @param  {string} lang
+		 * @return {Messages}
+		 */
+		_make: function(lang) {
+			this._load(lang);
+			return new Messages(lang, this.messages[lang]);
+		}
 	
-	function unwrap (el, type, fn) {
-	  var i = find(el, type, fn);
-	  if (i) {
-	    var wrapper = hardCache[i].wrapper;
-	    hardCache.splice(i, 1); // free up a tad of memory
-	    return wrapper;
-	  }
-	}
-	
-	function find (el, type, fn) {
-	  var i, item;
-	  for (i = 0; i < hardCache.length; i++) {
-	    item = hardCache[i];
-	    if (item.element === el && item.type === type && item.fn === fn) {
-	      return i;
-	    }
-	  }
-	}
-	
-	module.exports = {
-	  add: addEvent,
-	  remove: removeEvent,
-	  fabricate: fabricateEvent
 	};
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+	module.exports = container;
+
 
 /***/ },
 /* 65 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+	var Attributes = __webpack_require__(66);
 	
-	var eventmap = [];
-	var eventname = '';
-	var ron = /^on/;
+	var Messages = function(lang, messages) {
+		this.lang = lang;
+		this.messages = messages;
+		this.customMessages = {};
+		this.attributeNames = {};
+	};
 	
-	for (eventname in global) {
-	  if (ron.test(eventname)) {
-	    eventmap.push(eventname.slice(2));
-	  }
-	}
+	Messages.prototype = {
+		constructor: Messages,
 	
-	module.exports = eventmap;
+		/**
+		 * Set custom messages
+		 *
+		 * @param {object} customMessages
+		 * @return {void}
+		 */
+		_setCustom: function(customMessages) {
+			this.customMessages = customMessages || {};
+		},
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+		/**
+		 * Set custom attribute names.
+		 *
+		 * @param {object} attributes
+		 */
+		_setAttributeNames: function(attributes) {
+			this.attributeNames = attributes;
+		},
+	
+		/**
+		 * Set the attribute formatter.
+		 *
+		 * @param {fuction} func
+		 * @return {void}
+		 */
+		_setAttributeFormatter: function(func) {
+			this.attributeFormatter = func;
+		},
+	
+		/**
+		 * Get attribute name to display.
+		 *
+		 * @param  {string} attribute
+		 * @return {string}
+		 */
+		_getAttributeName: function(attribute) {
+			var name = attribute;
+			if (this.attributeNames.hasOwnProperty(attribute)) {
+				return this.attributeNames[attribute];
+			}
+			else if (this.messages.attributes.hasOwnProperty(attribute)) {
+				name = this.messages.attributes[attribute];
+			}
+	
+			if (this.attributeFormatter)
+			{
+				name = this.attributeFormatter(name);
+			}
+			
+			return name;
+		},
+	
+		/**
+		 * Get all messages
+		 *
+		 * @return {object}
+		 */
+		all: function() {
+			return this.messages;
+		},
+	
+		/**
+		 * Render message
+		 *
+		 * @param  {Rule} rule
+		 * @return {string}
+		 */
+		render: function(rule) {
+			if (rule.customMessage) {
+				return rule.customMessage;
+			}
+			var template = this._getTemplate(rule);
+	
+			var message;
+			if (Attributes.replacements[rule.name]) {
+				message = Attributes.replacements[rule.name].apply(this, [template, rule]);
+			}
+			else {
+				message = this._replacePlaceholders(rule, template, {});
+			}
+	
+			return message;
+		},
+	
+		/**
+		 * Get the template to use for given rule
+		 *
+		 * @param  {Rule} rule
+		 * @return {string}
+		 */
+		_getTemplate: function(rule) {
+	
+			var messages = this.messages;
+			var template = messages.def;
+			var customMessages = this.customMessages;
+			var formats = [rule.name + '.' + rule.attribute, rule.name];
+	
+			for (var i = 0, format; i < formats.length; i++) {
+				format = formats[i];
+				if (customMessages.hasOwnProperty(format)) {
+					template = customMessages[format];
+					break;
+				}
+				else if (messages.hasOwnProperty(format)) {
+					template = messages[format];
+					break;
+				}
+			}
+	
+			if (typeof template === 'object') {
+				template = template[rule._getValueType()];
+			}
+	
+			return template;
+		},
+	
+		/**
+		 * Replace placeholders in the template using the data object
+		 *
+		 * @param  {Rule} rule
+		 * @param  {string} template
+		 * @param  {object} data
+		 * @return {string}
+		 */
+		_replacePlaceholders: function(rule, template, data) {
+			var message, attribute;
+	
+			data.attribute = this._getAttributeName(rule.attribute);
+			data[rule.name] = rule.getParameters().join(',');
+	
+			if (typeof template === 'string' && typeof data === 'object') {
+				message = template;
+	
+				for (attribute in data) {
+					message = message.replace(':' + attribute, data[attribute]);
+				}
+			}
+	
+			return message;
+		}
+	
+	};
+	
+	module.exports = Messages;
+
 
 /***/ },
 /* 66 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';
+	var replacements = {
 	
-	var crossvent = __webpack_require__(64);
-	var throttle = __webpack_require__(67);
-	var tailormade = __webpack_require__(68);
+		/**
+		 * Between replacement (replaces :min and :max)
+		 *
+		 * @param  {string} template
+		 * @param  {Rule} rule
+		 * @return {string}
+		 */
+		between: function(template, rule) {
+			var parameters = rule.getParameters();
+			return this._replacePlaceholders(rule, template, { min: parameters[0], max: parameters[1] });
+		},
 	
-	function bullseye (el, target, options) {
-	  var o = options;
-	  var domTarget = target && target.tagName;
+		/**
+		 * Required_if replacement.
+		 *
+		 * @param  {string} template
+		 * @param  {Rule} rule
+		 * @return {string}
+		 */
+		required_if: function(template, rule) {
+			var parameters = rule.getParameters();
+			return this._replacePlaceholders(rule, template, { other: parameters[0], value: parameters[1] });
+		}
+	};
 	
-	  if (!domTarget && arguments.length === 2) {
-	    o = target;
-	  }
-	  if (!domTarget) {
-	    target = el;
-	  }
-	  if (!o) { o = {}; }
-	
-	  var destroyed = false;
-	  var throttledWrite = throttle(write, 30);
-	  var tailorOptions = { update: o.autoupdateToCaret !== false && update };
-	  var tailor = o.caret && tailormade(target, tailorOptions);
-	
-	  write();
-	
-	  if (o.tracking !== false) {
-	    crossvent.add(window, 'resize', throttledWrite);
-	  }
-	
-	  return {
-	    read: readNull,
-	    refresh: write,
-	    destroy: destroy,
-	    sleep: sleep
-	  };
-	
-	  function sleep () {
-	    tailorOptions.sleeping = true;
-	  }
-	
-	  function readNull () { return read(); }
-	
-	  function read (readings) {
-	    var bounds = target.getBoundingClientRect();
-	    var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-	    if (tailor) {
-	      readings = tailor.read();
-	      return {
-	        x: (readings.absolute ? 0 : bounds.left) + readings.x,
-	        y: (readings.absolute ? 0 : bounds.top) + scrollTop + readings.y + 20
-	      };
-	    }
-	    return {
-	      x: bounds.left,
-	      y: bounds.top + scrollTop
-	    };
-	  }
-	
-	  function update (readings) {
-	    write(readings);
-	  }
-	
-	  function write (readings) {
-	    if (destroyed) {
-	      throw new Error('Bullseye can\'t refresh after being destroyed. Create another instance instead.');
-	    }
-	    if (tailor && !readings) {
-	      tailorOptions.sleeping = false;
-	      tailor.refresh(); return;
-	    }
-	    var p = read(readings);
-	    if (!tailor && target !== el) {
-	      p.y += target.offsetHeight;
-	    }
-	    el.style.left = p.x + 'px';
-	    el.style.top = p.y + 'px';
-	  }
-	
-	  function destroy () {
-	    if (tailor) { tailor.destroy(); }
-	    crossvent.remove(window, 'resize', throttledWrite);
-	    destroyed = true;
-	  }
+	function formatter(attribute)
+	{
+		return attribute.replace(/[_\[]/g, ' ').replace(/]/g, '');
 	}
 	
-	module.exports = bullseye;
+	module.exports = {
+		replacements: replacements,
+		formatter: formatter
+	};
 
 
 /***/ },
 /* 67 */
 /***/ function(module, exports) {
 
-	'use strict';
-	
-	function throttle (fn, boundary) {
-	  var last = -Infinity;
-	  var timer;
-	  return function bounced () {
-	    if (timer) {
-	      return;
-	    }
-	    unbound();
-	
-	    function unbound () {
-	      clearTimeout(timer);
-	      timer = null;
-	      var next = last + boundary;
-	      var now = Date.now();
-	      if (now > next) {
-	        last = now;
-	        fn();
-	      } else {
-	        timer = setTimeout(unbound, next - now);
-	      }
-	    }
-	  };
-	}
-	
-	module.exports = throttle;
-
+	module.exports = {
+		accepted: 'The :attribute must be accepted.',
+		alpha: 'The :attribute field must contain only alphabetic characters.',
+		alpha_dash: 'The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.',
+		alpha_num: 'The :attribute field must be alphanumeric.',
+		between: 'The :attribute field must be between :min and :max.',
+		confirmed: 'The :attribute confirmation does not match.',
+		email: 'The :attribute format is invalid.',
+		def: 'The :attribute attribute has errors.',
+		digits: 'The :attribute must be :digits digits.',
+		different: 'The :attribute and :different must be different.',
+		'in': 'The selected :attribute is invalid.',
+		integer: 'The :attribute must be an integer.',
+		min: {
+			numeric: 'The :attribute must be at least :min.',
+			string: 'The :attribute must be at least :min characters.'
+		},
+		max: {
+			numeric: 'The :attribute must be less than :max.',
+			string: 'The :attribute must be less than :max characters.'
+		},
+		not_in: 'The selected :attribute is invalid.',
+		numeric: 'The :attribute must be a number.',
+		required: 'The :attribute field is required.',
+		required_if: 'The :attribute field is required when :other is :value.',
+		same: 'The :attribute and :same fields must match.',
+		size: {
+			numeric: 'The :attribute must be :size.',
+			string: 'The :attribute must be :size characters.'
+		},
+		url: 'The :attribute format is invalid.',
+		regex: 'The :attribute format is invalid',
+		attributes: {}
+	};
 
 /***/ },
 /* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
-	
-	var sell = __webpack_require__(63);
-	var crossvent = __webpack_require__(64);
-	var seleccion = __webpack_require__(69);
-	var throttle = __webpack_require__(67);
-	var getSelection = seleccion.get;
-	var props = [
-	  'direction',
-	  'boxSizing',
-	  'width',
-	  'height',
-	  'overflowX',
-	  'overflowY',
-	  'borderTopWidth',
-	  'borderRightWidth',
-	  'borderBottomWidth',
-	  'borderLeftWidth',
-	  'paddingTop',
-	  'paddingRight',
-	  'paddingBottom',
-	  'paddingLeft',
-	  'fontStyle',
-	  'fontVariant',
-	  'fontWeight',
-	  'fontStretch',
-	  'fontSize',
-	  'fontSizeAdjust',
-	  'lineHeight',
-	  'fontFamily',
-	  'textAlign',
-	  'textTransform',
-	  'textIndent',
-	  'textDecoration',
-	  'letterSpacing',
-	  'wordSpacing'
-	];
-	var win = global;
-	var doc = document;
-	var ff = win.mozInnerScreenX !== null && win.mozInnerScreenX !== void 0;
-	
-	function tailormade (el, options) {
-	  var textInput = el.tagName === 'INPUT' || el.tagName === 'TEXTAREA';
-	  var throttledRefresh = throttle(refresh, 30);
-	  var o = options || {};
-	
-	  bind();
-	
-	  return {
-	    read: readPosition,
-	    refresh: throttledRefresh,
-	    destroy: destroy
-	  };
-	
-	  function noop () {}
-	  function readPosition () { return (textInput ? coordsText : coordsHTML)(); }
-	
-	  function refresh () {
-	    if (o.sleeping) {
-	      return;
-	    }
-	    return (o.update || noop)(readPosition());
-	  }
-	
-	  function coordsText () {
-	    var p = sell(el);
-	    var context = prepare();
-	    var readings = readTextCoords(context, p.start);
-	    doc.body.removeChild(context.mirror);
-	    return readings;
-	  }
-	
-	  function coordsHTML () {
-	    var sel = getSelection();
-	    if (sel.rangeCount) {
-	      var range = sel.getRangeAt(0);
-	      var needsToWorkAroundNewlineBug = range.startContainer.nodeName === 'P' && range.startOffset === 0;
-	      if (needsToWorkAroundNewlineBug) {
-	        return {
-	          x: range.startContainer.offsetLeft,
-	          y: range.startContainer.offsetTop,
-	          absolute: true
-	        };
-	      }
-	      if (range.getClientRects) {
-	        var rects = range.getClientRects();
-	        if (rects.length > 0) {
-	          return {
-	            x: rects[0].left,
-	            y: rects[0].top,
-	            absolute: true
-	          };
-	        }
-	      }
-	    }
-	    return { x: 0, y: 0 };
-	  }
-	
-	  function readTextCoords (context, p) {
-	    var rest = doc.createElement('span');
-	    var mirror = context.mirror;
-	    var computed = context.computed;
-	
-	    write(mirror, read(el).substring(0, p));
-	
-	    if (el.tagName === 'INPUT') {
-	      mirror.textContent = mirror.textContent.replace(/\s/g, '\u00a0');
-	    }
-	
-	    write(rest, read(el).substring(p) || '.');
-	
-	    mirror.appendChild(rest);
-	
-	    return {
-	      x: rest.offsetLeft + parseInt(computed['borderLeftWidth']),
-	      y: rest.offsetTop + parseInt(computed['borderTopWidth'])
-	    };
-	  }
-	
-	  function read (el) {
-	    return textInput ? el.value : el.innerHTML;
-	  }
-	
-	  function prepare () {
-	    var computed = win.getComputedStyle ? getComputedStyle(el) : el.currentStyle;
-	    var mirror = doc.createElement('div');
-	    var style = mirror.style;
-	
-	    doc.body.appendChild(mirror);
-	
-	    if (el.tagName !== 'INPUT') {
-	      style.wordWrap = 'break-word';
-	    }
-	    style.whiteSpace = 'pre-wrap';
-	    style.position = 'absolute';
-	    style.visibility = 'hidden';
-	    props.forEach(copy);
-	
-	    if (ff) {
-	      style.width = parseInt(computed.width) - 2 + 'px';
-	      if (el.scrollHeight > parseInt(computed.height)) {
-	        style.overflowY = 'scroll';
-	      }
-	    } else {
-	      style.overflow = 'hidden';
-	    }
-	    return { mirror: mirror, computed: computed };
-	
-	    function copy (prop) {
-	      style[prop] = computed[prop];
-	    }
-	  }
-	
-	  function write (el, value) {
-	    if (textInput) {
-	      el.textContent = value;
-	    } else {
-	      el.innerHTML = value;
-	    }
-	  }
-	
-	  function bind (remove) {
-	    var op = remove ? 'remove' : 'add';
-	    crossvent[op](el, 'keydown', throttledRefresh);
-	    crossvent[op](el, 'keyup', throttledRefresh);
-	    crossvent[op](el, 'input', throttledRefresh);
-	    crossvent[op](el, 'paste', throttledRefresh);
-	    crossvent[op](el, 'change', throttledRefresh);
-	  }
-	
-	  function destroy () {
-	    bind(true);
-	  }
-	}
-	
-	module.exports = tailormade;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+	var map = {
+		"./en": 67,
+		"./en.js": 67,
+		"./es": 69,
+		"./es.js": 69,
+		"./ru": 70,
+		"./ru.js": 70
+	};
+	function webpackContext(req) {
+		return __webpack_require__(webpackContextResolve(req));
+	};
+	function webpackContextResolve(req) {
+		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
+	};
+	webpackContext.keys = function webpackContextKeys() {
+		return Object.keys(map);
+	};
+	webpackContext.resolve = webpackContextResolve;
+	module.exports = webpackContext;
+	webpackContext.id = 68;
+
 
 /***/ },
 /* 69 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';
-	
-	var getSelection = __webpack_require__(70);
-	var setSelection = __webpack_require__(76);
-	
 	module.exports = {
-	  get: getSelection,
-	  set: setSelection
+	    accepted: 'El campo :attribute debe ser aceptado.',
+	    alpha: 'El campo :attribute solo debe contener letras.',
+	    alpha_dash: 'El campo :attribute solo debe contener letras, números y guiones.',
+	    alpha_num: 'El campo :attribute solo debe contener letras y números.',
+	    attributes: {},
+	    between: 'El campo :attribute tiene que estar entre :min - :max.',
+	    confirmed: 'La confirmación de :attribute no coincide.',
+	    different: 'El campo :attribute y :other deben ser diferentes.',
+	    digits: 'El campo :attribute debe tener :digits dígitos.',
+	    email: 'El campo :attribute no es un correo válido',
+	    'in': 'El campo :attribute es inválido.',
+	    integer: 'El campo :attribute debe ser un número entero.',
+	    max: {
+	        numeric: 'El campo :attribute no debe ser mayor a :max.',
+	        string: 'El campo :attribute no debe ser mayor que :max caracteres.'
+	    },
+	    min: {
+	        numeric: 'El tamaño del campo :attribute debe ser de al menos :min.',
+	        string: 'El campo :attribute debe contener al menos :min caracteres.'
+	    },
+	    not_in: 'El campo :attribute es inválido.',
+	    numeric: 'El campo :attribute debe ser numérico.',
+	    regex: 'El formato del campo :attribute es inválido.',
+	    required: 'El campo :attribute es obligatorio.',
+	    required_if: 'El campo :attribute es obligatorio cuando :other es :value.',
+	    same: 'El campo :attribute y :other deben coincidir.',
+	    size: {
+	        numeric: 'El tamaño del campo :attribute debe ser :size.',
+	        string: 'El campo :attribute debe contener :size caracteres.'
+	    },
+	    url: 'El formato de :attribute es inválido.'
 	};
 
 
 /***/ },
 /* 70 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
-	
-	var getSelection;
-	var doc = global.document;
-	var getSelectionRaw = __webpack_require__(71);
-	var getSelectionNullOp = __webpack_require__(72);
-	var getSelectionSynthetic = __webpack_require__(73);
-	var isHost = __webpack_require__(75);
-	if (isHost.method(global, 'getSelection')) {
-	  getSelection = getSelectionRaw;
-	} else if (typeof doc.selection === 'object' && doc.selection) {
-	  getSelection = getSelectionSynthetic;
-	} else {
-	  getSelection = getSelectionNullOp;
-	}
-	
-	module.exports = getSelection;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+	module.exports = {
+		accepted: 'Вы должны принять :attribute.',
+		alpha: 'Поле :attribute может содержать только буквы.',
+		alpha_dash: '"Поле :attribute может содержать только буквы, цифры, дефисы и символы подчёркивания.',
+		alpha_num: 'Поле :attribute может содержать только буквы и цифры.',
+		between: 'Поле :attribute должно быть между :min :max и.',
+		confirmed: 'Поле :attribute не совпадает с подтверждением.',
+		email: 'Поле :attribute должно быть действительным электронным адресом.',
+		def: 'Поле :attribute содержит ошибки.',
+		digits: 'Длина цифрового поля :attribute должна быть :digits.',
+		different: 'Поля :attribute и :different должны различаться.',
+		'in': 'Выбранное значение для :attribute ошибочно.',
+		integer: 'Поле :attribute должно быть целым числом.',
+		min: {
+			numeric: 'Поле :attribute должно быть не менее :min.',
+			string: 'Количество символов в поле :attribute должно быть не менее :min.'
+		},
+		max: {
+			numeric: 'Поле :attribute не может быть более :max.',
+			string: 'Количество символов в поле :attribute не может превышать :max.'
+		},
+		not_in: 'Выбранное значение для :attribute ошибочно.',
+		numeric: 'Поле :attribute должно быть числом.',
+		required: 'Поле :attribute обязательно для заполнения.',
+		required_if: 'Поле :attribute требуется при :attribute :other является.',
+		same: 'Значение :attribute должно совпадать с :same.',
+		size: {
+			numeric: 'Поле :attribute должно быть равным :size.',
+			string: 'Количество символов в поле :attribute должно быть равным :size.'
+		},
+		url: 'Поле :attribute имеет ошибочный формат.',
+		regex: 'Поле :attribute имеет ошибочный формат.',
+		attributes: {}
+	};
 
 /***/ },
 /* 71 */
 /***/ function(module, exports) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+	var Errors = function() {
+		this.errors = {};
+	};
 	
-	function getSelectionRaw () {
-	  return global.getSelection();
-	}
+	Errors.prototype = {
+		constructor: Errors,
 	
-	module.exports = getSelectionRaw;
+		/**
+		 * Add new error message for given attribute
+		 *
+		 * @param  {string} attribute
+		 * @param  {string} message
+		 * @return {void}
+		 */
+		add: function(attribute, message) {
+			if (!this.has(attribute)) {
+				this.errors[attribute] = [];
+			}
+			this.errors[attribute].push(message);
+		},
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+		/**
+		 * Returns an array of error messages for an attribute, or an empty array
+		 * 
+		 * @param  {string} attribute A key in the data object being validated
+		 * @return {array} An array of error messages
+		 */
+		get: function(attribute) {
+			if (this.has(attribute)) {
+				return this.errors[attribute];
+			}
+	
+			return [];
+		},
+	
+		/**
+		 * Returns the first error message for an attribute, false otherwise
+		 * 
+		 * @param  {string} attribute A key in the data object being validated
+		 * @return {string|false} First error message or false
+		 */
+		first: function(attribute) {
+			if (this.has(attribute)) {
+				return this.errors[attribute][0];
+			}
+	
+			return false;
+		},
+	
+		/**
+		 * Get all error messages from all failing attributes
+		 * 
+		 * @return {Object} Failed attribute names for keys and an array of messages for values
+		 */
+		all: function() {
+			return this.errors;
+		},
+	
+		/**
+		 * Determine if there are any error messages for an attribute
+		 * 
+		 * @param  {string}  attribute A key in the data object being validated
+		 * @return {boolean}
+		 */
+		has: function(attribute) {
+			if (this.errors.hasOwnProperty(attribute)) {
+				return true;
+			}
+	
+			return false;
+		}
+	};
+	
+	module.exports = Errors;
 
 /***/ },
 /* 72 */
 /***/ function(module, exports) {
 
-	'use strict';
-	
-	function noop () {}
-	
-	function getSelectionNullOp () {
-	  return {
-	    removeAllRanges: noop,
-	    addRange: noop
-	  };
+	function AsyncResolvers(onFailedOne, onResolvedAll) {
+		this.onResolvedAll = onResolvedAll;
+		this.onFailedOne = onFailedOne;
+		this.resolvers = {};
+		this.resolversCount = 0;
+		this.passed = [];
+		this.failed = [];
+		this.firing = false;
 	}
 	
-	module.exports = getSelectionNullOp;
+	AsyncResolvers.prototype = {
+	
+		/**
+		 * Add resolver
+		 *
+		 * @param {Rule} rule
+		 * @return {integer}
+		 */
+		add: function(rule) {
+			var index = this.resolversCount;
+			this.resolvers[index] = rule;
+			this.resolversCount++;
+			return index;
+		},
+	
+		/**
+		 * Resolve given index
+		 *
+		 * @param  {integer} index
+		 * @return {void}
+		 */
+		resolve: function(index) {
+			var rule = this.resolvers[index];
+			if (rule.passes === true) {
+				this.passed.push(rule);
+			}
+			else if (rule.passes === false) {
+				this.failed.push(rule);
+				this.onFailedOne(rule);
+			}
+	
+			this.fire();
+		},
+	
+		/**
+		 * Determine if all have been resolved
+		 *
+		 * @return {boolean}
+		 */
+		isAllResolved: function() {
+			return (this.passed.length + this.failed.length) === this.resolversCount;
+		},
+	
+		/**
+		 * Attempt to fire final all resolved callback if completed
+		 *
+		 * @return {void}
+		 */
+		fire: function() {
+	
+			if (!this.firing) {
+				return;
+			}
+	
+			if (this.isAllResolved()) {
+				this.onResolvedAll(this.failed.length === 0);
+			}
+	
+		},
+	
+		/**
+		 * Enable firing
+		 *
+		 * @return {void}
+		 */
+		enableFiring: function() {
+			this.firing = true;
+		}
+	
+	};
+	
+	module.exports = AsyncResolvers;
 
 
 /***/ },
 /* 73 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
-	
-	var rangeToTextRange = __webpack_require__(74);
-	var doc = global.document;
-	var body = doc.body;
-	var GetSelectionProto = GetSelection.prototype;
-	
-	function GetSelection (selection) {
-	  var self = this;
-	  var range = selection.createRange();
-	
-	  this._selection = selection;
-	  this._ranges = [];
-	
-	  if (selection.type === 'Control') {
-	    updateControlSelection(self);
-	  } else if (isTextRange(range)) {
-	    updateFromTextRange(self, range);
-	  } else {
-	    updateEmptySelection(self);
-	  }
-	}
-	
-	GetSelectionProto.removeAllRanges = function () {
-	  var textRange;
-	  try {
-	    this._selection.empty();
-	    if (this._selection.type !== 'None') {
-	      textRange = body.createTextRange();
-	      textRange.select();
-	      this._selection.empty();
-	    }
-	  } catch (e) {
-	  }
-	  updateEmptySelection(this);
-	};
-	
-	GetSelectionProto.addRange = function (range) {
-	  if (this._selection.type === 'Control') {
-	    addRangeToControlSelection(this, range);
-	  } else {
-	    rangeToTextRange(range).select();
-	    this._ranges[0] = range;
-	    this.rangeCount = 1;
-	    this.isCollapsed = this._ranges[0].collapsed;
-	    updateAnchorAndFocusFromRange(this, range, false);
-	  }
-	};
-	
-	GetSelectionProto.setRanges = function (ranges) {
-	  this.removeAllRanges();
-	  var rangeCount = ranges.length;
-	  if (rangeCount > 1) {
-	    createControlSelection(this, ranges);
-	  } else if (rangeCount) {
-	    this.addRange(ranges[0]);
-	  }
-	};
-	
-	GetSelectionProto.getRangeAt = function (index) {
-	  if (index < 0 || index >= this.rangeCount) {
-	    throw new Error('getRangeAt(): index out of bounds');
-	  } else {
-	    return this._ranges[index].cloneRange();
-	  }
-	};
-	
-	GetSelectionProto.removeRange = function (range) {
-	  if (this._selection.type !== 'Control') {
-	    removeRangeManually(this, range);
-	    return;
-	  }
-	  var controlRange = this._selection.createRange();
-	  var rangeElement = getSingleElementFromRange(range);
-	  var newControlRange = body.createControlRange();
-	  var el;
-	  var removed = false;
-	  for (var i = 0, len = controlRange.length; i < len; ++i) {
-	    el = controlRange.item(i);
-	    if (el !== rangeElement || removed) {
-	      newControlRange.add(controlRange.item(i));
-	    } else {
-	      removed = true;
-	    }
-	  }
-	  newControlRange.select();
-	  updateControlSelection(this);
-	};
-	
-	GetSelectionProto.eachRange = function (fn, returnValue) {
-	  var i = 0;
-	  var len = this._ranges.length;
-	  for (i = 0; i < len; ++i) {
-	    if (fn(this.getRangeAt(i))) {
-	      return returnValue;
-	    }
-	  }
-	};
-	
-	GetSelectionProto.getAllRanges = function () {
-	  var ranges = [];
-	  this.eachRange(function (range) {
-	    ranges.push(range);
-	  });
-	  return ranges;
-	};
-	
-	GetSelectionProto.setSingleRange = function (range) {
-	  this.removeAllRanges();
-	  this.addRange(range);
-	};
-	
-	function createControlSelection (sel, ranges) {
-	  var controlRange = body.createControlRange();
-	  for (var i = 0, el, len = ranges.length; i < len; ++i) {
-	    el = getSingleElementFromRange(ranges[i]);
-	    try {
-	      controlRange.add(el);
-	    } catch (e) {
-	      throw new Error('setRanges(): Element could not be added to control selection');
-	    }
-	  }
-	  controlRange.select();
-	  updateControlSelection(sel);
-	}
-	
-	function removeRangeManually (sel, range) {
-	  var ranges = sel.getAllRanges();
-	  sel.removeAllRanges();
-	  for (var i = 0, len = ranges.length; i < len; ++i) {
-	    if (!isSameRange(range, ranges[i])) {
-	      sel.addRange(ranges[i]);
-	    }
-	  }
-	  if (!sel.rangeCount) {
-	    updateEmptySelection(sel);
-	  }
-	}
-	
-	function updateAnchorAndFocusFromRange (sel, range) {
-	  var anchorPrefix = 'start';
-	  var focusPrefix = 'end';
-	  sel.anchorNode = range[anchorPrefix + 'Container'];
-	  sel.anchorOffset = range[anchorPrefix + 'Offset'];
-	  sel.focusNode = range[focusPrefix + 'Container'];
-	  sel.focusOffset = range[focusPrefix + 'Offset'];
-	}
-	
-	function updateEmptySelection (sel) {
-	  sel.anchorNode = sel.focusNode = null;
-	  sel.anchorOffset = sel.focusOffset = 0;
-	  sel.rangeCount = 0;
-	  sel.isCollapsed = true;
-	  sel._ranges.length = 0;
-	}
-	
-	function rangeContainsSingleElement (rangeNodes) {
-	  if (!rangeNodes.length || rangeNodes[0].nodeType !== 1) {
-	    return false;
-	  }
-	  for (var i = 1, len = rangeNodes.length; i < len; ++i) {
-	    if (!isAncestorOf(rangeNodes[0], rangeNodes[i])) {
-	      return false;
-	    }
-	  }
-	  return true;
-	}
-	
-	function getSingleElementFromRange (range) {
-	  var nodes = range.getNodes();
-	  if (!rangeContainsSingleElement(nodes)) {
-	    throw new Error('getSingleElementFromRange(): range did not consist of a single element');
-	  }
-	  return nodes[0];
-	}
-	
-	function isTextRange (range) {
-	  return range && range.text !== void 0;
-	}
-	
-	function updateFromTextRange (sel, range) {
-	  sel._ranges = [range];
-	  updateAnchorAndFocusFromRange(sel, range, false);
-	  sel.rangeCount = 1;
-	  sel.isCollapsed = range.collapsed;
-	}
-	
-	function updateControlSelection (sel) {
-	  sel._ranges.length = 0;
-	  if (sel._selection.type === 'None') {
-	    updateEmptySelection(sel);
-	  } else {
-	    var controlRange = sel._selection.createRange();
-	    if (isTextRange(controlRange)) {
-	      updateFromTextRange(sel, controlRange);
-	    } else {
-	      sel.rangeCount = controlRange.length;
-	      var range;
-	      for (var i = 0; i < sel.rangeCount; ++i) {
-	        range = doc.createRange();
-	        range.selectNode(controlRange.item(i));
-	        sel._ranges.push(range);
-	      }
-	      sel.isCollapsed = sel.rangeCount === 1 && sel._ranges[0].collapsed;
-	      updateAnchorAndFocusFromRange(sel, sel._ranges[sel.rangeCount - 1], false);
-	    }
-	  }
-	}
-	
-	function addRangeToControlSelection (sel, range) {
-	  var controlRange = sel._selection.createRange();
-	  var rangeElement = getSingleElementFromRange(range);
-	  var newControlRange = body.createControlRange();
-	  for (var i = 0, len = controlRange.length; i < len; ++i) {
-	    newControlRange.add(controlRange.item(i));
-	  }
-	  try {
-	    newControlRange.add(rangeElement);
-	  } catch (e) {
-	    throw new Error('addRange(): Element could not be added to control selection');
-	  }
-	  newControlRange.select();
-	  updateControlSelection(sel);
-	}
-	
-	function isSameRange (left, right) {
-	  return (
-	    left.startContainer === right.startContainer &&
-	    left.startOffset === right.startOffset &&
-	    left.endContainer === right.endContainer &&
-	    left.endOffset === right.endOffset
-	  );
-	}
-	
-	function isAncestorOf (ancestor, descendant) {
-	  var node = descendant;
-	  while (node.parentNode) {
-	    if (node.parentNode === ancestor) {
-	      return true;
-	    }
-	    node = node.parentNode;
-	  }
-	  return false;
-	}
-	
-	function getSelection () {
-	  return new GetSelection(global.document.selection);
-	}
-	
-	module.exports = getSelection;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 74 */
-/***/ function(module, exports) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
-	
-	var doc = global.document;
-	var body = doc.body;
-	
-	function rangeToTextRange (p) {
-	  if (p.collapsed) {
-	    return createBoundaryTextRange({ node: p.startContainer, offset: p.startOffset }, true);
-	  }
-	  var startRange = createBoundaryTextRange({ node: p.startContainer, offset: p.startOffset }, true);
-	  var endRange = createBoundaryTextRange({ node: p.endContainer, offset: p.endOffset }, false);
-	  var textRange = body.createTextRange();
-	  textRange.setEndPoint('StartToStart', startRange);
-	  textRange.setEndPoint('EndToEnd', endRange);
-	  return textRange;
-	}
-	
-	function isCharacterDataNode (node) {
-	  var t = node.nodeType;
-	  return t === 3 || t === 4 || t === 8 ;
-	}
-	
-	function createBoundaryTextRange (p, starting) {
-	  var bound;
-	  var parent;
-	  var offset = p.offset;
-	  var workingNode;
-	  var childNodes;
-	  var range = body.createTextRange();
-	  var data = isCharacterDataNode(p.node);
-	
-	  if (data) {
-	    bound = p.node;
-	    parent = bound.parentNode;
-	  } else {
-	    childNodes = p.node.childNodes;
-	    bound = offset < childNodes.length ? childNodes[offset] : null;
-	    parent = p.node;
-	  }
-	
-	  workingNode = doc.createElement('span');
-	  workingNode.innerHTML = '&#feff;';
-	
-	  if (bound) {
-	    parent.insertBefore(workingNode, bound);
-	  } else {
-	    parent.appendChild(workingNode);
-	  }
-	
-	  range.moveToElementText(workingNode);
-	  range.collapse(!starting);
-	  parent.removeChild(workingNode);
-	
-	  if (data) {
-	    range[starting ? 'moveStart' : 'moveEnd']('character', offset);
-	  }
-	  return range;
-	}
-	
-	module.exports = rangeToTextRange;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 75 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	function isHostMethod (host, prop) {
-	  var type = typeof host[prop];
-	  return type === 'function' || !!(type === 'object' && host[prop]) || type === 'unknown';
-	}
-	
-	function isHostProperty (host, prop) {
-	  return typeof host[prop] !== 'undefined';
-	}
-	
-	function many (fn) {
-	  return function areHosted (host, props) {
-	    var i = props.length;
-	    while (i--) {
-	      if (!fn(host, props[i])) {
-	        return false;
-	      }
-	    }
-	    return true;
-	  };
-	}
-	
-	module.exports = {
-	  method: isHostMethod,
-	  methods: many(isHostMethod),
-	  property: isHostProperty,
-	  properties: many(isHostProperty)
-	};
-
-
-/***/ },
-/* 76 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
-	
-	var getSelection = __webpack_require__(70);
-	var rangeToTextRange = __webpack_require__(74);
-	var doc = global.document;
-	
-	function setSelection (p) {
-	  if (doc.createRange) {
-	    modernSelection();
-	  } else {
-	    oldSelection();
-	  }
-	
-	  function modernSelection () {
-	    var sel = getSelection();
-	    var range = doc.createRange();
-	    if (!p.startContainer) {
-	      return;
-	    }
-	    if (p.endContainer) {
-	      range.setEnd(p.endContainer, p.endOffset);
-	    } else {
-	      range.setEnd(p.startContainer, p.startOffset);
-	    }
-	    range.setStart(p.startContainer, p.startOffset);
-	    sel.removeAllRanges();
-	    sel.addRange(range);
-	  }
-	
-	  function oldSelection () {
-	    rangeToTextRange(p).select();
-	  }
-	}
-	
-	module.exports = setSelection;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 77 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6781,7 +6703,138 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(75)
+	__vue_script__ = __webpack_require__(76)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\UiAutocompleteSuggestion.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(78)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "C:\\code\\packages\\keen-ui\\src\\UiAutocompleteSuggestion.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 75 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 76 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _uuid = __webpack_require__(77);
+	
+	var _uuid2 = _interopRequireDefault(_uuid);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
+	    name: 'ui-autocomplete-suggestion',
+	
+	    props: {
+	        id: {
+	            type: String,
+	            default: function _default() {
+	                return _uuid2.default.short();
+	            }
+	        },
+	        item: {
+	            type: [String, Object],
+	            required: true
+	        },
+	        partial: {
+	            type: String,
+	            default: 'ui-autocomplete-simple' },
+	        highlighted: {
+	            type: Boolean,
+	            default: false
+	        }
+	    },
+	
+	    partials: {
+	        'ui-autocomplete-simple': '<li class="ui-autocomplete-suggestion-item" v-text="item.text || item"></li>',
+	
+	        'ui-autocomplete-image': '<div class="image" :style="{ \'background-image\': \'url(\' + item.image + \')\' }"></div>\n            <div class="text" v-text="item.text"></div>'
+	    }
+	};
+
+/***/ },
+/* 77 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Fast UUID generator, RFC4122 version 4 compliant.
+	 * @author Jeff Ward (jcward.com).
+	 * @license MIT license
+	 * @link http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
+	 **/
+	
+	var lut = [];
+	
+	for (var i = 0; i < 256; i++) {
+	    lut[i] = (i < 16 ? '0' : '') + i.toString(16);
+	}
+	
+	var generate = function generate() {
+	    var d0 = Math.random() * 0xffffffff | 0;
+	    var d1 = Math.random() * 0xffffffff | 0;
+	    var d2 = Math.random() * 0xffffffff | 0;
+	    var d3 = Math.random() * 0xffffffff | 0;
+	
+	    return lut[d0 & 0xff] + lut[d0 >> 8 & 0xff] + lut[d0 >> 16 & 0xff] + lut[d0 >> 24 & 0xff] + '-' + lut[d1 & 0xff] + lut[d1 >> 8 & 0xff] + '-' + lut[d1 >> 16 & 0x0f | 0x40] + lut[d1 >> 24 & 0xff] + '-' + lut[d2 & 0x3f | 0x80] + lut[d2 >> 8 & 0xff] + '-' + lut[d2 >> 16 & 0xff] + lut[d2 >> 24 & 0xff] + lut[d3 & 0xff] + lut[d3 >> 8 & 0xff] + lut[d3 >> 16 & 0xff] + lut[d3 >> 24 & 0xff];
+	};
+	
+	var short = function short(prefix) {
+	    prefix = prefix || '';
+	
+	    var uuid = generate();
+	
+	    return prefix + uuid.split('-')[0];
+	};
+	
+	exports.default = {
+	    generate: generate,
+	    short: short
+	};
+
+/***/ },
 /* 78 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<li\n    class=\"ui-autocomplete-suggestion\":id=\"id\"\n    :class=\"{ 'highlighted': highlighted, [partial]: true }\"\n>\n    <partial :name=\"partial\"></partial>\n</li>\n";
+
+/***/ },
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6794,7 +6847,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _disabled2 = _interopRequireDefault(_disabled);
 	
-	var _ReceivesTargetedEvent = __webpack_require__(79);
+	var _ReceivesTargetedEvent = __webpack_require__(80);
 	
 	var _ReceivesTargetedEvent2 = _interopRequireDefault(_ReceivesTargetedEvent);
 	
@@ -6881,7 +6934,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 79 */
+/* 80 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6906,23 +6959,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 80 */
+/* 81 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div\n    class=\"ui-autocomplete\"\n    :class=\"{\n        'disabled': disabled, 'invalid': !valid, 'dirty': dirty, 'active': active,\n        'has-label': !hideLabel, 'icon-right': iconRight\n    }\"\n>\n    <div class=\"ui-autocomplete-icon-wrapper\" v-if=\"showIcon\">\n        <ui-icon :icon=\"icon\" class=\"ui-autocomplete-icon\"></ui-icon>\n    </div>\n\n    <div class=\"ui-autocomplete-content\">\n        <label class=\"ui-autocomplete-label\" @click=\"openDropdown\">\n            <div class=\"ui-autocomplete-label-text\" v-text=\"label\" v-if=\"!hideLabel\"></div>\n\n            <ui-icon\n                class=\"ui-autocomplete-clear-button\" icon=\"&#xE5CD\" title=\"Clear\"\n                @click=\"clearSearch\" v-show=\"searchQuery.length\"\n            ></ui-icon>\n\n            <input\n                class=\"ui-autocomplete-input\" :placeholder=\"placeholder\" :name=\"name\" :id=\"id\"\n                autocomplete=\"off\" @focus=\"focus\" @blur=\"blur\" v-model=\"searchQuery\"\n                v-disabled=\"disabled\" v-el:input\n            >\n        </label>\n\n        <div class=\"ui-autocomplete-feedback\" v-if=\"showFeedback\">\n            <div\n                class=\"ui-autocomplete-error-text\" v-text=\"validationError\"\n                transition=\"ui-autocomplete-feedback-toggle\"\n                v-show=\"!hideValidationErrors && !valid\"\n            ></div>\n\n            <div\n                class=\"ui-autocomplete-help-text\" transition=\"ui-autocomplete-feedback-toggle\"\n                v-text=\"helpText\" v-else\n            ></div>\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<div\n    class=\"ui-autocomplete\" v-el:autocomplete\n    :class=\"{\n        'disabled': disabled, 'invalid': !valid, 'dirty': dirty, 'active': active,\n        'has-label': !hideLabel, 'icon-right': iconRight\n    }\"\n>\n    <div class=\"ui-autocomplete-icon-wrapper\" v-if=\"showIcon\">\n        <ui-icon :icon=\"icon\" class=\"ui-autocomplete-icon\"></ui-icon>\n    </div>\n\n    <div class=\"ui-autocomplete-content\">\n        <label class=\"ui-autocomplete-label\">\n            <div class=\"ui-autocomplete-label-text\" v-text=\"label\" v-if=\"!hideLabel\"></div>\n\n            <ui-icon\n                class=\"ui-autocomplete-clear-button\" icon=\"&#xE5CD\" title=\"Clear\"\n                @click=\"clearSearch\" v-show=\"value.length\"\n            ></ui-icon>\n\n            <input\n                class=\"ui-autocomplete-input\" :placeholder=\"placeholder\" :name=\"name\"\n                :id=\"id\" autocomplete=\"off\"\n\n                @focus=\"focus\" @blur=\"blur\" @keydown.up=\"highlight(highlightedItem - 1)\"\n                @keydown.down=\"highlight(highlightedItem + 1)\" @keydown.tab=\"close\"\n                @keydown.enter=\"selectHighlighted(highlightedItem, $event)\"\n\n                v-model=\"value\" v-disabled=\"disabled\" v-el:input\n            >\n\n            <ul class=\"ui-autocomplete-suggestions\" v-show=\"showDropdown\">\n                <ui-autocomplete-suggestion\n                    :highlighted=\"highlightedItem === index\" :item=\"item\" :partial=\"partial\"\n                    v-for=\"(index, item) in suggestions | filterBy search | limitBy limit\"\n                    v-ref:items @click=\"select(item)\"\n                ></ui-autocomplete-suggestion>\n            </ul>\n        </label>\n\n        <div class=\"ui-autocomplete-feedback\" v-if=\"showFeedback\">\n            <div\n                class=\"ui-autocomplete-error-text\" v-text=\"validationError\"\n                transition=\"ui-autocomplete-feedback-toggle\"\n                v-show=\"!hideValidationErrors && !valid\"\n            ></div>\n\n            <div\n                class=\"ui-autocomplete-help-text\" transition=\"ui-autocomplete-feedback-toggle\"\n                v-text=\"helpText\" v-else\n            ></div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 81 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(82)
-	__vue_script__ = __webpack_require__(83)
+	__webpack_require__(83)
+	__vue_script__ = __webpack_require__(84)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiButton.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(84)
+	__vue_template__ = __webpack_require__(85)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -6941,13 +6994,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 82 */
+/* 83 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 83 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7068,23 +7121,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 84 */
+/* 85 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<button\n    class=\"ui-button\" :class=\"styleClasses\" :title=\"tooltip\" v-disabled=\"disabled || loading\"\n    v-el:button\n>\n    <div class=\"ui-button-content\" :class=\"{ 'invisible': loading }\">\n        <ui-icon\n            class=\"ui-button-icon\" :class=\"{ 'position-right': iconRight }\" :icon=\"icon\"\n            v-if=\"showIcon\"\n        ></ui-icon>\n\n        <div class=\"ui-button-text\">\n            <slot>\n                <span v-text=\"text\"></span>\n            </slot>\n        </div>\n\n        <ui-icon\n            class=\"ui-button-dropdown-icon\" icon=\"&#xE5C5;\"\n            v-if=\"!iconRight && showDropdownIcon && (hasDropdownMenu || hasPopover)\"\n        ></ui-icon>\n    </div>\n\n    <ui-progress-circular\n        class=\"ui-button-spinner\" :color=\"spinnerColor\" :size=\"18\" :stroke=\"4.5\"\n        disable-transition v-show=\"loading\"\n    ></ui-progress-circular>\n\n    <ui-ripple-ink v-if=\"!hideRippleInk && !disabled\" :trigger=\"$els.button\"></ui-ripple-ink>\n\n    <ui-menu\n        class=\"ui-button-dropdown-menu\" :trigger=\"$els.button\" :options=\"menuOptions\"\n        :show-icons=\"showMenuIcons\" :show-keyboard-shortcuts=\"showMenuKeyboardShortcuts\"\n        :open-on=\"openDropdownOn\" @option-selected=\"menuOptionSelect\"\n        :dropdown-position=\"dropdownPosition\" v-if=\"hasDropdownMenu\"\n    ></ui-menu>\n\n    <ui-popover :trigger=\"$els.button\" :open-on=\"openDropdownOn\" v-if=\"hasPopover\">\n        <slot name=\"popover\"></slot>\n    </ui-popover>\n</button>\n";
 
 /***/ },
-/* 85 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(86)
-	__vue_script__ = __webpack_require__(87)
+	__webpack_require__(87)
+	__vue_script__ = __webpack_require__(88)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiCheckbox.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(88)
+	__vue_template__ = __webpack_require__(89)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -7103,13 +7156,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 86 */
+/* 87 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 87 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7122,7 +7175,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _disabled2 = _interopRequireDefault(_disabled);
 	
-	var _ReceivesTargetedEvent = __webpack_require__(79);
+	var _ReceivesTargetedEvent = __webpack_require__(80);
 	
 	var _ReceivesTargetedEvent2 = _interopRequireDefault(_ReceivesTargetedEvent);
 	
@@ -7191,18 +7244,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 88 */
+/* 89 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<label\n    class=\"ui-checkbox\"\n    :class=\"{ 'disabled': disabled, 'checked': value, 'active': active, 'label-left': labelLeft }\"\n>\n    <input\n        class=\"ui-checkbox-input\" type=\"checkbox\" :name=\"name\" @focus=\"focus\" @blur=\"blur\"\n        v-model=\"value\" v-disabled=\"disabled\"\n    >\n\n    <div class=\"ui-checkbox-checkmark\">\n        <div class=\"ui-checkbox-focus-ring\"></div>\n    </div>\n\n    <div class=\"ui-checkbox-label-text\" v-if=\"!hideLabel\">\n        <slot>\n            <span v-text=\"label\"></span>\n        </slot>\n    </div>\n</label>\n";
 
 /***/ },
-/* 89 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(90)
-	__vue_script__ = __webpack_require__(91)
+	__webpack_require__(91)
+	__vue_script__ = __webpack_require__(92)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
@@ -7226,13 +7279,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 90 */
+/* 91 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 91 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7245,7 +7298,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _UiIcon2 = _interopRequireDefault(_UiIcon);
 	
-	var _uuid = __webpack_require__(92);
+	var _uuid = __webpack_require__(77);
 	
 	var _uuid2 = _interopRequireDefault(_uuid);
 	
@@ -7257,7 +7310,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _ShowsRippleInk2 = _interopRequireDefault(_ShowsRippleInk);
 	
-	var _ReceivesTargetedEvent = __webpack_require__(79);
+	var _ReceivesTargetedEvent = __webpack_require__(80);
 	
 	var _ReceivesTargetedEvent2 = _interopRequireDefault(_ReceivesTargetedEvent);
 	
@@ -7371,50 +7424,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 92 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Fast UUID generator, RFC4122 version 4 compliant.
-	 * @author Jeff Ward (jcward.com).
-	 * @license MIT license
-	 * @link http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
-	 **/
-	
-	var lut = [];
-	
-	for (var i = 0; i < 256; i++) {
-	    lut[i] = (i < 16 ? '0' : '') + i.toString(16);
-	}
-	
-	var generate = function generate() {
-	    var d0 = Math.random() * 0xffffffff | 0;
-	    var d1 = Math.random() * 0xffffffff | 0;
-	    var d2 = Math.random() * 0xffffffff | 0;
-	    var d3 = Math.random() * 0xffffffff | 0;
-	
-	    return lut[d0 & 0xff] + lut[d0 >> 8 & 0xff] + lut[d0 >> 16 & 0xff] + lut[d0 >> 24 & 0xff] + '-' + lut[d1 & 0xff] + lut[d1 >> 8 & 0xff] + '-' + lut[d1 >> 16 & 0x0f | 0x40] + lut[d1 >> 24 & 0xff] + '-' + lut[d2 & 0x3f | 0x80] + lut[d2 >> 8 & 0xff] + '-' + lut[d2 >> 16 & 0xff] + lut[d2 >> 24 & 0xff] + lut[d3 & 0xff] + lut[d3 >> 8 & 0xff] + lut[d3 >> 16 & 0xff] + lut[d3 >> 24 & 0xff];
-	};
-	
-	var short = function short(prefix) {
-	    prefix = prefix || '';
-	
-	    var uuid = generate();
-	
-	    return prefix + uuid.split('-')[0];
-	};
-	
-	exports.default = {
-	    generate: generate,
-	    short: short
-	};
-
-/***/ },
 /* 93 */
 /***/ function(module, exports) {
 
@@ -7473,7 +7482,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _UiModal2 = _interopRequireDefault(_UiModal);
 	
-	var _UiButton = __webpack_require__(81);
+	var _UiButton = __webpack_require__(82);
 	
 	var _UiButton2 = _interopRequireDefault(_UiButton);
 	
@@ -7615,7 +7624,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _UiIconButton2 = _interopRequireDefault(_UiIconButton);
 	
-	var _UiButton = __webpack_require__(81);
+	var _UiButton = __webpack_require__(82);
 	
 	var _UiButton2 = _interopRequireDefault(_UiButton);
 	
@@ -8185,7 +8194,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _UiRadio2 = _interopRequireDefault(_UiRadio);
 	
-	var _ReceivesTargetedEvent = __webpack_require__(79);
+	var _ReceivesTargetedEvent = __webpack_require__(80);
 	
 	var _ReceivesTargetedEvent2 = _interopRequireDefault(_ReceivesTargetedEvent);
 	
@@ -8326,7 +8335,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _UiRatingIcon2 = _interopRequireDefault(_UiRatingIcon);
 	
-	var _ReceivesTargetedEvent = __webpack_require__(79);
+	var _ReceivesTargetedEvent = __webpack_require__(80);
 	
 	var _ReceivesTargetedEvent2 = _interopRequireDefault(_ReceivesTargetedEvent);
 	
@@ -8686,7 +8695,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	
-	var _UiButton = __webpack_require__(81);
+	var _UiButton = __webpack_require__(82);
 	
 	var _UiButton2 = _interopRequireDefault(_UiButton);
 	
@@ -8830,7 +8839,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _disabled2 = _interopRequireDefault(_disabled);
 	
-	var _ReceivesTargetedEvent = __webpack_require__(79);
+	var _ReceivesTargetedEvent = __webpack_require__(80);
 	
 	var _ReceivesTargetedEvent2 = _interopRequireDefault(_ReceivesTargetedEvent);
 	
@@ -9019,7 +9028,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	
-	var _uuid = __webpack_require__(92);
+	var _uuid = __webpack_require__(77);
 	
 	var _uuid2 = _interopRequireDefault(_uuid);
 	
@@ -9315,7 +9324,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiTextbox.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(168)
+	__vue_template__ = __webpack_require__(157)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -9349,7 +9358,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	
-	var _validatorjs = __webpack_require__(157);
+	var _validatorjs = __webpack_require__(62);
 	
 	var _validatorjs2 = _interopRequireDefault(_validatorjs);
 	
@@ -9357,7 +9366,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _UiIcon2 = _interopRequireDefault(_UiIcon);
 	
-	var _HasTextInput = __webpack_require__(78);
+	var _HasTextInput = __webpack_require__(79);
 	
 	var _HasTextInput2 = _interopRequireDefault(_HasTextInput);
 	
@@ -9552,1485 +9561,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 157 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// Get required modules
-	var Rules = __webpack_require__(158);
-	var Lang = __webpack_require__(159);
-	var Errors = __webpack_require__(166);
-	var Attributes = __webpack_require__(161);
-	var AsyncResolvers = __webpack_require__(167);
-	
-	var Validator = function(input, rules, customMessages) {
-		var lang = Validator.getDefaultLang();
-		this.input = input;
-	
-		this.messages = Lang._make(lang);
-		this.messages._setCustom(customMessages);
-		this.setAttributeFormatter(Validator.prototype.attributeFormatter);
-	
-		this.errors = new Errors();
-		this.errorCount = 0;
-		
-		this.hasAsync = false;
-		this.rules = this._parseRules(rules);
-	};
-	
-	Validator.prototype = {
-	
-		constructor: Validator,
-	
-		/**
-		 * Default language
-		 *
-		 * @type {string}
-		 */
-		lang: 'en',
-	
-		/**
-		 * Numeric based rules
-		 *
-		 * @type {array}
-		 */
-		numericRules: ['integer', 'numeric', 'between'],
-	
-		/**
-		 * Attribute formatter.
-		 *
-		 * @type {function}
-		 */
-		attributeFormatter: Attributes.formatter,
-	
-		/**
-		 * Run validator
-		 *
-		 * @return {boolean} Whether it passes; true = passes, false = fails
-		 */
-		check: function() {
-			var self = this;
-	
-			for (var attribute in this.rules) {
-				var attributeRules = this.rules[attribute];
-				var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
-	
-				for (var i = 0, len = attributeRules.length, rule, ruleOptions, rulePassed; i < len; i++) {
-					ruleOptions = attributeRules[i];
-					rule = this.getRule(ruleOptions.name);
-	
-					if (!this._isValidatable(rule, inputValue)) {
-						continue;
-					}
-					
-					rulePassed = rule.validate(inputValue, ruleOptions.value, attribute);
-					if (!rulePassed) {
-						this._addFailure(rule);
-					}
-	
-					if (this._shouldStopValidating(attribute, rulePassed)) {
-						break;
-					}
-				}
-			}
-	
-			return this.errorCount === 0;
-		},
-	
-		/**
-		 * Run async validator
-		 *
-		 * @param {function} passes
-		 * @param {function} fails
-		 * @return {void}
-		 */
-		/**
-		 * Run async validator
-		 *
-		 * @param {function} passes
-		 * @param {function} fails
-		 * @return {void}
-		 */
-		checkAsync: function(passes, fails) {
-			var _this = this;
-			passes = passes || function() {};
-			fails = fails || function() {};
-	
-			var failsOne = function(rule, message) {
-				_this._addFailure(rule, message);
-			};
-	
-			var resolvedAll = function(allPassed) {
-				if (allPassed) {
-					passes();
-				}
-				else {
-					fails();
-				}
-			};
-	
-			var validateRule = function(inputValue, ruleOptions, attribute, rule) {
-				return function() {
-					var resolverIndex = asyncResolvers.add(rule);
-					rule.validate(inputValue, ruleOptions.value, attribute, function() { asyncResolvers.resolve(resolverIndex); });
-				};
-			};
-	
-			var asyncResolvers = new AsyncResolvers(failsOne, resolvedAll);
-	
-			for (var attribute in this.rules) {
-				var attributeRules = this.rules[attribute];
-				var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
-	
-				for (var i = 0, len = attributeRules.length, rule, ruleOptions; i < len; i++) {
-					ruleOptions = attributeRules[i];
-	
-					rule = this.getRule(ruleOptions.name);
-	
-					if (!this._isValidatable(rule, inputValue)) {
-						continue;
-					}
-	
-					validateRule(inputValue, ruleOptions, attribute, rule)();
-				}
-			}
-	
-			asyncResolvers.enableFiring();
-			asyncResolvers.fire();
-		},
-	
-		/**
-		 * Add failure and error message for given rule
-		 *
-		 * @param {Rule} rule
-		 */
-		_addFailure: function(rule) {
-			var msg = this.messages.render(rule);	
-			this.errors.add(rule.attribute, msg);
-			this.errorCount++;
-		},
-	
-		/**
-		 * Parse rules, normalizing format into: { attribute: [{ name: 'age', value: 3 }] }
-		 *
-		 * @param  {object} rules
-		 * @return {object}
-		 */
-		_parseRules: function(rules) {
-			var parsedRules = {};
-			for (var attribute in rules) {
-				var rulesArray = rules[attribute];
-				var attributeRules = [];
-	
-				if (typeof rulesArray === 'string') {
-					rulesArray = rulesArray.split('|');
-				}
-				
-				for (var i = 0, len = rulesArray.length, rule; i < len; i++) {
-					rule = this._extractRuleAndRuleValue(rulesArray[i]);
-					if (Rules.isAsync(rule.name)) {
-						this.hasAsync = true;
-					}
-					attributeRules.push(rule);
-				}
-	
-				parsedRules[attribute] = attributeRules;
-			}
-			return parsedRules;
-		},
-	
-		/**
-		 * Extract a rule and a value from a ruleString (i.e. min:3), rule = min, value = 3
-		 * 
-		 * @param  {string} ruleString min:3
-		 * @return {object} object containing the name of the rule and value
-		 */
-		_extractRuleAndRuleValue: function(ruleString) {
-			var rule = {}, ruleArray;
-	
-			rule.name = ruleString;
-	
-			if (ruleString.indexOf(':') >= 0) {
-				ruleArray = ruleString.split(':');
-				rule.name = ruleArray[0];
-				rule.value = ruleArray.slice(1).join(":");
-			}
-	
-			return rule;
-		},
-	
-		/**
-		 * Determine if attribute has any of the given rules
-		 *
-		 * @param  {string}  attribute
-		 * @param  {array}   findRules
-		 * @return {boolean}
-		 */
-		_hasRule: function(attribute, findRules) {
-			var rules = this.rules[attribute] || [];
-			for (var i = 0, len = rules.length; i < len; i++) {
-				if (findRules.indexOf(rules[i].name) > -1) {
-					return true;
-				}
-			}
-			return false;
-		},
-	
-		/**
-		 * Determine if attribute has any numeric-based rules.
-		 *
-		 * @param  {string}  attribute
-		 * @return {Boolean}
-		 */
-		_hasNumericRule: function(attribute) {
-			return this._hasRule(attribute, this.numericRules);
-		},
-	
-		/**
-		 * Determine if rule is validatable
-		 *
-		 * @param  {Rule}   rule
-		 * @param  {mixed}  value
-		 * @return {boolean} 
-		 */
-		_isValidatable: function(rule, value) {
-			if (Rules.isImplicit(rule.name)) {
-				return true;
-			}
-	
-			return this.getRule('required').validate(value);
-		},
-	
-	
-		/**
-		 * Determine if we should stop validating.
-		 *
-		 * @param  {string} attribute
-		 * @param  {boolean} rulePassed
-		 * @return {boolean}
-		 */
-		_shouldStopValidating: function(attribute, rulePassed) {
-	
-			var stopOnAttributes = this.stopOnAttributes;
-			if (stopOnAttributes === false || rulePassed === true) {
-				return false;
-			}
-	
-			if (stopOnAttributes instanceof Array) {
-				return stopOnAttributes.indexOf(attribute) > -1;
-			}
-	
-			return true;
-		},
-	
-		/**
-		 * Set custom attribute names.
-		 *
-		 * @param {object} attributes
-		 * @return {void}
-		 */
-		setAttributeNames: function(attributes) {
-			this.messages._setAttributeNames(attributes);
-		},
-	
-		/**
-		 * Set the attribute formatter.
-		 *
-		 * @param {fuction} func
-		 * @return {void}
-		 */
-		setAttributeFormatter: function(func) {
-			this.messages._setAttributeFormatter(func);
-		},
-	
-		/**
-		 * Get validation rule
-		 *
-		 * @param  {string} name
-		 * @return {Rule}
-		 */
-		getRule: function(name) {
-			return Rules.make(name, this);
-		},
-	
-		/**
-		 * Stop on first error.
-		 *
-		 * @param  {boolean|array} An array of attributes or boolean true/false for all attributes.
-		 * @return {void}
-		 */
-		stopOnError: function(attributes) {
-			this.stopOnAttributes = attributes;
-		},
-	
-		/**
-		 * Determine if validation passes
-		 *
-		 * @param {function} passes
-		 * @return {boolean|undefined}
-		 */
-		passes: function(passes) {
-			var async = this._checkAsync('passes', passes);
-			if (async) {
-				return this.checkAsync(passes);
-			}
-			return this.check();
-		},
-	
-		/**
-		 * Determine if validation fails
-		 *
-		 * @param {function} fails
-		 * @return {boolean|undefined}
-		 */
-		fails: function(fails) {
-			var async = this._checkAsync('fails', fails);
-			if (async) {
-				return this.checkAsync(function() {}, fails);
-			}
-			return !this.check();
-		},
-	
-		/**
-		 * Check if validation should be called asynchronously
-		 *
-	 	 * @param  {string}   funcName Name of the caller
-		 * @param  {function} callback
-		 * @return {boolean}
-		 */
-		_checkAsync: function(funcName, callback) {
-			var hasCallback = typeof callback === 'function';
-			if (this.hasAsync && !hasCallback) {
-				throw funcName + ' expects a callback when async rules are being tested.';
-			}
-	
-			return this.hasAsync || hasCallback;
-		}
-	
-	};
-	
-	/**
-	 * Set messages for language
-	 *
-	 * @param {string} lang
-	 * @param {object} messages
-	 * @return {this}
-	 */
-	Validator.setMessages = function(lang, messages) {
-		Lang._set(lang, messages);
-		return this;
-	};
-	
-	/**
-	 * Get messages for given language
-	 *
-	 * @param  {string} lang
-	 * @return {Messages}
-	 */
-	Validator.getMessages = function(lang) {
-		return Lang._get(lang);
-	};
-	
-	/**
-	 * Set default language to use
-	 *
-	 * @param {string} lang
-	 * @return {void}
-	 */
-	Validator.useLang = function(lang) {
-		this.prototype.lang = lang;
-	};
-	
-	/**
-	 * Get default language
-	 *
-	 * @return {string}
-	 */
-	Validator.getDefaultLang = function() {
-		return this.prototype.lang;
-	};
-	
-	/**
-	 * Set the attribute formatter.
-	 *
-	 * @param {fuction} func
-	 * @return {void}
-	 */
-	Validator.setAttributeFormatter = function(func) {
-		this.prototype.attributeFormatter = func;
-	};
-	
-	/**
-	 * Stop on first error.
-	 *
-	 * @param  {boolean|array} An array of attributes or boolean true/false for all attributes.
-	 * @return {void}
-	 */
-	Validator.stopOnError = function(attributes) {
-		this.prototype.stopOnAttributes = attributes;
-	};
-	
-	/**
-	 * Register custom validation rule
-	 *
-	 * @param  {string}   name
-	 * @param  {function} fn
-	 * @param  {string}   message
-	 * @return {void}
-	 */
-	Validator.register = function(name, fn, message) {
-		var lang = Validator.getDefaultLang();
-		Rules.register(name, fn);
-		Lang._setRuleMessage(lang, name, message);
-	};
-	
-	/**
-	 * Register asynchronous validation rule
-	 *
-	 * @param  {string}   name
-	 * @param  {function} fn
-	 * @param  {string}   message
-	 * @return {void}
-	 */
-	Validator.registerAsync = function(name, fn, message) {
-		var lang = Validator.getDefaultLang();
-		Rules.registerAsync(name, fn);
-		Lang._setRuleMessage(lang, name, message);
-	};
-	
-	module.exports = Validator;
-
-
-/***/ },
-/* 158 */
-/***/ function(module, exports) {
-
-	var rules = {
-	
-		required: function(val) {
-			var str;
-	
-			if (val === undefined || val === null) {
-				return false;
-			}
-	
-			str = String(val).replace(/\s/g, "");
-			return str.length > 0 ? true : false;
-		},
-	
-		required_if: function(val, req, attribute) {
-			req = this.getParameters();
-			if (this.validator.input[req[0]] === req[1]) {
-				return this.validator.getRule('required').validate(val);
-			}
-	
-			return true;
-		},
-	
-		// compares the size of strings
-		// with numbers, compares the value
-		size: function(val, req, attribute) {
-			if (val) {
-				req = parseFloat(req);
-	
-				var size = this.getSize();
-	
-				return size === req;
-			}
-	
-			return true;
-		},
-	
-		/**
-		 * Compares the size of strings or the value of numbers if there is a truthy value
-		 */
-		min: function(val, req, attribute) {
-			var size = this.getSize();
-			return size >= req;
-		},
-	
-		/**
-		 * Compares the size of strings or the value of numbers if there is a truthy value
-		 */
-		max: function(val, req, attribute) {
-			var size = this.getSize();
-			return size <= req;
-		},
-	
-		between: function(val, req, attribute) {
-			req = this.getParameters();
-			var size = this.getSize();
-			var min = parseFloat(req[0], 10);
-			var max = parseFloat(req[1], 10);
-			return size >= min && size <= max;
-		},
-	
-		email: function(val) {
-			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-			return re.test(val);
-		},
-	
-		numeric: function(val) {
-			var num;
-	
-			num = Number(val); // tries to convert value to a number. useful if value is coming from form element
-	
-			if (typeof num === 'number' && !isNaN(num) && typeof val !== 'boolean') {
-				return true;
-			} else {
-				return false;
-			}
-		},
-	
-		array: function(val) {
-			return val instanceof Array;
-		},
-	
-		url: function(url) {
-			return (/^https?:\/\/\S+/).test(url);
-		},
-	
-		alpha: function(val) {
-			return (/^[a-zA-Z]+$/).test(val);
-		},
-	
-		alpha_dash: function(val) {
-			return (/^[a-zA-Z0-9_\-]+$/).test(val);
-		},
-	
-		alpha_num: function(val) {
-			return (/^[a-zA-Z0-9]+$/).test(val);
-		},
-	
-		same: function(val, req) {
-			var val1 = this.validator.input[req];
-			var val2 = val;
-	
-			if (val1 === val2) {
-				return true;
-			}
-	
-			return false;
-		},
-	
-		different: function(val, req) {
-			var val1 = this.validator.input[req];
-			var val2 = val;
-	
-			if (val1 !== val2) {
-				return true;
-			}
-	
-			return false;
-		},
-	
-		"in": function(val, req) {
-			var list, i;
-	
-			if (val) {
-				list = req.split(',');
-			}
-	
-			if (val && !(val instanceof Array)) {
-				val = String(val); // if it is a number
-	
-				for (i = 0; i < list.length; i++) {
-					if (val === list[i]) {
-						return true;
-					}
-				}
-	
-				return false;
-			}
-	
-			if (val && val instanceof Array) {
-				for (i = 0; i < val.length; i++) {
-					if (list.indexOf(val[i]) < 0) {
-						return false;
-					}
-				}
-			}
-	
-			return true;
-		},
-	
-		not_in: function(val, req) {
-			var list = req.split(',');
-			var len = list.length;
-			var returnVal = true;
-	
-			val = String(val); // convert val to a string if it is a number
-	
-			for (var i = 0; i < len; i++) {
-				if (val === list[i]) {
-					returnVal = false;
-					break;
-				}
-			}
-	
-			return returnVal;
-		},
-	
-		accepted: function(val) {
-			if (val === 'on' || val === 'yes' || val === 1 || val === '1') {
-				return true;
-			}
-	
-			return false;
-		},
-	
-		confirmed: function(val, req, key) {
-			var confirmedKey = key + '_confirmation';
-	
-			if (this.validator.input[confirmedKey] === val) {
-				return true;
-			}
-	
-			return false;
-		},
-	
-		integer: function(val) {
-			return String(parseInt(val, 10)) === String(val);
-		},
-	
-		digits: function(val, req) {
-			var numericRule = this.validator.getRule('numeric');
-			if (numericRule.validate(val) && String(val).length === parseInt(req)) {
-				return true;
-			}
-	
-			return false;
-		},
-	
-		regex: function(val, req) {
-			var mod = /[g|i|m]{1,3}$/;
-			var flag = req.match(mod);
-			flag = flag ? flag[0] : "i";
-			req = req.replace(mod,"").slice(1,-1);
-			req = new RegExp(req,flag);
-			return !!val.match(req);
-		}
-	
-	};
-	
-	function Rule(name, fn, async) {
-		this.name = name;
-		this.fn = fn;
-		this.passes = null;
-		this.customMessage = undefined;
-		this.async = async;
-	}
-	
-	Rule.prototype = {
-	
-		/**
-		 * Validate rule
-		 *
-		 * @param  {mixed} inputValue
-		 * @param  {mixed} ruleValue
-		 * @param  {string} attribute
-		 * @param  {function} callback
-		 * @return {boolean|undefined}
-		 */
-		validate: function(inputValue, ruleValue, attribute, callback) {
-			var _this = this;
-			this._setValidatingData(attribute, inputValue, ruleValue);
-			if (typeof callback === 'function') {
-				this.callback = callback;
-				var handleResponse = function(passes, message) {
-					_this.response(passes, message);
-				};
-	
-				if (this.async) {
-					return this.fn.apply(this, [inputValue, ruleValue, attribute, handleResponse]);
-				}
-				else {
-					return handleResponse(this.fn.apply(this, [inputValue, ruleValue, attribute]));
-				}
-			}
-			return this.fn.apply(this, [inputValue, ruleValue, attribute]);
-		},
-	
-		/**
-		 * Set validating data
-		 *
-		 * @param {string} attribute
-		 * @param {mixed} inputValue
-		 * @param {mixed} ruleValue
-		 * @return {void}
-		 */
-		_setValidatingData: function(attribute, inputValue, ruleValue) {
-			this.attribute = attribute;
-			this.inputValue = inputValue;
-			this.ruleValue = ruleValue;
-		},
-	
-		/**
-		 * Get parameters
-		 *
-		 * @return {array}
-		 */
-		getParameters: function() {
-			return this.ruleValue ? this.ruleValue.split(',') : [];
-		},
-	
-		/**
-		 * Get true size of value
-		 *
-		 * @return {integer|float}
-		 */
-		getSize: function() {
-			var value = this.inputValue;
-	
-			if (value instanceof Array) {
-				return value.length;
-			}
-	
-			if (typeof value === 'number') {
-				return value;
-			}
-	
-			if (this.validator._hasNumericRule(this.attribute)) {
-				return parseFloat(value, 10);
-			}
-	
-			return value.length;
-		},
-	
-		/**
-		 * Get the type of value being checked; numeric or string.
-		 *
-		 * @return {string}
-		 */
-		_getValueType: function() {
-			
-			if (typeof this.inputValue === 'number' || this.validator._hasNumericRule(this.attribute))
-			{
-				return 'numeric';
-			}
-	
-			return 'string';
-		},
-	
-		/**
-		 * Set the async callback response
-		 *
-		 * @param  {boolean|undefined} passes  Whether validation passed
-		 * @param  {string|undefined} message Custom error message
-		 * @return {void}
-		 */
-		response: function(passes, message) {
-			this.passes = (passes === undefined || passes === true);
-			this.customMessage = message;
-			this.callback(this.passes, message);
-		},
-	
-		/**
-		 * Set validator instance
-		 *
-		 * @param {Validator} validator
-		 * @return {void}
-		 */
-		setValidator: function(validator) {
-			this.validator = validator;
-		}
-	
-	};
-	
-	var manager = {
-	
-		/**
-		 * List of async rule names
-		 *
-		 * @type {Array}
-		 */
-		asyncRules: [],
-	
-		/**
-		 * Implicit rules (rules to always validate)
-		 *
-		 * @type {Array}
-		 */
-		implicitRules: ['required', 'required_if', 'accepted'],
-	
-		/**
-		 * Get rule by name
-		 *
-		 * @param  {string} name
-		 * @param {Validator}
-		 * @return {Rule}
-		 */
-		make: function(name, validator) {
-			var async = this.isAsync(name);
-			var rule = new Rule(name, rules[name], async);
-			rule.setValidator(validator);
-			return rule;
-		},
-	
-		/**
-		 * Determine if given rule is async
-		 *
-		 * @param  {string}  name
-		 * @return {boolean}
-		 */
-		isAsync: function(name) {
-			for (var i = 0, len = this.asyncRules.length; i < len; i++) {
-				if (this.asyncRules[i] === name) {
-					return true;
-				}
-			}
-			return false;
-		},
-	
-		/**
-		 * Determine if rule is implicit (should always validate)
-		 *
-		 * @param {string} name
-		 * @return {boolean}
-		 */
-		isImplicit: function(name) {
-			return this.implicitRules.indexOf(name) > -1;
-		},
-	
-		/**
-		 * Register new rule
-		 *
-		 * @param  {string}   name
-		 * @param  {function} fn
-		 * @return {void}
-		 */
-		register: function(name, fn) {
-			rules[name] = fn;
-		},
-	
-		/**
-		 * Register async rule
-		 *
-		 * @param  {string}   name
-		 * @param  {function} fn
-		 * @return {void}
-		 */
-		registerAsync: function(name, fn) {
-			this.register(name, fn);
-			this.asyncRules.push(name);
-		}
-	
-	};
-	
-	
-	module.exports = manager;
-
-
-/***/ },
-/* 159 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Messages = __webpack_require__(160);
-	
-	__webpack_require__(162);
-	
-	var container = {
-	
-		messages: {},
-	
-		/**
-		 * Set messages for language
-		 *
-		 * @param {string} lang
-		 * @param {object} rawMessages
-		 * @return {void}
-		 */
-		_set: function(lang, rawMessages) {
-			this.messages[lang] = rawMessages;
-		},
-	
-		/**
-		 * Set message for given language's rule.
-		 *
-		 * @param {string} lang
-		 * @param {string} attribute
-		 * @param {string|object} message
-		 * @return {void}
-		 */
-		_setRuleMessage: function(lang, attribute, message) {
-			this._load(lang);
-			if (message === undefined) {
-				message = this.messages[lang].def;
-			}
-	
-			this.messages[lang][attribute] = message;
-		},
-	
-		/**
-		 * Load messages (if not already loaded)
-		 *
-		 * @param  {string} lang 
-		 * @return {void}
-		 */
-		_load: function(lang) {
-			if (!this.messages[lang]) {
-				var rawMessages = __webpack_require__(163)("./" + lang);
-				this._set(lang, rawMessages);
-			}
-		},
-	
-		/**
-		 * Get raw messages for language
-		 *
-		 * @param  {string} lang
-		 * @return {object}
-		 */
-		_get: function(lang) {
-			this._load(lang);
-			return this.messages[lang];
-		},
-	
-		/**
-		 * Make messages for given language
-		 *
-		 * @param  {string} lang
-		 * @return {Messages}
-		 */
-		_make: function(lang) {
-			this._load(lang);
-			return new Messages(lang, this.messages[lang]);
-		}
-	
-	};
-	
-	module.exports = container;
-
-
-/***/ },
-/* 160 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Attributes = __webpack_require__(161);
-	
-	var Messages = function(lang, messages) {
-		this.lang = lang;
-		this.messages = messages;
-		this.customMessages = {};
-		this.attributeNames = {};
-	};
-	
-	Messages.prototype = {
-		constructor: Messages,
-	
-		/**
-		 * Set custom messages
-		 *
-		 * @param {object} customMessages
-		 * @return {void}
-		 */
-		_setCustom: function(customMessages) {
-			this.customMessages = customMessages || {};
-		},
-	
-		/**
-		 * Set custom attribute names.
-		 *
-		 * @param {object} attributes
-		 */
-		_setAttributeNames: function(attributes) {
-			this.attributeNames = attributes;
-		},
-	
-		/**
-		 * Set the attribute formatter.
-		 *
-		 * @param {fuction} func
-		 * @return {void}
-		 */
-		_setAttributeFormatter: function(func) {
-			this.attributeFormatter = func;
-		},
-	
-		/**
-		 * Get attribute name to display.
-		 *
-		 * @param  {string} attribute
-		 * @return {string}
-		 */
-		_getAttributeName: function(attribute) {
-			var name = attribute;
-			if (this.attributeNames.hasOwnProperty(attribute)) {
-				return this.attributeNames[attribute];
-			}
-			else if (this.messages.attributes.hasOwnProperty(attribute)) {
-				name = this.messages.attributes[attribute];
-			}
-	
-			if (this.attributeFormatter)
-			{
-				name = this.attributeFormatter(name);
-			}
-			
-			return name;
-		},
-	
-		/**
-		 * Get all messages
-		 *
-		 * @return {object}
-		 */
-		all: function() {
-			return this.messages;
-		},
-	
-		/**
-		 * Render message
-		 *
-		 * @param  {Rule} rule
-		 * @return {string}
-		 */
-		render: function(rule) {
-			if (rule.customMessage) {
-				return rule.customMessage;
-			}
-			var template = this._getTemplate(rule);
-	
-			var message;
-			if (Attributes.replacements[rule.name]) {
-				message = Attributes.replacements[rule.name].apply(this, [template, rule]);
-			}
-			else {
-				message = this._replacePlaceholders(rule, template, {});
-			}
-	
-			return message;
-		},
-	
-		/**
-		 * Get the template to use for given rule
-		 *
-		 * @param  {Rule} rule
-		 * @return {string}
-		 */
-		_getTemplate: function(rule) {
-	
-			var messages = this.messages;
-			var template = messages.def;
-			var customMessages = this.customMessages;
-			var formats = [rule.name + '.' + rule.attribute, rule.name];
-	
-			for (var i = 0, format; i < formats.length; i++) {
-				format = formats[i];
-				if (customMessages.hasOwnProperty(format)) {
-					template = customMessages[format];
-					break;
-				}
-				else if (messages.hasOwnProperty(format)) {
-					template = messages[format];
-					break;
-				}
-			}
-	
-			if (typeof template === 'object') {
-				template = template[rule._getValueType()];
-			}
-	
-			return template;
-		},
-	
-		/**
-		 * Replace placeholders in the template using the data object
-		 *
-		 * @param  {Rule} rule
-		 * @param  {string} template
-		 * @param  {object} data
-		 * @return {string}
-		 */
-		_replacePlaceholders: function(rule, template, data) {
-			var message, attribute;
-	
-			data.attribute = this._getAttributeName(rule.attribute);
-			data[rule.name] = rule.getParameters().join(',');
-	
-			if (typeof template === 'string' && typeof data === 'object') {
-				message = template;
-	
-				for (attribute in data) {
-					message = message.replace(':' + attribute, data[attribute]);
-				}
-			}
-	
-			return message;
-		}
-	
-	};
-	
-	module.exports = Messages;
-
-
-/***/ },
-/* 161 */
-/***/ function(module, exports) {
-
-	var replacements = {
-	
-		/**
-		 * Between replacement (replaces :min and :max)
-		 *
-		 * @param  {string} template
-		 * @param  {Rule} rule
-		 * @return {string}
-		 */
-		between: function(template, rule) {
-			var parameters = rule.getParameters();
-			return this._replacePlaceholders(rule, template, { min: parameters[0], max: parameters[1] });
-		},
-	
-		/**
-		 * Required_if replacement.
-		 *
-		 * @param  {string} template
-		 * @param  {Rule} rule
-		 * @return {string}
-		 */
-		required_if: function(template, rule) {
-			var parameters = rule.getParameters();
-			return this._replacePlaceholders(rule, template, { other: parameters[0], value: parameters[1] });
-		}
-	};
-	
-	function formatter(attribute)
-	{
-		return attribute.replace(/[_\[]/g, ' ').replace(/]/g, '');
-	}
-	
-	module.exports = {
-		replacements: replacements,
-		formatter: formatter
-	};
-
-
-/***/ },
-/* 162 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		accepted: 'The :attribute must be accepted.',
-		alpha: 'The :attribute field must contain only alphabetic characters.',
-		alpha_dash: 'The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.',
-		alpha_num: 'The :attribute field must be alphanumeric.',
-		between: 'The :attribute field must be between :min and :max.',
-		confirmed: 'The :attribute confirmation does not match.',
-		email: 'The :attribute format is invalid.',
-		def: 'The :attribute attribute has errors.',
-		digits: 'The :attribute must be :digits digits.',
-		different: 'The :attribute and :different must be different.',
-		'in': 'The selected :attribute is invalid.',
-		integer: 'The :attribute must be an integer.',
-		min: {
-			numeric: 'The :attribute must be at least :min.',
-			string: 'The :attribute must be at least :min characters.'
-		},
-		max: {
-			numeric: 'The :attribute must be less than :max.',
-			string: 'The :attribute must be less than :max characters.'
-		},
-		not_in: 'The selected :attribute is invalid.',
-		numeric: 'The :attribute must be a number.',
-		required: 'The :attribute field is required.',
-		required_if: 'The :attribute field is required when :other is :value.',
-		same: 'The :attribute and :same fields must match.',
-		size: {
-			numeric: 'The :attribute must be :size.',
-			string: 'The :attribute must be :size characters.'
-		},
-		url: 'The :attribute format is invalid.',
-		regex: 'The :attribute format is invalid',
-		attributes: {}
-	};
-
-/***/ },
-/* 163 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var map = {
-		"./en": 162,
-		"./en.js": 162,
-		"./es": 164,
-		"./es.js": 164,
-		"./ru": 165,
-		"./ru.js": 165
-	};
-	function webpackContext(req) {
-		return __webpack_require__(webpackContextResolve(req));
-	};
-	function webpackContextResolve(req) {
-		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
-	};
-	webpackContext.keys = function webpackContextKeys() {
-		return Object.keys(map);
-	};
-	webpackContext.resolve = webpackContextResolve;
-	module.exports = webpackContext;
-	webpackContext.id = 163;
-
-
-/***/ },
-/* 164 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	    accepted: 'El campo :attribute debe ser aceptado.',
-	    alpha: 'El campo :attribute solo debe contener letras.',
-	    alpha_dash: 'El campo :attribute solo debe contener letras, números y guiones.',
-	    alpha_num: 'El campo :attribute solo debe contener letras y números.',
-	    attributes: {},
-	    between: 'El campo :attribute tiene que estar entre :min - :max.',
-	    confirmed: 'La confirmación de :attribute no coincide.',
-	    different: 'El campo :attribute y :other deben ser diferentes.',
-	    digits: 'El campo :attribute debe tener :digits dígitos.',
-	    email: 'El campo :attribute no es un correo válido',
-	    'in': 'El campo :attribute es inválido.',
-	    integer: 'El campo :attribute debe ser un número entero.',
-	    max: {
-	        numeric: 'El campo :attribute no debe ser mayor a :max.',
-	        string: 'El campo :attribute no debe ser mayor que :max caracteres.'
-	    },
-	    min: {
-	        numeric: 'El tamaño del campo :attribute debe ser de al menos :min.',
-	        string: 'El campo :attribute debe contener al menos :min caracteres.'
-	    },
-	    not_in: 'El campo :attribute es inválido.',
-	    numeric: 'El campo :attribute debe ser numérico.',
-	    regex: 'El formato del campo :attribute es inválido.',
-	    required: 'El campo :attribute es obligatorio.',
-	    required_if: 'El campo :attribute es obligatorio cuando :other es :value.',
-	    same: 'El campo :attribute y :other deben coincidir.',
-	    size: {
-	        numeric: 'El tamaño del campo :attribute debe ser :size.',
-	        string: 'El campo :attribute debe contener :size caracteres.'
-	    },
-	    url: 'El formato de :attribute es inválido.'
-	};
-
-
-/***/ },
-/* 165 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		accepted: 'Вы должны принять :attribute.',
-		alpha: 'Поле :attribute может содержать только буквы.',
-		alpha_dash: '"Поле :attribute может содержать только буквы, цифры, дефисы и символы подчёркивания.',
-		alpha_num: 'Поле :attribute может содержать только буквы и цифры.',
-		between: 'Поле :attribute должно быть между :min :max и.',
-		confirmed: 'Поле :attribute не совпадает с подтверждением.',
-		email: 'Поле :attribute должно быть действительным электронным адресом.',
-		def: 'Поле :attribute содержит ошибки.',
-		digits: 'Длина цифрового поля :attribute должна быть :digits.',
-		different: 'Поля :attribute и :different должны различаться.',
-		'in': 'Выбранное значение для :attribute ошибочно.',
-		integer: 'Поле :attribute должно быть целым числом.',
-		min: {
-			numeric: 'Поле :attribute должно быть не менее :min.',
-			string: 'Количество символов в поле :attribute должно быть не менее :min.'
-		},
-		max: {
-			numeric: 'Поле :attribute не может быть более :max.',
-			string: 'Количество символов в поле :attribute не может превышать :max.'
-		},
-		not_in: 'Выбранное значение для :attribute ошибочно.',
-		numeric: 'Поле :attribute должно быть числом.',
-		required: 'Поле :attribute обязательно для заполнения.',
-		required_if: 'Поле :attribute требуется при :attribute :other является.',
-		same: 'Значение :attribute должно совпадать с :same.',
-		size: {
-			numeric: 'Поле :attribute должно быть равным :size.',
-			string: 'Количество символов в поле :attribute должно быть равным :size.'
-		},
-		url: 'Поле :attribute имеет ошибочный формат.',
-		regex: 'Поле :attribute имеет ошибочный формат.',
-		attributes: {}
-	};
-
-/***/ },
-/* 166 */
-/***/ function(module, exports) {
-
-	var Errors = function() {
-		this.errors = {};
-	};
-	
-	Errors.prototype = {
-		constructor: Errors,
-	
-		/**
-		 * Add new error message for given attribute
-		 *
-		 * @param  {string} attribute
-		 * @param  {string} message
-		 * @return {void}
-		 */
-		add: function(attribute, message) {
-			if (!this.has(attribute)) {
-				this.errors[attribute] = [];
-			}
-			this.errors[attribute].push(message);
-		},
-	
-		/**
-		 * Returns an array of error messages for an attribute, or an empty array
-		 * 
-		 * @param  {string} attribute A key in the data object being validated
-		 * @return {array} An array of error messages
-		 */
-		get: function(attribute) {
-			if (this.has(attribute)) {
-				return this.errors[attribute];
-			}
-	
-			return [];
-		},
-	
-		/**
-		 * Returns the first error message for an attribute, false otherwise
-		 * 
-		 * @param  {string} attribute A key in the data object being validated
-		 * @return {string|false} First error message or false
-		 */
-		first: function(attribute) {
-			if (this.has(attribute)) {
-				return this.errors[attribute][0];
-			}
-	
-			return false;
-		},
-	
-		/**
-		 * Get all error messages from all failing attributes
-		 * 
-		 * @return {Object} Failed attribute names for keys and an array of messages for values
-		 */
-		all: function() {
-			return this.errors;
-		},
-	
-		/**
-		 * Determine if there are any error messages for an attribute
-		 * 
-		 * @param  {string}  attribute A key in the data object being validated
-		 * @return {boolean}
-		 */
-		has: function(attribute) {
-			if (this.errors.hasOwnProperty(attribute)) {
-				return true;
-			}
-	
-			return false;
-		}
-	};
-	
-	module.exports = Errors;
-
-/***/ },
-/* 167 */
-/***/ function(module, exports) {
-
-	function AsyncResolvers(onFailedOne, onResolvedAll) {
-		this.onResolvedAll = onResolvedAll;
-		this.onFailedOne = onFailedOne;
-		this.resolvers = {};
-		this.resolversCount = 0;
-		this.passed = [];
-		this.failed = [];
-		this.firing = false;
-	}
-	
-	AsyncResolvers.prototype = {
-	
-		/**
-		 * Add resolver
-		 *
-		 * @param {Rule} rule
-		 * @return {integer}
-		 */
-		add: function(rule) {
-			var index = this.resolversCount;
-			this.resolvers[index] = rule;
-			this.resolversCount++;
-			return index;
-		},
-	
-		/**
-		 * Resolve given index
-		 *
-		 * @param  {integer} index
-		 * @return {void}
-		 */
-		resolve: function(index) {
-			var rule = this.resolvers[index];
-			if (rule.passes === true) {
-				this.passed.push(rule);
-			}
-			else if (rule.passes === false) {
-				this.failed.push(rule);
-				this.onFailedOne(rule);
-			}
-	
-			this.fire();
-		},
-	
-		/**
-		 * Determine if all have been resolved
-		 *
-		 * @return {boolean}
-		 */
-		isAllResolved: function() {
-			return (this.passed.length + this.failed.length) === this.resolversCount;
-		},
-	
-		/**
-		 * Attempt to fire final all resolved callback if completed
-		 *
-		 * @return {void}
-		 */
-		fire: function() {
-	
-			if (!this.firing) {
-				return;
-			}
-	
-			if (this.isAllResolved()) {
-				this.onResolvedAll(this.failed.length === 0);
-			}
-	
-		},
-	
-		/**
-		 * Enable firing
-		 *
-		 * @return {void}
-		 */
-		enableFiring: function() {
-			this.firing = true;
-		}
-	
-	};
-	
-	module.exports = AsyncResolvers;
-
-
-/***/ },
-/* 168 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div\n    class=\"ui-textbox\"\n    :class=\"{\n        'disabled': disabled, 'invalid': !valid, 'dirty': dirty, 'active': active,\n        'has-label': !hideLabel, 'is-multi-line': multiLine, 'icon-right': iconRight,\n        'has-counter': maxLength\n    }\"\n>\n    <div class=\"ui-textbox-icon-wrapper\" v-if=\"showIcon\">\n        <ui-icon :icon=\"icon\" class=\"ui-textbox-icon\"></ui-icon>\n    </div>\n\n    <div class=\"ui-textbox-content\">\n        <label class=\"ui-textbox-label\">\n            <div class=\"ui-textbox-label-text\" v-text=\"label\" v-if=\"!hideLabel\"></div>\n\n            <input\n                class=\"ui-textbox-input\" :type=\"type\" :placeholder=\"placeholder\" :name=\"name\"\n                :id=\"id\" :number=\"type === 'number' ? true : null\" :min=\"minValue\"\n                :max=\"maxValue\" :step=\"stepValue\" :autocomplete=\"autocomplete ? null : 'off'\"\n\n                @focus=\"focussed\" @blur=\"blurred\" @change=\"changed\" @keydown=\"keydown\"\n                @keydown.enter=\"keydownEnter\" debounce=\"debounce\"\n\n                v-model=\"value | trim\" v-disabled=\"disabled\" v-if=\"!multiLine\"\n            >\n\n            <textarea\n                class=\"ui-textbox-textarea\" :placeholder=\"placeholder\" :name=\"name\" :id=\"id\"\n                :rows=\"rows\"\n\n                @focus=\"focussed\" @blur=\"blurred\" @change=\"changed\" @keydown=\"keydown\"\n                @keydown.enter=\"keydownEnter\" debounce=\"debounce\"\n\n                v-model=\"value | trim\" v-disabled=\"disabled\" v-else\n            ></textarea>\n        </label>\n\n        <div class=\"ui-textbox-feedback\" v-if=\"showFeedback || maxLength\">\n            <div\n                class=\"ui-textbox-error-text\" transition=\"ui-textbox-feedback-toggle\"\n                v-text=\"validationError\" v-show=\"!hideValidationErrors && !valid\"\n            ></div>\n\n            <div\n                class=\"ui-textbox-help-text\" transition=\"ui-textbox-feedback-toggle\"\n                v-text=\"helpText\" v-else\n            ></div>\n\n            <div\n                class=\"ui-textbox-counter\" v-text=\"value.length + '/' + maxLength\"\n                v-if=\"maxLength\"\n            ></div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 169 */
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(170)
-	__vue_script__ = __webpack_require__(171)
+	__webpack_require__(159)
+	__vue_script__ = __webpack_require__(160)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiToolbar.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(172)
+	__vue_template__ = __webpack_require__(161)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -11049,13 +9595,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 170 */
+/* 159 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 171 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11172,7 +9718,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 172 */
+/* 161 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui-toolbar\" :class=\"styleClasses\">\n    <div class=\"ui-toolbar-left\">\n        <ui-icon-button\n            class=\"ui-toolbar-nav-icon\" type=\"clear\" :color=\"iconColor\" :icon=\"navIcon\"\n            @click=\"navIconClick\" v-if=\"!hideNavIcon\"\n        ></ui-icon-button>\n\n        <div class=\"ui-toolbar-brand\" v-if=\"showBrand\">\n            <slot name=\"brand\">\n                <div class=\"ui-toolbar-brand-text\" v-text=\"brand\"></div>\n            </slot>\n        </div>\n    </div>\n\n    <div class=\"ui-toolbar-center\">\n        <div class=\"ui-toolbar-divider\" v-if=\"brandDividerVisible\"></div>\n\n        <slot>\n            <div class=\"ui-toolbar-title\" v-text=\"title\"></div>\n        </slot>\n    </div>\n\n    <div class=\"ui-toolbar-right\">\n        <slot name=\"actions\"></slot>\n    </div>\n\n    <ui-progress-linear\n        :show=\"loading\" class=\"ui-toolbar-preloader\" :class=\"{ 'position-top' : preloaderTop }\"\n        :color=\"preloaderColor\"\n    ></ui-progress-linear>\n</div>\n";

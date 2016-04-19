@@ -1,5 +1,5 @@
 /*!
- * Keen UI v0.8.4 (https://github.com/JosephusPaye/keen-ui)
+ * Keen UI v0.8.5 (https://github.com/JosephusPaye/keen-ui)
  * (c) 2016 Josephus Paye II
  * Released under the MIT License.
  */
@@ -758,8 +758,9 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
   opacity: 0;
   margin-top: -20px;
 }
-.sey-list {
-  display: none;
+.ui-autocomplete-suggestions {
+  min-width: 100%;
+  display: block;
   position: absolute;
   padding: 0;
   margin: 0;
@@ -771,13 +772,8 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
   transition: left 0.1s ease-in-out;
   z-index: 40;
 }
-.sey-show {
-  display: block;
-}
-.sey-hide {
-  display: none;
-}
-.sey-item {
+.ui-autocomplete-suggestion {
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   cursor: pointer;
   overflow: hidden;
   white-space: nowrap;
@@ -786,11 +782,27 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
   font-weight: normal;
   font-size: 15px;
 }
-.sey-item:hover {
+.ui-autocomplete-suggestion:hover {
   background-color: rgba(0,0,0,0.06);
 }
-.sey-selected {
+.ui-autocomplete-suggestion.highlighted {
   background-color: rgba(0,0,0,0.1);
+}
+.ui-autocomplete-image {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.ui-autocomplete-image .image {
+  width: 32px;
+  height: 32px;
+  background-size: cover;
+  background-position: 50%;
+  margin-right: 12px;
+  border-radius: 50%;
 }
 .ui-button {
   font-size: 14px;
