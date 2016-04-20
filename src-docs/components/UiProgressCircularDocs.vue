@@ -99,6 +99,13 @@
                             </tr>
 
                             <tr>
+                                <td>type</td>
+                                <td>String</td>
+                                <td><code>"indeterminate"</code></td>
+                                <td>The type of progress. One of <code>determinate</code> or <code>indeterminate</code>.</td>
+                            </tr>
+
+                            <tr>
                                 <td>color</td>
                                 <td>String</td>
                                 <td class="no-wrap"><code>"primary"</code></td>
