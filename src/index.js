@@ -23,11 +23,13 @@ import UiRatingIcon from './UiRatingIcon.vue';
 import UiRatingPreview from './UiRatingPreview.vue';
 import UiRippleInk from './UiRippleInk.vue';
 import UiSnackbar from './UiSnackbar.vue';
+import UiSnackbarContainer from './UiSnackbarContainer.vue';
 import UiSwitch from './UiSwitch.vue';
 import UiTab from './UiTab.vue';
 import UiTabs from './UiTabs.vue';
 import UiTextbox from './UiTextbox.vue';
 import UiToolbar from './UiToolbar.vue';
+import UiTooltip from './UiTooltip.vue';
 
 const Keen = {
     UiAlert,
@@ -53,11 +55,13 @@ const Keen = {
     UiRatingPreview,
     UiRippleInk,
     UiSnackbar,
+    UiSnackbarContainer,
     UiSwitch,
     UiTab,
     UiTabs,
     UiTextbox,
     UiToolbar,
+    UiTooltip,
 
     install(Vue) {
         Vue.component('ui-alert', UiAlert);
@@ -83,11 +87,13 @@ const Keen = {
         Vue.component('ui-rating-preview', UiRatingPreview);
         Vue.component('ui-ripple-ink', UiRippleInk);
         Vue.component('ui-snackbar', UiSnackbar);
+        Vue.component('ui-snackbar-container', UiSnackbarContainer);
         Vue.component('ui-switch', UiSwitch);
         Vue.component('ui-tab', UiTab);
         Vue.component('ui-tabs', UiTabs);
         Vue.component('ui-textbox', UiTextbox);
         Vue.component('ui-toolbar', UiToolbar);
+        Vue.component('ui-tooltip', UiTooltip);
     }
 };
 

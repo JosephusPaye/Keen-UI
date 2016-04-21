@@ -1,0 +1,21 @@
+.tooltip-element,
+.tooltip-element:after,
+.tooltip-element:before,
+.tooltip-element *,
+.tooltip-element *:after,
+.tooltip-element *:before {
+    box-sizing: border-box;
+}
+
+.tooltip-element {
+    position: absolute;
+    display: none;
+
+    transition: opacity 3s ease;
+    opacity: 0;
+}
+
+.tooltip-element.tooltip-open {
+    display: block;
+    opacity: 1;
+}
