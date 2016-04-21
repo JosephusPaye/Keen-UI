@@ -19,6 +19,27 @@
                 <ui-fab icon="keyboard_voice"></ui-fab>
                 <ui-fab type="mini" icon="keyboard_voice"></ui-fab>
             </div>
+
+            <h4>With tooltip</h4>
+
+            <div class="group">
+                <ui-fab
+                    color="primary" icon="edit" tooltip="Top center" tooltip-position="top center"
+                ></ui-fab>
+
+                <ui-fab
+                    color="primary" icon="edit" tooltip="Bottom center"
+                ></ui-fab>
+
+                <ui-fab
+                    color="primary" icon="edit" tooltip="Left middle" tooltip-position="left middle"
+                ></ui-fab>
+
+                <ui-fab
+                    color="primary" icon="edit" tooltip="Right middle"
+                    tooltip-position="right middle"
+                ></ui-fab>
+            </div>
         </div>
 
         <h3>API</h3>
@@ -62,7 +83,14 @@
                                 <td>tooltip</td>
                                 <td>String</td>
                                 <td></td>
-                                <td>The FAB tooltip. Currently applied as the <code>title</code> attribute.</td>
+                                <td>The FAB tooltip (text only).</td>
+                            </tr>
+
+                            <tr>
+                                <td>tooltipPosition</td>
+                                <td>String</td>
+                                <td class="no-wrap"><code>"bottom center"</code></td>
+                                <td>The position of the tooltip relative to the FAB. One of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, or <code>top center</code>.</td>
                             </tr>
 
                             <tr>
@@ -113,7 +141,7 @@ export default {
         UiTabs,
         UiFab
     }
-}
+};
 </script>
 
 <style lang="stylus">
