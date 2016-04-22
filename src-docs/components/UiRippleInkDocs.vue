@@ -8,7 +8,7 @@
 
         <p>To change the opacity, set <code>opacity</code> on <code>.ui-ripple-ink .ripple</code>.</p>
 
-        <p>UiRippleInk is used internally by many components, including <a href="#/ui-button-demo">UiButton</a>, <a href="#/ui-collapsible-demo">UiCollapsible</a>, <a href="#/ui-icon-button-demo">UiIconButton</a>, <a href="#/ui-fab-demo">UiFab</a>, <a href="#/ui-menu-demo">UiMenu</a>, and <a href="#/ui-tabs-demo">UiTabs</a>.</p>
+        <p>UiRippleInk is used internally by many components, including <a href="#/ui-button-docs">UiButton</a>, <a href="#/ui-collapsible-docs">UiCollapsible</a>, <a href="#/ui-icon-button-docs">UiIconButton</a>, <a href="#/ui-fab-docs">UiFab</a>, <a href="#/ui-menu-docs">UiMenu</a>, and <a href="#/ui-tabs-docs">UiTabs</a>.</p>
 
         <h3>Examples</h3>
 

@@ -9,7 +9,7 @@
         <ul>
             <li><b>Normal</b>: has a background color, with white or black text color.</li>
             <li><b>Flat</b>: has no background, text color is the button color.</li>
-            <li><b>Clear</b> has no background, text color is black or white. Suitable for use in components like <a href="#/ui-toolbar-demo">UiToolbar</a>.</li>
+            <li><b>Clear</b> has no background, text color is black or white. Suitable for use in components like <a href="#/ui-toolbar-docs">UiToolbar</a>.</li>
         </ul>
 
         <p>Supported colors for types <code>normal</code> and <code>flat</code> only are <code>default</code>, <code>primary</code>, <code>accent</code>, <code>success</code>, <code>warning</code> and <code>danger</code>. Supported colors for type <code>clear</code> are <code>black</code> and <code>white</code>.</p>

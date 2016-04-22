@@ -8,7 +8,7 @@
 
         <p>The dropdown is powered by <a href="https://github.com/HubSpot/drop" target="_blank">Drop</a>, which uses <a href="https://github.com/HubSpot/tether" target="_blank">Tether</a>.</p>
 
-        <p>UiPopover is used internally by the <a href="#/ui-button-demo">UiButton</a> and <a href="#/ui-icon-button-demo">UiIconButton</a> components.</p>
+        <p>UiPopover is used internally by the <a href="#/ui-button-docs">UiButton</a> and <a href="#/ui-icon-button-docs">UiIconButton</a> components.</p>
 
         <h3>Examples</h3>
 
