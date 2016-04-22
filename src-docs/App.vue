@@ -26,6 +26,7 @@ import UiSwitchDocs from './components/UiSwitchDocs.vue';
 import UiTabsDocs from './components/UiTabsDocs.vue';
 import UiTextboxDocs from './components/UiTextboxDocs.vue';
 import UiToolbarDocs from './components/UiToolbarDocs.vue';
+import UiTooltipDocs from './components/UiTooltipDocs.vue';
 
 let menu = [
     {
@@ -100,6 +101,9 @@ let menu = [
     }, {
         id: 'ui-toolbar-docs',
         text: 'UiToolbar'
+    }, {
+        id: 'ui-tooltip-docs',
+        text: 'UiTooltip'
     }
 ];
 
@@ -190,7 +194,8 @@ export default {
         UiSwitchDocs,
         UiTabsDocs,
         UiTextboxDocs,
-        UiToolbarDocs
+        UiToolbarDocs,
+        UiTooltipDocs
     }
 };
 </script>

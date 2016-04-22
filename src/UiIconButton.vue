@@ -1,7 +1,7 @@
 <template>
     <button
-        class="ui-icon-button" :class="styleClasses" :title="tooltip"
-        :aria-label="ariaLabel || tooltip" v-disabled="disabled || loading" v-el:button
+        class="ui-icon-button" :class="styleClasses" :aria-label="ariaLabel || tooltip"
+        v-disabled="disabled || loading" v-el:button
     >
         <ui-icon
             class="ui-icon-button-icon" :icon="icon" v-show="!loading"
@@ -13,6 +13,10 @@
         ></ui-progress-circular>
 
         <ui-ripple-ink v-if="!hideRippleInk && !disabled" :trigger="$els.button"></ui-ripple-ink>
+
+        <ui-tooltip
+            :trigger="$els.button" :content="tooltip" :position="tooltipPosition" v-if="tooltip"
+        ></ui-tooltip>
 
         <ui-menu
             class="ui-button-dropdown-menu" :trigger="$els.button" :options="menuOptions"
@@ -36,6 +40,7 @@ import UiProgressCircular from './UiProgressCircular.vue';
 import disabled from './directives/disabled';
 
 import HasDropdown from './mixins/HasDropdown';
+import ShowsTooltip from './mixins/ShowsTooltip';
 import ShowsRippleInk from './mixins/ShowsRippleInk';
 
 export default {
@@ -60,7 +65,6 @@ export default {
             type: String,
             required: true
         },
-        tooltip: String,
         ariaLabel: String,
         loading: {
             type: Boolean,
@@ -101,6 +105,7 @@ export default {
 
     mixins: [
         HasDropdown,
+        ShowsTooltip,
         ShowsRippleInk
     ],
 

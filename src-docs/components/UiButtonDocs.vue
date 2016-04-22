@@ -273,13 +273,6 @@
                             </tr>
 
                             <tr>
-                                <td>tooltip</td>
-                                <td>String</td>
-                                <td></td>
-                                <td>The button tooltip. Currently applied as the <code>title</code> attribute.</td>
-                            </tr>
-
-                            <tr>
                                 <td>icon</td>
                                 <td>String</td>
                                 <td></td>

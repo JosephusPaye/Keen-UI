@@ -1,6 +1,6 @@
 <template>
     <button
-        class="ui-button" :class="styleClasses" :title="tooltip" v-disabled="disabled || loading"
+        class="ui-button" :class="styleClasses" v-disabled="disabled || loading"
         v-el:button
     >
         <div class="ui-button-content" :class="{ 'invisible': loading }">
@@ -80,7 +80,6 @@ export default {
             type: Boolean,
             default: false
         },
-        tooltip: String,
         loading: {
             type: Boolean,
             default: false

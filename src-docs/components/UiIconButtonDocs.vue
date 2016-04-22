@@ -92,6 +92,27 @@
                     <div slot="popover">Hey there! <br>Popovers are nice for custom dropdowns.</div>
                 </ui-icon-button>
             </div>
+
+            <h4>With tooltip</h4>
+
+            <div class="group">
+                <ui-icon-button
+                    icon="refresh" tooltip="Top center" tooltip-position="top center"
+                ></ui-icon-button>
+
+                <ui-icon-button
+                    type="flat" icon="add" color="primary" tooltip="Bottom center"
+                ></ui-icon-button>
+
+                <ui-icon-button
+                    icon="edit" color="accent" tooltip="Left middle" tooltip-position="left middle"
+                ></ui-icon-button>
+
+                <ui-icon-button
+                    type="flat" icon="star" color="success" tooltip="Right middle"
+                    tooltip-position="right middle"
+                ></ui-icon-button>
+            </div>
         </div>
 
         <h3>API</h3>
@@ -139,7 +160,14 @@
                                 <td>tooltip</td>
                                 <td>String</td>
                                 <td></td>
-                                <td>The button tooltip. Currently applied as the <code>title</code> attribute.</td>
+                                <td>The button tooltip (text only).</td>
+                            </tr>
+
+                            <tr>
+                                <td>tooltipPosition</td>
+                                <td>String</td>
+                                <td class="no-wrap"><code>"bottom center"</code></td>
+                                <td>The position of the tooltip relative to the button. One of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, or <code>top center</code>.</td>
                             </tr>
 
                             <tr>
@@ -326,7 +354,7 @@ export default {
                 spinner1: false,
                 spinner2: false
             },
-            menu: menu
+            menu
         };
     },
 
@@ -355,7 +383,7 @@ export default {
         UiTabs,
         UiIconButton
     }
-}
+};
 </script>
 
 <style lang="stylus">
