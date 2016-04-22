@@ -239,14 +239,14 @@
                                 <td>dropdownPosition</td>
                                 <td>String</td>
                                 <td class="no-wrap"><code>"bottom left"</code></td>
-                                <td>The position of the dropdown relative to the button. Can be any one of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, <code>top center</code>.</td>
+                                <td>The position of the dropdown menu or popover relative to the button. Can be any one of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, <code>top center</code>.</td>
                             </tr>
 
                             <tr>
                                 <td>openDropdownOn</td>
                                 <td>String</td>
                                 <td><code>"click"</code></td>
-                                <td>The type of event that will cause the dropdown to open. One of <code>click</code>, <code>hover</code>, <code>focus</code>, or <code>always</code>. For <code>always</code> the dropdown is opened when rendered and it remains open.</td>
+                                <td>The type of event that will cause the dropdown menu or popover to open. One of <code>click</code>, <code>hover</code>, <code>focus</code>, or <code>always</code>. For <code>always</code> the dropdown is opened when rendered and it remains open.</td>
                             </tr>
 
                             <tr>
