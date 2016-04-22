@@ -4,7 +4,7 @@
 
         <p>UiTooltip allows you to show a tooltip on an element. You can customize the position and the event the causes the tooltip to open.</p>
 
-        <p>UiTooltip is used internally by <a href="#/ui-icon-button-demo">UiIconButton</a> and <a href="#/ui-fab-demo">UiFab</a>.</p>
+        <p>UiTooltip is used internally by <a href="#/ui-icon-button-docs">UiIconButton</a> and <a href="#/ui-fab-docs">UiFab</a>.</p>
 
         <h3>Examples</h3>
 

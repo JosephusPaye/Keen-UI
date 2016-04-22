@@ -2,7 +2,7 @@
     <section class="section section-ui-confirm">
         <h2 class="section-heading">UiConfirm</h2>
 
-        <p>A component that creates a confirmation dialog using <a href="#/ui-modal-demo">UiModal</a>.</p>
+        <p>A component that creates a confirmation dialog using <a href="#/ui-modal-docs">UiModal</a>.</p>
 
         <p>The confirm and deny buttons can be customized (text, icon and color) and the confirm emits <code>opened</code>, <code>closed</code>, <code>confirmed</code> and <code>denied</code> events.</p>
 
@@ -98,7 +98,7 @@
                                 <td>String</td>
                                 <td><code>true</code></td>
                                 <td></td>
-                                <td>The dialog header (text only). If you want to use HTML in the header, consider directly using a <a href="#/ui-modal-demo">UiModal</a>.</td>
+                                <td>The dialog header (text only). If you want to use HTML in the header, consider directly using a <a href="#/ui-modal-docs">UiModal</a>.</td>
                             </tr>
 
                             <tr>
