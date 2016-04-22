@@ -1,5 +1,5 @@
 /*!
- * Keen UI v0.8.5 (https://github.com/JosephusPaye/keen-ui)
+ * Keen UI v0.8.7 (https://github.com/JosephusPaye/keen-ui)
  * (c) 2016 Josephus Paye II
  * Released under the MIT License.
  */
@@ -619,6 +619,84 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
   80%, 90% {
     stroke: #ff9800;
   }
+}
+.tooltip-element,
+.tooltip-element:after,
+.tooltip-element:before,
+.tooltip-element *,
+.tooltip-element *:after,
+.tooltip-element *:before {
+  box-sizing: border-box;
+}
+.tooltip-element {
+  position: absolute;
+  display: none;
+  transition: opacity 3s ease;
+  opacity: 0;
+}
+.tooltip-element.tooltip-open {
+  display: block;
+  opacity: 1;
+}
+.tooltip-element.ui-tooltip-theme {
+  max-width: 100%;
+  max-height: 100%;
+  pointer-events: none;
+  z-index: 40;
+}
+.tooltip-element.ui-tooltip-theme .tooltip-content {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  border-radius: 2px;
+  padding: 0 8px;
+  height: 26px;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1;
+  background: #424242;
+  opacity: 0.95;
+  color: #fff;
+}
+.tooltip-element.ui-tooltip-theme.tooltip-element-attached-bottom.tooltip-element-attached-center .tooltip-content {
+  margin-bottom: 4px;
+}
+.tooltip-element.ui-tooltip-theme.tooltip-element-attached-top.tooltip-element-attached-center .tooltip-content {
+  margin-top: 4px;
+}
+.tooltip-element.ui-tooltip-theme.tooltip-element-attached-right.tooltip-element-attached-middle .tooltip-content {
+  margin-right: 4px;
+}
+.tooltip-element.ui-tooltip-theme.tooltip-element-attached-left.tooltip-element-attached-middle .tooltip-content {
+  margin-left: 4px;
+}
+.tooltip-element.ui-tooltip-theme.tooltip-element-attached-top.tooltip-element-attached-left.tooltip-target-attached-bottom .tooltip-content {
+  margin-top: 4px;
+}
+.tooltip-element.ui-tooltip-theme.tooltip-element-attached-top.tooltip-element-attached-right.tooltip-target-attached-bottom .tooltip-content {
+  margin-top: 4px;
+}
+.tooltip-element.ui-tooltip-theme.tooltip-element-attached-bottom.tooltip-element-attached-left.tooltip-target-attached-top .tooltip-content {
+  margin-bottom: 4px;
+}
+.tooltip-element.ui-tooltip-theme.tooltip-element-attached-bottom.tooltip-element-attached-right.tooltip-target-attached-top .tooltip-content {
+  margin-bottom: 4px;
+}
+.tooltip-element.ui-tooltip-theme.tooltip-element-attached-top.tooltip-element-attached-right.tooltip-target-attached-left .tooltip-content {
+  margin-right: 4px;
+}
+.tooltip-element.ui-tooltip-theme.tooltip-element-attached-top.tooltip-element-attached-left.tooltip-target-attached-right .tooltip-content {
+  margin-left: 4px;
+}
+.tooltip-element.ui-tooltip-theme.tooltip-element-attached-bottom.tooltip-element-attached-right.tooltip-target-attached-left .tooltip-content {
+  margin-right: 4px;
+}
+.tooltip-element.ui-tooltip-theme.tooltip-element-attached-bottom.tooltip-element-attached-left.tooltip-target-attached-right .tooltip-content {
+  margin-left: 4px;
 }
 .ui-autocomplete {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -2010,6 +2088,29 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
 .ui-snackbar-toggle-enter .ui-snackbar-action,
 .ui-snackbar-toggle-leave .ui-snackbar-action {
   opacity: 0;
+}
+.ui-snackbar-container {
+  position: absolute;
+  overflow: hidden;
+  bottom: 0;
+  left: 8px;
+}
+.ui-snackbar-container.position-right {
+  left: initial;
+  right: 8px;
+}
+.ui-snackbar-container.position-center {
+  left: 8px;
+  right: 8px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.ui-snackbar-container .ui-snackbar {
+  margin: 4px 4px 12px 4px;
 }
 .ui-switch {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
