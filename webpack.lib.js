@@ -31,11 +31,13 @@ config.entry = {
     UiRatingPreview: ['./src/UiRatingPreview.vue'],
     UiRippleInk: ['./src/UiRippleInk.vue'],
     UiSnackbar: ['./src/UiSnackbar.vue'],
+    UiSnackbarContainer: ['./src/UiSnackbarContainer.vue'],
     UiSwitch: ['./src/UiSwitch.vue'],
     UiTab: ['./src/UiTab.vue'],
     UiTabs: ['./src/UiTabs.vue'],
     UiTextbox: ['./src/UiTextbox.vue'],
-    UiToolbar: ['./src/UiToolbar.vue']
+    UiToolbar: ['./src/UiToolbar.vue'],
+    UiTooltip: ['./src/UiTooltip.vue']
 };
 
 config.plugins = [
