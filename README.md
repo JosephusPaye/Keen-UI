@@ -214,7 +214,7 @@ new Vue({
 * [ ] Add CodePen demos
 * [ ] Test browser compatibility (IE 9+)
 * [ ] Add new components
-  * [ ] Tooltip
+  * [x] Tooltip
   * [ ] Slider
   * [ ] Select
 * [ ] Add customization guide
