@@ -1,7 +1,7 @@
 <template>
     <li
         class="ui-tab-header-item" role="tab"
-        :class="{ 'active': active, 'disabled': disabled, ['type-' + type]: true }"
+        :class="['type-' + type, { 'active': active, 'disabled': disabled }]"
 
         :tabindex="active ? 0 : -1" :aria-controls="id" :aria-selected="active ? 'true' : null"
         v-disabled="disabled" v-el:item

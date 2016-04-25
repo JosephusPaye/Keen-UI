@@ -1,7 +1,7 @@
 <template>
     <li
         class="ui-autocomplete-suggestion":id="id"
-        :class="{ 'highlighted': highlighted, [partial]: true }"
+        :class="[partial, { 'highlighted': highlighted }]"
     >
         <partial :name="partial"></partial>
     </li>
