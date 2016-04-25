@@ -138,6 +138,10 @@ export default {
     height: 40px;
     border-radius: 50%;
 
+    &::-moz-focus-inner {
+      border: 0;
+    }
+
     &[disabled] {
         opacity: 0.6;
     }

@@ -83,6 +83,10 @@ export default {
     box-shadow: 0 2px 5px 0 alpha(black, 0.2), 0 2px 10px 0 alpha(black, 0.16);
     transition: box-shadow 0.3s ease;
 
+    &::-moz-focus-inner {
+      border: 0;
+    }
+
     &:hover:not([disabled]),
     body[modality="keyboard"] &:focus {
         box-shadow: 0 8px 17px 0 alpha(black, 0.25), 0 6px 20px 0 alpha(black, 0.2);

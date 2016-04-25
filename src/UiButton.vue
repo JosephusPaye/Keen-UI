@@ -166,6 +166,10 @@ export default {
     min-width: 80px;
     height: 40px;
 
+    &::-moz-focus-inner {
+      border: 0;
+    }
+
     &.autofocus:focus,
     body[modality="keyboard"] &:focus {
         outline-style: solid;
