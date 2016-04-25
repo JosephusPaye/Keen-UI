@@ -296,6 +296,10 @@ export default {
         .ui-autocomplete-icon-wrapper {
             padding-top: 20px;
         }
+
+        .ui-autocomplete-clear-button {
+            top: 22px;
+        }
     }
 
     &.icon-right {
@@ -330,6 +334,7 @@ export default {
 }
 
 .ui-autocomplete-label {
+    display: block;
     position: relative;
     width: 100%;
     margin: 0;
@@ -389,7 +394,7 @@ export default {
     font-size: 18px;
     position: absolute;
     right: 0;
-    top: 0;
+    top: 6px;
     color: $input-clear-button-color;
     cursor: default;
 
