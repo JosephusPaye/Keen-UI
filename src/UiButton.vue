@@ -164,7 +164,7 @@ export default {
     border-radius: 2px;
     padding: 8px 16px;
     min-width: 80px;
-    min-height: 40px;
+    height: 40px;
 
     &.autofocus:focus,
     body[modality="keyboard"] &:focus {
