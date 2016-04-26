@@ -396,7 +396,7 @@ export default {
     right: 0;
     top: 6px;
     color: $input-clear-button-color;
-    cursor: default;
+    cursor: pointer;
 
     &:hover {
         color: $input-clear-button-color-hover;
