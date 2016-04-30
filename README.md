@@ -220,7 +220,7 @@ new Vue({
 * [ ] Add customization guide
 * [ ] Add unit tests
 
-## Licence
+## License
 Keen UI is open source and released under the [MIT Licence](LICENCE).
 
 Copyright (c) 2016 Josephus Paye II
