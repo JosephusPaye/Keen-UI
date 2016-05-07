@@ -7,7 +7,7 @@ Keen is designed to be a lightweight but complete [Vue.js](http://vuejs.org/) UI
 Keen is **not** a CSS framework, and as such you won't find a grid system or styles for typography in it. Instead, the focus is on creating reusable components that have interactivity.
 
 ## Documentation and Demo
-[http://josephuspaye.github.io/keen-ui/](http://josephuspaye.github.io/keen-ui/)
+[http://josephuspaye.github.io/Keen-UI/](http://josephuspaye.github.io/Keen-UI/)
 
 ## Requirements
 * [Vue.js](http://vuejs.org/) (^v1.0.21)
