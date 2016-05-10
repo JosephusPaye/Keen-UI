@@ -189,13 +189,13 @@ export default {
 
     &:hover:not(.disabled) {
         .ui-rating-label {
-            color: alpha($md-dark-secondary, 65%);
+            color: $input-label-color-hover;
         }
     }
 
     &.active:not(.disabled) {
         .ui-rating-label {
-            color: darken($md-brand-primary, 20%);
+            color: $input-label-color-active;
         }
     }
 
@@ -241,7 +241,7 @@ export default {
 .ui-rating-label {
     font-size: 14px;
     margin-bottom: 4px;
-    color: $md-dark-secondary;
+    color: $input-label-color;
     transition: color 0.1s ease;
 }
 
