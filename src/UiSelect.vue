@@ -1,0 +1,454 @@
+<template>
+    <div
+        class="ui-select" v-el:select
+        :class="{
+            'disabled': disabled, 'invalid': !valid, 'dirty': dirty, 'active': active,
+            'has-label': !hideLabel, 'icon-right': iconRight
+        }"
+    >
+        <div class="ui-select-icon-wrapper" v-if="showIcon">
+            <ui-icon :icon="icon" class="ui-select-icon"></ui-icon>
+        </div>
+
+        <div class="ui-select-content">
+            <label class="ui-select-label">
+                <div class="ui-select-label-text" v-text="label" v-if="!hideLabel"></div>
+
+                <ui-icon
+                    class="ui-select-clear-button" icon="&#xE5CD" title="Clear"
+                    @click="clearSearch" v-show="value.length"
+                ></ui-icon>
+
+                <input
+                    class="ui-select-input" :placeholder="placeholder" :name="name"
+                    :id="id" autocomplete="off"
+
+                    @focus="focus" @blur="blur" @keydown.up="highlight(highlightedItem - 1)"
+                    @keydown.down="highlight(highlightedItem + 1)" @keydown.tab="close"
+                    @keydown.enter="selectHighlighted(highlightedItem, $event)"
+
+                    v-model="value" v-disabled="disabled" v-el:input
+                >
+
+                <ul class="ui-select-suggestions" v-show="showDropdown">
+                    <ui-select-suggestion
+                        :highlighted="highlightedItem === index" :item="item" :partial="partial"
+                        v-for="(index, item) in suggestions | filterBy search | limitBy limit"
+                        v-ref:items @click="select(item)"
+                    ></ui-select-suggestion>
+                </ul>
+            </label>
+
+            <div class="ui-select-feedback" v-if="showFeedback">
+                <div
+                    class="ui-select-error-text" v-text="validationError"
+                    transition="ui-select-feedback-toggle"
+                    v-show="!hideValidationErrors && !valid"
+                ></div>
+
+                <div
+                    class="ui-select-help-text" transition="ui-select-feedback-toggle"
+                    v-text="helpText" v-else
+                ></div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import Validator from 'validatorjs';
+import fuzzysearch from 'fuzzysearch';
+
+import UiIcon from './UiIcon.vue';
+import UiAutocompleteSuggestion from './UiAutocompleteSuggestion.vue';
+
+import HasTextInput from './mixins/HasTextInput';
+
+export default {
+    name: 'ui-select',
+
+    props: {
+        suggestions: {
+            type: Array,
+            default: []
+        },
+        limit: {
+            type: Number,
+            default: 8
+        },
+        partial: String,
+        append: {
+            type: Boolean,
+            default: false
+        },
+        appendDelimiter: {
+            type: String,
+            default: ', '
+        },
+        minChars: {
+            type: Number,
+            default: 2
+        },
+        showOnUpDown: {
+            type: Boolean,
+            default: true
+        }
+    },
+
+    data() {
+        return {
+            showDropdown: false,
+            highlightedItem: -1,
+            ignoreValueChange: false
+        };
+    },
+
+    computed: {
+        showIcon() {
+            return Boolean(this.icon);
+        }
+    },
+
+    events: {
+        'ui-input::reset'(id) {
+            // Abort if reset event isn't meant for this component
+            if (!this.eventTargetsComponent(id)) {
+                return;
+            }
+
+            // Blur input before resetting to avoid "required" errors
+            // when input is blurred after reset
+            if (document.activeElement === this.$els.input) {
+                document.activeElement.blur();
+            }
+
+            // Reset state
+            this.value = this.initialValue;
+            this.dirty = false;
+            this.valid = true;
+        }
+    },
+
+    watch: {
+        value() {
+            if (!this.ignoreValueChange && this.value.length >= this.minChars) {
+                this.open();
+            }
+
+            this.highlightedItem = 0;
+        }
+    },
+
+    ready() {
+        document.addEventListener('click', this.closeOnExternalClick);
+    },
+
+    beforeDestroy() {
+        document.removeEventListener('click', this.closeOnExternalClick);
+    },
+
+    methods: {
+        search(item) {
+            let text = item.text || item;
+            let query = this.value.toLowerCase();
+
+            return fuzzysearch(query, text.toLowerCase());
+        },
+
+        select(item) {
+            if (this.append) {
+                this.value += this.appendDelimiter + (item.text || item);
+            } else {
+                this.value = item.text || item;
+            }
+
+            if (this.validationRules) {
+                this.validate();
+            }
+
+            this.$nextTick(() => {
+                this.close();
+                this.$els.input.focus();
+            });
+        },
+
+        highlight(index) {
+            if (index < 0) {
+                index = this.$refs.items.length - 1;
+            } else if (index >= this.$refs.items.length) {
+                index = 0;
+            }
+
+            this.highlightedItem = index;
+
+            if (this.showOnUpDown) {
+                this.open();
+            }
+        },
+
+        selectHighlighted(index, e) {
+            if (this.showDropdown && this.$refs.items.length) {
+                e.preventDefault();
+                this.select(this.$refs.items[index].item);
+            }
+        },
+
+        clearSearch() {
+            this.value = '';
+        },
+
+        open() {
+            this.showDropdown = true;
+        },
+
+        close() {
+            this.showDropdown = false;
+
+            this.validate();
+        },
+
+        closeOnExternalClick(e) {
+            if (! this.$els.autocomplete.contains(e.target) && this.showDropdown) {
+                this.close();
+            }
+        },
+
+        focus() {
+            this.active = true;
+        },
+
+        blur() {
+            this.active = false;
+
+            if (!this.dirty) {
+                this.dirty = true;
+            }
+        },
+
+        validate() {
+            if (!this.validationRules || !this.dirty) {
+                return;
+            }
+
+            let data = {
+                value: this.value
+            };
+
+            let rules = {
+                value: this.validationRules
+            };
+
+            let validation = new Validator(data, rules, this.validationMessages);
+            validation.setAttributeNames({ value: this.name.replace(/_/g, ' ') });
+
+            this.valid = validation.passes();
+
+            if (!this.valid) {
+                this.validationError = validation.errors.first('value');
+            }
+        }
+    },
+
+    components: {
+        UiIcon,
+        UiAutocompleteSuggestion
+    },
+
+    mixins: [
+        HasTextInput
+    ]
+};
+</script>
+
+<style lang="stylus">
+@import './styles/imports';
+
+.ui-select {
+    font-family: $font-stack;
+    display: flex;
+    position: relative;
+    margin-bottom: 12px;
+    align-items: flex-start;
+
+    &:hover:not(.disabled) {
+        .ui-select-label-text {
+            color: $input-label-color-hover;
+        }
+
+        .ui-select-input {
+            border-bottom-color: $input-border-color-hover;
+        }
+    }
+
+    &.active:not(.disabled) {
+        .ui-select-label-text,
+        .ui-select-icon {
+            color: $input-label-color-active;
+        }
+
+        .ui-select-input {
+            border-bottom-width: 2px;
+            border-bottom-color: $input-border-color-active;
+        }
+    }
+
+    &.has-label {
+        .ui-select-icon-wrapper {
+            padding-top: 20px;
+        }
+
+        .ui-select-clear-button {
+            top: 22px;
+        }
+    }
+
+    &.icon-right {
+        .ui-select-icon-wrapper {
+            order: 1;
+            margin-left: 8px;
+            margin-right: 0;
+        }
+    }
+
+    &.invalid:not(.disabled) {
+        .ui-select-label-text,
+        .ui-select-icon {
+            color: $input-label-color-invalid;
+        }
+
+        .ui-select-input {
+            border-bottom-color: $input-border-color-invalid;
+        }
+    }
+
+     &.disabled {
+        .ui-select-input {
+            color: $input-color-disabled;
+            border-bottom-style: dashed;
+        }
+
+        .ui-select-icon {
+            opacity: 0.6;
+        }
+    }
+}
+
+.ui-select-label {
+    display: block;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.ui-select-icon-wrapper {
+    height: 24px;
+    flex-shrink: 0;
+    margin-right: 12px;
+    padding-top: 4px;
+}
+
+.ui-select-icon {
+    color: $input-label-color;
+}
+
+.ui-select-content {
+    flex-grow: 1;
+}
+
+.ui-select-label-text {
+    font-size: 14px;
+    line-height: 1;
+    margin-bottom: 2px;
+    color: $input-label-color;
+    transition: color 0.1s ease;
+}
+
+.ui-select-input {
+    cursor: auto;
+    background: none;
+    outline: none;
+    border: none;
+    padding: 0;
+
+    // Hide Edge and IE input clear button
+    &::-ms-clear {
+        display: none;
+    }
+
+    width: 100%;
+    height: 32px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: $input-border-color;
+
+    transition: border 0.1s ease;
+
+    color: $input-color;
+    font-weight: normal;
+    font-size: 16px;
+    font-family: $font-stack;
+}
+
+.ui-select-clear-button {
+    font-size: 18px;
+    position: absolute;
+    right: 0;
+    top: 6px;
+    color: $input-clear-button-color;
+    cursor: default;
+
+    &:hover {
+        color: $input-clear-button-color-hover;
+    }
+}
+
+.ui-select-feedback {
+    margin: 0;
+    height: 20px;
+    overflow: hidden;
+    position: relative;
+    overflow: hidden;
+    font-size: 14px;
+    padding-top: 4px;
+}
+
+.ui-select-help-text {
+    color: $input-help-color;
+    line-height: 1;
+}
+
+.ui-select-error-text {
+    position: absolute;
+    color: $input-error-color;
+    line-height: 1;
+}
+
+.ui-select-feedback-toggle-transition {
+    transition-property: opacity, margin-top;
+    transition-duration: 0.3s;
+    opacity: 1;
+    margin-top: 0;
+}
+
+.ui-select-feedback-toggle-enter,
+.ui-select-feedback-toggle-leave {
+   opacity: 0;
+   margin-top: -20px;
+}
+
+.ui-select-suggestions {
+    min-width: 100%;
+    display: block;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 8px;
+    list-style-type: none;
+    box-shadow: 1px 2px 8px $md-grey-600;
+    background-color: white;
+    color: $md-dark-text;
+    transition: left 0.1s ease-in-out;
+    z-index: $z-index-dropdown;
+}
+</style>

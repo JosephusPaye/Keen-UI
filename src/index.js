@@ -22,6 +22,7 @@ import UiRating from './UiRating.vue';
 import UiRatingIcon from './UiRatingIcon.vue';
 import UiRatingPreview from './UiRatingPreview.vue';
 import UiRippleInk from './UiRippleInk.vue';
+import UiSlider from './UiSlider.vue';
 import UiSnackbar from './UiSnackbar.vue';
 import UiSnackbarContainer from './UiSnackbarContainer.vue';
 import UiSwitch from './UiSwitch.vue';
@@ -54,6 +55,7 @@ const Keen = {
     UiRatingIcon,
     UiRatingPreview,
     UiRippleInk,
+    UiSlider,
     UiSnackbar,
     UiSnackbarContainer,
     UiSwitch,
@@ -86,6 +88,7 @@ const Keen = {
         Vue.component('ui-rating-icon', UiRatingIcon);
         Vue.component('ui-rating-preview', UiRatingPreview);
         Vue.component('ui-ripple-ink', UiRippleInk);
+        Vue.component('ui-slider', UiSlider);
         Vue.component('ui-snackbar', UiSnackbar);
         Vue.component('ui-snackbar-container', UiSnackbarContainer);
         Vue.component('ui-switch', UiSwitch);

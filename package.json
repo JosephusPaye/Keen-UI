@@ -44,7 +44,9 @@
   "homepage": "https://github.com/JosephusPaye/keen-ui/",
   "dependencies": {
     "dominus": "^5.0.6",
+    "draggabilly": "^1.2.4",
     "fuzzysearch": "^1.0.3",
+    "imports-loader": "^0.6.5",
     "tether-drop": "^1.4.2",
     "tether-tooltip": "^1.2.0",
     "validatorjs": "^2.0.5",
