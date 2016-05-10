@@ -60,7 +60,7 @@
                                 <td>icon *</td>
                                 <td>String</td>
                                 <td>(required)</td>
-                                <td>The button icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</td>
+                                <td>The icon name. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</td>
                             </tr>
 
                             <tr>
