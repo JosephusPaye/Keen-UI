@@ -69,7 +69,7 @@ export default {
     height: 4px;
     width: 100%;
 
-    transition-property: height opacity;
+    transition-property: height, opacity;
     transition-timing-function: ease;
     transition-duration: 0.3s;
 
