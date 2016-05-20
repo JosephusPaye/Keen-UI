@@ -174,7 +174,7 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>Two-way</td>
-                                <td>Shows whether or not the autocomplete is valid. Only applicable the <code>validationRules</code> prop is present.</td>
+                                <td>Shows whether or not the autocomplete is valid. Only applicable when the <code>validationRules</code> prop is present.</td>
                             </tr>
 
                             <tr>
