@@ -33,6 +33,12 @@
             </p>
 
             <ui-button @click="reset">Reset Ratings</ui-button>
+
+            <h4>UiRating, disabled</h4>
+
+            <ui-rating
+                :total="5" :value.sync="3" label="Rate this post" disabled
+            ></ui-rating>
         </div>
 
         <h3>API: UiRating</h3>
