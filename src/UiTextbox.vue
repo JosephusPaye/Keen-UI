@@ -336,6 +336,10 @@ export default {
         .ui-textbox-icon {
             opacity: 0.6;
         }
+
+        .ui-textbox-feedback {
+            opacity: 0.8;
+        }
     }
 }
 
@@ -405,7 +409,6 @@ export default {
     min-height: 20px;
     overflow: hidden;
     position: relative;
-    overflow: hidden;
     font-size: 14px;
     padding-top: 2px;
 }

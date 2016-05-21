@@ -46,9 +46,9 @@ export default {
     computed: {
         showFeedback() {
             var canBeValidated = Boolean(this.validationRules);
-            var helpTextAvailable = Boolean(this.helpText);
+            var hasHelpText = Boolean(this.helpText);
 
-            return !this.disabled && (canBeValidated || helpTextAvailable);
+            return canBeValidated || hasHelpText;
         }
     },
 

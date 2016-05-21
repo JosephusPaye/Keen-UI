@@ -306,6 +306,10 @@ export default {
         .ui-autocomplete-icon {
             opacity: 0.6;
         }
+
+        .ui-autocomplete-feedback {
+            opacity: 0.8;
+        }
     }
 }
 
@@ -384,7 +388,6 @@ export default {
     height: 20px;
     overflow: hidden;
     position: relative;
-    overflow: hidden;
     font-size: 14px;
     padding-top: 4px;
 }

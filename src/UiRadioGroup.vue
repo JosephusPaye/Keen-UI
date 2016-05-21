@@ -14,7 +14,7 @@
         </div>
 
         <div
-            class="ui-radio-group-feedback" v-if="showHelp"
+            class="ui-radio-group-feedback" v-if="showFeedback"
             transition="ui-radio-group-feedback-toggle"
         >
             <div class="ui-radio-group-help-text" v-text="helpText"></div>
@@ -75,8 +75,8 @@ export default {
     },
 
     computed: {
-        showHelp() {
-            return !this.disabled && Boolean(this.helpText);
+        showFeedback() {
+            return Boolean(this.helpText);
         }
     },
 
@@ -148,8 +148,8 @@ export default {
     }
 
     &.disabled {
-        .ui-radio-group-label {
-            opacity: 0.6;
+        .ui-radio-group-feedback {
+            opacity: 0.8;
         }
     }
 
@@ -179,7 +179,6 @@ export default {
     overflow: hidden;
     padding-top: 4px;
     position: relative;
-    overflow: hidden;
     font-size: 14px;
 }
 
