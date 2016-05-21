@@ -31,6 +31,7 @@
     "dist",
     "lib",
     "src",
+    "CHANGELOG.md",
     "LICENCE",
     "README.md"
   ],
