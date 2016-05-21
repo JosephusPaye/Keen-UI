@@ -56,13 +56,13 @@
 </template>
 
 <script>
-import Validator from 'validatorjs';
 import fuzzysearch from 'fuzzysearch';
 
 import UiIcon from './UiIcon.vue';
 import UiAutocompleteSuggestion from './UiAutocompleteSuggestion.vue';
 
 import HasTextInput from './mixins/HasTextInput';
+import ValidatesInput from './mixins/ValidatesInput';
 
 export default {
     name: 'ui-autocomplete',
@@ -162,9 +162,7 @@ export default {
                 this.value = item.text || item;
             }
 
-            if (this.validationRules) {
-                this.validate();
-            }
+            this.validate();
 
             this.$nextTick(() => {
                 this.close();
@@ -223,29 +221,6 @@ export default {
             if (!this.dirty) {
                 this.dirty = true;
             }
-        },
-
-        validate() {
-            if (!this.validationRules || !this.dirty) {
-                return;
-            }
-
-            let data = {
-                value: this.value
-            };
-
-            let rules = {
-                value: this.validationRules
-            };
-
-            let validation = new Validator(data, rules, this.validationMessages);
-            validation.setAttributeNames({ value: this.name.replace(/_/g, ' ') });
-
-            this.valid = validation.passes();
-
-            if (!this.valid) {
-                this.validationError = validation.errors.first('value');
-            }
         }
     },
 
@@ -255,7 +230,8 @@ export default {
     },
 
     mixins: [
-        HasTextInput
+        HasTextInput,
+        ValidatesInput
     ]
 };
 </script>

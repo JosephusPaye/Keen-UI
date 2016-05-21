@@ -58,11 +58,10 @@
 </template>
 
 <script>
-import Validator from 'validatorjs';
-
 import UiIcon from './UiIcon.vue';
 
 import HasTextInput from './mixins/HasTextInput';
+import ValidatesInput from './mixins/ValidatesInput';
 
 export default {
     name: 'ui-textbox',
@@ -112,7 +111,7 @@ export default {
                 this.dirty = true;
             }
 
-            if (this.validationRules && !this.validateOnBlur) {
+            if (!this.validateOnBlur) {
                 this.validate();
             }
         }
@@ -208,10 +207,7 @@ export default {
             }
 
             this.$dispatch('blurred');
-
-            if (this.validationRules) {
-                this.validate();
-            }
+            this.validate();
         },
 
         changed() {
@@ -224,25 +220,6 @@ export default {
 
         keydownEnter(e) {
             this.$dispatch('keydown-enter', e);
-        },
-
-        validate() {
-            let data = {
-                value: this.value
-            };
-
-            let rules = {
-                value: this.validationRules
-            };
-
-            let validation = new Validator(data, rules, this.validationMessages);
-            validation.setAttributeNames({ value: this.name.replace(/_/g, ' ') });
-
-            this.valid = validation.passes();
-
-            if (!this.valid) {
-                this.validationError = validation.errors.first('value');
-            }
         }
     },
 
@@ -264,7 +241,8 @@ export default {
     },
 
     mixins: [
-        HasTextInput
+        HasTextInput,
+        ValidatesInput
     ]
 };
 </script>
