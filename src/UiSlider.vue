@@ -311,6 +311,12 @@ $thumb-fill-color = $md-brand-primary;
             opacity: 0.6;
         }
     }
+
+    &:not(.disabled) {
+        .ui-slider-wrapper {
+            cursor: pointer;
+        }
+    }
 }
 
 .ui-slider-wrapper {
