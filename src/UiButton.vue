@@ -195,7 +195,7 @@ export default {
     }
 }
 
-&.ui-button-raised {
+.ui-button-raised {
     box-shadow: 0 0 2px alpha(black, 0.12), 0 2px 2px alpha(black, 0.2);
     transition: box-shadow 0.1s;
 
@@ -206,7 +206,7 @@ export default {
     }
 }
 
-&.ui-button-normal {
+.ui-button-normal {
     &.autofocus:focus,
     body[modality="keyboard"] &:focus {
         outline-width: 2px;
@@ -326,7 +326,7 @@ export default {
     }
 }
 
-&.ui-button-flat {
+.ui-button-flat {
     background-color: transparent;
 
     &:hover:not([disabled]),

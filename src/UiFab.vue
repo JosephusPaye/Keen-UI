@@ -155,5 +155,7 @@ export default {
 
 .ui-fab-icon {
     margin: 0;
+    width: initial; // Firefox: needs the width and height reset for flexbox centering
+    height: initial;
 }
 </style>

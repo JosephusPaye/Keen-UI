@@ -155,7 +155,7 @@ export default {
     }
 }
 
-&.ui-icon-button-normal {
+.ui-icon-button-normal {
     &.color-primary,
     &.color-accent,
     &.color-success,
@@ -255,7 +255,7 @@ export default {
     }
 }
 
-&.ui-icon-button-flat {
+.ui-icon-button-flat {
     &.color-default,
     &.color-primary,
     &.color-accent,
@@ -341,7 +341,7 @@ export default {
     }
 }
 
-&.ui-icon-button-clear {
+.ui-icon-button-clear {
     background-color: transparent;
 
     body[modality="keyboard"] &:focus,
@@ -373,5 +373,10 @@ export default {
             color: $md-dark-secondary;
         }
     }
+}
+
+.ui-icon-button-icon {
+    width: initial; // Firefox: needs the width and height reset for flexbox centering
+    height: initial;
 }
 </style>
