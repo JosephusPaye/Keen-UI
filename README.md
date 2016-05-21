@@ -133,7 +133,7 @@ import { UiAlert, UiButton } from 'keen-ui';
 new Vue({
     components: {
         UiAlert,
-        UiButton        
+        UiButton
     }
 });
 ```
@@ -205,7 +205,7 @@ import UiButton from 'keen-ui/lib/UiButton';
 
 new Vue({
     components: {
-        UiButton        
+        UiButton
     }
 });
 ```
@@ -215,8 +215,9 @@ new Vue({
 * [ ] Test browser compatibility (IE 9+)
 * [ ] Add new components
   * [x] Tooltip
-  * [ ] Slider
-  * [ ] Select
+  * [x] Slider
+  * [x] Select
+  * [ ] Datepicker
 * [ ] Add customization guide
 * [ ] Add unit tests
 
