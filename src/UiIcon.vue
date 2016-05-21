@@ -31,5 +31,6 @@ export default {
     height: 1em;
     display: inline-block;
     cursor: inherit;
+    vertical-align: middle;
 }
 </style>
