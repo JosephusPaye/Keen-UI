@@ -20,7 +20,7 @@ export default {
             type: Boolean,
             default: false
         },
-        showMenuKeyboardShortcuts: {
+        showMenuSecondaryText: {
             type: Boolean,
             default: false
         }

@@ -44,6 +44,9 @@ module.exports = {
                 limit: 10000,
                 name: '[name].[ext]?[hash]'
             }
+        }, {
+            test: /draggabilly|desandro|get\-size|classie|unidragger|unipointer|eventemitter/,
+            loader: 'imports?define=>false&this=>window'
         }]
     },
 

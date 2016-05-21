@@ -16,7 +16,7 @@
 
                 <ui-icon
                     class="ui-autocomplete-clear-button" icon="&#xE5CD" title="Clear"
-                    @click="clearSearch" v-show="value.length"
+                    @click="clearSearch" v-show="!disabled && value.length"
                 ></ui-icon>
 
                 <input
@@ -56,13 +56,13 @@
 </template>
 
 <script>
-import Validator from 'validatorjs';
 import fuzzysearch from 'fuzzysearch';
 
 import UiIcon from './UiIcon.vue';
 import UiAutocompleteSuggestion from './UiAutocompleteSuggestion.vue';
 
 import HasTextInput from './mixins/HasTextInput';
+import ValidatesInput from './mixins/ValidatesInput';
 
 export default {
     name: 'ui-autocomplete',
@@ -162,9 +162,7 @@ export default {
                 this.value = item.text || item;
             }
 
-            if (this.validationRules) {
-                this.validate();
-            }
+            this.validate();
 
             this.$nextTick(() => {
                 this.close();
@@ -223,29 +221,6 @@ export default {
             if (!this.dirty) {
                 this.dirty = true;
             }
-        },
-
-        validate() {
-            if (!this.validationRules || !this.dirty) {
-                return;
-            }
-
-            let data = {
-                value: this.value
-            };
-
-            let rules = {
-                value: this.validationRules
-            };
-
-            let validation = new Validator(data, rules, this.validationMessages);
-            validation.setAttributeNames({ value: this.name.replace(/_/g, ' ') });
-
-            this.valid = validation.passes();
-
-            if (!this.valid) {
-                this.validationError = validation.errors.first('value');
-            }
         }
     },
 
@@ -255,7 +230,8 @@ export default {
     },
 
     mixins: [
-        HasTextInput
+        HasTextInput,
+        ValidatesInput
     ]
 };
 </script>
@@ -296,6 +272,10 @@ export default {
         .ui-autocomplete-icon-wrapper {
             padding-top: 20px;
         }
+
+        .ui-autocomplete-clear-button {
+            top: 22px;
+        }
     }
 
     &.icon-right {
@@ -326,10 +306,15 @@ export default {
         .ui-autocomplete-icon {
             opacity: 0.6;
         }
+
+        .ui-autocomplete-feedback {
+            opacity: 0.8;
+        }
     }
 }
 
 .ui-autocomplete-label {
+    display: block;
     position: relative;
     width: 100%;
     margin: 0;
@@ -389,9 +374,9 @@ export default {
     font-size: 18px;
     position: absolute;
     right: 0;
-    top: 0;
+    top: 6px;
     color: $input-clear-button-color;
-    cursor: default;
+    cursor: pointer;
 
     &:hover {
         color: $input-clear-button-color-hover;
@@ -403,7 +388,6 @@ export default {
     height: 20px;
     overflow: hidden;
     position: relative;
-    overflow: hidden;
     font-size: 14px;
     padding-top: 4px;
 }

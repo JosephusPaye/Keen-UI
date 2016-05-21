@@ -21,6 +21,8 @@ import UiRadioDocs from './components/UiRadioDocs.vue';
 import UiRadioGroupDocs from './components/UiRadioGroupDocs.vue';
 import UiRatingDocs from './components/UiRatingDocs.vue';
 import UiRippleInkDocs from './components/UiRippleInkDocs.vue';
+import UiSelectDocs from './components/UiSelectDocs.vue';
+import UiSliderDocs from './components/UiSliderDocs.vue';
 import UiSnackbarDocs from './components/UiSnackbarDocs.vue';
 import UiSwitchDocs from './components/UiSwitchDocs.vue';
 import UiTabsDocs from './components/UiTabsDocs.vue';
@@ -86,6 +88,12 @@ let menu = [
     }, {
         id: 'ui-ripple-ink-docs',
         text: 'UiRippleInk'
+    }, {
+        id: 'ui-select-docs',
+        text: 'UiSelect'
+    }, {
+        id: 'ui-slider-docs',
+        text: 'UiSlider'
     }, {
         id: 'ui-snackbar-docs',
         text: 'UiSnackbar & UiSnackbarContainer'
@@ -190,6 +198,8 @@ export default {
         UiRadioGroupDocs,
         UiRatingDocs,
         UiRippleInkDocs,
+        UiSelectDocs,
+        UiSliderDocs,
         UiSnackbarDocs,
         UiSwitchDocs,
         UiTabsDocs,

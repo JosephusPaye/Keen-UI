@@ -30,6 +30,8 @@ config.entry = {
     UiRatingIcon: ['./src/UiRatingIcon.vue'],
     UiRatingPreview: ['./src/UiRatingPreview.vue'],
     UiRippleInk: ['./src/UiRippleInk.vue'],
+    UiSelect: ['./src/UiSelect.vue'],
+    UiSlider: ['./src/UiSlider.vue'],
     UiSnackbar: ['./src/UiSnackbar.vue'],
     UiSnackbarContainer: ['./src/UiSnackbarContainer.vue'],
     UiSwitch: ['./src/UiSwitch.vue'],

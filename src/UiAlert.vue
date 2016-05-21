@@ -82,6 +82,8 @@ export default {
     font-size: 15px;
     line-height: 1.4em;
     overflow: hidden;
+    display: flex;
+    width: 100%;
 
     a {
         text-decoration: none;
@@ -115,7 +117,7 @@ export default {
 }
 
 .ui-alert-body {
-    // height: 50px; // IE requires height prop to vertically center using Flexbox
+    width: 100%;
     min-height: 52px;
     padding: 12px 16px;
     display: flex;

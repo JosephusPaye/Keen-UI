@@ -83,9 +83,17 @@ export default {
     box-shadow: 0 2px 5px 0 alpha(black, 0.2), 0 2px 10px 0 alpha(black, 0.16);
     transition: box-shadow 0.3s ease;
 
+    &::-moz-focus-inner {
+      border: 0;
+    }
+
     &:hover:not([disabled]),
     body[modality="keyboard"] &:focus {
         box-shadow: 0 8px 17px 0 alpha(black, 0.25), 0 6px 20px 0 alpha(black, 0.2);
+    }
+
+    &:not([disabled]) {
+        cursor: pointer;
     }
 
     &.color-default {
@@ -147,5 +155,7 @@ export default {
 
 .ui-fab-icon {
     margin: 0;
+    width: initial; // Firefox: needs the width and height reset for flexbox centering
+    height: initial;
 }
 </style>

@@ -15,16 +15,6 @@ export default {
             default: '',
             twoWay: true
         },
-        valid: {
-            type: Boolean,
-            default: true,
-            twoWay: true
-        },
-        dirty: {
-            type: Boolean,
-            default: false,
-            twoWay: true
-        },
         icon: String,
         iconRight: {
             type: Boolean,
@@ -35,12 +25,6 @@ export default {
             type: Boolean,
             default: false
         },
-        hideValidationErrors: {
-            type: Boolean,
-            default: false
-        },
-        validationRules: String,
-        validationMessages: Object,
         helpText: String,
         disabled: {
             type: Boolean,
@@ -55,17 +39,16 @@ export default {
     data() {
         return {
             active: false,
-            initialValue: '',
-            validationError: ''
+            initialValue: ''
         };
     },
 
     computed: {
         showFeedback() {
             var canBeValidated = Boolean(this.validationRules);
-            var helpTextAvailable = Boolean(this.helpText);
+            var hasHelpText = Boolean(this.helpText);
 
-            return !this.disabled && (canBeValidated || helpTextAvailable);
+            return canBeValidated || hasHelpText;
         }
     },
 

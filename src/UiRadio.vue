@@ -115,6 +115,12 @@ $transition-duration = 0.3s;
     &.disabled {
         opacity: 0.5;
     }
+
+    &:not(.disabled) {
+        .ui-radio-label-text {
+            cursor: pointer;
+        }
+    }
 }
 
 .ui-radio-input-wrapper {

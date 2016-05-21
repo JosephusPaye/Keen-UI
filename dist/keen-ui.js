@@ -1,5 +1,5 @@
 /*!
- * Keen UI v0.8.7 (https://github.com/JosephusPaye/keen-ui)
+ * Keen UI v0.8.8 (https://github.com/JosephusPaye/keen-ui)
  * (c) 2016 Josephus Paye II
  * Released under the MIT License.
  */
@@ -71,23 +71,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _UiAutocomplete2 = _interopRequireDefault(_UiAutocomplete);
 	
-	var _UiButton = __webpack_require__(88);
+	var _UiButton = __webpack_require__(89);
 	
 	var _UiButton2 = _interopRequireDefault(_UiButton);
 	
-	var _UiCheckbox = __webpack_require__(92);
+	var _UiCheckbox = __webpack_require__(93);
 	
 	var _UiCheckbox2 = _interopRequireDefault(_UiCheckbox);
 	
-	var _UiCollapsible = __webpack_require__(96);
+	var _UiCollapsible = __webpack_require__(97);
 	
 	var _UiCollapsible2 = _interopRequireDefault(_UiCollapsible);
 	
-	var _UiConfirm = __webpack_require__(100);
+	var _UiConfirm = __webpack_require__(101);
 	
 	var _UiConfirm2 = _interopRequireDefault(_UiConfirm);
 	
-	var _UiFab = __webpack_require__(108);
+	var _UiFab = __webpack_require__(109);
 	
 	var _UiFab2 = _interopRequireDefault(_UiFab);
 	
@@ -107,7 +107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _UiMenuItem2 = _interopRequireDefault(_UiMenuItem);
 	
-	var _UiModal = __webpack_require__(103);
+	var _UiModal = __webpack_require__(104);
 	
 	var _UiModal2 = _interopRequireDefault(_UiModal);
 	
@@ -115,7 +115,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _UiPopover2 = _interopRequireDefault(_UiPopover);
 	
-	var _UiPreloader = __webpack_require__(112);
+	var _UiPreloader = __webpack_require__(113);
 	
 	var _UiPreloader2 = _interopRequireDefault(_UiPreloader);
 	
@@ -123,27 +123,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _UiProgressCircular2 = _interopRequireDefault(_UiProgressCircular);
 	
-	var _UiProgressLinear = __webpack_require__(116);
+	var _UiProgressLinear = __webpack_require__(117);
 	
 	var _UiProgressLinear2 = _interopRequireDefault(_UiProgressLinear);
 	
-	var _UiRadio = __webpack_require__(120);
+	var _UiRadio = __webpack_require__(121);
 	
 	var _UiRadio2 = _interopRequireDefault(_UiRadio);
 	
-	var _UiRadioGroup = __webpack_require__(124);
+	var _UiRadioGroup = __webpack_require__(125);
 	
 	var _UiRadioGroup2 = _interopRequireDefault(_UiRadioGroup);
 	
-	var _UiRating = __webpack_require__(128);
+	var _UiRating = __webpack_require__(129);
 	
 	var _UiRating2 = _interopRequireDefault(_UiRating);
 	
-	var _UiRatingIcon = __webpack_require__(131);
+	var _UiRatingIcon = __webpack_require__(132);
 	
 	var _UiRatingIcon2 = _interopRequireDefault(_UiRatingIcon);
 	
-	var _UiRatingPreview = __webpack_require__(136);
+	var _UiRatingPreview = __webpack_require__(137);
 	
 	var _UiRatingPreview2 = _interopRequireDefault(_UiRatingPreview);
 	
@@ -151,31 +151,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _UiRippleInk2 = _interopRequireDefault(_UiRippleInk);
 	
-	var _UiSnackbar = __webpack_require__(140);
+	var _UiSelect = __webpack_require__(141);
+	
+	var _UiSelect2 = _interopRequireDefault(_UiSelect);
+	
+	var _UiSlider = __webpack_require__(152);
+	
+	var _UiSlider2 = _interopRequireDefault(_UiSlider);
+	
+	var _UiSnackbar = __webpack_require__(164);
 	
 	var _UiSnackbar2 = _interopRequireDefault(_UiSnackbar);
 	
-	var _UiSnackbarContainer = __webpack_require__(144);
+	var _UiSnackbarContainer = __webpack_require__(168);
 	
 	var _UiSnackbarContainer2 = _interopRequireDefault(_UiSnackbarContainer);
 	
-	var _UiSwitch = __webpack_require__(148);
+	var _UiSwitch = __webpack_require__(172);
 	
 	var _UiSwitch2 = _interopRequireDefault(_UiSwitch);
 	
-	var _UiTab = __webpack_require__(152);
+	var _UiTab = __webpack_require__(176);
 	
 	var _UiTab2 = _interopRequireDefault(_UiTab);
 	
-	var _UiTabs = __webpack_require__(156);
+	var _UiTabs = __webpack_require__(180);
 	
 	var _UiTabs2 = _interopRequireDefault(_UiTabs);
 	
-	var _UiTextbox = __webpack_require__(164);
+	var _UiTextbox = __webpack_require__(188);
 	
 	var _UiTextbox2 = _interopRequireDefault(_UiTextbox);
 	
-	var _UiToolbar = __webpack_require__(168);
+	var _UiToolbar = __webpack_require__(192);
 	
 	var _UiToolbar2 = _interopRequireDefault(_UiToolbar);
 	
@@ -208,6 +216,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    UiRatingIcon: _UiRatingIcon2.default,
 	    UiRatingPreview: _UiRatingPreview2.default,
 	    UiRippleInk: _UiRippleInk2.default,
+	    UiSelect: _UiSelect2.default,
+	    UiSlider: _UiSlider2.default,
 	    UiSnackbar: _UiSnackbar2.default,
 	    UiSnackbarContainer: _UiSnackbarContainer2.default,
 	    UiSwitch: _UiSwitch2.default,
@@ -240,6 +250,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        Vue.component('ui-rating-icon', _UiRatingIcon2.default);
 	        Vue.component('ui-rating-preview', _UiRatingPreview2.default);
 	        Vue.component('ui-ripple-ink', _UiRippleInk2.default);
+	        Vue.component('ui-select', _UiSelect2.default);
+	        Vue.component('ui-slider', _UiSlider2.default);
 	        Vue.component('ui-snackbar', _UiSnackbar2.default);
 	        Vue.component('ui-snackbar-container', _UiSnackbarContainer2.default);
 	        Vue.component('ui-switch', _UiSwitch2.default);
@@ -722,7 +734,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            type: Boolean,
 	            default: false
 	        },
-	        showKeyboardShortcuts: {
+	        showSecondaryText: {
 	            type: Boolean,
 	            default: false
 	        },
@@ -848,8 +860,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            type: Boolean,
 	            default: false
 	        },
-	        keyboardShortcut: String,
-	        showKeyboardShortcut: {
+	        secondaryText: String,
+	        showSecondaryText: {
 	            type: Boolean,
 	            default: false
 	        },
@@ -2281,7 +2293,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 42 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<a\n    class=\"ui-menu-item\" role=\"menu-item\" :tabindex=\"(isDivider || disabled) ? null : '0'\"\n    :class=\"{ 'divider': isDivider, 'disabled' : disabled }\"\n\n    v-el:link\n>\n    <ui-icon\n        class=\"ui-menu-item-icon\" :icon=\"icon\" v-if=\"showIcon && !isDivider && icon\"\n    ></ui-icon>\n\n    <div class=\"ui-menu-item-text\" v-text=\"text\" v-if=\"!isDivider\"></div>\n\n    <div\n        class=\"ui-menu-item-keyboard-shortcut\" v-text=\"keyboardShortcut\"\n        v-if=\"showKeyboardShortcut && !isDivider && keyboardShortcut\"\n    ></div>\n\n    <ui-ripple-ink :trigger=\"$els.link\" v-if=\"!hideRippleInk && !disabled\"></ui-ripple-ink>\n</a>\n";
+	module.exports = "\n<a\n    class=\"ui-menu-item\" role=\"menu-item\" :tabindex=\"(isDivider || disabled) ? null : '0'\"\n    :class=\"{ 'divider': isDivider, 'disabled' : disabled }\"\n>\n    <ui-icon\n        class=\"ui-menu-item-icon\" :icon=\"icon\" v-if=\"showIcon && !isDivider && icon\"\n    ></ui-icon>\n\n    <div class=\"ui-menu-item-text\" v-text=\"text\" v-if=\"!isDivider\"></div>\n\n    <div\n        class=\"ui-menu-item-secondary-text\" v-text=\"secondaryText\"\n        v-if=\"showSecondaryText && !isDivider && secondaryText\"\n    ></div>\n\n    <ui-ripple-ink\n        :trigger=\"$el\" v-if=\"!hideRippleInk && !disabled && !isDivider\"\n    ></ui-ripple-ink>\n</a>\n";
 
 /***/ },
 /* 43 */
@@ -4683,7 +4695,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 46 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<ul\n    class=\"ui-menu\" role=\"menu\" tabindex=\"-1\" @keydown.esc=\"closeDropdown\" v-el:dropdown\n    :class=\"{ 'has-icons': showIcons, 'has-keyboard-shortcuts': showKeyboardShortcuts }\"\n>\n    <ui-menu-item\n        :type=\"o.type\" :icon=\"o.icon\" :text=\"o.text\" :keyboard-shortcut=\"o.keyboardShortcut\"\n        :show-icon=\"showIcons\" :show-keyboard-shortcut=\"showKeyboardShortcuts\"\n        :hide-ripple-ink=\"hideRippleInk\" :disabled=\"o.disabled\"\n\n        @keydown.enter.prevent=\"optionSelect(o)\" @click=\"optionSelect(o)\"\n\n        v-for=\"o in options\"\n    ></ui-menu-item>\n\n    <div\n        class=\"ui-menu-focus-redirector\" @focus=\"redirectFocus\" tabindex=\"0\"\n    ></div>\n</ul>\n";
+	module.exports = "\n<ul\n    class=\"ui-menu\" role=\"menu\" tabindex=\"-1\" @keydown.esc=\"closeDropdown\" v-el:dropdown\n    :class=\"{ 'has-icons': showIcons, 'has-secondary-text': showSecondaryText }\"\n>\n    <ui-menu-item\n        :type=\"o.type\" :icon=\"o.icon\" :text=\"o.text\" :secondary-text=\"o.secondaryText\"\n        :show-icon=\"showIcons\" :show-secondary-text=\"showSecondaryText\"\n        :hide-ripple-ink=\"hideRippleInk\" :disabled=\"o.disabled\"\n\n        @keydown.enter.prevent=\"optionSelect(o)\" @click=\"optionSelect(o)\"\n\n        v-for=\"o in options\"\n    ></ui-menu-item>\n\n    <div\n        class=\"ui-menu-focus-redirector\" @focus=\"redirectFocus\" tabindex=\"0\"\n    ></div>\n</ul>\n";
 
 /***/ },
 /* 47 */
@@ -4950,7 +4962,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            type: Boolean,
 	            default: false
 	        },
-	        showMenuKeyboardShortcuts: {
+	        showMenuSecondaryText: {
 	            type: Boolean,
 	            default: false
 	        }
@@ -5255,7 +5267,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 63 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<button\n    class=\"ui-icon-button\" :class=\"styleClasses\" :aria-label=\"ariaLabel || tooltip\"\n    v-disabled=\"disabled || loading\" v-el:button\n>\n    <ui-icon\n        class=\"ui-icon-button-icon\" :icon=\"icon\" v-show=\"!loading\"\n    ></ui-icon>\n\n    <ui-progress-circular\n        class=\"ui-icon-button-spinner\" :color=\"spinnerColor\" :size=\"24\" :stroke=\"4.5\"\n        disable-transition v-show=\"loading\"\n    ></ui-progress-circular>\n\n    <ui-ripple-ink v-if=\"!hideRippleInk && !disabled\" :trigger=\"$els.button\"></ui-ripple-ink>\n\n    <ui-tooltip\n        :trigger=\"$els.button\" :content=\"tooltip\" :position=\"tooltipPosition\" v-if=\"tooltip\"\n    ></ui-tooltip>\n\n    <ui-menu\n        class=\"ui-button-dropdown-menu\" :trigger=\"$els.button\" :options=\"menuOptions\"\n        :show-icons=\"showMenuIcons\" :show-keyboard-shortcuts=\"showMenuKeyboardShortcuts\"\n        :open-on=\"openDropdownOn\" @option-selected=\"menuOptionSelect\"\n        :dropdown-position=\"dropdownPosition\" v-if=\"hasDropdownMenu\"\n    ></ui-menu>\n\n    <ui-popover :trigger=\"$els.button\" :open-on=\"openDropdownOn\" v-if=\"hasPopover\">\n        <slot name=\"popover\"></slot>\n    </ui-popover>\n</button>\n";
+	module.exports = "\n<button\n    class=\"ui-icon-button\" :class=\"styleClasses\" :aria-label=\"ariaLabel || tooltip\"\n    v-disabled=\"disabled || loading\" v-el:button\n>\n    <ui-icon\n        class=\"ui-icon-button-icon\" :icon=\"icon\" v-show=\"!loading\"\n    ></ui-icon>\n\n    <ui-progress-circular\n        class=\"ui-icon-button-spinner\" :color=\"spinnerColor\" :size=\"24\" :stroke=\"4.5\"\n        disable-transition v-show=\"loading\"\n    ></ui-progress-circular>\n\n    <ui-ripple-ink v-if=\"!hideRippleInk && !disabled\" :trigger=\"$els.button\"></ui-ripple-ink>\n\n    <ui-tooltip\n        :trigger=\"$els.button\" :content=\"tooltip\" :position=\"tooltipPosition\" v-if=\"tooltip\"\n    ></ui-tooltip>\n\n    <ui-menu\n        class=\"ui-button-dropdown-menu\" :trigger=\"$els.button\" :options=\"menuOptions\"\n        :show-icons=\"showMenuIcons\" :show-secondary-text=\"showMenuSecondaryText\"\n        :open-on=\"openDropdownOn\" @option-selected=\"menuOptionSelect\"\n        :dropdown-position=\"dropdownPosition\" v-if=\"hasDropdownMenu\"\n    ></ui-menu>\n\n    <ui-popover :trigger=\"$els.button\" :open-on=\"openDropdownOn\" v-if=\"hasPopover\">\n        <slot name=\"popover\"></slot>\n    </ui-popover>\n</button>\n";
 
 /***/ },
 /* 64 */
@@ -5274,7 +5286,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiAutocomplete.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(87)
+	__vue_template__ = __webpack_require__(88)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -5308,11 +5320,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	
-	var _validatorjs = __webpack_require__(68);
-	
-	var _validatorjs2 = _interopRequireDefault(_validatorjs);
-	
-	var _fuzzysearch = __webpack_require__(79);
+	var _fuzzysearch = __webpack_require__(68);
 	
 	var _fuzzysearch2 = _interopRequireDefault(_fuzzysearch);
 	
@@ -5320,13 +5328,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _UiIcon2 = _interopRequireDefault(_UiIcon);
 	
-	var _UiAutocompleteSuggestion = __webpack_require__(80);
+	var _UiAutocompleteSuggestion = __webpack_require__(69);
 	
 	var _UiAutocompleteSuggestion2 = _interopRequireDefault(_UiAutocompleteSuggestion);
 	
-	var _HasTextInput = __webpack_require__(85);
+	var _HasTextInput = __webpack_require__(74);
 	
 	var _HasTextInput2 = _interopRequireDefault(_HasTextInput);
+	
+	var _ValidatesInput = __webpack_require__(76);
+	
+	var _ValidatesInput2 = _interopRequireDefault(_ValidatesInput);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -5426,9 +5438,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.value = item.text || item;
 	            }
 	
-	            if (this.validationRules) {
-	                this.validate();
-	            }
+	            this.validate();
 	
 	            this.$nextTick(function () {
 	                _this.close();
@@ -5479,7 +5489,330 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (!this.dirty) {
 	                this.dirty = true;
 	            }
+	        }
+	    },
+	
+	    components: {
+	        UiIcon: _UiIcon2.default,
+	        UiAutocompleteSuggestion: _UiAutocompleteSuggestion2.default
+	    },
+	
+	    mixins: [_HasTextInput2.default, _ValidatesInput2.default]
+	};
+
+/***/ },
+/* 68 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	function fuzzysearch (needle, haystack) {
+	  var tlen = haystack.length;
+	  var qlen = needle.length;
+	  if (qlen > tlen) {
+	    return false;
+	  }
+	  if (qlen === tlen) {
+	    return needle === haystack;
+	  }
+	  outer: for (var i = 0, j = 0; i < qlen; i++) {
+	    var nch = needle.charCodeAt(i);
+	    while (j < tlen) {
+	      if (haystack.charCodeAt(j++) === nch) {
+	        continue outer;
+	      }
+	    }
+	    return false;
+	  }
+	  return true;
+	}
+	
+	module.exports = fuzzysearch;
+
+
+/***/ },
+/* 69 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(70)
+	__vue_script__ = __webpack_require__(71)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\UiAutocompleteSuggestion.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(73)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "C:\\code\\packages\\keen-ui\\src\\UiAutocompleteSuggestion.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 70 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 71 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _uuid = __webpack_require__(72);
+	
+	var _uuid2 = _interopRequireDefault(_uuid);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
+	    name: 'ui-autocomplete-suggestion',
+	
+	    props: {
+	        id: {
+	            type: String,
+	            default: function _default() {
+	                return _uuid2.default.short();
+	            }
 	        },
+	        item: {
+	            type: [String, Object],
+	            required: true
+	        },
+	        partial: {
+	            type: String,
+	            default: 'ui-autocomplete-simple' },
+	        highlighted: {
+	            type: Boolean,
+	            default: false
+	        }
+	    },
+	
+	    partials: {
+	        'ui-autocomplete-simple': '<li class="ui-autocomplete-suggestion-item" v-text="item.text || item"></li>',
+	
+	        'ui-autocomplete-image': '<div class="image" :style="{ \'background-image\': \'url(\' + item.image + \')\' }"></div>\n            <div class="text" v-text="item.text"></div>'
+	    }
+	};
+
+/***/ },
+/* 72 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Fast UUID generator, RFC4122 version 4 compliant.
+	 * @author Jeff Ward (jcward.com).
+	 * @license MIT license
+	 * @link http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
+	 **/
+	
+	var lut = [];
+	
+	for (var i = 0; i < 256; i++) {
+	    lut[i] = (i < 16 ? '0' : '') + i.toString(16);
+	}
+	
+	var generate = function generate() {
+	    var d0 = Math.random() * 0xffffffff | 0;
+	    var d1 = Math.random() * 0xffffffff | 0;
+	    var d2 = Math.random() * 0xffffffff | 0;
+	    var d3 = Math.random() * 0xffffffff | 0;
+	
+	    return lut[d0 & 0xff] + lut[d0 >> 8 & 0xff] + lut[d0 >> 16 & 0xff] + lut[d0 >> 24 & 0xff] + '-' + lut[d1 & 0xff] + lut[d1 >> 8 & 0xff] + '-' + lut[d1 >> 16 & 0x0f | 0x40] + lut[d1 >> 24 & 0xff] + '-' + lut[d2 & 0x3f | 0x80] + lut[d2 >> 8 & 0xff] + '-' + lut[d2 >> 16 & 0xff] + lut[d2 >> 24 & 0xff] + lut[d3 & 0xff] + lut[d3 >> 8 & 0xff] + lut[d3 >> 16 & 0xff] + lut[d3 >> 24 & 0xff];
+	};
+	
+	var short = function short(prefix) {
+	    prefix = prefix || '';
+	
+	    var uuid = generate();
+	
+	    return prefix + uuid.split('-')[0];
+	};
+	
+	exports.default = {
+	    generate: generate,
+	    short: short
+	};
+
+/***/ },
+/* 73 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<li\n    class=\"ui-autocomplete-suggestion\":id=\"id\"\n    :class=\"[partial, { 'highlighted': highlighted }]\"\n>\n    <partial :name=\"partial\"></partial>\n</li>\n";
+
+/***/ },
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _disabled = __webpack_require__(55);
+	
+	var _disabled2 = _interopRequireDefault(_disabled);
+	
+	var _ReceivesTargetedEvent = __webpack_require__(75);
+	
+	var _ReceivesTargetedEvent2 = _interopRequireDefault(_ReceivesTargetedEvent);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
+	    props: {
+	        id: String,
+	        name: {
+	            type: String,
+	            required: true
+	        },
+	        placeholder: String,
+	        value: {
+	            type: [String, Number],
+	            default: '',
+	            twoWay: true
+	        },
+	        icon: String,
+	        iconRight: {
+	            type: Boolean,
+	            default: false
+	        },
+	        label: String,
+	        hideLabel: {
+	            type: Boolean,
+	            default: false
+	        },
+	        helpText: String,
+	        disabled: {
+	            type: Boolean,
+	            default: false
+	        },
+	        debounce: {
+	            type: Number,
+	            default: false
+	        }
+	    },
+	
+	    data: function data() {
+	        return {
+	            active: false,
+	            initialValue: ''
+	        };
+	    },
+	
+	
+	    computed: {
+	        showFeedback: function showFeedback() {
+	            var canBeValidated = Boolean(this.validationRules);
+	            var hasHelpText = Boolean(this.helpText);
+	
+	            return canBeValidated || hasHelpText;
+	        }
+	    },
+	
+	    created: function created() {
+	        this.initialValue = this.value;
+	    },
+	
+	
+	    directives: {
+	        disabled: _disabled2.default
+	    },
+	
+	    mixins: [_ReceivesTargetedEvent2.default]
+	};
+
+/***/ },
+/* 75 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = {
+	    props: {
+	        id: String
+	    },
+	
+	    methods: {
+	        eventTargetsComponent: function eventTargetsComponent(eventTarget) {
+	            if (eventTarget === undefined || this.id === eventTarget) {
+	                return true;
+	            }
+	
+	            return false;
+	        }
+	    }
+	};
+
+/***/ },
+/* 76 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _validatorjs = __webpack_require__(77);
+	
+	var _validatorjs2 = _interopRequireDefault(_validatorjs);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
+	    props: {
+	        valid: {
+	            type: Boolean,
+	            default: true,
+	            twoWay: true
+	        },
+	        dirty: {
+	            type: Boolean,
+	            default: false,
+	            twoWay: true
+	        },
+	        hideValidationErrors: {
+	            type: Boolean,
+	            default: false
+	        },
+	        validationRules: String,
+	        validationMessages: Object
+	    },
+	
+	    data: function data() {
+	        return {
+	            validationError: ''
+	        };
+	    },
+	
+	
+	    methods: {
 	        validate: function validate() {
 	            if (!this.validationRules || !this.dirty) {
 	                return;
@@ -5502,26 +5835,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.validationError = validation.errors.first('value');
 	            }
 	        }
-	    },
-	
-	    components: {
-	        UiIcon: _UiIcon2.default,
-	        UiAutocompleteSuggestion: _UiAutocompleteSuggestion2.default
-	    },
-	
-	    mixins: [_HasTextInput2.default]
+	    }
 	};
 
 /***/ },
-/* 68 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Get required modules
-	var Rules = __webpack_require__(69);
-	var Lang = __webpack_require__(70);
-	var Errors = __webpack_require__(77);
-	var Attributes = __webpack_require__(72);
-	var AsyncResolvers = __webpack_require__(78);
+	var Rules = __webpack_require__(78);
+	var Lang = __webpack_require__(79);
+	var Errors = __webpack_require__(86);
+	var Attributes = __webpack_require__(81);
+	var AsyncResolvers = __webpack_require__(87);
 	
 	var Validator = function(input, rules, customMessages) {
 		var lang = Validator.getDefaultLang();
@@ -5962,7 +6288,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 69 */
+/* 78 */
 /***/ function(module, exports) {
 
 	var rules = {
@@ -6382,12 +6708,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 70 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Messages = __webpack_require__(71);
+	var Messages = __webpack_require__(80);
 	
-	__webpack_require__(73);
+	__webpack_require__(82);
 	
 	var container = {
 	
@@ -6429,7 +6755,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		 */
 		_load: function(lang) {
 			if (!this.messages[lang]) {
-				var rawMessages = __webpack_require__(74)("./" + lang);
+				var rawMessages = __webpack_require__(83)("./" + lang);
 				this._set(lang, rawMessages);
 			}
 		},
@@ -6462,10 +6788,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 71 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Attributes = __webpack_require__(72);
+	var Attributes = __webpack_require__(81);
 	
 	var Messages = function(lang, messages) {
 		this.lang = lang;
@@ -6624,7 +6950,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 72 */
+/* 81 */
 /***/ function(module, exports) {
 
 	var replacements = {
@@ -6666,7 +6992,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 73 */
+/* 82 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -6705,16 +7031,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 74 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./en": 73,
-		"./en.js": 73,
-		"./es": 75,
-		"./es.js": 75,
-		"./ru": 76,
-		"./ru.js": 76
+		"./en": 82,
+		"./en.js": 82,
+		"./es": 84,
+		"./es.js": 84,
+		"./ru": 85,
+		"./ru.js": 85
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -6727,11 +7053,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 74;
+	webpackContext.id = 83;
 
 
 /***/ },
-/* 75 */
+/* 84 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -6770,7 +7096,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 76 */
+/* 85 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -6809,7 +7135,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 77 */
+/* 86 */
 /***/ function(module, exports) {
 
 	var Errors = function() {
@@ -6888,7 +7214,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Errors;
 
 /***/ },
-/* 78 */
+/* 87 */
 /***/ function(module, exports) {
 
 	function AsyncResolvers(onFailedOne, onResolvedAll) {
@@ -6976,309 +7302,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 79 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	function fuzzysearch (needle, haystack) {
-	  var tlen = haystack.length;
-	  var qlen = needle.length;
-	  if (qlen > tlen) {
-	    return false;
-	  }
-	  if (qlen === tlen) {
-	    return needle === haystack;
-	  }
-	  outer: for (var i = 0, j = 0; i < qlen; i++) {
-	    var nch = needle.charCodeAt(i);
-	    while (j < tlen) {
-	      if (haystack.charCodeAt(j++) === nch) {
-	        continue outer;
-	      }
-	    }
-	    return false;
-	  }
-	  return true;
-	}
-	
-	module.exports = fuzzysearch;
-
-
-/***/ },
-/* 80 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__webpack_require__(81)
-	__vue_script__ = __webpack_require__(82)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\UiAutocompleteSuggestion.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(84)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
-	}
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "C:\\code\\packages\\keen-ui\\src\\UiAutocompleteSuggestion.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 81 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 82 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _uuid = __webpack_require__(83);
-	
-	var _uuid2 = _interopRequireDefault(_uuid);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = {
-	    name: 'ui-autocomplete-suggestion',
-	
-	    props: {
-	        id: {
-	            type: String,
-	            default: function _default() {
-	                return _uuid2.default.short();
-	            }
-	        },
-	        item: {
-	            type: [String, Object],
-	            required: true
-	        },
-	        partial: {
-	            type: String,
-	            default: 'ui-autocomplete-simple' },
-	        highlighted: {
-	            type: Boolean,
-	            default: false
-	        }
-	    },
-	
-	    partials: {
-	        'ui-autocomplete-simple': '<li class="ui-autocomplete-suggestion-item" v-text="item.text || item"></li>',
-	
-	        'ui-autocomplete-image': '<div class="image" :style="{ \'background-image\': \'url(\' + item.image + \')\' }"></div>\n            <div class="text" v-text="item.text"></div>'
-	    }
-	};
-
-/***/ },
-/* 83 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Fast UUID generator, RFC4122 version 4 compliant.
-	 * @author Jeff Ward (jcward.com).
-	 * @license MIT license
-	 * @link http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
-	 **/
-	
-	var lut = [];
-	
-	for (var i = 0; i < 256; i++) {
-	    lut[i] = (i < 16 ? '0' : '') + i.toString(16);
-	}
-	
-	var generate = function generate() {
-	    var d0 = Math.random() * 0xffffffff | 0;
-	    var d1 = Math.random() * 0xffffffff | 0;
-	    var d2 = Math.random() * 0xffffffff | 0;
-	    var d3 = Math.random() * 0xffffffff | 0;
-	
-	    return lut[d0 & 0xff] + lut[d0 >> 8 & 0xff] + lut[d0 >> 16 & 0xff] + lut[d0 >> 24 & 0xff] + '-' + lut[d1 & 0xff] + lut[d1 >> 8 & 0xff] + '-' + lut[d1 >> 16 & 0x0f | 0x40] + lut[d1 >> 24 & 0xff] + '-' + lut[d2 & 0x3f | 0x80] + lut[d2 >> 8 & 0xff] + '-' + lut[d2 >> 16 & 0xff] + lut[d2 >> 24 & 0xff] + lut[d3 & 0xff] + lut[d3 >> 8 & 0xff] + lut[d3 >> 16 & 0xff] + lut[d3 >> 24 & 0xff];
-	};
-	
-	var short = function short(prefix) {
-	    prefix = prefix || '';
-	
-	    var uuid = generate();
-	
-	    return prefix + uuid.split('-')[0];
-	};
-	
-	exports.default = {
-	    generate: generate,
-	    short: short
-	};
-
-/***/ },
-/* 84 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<li\n    class=\"ui-autocomplete-suggestion\":id=\"id\"\n    :class=\"{ 'highlighted': highlighted, [partial]: true }\"\n>\n    <partial :name=\"partial\"></partial>\n</li>\n";
-
-/***/ },
-/* 85 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _disabled = __webpack_require__(55);
-	
-	var _disabled2 = _interopRequireDefault(_disabled);
-	
-	var _ReceivesTargetedEvent = __webpack_require__(86);
-	
-	var _ReceivesTargetedEvent2 = _interopRequireDefault(_ReceivesTargetedEvent);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = {
-	    props: {
-	        id: String,
-	        name: {
-	            type: String,
-	            required: true
-	        },
-	        placeholder: String,
-	        value: {
-	            type: [String, Number],
-	            default: '',
-	            twoWay: true
-	        },
-	        valid: {
-	            type: Boolean,
-	            default: true,
-	            twoWay: true
-	        },
-	        dirty: {
-	            type: Boolean,
-	            default: false,
-	            twoWay: true
-	        },
-	        icon: String,
-	        iconRight: {
-	            type: Boolean,
-	            default: false
-	        },
-	        label: String,
-	        hideLabel: {
-	            type: Boolean,
-	            default: false
-	        },
-	        hideValidationErrors: {
-	            type: Boolean,
-	            default: false
-	        },
-	        validationRules: String,
-	        validationMessages: Object,
-	        helpText: String,
-	        disabled: {
-	            type: Boolean,
-	            default: false
-	        },
-	        debounce: {
-	            type: Number,
-	            default: false
-	        }
-	    },
-	
-	    data: function data() {
-	        return {
-	            active: false,
-	            initialValue: '',
-	            validationError: ''
-	        };
-	    },
-	
-	
-	    computed: {
-	        showFeedback: function showFeedback() {
-	            var canBeValidated = Boolean(this.validationRules);
-	            var helpTextAvailable = Boolean(this.helpText);
-	
-	            return !this.disabled && (canBeValidated || helpTextAvailable);
-	        }
-	    },
-	
-	    created: function created() {
-	        this.initialValue = this.value;
-	    },
-	
-	
-	    directives: {
-	        disabled: _disabled2.default
-	    },
-	
-	    mixins: [_ReceivesTargetedEvent2.default]
-	};
-
-/***/ },
-/* 86 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.default = {
-	    props: {
-	        id: String
-	    },
-	
-	    methods: {
-	        eventTargetsComponent: function eventTargetsComponent(eventTarget) {
-	            if (eventTarget === undefined || this.id === eventTarget) {
-	                return true;
-	            }
-	
-	            return false;
-	        }
-	    }
-	};
-
-/***/ },
-/* 87 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<div\n    class=\"ui-autocomplete\" v-el:autocomplete\n    :class=\"{\n        'disabled': disabled, 'invalid': !valid, 'dirty': dirty, 'active': active,\n        'has-label': !hideLabel, 'icon-right': iconRight\n    }\"\n>\n    <div class=\"ui-autocomplete-icon-wrapper\" v-if=\"showIcon\">\n        <ui-icon :icon=\"icon\" class=\"ui-autocomplete-icon\"></ui-icon>\n    </div>\n\n    <div class=\"ui-autocomplete-content\">\n        <label class=\"ui-autocomplete-label\">\n            <div class=\"ui-autocomplete-label-text\" v-text=\"label\" v-if=\"!hideLabel\"></div>\n\n            <ui-icon\n                class=\"ui-autocomplete-clear-button\" icon=\"&#xE5CD\" title=\"Clear\"\n                @click=\"clearSearch\" v-show=\"value.length\"\n            ></ui-icon>\n\n            <input\n                class=\"ui-autocomplete-input\" :placeholder=\"placeholder\" :name=\"name\"\n                :id=\"id\" autocomplete=\"off\"\n\n                @focus=\"focus\" @blur=\"blur\" @keydown.up=\"highlight(highlightedItem - 1)\"\n                @keydown.down=\"highlight(highlightedItem + 1)\" @keydown.tab=\"close\"\n                @keydown.enter=\"selectHighlighted(highlightedItem, $event)\"\n\n                v-model=\"value\" v-disabled=\"disabled\" v-el:input\n            >\n\n            <ul class=\"ui-autocomplete-suggestions\" v-show=\"showDropdown\">\n                <ui-autocomplete-suggestion\n                    :highlighted=\"highlightedItem === index\" :item=\"item\" :partial=\"partial\"\n                    v-for=\"(index, item) in suggestions | filterBy search | limitBy limit\"\n                    v-ref:items @click=\"select(item)\"\n                ></ui-autocomplete-suggestion>\n            </ul>\n        </label>\n\n        <div class=\"ui-autocomplete-feedback\" v-if=\"showFeedback\">\n            <div\n                class=\"ui-autocomplete-error-text\" v-text=\"validationError\"\n                transition=\"ui-autocomplete-feedback-toggle\"\n                v-show=\"!hideValidationErrors && !valid\"\n            ></div>\n\n            <div\n                class=\"ui-autocomplete-help-text\" transition=\"ui-autocomplete-feedback-toggle\"\n                v-text=\"helpText\" v-else\n            ></div>\n        </div>\n    </div>\n</div>\n";
-
-/***/ },
 /* 88 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div\n    class=\"ui-autocomplete\" v-el:autocomplete\n    :class=\"{\n        'disabled': disabled, 'invalid': !valid, 'dirty': dirty, 'active': active,\n        'has-label': !hideLabel, 'icon-right': iconRight\n    }\"\n>\n    <div class=\"ui-autocomplete-icon-wrapper\" v-if=\"showIcon\">\n        <ui-icon :icon=\"icon\" class=\"ui-autocomplete-icon\"></ui-icon>\n    </div>\n\n    <div class=\"ui-autocomplete-content\">\n        <label class=\"ui-autocomplete-label\">\n            <div class=\"ui-autocomplete-label-text\" v-text=\"label\" v-if=\"!hideLabel\"></div>\n\n            <ui-icon\n                class=\"ui-autocomplete-clear-button\" icon=\"&#xE5CD\" title=\"Clear\"\n                @click=\"clearSearch\" v-show=\"!disabled && value.length\"\n            ></ui-icon>\n\n            <input\n                class=\"ui-autocomplete-input\" :placeholder=\"placeholder\" :name=\"name\"\n                :id=\"id\" autocomplete=\"off\"\n\n                @focus=\"focus\" @blur=\"blur\" @keydown.up=\"highlight(highlightedItem - 1)\"\n                @keydown.down=\"highlight(highlightedItem + 1)\" @keydown.tab=\"close\"\n                @keydown.enter=\"selectHighlighted(highlightedItem, $event)\"\n\n                v-model=\"value\" v-disabled=\"disabled\" v-el:input\n            >\n\n            <ul class=\"ui-autocomplete-suggestions\" v-show=\"showDropdown\">\n                <ui-autocomplete-suggestion\n                    :highlighted=\"highlightedItem === index\" :item=\"item\" :partial=\"partial\"\n                    v-for=\"(index, item) in suggestions | filterBy search | limitBy limit\"\n                    v-ref:items @click=\"select(item)\"\n                ></ui-autocomplete-suggestion>\n            </ul>\n        </label>\n\n        <div class=\"ui-autocomplete-feedback\" v-if=\"showFeedback\">\n            <div\n                class=\"ui-autocomplete-error-text\" v-text=\"validationError\"\n                transition=\"ui-autocomplete-feedback-toggle\"\n                v-show=\"!hideValidationErrors && !valid\"\n            ></div>\n\n            <div\n                class=\"ui-autocomplete-help-text\" transition=\"ui-autocomplete-feedback-toggle\"\n                v-text=\"helpText\" v-else\n            ></div>\n        </div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(89)
-	__vue_script__ = __webpack_require__(90)
+	__webpack_require__(90)
+	__vue_script__ = __webpack_require__(91)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiButton.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(91)
+	__vue_template__ = __webpack_require__(92)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -7297,13 +7337,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 89 */
+/* 90 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 90 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7423,23 +7463,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 91 */
+/* 92 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<button\n    class=\"ui-button\" :class=\"styleClasses\" v-disabled=\"disabled || loading\"\n    v-el:button\n>\n    <div class=\"ui-button-content\" :class=\"{ 'invisible': loading }\">\n        <ui-icon\n            class=\"ui-button-icon\" :class=\"{ 'position-right': iconRight }\" :icon=\"icon\"\n            v-if=\"showIcon\"\n        ></ui-icon>\n\n        <div class=\"ui-button-text\">\n            <slot>\n                <span v-text=\"text\"></span>\n            </slot>\n        </div>\n\n        <ui-icon\n            class=\"ui-button-dropdown-icon\" icon=\"&#xE5C5;\"\n            v-if=\"!iconRight && showDropdownIcon && (hasDropdownMenu || hasPopover)\"\n        ></ui-icon>\n    </div>\n\n    <ui-progress-circular\n        class=\"ui-button-spinner\" :color=\"spinnerColor\" :size=\"18\" :stroke=\"4.5\"\n        disable-transition v-show=\"loading\"\n    ></ui-progress-circular>\n\n    <ui-ripple-ink v-if=\"!hideRippleInk && !disabled\" :trigger=\"$els.button\"></ui-ripple-ink>\n\n    <ui-menu\n        class=\"ui-button-dropdown-menu\" :trigger=\"$els.button\" :options=\"menuOptions\"\n        :show-icons=\"showMenuIcons\" :show-keyboard-shortcuts=\"showMenuKeyboardShortcuts\"\n        :open-on=\"openDropdownOn\" @option-selected=\"menuOptionSelect\"\n        :dropdown-position=\"dropdownPosition\" v-if=\"hasDropdownMenu\"\n    ></ui-menu>\n\n    <ui-popover :trigger=\"$els.button\" :open-on=\"openDropdownOn\" v-if=\"hasPopover\">\n        <slot name=\"popover\"></slot>\n    </ui-popover>\n</button>\n";
+	module.exports = "\n<button\n    class=\"ui-button\" :class=\"styleClasses\" v-disabled=\"disabled || loading\"\n    v-el:button\n>\n    <div class=\"ui-button-content\" :class=\"{ 'invisible': loading }\">\n        <ui-icon\n            class=\"ui-button-icon\" :class=\"{ 'position-right': iconRight }\" :icon=\"icon\"\n            v-if=\"showIcon\"\n        ></ui-icon>\n\n        <div class=\"ui-button-text\">\n            <slot>\n                <span v-text=\"text\"></span>\n            </slot>\n        </div>\n\n        <ui-icon\n            class=\"ui-button-dropdown-icon\" icon=\"&#xE5C5;\"\n            v-if=\"!iconRight && showDropdownIcon && (hasDropdownMenu || hasPopover)\"\n        ></ui-icon>\n    </div>\n\n    <ui-progress-circular\n        class=\"ui-button-spinner\" :color=\"spinnerColor\" :size=\"18\" :stroke=\"4.5\"\n        disable-transition v-show=\"loading\"\n    ></ui-progress-circular>\n\n    <ui-ripple-ink v-if=\"!hideRippleInk && !disabled\" :trigger=\"$els.button\"></ui-ripple-ink>\n\n    <ui-menu\n        class=\"ui-button-dropdown-menu\" :trigger=\"$els.button\" :options=\"menuOptions\"\n        :show-icons=\"showMenuIcons\" :show-secondary-text=\"showMenuSecondaryText\"\n        :open-on=\"openDropdownOn\" @option-selected=\"menuOptionSelect\"\n        :dropdown-position=\"dropdownPosition\" v-if=\"hasDropdownMenu\"\n    ></ui-menu>\n\n    <ui-popover :trigger=\"$els.button\" :open-on=\"openDropdownOn\" v-if=\"hasPopover\">\n        <slot name=\"popover\"></slot>\n    </ui-popover>\n</button>\n";
 
 /***/ },
-/* 92 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(93)
-	__vue_script__ = __webpack_require__(94)
+	__webpack_require__(94)
+	__vue_script__ = __webpack_require__(95)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiCheckbox.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(95)
+	__vue_template__ = __webpack_require__(96)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -7458,13 +7498,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 93 */
+/* 94 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 94 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7477,7 +7517,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _disabled2 = _interopRequireDefault(_disabled);
 	
-	var _ReceivesTargetedEvent = __webpack_require__(86);
+	var _ReceivesTargetedEvent = __webpack_require__(75);
 	
 	var _ReceivesTargetedEvent2 = _interopRequireDefault(_ReceivesTargetedEvent);
 	
@@ -7546,23 +7586,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 95 */
+/* 96 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<label\n    class=\"ui-checkbox\"\n    :class=\"{ 'disabled': disabled, 'checked': value, 'active': active, 'label-left': labelLeft }\"\n>\n    <input\n        class=\"ui-checkbox-input\" type=\"checkbox\" :name=\"name\" @focus=\"focus\" @blur=\"blur\"\n        v-model=\"value\" v-disabled=\"disabled\"\n    >\n\n    <div class=\"ui-checkbox-checkmark\">\n        <div class=\"ui-checkbox-focus-ring\"></div>\n    </div>\n\n    <div class=\"ui-checkbox-label-text\" v-if=\"!hideLabel\">\n        <slot>\n            <span v-text=\"label\"></span>\n        </slot>\n    </div>\n</label>\n";
 
 /***/ },
-/* 96 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(97)
-	__vue_script__ = __webpack_require__(98)
+	__webpack_require__(98)
+	__vue_script__ = __webpack_require__(99)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiCollapsible.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(99)
+	__vue_template__ = __webpack_require__(100)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -7581,13 +7621,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 97 */
+/* 98 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 98 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7600,7 +7640,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _UiIcon2 = _interopRequireDefault(_UiIcon);
 	
-	var _uuid = __webpack_require__(83);
+	var _uuid = __webpack_require__(72);
 	
 	var _uuid2 = _interopRequireDefault(_uuid);
 	
@@ -7612,7 +7652,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _ShowsRippleInk2 = _interopRequireDefault(_ShowsRippleInk);
 	
-	var _ReceivesTargetedEvent = __webpack_require__(86);
+	var _ReceivesTargetedEvent = __webpack_require__(75);
 	
 	var _ReceivesTargetedEvent2 = _interopRequireDefault(_ReceivesTargetedEvent);
 	
@@ -7726,23 +7766,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 99 */
+/* 100 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui-collapsible\">\n    <button\n        class=\"ui-collapsible-header\" :class=\"{ 'disabled': disabled }\" :aria-controls=\"id\"\n        :aria-expanded=\"open ? 'true' : 'false'\" @click=\"toggleMenu\" v-disabled=\"disabled\"\n        v-el:button\n    >\n        <div class=\"ui-collapsible-header-content\">\n            <slot name=\"header\">\n                <div v-text=\"header\"></div>\n            </slot>\n        </div>\n\n        <ui-icon class=\"ui-collapsible-header-icon\" :icon=\"icon\" v-if=\"!hideIcon\"></ui-icon>\n\n        <ui-ripple-ink\n            v-if=\"!hideRippleInk && !disabled && isReady\" :trigger=\"$els.button\"\n        ></ui-ripple-ink>\n    </button>\n\n    <div\n        class=\"ui-collapsible-body-wrapper\" :transition=\"transition\"\n        :style=\"{ 'height': calculatedHeight }\" v-show=\"open\"v-el:body\n    >\n        <div class=\"ui-collapsible-body\" :id=\"id\" :aria-hidden=\"open ? null : 'true'\">\n            <slot></slot>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 100 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(101)
-	__vue_script__ = __webpack_require__(102)
+	__webpack_require__(102)
+	__vue_script__ = __webpack_require__(103)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiConfirm.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(107)
+	__vue_template__ = __webpack_require__(108)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -7761,13 +7801,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 101 */
+/* 102 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 102 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7780,11 +7820,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _dominus2 = _interopRequireDefault(_dominus);
 	
-	var _UiModal = __webpack_require__(103);
+	var _UiModal = __webpack_require__(104);
 	
 	var _UiModal2 = _interopRequireDefault(_UiModal);
 	
-	var _UiButton = __webpack_require__(88);
+	var _UiButton = __webpack_require__(89);
 	
 	var _UiButton2 = _interopRequireDefault(_UiButton);
 	
@@ -7874,17 +7914,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 103 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(104)
-	__vue_script__ = __webpack_require__(105)
+	__webpack_require__(105)
+	__vue_script__ = __webpack_require__(106)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiModal.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(106)
+	__vue_template__ = __webpack_require__(107)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -7903,13 +7943,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 104 */
+/* 105 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 105 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7926,7 +7966,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _UiIconButton2 = _interopRequireDefault(_UiIconButton);
 	
-	var _UiButton = __webpack_require__(88);
+	var _UiButton = __webpack_require__(89);
 	
 	var _UiButton2 = _interopRequireDefault(_UiButton);
 	
@@ -8064,29 +8104,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 106 */
+/* 107 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div\n    class=\"ui-modal ui-modal-mask\" v-show=\"show\" :transition=\"transition\" :class=\"[type]\"\n    :role=\"role\"\n>\n    <div class=\"ui-modal-wrapper\" @click=\"close\" v-el:modal-mask>\n        <div\n            class=\"ui-modal-container\" tabindex=\"-1\" @keydown.esc=\"close\"\n            v-el:modal-container\n        >\n            <div class=\"ui-modal-header\">\n                <slot name=\"header\">\n                    <h1 v-text=\"header\" class=\"ui-modal-header-text\"></h1>\n                </slot>\n\n                <ui-icon-button\n                    type=\"clear\" icon=\"&#xE5CD\" class=\"ui-modal-close-button\" @click=\"close\"\n                    :disabled=\"!dismissible\" v-if=\"showCloseButton\" v-el:close-button\n                ></ui-icon-button>\n            </div>\n\n            <div class=\"ui-modal-body\">\n                <slot>\n                    <div v-text=\"body\"></div>\n                </slot>\n            </div>\n\n            <div class=\"ui-modal-footer\" v-if=\"!hideFooter\">\n                <slot name=\"footer\">\n                    <ui-button @click=\"close\" v-if=\"dismissible\">Close</ui-button>\n                </slot>\n            </div>\n\n            <div class=\"focus-redirector\" @focus=\"redirectFocus\" tabindex=\"0\"></div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 107 */
+/* 108 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui-confirm\">\n    <ui-modal\n        :show.sync=\"show\" role=\"alertdialog\" :header=\"header\" @opened=\"opened\" show-close-button\n        :dismissible=\"!loading\" :backdrop-dismissible=\"backdropDismissible\"\n    >\n        <div class=\"ui-confirm-message\">\n            <slot></slot>\n        </div>\n\n        <div slot=\"footer\">\n            <ui-button\n                :color=\"type\" :text=\"confirmButtonText\" :icon=\"confirmButtonIcon\"\n                @click=\"confirm\" :loading=\"loading\" v-el:confirm-button\n            ></ui-button>\n\n            <ui-button\n                :text=\"denyButtonText\" :icon=\"denyButtonIcon\" @click=\"deny\"\n                :disabled=\"loading\" v-el:deny-button\n            ></ui-button>\n        </div>\n    </ui-modal>\n</div>\n";
 
 /***/ },
-/* 108 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(109)
-	__vue_script__ = __webpack_require__(110)
+	__webpack_require__(110)
+	__vue_script__ = __webpack_require__(111)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiFab.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(111)
+	__vue_template__ = __webpack_require__(112)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -8105,13 +8145,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 109 */
+/* 110 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 110 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8178,23 +8218,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 111 */
+/* 112 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<button\n    class=\"ui-fab\" :class=\"[this.type, this.color]\" :aria-label=\"ariaLabel || tooltip\"\n    v-disabled=\"disabled\" v-el:button\n>\n    <ui-icon class=\"ui-fab-icon\" :icon=\"icon\"></ui-icon>\n\n    <ui-ripple-ink :trigger=\"$els.button\" v-if=\"!hideRippleInk && !disabled\"></ui-ripple-ink>\n\n    <ui-tooltip\n        :trigger=\"$els.button\" :content=\"tooltip\" :position=\"tooltipPosition\" v-if=\"tooltip\"\n    ></ui-tooltip>\n</button>\n";
 
 /***/ },
-/* 112 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(113)
-	__vue_script__ = __webpack_require__(114)
+	__webpack_require__(114)
+	__vue_script__ = __webpack_require__(115)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiPreloader.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(115)
+	__vue_template__ = __webpack_require__(116)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -8213,13 +8253,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 113 */
+/* 114 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 114 */
+/* 115 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8239,23 +8279,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 115 */
+/* 116 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui-preloader\">\n    <div\n        class=\"ui-preloader-progressbar\" :class=\"{ 'loading' : show }\"\n        :aria-busy=\"show ? 'true' : false\" role=\"progressbar\"\n    ></div>\n</div>\n";
 
 /***/ },
-/* 116 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(117)
-	__vue_script__ = __webpack_require__(118)
+	__webpack_require__(118)
+	__vue_script__ = __webpack_require__(119)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiProgressLinear.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(119)
+	__vue_template__ = __webpack_require__(120)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -8274,13 +8314,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 117 */
+/* 118 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 118 */
+/* 119 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8328,23 +8368,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 119 */
+/* 120 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div\n    class=\"ui-progress-linear\" :class=\"[color]\" v-show=\"show\"\n    transition=\"ui-progress-linear-toggle\"\n>\n    <div\n        class=\"ui-progress-linear-determinate\" :style=\"{ 'width': progress + '%' }\"\n        role=\"progressbar\" :aria-valuemin=\"0\" :aria-valuemax=\"100\" :aria-valuenow=\"value\"\n        v-if=\"type === 'determinate'\"\n    ></div>\n\n    <div\n        class=\"ui-progress-linear-indeterminate\" role=\"progressbar\" :aria-valuemin=\"0\"\n        :aria-valuemax=\"100\" v-else\n    ></div>\n</div>\n";
 
 /***/ },
-/* 120 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(121)
-	__vue_script__ = __webpack_require__(122)
+	__webpack_require__(122)
+	__vue_script__ = __webpack_require__(123)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiRadio.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(123)
+	__vue_template__ = __webpack_require__(124)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -8363,13 +8403,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 121 */
+/* 122 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 122 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8441,23 +8481,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 123 */
+/* 124 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<label\n    class=\"ui-radio\"\n    :class=\"{ 'disabled': disabled, 'checked': active, 'label-left': labelLeft }\"\n>\n    <div class=\"ui-radio-input-wrapper\">\n        <input\n            class=\"ui-radio-input\" type=\"radio\" :id=\"id\" :name=\"name\" :value=\"value\"\n            :checked=\"checked\" @focus=\"focus\" @blur=\"blur\" v-model=\"model\" v-disabled=\"disabled\"\n        >\n\n        <span class=\"ui-radio-border\"></span>\n        <span class=\"ui-radio-inner-dot\"></span>\n    </div>\n\n    <div class=\"ui-radio-label-text\" v-if=\"!hideLabel\">\n        <slot>\n            <span v-text=\"label\"></span>\n        </slot>\n    </div>\n</label>\n";
 
 /***/ },
-/* 124 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(125)
-	__vue_script__ = __webpack_require__(126)
+	__webpack_require__(126)
+	__vue_script__ = __webpack_require__(127)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiRadioGroup.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(127)
+	__vue_template__ = __webpack_require__(128)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -8476,13 +8516,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 125 */
+/* 126 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 126 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8495,11 +8535,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _disabled2 = _interopRequireDefault(_disabled);
 	
-	var _UiRadio = __webpack_require__(120);
+	var _UiRadio = __webpack_require__(121);
 	
 	var _UiRadio2 = _interopRequireDefault(_UiRadio);
 	
-	var _ReceivesTargetedEvent = __webpack_require__(86);
+	var _ReceivesTargetedEvent = __webpack_require__(75);
 	
 	var _ReceivesTargetedEvent2 = _interopRequireDefault(_ReceivesTargetedEvent);
 	
@@ -8550,8 +8590,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	    computed: {
-	        showHelp: function showHelp() {
-	            return !this.disabled && Boolean(this.helpText);
+	        showFeedback: function showFeedback() {
+	            return Boolean(this.helpText);
 	        }
 	    },
 	
@@ -8586,23 +8626,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 127 */
+/* 128 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div\n    class=\"ui-radio-group\" :id=\"id\"\n    :class=\"{ 'disabled': disabled, 'active': active, 'vertical': vertical }\"\n>\n    <div class=\"ui-radio-group-label\" v-text=\"label\" v-if=\"!hideLabel\"></div>\n\n    <div class=\"ui-radio-group-options-wrapper\">\n        <ui-radio\n            class=\"ui-radio-group-radio\" v-for=\"option in options\" :model.sync=\"value\"\n            :name=\"name\" :label=\"option.text || option\" :value=\"option.value || option\"\n            :disabled=\"disabled || option.disabled\" @focussed=\"focus\" @blurred=\"blur\"\n        ></ui-radio>\n    </div>\n\n    <div\n        class=\"ui-radio-group-feedback\" v-if=\"showHelp\"\n        transition=\"ui-radio-group-feedback-toggle\"\n    >\n        <div class=\"ui-radio-group-help-text\" v-text=\"helpText\"></div>\n    </div>\n</div>\n";
+	module.exports = "\n<div\n    class=\"ui-radio-group\" :id=\"id\"\n    :class=\"{ 'disabled': disabled, 'active': active, 'vertical': vertical }\"\n>\n    <div class=\"ui-radio-group-label\" v-text=\"label\" v-if=\"!hideLabel\"></div>\n\n    <div class=\"ui-radio-group-options-wrapper\">\n        <ui-radio\n            class=\"ui-radio-group-radio\" v-for=\"option in options\" :model.sync=\"value\"\n            :name=\"name\" :label=\"option.text || option\" :value=\"option.value || option\"\n            :disabled=\"disabled || option.disabled\" @focussed=\"focus\" @blurred=\"blur\"\n        ></ui-radio>\n    </div>\n\n    <div\n        class=\"ui-radio-group-feedback\" v-if=\"showFeedback\"\n        transition=\"ui-radio-group-feedback-toggle\"\n    >\n        <div class=\"ui-radio-group-help-text\" v-text=\"helpText\"></div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 128 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(129)
-	__vue_script__ = __webpack_require__(130)
+	__webpack_require__(130)
+	__vue_script__ = __webpack_require__(131)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiRating.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(135)
+	__vue_template__ = __webpack_require__(136)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -8621,13 +8661,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 129 */
+/* 130 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 130 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8636,11 +8676,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	
-	var _UiRatingIcon = __webpack_require__(131);
+	var _UiRatingIcon = __webpack_require__(132);
 	
 	var _UiRatingIcon2 = _interopRequireDefault(_UiRatingIcon);
 	
-	var _ReceivesTargetedEvent = __webpack_require__(86);
+	var _ReceivesTargetedEvent = __webpack_require__(75);
 	
 	var _ReceivesTargetedEvent2 = _interopRequireDefault(_ReceivesTargetedEvent);
 	
@@ -8687,8 +8727,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	    computed: {
-	        showHelp: function showHelp() {
-	            return !this.disabled && Boolean(this.helpText);
+	        showFeedback: function showFeedback() {
+	            return Boolean(this.helpText);
 	        }
 	    },
 	
@@ -8742,11 +8782,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.previewValue = n + 1;
 	        },
 	        commitValue: function commitValue(value) {
+	            if (this.disabled) {
+	                return;
+	            }
+	
 	            if (value > 0 && value <= this.total) {
 	                this.value = value;
 	            }
 	        },
 	        incrementPreviewValue: function incrementPreviewValue() {
+	            if (this.disabled) {
+	                return;
+	            }
+	
 	            var proposedValue = this.previewValue + 1;
 	
 	            if (proposedValue <= this.total) {
@@ -8754,6 +8802,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        },
 	        decrementPreviewValue: function decrementPreviewValue() {
+	            if (this.disabled) {
+	                return;
+	            }
+	
 	            var proposedValue = this.previewValue - 1;
 	
 	            if (proposedValue > 0) {
@@ -8780,17 +8832,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 131 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(132)
-	__vue_script__ = __webpack_require__(133)
+	__webpack_require__(133)
+	__vue_script__ = __webpack_require__(134)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiRatingIcon.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(134)
+	__vue_template__ = __webpack_require__(135)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -8809,13 +8861,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 132 */
+/* 133 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 133 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8863,29 +8915,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 134 */
+/* 135 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui-rating-icon\">\n    <ui-icon\n        class=\"ui-rating-icon-icon\" :icon=\"icon\"\n        :class=\"{ 'selected': selected, 'filled' : filled }\"\n    ></ui-icon>\n</div>\n";
 
 /***/ },
-/* 135 */
+/* 136 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div\n    class=\"ui-rating\" :class=\"{ 'disabled': disabled, 'preview': previewing, 'active': active }\"\n\n    :tabindex=\"disabled ? null : 0\" role=\"slider\" :aria-valuemin=\"0\" :aria-valuemax=\"total\"\n    :aria-valuenow=\"previewValue\"\n\n    @keydown.up.prevent=\"incrementPreviewValue\" @keydown.down.prevent=\"decrementPreviewValue\"\n    @keydown.right.prevent=\"incrementPreviewValue\" @keydown.left.prevent=\"decrementPreviewValue\"\n    @keydown.enter.prevent=\"commitValue(previewValue)\" @focus=\"focus\" @blur=\"blur\"\n>\n    <div class=\"ui-rating-label\" v-text=\"label\" v-if=\"!hideLabel\"></div>\n\n    <div\n        class=\"ui-rating-icons-wrapper\" @mouseenter=\"startPreview\" @mouseleave=\"endPreview\"\n    >\n        <ui-rating-icon\n            :type=\"type\" v-for=\"n in total\" :selected=\"(n + 1) <= value\" @mouseover=\"preview(n)\"\n            :filled=\"(n + 1) <= previewValue\" @click=\"commitValue(n + 1)\"\n        ></ui-rating-icon>\n    </div>\n\n    <div\n        class=\"ui-rating-feedback\" v-if=\"showHelp\" transition=\"ui-rating-feedback-toggle\"\n    >\n        <div class=\"ui-rating-help-text\" v-text=\"helpText\"></div>\n    </div>\n</div>\n";
+	module.exports = "\n<div\n    class=\"ui-rating\" :class=\"{ 'disabled': disabled, 'preview': previewing, 'active': active }\"\n\n    :tabindex=\"disabled ? null : 0\" role=\"slider\" :aria-valuemin=\"0\" :aria-valuemax=\"total\"\n    :aria-valuenow=\"previewValue\"\n\n    @keydown.up.prevent=\"incrementPreviewValue\" @keydown.down.prevent=\"decrementPreviewValue\"\n    @keydown.right.prevent=\"incrementPreviewValue\" @keydown.left.prevent=\"decrementPreviewValue\"\n    @keydown.enter.prevent=\"commitValue(previewValue)\" @focus=\"focus\" @blur=\"blur\"\n>\n    <div class=\"ui-rating-label\" v-text=\"label\" v-if=\"!hideLabel\"></div>\n\n    <div\n        class=\"ui-rating-icons-wrapper\" @mouseenter=\"startPreview\" @mouseleave=\"endPreview\"\n    >\n        <ui-rating-icon\n            :type=\"type\" v-for=\"n in total\" :selected=\"(n + 1) <= value\" @mouseover=\"preview(n)\"\n            :filled=\"(n + 1) <= previewValue\" @click=\"commitValue(n + 1)\"\n        ></ui-rating-icon>\n    </div>\n\n    <div\n        class=\"ui-rating-feedback\" v-if=\"showFeedback\" transition=\"ui-rating-feedback-toggle\"\n    >\n        <div class=\"ui-rating-help-text\" v-text=\"helpText\"></div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 136 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(137)
-	__vue_script__ = __webpack_require__(138)
+	__webpack_require__(138)
+	__vue_script__ = __webpack_require__(139)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiRatingPreview.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(139)
+	__vue_template__ = __webpack_require__(140)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -8904,13 +8956,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 137 */
+/* 138 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 138 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8919,7 +8971,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	
-	var _UiRatingIcon = __webpack_require__(131);
+	var _UiRatingIcon = __webpack_require__(132);
 	
 	var _UiRatingIcon2 = _interopRequireDefault(_UiRatingIcon);
 	
@@ -8950,23 +9002,3232 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 139 */
+/* 140 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div\n    class=\"ui-rating-preview\" role=\"slider\" :aria-valuemin=\"0\" :aria-valuemax=\"total\"\n    :aria-valuenow=\"value\"\n>\n    <ui-rating-icon\n        :type=\"type\" v-for=\"n in total\" :selected=\"(n + 1) <= value\"\n    ></ui-rating-icon>\n</div>\n";
 
 /***/ },
-/* 140 */
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(141)
-	__vue_script__ = __webpack_require__(142)
+	__webpack_require__(142)
+	__vue_script__ = __webpack_require__(143)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\UiSelect.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(151)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "C:\\code\\packages\\keen-ui\\src\\UiSelect.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 142 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 143 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _mergeOptions = __webpack_require__(144);
+	
+	var _mergeOptions2 = _interopRequireDefault(_mergeOptions);
+	
+	var _fuzzysearch = __webpack_require__(68);
+	
+	var _fuzzysearch2 = _interopRequireDefault(_fuzzysearch);
+	
+	var _elementScroll = __webpack_require__(146);
+	
+	var _UiIcon = __webpack_require__(6);
+	
+	var _UiIcon2 = _interopRequireDefault(_UiIcon);
+	
+	var _UiSelectOption = __webpack_require__(147);
+	
+	var _UiSelectOption2 = _interopRequireDefault(_UiSelectOption);
+	
+	var _UiProgressCircular = __webpack_require__(51);
+	
+	var _UiProgressCircular2 = _interopRequireDefault(_UiProgressCircular);
+	
+	var _HasTextInput = __webpack_require__(74);
+	
+	var _HasTextInput2 = _interopRequireDefault(_HasTextInput);
+	
+	var _ValidatesInput = __webpack_require__(76);
+	
+	var _ValidatesInput2 = _interopRequireDefault(_ValidatesInput);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
+	    name: 'ui-select',
+	
+	    props: {
+	        value: {
+	            type: [Object, Array],
+	            default: null,
+	            twoWay: true
+	        },
+	        default: {
+	            type: [Object, Array],
+	            default: null
+	        },
+	        options: {
+	            type: Array,
+	            default: []
+	        },
+	        partial: String,
+	        showSearch: {
+	            type: Boolean,
+	            default: false
+	        },
+	        searchPlaceholder: {
+	            type: String,
+	            default: 'Search'
+	        },
+	        multiple: {
+	            type: Boolean,
+	            default: false
+	        },
+	        multipleDelimiter: {
+	            type: String,
+	            default: ', '
+	        },
+	        disableFiltering: {
+	            type: Boolean,
+	            default: false
+	        },
+	        loading: {
+	            type: Boolean,
+	            default: false
+	        },
+	        noResults: {
+	            type: Boolean,
+	            default: false
+	        }
+	    },
+	
+	    data: function data() {
+	        return {
+	            query: '',
+	            selectedIndex: -1,
+	            highlightedIndex: -1,
+	            showDropdown: false,
+	            ignoreQueryChange: false
+	        };
+	    },
+	
+	
+	    computed: {
+	        filteredOptions: function filteredOptions() {
+	            if (this.disableFiltering) {
+	                return this.options;
+	            }
+	
+	            return this.options.filter(this.search);
+	        },
+	        displayText: function displayText() {
+	            if (this.multiple && this.value.length) {
+	                var labels = this.value.map(function (value) {
+	                    return value.text;
+	                });
+	                return labels.join(this.multipleDelimiter);
+	            }
+	
+	            return this.value ? this.value.text : '';
+	        },
+	        hasDisplayText: function hasDisplayText() {
+	            return this.displayText && Boolean(this.displayText.length);
+	        },
+	        showIcon: function showIcon() {
+	            return Boolean(this.icon);
+	        },
+	        nothingFound: function nothingFound() {
+	            if (this.disableFiltering) {
+	                return this.noResults;
+	            }
+	
+	            return Boolean(this.options.length && !this.filteredOptions.length);
+	        }
+	    },
+	
+	    watch: {
+	        filteredOptions: function filteredOptions() {
+	            this.highlightedIndex = 0;
+	            (0, _elementScroll.resetScroll)(this.$els.optionsList);
+	        },
+	        showDropdown: function showDropdown() {
+	            if (this.showDropdown) {
+	                this.opened();
+	                this.$dispatch('opened');
+	            } else {
+	                this.closed();
+	                this.$dispatch('closed');
+	            }
+	        },
+	        query: function query() {
+	            if (!this.ignoreQueryChange) {
+	                this.$dispatch('query-changed', this.query);
+	            }
+	        }
+	    },
+	
+	    created: function created() {
+	        this.initValue();
+	
+	        var errorMessages = {
+	            min: 'You must select at least :min options.',
+	            max: 'You must select no more than :max options.',
+	            between: 'You must select at least :min but no more than :max options.'
+	        };
+	
+	        if (this.validationRules) {
+	            this.validationMessages = (0, _mergeOptions2.default)(errorMessages, this.validationMessages);
+	        }
+	    },
+	    ready: function ready() {
+	        document.addEventListener('click', this.closeOnExternalClick);
+	    },
+	    beforeDestroy: function beforeDestroy() {
+	        document.removeEventListener('click', this.closeOnExternalClick);
+	    },
+	
+	
+	    events: {
+	        'ui-input::reset': function uiInputReset(id) {
+	            if (!this.eventTargetsComponent(id)) {
+	                return;
+	            }
+	
+	            this.initValue();
+	            this.dirty = false;
+	            this.valid = true;
+	
+	            this.clearQuery();
+	            this.selectedIndex = -1;
+	            this.highlightedIndex = -1;
+	        }
+	    },
+	
+	    methods: {
+	        initValue: function initValue() {
+	            this.value = this.multiple ? [] : null;
+	
+	            if (this.default) {
+	                this.setDefaultValue(this.default);
+	            }
+	        },
+	        search: function search(option) {
+	            var text = option.text.toLowerCase();
+	            var query = this.query.toLowerCase();
+	
+	            return (0, _fuzzysearch2.default)(query, text);
+	        },
+	        clearQuery: function clearQuery() {
+	            var _this = this;
+	
+	            this.ignoreQueryChange = true;
+	
+	            this.$nextTick(function () {
+	                _this.query = '';
+	
+	                _this.$nextTick(function () {
+	                    _this.ignoreQueryChange = false;
+	                });
+	            });
+	        },
+	        select: function select(option, index) {
+	            var close = arguments.length <= 2 || arguments[2] === undefined ? true : arguments[2];
+	
+	            if (this.multiple) {
+	                if (this.isSelected(option)) {
+	                    this.deselect(option);
+	                    return;
+	                }
+	
+	                this.value.push(option);
+	            } else {
+	                this.value = option;
+	                this.selectedIndex = index;
+	            }
+	
+	            this.$dispatch('selected', option);
+	
+	            this.highlightedIndex = index;
+	            this.clearQuery();
+	            this.validate();
+	
+	            if (!this.multiple && close) {
+	                this.close();
+	            }
+	        },
+	        deselect: function deselect(option) {
+	            this.value.$remove(option);
+	        },
+	        isSelected: function isSelected(option) {
+	            if (this.multiple) {
+	                return this.value.indexOf(option) > -1;
+	            }
+	
+	            return this.value === option;
+	        },
+	        selectHighlighted: function selectHighlighted(index, e) {
+	            if (this.$refs.options.length) {
+	                e.preventDefault();
+	                this.select(this.$refs.options[index].option, index);
+	            }
+	        },
+	        highlight: function highlight(index, preventScroll) {
+	            if (this.highlightedIndex === index) {
+	                return;
+	            }
+	
+	            if (index < 0) {
+	                index = this.$refs.options.length - 1;
+	            } else if (index >= this.$refs.options.length) {
+	                index = 0;
+	            }
+	
+	            this.highlightedIndex = index;
+	
+	            if (!preventScroll) {
+	                this.scrollOptionIntoView(this.$refs.options[index].$el);
+	            }
+	        },
+	        focus: function focus() {
+	            this.active = true;
+	        },
+	        blur: function blur() {
+	            this.active = false;
+	
+	            if (this.showDropdown) {
+	                this.close();
+	            }
+	        },
+	        toggle: function toggle() {
+	            if (this.showDropdown) {
+	                this.close();
+	            } else {
+	                this.open();
+	            }
+	        },
+	        open: function open() {
+	            if (this.disabled) {
+	                return;
+	            }
+	
+	            this.showDropdown = true;
+	        },
+	        opened: function opened() {
+	            var _this2 = this;
+	
+	            this.$nextTick(function () {
+	                if (_this2.showSearch) {
+	                    _this2.$els.searchInput.focus();
+	                } else {
+	                    _this2.$els.dropdown.focus();
+	                }
+	
+	                _this2.scrollOptionIntoView(_this2.$els.optionsList.querySelector('.selected'));
+	            });
+	        },
+	        close: function close(deactivate) {
+	            this.showDropdown = false;
+	
+	            if (!this.dirty) {
+	                this.dirty = true;
+	            }
+	
+	            if (deactivate) {
+	                this.active = false;
+	            } else {
+	                this.$els.label.focus();
+	            }
+	        },
+	        closeOnExternalClick: function closeOnExternalClick(e) {
+	            if (!this.$el.contains(e.target) && (this.showDropdown || this.active)) {
+	                this.close(true);
+	            }
+	        },
+	        closed: function closed() {
+	            this.validate();
+	
+	            if (!this.multiple) {
+	                this.highlightedIndex = this.selectedIndex;
+	            } else {
+	                this.highlightedIndex = -1;
+	            }
+	        },
+	        setDefaultValue: function setDefaultValue(defaults) {
+	            if (this.multiple) {
+	                if (!defaults.length) {
+	                    return;
+	                }
+	
+	                for (var i = 0; i < this.options.length; i++) {
+	                    for (var j = 0; j < defaults.length; j++) {
+	                        if (this.options[i] === defaults[j]) {
+	                            this.select(this.options[i], i, false);
+	                            break;
+	                        }
+	                    }
+	                }
+	
+	                return;
+	            }
+	
+	            for (var _i = 0; _i < this.options.length; _i++) {
+	                if (this.options[_i] === defaults) {
+	                    this.select(this.options[_i], _i, false);
+	                    break;
+	                }
+	            }
+	        },
+	        scrollOptionIntoView: function scrollOptionIntoView(optionEl) {
+	            (0, _elementScroll.scrollIntoView)(optionEl, this.$els.optionsList, 80);
+	        }
+	    },
+	
+	    components: {
+	        UiIcon: _UiIcon2.default,
+	        UiSelectOption: _UiSelectOption2.default,
+	        UiProgressCircular: _UiProgressCircular2.default
+	    },
+	
+	    mixins: [_HasTextInput2.default, _ValidatesInput2.default]
+	};
+
+/***/ },
+/* 144 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var isOptionObject = __webpack_require__(145);
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+	var propIsEnumerable = Object.propertyIsEnumerable;
+	var globalThis = this;
+	var defaultMergeOpts = {
+		concatArrays: false
+	};
+	
+	function getEnumerableOwnPropertyKeys(value) {
+		var keys = [];
+	
+		for (var key in value) {
+			if (hasOwnProperty.call(value, key)) {
+				keys.push(key);
+			}
+		}
+	
+		if (Object.getOwnPropertySymbols) {
+			var symbols = Object.getOwnPropertySymbols(value);
+	
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(value, symbols[i])) {
+					keys.push(symbols[i]);
+				}
+			}
+		}
+	
+		return keys;
+	}
+	
+	function clone(value) {
+		if (Array.isArray(value)) {
+			return cloneArray(value);
+		}
+	
+		if (isOptionObject(value)) {
+			return cloneOptionObject(value);
+		}
+	
+		return value;
+	}
+	
+	function cloneArray(array) {
+		var result = array.slice(0, 0);
+	
+		getEnumerableOwnPropertyKeys(array).forEach(function (key) {
+			result[key] = clone(array[key]);
+		});
+	
+		return result;
+	}
+	
+	function cloneOptionObject(obj) {
+		var result = Object.getPrototypeOf(obj) === null ? Object.create(null) : {};
+	
+		getEnumerableOwnPropertyKeys(obj).forEach(function (key) {
+			result[key] = clone(obj[key]);
+		});
+	
+		return result;
+	}
+	
+	/**
+	 * @param merged {already cloned}
+	 * @return {cloned Object}
+	 */
+	function mergeKeys(merged, source, keys, mergeOpts) {
+		keys.forEach(function (key) {
+			if (key in merged) {
+				merged[key] = merge(merged[key], source[key], mergeOpts);
+			} else {
+				merged[key] = clone(source[key]);
+			}
+		});
+	
+		return merged;
+	}
+	
+	/**
+	 * @param merged {already cloned}
+	 * @return {cloned Object}
+	 *
+	 * see [Array.prototype.concat ( ...arguments )](http://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.concat)
+	 */
+	function concatArrays(merged, source, mergeOpts) {
+		var result = merged.slice(0, 0);
+		var resultIndex = 0;
+	
+		[merged, source].forEach(function (array) {
+			var indices = [];
+	
+			// result.concat(array) with cloning
+			for (var k = 0; k < array.length; k++) {
+				if (!hasOwnProperty.call(array, k)) {
+					continue;
+				}
+	
+				indices.push(String(k));
+	
+				if (array === merged) {
+					// already cloned
+					result[resultIndex++] = array[k];
+				} else {
+					result[resultIndex++] = clone(array[k]);
+				}
+			}
+	
+			// merge non-index keys
+			result = mergeKeys(result, array, getEnumerableOwnPropertyKeys(array).filter(function (key) {
+				return indices.indexOf(key) === -1;
+			}), mergeOpts);
+		});
+	
+		return result;
+	}
+	
+	/**
+	 * @param merged {already cloned}
+	 * @return {cloned Object}
+	 */
+	function merge(merged, source, mergeOpts) {
+		if (mergeOpts.concatArrays && Array.isArray(merged) && Array.isArray(source)) {
+			return concatArrays(merged, source, mergeOpts);
+		}
+	
+		if (!isOptionObject(source) || !isOptionObject(merged)) {
+			return clone(source);
+		}
+	
+		return mergeKeys(merged, source, getEnumerableOwnPropertyKeys(source), mergeOpts);
+	}
+	
+	module.exports = function () {
+		var mergeOpts = merge(clone(defaultMergeOpts), (this !== globalThis && this) || {}, defaultMergeOpts);
+		var merged = {};
+	
+		for (var i = 0; i < arguments.length; i++) {
+			var option = arguments[i];
+	
+			if (option === undefined) {
+				continue;
+			}
+	
+			if (!isOptionObject(option)) {
+				throw new TypeError('`' + option + '` is not an Option Object');
+			}
+	
+			merged = merge(merged, option, mergeOpts);
+		}
+	
+		return merged;
+	};
+
+
+/***/ },
+/* 145 */
+/***/ function(module, exports) {
+
+	'use strict';
+	var toString = Object.prototype.toString;
+	
+	module.exports = function (x) {
+		var prototype;
+		return toString.call(x) === '[object Object]' && (prototype = Object.getPrototypeOf(x), prototype === null || prototype === Object.getPrototypeOf({}));
+	};
+
+
+/***/ },
+/* 146 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.inView = inView;
+	exports.scrollIntoView = scrollIntoView;
+	exports.resetScroll = resetScroll;
+	function inView(element, container) {
+	    if (!element) {
+	        return;
+	    }
+	
+	    container = container || element.parentElement;
+	
+	    var top = element.offsetTop;
+	    var parentTop = container.scrollTop;
+	    var bottom = top + element.offsetHeight;
+	    var parentBottom = container.offsetHeight;
+	
+	    return top >= parentTop && bottom <= parentBottom;
+	}
+	
+	function scrollIntoView(element, container) {
+	    var marginTop = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
+	
+	    if (!element || inView(element, container)) {
+	        return;
+	    }
+	
+	    container = container || element.parentElement;
+	
+	    container.scrollTop = element.offsetTop - marginTop;
+	}
+	
+	function resetScroll(element) {
+	    if (!element) {
+	        return;
+	    }
+	
+	    element.scrollTop = 0;
+	}
+	
+	exports.default = {
+	    inView: inView,
+	    scrollIntoView: scrollIntoView,
+	    resetScroll: resetScroll
+	};
+
+/***/ },
+/* 147 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(148)
+	__vue_script__ = __webpack_require__(149)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\UiSelectOption.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(150)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "C:\\code\\packages\\keen-ui\\src\\UiSelectOption.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 148 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 149 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _UiIcon = __webpack_require__(6);
+	
+	var _UiIcon2 = _interopRequireDefault(_UiIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
+	    name: 'ui-select-option',
+	
+	    props: {
+	        option: {
+	            type: [String, Object],
+	            required: true
+	        },
+	        partial: {
+	            type: String,
+	            default: 'ui-select-simple' },
+	        showCheckbox: {
+	            type: Boolean,
+	            default: false
+	        },
+	        highlighted: {
+	            type: Boolean,
+	            default: false
+	        },
+	        selected: {
+	            type: Boolean,
+	            default: false
+	        }
+	    },
+	
+	    computed: {
+	        icon: function icon() {
+	            return this.selected ? 'check_box' : 'check_box_outline_blank';
+	        }
+	    },
+	
+	    components: {
+	        UiIcon: _UiIcon2.default
+	    },
+	
+	    partials: {
+	        'ui-select-simple': '<li class="ui-select-item-text" v-text="option.text"></li>',
+	
+	        'ui-select-image': '<div class="ui-select-item-image" :style="{ \'background-image\': \'url(\' + option.image + \')\' }"></div>\n            <div class="ui-select-item-text" v-text="option.text"></div>'
+	    }
+	};
+
+/***/ },
+/* 150 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<li\n    class=\"ui-select-option\" :class=\"{ highlighted: highlighted, selected: selected }\"\n>\n    <div class=\"ui-select-option-content\" :class=\"[partial]\">\n        <partial :name=\"partial\"></partial>\n    </div>\n\n    <ui-icon\n        class=\"ui-select-option-checkbox\" :icon=\"icon\" v-if=\"showCheckbox\"\n    ></ui-icon>\n</li>\n";
+
+/***/ },
+/* 151 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div\n    class=\"ui-select\" :id=\"id\" :class=\"{\n        'disabled': disabled, 'invalid': !valid, 'dirty': dirty, 'active': active,\n        'has-label': !hideLabel, 'icon-right': iconRight\n    }\"\n>\n    <div class=\"ui-select-icon-wrapper\" v-if=\"showIcon\">\n        <ui-icon :icon=\"icon\" class=\"ui-select-icon\"></ui-icon>\n    </div>\n\n    <div class=\"ui-select-content\">\n        <div\n            class=\"ui-select-label\" :tabindex=\"disabled ? null : '0'\" v-el:label\n            @focus=\"focus\" @keydown.tab=\"blur\" @click=\"toggle\" @keydown.space.prevent=\"open\"\n            @keydown.enter.prevent=\"open\"\n        >\n            <div class=\"ui-select-label-text\" v-text=\"label\" v-if=\"!hideLabel\"></div>\n\n            <div class=\"ui-select-display\">\n                <div\n                    class=\"ui-select-value\" :class=\"{ placeholder: !hasDisplayText }\"\n                    v-text=\"hasDisplayText ? displayText : placeholder\"\n                ></div>\n\n                <ui-icon icon=\"arrow_drop_down\" class=\"ui-select-dropdown-icon\"></ui-icon>\n            </div>\n\n            <div\n                class=\"ui-select-dropdown\" tabindex=\"-1\" v-show=\"showDropdown\" v-el:dropdown\n                @keydown.esc.prevent=\"close()\" @keydown.tab=\"close()\"\n                @keydown.up.prevent=\"highlight(highlightedIndex - 1)\"\n                @keydown.down.prevent=\"highlight(highlightedIndex + 1)\"\n                @keydown.enter.prevent.stop=\"selectHighlighted(highlightedIndex, $event)\"\n            >\n                <div class=\"ui-select-search\" v-if=\"showSearch\" @click.stop @keydown.space.stop>\n                    <input\n                        class=\"ui-select-search-input\" type=\"text\" v-el:search-input\n                        :placeholder=\"searchPlaceholder\" v-model=\"query\"\n                    >\n\n                    <ui-progress-circular\n                        class=\"ui-select-search-spinner\" :size=\"24\" :stroke=\"4\" :show=\"loading\"\n                    ></ui-progress-circular>\n                </div>\n\n                <ul class=\"ui-select-options\" v-el:options-list>\n                    <ui-select-option\n                        :option=\"option\" :partial=\"partial\" :show-checkbox=\"multiple\"\n                        @click.stop.prevent=\"select(option, index)\"\n                        @mouseover.stop=\"highlight(index, true)\"\n\n                        :highlighted=\"highlightedIndex === index\" :selected=\"isSelected(option)\"\n\n                        v-for=\"(index, option) in filteredOptions\" v-ref:options\n                        v-if=\"!noResults\"\n                    ></ui-select-option>\n\n                    <li class=\"ui-select-no-results\" v-if=\"nothingFound\">No results found</li>\n                </ul>\n            </div>\n        </div>\n\n        <div class=\"ui-select-feedback\" v-if=\"showFeedback\">\n            <div\n                class=\"ui-select-error-text\" transition=\"ui-select-feedback-toggle\"\n                v-text=\"validationError\" v-show=\"!hideValidationErrors && !valid\"\n            ></div>\n\n            <div\n                class=\"ui-select-help-text\" transition=\"ui-select-feedback-toggle\"\n                v-text=\"helpText\" v-else\n            ></div>\n        </div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 152 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(153)
+	__vue_script__ = __webpack_require__(154)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\UiSlider.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(163)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "C:\\code\\packages\\keen-ui\\src\\UiSlider.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 153 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 154 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _draggabilly = __webpack_require__(155);
+	
+	var _draggabilly2 = _interopRequireDefault(_draggabilly);
+	
+	var _UiIcon = __webpack_require__(6);
+	
+	var _UiIcon2 = _interopRequireDefault(_UiIcon);
+	
+	var _ReceivesTargetedEvent = __webpack_require__(75);
+	
+	var _ReceivesTargetedEvent2 = _interopRequireDefault(_ReceivesTargetedEvent);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
+	    name: 'ui-slider',
+	
+	    props: {
+	        name: String,
+	        value: {
+	            type: Number,
+	            required: true,
+	            twoWay: true
+	        },
+	        step: {
+	            type: Number,
+	            default: 5
+	        },
+	        icon: String,
+	        label: String,
+	        hideLabel: {
+	            type: Boolean,
+	            default: false
+	        },
+	        disabled: {
+	            type: Boolean,
+	            default: false
+	        }
+	    },
+	
+	    data: function data() {
+	        return {
+	            active: false,
+	            initialValue: 0,
+	            dragging: false,
+	            draggable: null
+	        };
+	    },
+	
+	
+	    computed: {
+	        showIcon: function showIcon() {
+	            return Boolean(this.icon);
+	        },
+	        hasLabel: function hasLabel() {
+	            if (this.hideLabel) {
+	                return true;
+	            }
+	
+	            return Boolean(this.label);
+	        }
+	    },
+	
+	    watch: {
+	        value: function value() {
+	            if (!this.dragging) {
+	                this.$els.thumb.style.left = this.value + '%';
+	            }
+	        },
+	        disabled: function disabled() {
+	            if (this.disabled) {
+	                this.draggable.disable();
+	            } else {
+	                this.draggable.enable();
+	            }
+	        }
+	    },
+	
+	    events: {
+	        'ui-input::reset': function uiInputReset(id) {
+	            if (!this.eventTargetsComponent(id)) {
+	                return;
+	            }
+	
+	            this.value = this.initialValue;
+	        }
+	    },
+	
+	    ready: function ready() {
+	        this.initialValue = this.value;
+	
+	        this.$els.thumb.style.left = this.value + '%';
+	
+	        this.draggable = new _draggabilly2.default(this.$els.thumb, {
+	            containment: this.$els.containment,
+	            axis: 'x'
+	        });
+	
+	        this.draggable.on('dragStart', this.dragStart);
+	        this.draggable.on('dragMove', this.dragMove);
+	        this.draggable.on('dragEnd', this.dragEnd);
+	
+	        if (this.disabled) {
+	            this.draggable.disable();
+	        }
+	    },
+	    beforeDestroy: function beforeDestroy() {
+	        if (this.draggable) {
+	            this.draggable.destroy();
+	        }
+	    },
+	
+	
+	    methods: {
+	        focus: function focus() {
+	            this.active = true;
+	        },
+	        blur: function blur() {
+	            this.active = false;
+	        },
+	        sliderClick: function sliderClick(e) {
+	            if (this.disabled) {
+	                return;
+	            }
+	
+	            var sliderPosition = this.$els.slider.getBoundingClientRect();
+	
+	            var newValue = (e.clientX - sliderPosition.left) / sliderPosition.width * 100;
+	
+	            this.setValue(newValue);
+	
+	            if (e.target !== this.$els.thumb) {
+	                this.draggable._pointerDown(e, e);
+	            }
+	
+	            this.$el.focus();
+	        },
+	        dragStart: function dragStart() {
+	            this.dragging = true;
+	            this.$el.focus();
+	        },
+	        dragMove: function dragMove() {
+	            var x = this.draggable.position.x;
+	            var newValue = x / this.$els.slider.getBoundingClientRect().width * 100;
+	
+	            this.setValue(newValue);
+	        },
+	        dragEnd: function dragEnd() {
+	            this.dragging = false;
+	        },
+	        increment: function increment() {
+	            if (this.value === 100) {
+	                return;
+	            }
+	
+	            this.setValue(this.value + this.step);
+	        },
+	        decrement: function decrement() {
+	            if (this.value === 0) {
+	                return;
+	            }
+	
+	            this.setValue(this.value - this.step);
+	        },
+	        setValue: function setValue(value) {
+	            if (value === this.value) {
+	                return;
+	            }
+	
+	            var moderatedValue = Math.round(value);
+	
+	            if (moderatedValue >= 100) {
+	                moderatedValue = 100;
+	            }
+	
+	            if (moderatedValue <= 0) {
+	                moderatedValue = 0;
+	            }
+	
+	            this.value = moderatedValue;
+	        }
+	    },
+	
+	    components: {
+	        UiIcon: _UiIcon2.default
+	    },
+	
+	    mixins: [_ReceivesTargetedEvent2.default]
+	};
+
+/***/ },
+/* 155 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var define = false;
+	(function() {
+	
+	/*!
+	 * Draggabilly v1.2.4
+	 * Make that shiz draggable
+	 * http://draggabilly.desandro.com
+	 * MIT license
+	 */
+	
+	( function( window, factory ) {
+	  'use strict';
+	
+	  if ( typeof define == 'function' && define.amd ) {
+	    // AMD
+	    define( [
+	        'classie/classie',
+	        'get-style-property/get-style-property',
+	        'get-size/get-size',
+	        'unidragger/unidragger'
+	      ],
+	      function( classie, getStyleProperty, getSize, Unidragger ) {
+	        return factory( window, classie, getStyleProperty, getSize, Unidragger );
+	      });
+	  } else if ( true ) {
+	    // CommonJS
+	    module.exports = factory(
+	      window,
+	      __webpack_require__(156),
+	      __webpack_require__(157),
+	      __webpack_require__(158),
+	      __webpack_require__(159)
+	    );
+	  } else {
+	    // browser global
+	    window.Draggabilly = factory(
+	      window,
+	      window.classie,
+	      window.getStyleProperty,
+	      window.getSize,
+	      window.Unidragger
+	    );
+	  }
+	
+	}( window, function factory( window, classie, getStyleProperty, getSize, Unidragger ) {
+	
+	'use strict';
+	
+	// vars
+	var document = window.document;
+	
+	function noop() {}
+	
+	// -------------------------- helpers -------------------------- //
+	
+	// extend objects
+	function extend( a, b ) {
+	  for ( var prop in b ) {
+	    a[ prop ] = b[ prop ];
+	  }
+	  return a;
+	}
+	
+	// ----- get style ----- //
+	
+	var defView = document.defaultView;
+	
+	var getStyle = defView && defView.getComputedStyle ?
+	  function( elem ) {
+	    return defView.getComputedStyle( elem, null );
+	  } :
+	  function( elem ) {
+	    return elem.currentStyle;
+	  };
+	
+	
+	// http://stackoverflow.com/a/384380/182183
+	var isElement = ( typeof HTMLElement == 'object' ) ?
+	  function isElementDOM2( obj ) {
+	    return obj instanceof HTMLElement;
+	  } :
+	  function isElementQuirky( obj ) {
+	    return obj && typeof obj == 'object' &&
+	      obj.nodeType == 1 && typeof obj.nodeName == 'string';
+	  };
+	
+	// -------------------------- requestAnimationFrame -------------------------- //
+	
+	// https://gist.github.com/1866474
+	
+	var lastTime = 0;
+	var prefixes = 'webkit moz ms o'.split(' ');
+	// get unprefixed rAF and cAF, if present
+	var requestAnimationFrame = window.requestAnimationFrame;
+	var cancelAnimationFrame = window.cancelAnimationFrame;
+	// loop through vendor prefixes and get prefixed rAF and cAF
+	var prefix;
+	for( var i = 0; i < prefixes.length; i++ ) {
+	  if ( requestAnimationFrame && cancelAnimationFrame ) {
+	    break;
+	  }
+	  prefix = prefixes[i];
+	  requestAnimationFrame = requestAnimationFrame || window[ prefix + 'RequestAnimationFrame' ];
+	  cancelAnimationFrame  = cancelAnimationFrame  || window[ prefix + 'CancelAnimationFrame' ] ||
+	                            window[ prefix + 'CancelRequestAnimationFrame' ];
+	}
+	
+	// fallback to setTimeout and clearTimeout if either request/cancel is not supported
+	if ( !requestAnimationFrame || !cancelAnimationFrame )  {
+	  requestAnimationFrame = function( callback ) {
+	    var currTime = new Date().getTime();
+	    var timeToCall = Math.max( 0, 16 - ( currTime - lastTime ) );
+	    var id = window.setTimeout( function() {
+	      callback( currTime + timeToCall );
+	    }, timeToCall );
+	    lastTime = currTime + timeToCall;
+	    return id;
+	  };
+	
+	  cancelAnimationFrame = function( id ) {
+	    window.clearTimeout( id );
+	  };
+	}
+	
+	// -------------------------- support -------------------------- //
+	
+	var transformProperty = getStyleProperty('transform');
+	// TODO fix quick & dirty check for 3D support
+	var is3d = !!getStyleProperty('perspective');
+	
+	var jQuery = window.jQuery;
+	
+	// --------------------------  -------------------------- //
+	
+	function Draggabilly( element, options ) {
+	  // querySelector if string
+	  this.element = typeof element == 'string' ?
+	    document.querySelector( element ) : element;
+	
+	  if ( jQuery ) {
+	    this.$element = jQuery( this.element );
+	  }
+	
+	  // options
+	  this.options = extend( {}, this.constructor.defaults );
+	  this.option( options );
+	
+	  this._create();
+	}
+	
+	// inherit Unidragger methods
+	extend( Draggabilly.prototype, Unidragger.prototype );
+	
+	Draggabilly.defaults = {
+	};
+	
+	/**
+	 * set options
+	 * @param {Object} opts
+	 */
+	Draggabilly.prototype.option = function( opts ) {
+	  extend( this.options, opts );
+	};
+	
+	Draggabilly.prototype._create = function() {
+	
+	  // properties
+	  this.position = {};
+	  this._getPosition();
+	
+	  this.startPoint = { x: 0, y: 0 };
+	  this.dragPoint = { x: 0, y: 0 };
+	
+	  this.startPosition = extend( {}, this.position );
+	
+	  // set relative positioning
+	  var style = getStyle( this.element );
+	  if ( style.position != 'relative' && style.position != 'absolute' ) {
+	    this.element.style.position = 'relative';
+	  }
+	
+	  this.enable();
+	  this.setHandles();
+	
+	};
+	
+	/**
+	 * set this.handles and bind start events to 'em
+	 */
+	Draggabilly.prototype.setHandles = function() {
+	  this.handles = this.options.handle ?
+	    this.element.querySelectorAll( this.options.handle ) : [ this.element ];
+	
+	  this.bindHandles();
+	};
+	
+	/**
+	 * emits events via eventEmitter and jQuery events
+	 * @param {String} type - name of event
+	 * @param {Event} event - original event
+	 * @param {Array} args - extra arguments
+	 */
+	Draggabilly.prototype.dispatchEvent = function( type, event, args ) {
+	  var emitArgs = [ event ].concat( args );
+	  this.emitEvent( type, emitArgs );
+	  var jQuery = window.jQuery;
+	  // trigger jQuery event
+	  if ( jQuery && this.$element ) {
+	    if ( event ) {
+	      // create jQuery event
+	      var $event = jQuery.Event( event );
+	      $event.type = type;
+	      this.$element.trigger( $event, args );
+	    } else {
+	      // just trigger with type if no event available
+	      this.$element.trigger( type, args );
+	    }
+	  }
+	};
+	
+	// -------------------------- position -------------------------- //
+	
+	// get left/top position from style
+	Draggabilly.prototype._getPosition = function() {
+	  // properties
+	  var style = getStyle( this.element );
+	
+	  var x = parseInt( style.left, 10 );
+	  var y = parseInt( style.top, 10 );
+	
+	  // clean up 'auto' or other non-integer values
+	  this.position.x = isNaN( x ) ? 0 : x;
+	  this.position.y = isNaN( y ) ? 0 : y;
+	
+	  this._addTransformPosition( style );
+	};
+	
+	// add transform: translate( x, y ) to position
+	Draggabilly.prototype._addTransformPosition = function( style ) {
+	  if ( !transformProperty ) {
+	    return;
+	  }
+	  var transform = style[ transformProperty ];
+	  // bail out if value is 'none'
+	  if ( transform.indexOf('matrix') !== 0 ) {
+	    return;
+	  }
+	  // split matrix(1, 0, 0, 1, x, y)
+	  var matrixValues = transform.split(',');
+	  // translate X value is in 12th or 4th position
+	  var xIndex = transform.indexOf('matrix3d') === 0 ? 12 : 4;
+	  var translateX = parseInt( matrixValues[ xIndex ], 10 );
+	  // translate Y value is in 13th or 5th position
+	  var translateY = parseInt( matrixValues[ xIndex + 1 ], 10 );
+	  this.position.x += translateX;
+	  this.position.y += translateY;
+	};
+	
+	// -------------------------- events -------------------------- //
+	
+	/**
+	 * pointer start
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 */
+	Draggabilly.prototype.pointerDown = function( event, pointer ) {
+	  this._dragPointerDown( event, pointer );
+	  // kludge to blur focused inputs in dragger
+	  var focused = document.activeElement;
+	  if ( focused && focused.blur ) {
+	    focused.blur();
+	  }
+	  // bind move and end events
+	  this._bindPostStartEvents( event );
+	  classie.add( this.element, 'is-pointer-down' );
+	  this.dispatchEvent( 'pointerDown', event, [ pointer ] );
+	};
+	
+	/**
+	 * drag move
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 */
+	Draggabilly.prototype.pointerMove = function( event, pointer ) {
+	  var moveVector = this._dragPointerMove( event, pointer );
+	  this.dispatchEvent( 'pointerMove', event, [ pointer, moveVector ] );
+	  this._dragMove( event, pointer, moveVector );
+	};
+	
+	/**
+	 * drag start
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 */
+	Draggabilly.prototype.dragStart = function( event, pointer ) {
+	  if ( !this.isEnabled ) {
+	    return;
+	  }
+	  this._getPosition();
+	  this.measureContainment();
+	  // position _when_ drag began
+	  this.startPosition.x = this.position.x;
+	  this.startPosition.y = this.position.y;
+	  // reset left/top style
+	  this.setLeftTop();
+	
+	  this.dragPoint.x = 0;
+	  this.dragPoint.y = 0;
+	
+	  // reset isDragging flag
+	  this.isDragging = true;
+	  classie.add( this.element, 'is-dragging' );
+	  this.dispatchEvent( 'dragStart', event, [ pointer ] );
+	  // start animation
+	  this.animate();
+	};
+	
+	Draggabilly.prototype.measureContainment = function() {
+	  var containment = this.options.containment;
+	  if ( !containment ) {
+	    return;
+	  }
+	
+	  this.size = getSize( this.element );
+	  var elemRect = this.element.getBoundingClientRect();
+	
+	  // use element if element
+	  var container = isElement( containment ) ? containment :
+	    // fallback to querySelector if string
+	    typeof containment == 'string' ? document.querySelector( containment ) :
+	    // otherwise just `true`, use the parent
+	    this.element.parentNode;
+	
+	  this.containerSize = getSize( container );
+	  var containerRect = container.getBoundingClientRect();
+	
+	  this.relativeStartPosition = {
+	    x: elemRect.left - containerRect.left,
+	    y: elemRect.top  - containerRect.top
+	  };
+	};
+	
+	// ----- move event ----- //
+	
+	/**
+	 * drag move
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 */
+	Draggabilly.prototype.dragMove = function( event, pointer, moveVector ) {
+	  if ( !this.isEnabled ) {
+	    return;
+	  }
+	  var dragX = moveVector.x;
+	  var dragY = moveVector.y;
+	
+	  var grid = this.options.grid;
+	  var gridX = grid && grid[0];
+	  var gridY = grid && grid[1];
+	
+	  dragX = applyGrid( dragX, gridX );
+	  dragY = applyGrid( dragY, gridY );
+	
+	  dragX = this.containDrag( 'x', dragX, gridX );
+	  dragY = this.containDrag( 'y', dragY, gridY );
+	
+	  // constrain to axis
+	  dragX = this.options.axis == 'y' ? 0 : dragX;
+	  dragY = this.options.axis == 'x' ? 0 : dragY;
+	
+	  this.position.x = this.startPosition.x + dragX;
+	  this.position.y = this.startPosition.y + dragY;
+	  // set dragPoint properties
+	  this.dragPoint.x = dragX;
+	  this.dragPoint.y = dragY;
+	
+	  this.dispatchEvent( 'dragMove', event, [ pointer, moveVector ] );
+	};
+	
+	function applyGrid( value, grid, method ) {
+	  method = method || 'round';
+	  return grid ? Math[ method ]( value / grid ) * grid : value;
+	}
+	
+	Draggabilly.prototype.containDrag = function( axis, drag, grid ) {
+	  if ( !this.options.containment ) {
+	    return drag;
+	  }
+	  var measure = axis == 'x' ? 'width' : 'height';
+	
+	  var rel = this.relativeStartPosition[ axis ];
+	  var min = applyGrid( -rel, grid, 'ceil' );
+	  var max = this.containerSize[ measure ] - rel - this.size[ measure ];
+	  max = applyGrid( max, grid, 'floor' );
+	  return  Math.min( max, Math.max( min, drag ) );
+	};
+	
+	// ----- end event ----- //
+	
+	/**
+	 * pointer up
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 */
+	Draggabilly.prototype.pointerUp = function( event, pointer ) {
+	  classie.remove( this.element, 'is-pointer-down' );
+	  this.dispatchEvent( 'pointerUp', event, [ pointer ] );
+	  this._dragPointerUp( event, pointer );
+	};
+	
+	/**
+	 * drag end
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 */
+	Draggabilly.prototype.dragEnd = function( event, pointer ) {
+	  if ( !this.isEnabled ) {
+	    return;
+	  }
+	  this.isDragging = false;
+	  // use top left position when complete
+	  if ( transformProperty ) {
+	    this.element.style[ transformProperty ] = '';
+	    this.setLeftTop();
+	  }
+	  classie.remove( this.element, 'is-dragging' );
+	  this.dispatchEvent( 'dragEnd', event, [ pointer ] );
+	};
+	
+	// -------------------------- animation -------------------------- //
+	
+	Draggabilly.prototype.animate = function() {
+	  // only render and animate if dragging
+	  if ( !this.isDragging ) {
+	    return;
+	  }
+	
+	  this.positionDrag();
+	
+	  var _this = this;
+	  requestAnimationFrame( function animateFrame() {
+	    _this.animate();
+	  });
+	
+	};
+	
+	// transform translate function
+	var translate = is3d ?
+	  function( x, y ) {
+	    return 'translate3d( ' + x + 'px, ' + y + 'px, 0)';
+	  } :
+	  function( x, y ) {
+	    return 'translate( ' + x + 'px, ' + y + 'px)';
+	  };
+	
+	// left/top positioning
+	Draggabilly.prototype.setLeftTop = function() {
+	  this.element.style.left = this.position.x + 'px';
+	  this.element.style.top  = this.position.y + 'px';
+	};
+	
+	Draggabilly.prototype.positionDrag = transformProperty ?
+	  function() {
+	    // position with transform
+	    this.element.style[ transformProperty ] = translate( this.dragPoint.x, this.dragPoint.y );
+	  } : Draggabilly.prototype.setLeftTop;
+	
+	// ----- staticClick ----- //
+	
+	Draggabilly.prototype.staticClick = function( event, pointer ) {
+	  this.dispatchEvent( 'staticClick', event, [ pointer ] );
+	};
+	
+	// ----- methods ----- //
+	
+	Draggabilly.prototype.enable = function() {
+	  this.isEnabled = true;
+	};
+	
+	Draggabilly.prototype.disable = function() {
+	  this.isEnabled = false;
+	  if ( this.isDragging ) {
+	    this.dragEnd();
+	  }
+	};
+	
+	Draggabilly.prototype.destroy = function() {
+	  this.disable();
+	  // reset styles
+	  if ( transformProperty ) {
+	    this.element.style[ transformProperty ] = '';
+	  }
+	  this.element.style.left = '';
+	  this.element.style.top = '';
+	  this.element.style.position = '';
+	  // unbind handles
+	  this.unbindHandles();
+	  // remove jQuery data
+	  if ( this.$element ) {
+	    this.$element.removeData('draggabilly');
+	  }
+	};
+	
+	// ----- jQuery bridget ----- //
+	
+	// required for jQuery bridget
+	Draggabilly.prototype._init = noop;
+	
+	if ( jQuery && jQuery.bridget ) {
+	  jQuery.bridget( 'draggabilly', Draggabilly );
+	}
+	
+	// -----  ----- //
+	
+	return Draggabilly;
+	
+	}));
+	
+	}.call(window));
+
+/***/ },
+/* 156 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var define = false;
+	(function() {
+	
+	/*!
+	 * classie v1.0.1
+	 * class helper functions
+	 * from bonzo https://github.com/ded/bonzo
+	 * MIT license
+	 * 
+	 * classie.has( elem, 'my-class' ) -> true/false
+	 * classie.add( elem, 'my-new-class' )
+	 * classie.remove( elem, 'my-unwanted-class' )
+	 * classie.toggle( elem, 'my-class' )
+	 */
+	
+	/*jshint browser: true, strict: true, undef: true, unused: true */
+	/*global define: false, module: false */
+	
+	( function( window ) {
+	
+	'use strict';
+	
+	// class helper functions from bonzo https://github.com/ded/bonzo
+	
+	function classReg( className ) {
+	  return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
+	}
+	
+	// classList support for class management
+	// altho to be fair, the api sucks because it won't accept multiple classes at once
+	var hasClass, addClass, removeClass;
+	
+	if ( 'classList' in document.documentElement ) {
+	  hasClass = function( elem, c ) {
+	    return elem.classList.contains( c );
+	  };
+	  addClass = function( elem, c ) {
+	    elem.classList.add( c );
+	  };
+	  removeClass = function( elem, c ) {
+	    elem.classList.remove( c );
+	  };
+	}
+	else {
+	  hasClass = function( elem, c ) {
+	    return classReg( c ).test( elem.className );
+	  };
+	  addClass = function( elem, c ) {
+	    if ( !hasClass( elem, c ) ) {
+	      elem.className = elem.className + ' ' + c;
+	    }
+	  };
+	  removeClass = function( elem, c ) {
+	    elem.className = elem.className.replace( classReg( c ), ' ' );
+	  };
+	}
+	
+	function toggleClass( elem, c ) {
+	  var fn = hasClass( elem, c ) ? removeClass : addClass;
+	  fn( elem, c );
+	}
+	
+	var classie = {
+	  // full names
+	  hasClass: hasClass,
+	  addClass: addClass,
+	  removeClass: removeClass,
+	  toggleClass: toggleClass,
+	  // short names
+	  has: hasClass,
+	  add: addClass,
+	  remove: removeClass,
+	  toggle: toggleClass
+	};
+	
+	// transport
+	if ( typeof define === 'function' && define.amd ) {
+	  // AMD
+	  define( classie );
+	} else if ( true ) {
+	  // CommonJS
+	  module.exports = classie;
+	} else {
+	  // browser global
+	  window.classie = classie;
+	}
+	
+	})( window );
+	
+	}.call(window));
+
+/***/ },
+/* 157 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var define = false;
+	(function() {
+	
+	/*!
+	 * getStyleProperty v1.0.4
+	 * original by kangax
+	 * http://perfectionkills.com/feature-testing-css-properties/
+	 * MIT license
+	 */
+	
+	/*jshint browser: true, strict: true, undef: true */
+	/*global define: false, exports: false, module: false */
+	
+	( function( window ) {
+	
+	'use strict';
+	
+	var prefixes = 'Webkit Moz ms Ms O'.split(' ');
+	var docElemStyle = document.documentElement.style;
+	
+	function getStyleProperty( propName ) {
+	  if ( !propName ) {
+	    return;
+	  }
+	
+	  // test standard property first
+	  if ( typeof docElemStyle[ propName ] === 'string' ) {
+	    return propName;
+	  }
+	
+	  // capitalize
+	  propName = propName.charAt(0).toUpperCase() + propName.slice(1);
+	
+	  // test vendor specific properties
+	  var prefixed;
+	  for ( var i=0, len = prefixes.length; i < len; i++ ) {
+	    prefixed = prefixes[i] + propName;
+	    if ( typeof docElemStyle[ prefixed ] === 'string' ) {
+	      return prefixed;
+	    }
+	  }
+	}
+	
+	// transport
+	if ( typeof define === 'function' && define.amd ) {
+	  // AMD
+	  define( function() {
+	    return getStyleProperty;
+	  });
+	} else if ( true ) {
+	  // CommonJS for Component
+	  module.exports = getStyleProperty;
+	} else {
+	  // browser global
+	  window.getStyleProperty = getStyleProperty;
+	}
+	
+	})( window );
+	
+	}.call(window));
+
+/***/ },
+/* 158 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var define = false;
+	(function() {
+	
+	/*!
+	 * getSize v1.2.2
+	 * measure size of elements
+	 * MIT license
+	 */
+	
+	/*jshint browser: true, strict: true, undef: true, unused: true */
+	/*global define: false, exports: false, require: false, module: false, console: false */
+	
+	( function( window, undefined ) {
+	
+	'use strict';
+	
+	// -------------------------- helpers -------------------------- //
+	
+	// get a number from a string, not a percentage
+	function getStyleSize( value ) {
+	  var num = parseFloat( value );
+	  // not a percent like '100%', and a number
+	  var isValid = value.indexOf('%') === -1 && !isNaN( num );
+	  return isValid && num;
+	}
+	
+	function noop() {}
+	
+	var logError = typeof console === 'undefined' ? noop :
+	  function( message ) {
+	    console.error( message );
+	  };
+	
+	// -------------------------- measurements -------------------------- //
+	
+	var measurements = [
+	  'paddingLeft',
+	  'paddingRight',
+	  'paddingTop',
+	  'paddingBottom',
+	  'marginLeft',
+	  'marginRight',
+	  'marginTop',
+	  'marginBottom',
+	  'borderLeftWidth',
+	  'borderRightWidth',
+	  'borderTopWidth',
+	  'borderBottomWidth'
+	];
+	
+	function getZeroSize() {
+	  var size = {
+	    width: 0,
+	    height: 0,
+	    innerWidth: 0,
+	    innerHeight: 0,
+	    outerWidth: 0,
+	    outerHeight: 0
+	  };
+	  for ( var i=0, len = measurements.length; i < len; i++ ) {
+	    var measurement = measurements[i];
+	    size[ measurement ] = 0;
+	  }
+	  return size;
+	}
+	
+	
+	
+	function defineGetSize( getStyleProperty ) {
+	
+	// -------------------------- setup -------------------------- //
+	
+	var isSetup = false;
+	
+	var getStyle, boxSizingProp, isBoxSizeOuter;
+	
+	/**
+	 * setup vars and functions
+	 * do it on initial getSize(), rather than on script load
+	 * For Firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+	 */
+	function setup() {
+	  // setup once
+	  if ( isSetup ) {
+	    return;
+	  }
+	  isSetup = true;
+	
+	  var getComputedStyle = window.getComputedStyle;
+	  getStyle = ( function() {
+	    var getStyleFn = getComputedStyle ?
+	      function( elem ) {
+	        return getComputedStyle( elem, null );
+	      } :
+	      function( elem ) {
+	        return elem.currentStyle;
+	      };
+	
+	      return function getStyle( elem ) {
+	        var style = getStyleFn( elem );
+	        if ( !style ) {
+	          logError( 'Style returned ' + style +
+	            '. Are you running this code in a hidden iframe on Firefox? ' +
+	            'See http://bit.ly/getsizebug1' );
+	        }
+	        return style;
+	      };
+	  })();
+	
+	  // -------------------------- box sizing -------------------------- //
+	
+	  boxSizingProp = getStyleProperty('boxSizing');
+	
+	  /**
+	   * WebKit measures the outer-width on style.width on border-box elems
+	   * IE & Firefox measures the inner-width
+	   */
+	  if ( boxSizingProp ) {
+	    var div = document.createElement('div');
+	    div.style.width = '200px';
+	    div.style.padding = '1px 2px 3px 4px';
+	    div.style.borderStyle = 'solid';
+	    div.style.borderWidth = '1px 2px 3px 4px';
+	    div.style[ boxSizingProp ] = 'border-box';
+	
+	    var body = document.body || document.documentElement;
+	    body.appendChild( div );
+	    var style = getStyle( div );
+	
+	    isBoxSizeOuter = getStyleSize( style.width ) === 200;
+	    body.removeChild( div );
+	  }
+	
+	}
+	
+	// -------------------------- getSize -------------------------- //
+	
+	function getSize( elem ) {
+	  setup();
+	
+	  // use querySeletor if elem is string
+	  if ( typeof elem === 'string' ) {
+	    elem = document.querySelector( elem );
+	  }
+	
+	  // do not proceed on non-objects
+	  if ( !elem || typeof elem !== 'object' || !elem.nodeType ) {
+	    return;
+	  }
+	
+	  var style = getStyle( elem );
+	
+	  // if hidden, everything is 0
+	  if ( style.display === 'none' ) {
+	    return getZeroSize();
+	  }
+	
+	  var size = {};
+	  size.width = elem.offsetWidth;
+	  size.height = elem.offsetHeight;
+	
+	  var isBorderBox = size.isBorderBox = !!( boxSizingProp &&
+	    style[ boxSizingProp ] && style[ boxSizingProp ] === 'border-box' );
+	
+	  // get all measurements
+	  for ( var i=0, len = measurements.length; i < len; i++ ) {
+	    var measurement = measurements[i];
+	    var value = style[ measurement ];
+	    value = mungeNonPixel( elem, value );
+	    var num = parseFloat( value );
+	    // any 'auto', 'medium' value will be 0
+	    size[ measurement ] = !isNaN( num ) ? num : 0;
+	  }
+	
+	  var paddingWidth = size.paddingLeft + size.paddingRight;
+	  var paddingHeight = size.paddingTop + size.paddingBottom;
+	  var marginWidth = size.marginLeft + size.marginRight;
+	  var marginHeight = size.marginTop + size.marginBottom;
+	  var borderWidth = size.borderLeftWidth + size.borderRightWidth;
+	  var borderHeight = size.borderTopWidth + size.borderBottomWidth;
+	
+	  var isBorderBoxSizeOuter = isBorderBox && isBoxSizeOuter;
+	
+	  // overwrite width and height if we can get it from style
+	  var styleWidth = getStyleSize( style.width );
+	  if ( styleWidth !== false ) {
+	    size.width = styleWidth +
+	      // add padding and border unless it's already including it
+	      ( isBorderBoxSizeOuter ? 0 : paddingWidth + borderWidth );
+	  }
+	
+	  var styleHeight = getStyleSize( style.height );
+	  if ( styleHeight !== false ) {
+	    size.height = styleHeight +
+	      // add padding and border unless it's already including it
+	      ( isBorderBoxSizeOuter ? 0 : paddingHeight + borderHeight );
+	  }
+	
+	  size.innerWidth = size.width - ( paddingWidth + borderWidth );
+	  size.innerHeight = size.height - ( paddingHeight + borderHeight );
+	
+	  size.outerWidth = size.width + marginWidth;
+	  size.outerHeight = size.height + marginHeight;
+	
+	  return size;
+	}
+	
+	// IE8 returns percent values, not pixels
+	// taken from jQuery's curCSS
+	function mungeNonPixel( elem, value ) {
+	  // IE8 and has percent value
+	  if ( window.getComputedStyle || value.indexOf('%') === -1 ) {
+	    return value;
+	  }
+	  var style = elem.style;
+	  // Remember the original values
+	  var left = style.left;
+	  var rs = elem.runtimeStyle;
+	  var rsLeft = rs && rs.left;
+	
+	  // Put in the new values to get a computed value out
+	  if ( rsLeft ) {
+	    rs.left = elem.currentStyle.left;
+	  }
+	  style.left = value;
+	  value = style.pixelLeft;
+	
+	  // Revert the changed values
+	  style.left = left;
+	  if ( rsLeft ) {
+	    rs.left = rsLeft;
+	  }
+	
+	  return value;
+	}
+	
+	return getSize;
+	
+	}
+	
+	// transport
+	if ( typeof define === 'function' && define.amd ) {
+	  // AMD for RequireJS
+	  define( [ 'get-style-property/get-style-property' ], defineGetSize );
+	} else if ( true ) {
+	  // CommonJS for Component
+	  module.exports = defineGetSize( __webpack_require__(157) );
+	} else {
+	  // browser global
+	  window.getSize = defineGetSize( window.getStyleProperty );
+	}
+	
+	})( window );
+	
+	}.call(window));
+
+/***/ },
+/* 159 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var define = false;
+	(function() {
+	
+	/*!
+	 * Unidragger v1.1.5
+	 * Draggable base class
+	 * MIT license
+	 */
+	
+	/*jshint browser: true, unused: true, undef: true, strict: true */
+	
+	( function( window, factory ) {
+	  /*global define: false, module: false, require: false */
+	  'use strict';
+	  // universal module definition
+	
+	  if ( typeof define == 'function' && define.amd ) {
+	    // AMD
+	    define( [
+	      'eventie/eventie',
+	      'unipointer/unipointer'
+	    ], function( eventie, Unipointer ) {
+	      return factory( window, eventie, Unipointer );
+	    });
+	  } else if ( true ) {
+	    // CommonJS
+	    module.exports = factory(
+	      window,
+	      __webpack_require__(160),
+	      __webpack_require__(161)
+	    );
+	  } else {
+	    // browser global
+	    window.Unidragger = factory(
+	      window,
+	      window.eventie,
+	      window.Unipointer
+	    );
+	  }
+	
+	}( window, function factory( window, eventie, Unipointer ) {
+	
+	'use strict';
+	
+	// -----  ----- //
+	
+	function noop() {}
+	
+	// handle IE8 prevent default
+	function preventDefaultEvent( event ) {
+	  if ( event.preventDefault ) {
+	    event.preventDefault();
+	  } else {
+	    event.returnValue = false;
+	  }
+	}
+	
+	// -------------------------- Unidragger -------------------------- //
+	
+	function Unidragger() {}
+	
+	// inherit Unipointer & EventEmitter
+	Unidragger.prototype = new Unipointer();
+	
+	// ----- bind start ----- //
+	
+	Unidragger.prototype.bindHandles = function() {
+	  this._bindHandles( true );
+	};
+	
+	Unidragger.prototype.unbindHandles = function() {
+	  this._bindHandles( false );
+	};
+	
+	var navigator = window.navigator;
+	/**
+	 * works as unbinder, as you can .bindHandles( false ) to unbind
+	 * @param {Boolean} isBind - will unbind if falsey
+	 */
+	Unidragger.prototype._bindHandles = function( isBind ) {
+	  // munge isBind, default to true
+	  isBind = isBind === undefined ? true : !!isBind;
+	  // extra bind logic
+	  var binderExtra;
+	  if ( navigator.pointerEnabled ) {
+	    binderExtra = function( handle ) {
+	      // disable scrolling on the element
+	      handle.style.touchAction = isBind ? 'none' : '';
+	    };
+	  } else if ( navigator.msPointerEnabled ) {
+	    binderExtra = function( handle ) {
+	      // disable scrolling on the element
+	      handle.style.msTouchAction = isBind ? 'none' : '';
+	    };
+	  } else {
+	    binderExtra = function() {
+	      // TODO re-enable img.ondragstart when unbinding
+	      if ( isBind ) {
+	        disableImgOndragstart( handle );
+	      }
+	    };
+	  }
+	  // bind each handle
+	  var bindMethod = isBind ? 'bind' : 'unbind';
+	  for ( var i=0, len = this.handles.length; i < len; i++ ) {
+	    var handle = this.handles[i];
+	    this._bindStartEvent( handle, isBind );
+	    binderExtra( handle );
+	    eventie[ bindMethod ]( handle, 'click', this );
+	  }
+	};
+	
+	// remove default dragging interaction on all images in IE8
+	// IE8 does its own drag thing on images, which messes stuff up
+	
+	function noDragStart() {
+	  return false;
+	}
+	
+	// TODO replace this with a IE8 test
+	var isIE8 = 'attachEvent' in document.documentElement;
+	
+	// IE8 only
+	var disableImgOndragstart = !isIE8 ? noop : function( handle ) {
+	
+	  if ( handle.nodeName == 'IMG' ) {
+	    handle.ondragstart = noDragStart;
+	  }
+	
+	  var images = handle.querySelectorAll('img');
+	  for ( var i=0, len = images.length; i < len; i++ ) {
+	    var img = images[i];
+	    img.ondragstart = noDragStart;
+	  }
+	};
+	
+	// ----- start event ----- //
+	
+	/**
+	 * pointer start
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 */
+	Unidragger.prototype.pointerDown = function( event, pointer ) {
+	  // dismiss range sliders
+	  if ( event.target.nodeName == 'INPUT' && event.target.type == 'range' ) {
+	    // reset pointerDown logic
+	    this.isPointerDown = false;
+	    delete this.pointerIdentifier;
+	    return;
+	  }
+	
+	  this._dragPointerDown( event, pointer );
+	  // kludge to blur focused inputs in dragger
+	  var focused = document.activeElement;
+	  if ( focused && focused.blur ) {
+	    focused.blur();
+	  }
+	  // bind move and end events
+	  this._bindPostStartEvents( event );
+	  // track scrolling
+	  this.pointerDownScroll = Unidragger.getScrollPosition();
+	  eventie.bind( window, 'scroll', this );
+	
+	  this.emitEvent( 'pointerDown', [ event, pointer ] );
+	};
+	
+	// base pointer down logic
+	Unidragger.prototype._dragPointerDown = function( event, pointer ) {
+	  // track to see when dragging starts
+	  this.pointerDownPoint = Unipointer.getPointerPoint( pointer );
+	
+	  // prevent default, unless touchstart or <select>
+	  var isTouchstart = event.type == 'touchstart';
+	  var targetNodeName = event.target.nodeName;
+	  if ( !isTouchstart && targetNodeName != 'SELECT' ) {
+	    preventDefaultEvent( event );
+	  }
+	};
+	
+	// ----- move event ----- //
+	
+	/**
+	 * drag move
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 */
+	Unidragger.prototype.pointerMove = function( event, pointer ) {
+	  var moveVector = this._dragPointerMove( event, pointer );
+	  this.emitEvent( 'pointerMove', [ event, pointer, moveVector ] );
+	  this._dragMove( event, pointer, moveVector );
+	};
+	
+	// base pointer move logic
+	Unidragger.prototype._dragPointerMove = function( event, pointer ) {
+	  var movePoint = Unipointer.getPointerPoint( pointer );
+	  var moveVector = {
+	    x: movePoint.x - this.pointerDownPoint.x,
+	    y: movePoint.y - this.pointerDownPoint.y
+	  };
+	  // start drag if pointer has moved far enough to start drag
+	  if ( !this.isDragging && this.hasDragStarted( moveVector ) ) {
+	    this._dragStart( event, pointer );
+	  }
+	  return moveVector;
+	};
+	
+	// condition if pointer has moved far enough to start drag
+	Unidragger.prototype.hasDragStarted = function( moveVector ) {
+	  return Math.abs( moveVector.x ) > 3 || Math.abs( moveVector.y ) > 3;
+	};
+	
+	
+	// ----- end event ----- //
+	
+	/**
+	 * pointer up
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 */
+	Unidragger.prototype.pointerUp = function( event, pointer ) {
+	  this.emitEvent( 'pointerUp', [ event, pointer ] );
+	  this._dragPointerUp( event, pointer );
+	};
+	
+	Unidragger.prototype._dragPointerUp = function( event, pointer ) {
+	  if ( this.isDragging ) {
+	    this._dragEnd( event, pointer );
+	  } else {
+	    // pointer didn't move enough for drag to start
+	    this._staticClick( event, pointer );
+	  }
+	};
+	
+	Unipointer.prototype.pointerDone = function() {
+	  eventie.unbind( window, 'scroll', this );
+	};
+	
+	// -------------------------- drag -------------------------- //
+	
+	// dragStart
+	Unidragger.prototype._dragStart = function( event, pointer ) {
+	  this.isDragging = true;
+	  this.dragStartPoint = Unidragger.getPointerPoint( pointer );
+	  // prevent clicks
+	  this.isPreventingClicks = true;
+	
+	  this.dragStart( event, pointer );
+	};
+	
+	Unidragger.prototype.dragStart = function( event, pointer ) {
+	  this.emitEvent( 'dragStart', [ event, pointer ] );
+	};
+	
+	// dragMove
+	Unidragger.prototype._dragMove = function( event, pointer, moveVector ) {
+	  // do not drag if not dragging yet
+	  if ( !this.isDragging ) {
+	    return;
+	  }
+	
+	  this.dragMove( event, pointer, moveVector );
+	};
+	
+	Unidragger.prototype.dragMove = function( event, pointer, moveVector ) {
+	  preventDefaultEvent( event );
+	  this.emitEvent( 'dragMove', [ event, pointer, moveVector ] );
+	};
+	
+	// dragEnd
+	Unidragger.prototype._dragEnd = function( event, pointer ) {
+	  // set flags
+	  this.isDragging = false;
+	  // re-enable clicking async
+	  var _this = this;
+	  setTimeout( function() {
+	    delete _this.isPreventingClicks;
+	  });
+	
+	  this.dragEnd( event, pointer );
+	};
+	
+	Unidragger.prototype.dragEnd = function( event, pointer ) {
+	  this.emitEvent( 'dragEnd', [ event, pointer ] );
+	};
+	
+	Unidragger.prototype.pointerDone = function() {
+	  eventie.unbind( window, 'scroll', this );
+	  delete this.pointerDownScroll;
+	};
+	
+	// ----- onclick ----- //
+	
+	// handle all clicks and prevent clicks when dragging
+	Unidragger.prototype.onclick = function( event ) {
+	  if ( this.isPreventingClicks ) {
+	    preventDefaultEvent( event );
+	  }
+	};
+	
+	// ----- staticClick ----- //
+	
+	// triggered after pointer down & up with no/tiny movement
+	Unidragger.prototype._staticClick = function( event, pointer ) {
+	  // ignore emulated mouse up clicks
+	  if ( this.isIgnoringMouseUp && event.type == 'mouseup' ) {
+	    return;
+	  }
+	
+	  // allow click in <input>s and <textarea>s
+	  var nodeName = event.target.nodeName;
+	  if ( nodeName == 'INPUT' || nodeName == 'TEXTAREA' ) {
+	    event.target.focus();
+	  }
+	  this.staticClick( event, pointer );
+	
+	  // set flag for emulated clicks 300ms after touchend
+	  if ( event.type != 'mouseup' ) {
+	    this.isIgnoringMouseUp = true;
+	    var _this = this;
+	    // reset flag after 300ms
+	    setTimeout( function() {
+	      delete _this.isIgnoringMouseUp;
+	    }, 400 );
+	  }
+	};
+	
+	Unidragger.prototype.staticClick = function( event, pointer ) {
+	  this.emitEvent( 'staticClick', [ event, pointer ] );
+	};
+	
+	// ----- scroll ----- //
+	
+	Unidragger.prototype.onscroll = function() {
+	  var scroll = Unidragger.getScrollPosition();
+	  var scrollMoveX = this.pointerDownScroll.x - scroll.x;
+	  var scrollMoveY = this.pointerDownScroll.y - scroll.y;
+	  // cancel click/tap if scroll is too much
+	  if ( Math.abs( scrollMoveX ) > 3 || Math.abs( scrollMoveY ) > 3 ) {
+	    this._pointerDone();
+	  }
+	};
+	
+	// ----- utils ----- //
+	
+	Unidragger.getPointerPoint = function( pointer ) {
+	  return {
+	    x: pointer.pageX !== undefined ? pointer.pageX : pointer.clientX,
+	    y: pointer.pageY !== undefined ? pointer.pageY : pointer.clientY
+	  };
+	};
+	
+	var isPageOffset = window.pageYOffset !== undefined;
+	
+	// get scroll in { x, y }
+	Unidragger.getScrollPosition = function() {
+	  return {
+	    x: isPageOffset ? window.pageXOffset : document.body.scrollLeft,
+	    y: isPageOffset ? window.pageYOffset : document.body.scrollTop
+	  };
+	};
+	
+	// -----  ----- //
+	
+	Unidragger.getPointerPoint = Unipointer.getPointerPoint;
+	
+	return Unidragger;
+	
+	}));
+	
+	}.call(window));
+
+/***/ },
+/* 160 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	 * eventie v1.0.6
+	 * event binding helper
+	 *   eventie.bind( elem, 'click', myFn )
+	 *   eventie.unbind( elem, 'click', myFn )
+	 * MIT license
+	 */
+	
+	/*jshint browser: true, undef: true, unused: true */
+	/*global define: false, module: false */
+	
+	( function( window ) {
+	
+	'use strict';
+	
+	var docElem = document.documentElement;
+	
+	var bind = function() {};
+	
+	function getIEEvent( obj ) {
+	  var event = window.event;
+	  // add event.target
+	  event.target = event.target || event.srcElement || obj;
+	  return event;
+	}
+	
+	if ( docElem.addEventListener ) {
+	  bind = function( obj, type, fn ) {
+	    obj.addEventListener( type, fn, false );
+	  };
+	} else if ( docElem.attachEvent ) {
+	  bind = function( obj, type, fn ) {
+	    obj[ type + fn ] = fn.handleEvent ?
+	      function() {
+	        var event = getIEEvent( obj );
+	        fn.handleEvent.call( fn, event );
+	      } :
+	      function() {
+	        var event = getIEEvent( obj );
+	        fn.call( obj, event );
+	      };
+	    obj.attachEvent( "on" + type, obj[ type + fn ] );
+	  };
+	}
+	
+	var unbind = function() {};
+	
+	if ( docElem.removeEventListener ) {
+	  unbind = function( obj, type, fn ) {
+	    obj.removeEventListener( type, fn, false );
+	  };
+	} else if ( docElem.detachEvent ) {
+	  unbind = function( obj, type, fn ) {
+	    obj.detachEvent( "on" + type, obj[ type + fn ] );
+	    try {
+	      delete obj[ type + fn ];
+	    } catch ( err ) {
+	      // can't delete window object properties
+	      obj[ type + fn ] = undefined;
+	    }
+	  };
+	}
+	
+	var eventie = {
+	  bind: bind,
+	  unbind: unbind
+	};
+	
+	// ----- module definition ----- //
+	
+	if ( true ) {
+	  // AMD
+	  !(__WEBPACK_AMD_DEFINE_FACTORY__ = (eventie), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else if ( typeof exports === 'object' ) {
+	  // CommonJS
+	  module.exports = eventie;
+	} else {
+	  // browser global
+	  window.eventie = eventie;
+	}
+	
+	})( window );
+
+
+/***/ },
+/* 161 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var define = false;
+	(function() {
+	
+	/*!
+	 * Unipointer v1.1.0
+	 * base class for doing one thing with pointer event
+	 * MIT license
+	 */
+	
+	/*jshint browser: true, undef: true, unused: true, strict: true */
+	/*global define: false, module: false, require: false */
+	
+	( function( window, factory ) {
+	  'use strict';
+	  // universal module definition
+	
+	  if ( typeof define == 'function' && define.amd ) {
+	    // AMD
+	    define( [
+	      'eventEmitter/EventEmitter',
+	      'eventie/eventie'
+	    ], function( EventEmitter, eventie ) {
+	      return factory( window, EventEmitter, eventie );
+	    });
+	  } else if ( true ) {
+	    // CommonJS
+	    module.exports = factory(
+	      window,
+	      __webpack_require__(162),
+	      __webpack_require__(160)
+	    );
+	  } else {
+	    // browser global
+	    window.Unipointer = factory(
+	      window,
+	      window.EventEmitter,
+	      window.eventie
+	    );
+	  }
+	
+	}( window, function factory( window, EventEmitter, eventie ) {
+	
+	'use strict';
+	
+	function noop() {}
+	
+	function Unipointer() {}
+	
+	// inherit EventEmitter
+	Unipointer.prototype = new EventEmitter();
+	
+	Unipointer.prototype.bindStartEvent = function( elem ) {
+	  this._bindStartEvent( elem, true );
+	};
+	
+	Unipointer.prototype.unbindStartEvent = function( elem ) {
+	  this._bindStartEvent( elem, false );
+	};
+	
+	/**
+	 * works as unbinder, as you can ._bindStart( false ) to unbind
+	 * @param {Boolean} isBind - will unbind if falsey
+	 */
+	Unipointer.prototype._bindStartEvent = function( elem, isBind ) {
+	  // munge isBind, default to true
+	  isBind = isBind === undefined ? true : !!isBind;
+	  var bindMethod = isBind ? 'bind' : 'unbind';
+	
+	  if ( window.navigator.pointerEnabled ) {
+	    // W3C Pointer Events, IE11. See https://coderwall.com/p/mfreca
+	    eventie[ bindMethod ]( elem, 'pointerdown', this );
+	  } else if ( window.navigator.msPointerEnabled ) {
+	    // IE10 Pointer Events
+	    eventie[ bindMethod ]( elem, 'MSPointerDown', this );
+	  } else {
+	    // listen for both, for devices like Chrome Pixel
+	    eventie[ bindMethod ]( elem, 'mousedown', this );
+	    eventie[ bindMethod ]( elem, 'touchstart', this );
+	  }
+	};
+	
+	// trigger handler methods for events
+	Unipointer.prototype.handleEvent = function( event ) {
+	  var method = 'on' + event.type;
+	  if ( this[ method ] ) {
+	    this[ method ]( event );
+	  }
+	};
+	
+	// returns the touch that we're keeping track of
+	Unipointer.prototype.getTouch = function( touches ) {
+	  for ( var i=0, len = touches.length; i < len; i++ ) {
+	    var touch = touches[i];
+	    if ( touch.identifier == this.pointerIdentifier ) {
+	      return touch;
+	    }
+	  }
+	};
+	
+	// ----- start event ----- //
+	
+	Unipointer.prototype.onmousedown = function( event ) {
+	  // dismiss clicks from right or middle buttons
+	  var button = event.button;
+	  if ( button && ( button !== 0 && button !== 1 ) ) {
+	    return;
+	  }
+	  this._pointerDown( event, event );
+	};
+	
+	Unipointer.prototype.ontouchstart = function( event ) {
+	  this._pointerDown( event, event.changedTouches[0] );
+	};
+	
+	Unipointer.prototype.onMSPointerDown =
+	Unipointer.prototype.onpointerdown = function( event ) {
+	  this._pointerDown( event, event );
+	};
+	
+	/**
+	 * pointer start
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 */
+	Unipointer.prototype._pointerDown = function( event, pointer ) {
+	  // dismiss other pointers
+	  if ( this.isPointerDown ) {
+	    return;
+	  }
+	
+	  this.isPointerDown = true;
+	  // save pointer identifier to match up touch events
+	  this.pointerIdentifier = pointer.pointerId !== undefined ?
+	    // pointerId for pointer events, touch.indentifier for touch events
+	    pointer.pointerId : pointer.identifier;
+	
+	  this.pointerDown( event, pointer );
+	};
+	
+	Unipointer.prototype.pointerDown = function( event, pointer ) {
+	  this._bindPostStartEvents( event );
+	  this.emitEvent( 'pointerDown', [ event, pointer ] );
+	};
+	
+	// hash of events to be bound after start event
+	var postStartEvents = {
+	  mousedown: [ 'mousemove', 'mouseup' ],
+	  touchstart: [ 'touchmove', 'touchend', 'touchcancel' ],
+	  pointerdown: [ 'pointermove', 'pointerup', 'pointercancel' ],
+	  MSPointerDown: [ 'MSPointerMove', 'MSPointerUp', 'MSPointerCancel' ]
+	};
+	
+	Unipointer.prototype._bindPostStartEvents = function( event ) {
+	  if ( !event ) {
+	    return;
+	  }
+	  // get proper events to match start event
+	  var events = postStartEvents[ event.type ];
+	  // IE8 needs to be bound to document
+	  var node = event.preventDefault ? window : document;
+	  // bind events to node
+	  for ( var i=0, len = events.length; i < len; i++ ) {
+	    var evnt = events[i];
+	    eventie.bind( node, evnt, this );
+	  }
+	  // save these arguments
+	  this._boundPointerEvents = {
+	    events: events,
+	    node: node
+	  };
+	};
+	
+	Unipointer.prototype._unbindPostStartEvents = function() {
+	  var args = this._boundPointerEvents;
+	  // IE8 can trigger dragEnd twice, check for _boundEvents
+	  if ( !args || !args.events ) {
+	    return;
+	  }
+	
+	  for ( var i=0, len = args.events.length; i < len; i++ ) {
+	    var event = args.events[i];
+	    eventie.unbind( args.node, event, this );
+	  }
+	  delete this._boundPointerEvents;
+	};
+	
+	// ----- move event ----- //
+	
+	Unipointer.prototype.onmousemove = function( event ) {
+	  this._pointerMove( event, event );
+	};
+	
+	Unipointer.prototype.onMSPointerMove =
+	Unipointer.prototype.onpointermove = function( event ) {
+	  if ( event.pointerId == this.pointerIdentifier ) {
+	    this._pointerMove( event, event );
+	  }
+	};
+	
+	Unipointer.prototype.ontouchmove = function( event ) {
+	  var touch = this.getTouch( event.changedTouches );
+	  if ( touch ) {
+	    this._pointerMove( event, touch );
+	  }
+	};
+	
+	/**
+	 * pointer move
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 * @private
+	 */
+	Unipointer.prototype._pointerMove = function( event, pointer ) {
+	  this.pointerMove( event, pointer );
+	};
+	
+	// public
+	Unipointer.prototype.pointerMove = function( event, pointer ) {
+	  this.emitEvent( 'pointerMove', [ event, pointer ] );
+	};
+	
+	// ----- end event ----- //
+	
+	
+	Unipointer.prototype.onmouseup = function( event ) {
+	  this._pointerUp( event, event );
+	};
+	
+	Unipointer.prototype.onMSPointerUp =
+	Unipointer.prototype.onpointerup = function( event ) {
+	  if ( event.pointerId == this.pointerIdentifier ) {
+	    this._pointerUp( event, event );
+	  }
+	};
+	
+	Unipointer.prototype.ontouchend = function( event ) {
+	  var touch = this.getTouch( event.changedTouches );
+	  if ( touch ) {
+	    this._pointerUp( event, touch );
+	  }
+	};
+	
+	/**
+	 * pointer up
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 * @private
+	 */
+	Unipointer.prototype._pointerUp = function( event, pointer ) {
+	  this._pointerDone();
+	  this.pointerUp( event, pointer );
+	};
+	
+	// public
+	Unipointer.prototype.pointerUp = function( event, pointer ) {
+	  this.emitEvent( 'pointerUp', [ event, pointer ] );
+	};
+	
+	// ----- pointer done ----- //
+	
+	// triggered on pointer up & pointer cancel
+	Unipointer.prototype._pointerDone = function() {
+	  // reset properties
+	  this.isPointerDown = false;
+	  delete this.pointerIdentifier;
+	  // remove events
+	  this._unbindPostStartEvents();
+	  this.pointerDone();
+	};
+	
+	Unipointer.prototype.pointerDone = noop;
+	
+	// ----- pointer cancel ----- //
+	
+	Unipointer.prototype.onMSPointerCancel =
+	Unipointer.prototype.onpointercancel = function( event ) {
+	  if ( event.pointerId == this.pointerIdentifier ) {
+	    this._pointerCancel( event, event );
+	  }
+	};
+	
+	Unipointer.prototype.ontouchcancel = function( event ) {
+	  var touch = this.getTouch( event.changedTouches );
+	  if ( touch ) {
+	    this._pointerCancel( event, touch );
+	  }
+	};
+	
+	/**
+	 * pointer cancel
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 * @private
+	 */
+	Unipointer.prototype._pointerCancel = function( event, pointer ) {
+	  this._pointerDone();
+	  this.pointerCancel( event, pointer );
+	};
+	
+	// public
+	Unipointer.prototype.pointerCancel = function( event, pointer ) {
+	  this.emitEvent( 'pointerCancel', [ event, pointer ] );
+	};
+	
+	// -----  ----- //
+	
+	// utility function for getting x/y cooridinates from event, because IE8
+	Unipointer.getPointerPoint = function( pointer ) {
+	  return {
+	    x: pointer.pageX !== undefined ? pointer.pageX : pointer.clientX,
+	    y: pointer.pageY !== undefined ? pointer.pageY : pointer.clientY
+	  };
+	};
+	
+	// -----  ----- //
+	
+	return Unipointer;
+	
+	}));
+	
+	}.call(window));
+
+/***/ },
+/* 162 */
+/***/ function(module, exports) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var define = false;
+	(function() {
+	
+	/*!
+	 * EventEmitter v4.2.11 - git.io/ee
+	 * Unlicense - http://unlicense.org/
+	 * Oliver Caldwell - http://oli.me.uk/
+	 * @preserve
+	 */
+	
+	;(function () {
+	    'use strict';
+	
+	    /**
+	     * Class for managing events.
+	     * Can be extended to provide event functionality in other classes.
+	     *
+	     * @class EventEmitter Manages event registering and emitting.
+	     */
+	    function EventEmitter() {}
+	
+	    // Shortcuts to improve speed and size
+	    var proto = EventEmitter.prototype;
+	    var exports = this;
+	    var originalGlobalValue = exports.EventEmitter;
+	
+	    /**
+	     * Finds the index of the listener for the event in its storage array.
+	     *
+	     * @param {Function[]} listeners Array of listeners to search through.
+	     * @param {Function} listener Method to look for.
+	     * @return {Number} Index of the specified listener, -1 if not found
+	     * @api private
+	     */
+	    function indexOfListener(listeners, listener) {
+	        var i = listeners.length;
+	        while (i--) {
+	            if (listeners[i].listener === listener) {
+	                return i;
+	            }
+	        }
+	
+	        return -1;
+	    }
+	
+	    /**
+	     * Alias a method while keeping the context correct, to allow for overwriting of target method.
+	     *
+	     * @param {String} name The name of the target method.
+	     * @return {Function} The aliased method
+	     * @api private
+	     */
+	    function alias(name) {
+	        return function aliasClosure() {
+	            return this[name].apply(this, arguments);
+	        };
+	    }
+	
+	    /**
+	     * Returns the listener array for the specified event.
+	     * Will initialise the event object and listener arrays if required.
+	     * Will return an object if you use a regex search. The object contains keys for each matched event. So /ba[rz]/ might return an object containing bar and baz. But only if you have either defined them with defineEvent or added some listeners to them.
+	     * Each property in the object response is an array of listener functions.
+	     *
+	     * @param {String|RegExp} evt Name of the event to return the listeners from.
+	     * @return {Function[]|Object} All listener functions for the event.
+	     */
+	    proto.getListeners = function getListeners(evt) {
+	        var events = this._getEvents();
+	        var response;
+	        var key;
+	
+	        // Return a concatenated array of all matching events if
+	        // the selector is a regular expression.
+	        if (evt instanceof RegExp) {
+	            response = {};
+	            for (key in events) {
+	                if (events.hasOwnProperty(key) && evt.test(key)) {
+	                    response[key] = events[key];
+	                }
+	            }
+	        }
+	        else {
+	            response = events[evt] || (events[evt] = []);
+	        }
+	
+	        return response;
+	    };
+	
+	    /**
+	     * Takes a list of listener objects and flattens it into a list of listener functions.
+	     *
+	     * @param {Object[]} listeners Raw listener objects.
+	     * @return {Function[]} Just the listener functions.
+	     */
+	    proto.flattenListeners = function flattenListeners(listeners) {
+	        var flatListeners = [];
+	        var i;
+	
+	        for (i = 0; i < listeners.length; i += 1) {
+	            flatListeners.push(listeners[i].listener);
+	        }
+	
+	        return flatListeners;
+	    };
+	
+	    /**
+	     * Fetches the requested listeners via getListeners but will always return the results inside an object. This is mainly for internal use but others may find it useful.
+	     *
+	     * @param {String|RegExp} evt Name of the event to return the listeners from.
+	     * @return {Object} All listener functions for an event in an object.
+	     */
+	    proto.getListenersAsObject = function getListenersAsObject(evt) {
+	        var listeners = this.getListeners(evt);
+	        var response;
+	
+	        if (listeners instanceof Array) {
+	            response = {};
+	            response[evt] = listeners;
+	        }
+	
+	        return response || listeners;
+	    };
+	
+	    /**
+	     * Adds a listener function to the specified event.
+	     * The listener will not be added if it is a duplicate.
+	     * If the listener returns true then it will be removed after it is called.
+	     * If you pass a regular expression as the event name then the listener will be added to all events that match it.
+	     *
+	     * @param {String|RegExp} evt Name of the event to attach the listener to.
+	     * @param {Function} listener Method to be called when the event is emitted. If the function returns true then it will be removed after calling.
+	     * @return {Object} Current instance of EventEmitter for chaining.
+	     */
+	    proto.addListener = function addListener(evt, listener) {
+	        var listeners = this.getListenersAsObject(evt);
+	        var listenerIsWrapped = typeof listener === 'object';
+	        var key;
+	
+	        for (key in listeners) {
+	            if (listeners.hasOwnProperty(key) && indexOfListener(listeners[key], listener) === -1) {
+	                listeners[key].push(listenerIsWrapped ? listener : {
+	                    listener: listener,
+	                    once: false
+	                });
+	            }
+	        }
+	
+	        return this;
+	    };
+	
+	    /**
+	     * Alias of addListener
+	     */
+	    proto.on = alias('addListener');
+	
+	    /**
+	     * Semi-alias of addListener. It will add a listener that will be
+	     * automatically removed after its first execution.
+	     *
+	     * @param {String|RegExp} evt Name of the event to attach the listener to.
+	     * @param {Function} listener Method to be called when the event is emitted. If the function returns true then it will be removed after calling.
+	     * @return {Object} Current instance of EventEmitter for chaining.
+	     */
+	    proto.addOnceListener = function addOnceListener(evt, listener) {
+	        return this.addListener(evt, {
+	            listener: listener,
+	            once: true
+	        });
+	    };
+	
+	    /**
+	     * Alias of addOnceListener.
+	     */
+	    proto.once = alias('addOnceListener');
+	
+	    /**
+	     * Defines an event name. This is required if you want to use a regex to add a listener to multiple events at once. If you don't do this then how do you expect it to know what event to add to? Should it just add to every possible match for a regex? No. That is scary and bad.
+	     * You need to tell it what event names should be matched by a regex.
+	     *
+	     * @param {String} evt Name of the event to create.
+	     * @return {Object} Current instance of EventEmitter for chaining.
+	     */
+	    proto.defineEvent = function defineEvent(evt) {
+	        this.getListeners(evt);
+	        return this;
+	    };
+	
+	    /**
+	     * Uses defineEvent to define multiple events.
+	     *
+	     * @param {String[]} evts An array of event names to define.
+	     * @return {Object} Current instance of EventEmitter for chaining.
+	     */
+	    proto.defineEvents = function defineEvents(evts) {
+	        for (var i = 0; i < evts.length; i += 1) {
+	            this.defineEvent(evts[i]);
+	        }
+	        return this;
+	    };
+	
+	    /**
+	     * Removes a listener function from the specified event.
+	     * When passed a regular expression as the event name, it will remove the listener from all events that match it.
+	     *
+	     * @param {String|RegExp} evt Name of the event to remove the listener from.
+	     * @param {Function} listener Method to remove from the event.
+	     * @return {Object} Current instance of EventEmitter for chaining.
+	     */
+	    proto.removeListener = function removeListener(evt, listener) {
+	        var listeners = this.getListenersAsObject(evt);
+	        var index;
+	        var key;
+	
+	        for (key in listeners) {
+	            if (listeners.hasOwnProperty(key)) {
+	                index = indexOfListener(listeners[key], listener);
+	
+	                if (index !== -1) {
+	                    listeners[key].splice(index, 1);
+	                }
+	            }
+	        }
+	
+	        return this;
+	    };
+	
+	    /**
+	     * Alias of removeListener
+	     */
+	    proto.off = alias('removeListener');
+	
+	    /**
+	     * Adds listeners in bulk using the manipulateListeners method.
+	     * If you pass an object as the second argument you can add to multiple events at once. The object should contain key value pairs of events and listeners or listener arrays. You can also pass it an event name and an array of listeners to be added.
+	     * You can also pass it a regular expression to add the array of listeners to all events that match it.
+	     * Yeah, this function does quite a bit. That's probably a bad thing.
+	     *
+	     * @param {String|Object|RegExp} evt An event name if you will pass an array of listeners next. An object if you wish to add to multiple events at once.
+	     * @param {Function[]} [listeners] An optional array of listener functions to add.
+	     * @return {Object} Current instance of EventEmitter for chaining.
+	     */
+	    proto.addListeners = function addListeners(evt, listeners) {
+	        // Pass through to manipulateListeners
+	        return this.manipulateListeners(false, evt, listeners);
+	    };
+	
+	    /**
+	     * Removes listeners in bulk using the manipulateListeners method.
+	     * If you pass an object as the second argument you can remove from multiple events at once. The object should contain key value pairs of events and listeners or listener arrays.
+	     * You can also pass it an event name and an array of listeners to be removed.
+	     * You can also pass it a regular expression to remove the listeners from all events that match it.
+	     *
+	     * @param {String|Object|RegExp} evt An event name if you will pass an array of listeners next. An object if you wish to remove from multiple events at once.
+	     * @param {Function[]} [listeners] An optional array of listener functions to remove.
+	     * @return {Object} Current instance of EventEmitter for chaining.
+	     */
+	    proto.removeListeners = function removeListeners(evt, listeners) {
+	        // Pass through to manipulateListeners
+	        return this.manipulateListeners(true, evt, listeners);
+	    };
+	
+	    /**
+	     * Edits listeners in bulk. The addListeners and removeListeners methods both use this to do their job. You should really use those instead, this is a little lower level.
+	     * The first argument will determine if the listeners are removed (true) or added (false).
+	     * If you pass an object as the second argument you can add/remove from multiple events at once. The object should contain key value pairs of events and listeners or listener arrays.
+	     * You can also pass it an event name and an array of listeners to be added/removed.
+	     * You can also pass it a regular expression to manipulate the listeners of all events that match it.
+	     *
+	     * @param {Boolean} remove True if you want to remove listeners, false if you want to add.
+	     * @param {String|Object|RegExp} evt An event name if you will pass an array of listeners next. An object if you wish to add/remove from multiple events at once.
+	     * @param {Function[]} [listeners] An optional array of listener functions to add/remove.
+	     * @return {Object} Current instance of EventEmitter for chaining.
+	     */
+	    proto.manipulateListeners = function manipulateListeners(remove, evt, listeners) {
+	        var i;
+	        var value;
+	        var single = remove ? this.removeListener : this.addListener;
+	        var multiple = remove ? this.removeListeners : this.addListeners;
+	
+	        // If evt is an object then pass each of its properties to this method
+	        if (typeof evt === 'object' && !(evt instanceof RegExp)) {
+	            for (i in evt) {
+	                if (evt.hasOwnProperty(i) && (value = evt[i])) {
+	                    // Pass the single listener straight through to the singular method
+	                    if (typeof value === 'function') {
+	                        single.call(this, i, value);
+	                    }
+	                    else {
+	                        // Otherwise pass back to the multiple function
+	                        multiple.call(this, i, value);
+	                    }
+	                }
+	            }
+	        }
+	        else {
+	            // So evt must be a string
+	            // And listeners must be an array of listeners
+	            // Loop over it and pass each one to the multiple method
+	            i = listeners.length;
+	            while (i--) {
+	                single.call(this, evt, listeners[i]);
+	            }
+	        }
+	
+	        return this;
+	    };
+	
+	    /**
+	     * Removes all listeners from a specified event.
+	     * If you do not specify an event then all listeners will be removed.
+	     * That means every event will be emptied.
+	     * You can also pass a regex to remove all events that match it.
+	     *
+	     * @param {String|RegExp} [evt] Optional name of the event to remove all listeners for. Will remove from every event if not passed.
+	     * @return {Object} Current instance of EventEmitter for chaining.
+	     */
+	    proto.removeEvent = function removeEvent(evt) {
+	        var type = typeof evt;
+	        var events = this._getEvents();
+	        var key;
+	
+	        // Remove different things depending on the state of evt
+	        if (type === 'string') {
+	            // Remove all listeners for the specified event
+	            delete events[evt];
+	        }
+	        else if (evt instanceof RegExp) {
+	            // Remove all events matching the regex.
+	            for (key in events) {
+	                if (events.hasOwnProperty(key) && evt.test(key)) {
+	                    delete events[key];
+	                }
+	            }
+	        }
+	        else {
+	            // Remove all listeners in all events
+	            delete this._events;
+	        }
+	
+	        return this;
+	    };
+	
+	    /**
+	     * Alias of removeEvent.
+	     *
+	     * Added to mirror the node API.
+	     */
+	    proto.removeAllListeners = alias('removeEvent');
+	
+	    /**
+	     * Emits an event of your choice.
+	     * When emitted, every listener attached to that event will be executed.
+	     * If you pass the optional argument array then those arguments will be passed to every listener upon execution.
+	     * Because it uses `apply`, your array of arguments will be passed as if you wrote them out separately.
+	     * So they will not arrive within the array on the other side, they will be separate.
+	     * You can also pass a regular expression to emit to all events that match it.
+	     *
+	     * @param {String|RegExp} evt Name of the event to emit and execute listeners for.
+	     * @param {Array} [args] Optional array of arguments to be passed to each listener.
+	     * @return {Object} Current instance of EventEmitter for chaining.
+	     */
+	    proto.emitEvent = function emitEvent(evt, args) {
+	        var listeners = this.getListenersAsObject(evt);
+	        var listener;
+	        var i;
+	        var key;
+	        var response;
+	
+	        for (key in listeners) {
+	            if (listeners.hasOwnProperty(key)) {
+	                i = listeners[key].length;
+	
+	                while (i--) {
+	                    // If the listener returns true then it shall be removed from the event
+	                    // The function is executed either with a basic call or an apply if there is an args array
+	                    listener = listeners[key][i];
+	
+	                    if (listener.once === true) {
+	                        this.removeListener(evt, listener.listener);
+	                    }
+	
+	                    response = listener.listener.apply(this, args || []);
+	
+	                    if (response === this._getOnceReturnValue()) {
+	                        this.removeListener(evt, listener.listener);
+	                    }
+	                }
+	            }
+	        }
+	
+	        return this;
+	    };
+	
+	    /**
+	     * Alias of emitEvent
+	     */
+	    proto.trigger = alias('emitEvent');
+	
+	    /**
+	     * Subtly different from emitEvent in that it will pass its arguments on to the listeners, as opposed to taking a single array of arguments to pass on.
+	     * As with emitEvent, you can pass a regex in place of the event name to emit to all events that match it.
+	     *
+	     * @param {String|RegExp} evt Name of the event to emit and execute listeners for.
+	     * @param {...*} Optional additional arguments to be passed to each listener.
+	     * @return {Object} Current instance of EventEmitter for chaining.
+	     */
+	    proto.emit = function emit(evt) {
+	        var args = Array.prototype.slice.call(arguments, 1);
+	        return this.emitEvent(evt, args);
+	    };
+	
+	    /**
+	     * Sets the current value to check against when executing listeners. If a
+	     * listeners return value matches the one set here then it will be removed
+	     * after execution. This value defaults to true.
+	     *
+	     * @param {*} value The new value to check for when executing listeners.
+	     * @return {Object} Current instance of EventEmitter for chaining.
+	     */
+	    proto.setOnceReturnValue = function setOnceReturnValue(value) {
+	        this._onceReturnValue = value;
+	        return this;
+	    };
+	
+	    /**
+	     * Fetches the current value to check against when executing listeners. If
+	     * the listeners return value matches this one then it should be removed
+	     * automatically. It will return true by default.
+	     *
+	     * @return {*|Boolean} The current value to check for or the default, true.
+	     * @api private
+	     */
+	    proto._getOnceReturnValue = function _getOnceReturnValue() {
+	        if (this.hasOwnProperty('_onceReturnValue')) {
+	            return this._onceReturnValue;
+	        }
+	        else {
+	            return true;
+	        }
+	    };
+	
+	    /**
+	     * Fetches the events object and creates one if required.
+	     *
+	     * @return {Object} The events storage object.
+	     * @api private
+	     */
+	    proto._getEvents = function _getEvents() {
+	        return this._events || (this._events = {});
+	    };
+	
+	    /**
+	     * Reverts the global {@link EventEmitter} to its previous value and returns a reference to this version.
+	     *
+	     * @return {Function} Non conflicting EventEmitter class.
+	     */
+	    EventEmitter.noConflict = function noConflict() {
+	        exports.EventEmitter = originalGlobalValue;
+	        return EventEmitter;
+	    };
+	
+	    // Expose the class either via AMD, CommonJS or the global object
+	    if (typeof define === 'function' && define.amd) {
+	        define(function () {
+	            return EventEmitter;
+	        });
+	    }
+	    else if (typeof module === 'object' && module.exports){
+	        module.exports = EventEmitter;
+	    }
+	    else {
+	        exports.EventEmitter = EventEmitter;
+	    }
+	}.call(this));
+	
+	}.call(window));
+
+/***/ },
+/* 163 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div\n    class=\"ui-slider\" :id=\"id\"\n    :class=\"{\n        min: value === 0, max: value === 100, dragging: dragging, disabled: disabled,\n        active: active, 'has-label': hasLabel\n    }\"\n\n    :tabindex=\"disabled ? null : 0\" role=\"slider\" :aria-valuemin=\"0\" :aria-valuemax=\"100\"\n    :aria-valuenow=\"value\"\n\n    @keydown.left.prevent=\"decrement\" @keydown.right.prevent=\"increment\"\n    @keydown.down.prevent=\"decrement\" @keydown.up.prevent=\"increment\"\n    @focus=\"focus\" @blur=\"blur\"\n>\n    <input type=\"hidden\" :value=\"value\" :name=\"name\">\n\n    <div class=\"ui-slider-icon-wrapper\" v-if=\"showIcon\">\n        <ui-icon :icon=\"icon\" class=\"ui-slider-icon\"></ui-icon>\n    </div>\n\n    <div class=\"ui-slider-content\">\n        <div class=\"ui-slider-label\" v-text=\"label\" v-if=\"!hideLabel\"></div>\n\n        <div class=\"ui-slider-wrapper\" v-el:slider @mousedown=\"sliderClick\">\n            <div class=\"ui-slider-containment\" v-el:containment></div>\n\n            <div class=\"ui-slider-track\">\n                <div class=\"ui-slider-track-fill\" :style=\"{ width: value + '%'}\"></div>\n            </div>\n\n            <div class=\"ui-slider-thumb-container\" v-el:thumb>\n                <div class=\"ui-slider-focus-ring\"></div>\n                <div class=\"ui-slider-thumb\"></div>\n            </div>\n        </div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 164 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(165)
+	__vue_script__ = __webpack_require__(166)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiSnackbar.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(143)
+	__vue_template__ = __webpack_require__(167)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -8985,13 +12246,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 141 */
+/* 165 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 142 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9000,7 +12261,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	
-	var _UiButton = __webpack_require__(88);
+	var _UiButton = __webpack_require__(89);
 	
 	var _UiButton2 = _interopRequireDefault(_UiButton);
 	
@@ -9090,23 +12351,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 143 */
+/* 167 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div\n    class=\"ui-snackbar\" :id=\"id\" transition=\"ui-snackbar-toggle\" @click=\"click\" v-show=\"show\"\n>\n    <div class=\"ui-snackbar-text\">\n        <slot>\n            <span v-text=\"message\"></span>\n        </slot>\n    </div>\n\n    <div class=\"ui-snackbar-action\">\n        <ui-button\n            class=\"ui-snackbar-action-button\" type=\"flat\" :color=\"actionColor\"\n            :text=\"action\" @click.stop=\"actionClick\" v-if=\"action\"\n        ></ui-button>\n    </div>\n</div>\n";
 
 /***/ },
-/* 144 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(145)
-	__vue_script__ = __webpack_require__(146)
+	__webpack_require__(169)
+	__vue_script__ = __webpack_require__(170)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiSnackbarContainer.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(147)
+	__vue_template__ = __webpack_require__(171)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -9125,13 +12386,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 145 */
+/* 169 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 146 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9140,11 +12401,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	
-	var _uuid = __webpack_require__(83);
+	var _uuid = __webpack_require__(72);
 	
 	var _uuid2 = _interopRequireDefault(_uuid);
 	
-	var _UiSnackbar = __webpack_require__(140);
+	var _UiSnackbar = __webpack_require__(164);
 	
 	var _UiSnackbar2 = _interopRequireDefault(_UiSnackbar);
 	
@@ -9232,23 +12493,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 147 */
+/* 171 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui-snackbar-container\" :class=\"[position]\">\n    <ui-snackbar\n        :message=\"s.message\" :duration=\"s.duration\" :show.sync=\"s.show\" :action=\"s.action\"\n        :action-color=\"s.actionColor\" :persistent=\"s.persistent\" :id=\"s.id\" auto-hide\n\n        @shown=\"shown(s)\" @hidden=\"hidden(s)\" @clicked=\"clicked(s)\"\n        @action-clicked=\"actionClicked(s)\"\n\n        v-for=\"s in queue\"\n    ></ui-snackbar>\n</div>\n";
 
 /***/ },
-/* 148 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(149)
-	__vue_script__ = __webpack_require__(150)
+	__webpack_require__(173)
+	__vue_script__ = __webpack_require__(174)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiSwitch.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(151)
+	__vue_template__ = __webpack_require__(175)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -9267,13 +12528,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 149 */
+/* 173 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 150 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9286,7 +12547,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _disabled2 = _interopRequireDefault(_disabled);
 	
-	var _ReceivesTargetedEvent = __webpack_require__(86);
+	var _ReceivesTargetedEvent = __webpack_require__(75);
 	
 	var _ReceivesTargetedEvent2 = _interopRequireDefault(_ReceivesTargetedEvent);
 	
@@ -9345,23 +12606,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 151 */
+/* 175 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<label\n    class=\"ui-switch\"\n    :class=\"{ 'checked': value, 'disabled': disabled, 'label-left': labelLeft }\"\n>\n    <div class=\"ui-switch-container\">\n        <input\n            class=\"ui-switch-input\" type=\"checkbox\" :name=\"name\" :id=\"id\" v-model=\"value\"\n            v-disabled=\"disabled\"\n        >\n\n        <div class=\"ui-switch-track\"></div>\n        <div class=\"ui-switch-thumb\"></div>\n\n        <div class=\"ui-switch-focus-ring\"></div>\n    </div>\n\n    <div class=\"ui-switch-label-text\" v-if=\"!hideLabel\">\n        <slot>\n            <span v-text=\"label\"></span>\n        </slot>\n    </div>\n</label>\n";
 
 /***/ },
-/* 152 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(153)
-	__vue_script__ = __webpack_require__(154)
+	__webpack_require__(177)
+	__vue_script__ = __webpack_require__(178)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiTab.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(155)
+	__vue_template__ = __webpack_require__(179)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -9380,13 +12641,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 153 */
+/* 177 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 154 */
+/* 178 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9425,23 +12686,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 155 */
+/* 179 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div\n    class=\"ui-tab\" :id=\"id\" role=\"tabpanel\" :tabindex=\"active ? '0' : null\"\n    :aria-hidden=\"!active ? 'true' : null\" v-show=\"active\"\n>\n    <slot></slot>\n</div>\n";
 
 /***/ },
-/* 156 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(157)
-	__vue_script__ = __webpack_require__(158)
+	__webpack_require__(181)
+	__vue_script__ = __webpack_require__(182)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiTabs.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(163)
+	__vue_template__ = __webpack_require__(187)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -9460,13 +12721,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 157 */
+/* 181 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 158 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9475,11 +12736,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	
-	var _uuid = __webpack_require__(83);
+	var _uuid = __webpack_require__(72);
 	
 	var _uuid2 = _interopRequireDefault(_uuid);
 	
-	var _UiTabHeaderItem = __webpack_require__(159);
+	var _UiTabHeaderItem = __webpack_require__(183);
 	
 	var _UiTabHeaderItem2 = _interopRequireDefault(_UiTabHeaderItem);
 	
@@ -9659,17 +12920,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 159 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(160)
-	__vue_script__ = __webpack_require__(161)
+	__webpack_require__(184)
+	__vue_script__ = __webpack_require__(185)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiTabHeaderItem.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(162)
+	__vue_template__ = __webpack_require__(186)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -9688,13 +12949,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 160 */
+/* 184 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 161 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9749,29 +13010,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 162 */
+/* 186 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<li\n    class=\"ui-tab-header-item\" role=\"tab\"\n    :class=\"{ 'active': active, 'disabled': disabled, ['type-' + type]: true }\"\n\n    :tabindex=\"active ? 0 : -1\" :aria-controls=\"id\" :aria-selected=\"active ? 'true' : null\"\n    v-disabled=\"disabled\" v-el:item\n>\n    <div\n        class=\"ui-tab-header-item-icon\" v-if=\"type === 'icon' || type === 'icon-and-text'\"\n    >\n        <ui-icon :icon=\"icon\"></ui-icon>\n    </div>\n\n    <div\n        class=\"ui-tab-header-item-text\" v-text=\"text\"\n        v-if=\"type === 'text' || type === 'icon-and-text'\"\n    ></div>\n\n    <ui-ripple-ink :trigger=\"$els.item\" v-if=\"!hideRippleInk && !disabled\"></ui-ripple-ink>\n</li>\n";
+	module.exports = "\n<li\n    class=\"ui-tab-header-item\" role=\"tab\"\n    :class=\"['type-' + type, { 'active': active, 'disabled': disabled }]\"\n\n    :tabindex=\"active ? 0 : -1\" :aria-controls=\"id\" :aria-selected=\"active ? 'true' : null\"\n    v-disabled=\"disabled\" v-el:item\n>\n    <div\n        class=\"ui-tab-header-item-icon\" v-if=\"type === 'icon' || type === 'icon-and-text'\"\n    >\n        <ui-icon :icon=\"icon\"></ui-icon>\n    </div>\n\n    <div\n        class=\"ui-tab-header-item-text\" v-text=\"text\"\n        v-if=\"type === 'text' || type === 'icon-and-text'\"\n    ></div>\n\n    <ui-ripple-ink :trigger=\"$els.item\" v-if=\"!hideRippleInk && !disabled\"></ui-ripple-ink>\n</li>\n";
 
 /***/ },
-/* 163 */
+/* 187 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui-tabs\" :class=\"styleClasses\">\n    <div class=\"ui-tabs-header\" :class=\"[backgroundColor]\">\n        <ul\n            class=\"ui-tabs-header-items\" :class=\"[textColor, textColorActive]\" role=\"tablist\"\n            v-el:tabs-container\n        >\n            <ui-tab-header-item\n                :type=\"type\" :id=\"tab.id\" :icon=\"tab.icon\" :text=\"tab.header\"\n                :active=\"activeTab === tab.id\" :disabled=\"tab.disabled\"\n                :hide-ripple-ink=\"hideRippleInk\"\n\n                @click=\"select($event, tab)\" @keydown.left=\"selectPrev(index)\"\n                @keydown.right=\"selectNext($index)\"\n\n                v-for=\"(index, tab) in $children\" v-ref:tab-elements\n            ></ui-tab-header-item>\n        </ul>\n\n        <div\n            class=\"ui-tabs-active-tab-indicator\" :class=\"[indicatorColor]\"\n            :style=\"{ 'left': indicatorLeft, 'right': indicatorRight }\"\n        ></div>\n    </div>\n\n    <div class=\"ui-tabs-body\">\n        <slot></slot>\n    </div>\n</div>\n";
 
 /***/ },
-/* 164 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(165)
-	__vue_script__ = __webpack_require__(166)
+	__webpack_require__(189)
+	__vue_script__ = __webpack_require__(190)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiTextbox.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(167)
+	__vue_template__ = __webpack_require__(191)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -9790,13 +13051,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 165 */
+/* 189 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 166 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9805,17 +13066,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	
-	var _validatorjs = __webpack_require__(68);
-	
-	var _validatorjs2 = _interopRequireDefault(_validatorjs);
-	
 	var _UiIcon = __webpack_require__(6);
 	
 	var _UiIcon2 = _interopRequireDefault(_UiIcon);
 	
-	var _HasTextInput = __webpack_require__(85);
+	var _HasTextInput = __webpack_require__(74);
 	
 	var _HasTextInput2 = _interopRequireDefault(_HasTextInput);
+	
+	var _ValidatesInput = __webpack_require__(76);
+	
+	var _ValidatesInput2 = _interopRequireDefault(_ValidatesInput);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -9867,7 +13128,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.dirty = true;
 	            }
 	
-	            if (this.validationRules && !this.validateOnBlur) {
+	            if (!this.validateOnBlur) {
 	                this.validate();
 	            }
 	        }
@@ -9953,10 +13214,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	
 	            this.$dispatch('blurred');
-	
-	            if (this.validationRules) {
-	                this.validate();
-	            }
+	            this.validate();
 	        },
 	        changed: function changed() {
 	            this.$dispatch('changed');
@@ -9966,24 +13224,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        keydownEnter: function keydownEnter(e) {
 	            this.$dispatch('keydown-enter', e);
-	        },
-	        validate: function validate() {
-	            var data = {
-	                value: this.value
-	            };
-	
-	            var rules = {
-	                value: this.validationRules
-	            };
-	
-	            var validation = new _validatorjs2.default(data, rules, this.validationMessages);
-	            validation.setAttributeNames({ value: this.name.replace(/_/g, ' ') });
-	
-	            this.valid = validation.passes();
-	
-	            if (!this.valid) {
-	                this.validationError = validation.errors.first('value');
-	            }
 	        }
 	    },
 	
@@ -10003,27 +13243,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	        UiIcon: _UiIcon2.default
 	    },
 	
-	    mixins: [_HasTextInput2.default]
+	    mixins: [_HasTextInput2.default, _ValidatesInput2.default]
 	};
 
 /***/ },
-/* 167 */
+/* 191 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div\n    class=\"ui-textbox\"\n    :class=\"{\n        'disabled': disabled, 'invalid': !valid, 'dirty': dirty, 'active': active,\n        'has-label': !hideLabel, 'is-multi-line': multiLine, 'icon-right': iconRight,\n        'has-counter': maxLength\n    }\"\n>\n    <div class=\"ui-textbox-icon-wrapper\" v-if=\"showIcon\">\n        <ui-icon :icon=\"icon\" class=\"ui-textbox-icon\"></ui-icon>\n    </div>\n\n    <div class=\"ui-textbox-content\">\n        <label class=\"ui-textbox-label\">\n            <div class=\"ui-textbox-label-text\" v-text=\"label\" v-if=\"!hideLabel\"></div>\n\n            <input\n                class=\"ui-textbox-input\" :type=\"type\" :placeholder=\"placeholder\" :name=\"name\"\n                :id=\"id\" :number=\"type === 'number' ? true : null\" :min=\"minValue\"\n                :max=\"maxValue\" :step=\"stepValue\" :autocomplete=\"autocomplete ? null : 'off'\"\n\n                @focus=\"focussed\" @blur=\"blurred\" @change=\"changed\" @keydown=\"keydown\"\n                @keydown.enter=\"keydownEnter\" debounce=\"debounce\"\n\n                v-model=\"value | trim\" v-disabled=\"disabled\" v-if=\"!multiLine\"\n            >\n\n            <textarea\n                class=\"ui-textbox-textarea\" :placeholder=\"placeholder\" :name=\"name\" :id=\"id\"\n                :rows=\"rows\"\n\n                @focus=\"focussed\" @blur=\"blurred\" @change=\"changed\" @keydown=\"keydown\"\n                @keydown.enter=\"keydownEnter\" debounce=\"debounce\"\n\n                v-model=\"value | trim\" v-disabled=\"disabled\" v-else\n            ></textarea>\n        </label>\n\n        <div class=\"ui-textbox-feedback\" v-if=\"showFeedback || maxLength\">\n            <div\n                class=\"ui-textbox-error-text\" transition=\"ui-textbox-feedback-toggle\"\n                v-text=\"validationError\" v-show=\"!hideValidationErrors && !valid\"\n            ></div>\n\n            <div\n                class=\"ui-textbox-help-text\" transition=\"ui-textbox-feedback-toggle\"\n                v-text=\"helpText\" v-else\n            ></div>\n\n            <div\n                class=\"ui-textbox-counter\" v-text=\"value.length + '/' + maxLength\"\n                v-if=\"maxLength\"\n            ></div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 168 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(169)
-	__vue_script__ = __webpack_require__(170)
+	__webpack_require__(193)
+	__vue_script__ = __webpack_require__(194)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\UiToolbar.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(171)
+	__vue_template__ = __webpack_require__(195)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -10042,13 +13282,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 169 */
+/* 193 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 170 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10057,7 +13297,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	
-	var _UiProgressLinear = __webpack_require__(116);
+	var _UiProgressLinear = __webpack_require__(117);
 	
 	var _UiProgressLinear2 = _interopRequireDefault(_UiProgressLinear);
 	
@@ -10165,7 +13405,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 171 */
+/* 195 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui-toolbar\" :class=\"styleClasses\">\n    <div class=\"ui-toolbar-left\">\n        <ui-icon-button\n            class=\"ui-toolbar-nav-icon\" type=\"clear\" :color=\"iconColor\" :icon=\"navIcon\"\n            @click=\"navIconClick\" v-if=\"!hideNavIcon\"\n        ></ui-icon-button>\n\n        <div class=\"ui-toolbar-brand\" v-if=\"showBrand\">\n            <slot name=\"brand\">\n                <div class=\"ui-toolbar-brand-text\" v-text=\"brand\"></div>\n            </slot>\n        </div>\n    </div>\n\n    <div class=\"ui-toolbar-center\">\n        <div class=\"ui-toolbar-divider\" v-if=\"brandDividerVisible\"></div>\n\n        <slot>\n            <div class=\"ui-toolbar-title\" v-text=\"title\"></div>\n        </slot>\n    </div>\n\n    <div class=\"ui-toolbar-right\">\n        <slot name=\"actions\"></slot>\n    </div>\n\n    <ui-progress-linear\n        :show=\"loading\" class=\"ui-toolbar-preloader\" :class=\"{ 'position-top' : preloaderTop }\"\n        :color=\"preloaderColor\"\n    ></ui-progress-linear>\n</div>\n";

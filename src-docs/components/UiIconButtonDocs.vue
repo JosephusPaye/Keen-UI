@@ -2,7 +2,7 @@
     <section class="section section-ui-icon-button">
         <h2 class="section-heading">UiIconButton</h2>
 
-        <p>UiIconButton shows an icon button which can include a dropdown or loading spinner. It supports focus (mouse and keyboard separately), hover and disabled states.</p>
+        <p>UiIconButton shows an icon button which can include a dropdown (menu or popover) and can also show a loading spinner. It supports focus (mouse and keyboard separately), hover and disabled states.</p>
 
         <p>Visually, icon buttons have three types:</p>
 
@@ -214,7 +214,7 @@
 
                                         <li><code>icon</code>: An icon to show with the option. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</li>
 
-                                        <li><code>keyboardShortcut</code>: A string to show to the right of the option in the dropdown.</li>
+                                        <li><code>secondaryText</code>: Text to show to the right of the option in the dropdown. Useful for showing keyboard shortcuts and badges.</li>
 
                                         <li><code>disabled</code>: A Boolean that determines whether or not the option is disabled.</li>
                                     </ul>
@@ -229,10 +229,10 @@
                             </tr>
 
                             <tr>
-                                <td>showMenuKeyboardShortcuts</td>
+                                <td>showMenuSecondaryText</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not keyboard shortcuts are shown for the dropdown menu options. Set to <code>false</code> to hide the keyboard shortcuts.</td>
+                                <td>Determines whether or not secondary text is shown for the dropdown menu options. Set to <code>false</code> to hide the secondary text.</td>
                             </tr>
 
                             <tr>

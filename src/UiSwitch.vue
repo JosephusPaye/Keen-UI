@@ -143,6 +143,12 @@ $focus-ring-top = -(($focus-ring-size - $thumb-size) / 2);
             background-color: alpha(black, 0.12);
         }
     }
+
+    &:not(.disabled) {
+        .ui-switch-label-text {
+            cursor: pointer;
+        }
+    }
 }
 
 .ui-switch-container {

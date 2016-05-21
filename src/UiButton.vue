@@ -30,7 +30,7 @@
 
         <ui-menu
             class="ui-button-dropdown-menu" :trigger="$els.button" :options="menuOptions"
-            :show-icons="showMenuIcons" :show-keyboard-shortcuts="showMenuKeyboardShortcuts"
+            :show-icons="showMenuIcons" :show-secondary-text="showMenuSecondaryText"
             :open-on="openDropdownOn" @option-selected="menuOptionSelect"
             :dropdown-position="dropdownPosition" v-if="hasDropdownMenu"
         ></ui-menu>
@@ -164,7 +164,11 @@ export default {
     border-radius: 2px;
     padding: 8px 16px;
     min-width: 80px;
-    min-height: 40px;
+    height: 40px;
+
+    &::-moz-focus-inner {
+      border: 0;
+    }
 
     &.autofocus:focus,
     body[modality="keyboard"] &:focus {
@@ -173,6 +177,10 @@ export default {
 
     &[disabled] {
         opacity: 0.6;
+    }
+
+    &:not([disabled]) {
+        cursor: pointer;
     }
 
     .ui-button-dropdown-menu {
@@ -187,7 +195,7 @@ export default {
     }
 }
 
-&.ui-button-raised {
+.ui-button-raised {
     box-shadow: 0 0 2px alpha(black, 0.12), 0 2px 2px alpha(black, 0.2);
     transition: box-shadow 0.1s;
 
@@ -198,7 +206,7 @@ export default {
     }
 }
 
-&.ui-button-normal {
+.ui-button-normal {
     &.autofocus:focus,
     body[modality="keyboard"] &:focus {
         outline-width: 2px;
@@ -318,7 +326,7 @@ export default {
     }
 }
 
-&.ui-button-flat {
+.ui-button-flat {
     background-color: transparent;
 
     &:hover:not([disabled]),
@@ -392,5 +400,10 @@ export default {
     font-size: 18px;
     margin-right: -8px;
     margin-left: 1px;
+}
+
+.ui-button-group {
+    display: flex;
+    flex-wrap: wrap;
 }
 </style>

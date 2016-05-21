@@ -15,6 +15,8 @@
 
         <p>Additionally, both normal and flat buttons can be raised (with a box-shadow) using <code>raised</code> prop.</p>
 
+        <p><b>Note:</b> If you are having alignment issues when using multiple buttons next to each other, put the buttons in a container and add a class of <code>ui-button-group</code> for a flex-based workaround.</p>
+
         <h3>Examples</h3>
 
         <div class="demo">
@@ -120,14 +122,14 @@
         <div class="demo">
             <h4>With Icons</h4>
 
-            <div class="group chrome-alignment-bug-workaround">
+            <div class="group ui-button-group">
                 <ui-button icon="refresh">Refresh</ui-button>
                 <ui-button icon="add" color="primary">Add Post</ui-button>
                 <ui-button icon="delete" color="danger">Delete</ui-button>
                 <ui-button icon="photo" color="accent" icon-right>Icon Right</ui-button>
             </div>
 
-            <div class="group chrome-alignment-bug-workaround">
+            <div class="group ui-button-group">
                 <ui-button type="flat" icon="refresh">Refresh</ui-button>
                 <ui-button type="flat" icon="add" color="primary">Add Post</ui-button>
                 <ui-button type="flat" icon="delete" color="danger">Delete</ui-button>
@@ -196,12 +198,12 @@
                 >Menu with Icons</ui-button>
 
                 <ui-button
-                    type="flat" has-dropdown-menu show-menu-keyboard-shortcuts
+                    type="flat" has-dropdown-menu show-menu-secondary-text
                     :menu-options="shareMenuOptions" @menu-option-selected="menuOptionSelected"
                 >Menu with Shortcuts</ui-button>
 
                 <ui-button
-                    has-dropdown-menu show-menu-icons show-menu-keyboard-shortcuts
+                    has-dropdown-menu show-menu-icons show-menu-secondary-text
                     :menu-options="shareMenuOptions" @menu-option-selected="menuOptionSelected"
                 >Menu with Icons &amp; Shortcuts</ui-button>
 
@@ -323,7 +325,7 @@
 
                                         <li><code>icon</code>: An icon to show with the option. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</li>
 
-                                        <li><code>keyboardShortcut</code>: A string to show to the right of the option in the dropdown.</li>
+                                        <li><code>secondaryText</code>: Text to show to the right of the option in the dropdown. Useful for showing keyboard shortcuts and badges.</li>
 
                                         <li><code>disabled</code>: A Boolean that determines whether or not the option is disabled.</li>
                                     </ul>
@@ -338,10 +340,10 @@
                             </tr>
 
                             <tr>
-                                <td>showMenuKeyboardShortcuts</td>
+                                <td>showMenuSecondaryText</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not keyboard shortcuts are shown for the dropdown menu options. Set to <code>false</code> to hide the keyboard shortcuts.</td>
+                                <td>Determines whether or not secondary text is shown for the dropdown menu options. Set to <code>false</code> to hide the secondary text.</td>
                             </tr>
 
                             <tr>
@@ -462,17 +464,17 @@ let dropdownOptions = [
         id: 'edit',
         text: 'Edit',
         icon: 'edit',
-        keyboardShortcut: 'Ctrl+E'
+        secondaryText: 'Ctrl+E'
     }, {
         id: 'duplicate',
         text: 'Duplicate',
         icon: 'content_copy',
-        keyboardShortcut: 'Ctrl+D'
+        secondaryText: 'Ctrl+D'
     }, {
         id: 'share',
         text: 'Share',
         icon: 'share',
-        keyboardShortcut: 'Ctrl+Shift+S',
+        secondaryText: 'Ctrl+Shift+S',
         disabled: true
     }, {
         type: 'divider'
@@ -480,7 +482,7 @@ let dropdownOptions = [
         id: 'delete',
         text: 'Delete',
         icon: 'delete',
-        keyboardShortcut: 'Del'
+        secondaryText: 'Del'
     }
 ];
 
@@ -537,11 +539,6 @@ export default {
 
     .spacer {
         height: 72px;
-    }
-
-    .chrome-alignment-bug-workaround {
-        display: flex;
-        flex-wrap: wrap;
     }
 }
 </style>

@@ -1,6 +1,6 @@
 {
   "name": "keen-ui",
-  "version": "0.8.7",
+  "version": "0.8.8",
   "description": "A collection of essential UI components written with Vue and inspired by Material Design.",
   "main": "dist/keen-ui.js",
   "scripts": {
@@ -31,7 +31,8 @@
     "dist",
     "lib",
     "src",
-    "LICENSE",
+    "CHANGELOG.md",
+    "LICENCE",
     "README.md"
   ],
   "author": {
@@ -44,7 +45,9 @@
   "homepage": "https://github.com/JosephusPaye/keen-ui/",
   "dependencies": {
     "dominus": "^5.0.6",
+    "draggabilly": "^1.2.4",
     "fuzzysearch": "^1.0.3",
+    "merge-options": "0.0.64",
     "tether-drop": "^1.4.2",
     "tether-tooltip": "^1.2.0",
     "validatorjs": "^2.0.5",
@@ -63,6 +66,7 @@
     "eslint-plugin-html": "^1.4.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.4",
+    "imports-loader": "^0.6.5",
     "jasmine-core": "^2.4.1",
     "json-loader": "^0.5.4",
     "karma": "^0.13.22",

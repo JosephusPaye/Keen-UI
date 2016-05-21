@@ -38,6 +38,10 @@
                 <ui-icon icon="save"></ui-icon>
                 <ui-icon icon="event"></ui-icon>
             </div>
+
+            <div class="group inline">
+                <p>Icons can also be inlined with text: <ui-icon icon="account_circle"></ui-icon> My Account.</p>
+            </div>
         </div>
 
         <h3>API</h3>
@@ -60,7 +64,7 @@
                                 <td>icon *</td>
                                 <td>String</td>
                                 <td>(required)</td>
-                                <td>The button icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</td>
+                                <td>The icon name. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</td>
                             </tr>
 
                             <tr>
@@ -118,6 +122,12 @@ export default {
 
     .group {
         margin-bottom: 16px;
+
+        &.inline {
+            .ui-icon {
+                margin: 0;
+            }
+        }
     }
 }
 </style>

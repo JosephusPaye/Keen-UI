@@ -163,7 +163,6 @@ export default {
 }
 
 .ui-collapsible-header {
-    @extends $truncate-text;
     position: relative;
 
     margin: 0;
@@ -174,6 +173,7 @@ export default {
     font-family: $font-stack;
 
     display: flex;
+    height: 0; // IE
     min-height: 48px;
     padding: 8px 16px;
     align-items: center;
@@ -207,7 +207,8 @@ export default {
 }
 
 .ui-collapsible-header-content {
-    flex-grow: 1;
+    @extends $truncate-text;
+    line-height: 1.25em;
 }
 
 .ui-collapsible-header-icon {

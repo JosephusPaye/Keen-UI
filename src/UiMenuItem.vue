@@ -2,8 +2,6 @@
     <a
         class="ui-menu-item" role="menu-item" :tabindex="(isDivider || disabled) ? null : '0'"
         :class="{ 'divider': isDivider, 'disabled' : disabled }"
-
-        v-el:link
     >
         <ui-icon
             class="ui-menu-item-icon" :icon="icon" v-if="showIcon && !isDivider && icon"
@@ -12,11 +10,13 @@
         <div class="ui-menu-item-text" v-text="text" v-if="!isDivider"></div>
 
         <div
-            class="ui-menu-item-keyboard-shortcut" v-text="keyboardShortcut"
-            v-if="showKeyboardShortcut && !isDivider && keyboardShortcut"
+            class="ui-menu-item-secondary-text" v-text="secondaryText"
+            v-if="showSecondaryText && !isDivider && secondaryText"
         ></div>
 
-        <ui-ripple-ink :trigger="$els.link" v-if="!hideRippleInk && !disabled"></ui-ripple-ink>
+        <ui-ripple-ink
+            :trigger="$el" v-if="!hideRippleInk && !disabled && !isDivider"
+        ></ui-ripple-ink>
     </a>
 </template>
 
@@ -36,8 +36,8 @@ export default {
             type: Boolean,
             default: false
         },
-        keyboardShortcut: String,
-        showKeyboardShortcut: {
+        secondaryText: String,
+        showSecondaryText: {
             type: Boolean,
             default: false
         },
@@ -107,9 +107,13 @@ export default {
             opacity: 0.5;
             color: $md-dark-secondary;
 
-            .ui-menu-item-keyboard-shortcut {
+            .ui-menu-item-secondary-text {
                 color: $md-dark-secondary;
             }
+        }
+
+        &:not(.disabled) {
+            cursor: pointer;
         }
     }
 }
@@ -125,7 +129,7 @@ export default {
     @extends $truncate-text;
 }
 
-.ui-menu-item-keyboard-shortcut {
+.ui-menu-item-secondary-text {
     flex-shrink: 0;
     margin-left: 4px;
     font-size: 13px;

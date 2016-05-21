@@ -21,7 +21,7 @@
         </div>
 
         <div
-            class="ui-rating-feedback" v-if="showHelp" transition="ui-rating-feedback-toggle"
+            class="ui-rating-feedback" v-if="showFeedback" transition="ui-rating-feedback-toggle"
         >
             <div class="ui-rating-help-text" v-text="helpText"></div>
         </div>
@@ -74,8 +74,8 @@ export default {
     },
 
     computed: {
-        showHelp() {
-            return !this.disabled && Boolean(this.helpText);
+        showFeedback() {
+            return Boolean(this.helpText);
         }
     },
 
@@ -135,12 +135,20 @@ export default {
         },
 
         commitValue(value) {
+            if (this.disabled) {
+                return;
+            }
+
             if (value > 0 && value <= this.total) {
                 this.value = value;
             }
         },
 
         incrementPreviewValue() {
+            if (this.disabled) {
+                return;
+            }
+
             var proposedValue = this.previewValue + 1;
 
             if (proposedValue <= this.total) {
@@ -149,6 +157,10 @@ export default {
         },
 
         decrementPreviewValue() {
+            if (this.disabled) {
+                return;
+            }
+
             var proposedValue = this.previewValue - 1;
 
             if (proposedValue > 0) {
@@ -189,13 +201,13 @@ export default {
 
     &:hover:not(.disabled) {
         .ui-rating-label {
-            color: alpha($md-dark-secondary, 65%);
+            color: $input-label-color-hover;
         }
     }
 
     &.active:not(.disabled) {
         .ui-rating-label {
-            color: darken($md-brand-primary, 20%);
+            color: $input-label-color-active;
         }
     }
 
@@ -228,7 +240,13 @@ export default {
     }
 
     &.disabled {
-        opacity: 0.6;
+        .ui-rating-icons-wrapper {
+            opacity: 0.6;
+        }
+
+        .ui-rating-feedback {
+            opacity: 0.8;
+        }
     }
 
     .ui-rating-icon-icon {
@@ -241,7 +259,7 @@ export default {
 .ui-rating-label {
     font-size: 14px;
     margin-bottom: 4px;
-    color: $md-dark-secondary;
+    color: $input-label-color;
     transition: color 0.1s ease;
 }
 
@@ -254,7 +272,6 @@ export default {
     overflow: hidden;
     padding-top: 4px;
     position: relative;
-    overflow: hidden;
     font-size: 14px;
 }
 

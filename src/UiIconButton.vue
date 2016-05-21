@@ -20,7 +20,7 @@
 
         <ui-menu
             class="ui-button-dropdown-menu" :trigger="$els.button" :options="menuOptions"
-            :show-icons="showMenuIcons" :show-keyboard-shortcuts="showMenuKeyboardShortcuts"
+            :show-icons="showMenuIcons" :show-secondary-text="showMenuSecondaryText"
             :open-on="openDropdownOn" @option-selected="menuOptionSelect"
             :dropdown-position="dropdownPosition" v-if="hasDropdownMenu"
         ></ui-menu>
@@ -130,7 +130,7 @@ export default {
     -webkit-mask-image: -webkit-radial-gradient(circle, white, black);
     // -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC");
 
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 
@@ -138,8 +138,16 @@ export default {
     height: 40px;
     border-radius: 50%;
 
+    &::-moz-focus-inner {
+      border: 0;
+    }
+
     &[disabled] {
         opacity: 0.6;
+    }
+
+    &:not([disabled]) {
+        cursor: pointer;
     }
 
     .ui-dropdown-menu {
@@ -147,7 +155,7 @@ export default {
     }
 }
 
-&.ui-icon-button-normal {
+.ui-icon-button-normal {
     &.color-primary,
     &.color-accent,
     &.color-success,
@@ -247,7 +255,7 @@ export default {
     }
 }
 
-&.ui-icon-button-flat {
+.ui-icon-button-flat {
     &.color-default,
     &.color-primary,
     &.color-accent,
@@ -333,7 +341,7 @@ export default {
     }
 }
 
-&.ui-icon-button-clear {
+.ui-icon-button-clear {
     background-color: transparent;
 
     body[modality="keyboard"] &:focus,
@@ -365,5 +373,10 @@ export default {
             color: $md-dark-secondary;
         }
     }
+}
+
+.ui-icon-button-icon {
+    width: initial; // Firefox: needs the width and height reset for flexbox centering
+    height: initial;
 }
 </style>
