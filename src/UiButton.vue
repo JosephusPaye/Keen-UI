@@ -401,4 +401,9 @@ export default {
     margin-right: -8px;
     margin-left: 1px;
 }
+
+.ui-button-group {
+    display: flex;
+    flex-wrap: wrap;
+}
 </style>
