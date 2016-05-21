@@ -16,7 +16,7 @@
 
                 <ui-icon
                     class="ui-autocomplete-clear-button" icon="&#xE5CD" title="Clear"
-                    @click="clearSearch" v-show="value.length"
+                    @click="clearSearch" v-show="!disabled && value.length"
                 ></ui-icon>
 
                 <input
@@ -372,7 +372,7 @@ export default {
     right: 0;
     top: 6px;
     color: $input-clear-button-color;
-    cursor: default;
+    cursor: pointer;
 
     &:hover {
         color: $input-clear-button-color-hover;
