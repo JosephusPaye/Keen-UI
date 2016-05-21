@@ -126,6 +126,9 @@ export default {
     min-width: 168px;
     max-width: 272px;
 
+    max-height: 100vh;
+    overflow-y: auto;
+
     &.has-keyboard-shortcuts {
         min-width: 208px;
         max-width: 304px;
