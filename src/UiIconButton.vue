@@ -130,7 +130,7 @@ export default {
     -webkit-mask-image: -webkit-radial-gradient(circle, white, black);
     // -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC");
 
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 
