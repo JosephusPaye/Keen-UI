@@ -168,6 +168,12 @@ $focus-ring-transition-duration = 0.2s;
             }
         }
     }
+
+    &:not(.disabled) {
+        .ui-checkbox-label-text {
+            cursor: pointer;
+        }
+    }
 }
 
 .ui-checkbox-label-text {
