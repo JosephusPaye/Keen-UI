@@ -2,8 +2,6 @@
     <a
         class="ui-menu-item" role="menu-item" :tabindex="(isDivider || disabled) ? null : '0'"
         :class="{ 'divider': isDivider, 'disabled' : disabled }"
-
-        v-el:link
     >
         <ui-icon
             class="ui-menu-item-icon" :icon="icon" v-if="showIcon && !isDivider && icon"
@@ -16,7 +14,7 @@
             v-if="showKeyboardShortcut && !isDivider && keyboardShortcut"
         ></div>
 
-        <ui-ripple-ink :trigger="$els.link" v-if="!hideRippleInk && !disabled"></ui-ripple-ink>
+        <ui-ripple-ink :trigger="$el" v-if="!hideRippleInk && !disabled"></ui-ripple-ink>
     </a>
 </template>
 
@@ -110,6 +108,10 @@ export default {
             .ui-menu-item-keyboard-shortcut {
                 color: $md-dark-secondary;
             }
+        }
+
+        &:not(.disabled) {
+            cursor: pointer;
         }
     }
 }

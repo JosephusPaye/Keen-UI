@@ -92,6 +92,10 @@ export default {
         box-shadow: 0 8px 17px 0 alpha(black, 0.25), 0 6px 20px 0 alpha(black, 0.2);
     }
 
+    &:not([disabled]) {
+        cursor: pointer;
+    }
+
     &.color-default {
         background-color: white;
         color: $md-dark-secondary;

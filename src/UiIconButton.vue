@@ -146,6 +146,10 @@ export default {
         opacity: 0.6;
     }
 
+    &:not([disabled]) {
+        cursor: pointer;
+    }
+
     .ui-dropdown-menu {
         display: none;
     }
