@@ -15,6 +15,8 @@
 
         <p>Additionally, both normal and flat buttons can be raised (with a box-shadow) using <code>raised</code> prop.</p>
 
+        <p><b>Note:</b> If you are having alignment issues when using multiple buttons next to each other, put the buttons in a container and add a class of <code>ui-button-group</code> for a flex-based workaround.</p>
+
         <h3>Examples</h3>
 
         <div class="demo">
@@ -120,14 +122,14 @@
         <div class="demo">
             <h4>With Icons</h4>
 
-            <div class="group chrome-alignment-bug-workaround">
+            <div class="group ui-button-group">
                 <ui-button icon="refresh">Refresh</ui-button>
                 <ui-button icon="add" color="primary">Add Post</ui-button>
                 <ui-button icon="delete" color="danger">Delete</ui-button>
                 <ui-button icon="photo" color="accent" icon-right>Icon Right</ui-button>
             </div>
 
-            <div class="group chrome-alignment-bug-workaround">
+            <div class="group ui-button-group">
                 <ui-button type="flat" icon="refresh">Refresh</ui-button>
                 <ui-button type="flat" icon="add" color="primary">Add Post</ui-button>
                 <ui-button type="flat" icon="delete" color="danger">Delete</ui-button>
@@ -537,11 +539,6 @@ export default {
 
     .spacer {
         height: 72px;
-    }
-
-    .chrome-alignment-bug-workaround {
-        display: flex;
-        flex-wrap: wrap;
     }
 }
 </style>
