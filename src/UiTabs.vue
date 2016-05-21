@@ -251,7 +251,7 @@ export default {
 
         .ui-tab-header-item {
             body[modality="keyboard"] &:focus {
-                outline-color: $md-brand-primary;
+                outline: 1px solid $md-brand-primary;
             }
         }
     }
@@ -261,7 +261,7 @@ export default {
     &.background-color-clear {
         .ui-tab-header-item {
             body[modality="keyboard"] &:focus {
-                outline-color: white;
+                outline: 1px solid white;
             }
 
             .ui-ripple-ink .ripple.held {

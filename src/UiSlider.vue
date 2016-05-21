@@ -381,6 +381,7 @@ $thumb-fill-color = $md-brand-primary;
     justify-content: center;
 
     position: absolute;
+    top: 0;
     left: 0;
 
     margin-left: -($thumb-container-size / 2) - ($track-height / 2);

@@ -578,6 +578,7 @@ export default {
     align-items: center;
 
     width: 100%;
+    height: 0; // IE
     min-height: 32px;
     border-bottom-width: 1px;
     border-bottom-style: solid;
@@ -634,6 +635,11 @@ export default {
     height: 42px;
     font-size: 15px;
     border-bottom: 1px solid $input-border-color;
+
+    // Hide Edge and IE input clear button
+    &::-ms-clear {
+        display: none;
+    }
 }
 
 .ui-select-search-spinner {
