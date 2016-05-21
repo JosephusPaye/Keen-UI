@@ -72,7 +72,7 @@ export default {
 $tooltip-content-margin = 4px;
 
 .ui-tooltip {
-    //
+    line-height: 1;
 }
 
 .tooltip-element.ui-tooltip-theme {
@@ -94,8 +94,8 @@ $tooltip-content-margin = 4px;
         font-size: 13px;
         line-height: 1;
 
-        background: $md-grey-800;
-        opacity: 0.95;
+        background: $md-grey-900;
+        opacity: 0.9;
         color: white;
     }
 
