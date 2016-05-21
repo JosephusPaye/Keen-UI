@@ -1,11 +1,11 @@
 <template>
     <ul
         class="ui-menu" role="menu" tabindex="-1" @keydown.esc="closeDropdown" v-el:dropdown
-        :class="{ 'has-icons': showIcons, 'has-keyboard-shortcuts': showKeyboardShortcuts }"
+        :class="{ 'has-icons': showIcons, 'has-secondary-text': showSecondaryText }"
     >
         <ui-menu-item
-            :type="o.type" :icon="o.icon" :text="o.text" :keyboard-shortcut="o.keyboardShortcut"
-            :show-icon="showIcons" :show-keyboard-shortcut="showKeyboardShortcuts"
+            :type="o.type" :icon="o.icon" :text="o.text" :secondary-text="o.secondaryText"
+            :show-icon="showIcons" :show-secondary-text="showSecondaryText"
             :hide-ripple-ink="hideRippleInk" :disabled="o.disabled"
 
             @keydown.enter.prevent="optionSelect(o)" @click="optionSelect(o)"
@@ -39,7 +39,7 @@ export default {
             type: Boolean,
             default: false
         },
-        showKeyboardShortcuts: {
+        showSecondaryText: {
             type: Boolean,
             default: false
         },
@@ -129,7 +129,7 @@ export default {
     max-height: 100vh;
     overflow-y: auto;
 
-    &.has-keyboard-shortcuts {
+    &.has-secondary-text {
         min-width: 208px;
         max-width: 304px;
     }

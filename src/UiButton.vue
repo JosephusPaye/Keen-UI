@@ -30,7 +30,7 @@
 
         <ui-menu
             class="ui-button-dropdown-menu" :trigger="$els.button" :options="menuOptions"
-            :show-icons="showMenuIcons" :show-keyboard-shortcuts="showMenuKeyboardShortcuts"
+            :show-icons="showMenuIcons" :show-secondary-text="showMenuSecondaryText"
             :open-on="openDropdownOn" @option-selected="menuOptionSelect"
             :dropdown-position="dropdownPosition" v-if="hasDropdownMenu"
         ></ui-menu>
