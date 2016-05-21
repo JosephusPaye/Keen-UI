@@ -419,6 +419,14 @@
 </template>
 
 <script>
+// startsWith polyfill
+if (!String.prototype.startsWith) {
+    String.prototype.startsWith = function(searchString, position) {
+        position = position || 0;
+        return this.substr(position, searchString.length) === searchString;
+    };
+}
+
 import UiTab from '../../src/UiTab.vue';
 import UiTabs from '../../src/UiTabs.vue';
 import UiButton from '../../src/UiButton.vue';
