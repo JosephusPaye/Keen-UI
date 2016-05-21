@@ -1,23 +1,19 @@
 <template>
     <div
-        class="ui-select" :tabindex="disabled ? null : '0'" v-el:select
-        :class="{
+        class="ui-select" :id="id" :class="{
             'disabled': disabled, 'invalid': !valid, 'dirty': dirty, 'active': active,
             'has-label': !hideLabel, 'icon-right': iconRight
         }"
-
-        @focus="focussed" @keydown.tab="blurred" @keydown.space.prevent="open"
-        @keydown.enter.prevent="open"
     >
-        <input type="hidden" :value="value" :name="name">
-
         <div class="ui-select-icon-wrapper" v-if="showIcon">
             <ui-icon :icon="icon" class="ui-select-icon"></ui-icon>
         </div>
 
         <div class="ui-select-content">
-            <label
-                class="ui-select-label" v-el:trigger
+            <div
+                class="ui-select-label" :tabindex="disabled ? null : '0'" v-el:label
+                @focus="focus" @keydown.tab="blur" @click="toggle" @keydown.space.prevent="open"
+                @keydown.enter.prevent="open"
             >
                 <div class="ui-select-label-text" v-text="label" v-if="!hideLabel"></div>
 
@@ -29,39 +25,41 @@
 
                     <ui-icon icon="arrow_drop_down" class="ui-select-dropdown-icon"></ui-icon>
                 </div>
-            </label>
 
-            <ui-popover
-                class="ui-select-popover" :trigger="$els.trigger" v-ref:popover
-                @opened="opened" @closed="closed"
+                <div
+                    class="ui-select-dropdown" tabindex="-1" v-show="showDropdown" v-el:dropdown
+                    @keydown.esc.prevent="close()" @keydown.tab="close()"
+                    @keydown.up.prevent="highlight(highlightedIndex - 1)"
+                    @keydown.down.prevent="highlight(highlightedIndex + 1)"
+                    @keydown.enter.prevent.stop="selectHighlighted(highlightedIndex, $event)"
+                >
+                    <div class="ui-select-search" v-if="showSearch" @click.stop @keydown.space.stop>
+                        <input
+                            class="ui-select-search-input" type="text" v-el:search-input
+                            :placeholder="searchPlaceholder" v-model="query"
+                        >
 
-                @keydown.up.prevent="highlight(highlightedIndex - 1)"
-                @keydown.down.prevent="highlight(highlightedIndex + 1)"
-                @keydown.enter.prevent="selectHighlighted(highlightedIndex, $event)"
-            >
-                <div class="ui-select-search" v-if="showSearch">
-                    <input
-                        type="text" class="ui-select-search-input" v-model="query"
-                        v-el:search-input
+                        <ui-progress-circular
+                            class="ui-select-search-spinner" :size="24" :stroke="4" :show="loading"
+                        ></ui-progress-circular>
+                    </div>
 
-                        @keydown.up="highlight(highlightedIndex - 1)"
-                        @keydown.down="highlight(highlightedIndex + 1)"
-                        @keydown.enter="selectHighlighted(highlightedIndex, $event)"
-                    >
+                    <ul class="ui-select-options" v-el:options-list>
+                        <ui-select-option
+                            :option="option" :partial="partial" :show-checkbox="multiple"
+                            @click.stop.prevent="select(option, index)"
+                            @mouseover.stop="highlight(index, true)"
+
+                            :highlighted="highlightedIndex === index" :selected="isSelected(option)"
+
+                            v-for="(index, option) in filteredOptions" v-ref:options
+                            v-if="!noResults"
+                        ></ui-select-option>
+
+                        <li class="ui-select-no-results" v-if="nothingFound">No results found</li>
+                    </ul>
                 </div>
-
-                <ul class="ui-select-options">
-                    <ui-select-option
-                        :option="option" :partial="partial" @click="select(option, index)"
-                        @mouseover.stop="highlight(index)" :highlighted="highlightedIndex === index"
-                        :selected="selectedId === option.value"
-
-                        v-for="(index, option) in filteredOptions" v-ref:options
-                    ></ui-select-option>
-
-                    <li class="no-results" v-if="!filteredOptions.length">No results found</li>
-                </ul>
-            </ui-popover>
+            </div>
 
             <div class="ui-select-feedback" v-if="showFeedback">
                 <div
@@ -79,19 +77,30 @@
 </template>
 
 <script>
-import Validator from 'validatorjs';
+import merge from 'merge-options';
 import fuzzysearch from 'fuzzysearch';
+import { scrollIntoView, resetScroll } from './helpers/element-scroll';
 
 import UiIcon from './UiIcon.vue';
-import UiPopover from './UiPopover.vue';
 import UiSelectOption from './UiSelectOption.vue';
+import UiProgressCircular from './UiProgressCircular.vue';
 
 import HasTextInput from './mixins/HasTextInput';
+import ValidatesInput from './mixins/ValidatesInput';
 
 export default {
     name: 'ui-select',
 
     props: {
+        value: {
+            type: [Object, Array],
+            default: null,
+            twoWay: true
+        },
+        default: {
+            type: [Object, Array],
+            default: null
+        },
         options: {
             type: Array,
             default: []
@@ -100,32 +109,121 @@ export default {
         showSearch: {
             type: Boolean,
             default: false
+        },
+        searchPlaceholder: {
+            type: String,
+            default: 'Search'
+        },
+        multiple: {
+            type: Boolean,
+            default: false
+        },
+        multipleDelimiter: {
+            type: String,
+            default: ', '
+        },
+        disableFiltering: {
+            type: Boolean,
+            default: false
+        },
+        loading: {
+            type: Boolean,
+            default: false
+        },
+        noResults: {
+            type: Boolean,
+            default: false
         }
     },
 
     data() {
         return {
             query: '',
-            selectedId: -1,
-            displayText: '',
             selectedIndex: -1,
             highlightedIndex: -1,
+            showDropdown: false,
             ignoreQueryChange: false
         };
     },
 
     computed: {
+        filteredOptions() {
+            if (this.disableFiltering) {
+                return this.options;
+            }
+
+            return this.options.filter(this.search);
+        },
+
+        displayText() {
+            if (this.multiple && this.value.length) {
+                let labels = this.value.map((value) => value.text);
+                return labels.join(this.multipleDelimiter);
+            }
+
+            return this.value ? this.value.text : '';
+        },
+
+        hasDisplayText() {
+            return this.displayText && Boolean(this.displayText.length);
+        },
+
         showIcon() {
             return Boolean(this.icon);
         },
 
-        hasDisplayText() {
-            return Boolean(this.displayText.length);
+        nothingFound() {
+            if (this.disableFiltering) {
+                return this.noResults;
+            }
+
+            return Boolean(this.options.length && !this.filteredOptions.length);
+        }
+    },
+
+    watch: {
+        filteredOptions() {
+            this.highlightedIndex = 0;
+            resetScroll(this.$els.optionsList);
         },
 
-        filteredOptions() {
-            return this.options.filter(this.search);
+        showDropdown() {
+            if (this.showDropdown) {
+                this.opened();
+                this.$dispatch('opened');
+            } else {
+                this.closed();
+                this.$dispatch('closed');
+            }
+        },
+
+        query() {
+            if (!this.ignoreQueryChange) {
+                this.$dispatch('query-changed', this.query);
+            }
         }
+    },
+
+    created() {
+        this.initValue();
+
+        let errorMessages = {
+            min: 'You must select at least :min options.',
+            max: 'You must select no more than :max options.',
+            between: 'You must select at least :min but no more than :max options.'
+        };
+
+        if (this.validationRules) {
+            this.validationMessages = merge(errorMessages, this.validationMessages);
+        }
+    },
+
+    ready() {
+        document.addEventListener('click', this.closeOnExternalClick);
+    },
+
+    beforeDestroy() {
+        document.removeEventListener('click', this.closeOnExternalClick);
     },
 
     events: {
@@ -136,22 +234,25 @@ export default {
             }
 
             // Reset state
-            this.value = this.initialValue;
-            this.displayText = '';
+            this.initValue();
             this.dirty = false;
             this.valid = true;
-        }
-    },
 
-    watch: {
-        query() {
-            if (!this.ignoreQueryChange) {
-                this.highlightedIndex = 0;
-            }
+            this.clearQuery();
+            this.selectedIndex = -1;
+            this.highlightedIndex = -1;
         }
     },
 
     methods: {
+        initValue() {
+            this.value = this.multiple ? [] : null;
+
+            if (this.default) {
+                this.setDefaultValue(this.default);
+            }
+        },
+
         search(option) {
             let text = option.text.toLowerCase();
             let query = this.query.toLowerCase();
@@ -159,34 +260,62 @@ export default {
             return fuzzysearch(query, text);
         },
 
-        select(option, index) {
-            this.value = option.value;
-            this.selectedId = option.value;
-            this.displayText = option.text;
-
-            if (this.validationRules) {
-                this.validate();
-            }
-
-            this.clearQuery();
-
-            this.selectedIndex = index;
-            this.highlightedIndex = index;
-
-            this.close();
-        },
-
         clearQuery() {
             this.ignoreQueryChange = true;
 
-            this.query = '';
-
             this.$nextTick(() => {
-                this.ignoreQueryChange = false;
+                this.query = '';
+
+                this.$nextTick(() => {
+                    this.ignoreQueryChange = false;
+                });
             });
         },
 
-        highlight(index) {
+        select(option, index, close = true) {
+            if (this.multiple) {
+                if (this.isSelected(option)) {
+                    this.deselect(option);
+                    return;
+                }
+
+                this.value.push(option);
+            } else {
+                this.value = option;
+                this.selectedIndex = index;
+            }
+
+            this.$dispatch('selected', option);
+
+            this.highlightedIndex = index;
+            this.clearQuery();
+            this.validate();
+
+            if (!this.multiple && close) {
+                this.close();
+            }
+        },
+
+        deselect(option) {
+            this.value.$remove(option);
+        },
+
+        isSelected(option) {
+            if (this.multiple) {
+                return this.value.indexOf(option) > -1;
+            }
+
+            return this.value === option;
+        },
+
+        selectHighlighted(index, e) {
+            if (this.$refs.options.length) {
+                e.preventDefault();
+                this.select(this.$refs.options[index].option, index);
+            }
+        },
+
+        highlight(index, preventScroll) {
             if (this.highlightedIndex === index) {
                 return;
             }
@@ -198,79 +327,122 @@ export default {
             }
 
             this.highlightedIndex = index;
+
+            if (!preventScroll) {
+                this.scrollOptionIntoView(this.$refs.options[index].$el);
+            }
         },
 
-        selectHighlighted(index, e) {
-            if (this.$refs.options.length) {
-                e.preventDefault();
-                this.select(this.$refs.options[index].option, index);
+        focus() {
+            this.active = true;
+        },
+
+        blur() {
+            this.active = false;
+
+            if (this.showDropdown) {
+                this.close();
+            }
+        },
+
+        toggle() {
+            if (this.showDropdown) {
+                this.close();
+            } else {
+                this.open();
             }
         },
 
         open() {
-            this.$refs.popover.drop.open();
+            if (this.disabled) {
+                return;
+            }
+
+            this.showDropdown = true;
         },
 
-        close() {
-            this.$refs.popover.drop.close();
-            this.validate();
+        opened() {
+            this.$nextTick(() => {
+                if (this.showSearch) {
+                    this.$els.searchInput.focus();
+                } else {
+                    this.$els.dropdown.focus();
+                }
+
+                this.scrollOptionIntoView(this.$els.optionsList.querySelector('.selected'));
+            });
         },
 
-        focussed() {
-            this.active = true;
-        },
-
-        blurred() {
-            this.active = false;
+        close(deactivate) {
+            this.showDropdown = false;
 
             if (!this.dirty) {
                 this.dirty = true;
             }
+
+            if (deactivate) {
+                this.active = false;
+            } else {
+                this.$els.label.focus();
+            }
         },
 
-        opened() {
-            if (this.showSearch) {
-                this.$els.searchInput.focus();
+        closeOnExternalClick(e) {
+            if (! this.$el.contains(e.target) && (this.showDropdown || this.active)) {
+                this.close(true);
             }
         },
 
         closed() {
-            this.highlightedIndex = this.selectedIndex;
-            this.active = false;
+            this.validate();
+
+            if (!this.multiple) {
+                this.highlightedIndex = this.selectedIndex;
+            } else {
+                this.highlightedIndex = -1;
+            }
         },
 
-        validate() {
-            if (!this.validationRules || !this.dirty) {
+        setDefaultValue(defaults) {
+            if (this.multiple) {
+                if (!defaults.length) {
+                    return;
+                }
+
+                for (let i = 0; i < this.options.length; i++) {
+                    for (let j = 0; j < defaults.length; j++) {
+                        if (this.options[i] === defaults[j]) {
+                            this.select(this.options[i], i, false);
+                            break;
+                        }
+                    }
+                }
+
                 return;
             }
 
-            let data = {
-                value: this.value
-            };
-
-            let rules = {
-                value: this.validationRules
-            };
-
-            let validation = new Validator(data, rules, this.validationMessages);
-            validation.setAttributeNames({ value: this.name.replace(/_/g, ' ') });
-
-            this.valid = validation.passes();
-
-            if (!this.valid) {
-                this.validationError = validation.errors.first('value');
+            for (let i = 0; i < this.options.length; i++) {
+                if (this.options[i] === defaults) {
+                    this.select(this.options[i], i, false);
+                    break;
+                }
             }
+        },
+
+        scrollOptionIntoView(optionEl) {
+            scrollIntoView(optionEl, this.$els.optionsList, 80);
         }
     },
 
     components: {
         UiIcon,
-        UiPopover,
-        UiSelectOption
+        UiSelectOption,
+        UiProgressCircular
     },
 
     mixins: [
-        HasTextInput
+        HasTextInput,
+        ValidatesInput
     ]
 };
 </script>
@@ -343,8 +515,15 @@ export default {
 
      &.disabled {
         .ui-select-display {
+            cursor: default;
             color: $input-color-disabled;
             border-bottom-style: dashed;
+        }
+
+        .ui-select-dropdown-icon,
+        .ui-select-value.placeholder {
+            opacity: 0.6;
+            color: $input-color-disabled;
         }
 
         .ui-select-icon {
@@ -395,7 +574,7 @@ export default {
     align-items: center;
 
     width: 100%;
-    height: 32px;
+    min-height: 32px;
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: $input-border-color;
@@ -409,15 +588,74 @@ export default {
     font-family: $font-stack;
 }
 
-.ui-select-value.placeholder {
-    color: $md-dark-hint;
+.ui-select-value {
+    flex-grow: 1;
+    line-height: 1.4;
+
+    &.placeholder {
+        color: $md-dark-hint;
+    }
 }
 
 .ui-select-dropdown-icon {
-    position: absolute;
-    right: -7px;
-    top: 4px;
+    margin-left: auto;
+    margin-right: -4px;
     color: $input-clear-button-color;
+}
+
+.ui-select-dropdown {
+    outline: none;
+    width: 100%;
+    min-width: 180px;
+    display: block;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 8px;
+    list-style-type: none;
+    box-shadow: 1px 2px 8px $md-grey-600;
+    background-color: white;
+    color: $md-dark-text;
+    transition: left 0.1s ease-in-out;
+    z-index: $z-index-dropdown;
+}
+
+.ui-select-search-input {
+    margin: 0;
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0 12px;
+    width: 100%;
+    height: 42px;
+    font-size: 15px;
+    border-bottom: 1px solid $input-border-color;
+}
+
+.ui-select-search-spinner {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+}
+
+.ui-select-options {
+    position: relative;
+    display: block;
+    min-width: 100%;
+    max-height: 256px;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    background-color: white;
+    color: $md-dark-text;
+}
+
+.ui-select-no-results {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: $md-dark-secondary;
+    width: 100%;
 }
 
 .ui-select-feedback {
@@ -452,44 +690,5 @@ export default {
 .ui-select-feedback-toggle-leave {
    opacity: 0;
    margin-top: -20px;
-}
-
-.ui-select-popover {
-    padding: 0;
-    min-width: 200px;
-}
-
-.ui-select-search-input {
-    margin: 0;
-    border: none;
-    outline: none;
-    padding: 0 12px;
-    height: 42px;
-    font-size: 15px;
-    border-bottom: 1px solid $input-border-color;
-
-    &:hover {
-        border-bottom: 1px solid $input-border-color-hover;
-    }
-}
-
-.ui-select-options {
-    min-width: 100%;
-    display: block;
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-    background-color: white;
-    color: $md-dark-text;
-
-    .no-results {
-        padding: 8px 12px;
-        font-size: 14px;
-        color: $md-dark-secondary;
-    }
-}
-
-.ui-select-option {
-    max-height: 42px;
 }
 </style>
