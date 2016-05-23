@@ -19,7 +19,7 @@
 
             <ui-select
                 name="color" label="Favourite color" :options="colors" placeholder="Select a color"
-                :default="colors[0]"
+                :default="colorSelect"
             ></ui-select>
 
             <h4>With images</h4>
@@ -52,10 +52,10 @@
 
             <h4>Multiple with defaults selection</h4>
 
-            <ui-select
+            <!--<ui-select
                 name="color" label="Favourite colors" partial="ui-select-image" show-search multiple
                 placeholder="Select some colors" :options="colors" :default="[colors[0], colors[3]]"
-            ></ui-select>
+            ></ui-select>-->
 
             <h4>With validation</h4>
 
@@ -99,10 +99,10 @@
 
             <h4>Disabled with selection</h4>
 
-            <ui-select
+            <!--<ui-select
                 name="color" label="Favourite color" :options="colors" placeholder="Select a color"
                 :default="colors[2]" disabled
-            ></ui-select>
+            ></ui-select>-->
 
             <ui-button @click="resetSelects">Reset selects</ui-button>
         </div>
@@ -659,6 +659,11 @@ export default {
     data() {
         return {
             colors,
+            colorSelect: {
+                text: 'Pink',
+                image: 'https://placehold.it/64/ffc0cb/ffc0cb',
+                value: 'pink'
+            },
             dynamicSelect: {
                 value: null,
                 options: [],
