@@ -173,7 +173,9 @@ export default {
             document.removeEventListener('focus', this.restrictFocus, true);
 
             if(this.lastFocussedElement)
+            {
                 this.lastFocussedElement.focus();
+            }
         }
     },
 
