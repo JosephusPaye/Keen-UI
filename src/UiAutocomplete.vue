@@ -150,7 +150,11 @@ export default {
     methods: {
         search(item) {
             let text = item.text || item;
-            let query = this.value.toLowerCase();
+            let query = this.value;
+
+            if (typeof this.value === 'string') {
+                query = this.value.toLowerCase();
+            }
 
             return fuzzysearch(query, text.toLowerCase());
         },
@@ -161,8 +165,9 @@ export default {
             } else {
                 this.value = item.text || item;
             }
-
+            
             this.validate();
+            this.$dispatch('@autocompleteSelected', this.value, item);
 
             this.$nextTick(() => {
                 this.close();
@@ -178,6 +183,7 @@ export default {
             }
 
             this.highlightedItem = index;
+            this.$dispatch('@autocompleteItemHighlighted', this.highlightedItem);
 
             if (this.showOnUpDown) {
                 this.open();
@@ -197,11 +203,12 @@ export default {
 
         open() {
             this.showDropdown = true;
+            this.$dispatch('@autocompleteOpened');
         },
 
         close() {
             this.showDropdown = false;
-
+            this.$dispatch('@autocompleteClosed');
             this.validate();
         },
 

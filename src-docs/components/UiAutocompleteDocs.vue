@@ -304,6 +304,34 @@
                                 <p>You can optionally pass in an <code>id</code> to reset only a specific autocomplete (whose <code>id</code> you have set).</p>
                             </td>
                         </tr>
+                        <tr>
+                            <td class="no-wrap">@autocompleteSelected</td>
+                            <td>Dispatched</td>
+                            <td>
+                                <p>Receive this event in a parent component when an option is selected. Returns the selected object.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">@autocompleteItemHighlighted</td>
+                            <td>Dispatched</td>
+                            <td>
+                                <p>Receive this event in a parent component when an option in highlighted. Returns the highlighted object.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">@autocompleteOpened</td>
+                            <td>Dispatched</td>
+                            <td>
+                                <p>Receive this event in a parent component when the autcomplete box is opened.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">@autocompleteClosed</td>
+                            <td>Dispatched</td>
+                            <td>
+                                <p>Receive this event in a parent component when the autcomplete box is closed.</p>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </ui-tab>
