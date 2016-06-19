@@ -92,6 +92,18 @@ export default {
         showOnUpDown: {
             type: Boolean,
             default: true
+        },
+        autoHighlightFirstMatch: {
+            type: Boolean,
+            default: true
+        },
+        cycleThroughFirstAndLastItems: {
+            type: Boolean,
+            default: true
+        },
+        searchType: {
+            type: String,
+            default: 'fuzzy'
         }
     },
 
@@ -134,8 +146,9 @@ export default {
             if (!this.ignoreValueChange && this.value.length >= this.minChars) {
                 this.open();
             }
-
-            this.highlightedItem = 0;
+            if (this.autoHighlightFirstMatch) {
+                this.highlightedItem = 0;
+            }
         }
     },
 
@@ -148,6 +161,9 @@ export default {
     },
 
     methods: {
+        regExpEscape(s) {
+            return s.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
+        },
         search(item) {
             let text = item.text || item;
             let query = this.value;
@@ -155,7 +171,9 @@ export default {
             if (typeof this.value === 'string') {
                 query = this.value.toLowerCase();
             }
-
+            if (this.searchType === 'exact') {
+                return RegExp(this.regExpEscape(query), 'i').test(text);
+            }
             return fuzzysearch(query, text.toLowerCase());
         },
 
@@ -176,17 +194,25 @@ export default {
         },
 
         highlight(index) {
-            if (index < 0) {
+            var indexLimit = 0;
+            if (!this.cycleThroughFirstAndLastItems) {
+				indexLimit = -1;
+            }
+            if (index < indexLimit) {
                 index = this.$refs.items.length - 1;
-            } else if (index >= this.$refs.items.length) {
-                index = 0;
+            } else {
+                index = -1;
             }
 
             this.highlightedItem = index;
-            this.$dispatch('@autocompleteItemHighlighted', this.highlightedItem);
 
             if (this.showOnUpDown) {
                 this.open();
+            }
+            if (index !== -1) {
+                this.$dispatch('@autocompleteItemHighlighted', index, this.$refs.items[index].item);  
+            } else {
+                this.$dispatch('@autocompleteItemHighlighted', index);  
             }
         },
 
@@ -202,12 +228,15 @@ export default {
         },
 
         open() {
-            this.showDropdown = true;
-            this.$dispatch('@autocompleteOpened');
+            if (!this.showDropdown) {
+                this.showDropdown = true;
+                this.$dispatch('@autocompleteOpened');
+            }
         },
 
         close() {
             this.showDropdown = false;
+            this.highlightedItem = -1;
             this.$dispatch('@autocompleteClosed');
             this.validate();
         },

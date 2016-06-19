@@ -274,11 +274,27 @@
                             </tr>
 
                             <tr>
-                                <td>disabled</td>
-                                <td>Boolean</td>
-                                <td><code>false</code></td>
+                                <td>searchType</td>
+                                <td>String</td>
+                                <td>fuzzy</td>
                                 <td></td>
-                                <td>Determines whether or not the autocomplete is disabled. Set to <code>true</code> to disable the autocomplete.</td>
+                                <td>Set the search type. 'fuzzy' search returns items which may not be an exact match. 'exact' only returns those items that have a partial exact match.</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>autoHighlightFirstMatch</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td></td>
+                                <td>Determines whether the first matching item is automatically highlighted in the dropdown.</td>
+                            </tr>
+
+                            <tr>
+                                <td>cycleThroughFirstAndLastItems</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td></td>
+                                <td>Determines whether the up and down keys when used on the first and last items will cycle the highlighted item to the other end of the list.</td>
                             </tr>
                         </tbody>
                     </table>
