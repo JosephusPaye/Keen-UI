@@ -194,25 +194,37 @@ export default {
         },
 
         highlight(index) {
-            var indexLimit = 0;
-            if (!this.cycleThroughFirstAndLastItems) {
-				indexLimit = -1;
+            var outIndex = index;
+            // Handle moving from the first match to the bottom match
+            if (index === -1 && this.cycleThroughFirstAndLastItems) {
+                outIndex = this.$refs.items.length - 1;
             }
-            if (index < indexLimit) {
-                index = this.$refs.items.length - 1;
-            } else {
-                index = -1;
+            if (index < -1 && !this.cycleThroughFirstAndLastItems) {
+                outIndex = this.$refs.items.length - 1;
             }
 
-            this.highlightedItem = index;
+            // Handle moving from the last match to the top match
+            if (index === this.$refs.items.length && this.cycleThroughFirstAndLastItems) {
+                outIndex = 0;
+            }
+            if (index === this.$refs.items.length && !this.cycleThroughFirstAndLastItems) {
+                outIndex = -1;
+            }
+
+            this.highlightedItem = outIndex;
 
             if (this.showOnUpDown) {
                 this.open();
             }
-            if (index !== -1) {
-                this.$dispatch('@autocompleteItemHighlighted', index, this.$refs.items[index].item);  
+            if (outIndex !== -1) {
+                this.$dispatch('@autocompleteItemHighlighted', outIndex, this.$refs.items[outIndex].item);  
             } else {
-                this.$dispatch('@autocompleteItemHighlighted', index);  
+                this.$dispatch('@autocompleteItemHighlighted', outIndex);  
+            }
+            
+            // Prevents the cursor position from moving as people highlight items
+            if (this.$event.keyCode === 38) {
+                this.$event.preventDefault();
             }
         },
 
