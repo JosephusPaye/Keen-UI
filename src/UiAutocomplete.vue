@@ -92,6 +92,18 @@ export default {
         showOnUpDown: {
             type: Boolean,
             default: true
+        },
+        autoHighlightFirstMatch: {
+            type: Boolean,
+            default: true
+        },
+        cycleThroughFirstAndLastItems: {
+            type: Boolean,
+            default: true
+        },
+        searchType: {
+            type: String,
+            default: 'fuzzy'
         }
     },
 
@@ -134,8 +146,9 @@ export default {
             if (!this.ignoreValueChange && this.value.length >= this.minChars) {
                 this.open();
             }
-
-            this.highlightedItem = 0;
+            if (this.autoHighlightFirstMatch) {
+                this.highlightedItem = 0;
+            }
         }
     },
 
@@ -148,10 +161,19 @@ export default {
     },
 
     methods: {
+        regExpEscape(s) {
+            return s.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
+        },
         search(item) {
             let text = item.text || item;
-            let query = this.value.toLowerCase();
+            let query = this.value;
 
+            if (typeof this.value === 'string') {
+                query = this.value.toLowerCase();
+            }
+            if (this.searchType === 'exact') {
+                return RegExp(this.regExpEscape(query), 'i').test(text);
+            }
             return fuzzysearch(query, text.toLowerCase());
         },
 
@@ -161,8 +183,9 @@ export default {
             } else {
                 this.value = item.text || item;
             }
-
+            
             this.validate();
+            this.$dispatch('@autocompleteSelected', this.value, item);
 
             this.$nextTick(() => {
                 this.close();
@@ -171,16 +194,37 @@ export default {
         },
 
         highlight(index) {
-            if (index < 0) {
-                index = this.$refs.items.length - 1;
-            } else if (index >= this.$refs.items.length) {
-                index = 0;
+            var outIndex = index;
+            // Handle moving from the first match to the bottom match
+            if (index === -1 && this.cycleThroughFirstAndLastItems) {
+                outIndex = this.$refs.items.length - 1;
+            }
+            if (index < -1 && !this.cycleThroughFirstAndLastItems) {
+                outIndex = this.$refs.items.length - 1;
             }
 
-            this.highlightedItem = index;
+            // Handle moving from the last match to the top match
+            if (index === this.$refs.items.length && this.cycleThroughFirstAndLastItems) {
+                outIndex = 0;
+            }
+            if (index === this.$refs.items.length && !this.cycleThroughFirstAndLastItems) {
+                outIndex = -1;
+            }
+
+            this.highlightedItem = outIndex;
 
             if (this.showOnUpDown) {
                 this.open();
+            }
+            if (outIndex !== -1) {
+                this.$dispatch('@autocompleteItemHighlighted', outIndex, this.$refs.items[outIndex].item);  
+            } else {
+                this.$dispatch('@autocompleteItemHighlighted', outIndex);  
+            }
+            
+            // Prevents the cursor position from moving as people highlight items
+            if (this.$event.keyCode === 38) {
+                this.$event.preventDefault();
             }
         },
 
@@ -196,12 +240,16 @@ export default {
         },
 
         open() {
-            this.showDropdown = true;
+            if (!this.showDropdown) {
+                this.showDropdown = true;
+                this.$dispatch('@autocompleteOpened');
+            }
         },
 
         close() {
             this.showDropdown = false;
-
+            this.highlightedItem = -1;
+            this.$dispatch('@autocompleteClosed');
             this.validate();
         },
 

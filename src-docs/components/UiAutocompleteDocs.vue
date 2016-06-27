@@ -274,11 +274,27 @@
                             </tr>
 
                             <tr>
-                                <td>disabled</td>
-                                <td>Boolean</td>
-                                <td><code>false</code></td>
+                                <td>searchType</td>
+                                <td>String</td>
+                                <td>fuzzy</td>
                                 <td></td>
-                                <td>Determines whether or not the autocomplete is disabled. Set to <code>true</code> to disable the autocomplete.</td>
+                                <td>Set the search type. 'fuzzy' search returns items which may not be an exact match. 'exact' only returns those items that have a partial exact match.</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>autoHighlightFirstMatch</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td></td>
+                                <td>Determines whether the first matching item is automatically highlighted in the dropdown.</td>
+                            </tr>
+
+                            <tr>
+                                <td>cycleThroughFirstAndLastItems</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td></td>
+                                <td>Determines whether the up and down keys when used on the first and last items will cycle the highlighted item to the other end of the list.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -302,6 +318,34 @@
                             <td>
                                 <p>Trigger this event to reset the autocomplete to its initial state. This event resets the <code>value</code>, <code>valid</code> and <code>dirty</code> props.</p>
                                 <p>You can optionally pass in an <code>id</code> to reset only a specific autocomplete (whose <code>id</code> you have set).</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">@autocompleteSelected</td>
+                            <td>Dispatched</td>
+                            <td>
+                                <p>Receive this event in a parent component when an option is selected. Returns the selected object.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">@autocompleteItemHighlighted</td>
+                            <td>Dispatched</td>
+                            <td>
+                                <p>Receive this event in a parent component when an option in highlighted. Returns the highlighted object.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">@autocompleteOpened</td>
+                            <td>Dispatched</td>
+                            <td>
+                                <p>Receive this event in a parent component when the autcomplete box is opened.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="no-wrap">@autocompleteClosed</td>
+                            <td>Dispatched</td>
+                            <td>
+                                <p>Receive this event in a parent component when the autcomplete box is closed.</p>
                             </td>
                         </tr>
                     </tbody>
