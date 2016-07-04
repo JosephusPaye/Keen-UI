@@ -18,7 +18,7 @@
                 <input
                     class="ui-textbox-input" :type="type" :placeholder="placeholder" :name="name"
                     :id="id" :number="type === 'number' ? true : null" :min="minValue"
-                    :max="maxValue" :step="stepValue" :autocomplete="autocomplete ? null : 'off'"
+                    :max="maxValue" :step="stepValue" :autocomplete="autocomplete"
 
                     @focus="focussed" @blur="blurred" @change="changed" @keydown="keydown"
                     @keydown.enter="keydownEnter" debounce="debounce"
@@ -89,8 +89,8 @@ export default {
             default: false
         },
         autocomplete: {
-            type: Boolean,
-            default: true
+            type: String,
+            default: 'off'
         },
         min: Number,
         max: Number,

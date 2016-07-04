@@ -1,3 +1,15 @@
+## v0.8.9 (Release date here)
+
+### New
+*
+
+### Fixes
+*
+
+### Breaking
+* UiTextbox: `autocomplete` prop type changed to String, to allow for configuring browser autocomplete
+
+
 ## v0.8.8 (May 21, 2016)
 
 ### New
