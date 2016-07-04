@@ -1,14 +1,17 @@
 <template>
     <div class="ui-snackbar-container" :class="[position]">
         <ui-snackbar
-            :message="s.message" :duration="s.duration" :show.sync="s.show" :action="s.action"
+            :duration="s.duration" :show.sync="s.show" :action="s.action"
             :action-color="s.actionColor" :persistent="s.persistent" :id="s.id" auto-hide
 
             @shown="shown(s)" @hidden="hidden(s)" @clicked="clicked(s)"
             @action-clicked="actionClicked(s)"
 
             v-for="s in queue"
-        ></ui-snackbar>
+        >
+            <div v-html="s.message" v-if="s.allowHtml"></div>
+            <span v-text="s.message" v-else></span>
+        </ui-snackbar>
     </div>
 </template>
 

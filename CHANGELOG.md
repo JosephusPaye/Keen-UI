@@ -3,6 +3,7 @@
 ### New
 * Add `autofocus` prop for UiTextbox and UiAutocomplete
 * Add `buttonType` prop to UiButton and UiIconButton
+* UiSnackbarContainer: Add `allowHtml` attribute to snackbar object, which allows for HTML in the `message` attribute
 
 ### Fixes
 * UiTextbox and UiAutocomplete: Fix `debounce` prop handling
