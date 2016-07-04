@@ -380,7 +380,7 @@ export default {
 }
 
 .ui-icon-button-icon {
-    width: initial; // Firefox: needs the width and height reset for flexbox centering
+    width: 100%; // Firefox: needs the width and height reset for flexbox centering
     height: initial;
 }
 </style>

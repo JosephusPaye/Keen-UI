@@ -5,7 +5,8 @@
 * Add `buttonType` prop to UiButton and UiIconButton
 
 ### Fixes
-* Fix `debounce` prop handling on UiTextbox and UiAutocomplete
+* UiTextbox and UiAutocomplete: Fix `debounce` prop handling
+* UiFab and UiIconButton: Set icon width to `100%` to fix horizontal centering in Safari on macOS
 
 ### Breaking
 * UiTextbox: `autocomplete` prop type changed to String, to allow for configuring browser autocomplete
