@@ -21,7 +21,7 @@
 
                 <input
                     class="ui-autocomplete-input" :placeholder="placeholder" :name="name"
-                    :id="id" autocomplete="off"
+                    :id="id" autocomplete="off" v-autofocus="autofocus"
 
                     @focus="focus" @blur="blur" @keydown.up="highlight(highlightedItem - 1)"
                     @keydown.down="highlight(highlightedItem + 1)" @keydown.tab="close"
@@ -61,6 +61,7 @@ import fuzzysearch from 'fuzzysearch';
 import UiIcon from './UiIcon.vue';
 import UiAutocompleteSuggestion from './UiAutocompleteSuggestion.vue';
 
+import autofocus from '../directives/autofocus';
 import HasTextInput from './mixins/HasTextInput';
 import ValidatesInput from './mixins/ValidatesInput';
 
@@ -92,6 +93,10 @@ export default {
         showOnUpDown: {
             type: Boolean,
             default: true
+        },
+        autofocus: {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -227,6 +232,10 @@ export default {
     components: {
         UiIcon,
         UiAutocompleteSuggestion
+    },
+
+    directives: {
+        autofocus
     },
 
     mixins: [

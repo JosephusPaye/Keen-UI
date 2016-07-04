@@ -19,6 +19,7 @@
                     class="ui-textbox-input" :type="type" :placeholder="placeholder" :name="name"
                     :id="id" :number="type === 'number' ? true : null" :min="minValue"
                     :max="maxValue" :step="stepValue" :autocomplete="autocomplete"
+                    v-autofocus="autofocus"
 
                     @focus="focussed" @blur="blurred" @change="changed" @keydown="keydown"
                     @keydown.enter="keydownEnter" debounce="debounce"
@@ -60,6 +61,7 @@
 <script>
 import UiIcon from './UiIcon.vue';
 
+import autofocus from '../directives/autofocus';
 import HasTextInput from './mixins/HasTextInput';
 import ValidatesInput from './mixins/ValidatesInput';
 
@@ -91,6 +93,10 @@ export default {
         autocomplete: {
             type: String,
             default: 'off'
+        },
+        autofocus: {
+            type: Boolean,
+            default: false
         },
         min: Number,
         max: Number,
@@ -238,6 +244,10 @@ export default {
 
     components: {
         UiIcon
+    },
+
+    directives: {
+        autofocus
     },
 
     mixins: [
