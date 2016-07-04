@@ -35,7 +35,10 @@
             :dropdown-position="dropdownPosition" v-if="hasDropdownMenu"
         ></ui-menu>
 
-        <ui-popover :trigger="$els.button" :open-on="openDropdownOn" v-if="hasPopover">
+        <ui-popover
+            :trigger="$els.button" :open-on="openDropdownOn" :dropdown-position="dropdownPosition"
+            v-if="hasPopover"
+        >
             <slot name="popover"></slot>
         </ui-popover>
     </button>
