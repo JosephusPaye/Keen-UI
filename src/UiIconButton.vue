@@ -1,7 +1,7 @@
 <template>
     <button
         class="ui-icon-button" :class="styleClasses" :aria-label="ariaLabel || tooltip"
-        v-disabled="disabled || loading" v-el:button
+        :type="buttonType" v-disabled="disabled || loading" v-el:button
     >
         <ui-icon
             class="ui-icon-button-icon" :icon="icon" v-show="!loading"
@@ -73,6 +73,10 @@ export default {
         disabled: {
             type: Boolean,
             default: false
+        },
+        buttonType: {
+            type: String,
+            default: 'button'
         }
     },
 

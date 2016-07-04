@@ -2,6 +2,7 @@
 
 ### New
 * Add `autofocus` prop for UiTextbox and UiAutocomplete
+* Add `buttonType` prop to UiButton and UiIconButton
 
 ### Fixes
 * Fix `debounce` prop handling on UiTextbox and UiAutocomplete

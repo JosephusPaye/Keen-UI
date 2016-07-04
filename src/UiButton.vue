@@ -1,6 +1,6 @@
 <template>
     <button
-        class="ui-button" :class="styleClasses" v-disabled="disabled || loading"
+        class="ui-button" :class="styleClasses" :type="buttonType" v-disabled="disabled || loading"
         v-el:button
     >
         <div class="ui-button-content" :class="{ 'invisible': loading }">
@@ -91,6 +91,10 @@ export default {
         disabled: {
             type: Boolean,
             default: false
+        },
+        buttonType: {
+            type: String,
+            default: 'submit'
         }
     },
 
