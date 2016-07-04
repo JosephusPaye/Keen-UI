@@ -4,7 +4,7 @@
             class="ui-alert-body" :class="[type]" role="alert" v-show="show"
             transition="ui-alert-toggle"
         >
-            <ui-icon class="ui-alert-icon" :icon="icon" v-if="!hideIcon"></ui-icon>
+            <ui-icon class="ui-alert-icon" :icon="iconName" v-if="!hideIcon"></ui-icon>
 
             <div class="ui-alert-text">
                 <slot>
@@ -48,15 +48,19 @@ export default {
         }
     },
 
-    created() {
-        if (!this.icon) {
-            var icon = this.type;
+    computed: {
+        iconName() {
+            if (this.icon) {
+                return this.icon;
+            }
 
-            if (this.type === 'success') {
+            let icon = this.type;
+
+            if (icon === 'success') {
                 icon = 'check_circle';
             }
 
-            this.icon = icon;
+            return icon;
         }
     },
 
