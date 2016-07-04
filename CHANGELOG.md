@@ -1,7 +1,7 @@
 ## v0.8.9 (Release date here)
 
 ### New
-*
+* Add `autofocus` prop for UiTextbox and UiAutocomplete
 
 ### Fixes
 *
