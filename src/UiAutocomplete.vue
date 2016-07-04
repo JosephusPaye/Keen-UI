@@ -61,7 +61,7 @@ import fuzzysearch from 'fuzzysearch';
 import UiIcon from './UiIcon.vue';
 import UiAutocompleteSuggestion from './UiAutocompleteSuggestion.vue';
 
-import autofocus from '../directives/autofocus';
+import autofocus from './directives/autofocus';
 import HasTextInput from './mixins/HasTextInput';
 import ValidatesInput from './mixins/ValidatesInput';
 
