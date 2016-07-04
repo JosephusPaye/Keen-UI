@@ -21,7 +21,7 @@
 
                 <input
                     class="ui-autocomplete-input" :placeholder="placeholder" :name="name"
-                    :id="id" autocomplete="off" v-autofocus="autofocus"
+                    :id="id" autocomplete="off" v-autofocus="autofocus" :debounce="debounce"
 
                     @focus="focus" @blur="blur" @keydown.up="highlight(highlightedItem - 1)"
                     @keydown.down="highlight(highlightedItem + 1)" @keydown.tab="close"

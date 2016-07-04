@@ -4,7 +4,7 @@
 * Add `autofocus` prop for UiTextbox and UiAutocomplete
 
 ### Fixes
-*
+* Fix `debounce` prop handling on UiTextbox and UiAutocomplete
 
 ### Breaking
 * UiTextbox: `autocomplete` prop type changed to String, to allow for configuring browser autocomplete

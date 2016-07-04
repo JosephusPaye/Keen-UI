@@ -22,7 +22,7 @@
                     v-autofocus="autofocus"
 
                     @focus="focussed" @blur="blurred" @change="changed" @keydown="keydown"
-                    @keydown.enter="keydownEnter" debounce="debounce"
+                    @keydown.enter="keydownEnter" :debounce="debounce"
 
                     v-model="value | trim" v-disabled="disabled" v-if="!multiLine"
                 >
@@ -32,7 +32,7 @@
                     :rows="rows"
 
                     @focus="focussed" @blur="blurred" @change="changed" @keydown="keydown"
-                    @keydown.enter="keydownEnter" debounce="debounce"
+                    @keydown.enter="keydownEnter" :debounce="debounce"
 
                     v-model="value | trim" v-disabled="disabled" v-else
                 ></textarea>
