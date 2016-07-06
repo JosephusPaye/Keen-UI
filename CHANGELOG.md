@@ -13,6 +13,7 @@
 * UiFab and UiIconButton: Set icon width to `100%` to fix horizontal centering in Safari on macOS
 * UiButton and UiIconButton: Fix `dropdownPosition` prop not being passed to UiPopover
 * UiAlert: Fix reactivity of `icon` prop
+* UiModal, UiMenu and UiPopover: Make sure `lastFocussedElement` exists before attempting to return the focus. This fixes an error with Webpack hot reloading (thanks @lesion).
 
 ### Breaking
 * UiTextbox: `autocomplete` prop type changed to String, to allow for configuring browser autocomplete

@@ -79,7 +79,9 @@ export default {
         dropdownClosed() {
             $(this.trigger).removeClass('dropdown-open');
 
-            this.lastFocussedElement.focus();
+            if (this.lastFocussedElement) {
+                this.lastFocussedElement.focus();
+            }
 
             this.$dispatch('dropdown-closed');
         }
