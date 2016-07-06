@@ -31,7 +31,7 @@ export default {
         },
         color: {
             type: String,
-            default: 'color-primary', // 'primary', 'accent', 'black' or 'white'
+            default: 'primary', // 'primary', 'accent', 'black' or 'white'
             coerce(color) {
                 return 'color-' + color;
             }
