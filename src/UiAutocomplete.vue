@@ -23,8 +23,8 @@
                     class="ui-autocomplete-input" :placeholder="placeholder" :name="name"
                     :id="id" autocomplete="off" v-autofocus="autofocus" :debounce="debounce"
 
-                    @focus="focus" @blur="blur" @keydown.up="highlight(highlightedItem - 1)"
-                    @keydown.down="highlight(highlightedItem + 1)" @keydown.tab="close"
+                    @focus="focus" @blur="blur" @keydown.up.prevent="highlight(highlightedItem - 1)"
+                    @keydown.down.prevent="highlight(highlightedItem + 1)" @keydown.tab="close"
                     @keydown.enter="selectHighlighted(highlightedItem, $event)"
 
                     v-model="value" v-disabled="disabled" v-el:input
@@ -97,6 +97,15 @@ export default {
         autofocus: {
             type: Boolean,
             default: false
+        },
+        filter: Function,
+        autoHighlightFirstMatch: {
+            type: Boolean,
+            default: true
+        },
+        cycleHighlight: {
+            type: Boolean,
+            default: true
         }
     },
 
@@ -140,7 +149,7 @@ export default {
                 this.open();
             }
 
-            this.highlightedItem = 0;
+            this.highlightedItem = this.autoHighlightFirstMatch ? 0 : -1;
         }
     },
 
@@ -154,8 +163,12 @@ export default {
 
     methods: {
         search(item) {
+            if (this.filter) {
+                return this.filter(item, this.value);
+            }
+
             let text = item.text || item;
-            let query = this.value.toLowerCase();
+            let query = (typeof this.value === 'string') ? this.value.toLowerCase() : this.value;
 
             return fuzzysearch(query, text.toLowerCase());
         },
@@ -167,6 +180,8 @@ export default {
                 this.value = item.text || item;
             }
 
+            this.$dispatch('selected', item);
+
             this.validate();
 
             this.$nextTick(() => {
@@ -176,16 +191,27 @@ export default {
         },
 
         highlight(index) {
-            if (index < 0) {
-                index = this.$refs.items.length - 1;
-            } else if (index >= this.$refs.items.length) {
-                index = 0;
+            let firstIndex = 0;
+            let lastIndex = this.$refs.items.length - 1;
+
+            if (index === -2) { // Allows for cycling from first to last when cycling is disabled
+                index = lastIndex;
+            } else if (index < firstIndex) {
+                index = this.cycleHighlight ? lastIndex : index;
+            } else if (index > lastIndex) {
+                index = this.cycleHighlight ? firstIndex : -1;
             }
 
             this.highlightedItem = index;
 
             if (this.showOnUpDown) {
                 this.open();
+            }
+
+            if (index < firstIndex || index > lastIndex) {
+                this.$dispatch('highlight-overflow', index);
+            } else {
+                this.$dispatch('highlighted', this.$refs.items[index].item, index);
             }
         },
 
@@ -201,13 +227,20 @@ export default {
         },
 
         open() {
-            this.showDropdown = true;
+            if (!this.showDropdown) {
+                this.showDropdown = true;
+                this.$dispatch('opened');
+            }
         },
 
         close() {
-            this.showDropdown = false;
+            if (this.showDropdown) {
+                this.showDropdown = false;
+                this.highlightedItem = -1;
 
-            this.validate();
+                this.$dispatch('closed');
+                this.validate();
+            }
         },
 
         closeOnExternalClick(e) {

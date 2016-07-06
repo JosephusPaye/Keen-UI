@@ -4,6 +4,9 @@
 * Add `autofocus` prop for UiTextbox and UiAutocomplete
 * Add `buttonType` prop to UiButton and UiIconButton
 * UiSnackbarContainer: Add `allowHtml` attribute to snackbar object, which allows for HTML in the `message` attribute
+* UiAutocomplete: Add new `filter` prop for defining a custom search filter function
+* UiAutocomplete: Add `highlighted`, `highlight-overflow` and `selected` events (thanks @rowanwins)
+* UiAutocomplete: Add `autoHighlightFirstMatch` and `cycleHighlight` props for customizing highlight behaviour (thanks @rowanwins)
 
 ### Fixes
 * UiTextbox and UiAutocomplete: Fix `debounce` prop handling
