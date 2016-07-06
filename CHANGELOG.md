@@ -1,8 +1,8 @@
 ## v0.8.9 (Release date here)
 
 ### New
-* Add `autofocus` prop for UiTextbox and UiAutocomplete
-* Add `buttonType` prop to UiButton and UiIconButton
+* UiTextbox and UiAutocomplete: Add `autofocus` prop
+* UiButton and UiIconButton: Add `buttonType` prop
 * UiSnackbarContainer: Add `allowHtml` attribute to snackbar object, which allows for HTML in the `message` attribute
 * UiAutocomplete: Add new `filter` prop for defining a custom search filter function
 * UiAutocomplete: Add `highlighted`, `highlight-overflow` and `selected` events (thanks @rowanwins)
