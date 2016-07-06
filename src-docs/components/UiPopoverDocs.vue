@@ -52,6 +52,20 @@
 
                 <p>Add <i>whatever</i> content you want here.</p>
             </ui-popover>
+
+            <h4>Can be opened and closed using events</h4>
+
+            <ui-button @click="openPopover('popover-e')">Click to open</ui-button>
+
+            <br><br>
+
+            <a v-el:trigger-e class="link-trigger">Default trigger (click to open)</a>
+
+            <ui-popover :trigger="$els.triggerE" id="popover-e">
+                Hey there, some popover content here.
+
+                <p>Add <i>whatever</i> content you want here.</p>
+            </ui-popover>
         </div>
 
         <h3>API</h3>
@@ -176,6 +190,16 @@ export default {
         return {
             menuOptions
         };
+    },
+
+    methods: {
+        openPopover(id) {
+            // Use timeout so the popover is open and then immediately closed due to the current
+            // click event
+            setTimeout(() => {
+                this.$broadcast('ui-dropdown::open', id);
+            }, 100);
+        }
     },
 
     components: {
