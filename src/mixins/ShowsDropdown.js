@@ -1,8 +1,11 @@
 import $ from 'dominus';
 import Drop from 'tether-drop';
 
+import ReceivesTargetedEvent from './ReceivesTargetedEvent';
+
 export default {
     props: {
+        id: String,
         trigger: Element,
         containFocus: {
             type: Boolean,
@@ -38,6 +41,35 @@ export default {
         }
     },
 
+    events: {
+        'ui-dropdown::open'(id) {
+            // Abort if event isn't meant for this component
+            if (!this.eventTargetsComponent(id)) {
+                return;
+            }
+
+            this.openDropdown();
+        },
+
+        'ui-dropdown::close'(id) {
+            // Abort if event isn't meant for this component
+            if (!this.eventTargetsComponent(id)) {
+                return;
+            }
+
+            this.closeDropdown();
+        },
+
+        'ui-dropdown::toggle'(id) {
+            // Abort if event isn't meant for this component
+            if (!this.eventTargetsComponent(id)) {
+                return;
+            }
+
+            this.toggleDropdown();
+        }
+    },
+
     methods: {
         initializeDropdown() {
             this.drop = new Drop({
@@ -61,9 +93,21 @@ export default {
             this.drop.on('close', this.dropdownClosed);
         },
 
+        openDropdown() {
+            if (this.drop) {
+                this.drop.open();
+            }
+        },
+
         closeDropdown() {
             if (this.drop) {
                 this.drop.close();
+            }
+        },
+
+        toggleDropdown(e) {
+            if (this.drop) {
+                this.drop.toggle(e);
             }
         },
 
@@ -85,5 +129,9 @@ export default {
 
             this.$dispatch('dropdown-closed');
         }
-    }
+    },
+
+    mixins: [
+        ReceivesTargetedEvent
+    ]
 };

@@ -7,6 +7,7 @@
 * UiAutocomplete: Add new `filter` prop for defining a custom search filter function
 * UiAutocomplete: Add `highlighted`, `highlight-overflow` and `selected` events (thanks @rowanwins)
 * UiAutocomplete: Add `autoHighlightFirstMatch` and `cycleHighlight` props for customizing highlight behaviour (thanks @rowanwins)
+* UiMenu and UiPopover: Add `ui-dropdown::open`, `ui-dropdown::close` and `ui-dropdown::toggle` events
 
 ### Fixes
 * UiTextbox and UiAutocomplete: Fix `debounce` prop handling
