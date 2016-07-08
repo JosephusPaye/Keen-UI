@@ -51,10 +51,12 @@ var startRipple = function startRipple(eventType, event) {
     if (rect.width === rect.height) {
         max = rect.width * 1.412;
     } else {
-        max = Math.sqrt(rect.width * rect.width + rect.height * rect.height);
+        max = Math.sqrt(
+            (rect.width * rect.width) + (rect.height * rect.height)
+        );
     }
 
-    var dim = max * 2 + 'px';
+    var dim = (max * 2) + 'px';
 
     ripple.style.width = dim;
     ripple.style.height = dim;

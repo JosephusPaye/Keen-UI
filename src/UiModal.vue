@@ -100,7 +100,7 @@ export default {
     },
 
     watch: {
-        'show'() {
+        show() {
             this.$nextTick(() => {
                 if (this.show) {
                     this.opened();

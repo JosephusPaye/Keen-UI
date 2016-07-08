@@ -41,7 +41,7 @@ export default {
     },
 
     events: {
-        'ui-snackbar::create'(snackbar) {
+        'ui-snackbar::create': function(snackbar) {
             snackbar.show = false;
             snackbar.id = snackbar.id || UUID.short('ui-snackbar-');
             snackbar.duration = snackbar.duration || this.defaultDuration;

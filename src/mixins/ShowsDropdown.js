@@ -42,7 +42,7 @@ export default {
     },
 
     events: {
-        'ui-dropdown::open'(id) {
+        'ui-dropdown::open': function(id) {
             // Abort if event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
                 return;
@@ -51,7 +51,7 @@ export default {
             this.openDropdown();
         },
 
-        'ui-dropdown::close'(id) {
+        'ui-dropdown::close': function(id) {
             // Abort if event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
                 return;
@@ -60,7 +60,7 @@ export default {
             this.closeDropdown();
         },
 
-        'ui-dropdown::toggle'(id) {
+        'ui-dropdown::toggle': function(id) {
             // Abort if event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
                 return;
