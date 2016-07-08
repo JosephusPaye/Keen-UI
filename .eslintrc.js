@@ -48,6 +48,7 @@ module.exports = {
         'prefer-arrow-callback': 'off',
         'prefer-template': 'off',
         'no-multi-spaces': 'off',
+        'no-underscore-dangle': 'off',
 
         'consistent-return': 'off',
         'no-console': 'off',
