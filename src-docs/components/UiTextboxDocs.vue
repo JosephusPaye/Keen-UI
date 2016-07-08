@@ -70,7 +70,7 @@
             <ui-textbox
                 label="Name" name="name" type="text" placeholder="Enter your name"
                 help-text="If you have multiple names, enter the one you prefer"
-                validation-rules="required" :autocomplete="false"
+                validation-rules="required" autocomplete="off"
             ></ui-textbox>
 
             <h4>With validation and counter (max length)</h4>
@@ -91,7 +91,7 @@
                 label="Email" name="email" type="email" placeholder="Enter your email"
                 help-text="If you have multiple email addresses, enter the one you use most often"
                 validation-rules="required|email|min:10|max:64" validate-on-blur
-                :autocomplete="false"
+                autocomplete="off"
             ></ui-textbox>
 
             <h4>With custom validation messages</h4>
@@ -101,7 +101,7 @@
             <ui-textbox
                 label="Email" name="email" type="text" placeholder="Enter your email"
                 help-text="If you have multiple email addresses, enter the one you use most often"
-                validation-rules="required|email" :autocomplete="false"
+                validation-rules="required|email" autocomplete="off"
                 :validation-messages="validationErrorMessages"
             ></ui-textbox>
 
@@ -248,10 +248,14 @@
 
                             <tr>
                                 <td>autocomplete</td>
-                                <td>Boolean</td>
-                                <td><code>true</code></td>
+                                <td>String</td>
+                                <td><code>"on"</code></td>
                                 <td></td>
-                                <td>Determines whether or not the browser's autocomplete feature is allowed for the input. Set to <code>false</code> to disable browser autocomplete (in browsers that support it).</td>
+                                <td>
+                                    <p>Determines whether or not the browser's autocomplete feature is allowed for the input. It can also be used to customize the type of suggestions the browser should offer. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-autocomplete">here for more info</a>.</p>
+
+                                    <p>Set to <code>"off"</code> to disable browser autocomplete (in browsers that support it).</p>
+                                </td>
                             </tr>
 
                             <tr>

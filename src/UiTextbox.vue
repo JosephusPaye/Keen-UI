@@ -92,7 +92,7 @@ export default {
         },
         autocomplete: {
             type: String,
-            default: 'off'
+            default: 'on'
         },
         autofocus: {
             type: Boolean,
