@@ -73,6 +73,16 @@
                 validation-rules="required" autocomplete="off"
             ></ui-textbox>
 
+            <h4>Set validation state externally</h4>
+
+            <ui-textbox
+                label="Name" name="name" type="text" placeholder="Enter your name"
+                help-text="If you have multiple names, enter the one you prefer"
+                autocomplete="off" id="set-validation-state" :valid.sync="isValid"
+            ></ui-textbox>
+
+            <ui-button class="m-t-8" @click="toggleValidity">Toggle validity</ui-button>
+
             <h4>With validation and counter (max length)</h4>
 
             <p>Validation rules: <code>"min:8|max:16"</code></p>
@@ -132,7 +142,7 @@
                 validation-rules="max:256"
             ></ui-textbox>
 
-            <ui-button @click="resetFields">Reset all fields</ui-button>
+            <ui-button class="m-t-24" @click="resetFields">Reset all fields</ui-button>
         </div>
 
         <h3>API</h3>
@@ -484,22 +494,37 @@ export default {
             validationErrorMessages: {
                 required: 'Please enter your email. We won\'t be able to contact you without an email address.',
                 email: 'Oops, the email address you have entered seems to be wrong. Double check?'
-            }
+            },
+            isValid: true
         };
     },
 
     methods: {
         resetFields() {
             this.$broadcast('ui-input::reset');
+        },
+
+        toggleValidity() {
+            this.$broadcast(
+                'ui-input::set-validity', !this.isValid,
+                'The input is not valid. This error message was set externally.',
+                'set-validation-state'
+            );
         }
     }
-}
+};
 </script>
 
 <style lang="stylus">
 .section-ui-textbox {
     .ui-button {
-        margin-top: 24px;
+        &.m-t-8 {
+            margin-top: 8px;
+        }
+
+        &.m-t-24 {
+            margin-top: 24px;
+        }
     }
 }
 </style>
