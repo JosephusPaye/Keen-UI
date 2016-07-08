@@ -26,6 +26,17 @@ export default {
         };
     },
 
+    events: {
+        'ui-input::set-validity': function(valid, error, id) {
+            // Abort if event isn't meant for this component
+            if (!this.eventTargetsComponent(id)) {
+                return;
+            }
+
+            this.setValidity(valid, error);
+        }
+    },
+
     methods: {
         validate() {
             if (!this.validationRules || !this.dirty) {
@@ -41,12 +52,17 @@ export default {
             };
 
             let validation = new Validator(data, rules, this.validationMessages);
+
             validation.setAttributeNames({ value: this.name.replace(/_/g, ' ') });
 
-            this.valid = validation.passes();
+            this.setValidity(validation.passes(), validation.errors.first('value'));
+        },
 
-            if (!this.valid) {
-                this.validationError = validation.errors.first('value');
+        setValidity(valid, error) {
+            this.valid = valid;
+
+            if (!valid && error && error.length) {
+                this.validationError = error;
             }
         }
     }

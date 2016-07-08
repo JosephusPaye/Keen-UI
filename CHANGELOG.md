@@ -8,6 +8,7 @@
 * UiAutocomplete: Add `highlighted`, `highlight-overflow` and `selected` events (thanks @rowanwins)
 * UiAutocomplete: Add `autoHighlightFirstMatch` and `cycleHighlight` props for customizing highlight behaviour (thanks @rowanwins)
 * UiMenu and UiPopover: Add `ui-dropdown::open`, `ui-dropdown::close` and `ui-dropdown::toggle` events
+* UiAutocomplete, UiSelect and UiTextbox: Add `ui-input::set-validity` event for setting the validity and a custom error message from outside the component
 
 ### Fixes
 * UiTextbox and UiAutocomplete: Fix `debounce` prop handling
