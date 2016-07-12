@@ -52,12 +52,16 @@ export default {
     },
 
     partials: {
-        'ui-select-simple':
-            '<li class="ui-select-item-text" v-text="option.text"></li>',
+        'ui-select-simple': '<li class="ui-select-item-text" v-text="option.text"></li>',
 
-        'ui-select-image':
-            `<div class="ui-select-item-image" :style="{ 'background-image': 'url(' + option.image + ')' }"></div>
-            <div class="ui-select-item-text" v-text="option.text"></div>`
+        'ui-select-image': `
+            <div
+                class="ui-select-item-image"
+                :style="{ 'background-image': 'url(' + option.image + ')' }"
+            ></div>
+
+            <div class="ui-select-item-text" v-text="option.text"></div>
+        `
     }
 };
 </script>

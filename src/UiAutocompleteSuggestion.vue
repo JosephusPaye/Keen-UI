@@ -35,12 +35,14 @@ export default {
     },
 
     partials: {
-        'ui-autocomplete-simple':
-            '<li class="ui-autocomplete-suggestion-item" v-text="item.text || item"></li>',
+        'ui-autocomplete-simple': `
+            <li class="ui-autocomplete-suggestion-item" v-text="item.text || item"></li>
+        `,
 
-        'ui-autocomplete-image':
-            `<div class="image" :style="{ 'background-image': 'url(' + item.image + ')' }"></div>
-            <div class="text" v-text="item.text"></div>`
+        'ui-autocomplete-image': `
+            <div class="image" :style="{ 'background-image': 'url(' + item.image + ')' }"></div>
+            <div class="text" v-text="item.text"></div>
+        `
     }
 };
 </script>
