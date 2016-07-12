@@ -24,6 +24,7 @@
 * UiModal, UiMenu and UiPopover: Make sure `lastFocussedElement` exists before attempting to return the focus. This fixes an error with Webpack hot reloading (thanks @lesion).
 * UiProgressLinear: Fix color incorrectly defaulting to `"color-color-primary"` (thanks @lesion)
 * UiMenu and UiPopover: Automatically adjust horizontal positioning to keep dropdown in the viewport (thanks @AlexandreBonaventure)
+* UiAutocomplete, UiTextbox, UiSelect: Update `validation-rules` prop to accept Array, for specifying regex validation rules that use the pipe `|` character.
 
 ### Breaking
 * UiTextbox: `autocomplete` prop type changed to String, to allow for configuring browser autocomplete
