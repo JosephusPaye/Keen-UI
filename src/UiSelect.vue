@@ -411,7 +411,7 @@ export default {
 
                 for (let i = 0; i < this.options.length; i++) {
                     for (let j = 0; j < defaults.length; j++) {
-                        if (this.options[i] === defaults[j]) {
+                        if (this.options[i].value === defaults[j].value) {
                             this.select(this.options[i], i, false);
                             break;
                         }
@@ -422,7 +422,7 @@ export default {
             }
 
             for (let i = 0; i < this.options.length; i++) {
-                if (this.options[i] === defaults) {
+                if (this.options[i].value === defaults.value) {
                     this.select(this.options[i], i, false);
                     break;
                 }

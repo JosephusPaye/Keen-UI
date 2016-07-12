@@ -19,7 +19,7 @@
 
             <ui-select
                 name="color" label="Favourite color" :options="colors" placeholder="Select a color"
-                :default="colors[0]"
+                :default="colorSelect"
             ></ui-select>
 
             <h4>With images</h4>
@@ -659,6 +659,11 @@ export default {
     data() {
         return {
             colors,
+            colorSelect: {
+                text: 'Pink',
+                image: 'https://placehold.it/64/ffc0cb/ffc0cb',
+                value: 'pink'
+            },
             dynamicSelect: {
                 value: null,
                 options: [],
