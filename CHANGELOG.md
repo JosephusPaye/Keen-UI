@@ -17,6 +17,7 @@
 * UiAlert: Fix reactivity of `icon` prop
 * UiModal, UiMenu and UiPopover: Make sure `lastFocussedElement` exists before attempting to return the focus. This fixes an error with Webpack hot reloading (thanks @lesion).
 * UiProgressLinear: Fix color incorrectly defaulting to color-color-primary (thanks @lesion)
+* UiMenu and UiPopover: Automatically adjust horizontal positioning to keep dropdown in the viewport (thanks @AlexandreBonaventure)
 
 ### Breaking
 * UiTextbox: `autocomplete` prop type changed to String, to allow for configuring browser autocomplete
