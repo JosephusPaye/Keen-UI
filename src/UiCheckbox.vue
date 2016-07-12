@@ -33,7 +33,7 @@ export default {
     props: {
         name: String,
         model: {
-            type: [Array, Boolean],
+            type: [Array, String, Boolean],
             required: true,
             twoWay: true
         },
