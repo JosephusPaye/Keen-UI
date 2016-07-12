@@ -8,7 +8,6 @@
   font-size: 15px;
   line-height: 1.4em;
   overflow: hidden;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   width: 100%;
@@ -21,9 +20,8 @@
   text-decoration: underline;
 }
 .ui-alert .ui-alert-close-button {
-  -webkit-flex-shrink: 0;
-      -ms-flex-negative: 0;
-          flex-shrink: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   width: 32px;
   height: 32px;
   margin-right: -8px;
@@ -44,15 +42,12 @@ body[modality="keyboard"] .ui-alert .ui-alert-close-button:focus {
   width: 100%;
   min-height: 52px;
   padding: 12px 16px;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-direction: row;
+      flex-direction: row;
+  -ms-flex-align: center;
+      align-items: center;
 }
 .ui-alert-body.error {
   background-color: rgba(244,67,54,0.12);
@@ -91,15 +86,13 @@ body[modality="keyboard"] .ui-alert .ui-alert-close-button:focus {
   color: #ff9800;
 }
 .ui-alert-icon {
-  -webkit-flex-shrink: 0;
-      -ms-flex-negative: 0;
-          flex-shrink: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   margin-right: 12px;
 }
 .ui-alert-text {
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
   color: rgba(0,0,0,0.75);
 }
 .ui-alert-toggle-transition {
@@ -151,15 +144,12 @@ body[modality="keyboard"] .ui-alert .ui-alert-close-button:focus {
   position: relative;
   overflow: hidden;
   -webkit-mask-image: -webkit-radial-gradient(circle, #fff, #000);
-  display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -351,7 +341,7 @@ body[modality="keyboard"] .ui-icon-button-clear.color-black:focus {
   color: rgba(0,0,0,0.54);
 }
 .ui-icon-button-icon {
-  width: initial;
+  width: 100%;
   height: initial;
 }
 .ui-menu {
@@ -398,12 +388,10 @@ body[modality="keyboard"] .ui-icon-button-clear.color-black:focus {
   background-color: rgba(0,0,0,0.08);
 }
 .ui-menu-item:not(.divider) {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
   padding: 8px 16px;
   width: 100%;
   text-decoration: none;
@@ -434,14 +422,12 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
   color: rgba(0,0,0,0.54);
 }
 .ui-menu-item-text {
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
 }
 .ui-menu-item-secondary-text {
-  -webkit-flex-shrink: 0;
-      -ms-flex-negative: 0;
-          flex-shrink: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   margin-left: 4px;
   font-size: 13px;
   color: rgba(0,0,0,0.38);
@@ -470,18 +456,14 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
   background-color: currentColor;
   background-clip: padding-box;
   opacity: 0.2;
-  -webkit-transform: scale(0);
-      -ms-transform: scale(0);
-          transform: scale(0);
-  transition: opacity 0.4s ease-out, -webkit-transform 0.4s ease-out;
+  -ms-transform: scale(0);
+      transform: scale(0);
   transition: transform 0.4s ease-out, opacity 0.4s ease-out;
-  transition: transform 0.4s ease-out, opacity 0.4s ease-out, -webkit-transform 0.4s ease-out;
 }
 .ui-ripple-ink .ripple.held {
   opacity: 0.4;
-  -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-          transform: scale(1);
+  -ms-transform: scale(1);
+      transform: scale(1);
 }
 .ui-ripple-ink .ripple.done {
   opacity: 0 !important;
@@ -496,9 +478,8 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
   position: relative;
 }
 .ui-progress-circular .ui-progress-circular-determinate {
-  -webkit-transform: rotate(270deg);
-      -ms-transform: rotate(270deg);
-          transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+      transform: rotate(270deg);
 }
 .ui-progress-circular .ui-progress-circular-determinate .ui-progress-circular-determinate-path {
   stroke-dashoffset: 0;
@@ -518,11 +499,9 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
   stroke: #fff;
 }
 .ui-progress-circular .ui-progress-circular-indeterminate {
-  -webkit-animation: ui-progress-circular-rotate 1.4s linear infinite;
-          animation: ui-progress-circular-rotate 1.4s linear infinite;
-  -webkit-transform-origin: center center;
-      -ms-transform-origin: center center;
-          transform-origin: center center;
+  animation: ui-progress-circular-rotate 1.4s linear infinite;
+  -ms-transform-origin: center center;
+      transform-origin: center center;
   width: 100%;
   height: 100%;
   margin: auto;
@@ -536,12 +515,10 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
   stroke-dasharray: 1, 200;
   stroke-dashoffset: 0;
   stroke-linecap: round;
-  -webkit-animation: ui-progress-circular-dash 1.4s ease-in-out infinite;
-          animation: ui-progress-circular-dash 1.4s ease-in-out infinite;
+  animation: ui-progress-circular-dash 1.4s ease-in-out infinite;
 }
 .ui-progress-circular .ui-progress-circular-indeterminate-path.multi-color {
-  -webkit-animation: ui-progress-circular-dash 1.4s ease-in-out infinite, ui-progress-circular-color 6s ease-in-out infinite;
-          animation: ui-progress-circular-dash 1.4s ease-in-out infinite, ui-progress-circular-color 6s ease-in-out infinite;
+  animation: ui-progress-circular-dash 1.4s ease-in-out infinite, ui-progress-circular-color 6s ease-in-out infinite;
 }
 .ui-progress-circular .ui-progress-circular-indeterminate-path.primary {
   stroke: #2196f3;
@@ -557,46 +534,21 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
 }
 .ui-progress-circular-toggle-transition {
   opacity: 1;
-  -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-          transform: scale(1);
+  -ms-transform: scale(1);
+      transform: scale(1);
   transition-duration: 0.3s;
   transition-timing-function: ease;
-  transition-property: opacity, -webkit-transform;
   transition-property: transform, opacity;
-  transition-property: transform, opacity, -webkit-transform;
 }
 .ui-progress-circular-toggle-enter,
 .ui-progress-circular-toggle-leave {
   opacity: 0;
-  -webkit-transform: scale(0);
-      -ms-transform: scale(0);
-          transform: scale(0);
-}
-@-webkit-keyframes ui-progress-circular-rotate {
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
+  -ms-transform: scale(0);
+      transform: scale(0);
 }
 @keyframes ui-progress-circular-rotate {
   100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes ui-progress-circular-dash {
-  0% {
-    stroke-dasharray: 1, 200;
-    stroke-dashoffset: 0;
-  }
-  50% {
-    stroke-dasharray: 89, 200;
-    stroke-dashoffset: -35px;
-  }
-  100% {
-    stroke-dasharray: 89, 200;
-    stroke-dashoffset: -124px;
+    transform: rotate(360deg);
   }
 }
 @keyframes ui-progress-circular-dash {
@@ -611,20 +563,6 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -124px;
-  }
-}
-@-webkit-keyframes ui-progress-circular-color {
-  100%, 0% {
-    stroke: #f44336;
-  }
-  40% {
-    stroke: #2196f3;
-  }
-  66% {
-    stroke: #4caf50;
-  }
-  80%, 90% {
-    stroke: #ff9800;
   }
 }
 @keyframes ui-progress-circular-color {
@@ -669,12 +607,10 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
   z-index: 70;
 }
 .tooltip-element.ui-tooltip-theme .tooltip-content {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
   position: relative;
   border-radius: 2px;
   padding: 0 8px;
@@ -724,14 +660,12 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
 }
 .ui-autocomplete {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   position: relative;
   margin-bottom: 12px;
-  -webkit-align-items: flex-start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -ms-flex-align: start;
+      align-items: flex-start;
 }
 .ui-autocomplete:hover:not(.disabled) .ui-autocomplete-label-text {
   color: rgba(0,0,0,0.65);
@@ -754,9 +688,8 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
   top: 22px;
 }
 .ui-autocomplete.icon-right .ui-autocomplete-icon-wrapper {
-  -webkit-order: 1;
-      -ms-flex-order: 1;
-          order: 1;
+  -ms-flex-order: 1;
+      order: 1;
   margin-left: 8px;
   margin-right: 0;
 }
@@ -786,9 +719,8 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
 }
 .ui-autocomplete-icon-wrapper {
   height: 24px;
-  -webkit-flex-shrink: 0;
-      -ms-flex-negative: 0;
-          flex-shrink: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   margin-right: 12px;
   padding-top: 4px;
 }
@@ -796,9 +728,8 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
   color: rgba(0,0,0,0.54);
 }
 .ui-autocomplete-content {
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
 }
 .ui-autocomplete-label-text {
   font-size: 14px;
@@ -897,12 +828,10 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
   background-color: rgba(0,0,0,0.1);
 }
 .ui-autocomplete-image {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
 }
 .ui-autocomplete-image .image {
   width: 32px;
@@ -950,15 +879,12 @@ body[modality="keyboard"] .ui-menu-item:not(.divider):focus {
   outline: none;
   border: none;
   position: relative;
-  display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
   -ms-touch-action: manipulation;
       touch-action: manipulation;
   cursor: default;
@@ -987,9 +913,8 @@ body[modality="keyboard"] .ui-button:focus {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
 }
 .ui-button-raised {
   box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 2px 2px rgba(0,0,0,0.2);
@@ -1142,22 +1067,18 @@ body[modality="keyboard"] .ui-button-flat.color-default:focus {
   margin-left: -4px;
 }
 .ui-button-icon.position-right {
-  -webkit-order: 1;
-      -ms-flex-order: 1;
-          order: 1;
+  -ms-flex-order: 1;
+      order: 1;
   margin-left: 4px;
   margin-right: -4px;
 }
 .ui-button-content {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
 }
 .ui-button-content.invisible {
   visibility: hidden;
@@ -1168,22 +1089,18 @@ body[modality="keyboard"] .ui-button-flat.color-default:focus {
   margin-left: 1px;
 }
 .ui-button-group {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 .ui-checkbox {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-weight: normal;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
   margin: 0;
   margin-bottom: 12px;
   cursor: default;
@@ -1213,9 +1130,8 @@ body[modality="keyboard"] .ui-button-flat.color-default:focus {
 .ui-checkbox.label-left .ui-checkbox-label-text {
   margin-left: 0;
   margin-right: auto;
-  -webkit-order: -1;
-      -ms-flex-order: -1;
-          order: -1;
+  -ms-flex-order: -1;
+      order: -1;
 }
 .ui-checkbox.disabled .ui-checkbox-label-text {
   color: rgba(0,0,0,0.38);
@@ -1262,9 +1178,8 @@ body[modality="keyboard"] .ui-button-flat.color-default:focus {
   content: "";
   width: 6px;
   height: 13px;
-  -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-          transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
   opacity: 0;
   transition: opacity 0.3s ease;
   transition-delay: 0.1s;
@@ -1276,9 +1191,8 @@ body[modality="keyboard"] .ui-button-flat.color-default:focus {
 }
 body[modality="keyboard"] .ui-checkbox-input:focus + .ui-checkbox-checkmark .ui-checkbox-focus-ring {
   opacity: 1;
-  -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-          transform: scale(1);
+  -ms-transform: scale(1);
+      transform: scale(1);
 }
 .ui-checkbox-focus-ring {
   position: absolute;
@@ -1288,14 +1202,11 @@ body[modality="keyboard"] .ui-checkbox-input:focus + .ui-checkbox-checkmark .ui-
   margin-left: -14px;
   margin-top: -14px;
   border-radius: 50%;
-  transition-property: opacity, -webkit-transform;
   transition-property: opacity, transform;
-  transition-property: opacity, transform, -webkit-transform;
   transition-duration: 0.2s;
   transition-timing-function: ease;
-  -webkit-transform: scale(0);
-      -ms-transform: scale(0);
-          transform: scale(0);
+  -ms-transform: scale(0);
+      transform: scale(0);
   opacity: 0;
 }
 .ui-collapsible-header-content {
@@ -1316,15 +1227,13 @@ body[modality="keyboard"] .ui-checkbox-input:focus + .ui-checkbox-checkmark .ui-
   line-height: 1;
   text-align: left;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   height: 0;
   min-height: 48px;
   padding: 8px 16px;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
   -ms-touch-action: manipulation;
       touch-action: manipulation;
   cursor: pointer;
@@ -1421,25 +1330,20 @@ body.ui-modal-open {
   overflow-y: auto;
 }
 .ui-modal-header {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
   padding: 24px 24px 8px;
 }
 .ui-modal-header .ui-modal-header-text {
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
   font-size: 22px;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
   margin: 0;
   font-weight: normal;
 }
@@ -1469,18 +1373,15 @@ body[modality="keyboard"] .ui-modal-header .ui-modal-close-button:focus .ui-icon
 }
 .ui-modal-footer,
 .ui-modal-footer [slot] {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: flex-end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -ms-flex-pack: end;
+      justify-content: flex-end;
 }
 .ui-modal-footer .ui-modal-footer-left,
 .ui-modal-footer [slot].ui-modal-footer-left {
-  -webkit-justify-content: flex-start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -ms-flex-pack: start;
+      justify-content: flex-start;
 }
 .ui-modal-footer .ui-button {
   margin-left: 8px;
@@ -1498,24 +1399,20 @@ body[modality="keyboard"] .ui-modal-header .ui-modal-close-button:focus .ui-icon
 }
 .ui-modal-scale-enter .ui-modal-container,
 .ui-modal-scale-leave .ui-modal-container {
-  -webkit-transform: scale(1.1);
-      -ms-transform: scale(1.1);
-          transform: scale(1.1);
+  -ms-transform: scale(1.1);
+      transform: scale(1.1);
 }
 .ui-fab {
   position: relative;
   outline: none;
   border: none;
   z-index: 30;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
   border-radius: 50%;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2), 0 2px 10px 0 rgba(0,0,0,0.16);
   transition: box-shadow 0.3s ease;
@@ -1577,7 +1474,7 @@ body[modality="keyboard"] .ui-fab.color-accent:focus {
 }
 .ui-fab-icon {
   margin: 0;
-  width: initial;
+  width: 100%;
   height: initial;
 }
 .ui-preloader {
@@ -1591,8 +1488,7 @@ body[modality="keyboard"] .ui-fab.color-accent:focus {
   left: 0;
   width: 100%;
   background-color: #159756;
-  -webkit-animation: ui-preloader-background linear 3s infinite;
-          animation: ui-preloader-background linear 3s infinite;
+  animation: ui-preloader-background linear 3s infinite;
   transition-property: opacity, padding-top;
   transition-duration: 0.3s;
   transition-timing-function: ease;
@@ -1610,8 +1506,7 @@ body[modality="keyboard"] .ui-fab.color-accent:focus {
   width: 0;
   height: 3px;
   background: #afa;
-  -webkit-animation: ui-preloader-front linear 3s infinite;
-          animation: ui-preloader-front linear 3s infinite;
+  animation: ui-preloader-front linear 3s infinite;
   content: '';
 }
 .ui-preloader-progressbar::before {
@@ -1619,20 +1514,6 @@ body[modality="keyboard"] .ui-fab.color-accent:focus {
 }
 .ui-preloader-progressbar::after {
   left: 50%;
-}
-@-webkit-keyframes ui-preloader-background {
-  0%, 24.9% {
-    background-color: #159756;
-  }
-  25%, 49.9% {
-    background-color: #da4733;
-  }
-  50%, 74.9% {
-    background-color: #3b78e7;
-  }
-  75%, 100% {
-    background-color: #fdba2c;
-  }
 }
 @keyframes ui-preloader-background {
   0%, 24.9% {
@@ -1646,40 +1527,6 @@ body[modality="keyboard"] .ui-fab.color-accent:focus {
   }
   75%, 100% {
     background-color: #fdba2c;
-  }
-}
-@-webkit-keyframes ui-preloader-front {
-  0% {
-    width: 0;
-    background-color: #da4733;
-  }
-  24.9% {
-    width: 50%;
-    background-color: #da4733;
-  }
-  25% {
-    width: 0;
-    background-color: #3b78e7;
-  }
-  49.9% {
-    width: 50%;
-    background-color: #3b78e7;
-  }
-  50% {
-    width: 0;
-    background-color: #fdba2c;
-  }
-  74.9% {
-    width: 50%;
-    background-color: #fdba2c;
-  }
-  75% {
-    width: 0%;
-    background-color: #159756;
-  }
-  100% {
-    width: 50%;
-    background-color: #159756;
   }
 }
 @keyframes ui-preloader-front {
@@ -1769,8 +1616,7 @@ body[modality="keyboard"] .ui-fab.color-accent:focus {
   bottom: 0;
   top: 0;
   left: 0;
-  -webkit-animation: ui-progress-linear-indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
-          animation: ui-progress-linear-indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+  animation: ui-progress-linear-indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
 }
 .ui-progress-linear-indeterminate:after {
   background-color: inherit;
@@ -1780,29 +1626,13 @@ body[modality="keyboard"] .ui-fab.color-accent:focus {
   bottom: 0;
   top: 0;
   left: 0;
-  -webkit-animation: ui-progress-linear-indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
-          animation: ui-progress-linear-indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
-  -webkit-animation-delay: 1.15s;
-          animation-delay: 1.15s;
+  animation: ui-progress-linear-indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+  animation-delay: 1.15s;
 }
 .ui-progress-linear-toggle-leave,
 .ui-progress-linear-toggle-enter {
   opacity: 0;
   height: 0;
-}
-@-webkit-keyframes ui-progress-linear-indeterminate {
-  0% {
-    left: -35%;
-    right: 100%;
-  }
-  60% {
-    left: 100%;
-    right: -90%;
-  }
-  100% {
-    left: 100%;
-    right: -90%;
-  }
 }
 @keyframes ui-progress-linear-indeterminate {
   0% {
@@ -1816,20 +1646,6 @@ body[modality="keyboard"] .ui-fab.color-accent:focus {
   100% {
     left: 100%;
     right: -90%;
-  }
-}
-@-webkit-keyframes ui-progress-linear-indeterminate-short {
-  0% {
-    left: -200%;
-    right: 100%;
-  }
-  60% {
-    left: 107%;
-    right: -8%;
-  }
-  100% {
-    left: 107%;
-    right: -8%;
   }
 }
 @keyframes ui-progress-linear-indeterminate-short {
@@ -1848,12 +1664,10 @@ body[modality="keyboard"] .ui-fab.color-accent:focus {
 }
 .ui-radio {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
   height: 20px;
   font-size: 15px;
   margin: 0;
@@ -1862,9 +1676,8 @@ body[modality="keyboard"] .ui-fab.color-accent:focus {
   border: 2px solid rgba(0,0,0,0.54);
 }
 .ui-radio.label-left .ui-radio-label-text {
-  -webkit-order: -1;
-      -ms-flex-order: -1;
-          order: -1;
+  -ms-flex-order: -1;
+      order: -1;
   margin-right: auto;
   margin-left: 0;
 }
@@ -1898,9 +1711,8 @@ body[modality="keyboard"] .ui-fab.color-accent:focus {
 }
 .ui-radio-input:checked ~ .ui-radio-inner-dot {
   background-color: #2196f3;
-  -webkit-transform: scale(0.5);
-      -ms-transform: scale(0.5);
-          transform: scale(0.5);
+  -ms-transform: scale(0.5);
+      transform: scale(0.5);
   opacity: 1;
   z-index: 0;
 }
@@ -1925,12 +1737,9 @@ body[modality="keyboard"] .ui-fab.color-accent:focus {
   background-color: rgba(0,0,0,0.38);
   opacity: 0;
   z-index: -1;
-  -webkit-transform: scale(1.2);
-      -ms-transform: scale(1.2);
-          transform: scale(1.2);
-  transition-property: opacity, background-color, -webkit-transform;
+  -ms-transform: scale(1.2);
+      transform: scale(1.2);
   transition-property: transform, opacity, background-color;
-  transition-property: transform, opacity, background-color, -webkit-transform;
   transition-duration: 0.3s;
 }
 .ui-radio-label-text {
@@ -1956,9 +1765,8 @@ body[modality="keyboard"] .ui-fab.color-accent:focus {
 .ui-radio-group.vertical .ui-radio-group-options-wrapper {
   height: auto;
   margin-top: 8px;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+      flex-direction: column;
 }
 .ui-radio-group.vertical .ui-radio-group-options-wrapper .ui-radio {
   width: 100%;
@@ -1980,13 +1788,11 @@ body[modality="keyboard"] .ui-fab.color-accent:focus {
   transition: color 0.1s ease;
 }
 .ui-radio-group-options-wrapper {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   height: 32px;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
 }
 .ui-radio-group-feedback {
   height: 20px;
@@ -2002,9 +1808,8 @@ body[modality="keyboard"] .ui-fab.color-accent:focus {
 .ui-rating {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   outline: none;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+      flex-direction: column;
 }
 .ui-rating:hover:not(.disabled) .ui-rating-label {
   color: rgba(0,0,0,0.65);
@@ -2046,7 +1851,6 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   transition: color 0.1s ease;
 }
 .ui-rating-icons-wrapper {
-  display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
@@ -2079,12 +1883,10 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   color: rgba(0,0,0,0.38);
 }
 .ui-rating-preview {
-  display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-flex-basis: 0;
-      -ms-flex-preferred-size: 0;
-          flex-basis: 0;
+  -ms-flex-preferred-size: 0;
+      flex-basis: 0;
   width: auto;
 }
 .ui-rating-preview .ui-rating-icon-icon.selected {
@@ -2092,14 +1894,12 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
 }
 .ui-select {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   position: relative;
   margin-bottom: 12px;
-  -webkit-align-items: flex-start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -ms-flex-align: start;
+      align-items: flex-start;
   outline: none;
 }
 .ui-select:hover:not(.disabled) .ui-select-label-text {
@@ -2126,9 +1926,8 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   top: 20px;
 }
 .ui-select.icon-right .ui-select-icon-wrapper {
-  -webkit-order: 1;
-      -ms-flex-order: 1;
-          order: 1;
+  -ms-flex-order: 1;
+      order: 1;
   margin-left: 8px;
   margin-right: 0;
 }
@@ -2157,9 +1956,8 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
 }
 .ui-select-icon-wrapper {
   height: 24px;
-  -webkit-flex-shrink: 0;
-      -ms-flex-negative: 0;
-          flex-shrink: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   margin-right: 12px;
   padding-top: 4px;
 }
@@ -2167,9 +1965,8 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   color: rgba(0,0,0,0.54);
 }
 .ui-select-content {
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
 }
 .ui-select-label {
   outline: none;
@@ -2191,12 +1988,10 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   outline: none;
   border: none;
   padding: 0;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
   width: 100%;
   height: 0;
   min-height: 32px;
@@ -2211,9 +2006,8 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
 .ui-select-value {
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
   line-height: 1.4;
 }
 .ui-select-value.placeholder {
@@ -2311,12 +2105,10 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   text-overflow: ellipsis;
 }
 .ui-select-option {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   cursor: pointer;
   overflow: hidden;
@@ -2336,10 +2128,8 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   color: #fff;
 }
 .ui-select-option-content {
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  display: -webkit-flex;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
   display: -ms-flexbox;
   display: flex;
   max-height: 42px;
@@ -2352,18 +2142,15 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   margin-right: 8px;
 }
 .ui-select-image {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
 }
 .ui-select-item-text {
   width: 0;
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
 }
 .ui-select-item-image {
   width: 32px;
@@ -2374,7 +2161,6 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   border-radius: 50%;
 }
 .ui-slider {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   position: relative;
@@ -2382,24 +2168,21 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   width: 100%;
 }
 .ui-slider:hover:not(.disabled) .ui-slider-thumb {
-  -webkit-transform: scale(1.1);
-      -ms-transform: scale(1.1);
-          transform: scale(1.1);
+  -ms-transform: scale(1.1);
+      transform: scale(1.1);
 }
 .ui-slider:hover:not(.disabled) .ui-slider-label {
   color: rgba(0,0,0,0.65);
 }
 .ui-slider:focus:not(.disabled) .ui-slider-thumb,
 .ui-slider.dragging:not(.disabled) .ui-slider-thumb {
-  -webkit-transform: scale(1.1);
-      -ms-transform: scale(1.1);
-          transform: scale(1.1);
+  -ms-transform: scale(1.1);
+      transform: scale(1.1);
 }
 .ui-slider:focus:not(.disabled) .ui-slider-focus-ring,
 .ui-slider.dragging:not(.disabled) .ui-slider-focus-ring {
-  -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-          transform: scale(1);
+  -ms-transform: scale(1);
+      transform: scale(1);
 }
 .ui-slider.active:not(.disabled) .ui-slider-label,
 .ui-slider.active:not(.disabled) .ui-slider-icon {
@@ -2422,21 +2205,18 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   cursor: pointer;
 }
 .ui-slider-wrapper {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
   position: relative;
   width: 100%;
   height: 38px;
 }
 .ui-slider-icon-wrapper {
   height: 24px;
-  -webkit-flex-shrink: 0;
-      -ms-flex-negative: 0;
-          flex-shrink: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   margin-right: 12px;
   padding-top: 7px;
 }
@@ -2444,16 +2224,13 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   color: rgba(0,0,0,0.54);
 }
 .ui-slider-content {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+      flex-direction: column;
   position: relative;
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
 }
 .ui-slider-label {
   font-size: 14px;
@@ -2480,15 +2257,12 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   background-color: #2196f3;
 }
 .ui-slider-thumb-container {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
   position: absolute;
   top: 0;
   left: 0;
@@ -2497,25 +2271,19 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   height: 38px;
 }
 .ui-slider-thumb {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
   width: 16px;
   height: 16px;
   border-radius: 50%;
   background-color: #2196f3;
-  transition: -webkit-transform 0.2s linear;
   transition: transform 0.2s linear;
-  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
-  -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-          transform: scale(1);
+  -ms-transform: scale(1);
+      transform: scale(1);
 }
 .ui-slider-focus-ring {
   position: absolute;
@@ -2525,21 +2293,16 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   height: 38px;
   border-radius: 50%;
   background-color: rgba(33,150,243,0.38);
-  transition: -webkit-transform 0.2s ease;
   transition: transform 0.2s ease;
-  transition: transform 0.2s ease, -webkit-transform 0.2s ease;
-  -webkit-transform: scale(0);
-      -ms-transform: scale(0);
-          transform: scale(0);
+  -ms-transform: scale(0);
+      transform: scale(0);
 }
 .ui-snackbar {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
   min-width: 288px;
   max-width: 568px;
   min-height: 48px;
@@ -2568,9 +2331,7 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   background-color: rgba(255,255,255,0.05);
 }
 .ui-snackbar-toggle-transition {
-  transition: -webkit-transform 0.3s ease;
   transition: transform 0.3s ease;
-  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
 }
 .ui-snackbar-toggle-transition .ui-snackbar-text,
 .ui-snackbar-toggle-transition .ui-snackbar-action {
@@ -2579,9 +2340,8 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
 }
 .ui-snackbar-toggle-enter,
 .ui-snackbar-toggle-leave {
-  -webkit-transform: translateY(84px);
-      -ms-transform: translateY(84px);
-          transform: translateY(84px);
+  -ms-transform: translateY(84px);
+      transform: translateY(84px);
 }
 .ui-snackbar-toggle-enter .ui-snackbar-text,
 .ui-snackbar-toggle-leave .ui-snackbar-text,
@@ -2602,12 +2362,10 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
 .ui-snackbar-container.position-center {
   left: 8px;
   right: 8px;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+      justify-content: center;
 }
 .ui-snackbar-container .ui-snackbar {
   margin: 4px 4px 12px 4px;
@@ -2616,12 +2374,10 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   position: relative;
   height: 32px;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
 }
 .ui-switch.checked .ui-switch-track {
   background-color: rgba(33,150,243,0.5);
@@ -2637,9 +2393,8 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
 .ui-switch.label-left .ui-switch-label-text {
   margin-left: 0;
   margin-right: auto;
-  -webkit-order: -1;
-      -ms-flex-order: -1;
-          order: -1;
+  -ms-flex-order: -1;
+      order: -1;
 }
 .ui-switch.disabled .ui-switch-label-text {
   color: rgba(0,0,0,0.38);
@@ -2688,9 +2443,8 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   width: 42px;
   height: 42px;
   background-color: rgba(0,0,0,0.1);
-  -webkit-transform: scale(0);
-      -ms-transform: scale(0);
-          transform: scale(0);
+  -ms-transform: scale(0);
+      transform: scale(0);
   opacity: 0;
   transition: all 0.2s ease;
 }
@@ -2699,9 +2453,8 @@ body[modality="keyboard"] .ui-rating:focus .ui-rating-icon-icon.filled {
   opacity: 0;
 }
 body[modality="keyboard"] .ui-switch-input:focus ~ .ui-switch-focus-ring {
-  -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-          transform: scale(1);
+  -ms-transform: scale(1);
+      transform: scale(1);
   opacity: 1;
 }
 .ui-switch-label-text {
@@ -2716,9 +2469,8 @@ body[modality="keyboard"] .ui-switch-input:focus ~ .ui-switch-focus-ring {
   margin-bottom: 24px;
 }
 .ui-tabs.fullwidth .ui-tab-header-item {
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
 }
 .ui-tabs.raised {
   border: none;
@@ -2758,7 +2510,6 @@ body[modality="keyboard"] .ui-tabs-header.background-color-clear .ui-tab-header-
 }
 .ui-tabs-header-items {
   position: relative;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   list-style: none;
@@ -2827,28 +2578,23 @@ body[modality="keyboard"] .ui-tabs-header.background-color-clear .ui-tab-header-
 .ui-tab-header-item {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   position: relative;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   height: 48px;
   padding: 0 12px;
   text-transform: uppercase;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
   cursor: pointer;
   min-width: 80px;
 }
 .ui-tab-header-item.type-icon-and-text {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+      flex-direction: column;
   height: 72px;
 }
 .ui-tab-header-item.type-icon-and-text .ui-tab-header-item-icon {
@@ -2868,12 +2614,10 @@ body[modality="keyboard"] .ui-tabs-header.background-color-clear .ui-tab-header-
 }
 .ui-textbox {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: flex-start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -ms-flex-align: start;
+      align-items: flex-start;
   margin-bottom: 12px;
 }
 .ui-textbox:hover:not(.disabled):not(.invalid) .ui-textbox-label-text {
@@ -2899,9 +2643,8 @@ body[modality="keyboard"] .ui-tabs-header.background-color-clear .ui-tab-header-
   padding-top: 20px;
 }
 .ui-textbox.icon-right .ui-textbox-icon-wrapper {
-  -webkit-order: 1;
-      -ms-flex-order: 1;
-          order: 1;
+  -ms-flex-order: 1;
+      order: 1;
   margin-left: 8px;
   margin-right: 0;
 }
@@ -2939,9 +2682,8 @@ body[modality="keyboard"] .ui-tabs-header.background-color-clear .ui-tab-header-
 }
 .ui-textbox-icon-wrapper {
   height: 24px;
-  -webkit-flex-shrink: 0;
-      -ms-flex-negative: 0;
-          flex-shrink: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   margin-right: 12px;
   padding-top: 4px;
 }
@@ -2949,9 +2691,8 @@ body[modality="keyboard"] .ui-tabs-header.background-color-clear .ui-tab-header-
   color: rgba(0,0,0,0.54);
 }
 .ui-textbox-content {
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
 }
 .ui-textbox-label-text {
   font-size: 14px;
@@ -3022,13 +2763,11 @@ body[modality="keyboard"] .ui-tabs-header.background-color-clear .ui-tab-header-
 }
 .ui-toolbar {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   height: 56px;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
   font-size: 18px;
   position: relative;
 }
@@ -3076,15 +2815,12 @@ body[modality="keyboard"] .ui-tabs-header.background-color-clear .ui-tab-header-
   background-color: #2196f3;
 }
 .ui-toolbar-left {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-flex-shrink: 0;
-      -ms-flex-negative: 0;
-          flex-shrink: 0;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
 }
 .ui-toolbar-nav-icon {
   margin-right: 8px;
@@ -3096,17 +2832,14 @@ body[modality="keyboard"] .ui-tabs-header.background-color-clear .ui-tab-header-
   min-width: 160px;
 }
 .ui-toolbar-brand-text {
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
 }
 .ui-toolbar-center {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
 }
 .ui-toolbar-divider {
   border-left-width: 1px;
@@ -3115,13 +2848,11 @@ body[modality="keyboard"] .ui-tabs-header.background-color-clear .ui-tab-header-
   margin-right: 24px;
 }
 .ui-toolbar-right {
-  -webkit-flex-shrink: 0;
-      -ms-flex-negative: 0;
-          flex-shrink: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   margin-left: auto;
 }
 .ui-toolbar-right [slot="actions"] {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
