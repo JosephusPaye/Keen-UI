@@ -13,6 +13,7 @@
 * UiSelect: Add new `optionsLoaded` for selects with dynamic options
 * UiSelect: Add new prop `keys` to allow for redefining the `text` and `value` keys
 * UiSelect: Allow for more flexibity in the format of the `options` and `default` props. `options` now supports a plain array, e.g. `['Red', 'Blue', 'Green']` as well as an array of objects whose keys can be redefined to something other than `text` and `value`. `default` now supports any string, number or object (provided the string, number or `value` key matches with an option) - (thanks @qetee)
+* UiSelect: Add `ui-select::set-selected` event for programmatically setting the currently selected value/values
 
 ### Fixes
 * UiTextbox and UiAutocomplete: Fix `debounce` prop handling
