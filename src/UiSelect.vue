@@ -36,7 +36,7 @@
                     <div class="ui-select-search" v-if="showSearch" @click.stop @keydown.space.stop>
                         <input
                             class="ui-select-search-input" type="text" v-el:search-input
-                            :placeholder="searchPlaceholder" v-model="query"
+                            :placeholder="searchPlaceholder" v-model="query" autocomplete="off"
                         >
 
                         <ui-progress-circular
