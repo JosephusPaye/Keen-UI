@@ -10,7 +10,7 @@ import UiFab from './UiFab.vue';
 import UiIcon from './UiIcon.vue';
 import UiIconButton from './UiIconButton.vue';
 import UiMenu from './UiMenu.vue';
-import UiMenuItem from './UiMenuItem.vue';
+import UiMenuOption from './UiMenuOption.vue';
 import UiModal from './UiModal.vue';
 import UiPopover from './UiPopover.vue';
 import UiPreloader from './UiPreloader.vue';
@@ -44,7 +44,7 @@ const Keen = {
     UiIcon,
     UiIconButton,
     UiMenu,
-    UiMenuItem,
+    UiMenuOption,
     UiModal,
     UiPopover,
     UiPreloader,
@@ -78,7 +78,7 @@ const Keen = {
         Vue.component('ui-icon', UiIcon);
         Vue.component('ui-icon-button', UiIconButton);
         Vue.component('ui-menu', UiMenu);
-        Vue.component('ui-menu-item', UiMenuItem);
+        Vue.component('ui-menu-option', UiMenuOption);
         Vue.component('ui-modal', UiModal);
         Vue.component('ui-popover', UiPopover);
         Vue.component('ui-preloader', UiPreloader);
