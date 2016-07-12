@@ -10,16 +10,16 @@
             <h4>Default</h4>
 
             <div class="group">
-                <ui-checkbox name="do_it_now" :value.sync="true">Do it now</ui-checkbox>
-                <ui-checkbox name="do_it_well" :value.sync="false">Do it well</ui-checkbox>
-                <ui-checkbox name="look_cool" :value.sync="true">Look cool while at it</ui-checkbox>
+                <ui-checkbox name="do_it_now" :model.sync="true">Do it now</ui-checkbox>
+                <ui-checkbox name="do_it_well" :model.sync="false">Do it well</ui-checkbox>
+                <ui-checkbox name="look_cool" :model.sync="true">Look cool while at it</ui-checkbox>
 
                 <ui-checkbox
-                    name="try_checking" :disabled="true" :value.sync="true"
+                    name="try_checking" :disabled="true" :model.sync="true"
                 >Can't change this</ui-checkbox>
 
                 <ui-checkbox
-                    name="try_checking_another" :disabled="true" :value.sync="false"
+                    name="try_checking_another" :disabled="true" :model.sync="false"
                 >Can't change this too</ui-checkbox>
             </div>
 
@@ -27,23 +27,23 @@
 
             <div class="group label-left">
                 <ui-checkbox
-                    name="do_it_now" :value.sync="true" label-left
+                    name="do_it_now" :model.sync="true" label-left
                 >Do it now</ui-checkbox>
 
                 <ui-checkbox
-                    name="do_it_well" :value.sync="false" label-left
+                    name="do_it_well" :model.sync="false" label-left
                 >Do it well</ui-checkbox>
 
                 <ui-checkbox
-                    name="look_cool" :value.sync="true" label-left
+                    name="look_cool" :model.sync="true" label-left
                 >Look cool while at it</ui-checkbox>
 
                 <ui-checkbox
-                    name="try_checking" :disabled="true" :value.sync="true" label-left
+                    name="try_checking" :disabled="true" :model.sync="true" label-left
                 >Can't change this</ui-checkbox>
 
                 <ui-checkbox
-                    name="try_checking_another" :disabled="true" :value.sync="false" label-left
+                    name="try_checking_another" :disabled="true" :model.sync="false" label-left
                 >Can't change this too</ui-checkbox>
             </div>
 
@@ -51,9 +51,35 @@
 
             <div class="group">
                 <ui-checkbox
-                    name="look_cool" :value.sync="true"
+                    name="look_cool" :model.sync="true"
                 >Just <b><i>do</i></b> it!</ui-checkbox>
             </div>
+
+            <h4>Multiple checkboxes connected to a single array</h4>
+
+            <div class="group">
+                <ui-checkbox
+                    name="favourite-simpsons" :model.sync="favouriteSimpsons" value="Maggie"
+                >Maggie</ui-checkbox>
+
+                <ui-checkbox
+                    name="favourite-simpsons" :model.sync="favouriteSimpsons" value="Lisa"
+                >Lisa</ui-checkbox>
+
+                <ui-checkbox
+                    name="favourite-simpsons" :model.sync="favouriteSimpsons" value="Bart"
+                >Bart</ui-checkbox>
+
+                <ui-checkbox
+                    name="favourite-simpsons" :model.sync="favouriteSimpsons" value="Marge"
+                >Marge</ui-checkbox>
+
+                <ui-checkbox
+                    name="favourite-simpsons" :model.sync="favouriteSimpsons" value="Homer"
+                >Homer</ui-checkbox>
+            </div>
+
+            <pre><code v-text="favouriteSimpsons | json"></code></pre>
 
             <ui-button @click="resetCheckboxes">Reset checkboxes</ui-button>
         </div>
@@ -92,11 +118,19 @@
                             </tr>
 
                             <tr>
-                                <td>value *</td>
-                                <td>Boolean</td>
+                                <td>model *</td>
+                                <td>Boolean or Array</td>
                                 <td>(required)</td>
                                 <td>Two way</td>
-                                <td>The model that the checkbox value syncs to.</td>
+                                <td>The model that the checkbox value syncs to. Is an array if the `value` prop is provided, otherwise a boolean.</td>
+                            </tr>
+
+                            <tr>
+                                <td>value</td>
+                                <td>String</td>
+                                <td></td>
+                                <td></td>
+                                <td>The checkbox input <code>value</code> attribute. Use this for connecting a group of checkboxes to a single model.</td>
                             </tr>
 
                             <tr>
@@ -172,7 +206,7 @@
                                 <td class="no-wrap">ui-input::reset</td>
                                 <td>Received</td>
                                 <td>
-                                    <p>Trigger this event to reset the checkbox to its initial state. This event resets the <code>value</code> prop.</p>
+                                    <p>Trigger this event to reset the checkbox to its initial state. This event resets the <code>model</code> prop.</p>
 
                                     <p>You can optionally pass in an <code>id</code> to reset only a specific checkbox (whose <code>id</code> you have set).</p>
                                 </td>
@@ -195,6 +229,12 @@ import UiButton from '../../src/UiButton.vue';
 import UiCheckbox from '../../src/UiCheckbox.vue';
 
 export default {
+    data() {
+        return {
+            favouriteSimpsons: []
+        };
+    },
+
     components: {
         UiTab,
         UiTabs,

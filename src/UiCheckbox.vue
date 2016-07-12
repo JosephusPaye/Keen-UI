@@ -1,11 +1,13 @@
 <template>
     <label
         class="ui-checkbox"
-        :class="{ 'disabled': disabled, 'checked': value, 'active': active, 'label-left': labelLeft }"
+        :class="{
+            'disabled': disabled, 'checked': isChecked, 'active': active, 'label-left': labelLeft
+        }"
     >
         <input
             class="ui-checkbox-input" type="checkbox" :name="name" @focus="focus" @blur="blur"
-            v-model="value" v-disabled="disabled"
+            :value="value ? value : null" v-model="model" v-disabled="disabled"
         >
 
         <div class="ui-checkbox-checkmark">
@@ -30,11 +32,12 @@ export default {
 
     props: {
         name: String,
-        value: {
-            type: Boolean,
+        model: {
+            type: [Array, Boolean],
             required: true,
             twoWay: true
         },
+        value: String,
         label: String,
         hideLabel: {
             type: Boolean,
@@ -57,9 +60,19 @@ export default {
         };
     },
 
+    computed: {
+        isChecked() {
+            if (this.value) {
+                return this.model.indexOf(this.value) > -1;
+            }
+
+            return this.model;
+        }
+    },
+
     created() {
         // Cache initial value for later reset
-        this.initialValue = this.value;
+        this.initialValue = this.model;
     },
 
     events: {
@@ -69,7 +82,7 @@ export default {
                 return;
             }
 
-            this.value = this.initialValue;
+            this.model = this.initialValue;
         }
     },
 

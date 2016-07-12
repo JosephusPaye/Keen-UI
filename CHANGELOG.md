@@ -14,6 +14,7 @@
 * UiSelect: Add new prop `keys` to allow for redefining the `text` and `value` keys
 * UiSelect: Allow for more flexibity in the format of the `options` and `default` props. `options` now supports a plain array, e.g. `['Red', 'Blue', 'Green']` as well as an array of objects whose keys can be redefined to something other than `text` and `value`. `default` now supports any string, number or object (provided the string, number or `value` key matches with an option) - (thanks @qetee)
 * UiSelect: Add `ui-select::set-selected` event for programmatically setting the currently selected value/values
+* UiCheckbox: New `model` and `value` prop combination can be used for connecting multiple checkboxes to a single model (array).
 
 ### Fixes
 * UiTextbox and UiAutocomplete: Fix `debounce` prop handling
@@ -27,6 +28,7 @@
 ### Breaking
 * UiTextbox: `autocomplete` prop type changed to String, to allow for configuring browser autocomplete
 * UiMenu and UiMenuOption: Rename UiMenuItem component to UiMenuOption
+* UiCheckbox: Rename `value` prop to `model`, `value` now maps directly to the checkbox input's `value` attribute and is used with connecting multiple checkboxes to a single array.
 
 ## v0.8.8 (May 21, 2016)
 
