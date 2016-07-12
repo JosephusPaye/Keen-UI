@@ -9,6 +9,7 @@
 * UiAutocomplete: Add `autoHighlightFirstMatch` and `cycleHighlight` props for customizing highlight behaviour (thanks @rowanwins)
 * UiMenu and UiPopover: Add `ui-dropdown::open`, `ui-dropdown::close` and `ui-dropdown::toggle` events
 * UiAutocomplete, UiSelect and UiTextbox: Add `ui-input::set-validity` event for setting the validity and a custom error message from outside the component
+* UiMenu and UiMenuOption: Add `partial` and `closeOnSelect` props, to allow for using custom HTML in menu options
 
 ### Fixes
 * UiTextbox and UiAutocomplete: Fix `debounce` prop handling
@@ -21,7 +22,7 @@
 
 ### Breaking
 * UiTextbox: `autocomplete` prop type changed to String, to allow for configuring browser autocomplete
-
+* UiMenu and UiMenuOption: Rename UiMenuItem component to UiMenuOption
 
 ## v0.8.8 (May 21, 2016)
 
