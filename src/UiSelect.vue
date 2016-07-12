@@ -243,6 +243,16 @@ export default {
     },
 
     events: {
+        'ui-select::set-selected': function(value, id) {
+            // Abort if event isn't meant for this component
+            if (!this.eventTargetsComponent(id)) {
+                return;
+            }
+
+            this.default = value;
+            this.initValue();
+        },
+
         'ui-input::reset': function(id) {
             // Abort if reset event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
