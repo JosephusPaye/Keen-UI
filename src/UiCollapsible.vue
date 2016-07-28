@@ -117,7 +117,7 @@ export default {
             var body = this.$els.body;
 
             body.style.display = 'block';
-            this.height = body.offsetHeight;
+            this.height = body.scrollHeight;
 
             if (!this.open) {
                 body.style.display = 'none';
