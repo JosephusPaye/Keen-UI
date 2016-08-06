@@ -123,7 +123,7 @@ export default {
             type: String,
             default: ', '
         },
-        disableFiltering: {
+        optionsDynamic: {
             type: Boolean,
             default: false
         },
@@ -140,7 +140,8 @@ export default {
             default() {
                 return {
                     text: 'text',
-                    value: 'value'
+                    value: 'value',
+                    image: 'image'
                 };
             }
         },
@@ -159,7 +160,7 @@ export default {
 
     computed: {
         filteredOptions() {
-            if (this.disableFiltering) {
+            if (this.optionsDynamic) {
                 return this.options;
             }
 
@@ -185,7 +186,7 @@ export default {
         },
 
         nothingFound() {
-            if (this.disableFiltering && !this.optionsLoaded) {
+            if (this.optionsDynamic && !this.optionsLoaded) {
                 return false;
             }
 
