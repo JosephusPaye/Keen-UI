@@ -364,11 +364,11 @@
 
                             <tr>
                                 <td>validationRules</td>
-                                <td>String</td>
+                                <td>String or Array</td>
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <p>A pipe <code>|</code> seperated list of rules for validating the input. Can be any of the rules supported by <a href="https://github.com/skaterdav85/validatorjs#available-rules" target="_blank">validatorjs Validation Rules</a>, <b>except</b> the ones that involve multiple fields.</p>
+                                    <p>An array of rules or a pipe <code>|</code> seperated list of rules for validating the input. Can be any of the rules supported by <a href="https://github.com/skaterdav85/validatorjs#available-rules" target="_blank">validatorjs Validation Rules</a>, <b>except</b> the ones that involve multiple fields.</p>
 
                                     <p>Example to validate a required email field: <code>validation-rules="required|email"</code>.</p>
 

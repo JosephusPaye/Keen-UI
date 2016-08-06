@@ -345,11 +345,11 @@
 
                             <tr>
                                 <td>validationRules</td>
-                                <td>String</td>
+                                <td>String or Array</td>
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <p>A pipe <code>|</code> seperated list of rules for validating the select. The supported rules are <code>required</code>, <code>min</code>, <code>max</code> and <code>between</code>. The <code>min</code>, <code>max</code> and <code>between</code> rules only apply for a multi select.</p>
+                                    <p>An array of rules or a pipe <code>|</code> seperated list of rules for validating the select. The supported rules are <code>required</code>, <code>min</code>, <code>max</code> and <code>between</code>. The <code>min</code>, <code>max</code> and <code>between</code> rules only apply for a multi select.</p>
 
                                     <p>These rules will be applied and validation will occur automatically when a selection is made or when the select is closed. The error message of the first failing validation rule will then be shown to the user.</p>
 
