@@ -2,13 +2,15 @@
     <section class="section section-ui-autocomplete">
         <h2 class="section-heading">UiAutocomplete</h2>
 
-        <p>UiAutocomplete shows a dropdown of suggestions below an input that the user can select from as they type.</p>
+        <p>UiAutocomplete shows a dropdown of suggestions below an input as the user types which they can select from to replace or append to what they have entered.</p>
 
-        <p>An autocomplete can show a label above the input as well as help text below the input, and it also supports keyboard navigation.
+        <p>UiAutocomplete can show a label above the input as well as help text below the input, and it also supports keyboard navigation.</p>
 
         <p>UiAutocomplete supports validation, and the validation state can also be set programmatically from outside the component using an event.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiAutocompleteDocs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="examples">
             <h4>Default (with label and help text), minimum characters: 2</h4>
@@ -19,7 +21,7 @@
                 placeholder="Enter your favourite month"
             ></ui-autocomplete>
 
-            <h4>Custom template partial, minimum characters: 0, validation</h4>
+            <h4>Custom template partial, minimum characters: 0, with validation</h4>
 
             <ui-autocomplete
                 label="Favourite Simpson" icon="face" :min-chars="0" :suggestions="theSimpsons"
@@ -65,7 +67,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>A unique identifier for the autocomplete. Applied as the <code>id</code> attribute of the autocomplete <code>&lt;input&gt;</code> and used when targeting a specific autocomplete for reset.</td>
+                                <td>
+                                    <p>A unique identifier for the autocomplete.</p>
+                                    <p>Applied as the <code>id</code> attribute of the autocomplete <code>&lt;input&gt;</code> and used when targeting a specific autocomplete for reset.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -73,7 +78,10 @@
                                 <td>String</td>
                                 <td>(required)</td>
                                 <td></td>
-                                <td>The <code>name</code> attribute of the autocomplete input. Used when generating validation error messages. A name with multiple words should be written in <code>snake_case</code>.</td>
+                                <td>
+                                    <p>The <code>name</code> attribute of the autocomplete input element.</p>
+                                    <p>Used when generating validation error messages. A name with multiple words should be written in <code>snake_case</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -81,7 +89,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>Two way</td>
-                                <td>The autocomplete input value (is updated when the user types or makes a selection from the dropdown). This can be set initially as a default value.</td>
+                                <td>
+                                    <p>The autocomplete input value (is updated when the user types or makes a selection from the dropdown).</p>
+                                    <p>This can be set initially as a default value.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -114,7 +125,7 @@
                                 <td><code>false</code></td>
                                 <td></td>
                                 <td>
-                                    <p>Determines whether or not the value of the selected suggestion should be appended to the current value (instead of replaced).</p>
+                                    <p>Determines whether or not the value of the selected suggestion should be appended to the current value (instead of replacing the current value).</p>
 
                                     <p>Set to <code>true</code> to append selected suggestions.</p>
                                 </td>
@@ -125,9 +136,7 @@
                                 <td>String</td>
                                 <td><code>", "</code></td>
                                 <td></td>
-                                <td>
-                                    <p>The delimiter (separator) to use when appending selected suggestions.</p>
-                                </td>
+                                <td>The delimiter (separator) to use when appending selected suggestions.</td>
                             </tr>
 
                             <tr>
@@ -135,7 +144,10 @@
                                 <td>Number</td>
                                 <td></td>
                                 <td></td>
-                                <td>Allows for setting a minimum delay (in milliseconds) after each keystroke before the input’s value is synced to the model. You may want to use this if you are watching the value and making AJAX calls.</td>
+                                <td>
+                                    <p>The minimum delay (in milliseconds) after each keystroke before the input’s value is synced to the model.</p>
+                                    <p>You may want to use this if you are watching the value and making AJAX calls.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -146,7 +158,7 @@
                                 <td>
                                     <p>The ID of a registered <a href="http://vuejs.org/api/#partial" target="_blank">Vue partial</a> to use as the template for each suggestion.</p>
 
-                                    <p>This partial is rendered into an <code>&lt;li&gt;</code> which has the partial's ID as a class. In the partial template, you have access to an <code>item</code> String/Object from the suggestions array which you can use to render the suggestion however you like.</p>
+                                    <p>This partial is rendered into an <code>&lt;li&gt;</code> which has the partial's ID as a class. In the partial template, you have access to an <code>item</code> string/object from the suggestions array which you can use to render the suggestion however you like.</p>
 
                                     <p>The default partial simply renders the suggestion text.</p>
 
@@ -161,9 +173,7 @@
                                 <td>Number</td>
                                 <td><code>2</code></td>
                                 <td></td>
-                                <td>
-                                    <p>The minimum number of characters the user should type before the list of suggestions is shown.</p>
-                                </td>
+                                <td>The minimum number of characters the user should type before the list of suggestions is shown.</td>
                             </tr>
 
                             <tr>
@@ -171,9 +181,7 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td></td>
-                                <td>
-                                    <p>Determines whether the list of suggestions should be shown when the user presses the Up or Down arrow keys in the input.</p>
-                                </td>
+                                <td>Determines whether the list of suggestions should be shown when the user presses the Up or Down arrow keys in the input.</td>
                             </tr>
 
                             <tr>
@@ -181,7 +189,10 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>Two-way</td>
-                                <td>Shows whether or not the autocomplete is valid. Only applicable when the <code>validationRules</code> prop is present.</td>
+                                <td>
+                                    <p>Shows whether or not the autocomplete is valid.</p>
+                                    <p>Only applicable when the <code>validationRules</code> prop is present.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -198,14 +209,15 @@
                                 <td><code>false</code></td>
                                 <td></td>
                                 <td>
-                                    <p>Determines whether or not the input should automatically receive focus. This only works on initial page load or the first time the element is added to the DOM and not on subsequent renders. Also, only one input element should have this prop set to <code>true</code> in the document for the autofocus to work properly.</p>
+                                    <p>Determines whether or not the input should automatically receive focus on initial page load</p>
+                                    <p>This only works on initial page load or the first time the element is added to the DOM and not on subsequent renders. Also, only one input element should have this prop set to <code>true</code> in the document for the autofocus to work properly.</p>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td class="new-prop">filter</td>
                                 <td>Function</td>
-                                <td>(<a href="https://www.npmjs.com/package/fuzzysearch">fuzzysearch</a>)</td>
+                                <td>(<a href="https://www.npmjs.com/package/fuzzysearch" target="_blank">fuzzysearch</a>)</td>
                                 <td></td>
                                 <td>
                                     <p>Defines a custom filter function that is used for filtering the suggestions when the user types into the autocomplete.</p>
@@ -231,9 +243,9 @@
 }</pre></td>
                                 <td></td>
                                 <td>
-                                    <p>Allows for redefining the <code>text</code>, <code>value</code> and <code>image</code> keys. Pass an object with custom keys if your data does not match the default keys.</p>
+                                    <p>Allows for redefining the <code>text</code>, <code>value</code> and <code>image</code> keys.</p>
 
-                                    <p>Note that if you redefine one key, you have to specify the other two as well.</p>
+                                    <p>Pass an object with custom keys if your data does not match the default keys. Note that if you redefine one key, you have to specify the other two as well.</p>
                                 </td>
                             </tr>
 
@@ -254,7 +266,7 @@
                                 <td><code>true</code></td>
                                 <td></td>
                                 <td>
-                                    <p>Determines whether or not highlighting should wrap around immediately on overflow.</p>
+                                    <p>Determines whether or not highlighting should cycle (wrap around) immediately on overflow.</p>
 
                                     <p>When this is set to <code>false</code>, pressing the down arrow key when on the last suggestion will not immediately highlight the first suggestion, but pressing it a second time will.</p>
 
@@ -267,7 +279,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>The <code>placeholder</code> attribute of the autocomplete input.</td>
+                                <td>The <code>placeholder</code> attribute of the autocomplete input element.</td>
                             </tr>
 
                             <tr>
@@ -275,7 +287,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>The autocomplete icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</td>
+                                <td>
+                                    <p>The autocomplete icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>.</p>
+                                    <p>Note that this should be the icon codepoint if you want to support IE9.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -283,7 +298,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the autocomplete icon is shown to the right. Set to <code>true</code> to show the icon to the right of the autocomplete.</td>
+                                <td>
+                                    <p>Determines whether or not the autocomplete icon is shown to the right instead of to the left.</p>
+                                    <p>Set to <code>true</code> to show the icon to the right of the autocomplete.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -299,7 +317,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the autocomplete label is hidden. Set to <code>true</code> to hide the label.</td>
+                                <td>
+                                    <p>Determines whether or not the autocomplete label is hidden.</p>
+                                    <p>Set to <code>true</code> to hide the label.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -309,7 +330,6 @@
                                 <td></td>
                                 <td>
                                     <p>The help text (hint) shown to the user below the autocomplete input.</p>
-
                                     <p>Extra space is reserved under the input for the help text and validation errors. If none of these are enabled, this space is collapsed.</p>
                                 </td>
                             </tr>
@@ -320,9 +340,9 @@
                                 <td><code>false</code></td>
                                 <td></td>
                                 <td>
-                                    <p>Determines whether or not validation errors for the autocomplete are hidden. Set to <code>true</code> to hide all validation errors.</p>
-
-                                    <p>This prop is only applicable when the <code>validationRules</code> prop is present.</p>
+                                    <p>Determines whether or not validation errors for the autocomplete are hidden.</p>
+                                    <p>Set to <code>true</code> to hide all validation errors.</p>
+                                    <p>This prop is only applicable when the <code>validationRules</code> prop is provided.</p>
                                 </td>
                             </tr>
 
@@ -332,7 +352,9 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <p>An array of rules or a pipe <code>|</code> seperated list of rules for validating the input. Can be any of the rules supported by <a href="https://github.com/skaterdav85/validatorjs#available-rules" target="_blank">validatorjs Validation Rules</a>, <b>except</b> the ones that involve multiple fields.</p>
+                                    <p>An array of rules or a pipe <code>|</code> separated list of rules for validating the input.</p>
+
+                                    <p>Can be any of the rules supported by <a href="https://github.com/skaterdav85/validatorjs#available-rules" target="_blank">validatorjs Validation Rules</a>, <b>except</b> the ones that involve multiple fields.</p>
 
                                     <p>Example to validate a required email field: <code>validation-rules="required|email"</code>.</p>
 
@@ -347,7 +369,11 @@
                                 <td>Object</td>
                                 <td></td>
                                 <td></td>
-                                <td>An Object whose keys are the validation rules and whose values are the error messages for those rules. See <a href="https://github.com/skaterdav85/validatorjs#custom-error-messages" target="_blank">validatorjs Custom Error Messages</a> for more details.</td>
+                                <td>
+                                    <p>An Object whose keys are the validation rules and whose values are the error messages for those rules.</p>
+
+                                    <p>See <a href="https://github.com/skaterdav85/validatorjs#custom-error-messages" target="_blank">validatorjs Custom Error Messages</a> for more details.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -402,7 +428,7 @@
                                     <li><code>index</code>: the index of the suggestion that was highlighted, in the <code>suggestions</code> array</li>
                                 </ul>
 
-                                <p>Listen for it using <code>@higlighted</code>.</p>
+                                <p>Listen for it using <code>@highlighted</code>.</p>
                             </td>
                         </tr>
 
@@ -410,11 +436,11 @@
                             <td class="no-wrap new-prop">highlight-overflow</td>
                             <td>Dispatched</td>
                             <td>
-                                <p>Dispatched when the attempted highlight overflows (this happens when the user is on the first suggestion and presses the up arrow key or on the last suggestion and presses the down arrow key).</p>
+                                <p>Dispatched when an attempted highlight overflows (this happens when the user is on the first suggestion and presses the up arrow key or on the last suggestion and presses the down arrow key).</p>
 
                                 <p>This event is only dispatched when the <code>cycleHighlight</code> prop is <code>false</code>.</p>
 
-                                <p>The handler is called with the overflowing index. Listen for it using <code>@higlighted</code>.</p>
+                                <p>The handler is called with the overflowing index. Listen for it using <code>@highlighted</code>.</p>
                             </td>
                         </tr>
 
@@ -425,7 +451,7 @@
                                 <p>Trigger this event to programmatically change the autocomplete validation state. The handler accepts the following arguments:</p>
 
                                 <ul>
-                                    <li><code>valid</code>: A Boolean indicating whether or not the autocomplete is valid</li>
+                                    <li><code>valid</code>: A boolean indicating whether or not the autocomplete is valid</li>
                                     <li><code>error</code>: An optional string to set as the new error message</li>
                                     <li><code>id</code>: The id of the specific autocomplete whose validity you want to change</li>
                                 </ul>
@@ -437,6 +463,7 @@
                             <td>Received</td>
                             <td>
                                 <p>Trigger this event to reset the autocomplete to its initial state. This event resets the <code>value</code>, <code>valid</code> and <code>dirty</code> props.</p>
+
                                 <p>You can optionally pass in an <code>id</code> to reset only a specific autocomplete (whose <code>id</code> you have set).</p>
                             </td>
                         </tr>
@@ -454,30 +481,31 @@ import UiTabs from '../../src/UiTabs.vue';
 import UiButton from '../../src/UiButton.vue';
 import UiAutocomplete from '../../src/UiAutocomplete.vue';
 
-let months = 'January Febuary March April May June July August September October November December';
-months = months.split(' ');
+let months =
+    'January February March April May June July August September October November December'
+        .split(' ');
 
 let theSimpsons = [
     {
         value: 'maggie',
         text: 'Maggie Simpson',
-        image: 'http://i.imgur.com/eK26qtK.jpg'
+        image: 'https://i.imgur.com/eK26qtK.jpg'
     }, {
         value: 'lisa',
         text: 'Lisa Simpson',
-        image: 'http://i.imgur.com/wIb44g9.jpg'
+        image: 'https://i.imgur.com/wIb44g9.jpg'
     }, {
         value: 'bart',
         text: 'Bart Simpson',
-        image: 'http://i.imgur.com/XkEz9zg.jpg'
+        image: 'https://i.imgur.com/XkEz9zg.jpg'
     }, {
         value: 'marge',
         text: 'Marge Simpson',
-        image: 'http://i.imgur.com/MuFcpQ4.jpg'
+        image: 'https://i.imgur.com/MuFcpQ4.jpg'
     }, {
         value: 'homer',
         text: 'Homer Simpson',
-        image: 'http://i.imgur.com/aYPRWX4.jpg'
+        image: 'https://i.imgur.com/aYPRWX4.jpg'
     }
 ];
 
@@ -485,11 +513,11 @@ let externalFamily = [
     {
         value: 'mona',
         text: 'Mona Simpson',
-        image: 'http://i.imgur.com/z5xy1eW.jpg'
+        image: 'https://i.imgur.com/z5xy1eW.jpg'
     }, {
         value: 'abe',
         text: 'Abe Simpson',
-        image: 'http://i.imgur.com/3UF8hrf.jpg'
+        image: 'https://i.imgur.com/3UF8hrf.jpg'
     }
 ];
 
