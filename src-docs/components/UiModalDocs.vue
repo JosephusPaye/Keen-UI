@@ -274,9 +274,21 @@
                             </tr>
 
                             <tr>
+                                <td class="new-prop">revealed</td>
+                                <td>Dispatched</td>
+                                <td>Dispatched when the modal open transition completes. Listen for it using <code>@revealed</code>.</td>
+                            </tr>
+
+                            <tr>
                                 <td>closed</td>
                                 <td>Dispatched</td>
                                 <td>Dispatched when the modal is closed. Listen for it using <code>@closed</code>.</td>
+                            </tr>
+
+                            <tr>
+                                <td class="new-prop">hidden</td>
+                                <td>Dispatched</td>
+                                <td>Dispatched when the modal close transition completes. Listen for it using <code>@hidden</code>.</td>
                             </tr>
                         </tbody>
                     </table>

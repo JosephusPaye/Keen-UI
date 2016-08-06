@@ -1,7 +1,7 @@
 <template>
     <div
         class="ui-modal ui-modal-mask" v-show="show" :transition="transition" :class="[type]"
-        :role="role"
+        :role="role" @transitionend="transitionEnd | debounce 100"
     >
         <div class="ui-modal-wrapper" @click="close" v-el:modal-mask>
             <div
@@ -174,6 +174,14 @@ export default {
 
             if (this.lastFocussedElement) {
                 this.lastFocussedElement.focus();
+            }
+        },
+
+        transitionEnd() {
+            if (this.show) {
+                this.$dispatch('revealed');
+            } else {
+                this.$dispatch('hidden');
             }
         }
     },
