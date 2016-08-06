@@ -6,6 +6,8 @@
 
         <p>UiSelect can have an icon, show a label above the input as well as help text below the input. It also supports keyboard navigation and a disabled state.</p>
 
+        <p>UiSelect supports validation, and the validation state can also be set programmatically from outside the component using an event.</p>
+
         <h3>Examples</h3>
 
         <div class="demo">
@@ -408,6 +410,20 @@
                             <td>
                                 <p>Dispatched when the search query changes. The handler is called with the new query. Listen for it using <code>@query-changed</code>.</p>
                                 <p>This can be used to fetch remote options dynamically. See the <b>Search with dynamic options</b> section above for an example.</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="no-wrap new-prop">ui-input::set-validity</td>
+                            <td>Received</td>
+                            <td>
+                                <p>Trigger this event to programmatically change the select validation state. The handler accepts the following arguments:</p>
+
+                                <ul>
+                                    <li><code>valid</code>: A Boolean indicating whether or not the select is valid</li>
+                                    <li><code>error</code>: An optional string to set as the new error message</li>
+                                    <li><code>id</code>: The id of the specific select whose validity you want to change</li>
+                                </ul>
                             </td>
                         </tr>
 

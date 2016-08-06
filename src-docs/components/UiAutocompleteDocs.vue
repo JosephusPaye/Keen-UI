@@ -4,7 +4,9 @@
 
         <p>UiAutocomplete shows a dropdown of suggestions below an input that the user can select from as they type.</p>
 
-        <p>An autocomplete can show a label above the input as well as help text below the input. It also supports keyboard navigation and validation.</p>
+        <p>An autocomplete can show a label above the input as well as help text below the input, and it also supports keyboard navigation.
+
+        <p>UiAutocomplete supports validation, and the validation state can also be set programmatically from outside the component using an event.</p>
 
         <h3>Examples</h3>
 
@@ -306,6 +308,20 @@
                     </thead>
 
                     <tbody>
+                        <tr>
+                            <td class="no-wrap new-prop">ui-input::set-validity</td>
+                            <td>Received</td>
+                            <td>
+                                <p>Trigger this event to programmatically change the autocomplete validation state. The handler accepts the following arguments:</p>
+
+                                <ul>
+                                    <li><code>valid</code>: A Boolean indicating whether or not the autocomplete is valid</li>
+                                    <li><code>error</code>: An optional string to set as the new error message</li>
+                                    <li><code>id</code>: The id of the specific autocomplete whose validity you want to change</li>
+                                </ul>
+                            </td>
+                        </tr>
+
                         <tr>
                             <td class="no-wrap">ui-input::reset</td>
                             <td>Received</td>

@@ -8,6 +8,8 @@
 
         <p>Validation rules are written declaratively and validation is powered by <a href="https://github.com/skaterdav85/validatorjs" target="_blank">validatorjs</a>. If validation fails, an error message is shown below the input. Error messages can be customized.</p>
 
+        <p>The validation state can also be set programmatically from outside the component using an event.</p>
+
         <h3>Examples</h3>
 
         <div class="demo">
@@ -466,6 +468,20 @@
                                 <td class="no-wrap">keydown-enter</td>
                                 <td>Dispatched</td>
                                 <td>Dispatched when the <kbd>Enter</kbd> key is pressed in the input. An event object is passed as the argument to the handler. Listen for it using <code>@keydown-enter</code>.</td>
+                            </tr>
+
+                            <tr>
+                                <td class="no-wrap new-prop">ui-input::set-validity</td>
+                                <td>Received</td>
+                                <td>
+                                    <p>Trigger this event to programmatically change the input validation state. The handler accepts the following arguments:</p>
+
+                                    <ul>
+                                        <li><code>valid</code>: A Boolean indicating whether or not the input is valid</li>
+                                        <li><code>error</code>: An optional string to set as the new error message</li>
+                                        <li><code>id</code>: The id of the specific input whose validity you want to change</li>
+                                    </ul>
+                                </td>
                             </tr>
 
                             <tr>
