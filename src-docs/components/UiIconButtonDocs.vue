@@ -139,6 +139,13 @@
                             </tr>
 
                             <tr>
+                                <td>buttonType</td>
+                                <td>String</td>
+                                <td><code>"button"</code></td>
+                                <td>The <code>type</code> attribute of the icon button element.</td>
+                            </tr>
+
+                            <tr>
                                 <td>color</td>
                                 <td>String</td>
                                 <td><code>"default"</code></td>

@@ -250,6 +250,13 @@
                             </tr>
 
                             <tr>
+                                <td>buttonType</td>
+                                <td>String</td>
+                                <td><code>"submit"</code></td>
+                                <td>The <code>type</code> attribute of the button element.</td>
+                            </tr>
+
+                            <tr>
                                 <td>color</td>
                                 <td>String</td>
                                 <td><code>"default"</code></td>
