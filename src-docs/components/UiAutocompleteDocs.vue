@@ -26,6 +26,7 @@
                 :value.sync="favouriteSimpson" name="favourite_simpson" validation-rules="required"
                 partial="ui-autocomplete-image" placeholder="Choose your favourite Simpson"
                 help-text="Pick your favourite member of the Simpsons family"
+                :keys="{ text: 'text', value: 'text', image: 'image' }"
             ></ui-autocomplete>
 
             <p>Suggestions are updated dynamically when the suggestions array changes.</p>
@@ -93,6 +94,8 @@
 
                                     <p>For an array of objects, each object should have <code>text</code> and <code>value</code> properties. The <code>text</code> is shown to the user and the <code>value</code> is written to input when the user makes a selection.</p>
 
+                                    <p>You can redefine these keys to fit your data using the <code>keys</code> prop.</p>
+
                                     <p>For an array of strings, each string is used as both the label and the value.</p>
                                 </td>
                             </tr>
@@ -148,6 +151,8 @@
                                     <p>The default partial simply renders the suggestion text.</p>
 
                                     <p>There is another default partial, <code>ui-autocomplete-image</code>, which you can use to render the items with an image. To use, set an image URL as the <code>image</code> property on each suggestion and set the partial to <code>ui-autocomplete-image</code>.</p>
+
+                                    <p>You can also redefine the <code>image</code> key to fit your data using the <code>keys</code> prop.</p>
                                 </td>
                             </tr>
 
@@ -213,6 +218,22 @@
                                     </ul>
 
                                     <p>The function should return <code>true</code> if the suggestion matches the query or <code>false</code> otherwise.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="new-prop">keys</td>
+                                <td>Object</td>
+                                <td><pre>{
+  text: 'text',
+  value: 'value',
+  image: 'image'
+}</pre></td>
+                                <td></td>
+                                <td>
+                                    <p>Allows for redefining the <code>text</code>, <code>value</code> and <code>image</code> keys. Pass an object with custom keys if your data does not match the default keys.</p>
+
+                                    <p>Note that if you redefine one key, you have to specify the other two as well.</p>
                                 </td>
                             </tr>
 

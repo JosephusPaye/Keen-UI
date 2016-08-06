@@ -33,6 +33,8 @@
                 <ul class="ui-autocomplete-suggestions" v-show="showDropdown">
                     <ui-autocomplete-suggestion
                         :highlighted="highlightedItem === index" :item="item" :partial="partial"
+                        :keys="keys"
+
                         v-for="(index, item) in suggestions | filterBy search | limitBy limit"
                         v-ref:items @click="select(item)"
                     ></ui-autocomplete-suggestion>
@@ -106,6 +108,16 @@ export default {
         cycleHighlight: {
             type: Boolean,
             default: true
+        },
+        keys: {
+            type: Object,
+            default() {
+                return {
+                    text: 'text',
+                    value: 'value',
+                    image: 'image'
+                };
+            }
         }
     },
 
@@ -167,17 +179,21 @@ export default {
                 return this.filter(item, this.value);
             }
 
-            let text = item.text || item;
-            let query = (typeof this.value === 'string') ? this.value.toLowerCase() : this.value;
+            let text = item[this.keys.text] || item;
+            let query = this.value;
+
+            if (typeof query === 'string') {
+                query = query.toLowerCase();
+            }
 
             return fuzzysearch(query, text.toLowerCase());
         },
 
         select(item) {
             if (this.append) {
-                this.value += this.appendDelimiter + (item.text || item);
+                this.value += this.appendDelimiter + (item[this.keys.value] || item);
             } else {
-                this.value = item.text || item;
+                this.value = item[this.keys.value] || item;
             }
 
             this.$dispatch('selected', item);
