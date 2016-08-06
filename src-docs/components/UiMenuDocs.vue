@@ -158,6 +158,29 @@
                                 <td><code>false</code></td>
                                 <td>Determines whether or not the ripple ink animation is hidden when a menu item is clicked. Set to <code>true</code> to hide the ripple ink animation.</td>
                             </tr>
+
+                            <tr>
+                                <td class="new-prop">closeOnSelect</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td>
+                                    <p>Determines whether or not the menu should be closed when an option is selected.</p>
+                                    <p>Set to <code>false</code> to prevent the menu from closing when an option is selected.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="new-prop">partial</td>
+                                <td>String</td>
+                                <td class="no-wrap"><code>"ui-menu-default"</code></td>
+                                <td>
+                                    <p>The ID of a registered <a href="http://vuejs.org/api/#partial" target="_blank">Vue partial</a> to use as the template for each menu item.</p>
+
+                                    <p>This partial is rendered into an <code>&lt;div&gt;</code> which has the partial's ID as a class. In the partial template, you have access to an <code>option</code> object from the options array, which you can use to render the menu option however you like.</p>
+
+                                    <p>The default partial renders the menu option with place for an icon and secondary text. It also renders dividers.</p>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 
