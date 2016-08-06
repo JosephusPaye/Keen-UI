@@ -197,10 +197,6 @@
                 >
                     <div slot="actions">
                         <ui-icon-button
-                            type="clear" color="white" icon="view_modules"
-                        ></ui-icon-button>
-
-                        <ui-icon-button
                             type="clear" color="white" icon="more_vert" has-dropdown-menu
                             :menu-options="menu" dropdown-position="bottom right"
                         ></ui-icon-button>
