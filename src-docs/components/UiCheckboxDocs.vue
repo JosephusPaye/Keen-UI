@@ -55,7 +55,7 @@
                 >Just <b><i>do</i></b> it!</ui-checkbox>
             </div>
 
-            <h4>Multiple checkboxes connected to a single array</h4>
+            <h4>Multiple checkboxes connected to a single model</h4>
 
             <div class="group">
                 <ui-checkbox
@@ -122,7 +122,7 @@
                                 <td>Boolean or Array</td>
                                 <td>(required)</td>
                                 <td>Two way</td>
-                                <td>The model that the checkbox value syncs to. Is an array if the `value` prop is provided, otherwise a boolean.</td>
+                                <td>The model that the checkbox value syncs to. Is an array if the <code>value</code> prop is provided, otherwise a boolean.</td>
                             </tr>
 
                             <tr>
@@ -130,7 +130,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>The checkbox input <code>value</code> attribute. Use this for connecting a group of checkboxes to a single model.</td>
+                                <td>
+                                    <p>The checkbox input <code>value</code> attribute. Use this for connecting a group of checkboxes to a single model.</p>
+                                    <p>See <b>Multiple checkboxes connected to a single model</b> above for an example.</p>
+                                </td>
                             </tr>
 
                             <tr>
