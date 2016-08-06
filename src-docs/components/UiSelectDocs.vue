@@ -272,6 +272,25 @@
                             </tr>
 
                             <tr>
+                                <td class="new-prop">filter</td>
+                                <td>Function</td>
+                                <td>(<a href="https://www.npmjs.com/package/fuzzysearch">fuzzysearch</a>)</td>
+                                <td></td>
+                                <td>
+                                    <p>Defines a custom filter function that is used for filtering the options when the user types into the select search.</p>
+
+                                    <p>The function is called for each item in the <code>options</code> array with two arguments:</p>
+
+                                    <ul>
+                                        <li><code>option</code>: the current option, may be a string or an object</li>
+                                        <li><code>query</code>: the current value of the select search input (what the user has typed)</li>
+                                    </ul>
+
+                                    <p>The function should return <code>true</code> if the item matches the query or <code>false</code> otherwise.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>valid</td>
                                 <td>Boolean</td>
                                 <td><code>true</code></td>

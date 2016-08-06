@@ -198,6 +198,25 @@
                             </tr>
 
                             <tr>
+                                <td class="new-prop">filter</td>
+                                <td>Function</td>
+                                <td>(<a href="https://www.npmjs.com/package/fuzzysearch">fuzzysearch</a>)</td>
+                                <td></td>
+                                <td>
+                                    <p>Defines a custom filter function that is used for filtering the suggestions when the user types into the autocomplete.</p>
+
+                                    <p>The function is called for each item in the <code>suggestions</code> array with two arguments:</p>
+
+                                    <ul>
+                                        <li><code>suggestion</code>: the current suggestion, may be a string or an object</li>
+                                        <li><code>query</code>: the current value of the autocomplete input (what the user has typed)</li>
+                                    </ul>
+
+                                    <p>The function should return <code>true</code> if the suggestion matches the query or <code>false</code> otherwise.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>placeholder</td>
                                 <td>String</td>
                                 <td></td>
