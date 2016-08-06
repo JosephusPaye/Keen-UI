@@ -182,6 +182,28 @@ a {
     td {
         padding-top: 10px;
         padding-bottom: 10px;
+
+        &.new-prop::after {
+            content: 'New';
+            display: inline-block;
+            background-color: $md-brand-primary;
+            color: white;
+            font-size: 10px;
+            padding: 2px 4px;
+            border-radius: 2px;
+            margin-left: 8px;
+        }
+
+        &.changed-prop::after {
+            content: 'Changed';
+            display: inline-block;
+            background-color: $md-pink;
+            color: white;
+            font-size: 10px;
+            padding: 2px 4px;
+            border-radius: 2px;
+            margin-left: 8px;
+        }
     }
 
     p {
