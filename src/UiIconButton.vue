@@ -57,6 +57,10 @@ export default {
                 return 'ui-icon-button-' + type;
             }
         },
+        buttonType: {
+            type: String,
+            default: 'button'
+        },
         color: {
             type: String,
             default: 'default', // 'default', 'primary', 'accent', 'success', 'warning', or 'danger'
@@ -76,10 +80,6 @@ export default {
         disabled: {
             type: Boolean,
             default: false
-        },
-        buttonType: {
-            type: String,
-            default: 'button'
         }
     },
 
