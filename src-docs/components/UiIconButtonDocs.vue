@@ -178,6 +178,13 @@
                             </tr>
 
                             <tr>
+                                <td class="new-prop">openTooltipOn</td>
+                                <td>String</td>
+                                <td><code>"hover focus"</code></td>
+                                <td>The type of event(s) that will cause the tooltip to open. One or more of <code>click</code>, <code>hover</code>, or <code>focus</code>. Separate multiple events with a space.</td>
+                            </tr>
+
+                            <tr>
                                 <td>ariaLabel</td>
                                 <td>String</td>
                                 <td></td>

@@ -9,6 +9,7 @@
 
         <ui-tooltip
             :trigger="$els.button" :content="tooltip" :position="tooltipPosition" v-if="tooltip"
+            :open-on="openTooltipOn"
         ></ui-tooltip>
     </button>
 </template>
