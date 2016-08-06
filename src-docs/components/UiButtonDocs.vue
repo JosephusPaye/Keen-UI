@@ -2,7 +2,7 @@
     <section class="section section-ui-button">
         <h2 class="section-heading">UiButton</h2>
 
-        <p>UiButton is a versatile button component that largely implements the Material Design spec. UiButtons can show dropdowns and a loading spinner. They also support focus (mouse and keyboard separately), hover and disabled states.</p>
+        <p>UiButton is a versatile button component that largely implements the Material Design spec. UiButtons can show a dropdown and a loading spinner. They also support focus (mouse and keyboard separately), hover and disabled states.</p>
 
         <p>Visually, buttons have two main types:</p>
 
@@ -13,11 +13,13 @@
 
         <p>Supported colors are <code>default</code>, <code>primary</code>, <code>accent</code>, <code>success</code>, <code>warning</code> and <code>danger</code>.</p>
 
-        <p>Additionally, both normal and flat buttons can be raised (with a box-shadow) using <code>raised</code> prop.</p>
+        <p>Additionally, both normal and flat buttons can be raised (with a box-shadow) using the <code>raised</code> prop.</p>
 
         <p><b>Note:</b> If you are having alignment issues when using multiple buttons next to each other, put the buttons in a container and add a class of <code>ui-button-group</code> for a flex-based workaround.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiButtonDocs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Normal</h4>
@@ -51,15 +53,10 @@
 
             <div class="group">
                 <ui-button raised disabled>Default, Raised, Disabled</ui-button>
-
                 <ui-button color="primary" raised disabled>Primary, Raised, Disabled</ui-button>
-
                 <ui-button color="accent" raised disabled>Accent, Raised, Disabled</ui-button>
-
                 <ui-button color="success" raised disabled>Success, Raised, Disabled</ui-button>
-
                 <ui-button color="warning" raised disabled>Warning, Raised, Disabled</ui-button>
-
                 <ui-button color="danger" raised disabled>Danger, Raised, Disabled</ui-button>
             </div>
         </div>
@@ -246,7 +243,10 @@
                                 <td>type</td>
                                 <td>String</td>
                                 <td><code>"normal"</code></td>
-                                <td>The type of button. Use <code>normal</code> for a button with a background, and <code>flat</code> for a seamless button.</td>
+                                <td>
+                                    <p>The type of button (determines the visual appearance).</p>
+                                    <p>Use <code>normal</code> for a button with a background, and <code>flat</code> for a seamless button.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -261,7 +261,7 @@
                                 <td>String</td>
                                 <td><code>"default"</code></td>
                                 <td>
-                                    <p>One of <code>default</code>, <code>primary</code>, <code>accent</code>, <code>success</code>, <code>warning</code> and <code>danger</code>.</p>
+                                    <p>One of <code>default</code>, <code>primary</code>, <code>accent</code>, <code>success</code>, <code>warning</code> or <code>danger</code>.</p>
 
                                     <p>In normal buttons, this is the background color; in flat buttons, the text color.</p>
                                 </td>
@@ -271,7 +271,10 @@
                                 <td>raised</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the button has a drop shadow. Set to <code>true</code> to apply a drop shadow.</td>
+                                <td>
+                                    <p>Determines whether or not the button has a drop shadow.</p>
+                                    <p>Set to <code>true</code> to apply a drop shadow.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -285,21 +288,30 @@
                                 <td>icon</td>
                                 <td>String</td>
                                 <td></td>
-                                <td>The button icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</td>
+                                <td>
+                                    <p>The button icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>.</p>
+                                    <p>Note that this should be the icon codepoint if you want to support IE9.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>iconRight</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the button icon is shown at the right of the text. Set to <code>true</code> to show the icon at the right.</td>
+                                <td>
+                                    <p>Determines whether or not the button icon is shown at the right of the text (instead of to the left).</p>
+                                    <p>Set to <code>true</code> to show the icon at the right.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>hideRippleInk</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the ripple ink animation is hidden when the button is clicked. Set to <code>true</code> to hide the ripple ink animation.</td>
+                                <td>
+                                    <p>Determines whether or not the ripple ink animation is hidden when the button is clicked.</p>
+                                    <p>Set to <code>true</code> to hide the ripple ink animation.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -321,7 +333,9 @@
                                 <td>Array</td>
                                 <td><code>[]</code></td>
                                 <td>
-                                    <p>The list of options to show in the dropdown menu. Each option should be an Object with at least two properties: <code>id</code> and <code>text</code>. An option can be shown as a divider by setting its <code>type</code> property to <code>"divider"</code>.</p>
+                                    <p>The list of options to show in the dropdown menu.</p>
+
+                                    <p>Each option should be an object with at least two properties: <code>id</code> and <code>text</code>. An option can be shown as a divider by setting its <code>type</code> property to <code>"divider"</code>.</p>
 
                                     <p>The <code>text</code> is shown to the user and <code>id</code> is passed to the <code>@menu-option-selected</code> event handler.</p>
 
@@ -343,21 +357,30 @@
                                 <td>showMenuIcons</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not icons are shown for the dropdown menu options. Set to <code>false</code> to hide the icons.</td>
+                                <td>
+                                    <p>Determines whether or not icons are shown for the dropdown menu options.</p>
+                                    <p>Set to <code>false</code> to hide the icons.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>showMenuSecondaryText</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not secondary text is shown for the dropdown menu options. Set to <code>false</code> to hide the secondary text.</td>
+                                <td>
+                                    <p>Determines whether or not secondary text is shown for the dropdown menu options.</p>
+                                    <p>Set to <code>false</code> to hide the secondary text.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>dropdownPosition</td>
                                 <td>String</td>
                                 <td class="no-wrap"><code>"bottom left"</code></td>
-                                <td>The position of the dropdown menu or popover relative to the button. Can be any one of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, <code>top center</code>.</td>
+                                <td>
+                                    <p>The position of the dropdown menu or popover relative to the button.</p>
+                                    <p>Can be any one of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, or <code>top center</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -365,7 +388,9 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>
-                                    <p>Determines whether or not the dropdown chevron is shown (NOT the option icons, for that, see <code>showMenuIcons</code>). Set to <code>false</code> to disable the dropdown chevron.</p>
+                                    <p>Determines whether or not the dropdown chevron is shown (this is NOT the option icons, for that, see <code>showMenuIcons</code>).</p>
+
+                                    <p>Set to <code>false</code> to disable the dropdown chevron.</p>
 
                                     <p>This prop is only applicable if <code>hasDropdownMenu</code> or <code>hasPopover</code> is <code>true</code> and <code>iconRight</code> is <code>false</code>. If not, the dropdown chevron is always hidden.</p>
                                 </td>
@@ -375,21 +400,31 @@
                                 <td>openDropdownOn</td>
                                 <td>String</td>
                                 <td><code>"click"</code></td>
-                                <td>The type of event that will cause the dropdown menu or popover to open. One of <code>click</code>, <code>hover</code>, <code>focus</code>, or <code>always</code>. For <code>always</code> the dropdown is opened when rendered and it remains open.</td>
+                                <td>
+                                    <p>The type of event that will cause the dropdown menu or popover to open. One of <code>click</code>, <code>hover</code>, <code>focus</code>, or <code>always</code>.</p>
+
+                                    <p>For <code>always</code>, the dropdown is opened when rendered and it remains open.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>loading</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the loading spinner is shown. Set to <code>true</code> to show the loading spinner (disables the button).</td>
+                                <td>
+                                    <p>Determines whether or not the loading spinner is shown.</p>
+                                    <p>Set to <code>true</code> to show the loading spinner (disables the button).</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>disabled</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the button is disabled. Set to <code>true</code> to disable the button.</td>
+                                <td>
+                                    <p>Determines whether or not the button is disabled.</p>
+                                    <p>Set to <code>true</code> to disable the button.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -409,7 +444,7 @@
                         <tbody>
                             <tr>
                                 <td>(default)</td>
-                                <td>The default slot holds the button text content and can contain HTML.</td>
+                                <td>The default slot holds the button text and can contain HTML.</td>
                             </tr>
 
                             <tr>
@@ -436,19 +471,28 @@
                             <tr>
                                 <td class="no-wrap">dropdown-opened</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the popover or dropdown menu is opened. Listen for it using <code>@dropdown-opened</code>.</td>
+                                <td>
+                                    <p>Dispatched when the popover or dropdown menu is opened.</p>
+                                    <p>Listen for it using <code>@dropdown-opened</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td class="no-wrap">dropdown-closed</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the popover or dropdown menu is closed. Listen for it using <code>@dropdown-closed</code>.</td>
+                                <td>
+                                    <p>Dispatched when the popover or dropdown menu is closed.</p>
+                                    <p>Listen for it using <code>@dropdown-closed</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td class="no-wrap">menu-option-selected</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when an option is selected from the dropdown menu. The handler function is called with the option that was selected. Listen for it using <code>@menu-option-selected</code>.</td>
+                                <td>
+                                    <p>Dispatched when an option is selected from the dropdown menu.</p>
+                                    <p>The handler function is called with the option that was selected. Listen for it using <code>@menu-option-selected</code>.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
