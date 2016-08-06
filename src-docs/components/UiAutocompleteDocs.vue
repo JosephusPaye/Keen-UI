@@ -132,7 +132,7 @@
                                 <td>Number</td>
                                 <td></td>
                                 <td></td>
-                                <td>Allows you to set a minimum delay (in milliseconds) after each keystroke before the input’s value is synced to the model. You may want to use this if you are watching the value and making AJAX calls.</td>
+                                <td>Allows for setting a minimum delay (in milliseconds) after each keystroke before the input’s value is synced to the model. You may want to use this if you are watching the value and making AJAX calls.</td>
                             </tr>
 
                             <tr>

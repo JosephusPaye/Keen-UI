@@ -411,7 +411,7 @@
                                 <td>Number</td>
                                 <td></td>
                                 <td></td>
-                                <td>Allows you to set a minimum delay (in milliseconds) after each keystroke before the input’s value is synced to the model.</td>
+                                <td>Allows for setting a minimum delay (in milliseconds) after each keystroke before the input’s value is synced to the model.</td>
                             </tr>
 
                             <tr>
