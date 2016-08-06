@@ -251,6 +251,16 @@
                             </tr>
 
                             <tr>
+                                <td>allowHtml</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>
+                                    <p>Determines whether or not snackbars created in this container can have HTML in their <code>message</code> property.</p>
+                                    <p>Set this prop to <code>true</code> to allow HTML in the snackbars created in this container.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>position</td>
                                 <td>String</td>
                                 <td><code>"left"</code></td>
