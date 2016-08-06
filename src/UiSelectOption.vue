@@ -44,7 +44,8 @@ export default {
             default() {
                 return {
                     text: 'text',
-                    value: 'value'
+                    value: 'value',
+                    image: 'image'
                 };
             }
         }
@@ -68,7 +69,7 @@ export default {
         'ui-select-image': `
             <div
                 class="ui-select-item-image"
-                :style="{ 'background-image': 'url(' + option.image + ')' }"
+                :style="{ 'background-image': 'url(' + option[keys.image] + ')' }"
             ></div>
 
             <div class="ui-select-item-text" v-text="option[keys.text]"></div>
