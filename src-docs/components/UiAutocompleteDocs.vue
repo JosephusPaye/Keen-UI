@@ -186,6 +186,16 @@
                             </tr>
 
                             <tr>
+                                <td class="new-prop">autofocus</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td></td>
+                                <td>
+                                    <p>Determines whether or not the input should automatically receive focus. This only works on initial page load or the first time the element is added to the DOM and not on subsequent renders. Also, only one input element should have this prop set to <code>true</code> in the document for the autofocus to work properly.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>placeholder</td>
                                 <td>String</td>
                                 <td></td>

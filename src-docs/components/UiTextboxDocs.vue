@@ -2,9 +2,9 @@
     <section class="section section-ui-textbox">
         <h2 class="section-heading">UiTextbox</h2>
 
-        <p>UiTextbox is a text input component that can perform validation and show errors. It supports hover, focus, active and disabled states.</p>
+        <p>UiTextbox is a versatile text input component that can perform validation and show errors. It supports hover, focus, active and disabled states.</p>
 
-        <p>A label can be shown above the input as well as help text below the input. UiTextbox can also show an icon to the left or right of the input. It can also show a counter of the number of characters entered.</p>
+        <p>A label can be shown above the input as well as help text below the input. UiTextbox can show an icon to the left or right of the input. It can also show a counter of the number of characters entered.</p>
 
         <p>Validation rules are written declaratively and validation is powered by <a href="https://github.com/skaterdav85/validatorjs" target="_blank">validatorjs</a>. If validation fails, an error message is shown below the input. Error messages can be customized.</p>
 
@@ -13,7 +13,9 @@
         <div class="demo">
             <h4>Default</h4>
 
-            <ui-textbox label="Name" name="name" type="text" placeholder="Enter your name"></ui-textbox>
+            <ui-textbox
+                label="Name" name="name" type="text" placeholder="Enter your name"
+            ></ui-textbox>
 
             <h4>Disabled</h4>
 
@@ -253,6 +255,16 @@
                                     <p>Example props for an input whose max length is 16 characters, showing a counter with validation:</p>
 
                                     <p><code>:max-length="16" validation-rules="max:16"</code></p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="new-prop">autofocus</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td></td>
+                                <td>
+                                    <p>Determines whether or not the input should automatically receive focus. This only works on initial page load or the first time the element is added to the DOM and not on subsequent renders. Also, only one input element should have this prop set to <code>true</code> in the document for the autofocus to work properly.</p>
                                 </td>
                             </tr>
 
