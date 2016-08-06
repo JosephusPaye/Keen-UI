@@ -81,6 +81,13 @@
 
                         <tbody>
                             <tr>
+                                <td>id</td>
+                                <td>String</td>
+                                <td></td>
+                                <td>A unique identifier for the menu. Applied as the <code>id</code> attribute of the menu's root element and used when targeting a specific menu for open/close/toggle.</td>
+                            </tr>
+
+                            <tr>
                                 <td>options *</td>
                                 <td>Array</td>
                                 <td><code>[]</code></td>
@@ -186,6 +193,33 @@
                                 <td class="no-wrap">option-selected</td>
                                 <td>Dispatched</td>
                                 <td>Dispatched when an option is selected from the menu. The handler function is called with the option that was selected. Listen for it using <code>@option-selected</code>.</td>
+                            </tr>
+
+                            <tr>
+                                <td class="no-wrap new-prop">ui-dropdown::open</td>
+                                <td>Received</td>
+                                <td>
+                                    <p>Trigger this event to open the menu dropdown.</p>
+                                    <p>You can optionally pass in an <code>id</code> to only open the dropdown of a specific menu (whose <code>id</code> you have set).</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="no-wrap new-prop">ui-dropdown::close</td>
+                                <td>Received</td>
+                                <td>
+                                    <p>Trigger this event to close the menu dropdown.</p>
+                                    <p>You can optionally pass in an <code>id</code> to only close the dropdown of a specific menu (whose <code>id</code> you have set).</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="no-wrap new-prop">ui-dropdown::toggle</td>
+                                <td>Received</td>
+                                <td>
+                                    <p>Trigger this event to toggle the menu dropdown.</p>
+                                    <p>You can optionally pass in an <code>id</code> to only toggle the dropdown of a specific menu (whose <code>id</code> you have set).</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

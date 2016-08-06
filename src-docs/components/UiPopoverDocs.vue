@@ -85,6 +85,13 @@
 
                         <tbody>
                             <tr>
+                                <td>id</td>
+                                <td>String</td>
+                                <td></td>
+                                <td>A unique identifier for the popover. Applied as the <code>id</code> attribute of the popover's root element and used when targeting a specific popover for open/close/toggle.</td>
+                            </tr>
+
+                            <tr>
                                 <td>trigger *</td>
                                 <td class="no-wrap">HTMLElement</td>
                                 <td></td>
@@ -140,6 +147,33 @@
                                 <td>closed</td>
                                 <td>Dispatched</td>
                                 <td>Dispatched when the popover is closed. Listen for it using <code>@closed</code>.</td>
+                            </tr>
+
+                            <tr>
+                                <td class="no-wrap new-prop">ui-dropdown::open</td>
+                                <td>Received</td>
+                                <td>
+                                    <p>Trigger this event to open the popover dropdown.</p>
+                                    <p>You can optionally pass in an <code>id</code> to only open the dropdown of a specific popover (whose <code>id</code> you have set).</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="no-wrap new-prop">ui-dropdown::close</td>
+                                <td>Received</td>
+                                <td>
+                                    <p>Trigger this event to close the popover dropdown.</p>
+                                    <p>You can optionally pass in an <code>id</code> to only close the dropdown of a specific popover (whose <code>id</code> you have set).</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="no-wrap new-prop">ui-dropdown::toggle</td>
+                                <td>Received</td>
+                                <td>
+                                    <p>Trigger this event to toggle the popover dropdown.</p>
+                                    <p>You can optionally pass in an <code>id</code> to only toggle the dropdown of a specific popover (whose <code>id</code> you have set).</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
