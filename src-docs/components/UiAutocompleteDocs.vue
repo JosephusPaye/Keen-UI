@@ -328,6 +328,51 @@
 
                     <tbody>
                         <tr>
+                            <td class="no-wrap new-prop">opened</td>
+                            <td>Dispatched</td>
+                            <td>Dispatched when the autocomplete dropdown is opened. Listen for it using <code>@opened</code>.</td>
+                        </tr>
+
+                        <tr>
+                            <td class="no-wrap new-prop">closed</td>
+                            <td>Dispatched</td>
+                            <td>Dispatched when the autocomplete dropdown is closed. Listen for it using <code>@closed</code>.</td>
+                        </tr>
+
+                        <tr>
+                            <td class="no-wrap new-prop">selected</td>
+                            <td>Dispatched</td>
+                            <td>Dispatched when a suggestion is selected. The handler is called with the suggestion that was selected. Listen for it using <code>@selected</code>.</td>
+                        </tr>
+
+                        <tr>
+                            <td class="no-wrap new-prop">highlighted</td>
+                            <td>Dispatched</td>
+                            <td>
+                                <p>Dispatched when a suggestion is highlighted using the arrow keys. The handler is called with the following arguments:</p>
+
+                                <ul>
+                                    <li><code>suggestion</code>: the suggestion that was highlighted, may be a string or an object</li>
+                                    <li><code>index</code>: the index of the suggestion that was highlighted, in the <code>suggestions</code> array</li>
+                                </ul>
+
+                                <p>Listen for it using <code>@higlighted</code>.</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="no-wrap new-prop">highlight-overflow</td>
+                            <td>Dispatched</td>
+                            <td>
+                                <p>Dispatched when the attempted highlight overflows (this happens when the user is on the first suggestion and presses the up arrow key or on the last suggestion and presses the down arrow key).</p>
+
+                                <p>This event is only dispatched when the <code>cycleHighlight</code> prop is <code>false</code>.</p>
+
+                                <p>The handler is called with the overflowing index. Listen for it using <code>@higlighted</code>.</p>
+                            </td>
+                        </tr>
+
+                        <tr>
                             <td class="no-wrap new-prop">ui-input::set-validity</td>
                             <td>Received</td>
                             <td>
