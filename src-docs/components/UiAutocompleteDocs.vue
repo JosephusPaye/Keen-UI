@@ -217,6 +217,31 @@
                             </tr>
 
                             <tr>
+                                <td class="new-prop">autoHighlightFirstMatch</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td></td>
+                                <td>
+                                    <p>Determines whether or not the first matched suggestion is automatically highlighted when the user input changes.</p>
+                                    <p>Set to <code>false</code> to disable automatically highlighting the first match.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="new-prop">cycleHighlight</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td></td>
+                                <td>
+                                    <p>Determines whether or not highlighting should wrap around immediately on overflow.</p>
+
+                                    <p>When this is set to <code>false</code>, pressing the down arrow key when on the last suggestion will not immediately highlight the first suggestion, but pressing it a second time will.</p>
+
+                                    <p>The same goes for when pressing the up arrow key on the first suggestion.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>placeholder</td>
                                 <td>String</td>
                                 <td></td>
