@@ -2,7 +2,9 @@
     <section class="section section-ui-checkbox">
         <h2 class="section-heading">UiCheckbox</h2>
 
-        <p>A checkbox component that allows the user to select one or more options. Supports keyboard focus, a disabled state and showing the label to the left of the checkbox.</p>
+        <p>UiCheckbox is a checkbox component that allows the user to select one or more options. It supports keyboard focus, a disabled state and showing the label to the left of the checkbox.</p>
+
+        <p>It also allows for connecting multiple checkboxes to the same model, to form an array.</p>
 
         <h3>Examples</h3>
 
@@ -106,7 +108,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>A unique identifier for the checkbox. Applied as the <code>id</code> attribute of the checkbox input and used when targeting a specific checkbox for reset.</td>
+                                <td>
+                                    <p>A unique identifier for the checkbox.</p>
+                                    <p>Applied as the <code>id</code> attribute of the checkbox input and used when targeting a specific checkbox for reset.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -114,7 +119,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>The checkbox input <code>name</code> attribute.</td>
+                                <td>The checkbox input element <code>name</code> attribute.</td>
                             </tr>
 
                             <tr>
@@ -122,7 +127,10 @@
                                 <td>Boolean or Array</td>
                                 <td>(required)</td>
                                 <td>Two way</td>
-                                <td>The model that the checkbox value syncs to. Is an array if the <code>value</code> prop is provided, otherwise a boolean.</td>
+                                <td>
+                                    <p>The model that the checkbox value syncs to.</p>
+                                    <p>Will be an array if the <code>value</code> prop is provided, otherwise a boolean.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -149,7 +157,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the checkbox label is hidden. Set to <code>true</code> to hide the label.</td>
+                                <td>
+                                    <p>Determines whether or not the checkbox label is hidden.</p>
+                                    <p>Set to <code>true</code> to hide the label.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -157,7 +168,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Whether or not the label is shown to the left of the checkbox. Set to <code>true</code> to show the label on the left.</td>
+                                <td>
+                                    <p>Determines whether or not the label is shown to the left of the checkbox (instead of to the right).</p>
+                                    <p>Set to <code>true</code> to show the label on the left.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -165,7 +179,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the checkbox is disabled. Set to <code>true</code> to disable the checkbox.</td>
+                                <td>
+                                    <p>Determines whether or not the checkbox is disabled.</p>
+                                    <p>Set to <code>true</code> to disable the checkbox.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
