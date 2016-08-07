@@ -2,11 +2,13 @@
     <section class="section section-ui-fab">
         <h2 class="section-heading">UiFab</h2>
 
-        <p>UiFab is the Floating Action Button (FAB) from Material Design. It supports focus (keyboard separately), hover and disabled states.</p>
+        <p>UiFab is the floating action button (FAB) from Material Design. It supports focus (keyboard separately), hover and disabled states.</p>
 
-        <p>There are two types: <code>normal</code> and <code>mini</code> and there are three colors: <code>default</code> (white), <code>primary</code> and <code>accent</code>.</p>
+        <p>UiFab has two types: <code>normal</code> and <code>mini</code> and are three colors: <code>default</code> (white), <code>primary</code> and <code>accent</code>.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiFabDocs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <div class="group">
@@ -76,7 +78,10 @@
                                 <td>icon *</td>
                                 <td>String</td>
                                 <td></td>
-                                <td>The FAB icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</td>
+                                <td>
+                                    <p>The FAB icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>.</p>
+                                    <p>Note that this should be the icon codepoint if you want to support IE9.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -90,28 +95,41 @@
                                 <td>tooltipPosition</td>
                                 <td>String</td>
                                 <td class="no-wrap"><code>"bottom center"</code></td>
-                                <td>The position of the tooltip relative to the FAB. One of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, or <code>top center</code>.</td>
+                                <td>
+                                    <p>The position of the tooltip relative to the FAB.</p>
+
+                                    <p>One of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, or <code>top center</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td class="new-prop">openTooltipOn</td>
                                 <td>String</td>
                                 <td><code>"hover focus"</code></td>
-                                <td>The type of event(s) that will cause the tooltip to open. One or more of <code>click</code>, <code>hover</code>, or <code>focus</code>. Separate multiple events with a space.</td>
+                                <td>
+                                    <p>The type of event or events that will cause the tooltip to open.</p>
+                                    <p>One or more of <code>click</code>, <code>hover</code>, or <code>focus</code>. Separate multiple events with a space.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>ariaLabel</td>
                                 <td>String</td>
                                 <td></td>
-                                <td>The FAB <code>aria-label</code> attribute (important for accessibility). Falls back to <code>tooltip</code> if not specified.</td>
+                                <td>
+                                    <p>The FAB <code>aria-label</code> attribute (important for accessibility).</p>
+                                    <p>Falls back to <code>tooltip</code> if not provided.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>hideRippleInk</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the ripple ink animation is hidden when the FAB is clicked. Set to <code>true</code> to hide the ripple ink animation.</td>
+                                <td>
+                                    <p>Determines whether or not the ripple ink animation is hidden when the FAB is clicked.</p>
+                                    <p>Set to <code>true</code> to hide the ripple ink animation.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -119,9 +137,11 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the FAB is disabled. Set to <code>false</code> to disable the FAB.</p>
+                                    <p>Determines whether or not the FAB is disabled.</p>
 
-                                    <p>You should prefer hiding the FAB when it's not applicable instead of disabling it.</p>
+                                    <p>Set to <code>false</code> to disable the FAB.</p>
+
+                                    <p>You should consider hiding the FAB when it's not applicable instead of disabling it.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -157,6 +177,7 @@ export default {
         display: flex;
         margin-bottom: 16px;
         align-items: flex-end;
+        flex-wrap: wrap;
 
         .ui-fab {
             margin-right: 18px;
