@@ -2,9 +2,9 @@
     <section class="section section-ui-menu">
         <h2 class="section-heading">UiMenu</h2>
 
-        <p>UiMenu is used to show a menu. Menu options can show an icon, secondary text (like keyboard shortcuts), or show a divider. Individual options can also be disabled.</p>
+        <p>UiMenu creates a menu. Menu options can show an icon, secondary text (like keyboard shortcuts), or show a divider. Individual options can also be disabled.</p>
 
-        <p>A trigger element can be added to create a dropdown menu and the dropdown position relative to the trigger can be customized. The dropdown menu can be always open or set to open on hover, click or focus of the trigger element.</p>
+        <p>A trigger element can be added to create a dropdown menu and the dropdown position can be customized. The dropdown menu can be always open or set to open on hover, click or focus of the trigger element.</p>
 
         <p>UiMenu is keyboard accessible and is set by default to contain tab focus in the menu until it is closed, at which point it returns focus to the trigger element. It also emits events when opened, closed and when an option is selected from the menu.</p>
 
@@ -12,7 +12,9 @@
 
         <p>UiMenu is used internally by the <a href="#/ui-button-docs">UiButton</a> and <a href="#/ui-icon-button-docs">UiIconButton</a> components.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiMenuDocs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Default</h4>
@@ -84,7 +86,10 @@
                                 <td>id</td>
                                 <td>String</td>
                                 <td></td>
-                                <td>A unique identifier for the menu. Applied as the <code>id</code> attribute of the menu's root element and used when targeting a specific menu for open/close/toggle.</td>
+                                <td>
+                                    <p>A unique identifier for the menu.</p>
+                                    <p>Applied as the <code>id</code> attribute of the menu's root element and used when targeting a specific menu for open/close/toggle.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -92,7 +97,9 @@
                                 <td>Array</td>
                                 <td><code>[]</code></td>
                                 <td>
-                                    <p>The list of options to show in the menu. Each option should be an Object with at least two properties: <code>id</code> and <code>text</code>. An option can be shown as a divider by setting its <code>type</code> property to <code>"divider"</code>.</p>
+                                    <p>The list of options to show in the menu.</p>
+
+                                    <p>Each option should be an object with at least two properties: <code>id</code> and <code>text</code>. An option can be shown as a divider by setting its <code>type</code> property to <code>"divider"</code>.</p>
 
                                     <p>The <code>text</code> is shown to the user and <code>id</code> is passed to the <code>@option-selected</code> event handler.</p>
 
@@ -114,49 +121,72 @@
                                 <td>showIcons</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not icons are shown for the menu options. Set to <code>false</code> to hide the icons.</td>
+                                <td>
+                                    <p>Determines whether or not icons are shown for the menu options.</p>
+                                    <p>Set to <code>false</code> to hide the icons.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>showSecondaryText</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not secondary text is shown for the menu options. Set to <code>false</code> to hide the secondary text.</td>
+                                <td>
+                                    <p>Determines whether or not secondary text is shown for the menu options.</p>
+                                    <p>Set to <code>false</code> to hide the secondary text.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>trigger</td>
                                 <td>HTMLElement</td>
                                 <td></td>
-                                <td>An Element to attach the menu to. Specifying this prop creates a dropdown menu (i.e. the menu is hidden until the target is clicked/hovered/focussed).</td>
+                                <td>
+                                    <p>An element to attach the menu to.</p>
+                                    <p>Specifying this prop creates a dropdown menu (i.e. the menu is hidden until the target is clicked/hovered/focussed).</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>dropdownPosition</td>
                                 <td>String</td>
                                 <td class="no-wrap"><code>"bottom left"</code></td>
-                                <td>The position of the dropdown menu relative to the trigger. Can be any one of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, <code>top center</code>.</td>
+                                <td>
+                                    <p>The position of the dropdown menu relative to the trigger.</p>
+
+                                    <p>Can be any one of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, <code>top center</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>openOn</td>
                                 <td>String</td>
                                 <td><code>"click"</code></td>
-                                <td>The type of event that will cause the dropdown menu to open. One of <code>click</code>, <code>hover</code>, <code>focus</code>, or <code>always</code>. For <code>always</code> the dropdown is opened when rendered and it remains open.</td>
+                                <td>
+                                    <p>The type of event that will cause the dropdown menu to open.</p>
+
+                                    <p>One of <code>click</code>, <code>hover</code>, <code>focus</code>, or <code>always</code>. For <code>always</code> the dropdown is opened when rendered and it remains open.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>containFocus</td>
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
-                                <td>Determines whether or not tab focus should be contained in the menu. Set to <code>false</code> to allow tabbing to focus elements outside the menu.</td>
+                                <td>
+                                    <p>Determines whether or not tab focus should be contained in the menu.</p>
+                                    <p>Set to <code>false</code> to allow tabbing to focus elements outside the menu.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>hideRippleInk</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the ripple ink animation is hidden when a menu item is clicked. Set to <code>true</code> to hide the ripple ink animation.</td>
+                                <td>
+                                    <p>Determines whether or not the ripple ink animation is hidden when a menu item is clicked.</p>
+                                    <p>Set to <code>true</code> to hide the ripple ink animation.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -203,19 +233,28 @@
                             <tr>
                                 <td>opened</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the menu is opened. Listen for it using <code>@opened</code>.</td>
+                                <td>
+                                    <p>Dispatched when the menu is opened.</p>
+                                    <p>Listen for it using <code>@opened</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>closed</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the menu is closed. Listen for it using <code>@closed</code>.</td>
+                                <td>
+                                    <p>Dispatched when the menu is closed.</p>
+                                    <p>Listen for it using <code>@closed</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td class="no-wrap">option-selected</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when an option is selected from the menu. The handler function is called with the option that was selected. Listen for it using <code>@option-selected</code>.</td>
+                                <td>
+                                    <p>Dispatched when an option is selected from the menu.</p>
+                                    <p>The handler function is called with the option that was selected. Listen for it using <code>@option-selected</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
