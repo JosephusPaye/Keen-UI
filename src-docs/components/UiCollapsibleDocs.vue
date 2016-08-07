@@ -4,13 +4,15 @@
 
         <p>UiCollapsible is used to show collapsible content. It includes a header and a body and can be initially opened or closed (defaults to closed).</p>
 
-        <p>Both the header and body are fully customizable (using <code>slots</code>) and the icon can be removed.</p>
+        <p>Both the header and body are fully customizable (using <code>slots</code>) and the header icon can be removed.</p>
 
-        <p>A collapsible supports keyboard navigation (e.g. tabbing and using the Space or Enter keys to open/close). It also has a disabled state and emits open and close events.</p>
+        <p>UiCollapsible supports keyboard navigation (e.g. tabbing and using the Space or Enter keys to open/close). It also has a disabled state and emits open and close events.</p>
 
         <p>However, it doesn't support accordion sets (i.e. closing other collapsibles when one is opened). You can achieve that effect by listening for <code>@opened</code> or <code>@closed</code> on each collapsible in the set and then adjusting their <code>open</code> prop accordingly.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiCollapsibleDocs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <ui-collapsible header="This is open initially" :open="true">
@@ -61,14 +63,20 @@
                                 <td>id</td>
                                 <td>String</td>
                                 <td></td>
-                                <td>A unique identifier for the collapsible. Applied as the <code>id</code> attribute of the collapsible body element and used when targeting a specific collapsible for refresh.</td>
+                                <td>
+                                    <p>A unique identifier for the collapsible.</p>
+                                    <p>Applied as the <code>id</code> attribute of the collapsible body element and used when targeting a specific collapsible for refresh.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>open</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether the collapsible is open or closed. Changing this value will open/close the collapsible.</td>
+                                <td>
+                                    <p>Determines whether the collapsible is open or closed.</p>
+                                    <p>Changing this value will open/close the collapsible.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -82,21 +90,31 @@
                                 <td>hideIcon</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the header icon is hidden. Set to <code>true</code> to hide the icon.</td>
+                                <td>
+                                    <p>Determines whether or not the header icon is hidden.</p>
+                                    <p>Set to <code>true</code> to hide the icon.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>hideRippleInk</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the ripple ink animation is hidden when the collapsible header is clicked. Set to <code>true</code> to hide the ripple ink animation.</td>
+                                <td>
+                                    <p>Determines whether or not the ripple ink animation is hidden when the collapsible header is clicked.</p>
+                                    <p>Set to <code>true</code> to hide the ripple ink animation.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>disabled</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the collapsible is disabled. A disabled collapsible cannot be focussed, opened or closed by the user.</td>
+                                <td>
+                                    <p>Determines whether or not the collapsible is disabled.</p>
+                                    <p>A disabled collapsible cannot be focussed, opened or closed by the user.</p>
+                                    <p>Set to <code>true</code> to disable the collapsible.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -143,13 +161,19 @@
                             <tr>
                                 <td>opened</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the collapsible is opened. Listen for it using <code>@opened</code>.</td>
+                                <td>
+                                    <p>Dispatched when the collapsible is opened.</p>
+                                    <p>Listen for it using <code>@opened</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>closed</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the collapsible is closed. Listen for it using <code>@closed</code>.</td>
+                                <td>
+                                    <p>Dispatched when the collapsible is closed.</p>
+                                    <p>Listen for it using <code>@closed</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -184,5 +208,5 @@ export default {
         UiTabs,
         UiCollapsible
     }
-}
+};
 </script>
