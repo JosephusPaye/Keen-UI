@@ -7,7 +7,7 @@
         <p>UiAlert supports keyboard navigation, can contain links and can be dismissible. The content can be fully customized using HTML and the icon can be changed or removed.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiAlertDocs.vue" target="_blank" class="view-source-link">Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiAlertDocs.vue" target="_blank" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">
