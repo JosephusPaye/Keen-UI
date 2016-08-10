@@ -6,7 +6,9 @@ f<template>
 
         <p>To show a group of mutually exclusive radio buttons, use <a href="#/ui-radio-group-docs">UiRadioGroup</a> or set a <code>value</code> on each radio and use a common <code>model</code> prop.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiRadioDocs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Default</h4>
@@ -55,7 +57,10 @@ f<template>
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>A unique identifier for the radio button. Applied as the <code>id</code> attribute of the radio <code>&lt;input&gt;</code> element.</td>
+                                <td>
+                                    <p>A unique identifier for the radio button.</p>
+                                    <p>Applied as the <code>id</code> attribute of the radio <code>&lt;input&gt;</code> element.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -64,7 +69,9 @@ f<template>
                                 <td></td>
                                 <td>Two-way</td>
                                 <td>
-                                    <p>The model the radio value syncs to. Applied as the radio's <code>value</code> prop or the String <code>"on"</code> when the radio is selected.</p>
+                                    <p>The model the radio value syncs to.</p>
+
+                                    <p>Applied as the radio's <code>value</code> prop or the String <code>"on"</code> when the radio is selected.</p>
 
                                     <p>When the radio is not selected, the model will be the String <code>"off"</code> or an empty string (if it's not shared between multiple radio buttons).</p>
                                 </td>
@@ -75,7 +82,10 @@ f<template>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the radio is checked by default. Set to <code>true</code> for a default checked state.</td>
+                                <td>
+                                    <p>Determines whether or not the radio is checked by default.</p>
+                                    <p>Set to <code>true</code> for a default checked state.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -99,7 +109,10 @@ f<template>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the label is shown to the left of the radio button. Set to <code>true</code> to show the label on the left.</td>
+                                <td>
+                                    <p>Determines whether or not the label is shown to the left of the radio button.</p>
+                                    <p>Set to <code>true</code> to show the label on the left.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -107,7 +120,10 @@ f<template>
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>The radio button label (text only). To use HTML in the label, use the default slot.</td>
+                                <td>
+                                    <p>The radio button label (text only).</p>
+                                    <p>To use HTML in the label, use the default slot.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -115,7 +131,10 @@ f<template>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the radio button label is hidden. Set to <code>true</code> to hide the label.</td>
+                                <td>
+                                    <p>Determines whether or not the radio button label is hidden.</p>
+                                    <p>Set to <code>true</code> to hide the label.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -123,7 +142,10 @@ f<template>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not radio button is disabled. Set to <code>true</code> to disable the radio.</td>
+                                <td>
+                                    <p>Determines whether or not the radio button is disabled.</p>
+                                    <p>Set to <code>true</code> to disable the radio.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -165,13 +187,19 @@ f<template>
                             <tr>
                                 <td>focussed</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the radio button is focussed. Listen for it using <code>@focussed</code>.</td>
+                                <td>
+                                    <p>Dispatched when the radio button is focussed.</p>
+                                    <p>Listen for it using <code>@focussed</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>blurred</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the radio button loses focus. Listen for it using <code>@blurred</code>.</td>
+                                <td>
+                                    <p>Dispatched when the radio button loses focus.</p>
+                                    <p>Listen for it using <code>@blurred</code>.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
