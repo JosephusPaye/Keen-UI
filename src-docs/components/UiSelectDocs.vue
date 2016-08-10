@@ -8,7 +8,9 @@
 
         <p>UiSelect supports validation, and the validation state can also be set programmatically from outside the component using an event.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiSelectDocs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Options as plain array</h4>
@@ -139,7 +141,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>A unique identifier for the select. Applied as the <code>id</code> attribute of the select root element and used when targeting a specific select for reset.</td>
+                                <td>
+                                    <p>A unique identifier for the select.</p>
+                                    <p>Applied as the <code>id</code> attribute of the select root element and used when targeting a specific select for reset.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -147,7 +152,10 @@
                                 <td>String</td>
                                 <td>(required)</td>
                                 <td></td>
-                                <td>The <code>name</code> attribute of the select input. Used when generating validation error messages. A name with multiple words should be written in <code>snake_case</code>.</td>
+                                <td>
+                                    <p>The <code>name</code> attribute of the select input.</p>
+                                    <p>Used when generating validation error messages. A name with multiple words should be written in <code>snake_case</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -202,7 +210,8 @@
                                 <td><code>false</code></td>
                                 <td></td>
                                 <td>
-                                    <p>Determines whether or not the user can select multiple values. Set to <code>true</code> to allow multiple selection.</p>
+                                    <p>Determines whether or not the user can select multiple values.</p>
+                                    <p>Set to <code>true</code> to allow multiple selection.</p>
                                 </td>
                             </tr>
 
@@ -211,9 +220,7 @@
                                 <td>String</td>
                                 <td><code>", "</code></td>
                                 <td></td>
-                                <td>
-                                    <p>The delimiter (separator) to use for displaying multiple selected options.</p>
-                                </td>
+                                <td>The delimiter (separator) to use for displaying multiple selected options.</td>
                             </tr>
 
                             <tr>
@@ -247,7 +254,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not to show an input for filtering the select options or searching remote options. Set to <code>true</code> to show a search input.</td>
+                                <td>
+                                    <p>Determines whether or not to show an input for filtering the select options or searching remote options.</p>
+                                    <p>Set to <code>true</code> to show a search input.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -330,9 +340,7 @@
                                 <td></td>
                                 <td>
                                     <p>Allows for redefining the <code>text</code>, <code>value</code> and <code>image</code> keys.</p>
-
                                     <p>Pass an object with custom keys if your data does not match the default keys.</p>
-
                                     <p>Note that if you redefine one key, you have to specify the other two as well.</p>
                                 </td>
                             </tr>
@@ -342,7 +350,10 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>Two-way</td>
-                                <td>Shows whether or not the select is valid. Only applicable when the <code>validationRules</code> prop is present.</td>
+                                <td>
+                                    <p>Shows whether or not the select is valid.</p>
+                                    <p>Only applicable when the <code>validationRules</code> prop is present.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -358,7 +369,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>The select icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</td>
+                                <td>
+                                    <p>The select icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>.</p>
+                                    <p>Note that this should be the icon codepoint if you want to support IE9.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -366,7 +380,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the select icon is shown to the right. Set to <code>true</code> to show the icon to the right of the select.</td>
+                                <td>
+                                    <p>Determines whether or not the select icon is shown to the right.</p>
+                                    <p>Set to <code>true</code> to show the icon to the right of the select.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -382,7 +399,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the select label is hidden. Set to <code>true</code> to hide the label.</td>
+                                <td>
+                                    <p>Determines whether or not the select label is hidden.</p>
+                                    <p>Set to <code>true</code> to hide the label.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -392,7 +412,6 @@
                                 <td></td>
                                 <td>
                                     <p>The help text (hint) shown to the user below the select.</p>
-
                                     <p>Extra space is reserved under the select for the help text and validation errors. If none of these are enabled, this space is collapsed.</p>
                                 </td>
                             </tr>
@@ -403,9 +422,9 @@
                                 <td><code>false</code></td>
                                 <td></td>
                                 <td>
-                                    <p>Determines whether or not validation errors for the select are hidden. Set to <code>true</code> to hide all validation errors.</p>
-
-                                    <p>This prop is only applicable when the <code>validationRules</code> prop is present.</p>
+                                    <p>Determines whether or not validation errors for the select are hidden.</p>
+                                    <p>Set to <code>true</code> to hide all validation errors.</p>
+                                    <p>This prop is only applicable when the <code>validationRules</code> prop is provided.</p>
                                 </td>
                             </tr>
 
@@ -415,7 +434,9 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <p>An array of rules or a pipe <code>|</code> seperated list of rules for validating the select. The supported rules are <code>required</code>, <code>min</code>, <code>max</code> and <code>between</code>. The <code>min</code>, <code>max</code> and <code>between</code> rules only apply for a multi select.</p>
+                                    <p>An array of rules or a pipe <code>|</code> seperated list of rules for validating the select.</p>
+
+                                    <p>The supported rules are <code>required</code>, <code>min</code>, <code>max</code> and <code>between</code>. The <code>min</code>, <code>max</code> and <code>between</code> rules only apply for a multi select.</p>
 
                                     <p>These rules will be applied and validation will occur automatically when a selection is made or when the select is closed. The error message of the first failing validation rule will then be shown to the user.</p>
 
@@ -428,7 +449,11 @@
                                 <td>Object</td>
                                 <td></td>
                                 <td></td>
-                                <td>An Object whose keys are the validation rules and whose values are the error messages for those rules. See <a href="https://github.com/skaterdav85/validatorjs#custom-error-messages" target="_blank">validatorjs Custom Error Messages</a> for more details.</td>
+                                <td>
+                                    <p>An object whose keys are the validation rules and whose values are the error messages for those rules.</p>
+
+                                    <p>See <a href="https://github.com/skaterdav85/validatorjs#custom-error-messages" target="_blank">validatorjs Custom Error Messages</a> for more details.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -436,11 +461,16 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the select is disabled. Set to <code>true</code> to disable the select.</td>
+                                <td>
+                                    <p>Determines whether or not the select is disabled.</p>
+                                    <p>Set to <code>true</code> to disable the select.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
+                * Required prop
             </ui-tab>
 
             <ui-tab header="Events">
@@ -455,26 +485,36 @@
                         <tr>
                             <td>opened</td>
                             <td>Dispatched</td>
-                            <td>Dispatched when the select dropdown is opened. Listen for it using <code>@opened</code>.</td>
+                            <td>
+                                <p>Dispatched when the select dropdown is opened.</p>
+                                <p>Listen for it using <code>@opened</code>.</p>
+                            </td>
                         </tr>
 
                         <tr>
                             <td>closed</td>
                             <td>Dispatched</td>
-                            <td>Dispatched when the select dropdown is closed. Listen for it using <code>@closed</code>.</td>
+                            <td>
+                                <p>Dispatched when the select dropdown is closed.</p>
+                                <p>Listen for it using <code>@closed</code>.</p>
+                            </td>
                         </tr>
 
                         <tr>
                             <td>selected</td>
                             <td>Dispatched</td>
-                            <td>Dispatched when an option is selected. The handler is called with the option that was selected. Listen for it using <code>@selected</code>.</td>
+                            <td>
+                                <p>Dispatched when an option is selected.</p>
+                                <p>The handler is called with the option that was selected. Listen for it using <code>@selected</code>.</p>
+                            </td>
                         </tr>
 
                         <tr>
                             <td>query-changed</td>
                             <td>Dispatched</td>
                             <td>
-                                <p>Dispatched when the search input value (the query) changes. The handler is called with the new query. Listen for it using <code>@query-changed</code>.</p>
+                                <p>Dispatched when the search input value (the query) changes.</p>
+                                <p>The handler is called with the new query. Listen for it using <code>@query-changed</code>.</p>
                                 <p>This can be used to fetch remote options dynamically. See the <b>Search with dynamic options</b> section above for an example.</p>
                             </td>
                         </tr>
@@ -511,6 +551,7 @@
                             <td>Received</td>
                             <td>
                                 <p>Trigger this event to reset the select to its initial state. This event resets the <code>value</code>, <code>valid</code> and <code>dirty</code> props and it also clears the search query.</p>
+
                                 <p>You can optionally pass in an <code>id</code> to reset only a specific select (whose <code>id</code> you have set).</p>
                             </td>
                         </tr>
@@ -522,7 +563,7 @@
 </template>
 
 <script>
-// startsWith polyfill
+// String.startsWith polyfill
 if (!String.prototype.startsWith) {
     String.prototype.startsWith = function(searchString, position) {
         position = position || 0;
