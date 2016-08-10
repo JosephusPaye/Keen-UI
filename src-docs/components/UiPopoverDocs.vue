@@ -4,13 +4,15 @@
 
         <p>UiPopover is used to show arbitrary content in a dropdown. It can also be setup to contain tab focus in the popover, returning focus to the trigger element on close.</p>
 
-        <p>The dropdown position relative to the trigger can be customized and can either be always open or set to open on hover, click or focus of the trigger element.</p>
+        <p>The dropdown position relative to the trigger can be customized and the drop can either be always open or set to open on hover, click or focus of the trigger element.</p>
 
         <p>The dropdown is powered by <a href="https://github.com/HubSpot/drop" target="_blank">Drop</a>, which uses <a href="https://github.com/HubSpot/tether" target="_blank">Tether</a>.</p>
 
         <p>UiPopover is used internally by the <a href="#/ui-button-docs">UiButton</a> and <a href="#/ui-icon-button-docs">UiIconButton</a> components.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiPopoverDocs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Default</h4>
@@ -88,7 +90,10 @@
                                 <td>id</td>
                                 <td>String</td>
                                 <td></td>
-                                <td>A unique identifier for the popover. Applied as the <code>id</code> attribute of the popover's root element and used when targeting a specific popover for open/close/toggle.</td>
+                                <td>
+                                    <p>A unique identifier for the popover.</p>
+                                    <p>Applied as the <code>id</code> attribute of the popover's root element and used when targeting a specific popover for open/close/toggle.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -102,21 +107,32 @@
                                 <td>dropdownPosition</td>
                                 <td>String</td>
                                 <td class="no-wrap"><code>"bottom left"</code></td>
-                                <td>The position of the popover relative to the trigger. Can be any one of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, <code>top center</code>.</td>
+                                <td>
+                                    <p>The position of the popover relative to the trigger.</p>
+
+                                    <p>Can be any one of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, <code>top center</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>openOn</td>
                                 <td>String</td>
                                 <td><code>"click"</code></td>
-                                <td>The type of event that will cause the popover to open. One of <code>click</code>, <code>hover</code>, <code>focus</code>, or <code>always</code>. For <code>always</code> the popover is opened when rendered and it remains open.</td>
+                                <td>
+                                    <p>The type of event that will cause the popover to open.</p>
+
+                                    <p>One of <code>click</code>, <code>hover</code>, <code>focus</code>, or <code>always</code>. For <code>always</code> the popover is opened when rendered and it remains open.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>containFocus</td>
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
-                                <td>Determines whether or not tab focus should be contained in the popover. Set to <code>false</code> to allow tabbing to focus elements outside the popover.</td>
+                                <td>
+                                    <p>Determines whether or not tab focus should be contained in the popover.</p>
+                                    <p>Set to <code>false</code> to allow tabbing to focus elements outside the popover.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -140,13 +156,19 @@
                             <tr>
                                 <td>opened</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the popover is opened. Listen for it using <code>@opened</code>.</td>
+                                <td>
+                                    <p>Dispatched when the popover is opened.</p>
+                                    <p>Listen for it using <code>@opened</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>closed</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the popover is closed. Listen for it using <code>@closed</code>.</td>
+                                <td>
+                                    <p>Dispatched when the popover is closed.</p>
+                                    <p>Listen for it using <code>@closed</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
