@@ -1,6 +1,6 @@
-import $ from 'dominus';
 import Drop from 'tether-drop';
 
+import classlist from '../helpers/classlist';
 import ReceivesTargetedEvent from './ReceivesTargetedEvent';
 
 export default {
@@ -137,7 +137,7 @@ export default {
         },
 
         dropdownOpened() {
-            $(this.trigger).addClass('dropdown-open');
+            classlist.add(this.trigger, 'dropdown-open');
 
             this.lastFocussedElement = document.activeElement;
             this.$els.dropdown.focus();
@@ -146,7 +146,7 @@ export default {
         },
 
         dropdownClosed() {
-            $(this.trigger).removeClass('dropdown-open');
+            classlist.remove(this.trigger, 'dropdown-open');
 
             if (this.lastFocussedElement) {
                 this.lastFocussedElement.focus();

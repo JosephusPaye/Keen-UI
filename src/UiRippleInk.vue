@@ -5,17 +5,17 @@
 <script>
 /**
  * Adapted from rippleJS (https://github.com/samthor/rippleJS)
- * adding Dominus to support IE9
+ * removed jQuery
  *
  * Version: 1.0.3
  */
-import $ from 'dominus';
+import classlist from './helpers/classlist';
 
 var startRipple = function startRipple(eventType, event) {
     var holder = event.currentTarget;
 
-    if (! $(holder).hasClass('ui-ripple-ink')) {
-        holder = $(holder).findOne('.ui-ripple-ink');
+    if (! classlist.has(holder, 'ui-ripple-ink')) {
+        holder = holder.querySelector('.ui-ripple-ink');
 
         if (!holder) {
             return;
@@ -68,7 +68,7 @@ var startRipple = function startRipple(eventType, event) {
     holder.appendChild(ripple);
 
     setTimeout(function() {
-        $(ripple).addClass('held');
+        classlist.add(ripple, 'held');
     }, 0);
 
     var releaseEvent = (eventType === 'mousedown' ? 'mouseup' : 'touchend');
@@ -76,14 +76,15 @@ var startRipple = function startRipple(eventType, event) {
     var release = function() {
         document.removeEventListener(releaseEvent, release);
 
-        $(ripple).addClass('done');
+        classlist.add(ripple, 'done');
 
         // Larger than the animation duration in CSS
         setTimeout(function() {
             holder.removeChild(ripple);
 
             if (!holder.children.length) {
-                $(holder).removeClass('active').attr('data-ui-event', null);
+                classlist.remove(holder, 'active');
+                holder.removeAttribute('data-ui-event');
             }
         }, 450);
     };

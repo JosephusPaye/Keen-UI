@@ -44,7 +44,6 @@
   },
   "homepage": "https://github.com/JosephusPaye/keen-ui/",
   "dependencies": {
-    "dominus": "^5.0.6",
     "draggabilly": "^1.2.4",
     "fuzzysearch": "^1.0.3",
     "merge-options": "0.0.64",

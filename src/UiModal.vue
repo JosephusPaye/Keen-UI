@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import $ from 'dominus';
+import classlist from './helpers/classlist';
 
 import UiIconButton from './UiIconButton.vue';
 import UiButton from './UiButton.vue';
@@ -142,7 +142,7 @@ export default {
             this.lastFocussedElement = document.activeElement;
             this.$els.modalContainer.focus();
 
-            $('body').addClass('ui-modal-open');
+            classlist.add(document.body, 'ui-modal-open');
 
             document.addEventListener('focus', this.restrictFocus, true);
 
@@ -168,7 +168,7 @@ export default {
         },
 
         tearDown() {
-            $('body').removeClass('ui-modal-open');
+            classlist.remove(document.body, 'ui-modal-open');
 
             document.removeEventListener('focus', this.restrictFocus, true);
 
