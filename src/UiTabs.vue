@@ -35,6 +35,7 @@ import UUID from './helpers/uuid';
 import UiTabHeaderItem from './UiTabHeaderItem.vue';
 
 import disabled from './directives/disabled';
+import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent';
 
 export default {
     name: 'ui-tabs',
@@ -144,6 +145,21 @@ export default {
         });
     },
 
+    events: {
+        'ui-tabs::select': function(tabId, id) {
+            // Abort if event isn't meant for this component
+            if (!this.eventTargetsComponent(id)) {
+                return;
+            }
+
+            let tab = this.findTabById(tabId);
+
+            if (tab) {
+                this.select(tab.$el, tab);
+            }
+        }
+    },
+
     methods: {
         select(e, tab) {
             // e can be Element (if called by selectPrev or selectNext) or Event
@@ -206,6 +222,21 @@ export default {
             tab = tab || this.$refs.tabElements[currentTabIndex];
 
             return tab;
+        },
+
+        findTabById(id) {
+            let tab = null;
+
+            let numOfTabs = this.$refs.tabElements.length;
+
+            for (let i = 0; i <= numOfTabs; i++) {
+                if (id === this.$refs.tabElements[i].id) {
+                    tab = this.$refs.tabElements[i];
+                    break;
+                }
+            }
+
+            return tab;
         }
     },
 
@@ -215,7 +246,11 @@ export default {
 
     directives: {
         disabled
-    }
+    },
+
+    mixins: [
+        ReceivesTargetedEvent
+    ]
 };
 </script>
 
