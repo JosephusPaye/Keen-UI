@@ -18,13 +18,16 @@
 * UiMenu and UiPopover: Add `ui-dropdown::open`, `ui-dropdown::close` and `ui-dropdown::toggle` events
 * UiMenu and UiMenuOption: Add `partial` and `closeOnSelect` props, to allow for using custom HTML in menu options
 
+* UiModal: Add `revealed` and `hidden` events, for detecting when the show/hide transition ends
+
 * UiSelect: Add new `optionsLoaded` for selects with dynamic options
 * UiSelect: Allow for more flexibity in the format of the `options` and `default` props. `options` now supports a plain array, e.g. `['Red', 'Blue', 'Green']` as well as an array of objects whose keys can be redefined to something other than `text` and `value`. `default` now supports any string, number or object, or an array of those, (provided the string, number or `value` key of the object matches with an option) - (thanks @qetee)
 * UiSelect: Add `ui-select::set-selected` event for programmatically setting the currently selected value/values
 
 * UiSnackbarContainer: Add `allowHtml` attribute to snackbar object, which allows for HTML in the `message` attribute
 
-* UiModal: Add `revealed` and `hidden` events, for detecting when the show/hide transition ends
+* UiTabs: Add `id` prop
+* UiTabs: Add `ui-tabs::select` event for programmatically changing the active tab
 
 ### Fixes
 * UiAlert: Fix reactivity of `icon` prop
