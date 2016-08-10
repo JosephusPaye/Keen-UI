@@ -6,11 +6,13 @@
 
         <p>A label can be shown above the input as well as help text below the input. UiTextbox can show an icon to the left or right of the input. It can also show a counter of the number of characters entered.</p>
 
-        <p>Validation rules are written declaratively and validation is powered by <a href="https://github.com/skaterdav85/validatorjs" target="_blank">validatorjs</a>. If validation fails, an error message is shown below the input. Error messages can be customized.</p>
+        <p>UiTextbox validation rules are written declaratively and validation is powered by <a href="https://github.com/skaterdav85/validatorjs" target="_blank">validatorjs</a>. If validation fails, an error message is shown below the input. Error messages can be customized.</p>
 
-        <p>The validation state can also be set programmatically from outside the component using an event.</p>
+        <p>The validation state can be set programmatically from outside the component using an event.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiTextboxDocs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Default</h4>
@@ -171,7 +173,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>A unique identifier for the input. Applied as the <code>id</code> attribute of the <code>&lt;input&gt;</code> and used when targeting a specific input for reset.</td>
+                                <td>
+                                    <p>A unique identifier for the input.</p>
+                                    <p>Applied as the <code>id</code> attribute of the <code>&lt;input&gt;</code> and used when targeting a specific input for reset.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -179,7 +184,10 @@
                                 <td>String</td>
                                 <td>(required)</td>
                                 <td></td>
-                                <td>The <code>name</code> attribute of the <code>&lt;input&gt;</code>. Used when generating validation error messages. A name with multiple words should be written in <code>snake_case</code>.</td>
+                                <td>
+                                    <p>The <code>name</code> attribute of the <code>&lt;input&gt;</code>.</p>
+                                    <p>Used when generating validation error messages. A name with multiple words should be written in <code>snake_case</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -196,7 +204,10 @@
                                 <td><code>"text"</code></td>
                                 <td></td>
                                 <td>
-                                    <p>The <code>type</code> attribute of the <code>&lt;input&gt;</code>. Supported values are <code>text</code>, <code>search</code>, <code>email</code>, <code>url</code>, <code>tel</code>, and <code>number</code>.</p>
+                                    <p>The <code>type</code> attribute of the <code>&lt;input&gt;</code>.</p>
+
+                                    <p>Supported values are <code>text</code>, <code>search</code>, <code>email</code>, <code>url</code>, <code>tel</code>, and <code>number</code>.</p>
+
                                     <p>The <code>number</code> type causes the input value to be written to the model as a Number instead of a String.</p>
                                 </td>
                             </tr>
@@ -214,16 +225,21 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the input is a <code>&lt;textarea&gt;</code>. Set to <code>true</code> to render a textarea.</td>
+                                <td>
+                                    <p>Determines whether or not the input is a <code>&lt;textarea&gt;</code>.</p>
+                                    <p>Set to <code>true</code> to render a textarea.</p>
+                                </td>
                             </tr>
-
 
                             <tr>
                                 <td>valid</td>
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>Two-way</td>
-                                <td>Shows whether or not the input is valid. Only applicable the <code>validationRules</code> prop is present.</td>
+                                <td>
+                                    <p>Shows whether or not the input is valid.</p>
+                                    <p>Only applicable when the <code>validationRules</code> prop is provided.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -239,7 +255,10 @@
                                 <td>Number</td>
                                 <td><code>2</code></td>
                                 <td></td>
-                                <td>The <code>rows</code> attribute of the <code>&lt;textarea&gt;</code>. Only applicable when the <code>multiLine</code> prop is <code>true</code>.</td>
+                                <td>
+                                    <p>The <code>rows</code> attribute of the <code>&lt;textarea&gt;</code>.</p>
+                                    <p>Only applicable when the <code>multiLine</code> prop is <code>true</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -249,13 +268,9 @@
                                 <td></td>
                                 <td>
                                     <p>The maximum allowed length of input. Set this prop to show a counter below the input.</p>
-
-                                    <p>Note, this prop doesn't prevent the user from going over the maximum length, and it also doesn't affect validation.</p>
-
+                                    <p><b>Note</b>: this prop doesn't prevent the user from going over the maximum length, and it also doesn't affect validation.</p>
                                     <p>To add validation as well, use the <code>max</code> validation rule.</p>
-
                                     <p>Example props for an input whose max length is 16 characters, showing a counter with validation:</p>
-
                                     <p><code>:max-length="16" validation-rules="max:16"</code></p>
                                 </td>
                             </tr>
@@ -266,19 +281,20 @@
                                 <td><code>false</code></td>
                                 <td></td>
                                 <td>
-                                    <p>Determines whether or not the input should automatically receive focus. This only works on initial page load or the first time the element is added to the DOM and not on subsequent renders. Also, only one input element should have this prop set to <code>true</code> in the document for the autofocus to work properly.</p>
+                                    <p>Determines whether or not the input should automatically receive focus.</p>
+                                    <p>This only works on initial page load or the first time the element is added to the DOM and not on subsequent renders. Also, only one input element should have this prop set to <code>true</code> in the document for the autofocus to work properly.</p>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>autocomplete</td>
                                 <td>String</td>
-                                <td><code>"on"</code></td>
+                                <td></td>
                                 <td></td>
                                 <td>
-                                    <p>Determines whether or not the browser's autocomplete feature is allowed for the input. It can also be used to customize the type of suggestions the browser should offer. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-autocomplete">here for more info</a>.</p>
-
-                                    <p>Set to <code>"off"</code> to disable browser autocomplete (in browsers that support it).</p>
+                                    <p>Determines the type of autocomplete suggestions the browser should offer for the input.</p>
+                                    <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-autocomplete">here for more info</a>.</p>
+                                    <p>Set to <code>"off"</code> to disable browser autocomplete.</p>
                                 </td>
                             </tr>
 
@@ -287,7 +303,10 @@
                                 <td>Number</td>
                                 <td></td>
                                 <td></td>
-                                <td>The <code>min</code> attribute of the <code>&lt;input&gt;</code>. Only applicable when the <code>type</code> prop is <code>"number"</code>.</td>
+                                <td>
+                                    <p>The <code>min</code> attribute of the <code>&lt;input&gt;</code>.</p>
+                                    <p>Only applicable when the <code>type</code> prop is <code>"number"</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -295,7 +314,10 @@
                                 <td>Number</td>
                                 <td></td>
                                 <td></td>
-                                <td>The <code>max</code> attribute of the <code>&lt;input&gt;</code>. Only applicable when the <code>type</code> prop is <code>"number"</code>.</td>
+                                <td>
+                                    <p>The <code>max</code> attribute of the <code>&lt;input&gt;</code>.</p>
+                                    <p>Only applicable when the <code>type</code> prop is <code>"number"</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -303,7 +325,10 @@
                                 <td>Number/String</td>
                                 <td><code>"any"</code></td>
                                 <td></td>
-                                <td>The <code>step</code> attribute of the <code>&lt;input&gt;</code>. Only applicable when the <code>type</code> prop is <code>"number"</code>.</td>
+                                <td>
+                                    <p>The <code>step</code> attribute of the <code>&lt;input&gt;</code>.</p>
+                                    <p>Only applicable when the <code>type</code> prop is <code>"number"</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -311,7 +336,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>The input icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</td>
+                                <td>
+                                    <p>The input icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>.</p>
+                                    <p>Note that this should be the icon codepoint if you want to support IE9.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -319,7 +347,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the input icon is shown to the right. Set to <code>true</code> to show the icon to the right of the input.</td>
+                                <td>
+                                    <p>Determines whether or not the input icon is shown to the right.</p>
+                                    <p>Set to <code>true</code> to show the icon to the right of the input.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -335,7 +366,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the input label is hidden. Set to <code>true</code> to hide the label.</td>
+                                <td>
+                                    <p>Determines whether or not the input label is hidden.</p>
+                                    <p>Set to <code>true</code> to hide the label.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -356,8 +390,8 @@
                                 <td><code>false</code></td>
                                 <td></td>
                                 <td>
-                                    <p>Determines whether or not validation errors for the input are hidden. Set to <code>true</code> to hide all validation errors.</p>
-
+                                    <p>Determines whether or not validation errors for the input are hidden.</p>
+                                    <p>Set to <code>true</code> to hide all validation errors.</p>
                                     <p>This prop is only applicable when the <code>validationRules</code> prop is present.</p>
                                 </td>
                             </tr>
@@ -368,7 +402,9 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <p>An array of rules or a pipe <code>|</code> seperated list of rules for validating the input. Can be any of the rules supported by <a href="https://github.com/skaterdav85/validatorjs#available-rules" target="_blank">validatorjs Validation Rules</a>, <b>except</b> the ones that involve multiple fields.</p>
+                                    <p>An array of rules or a pipe <code>|</code> separated list of rules for validating the input.</p>
+
+                                    <p>Can be any of the rules supported by <a href="https://github.com/skaterdav85/validatorjs#available-rules" target="_blank">validatorjs Validation Rules</a>, <b>except</b> the ones that involve multiple fields.</p>
 
                                     <p>Example to validate a required email field: <code>validation-rules="required|email"</code>.</p>
 
@@ -383,7 +419,11 @@
                                 <td>Object</td>
                                 <td></td>
                                 <td></td>
-                                <td>An Object whose keys are the validation rules and whose values are the error messages for those rules. See <a href="https://github.com/skaterdav85/validatorjs#custom-error-messages" target="_blank">validatorjs Custom Error Messages</a> for more details.</td>
+                                <td>
+                                    <p>An object whose keys are the validation rules and whose values are the error messages for those rules.</p>
+
+                                    <p>See <a href="https://github.com/skaterdav85/validatorjs#custom-error-messages" target="_blank">validatorjs Custom Error Messages</a> for more details.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -391,7 +431,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the input should be validated only when it is blurred. Set to <code>true</code> to perform validation only on blur.</td>
+                                <td>
+                                    <p>Determines whether or not the input should be validated only when it is blurred.</p>
+                                    <p>Set to <code>true</code> to perform validation only on blur.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -401,7 +444,6 @@
                                 <td></td>
                                 <td>
                                     <p>Determines whether or not the input value should be trimmed before it is written to the model.</p>
-
                                     <p>Set to <code>false</code> to not trim the value. Not applicable when the <code>type</code> prop is <code>"number"</code>.</p>
                                 </td>
                             </tr>
@@ -411,7 +453,7 @@
                                 <td>Number</td>
                                 <td></td>
                                 <td></td>
-                                <td>Allows for setting a minimum delay (in milliseconds) after each keystroke before the input’s value is synced to the model.</td>
+                                <td>Sets the minimum delay (in milliseconds) after each keystroke before the input’s value is synced to the model.</td>
                             </tr>
 
                             <tr>
@@ -419,7 +461,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the input is disabled. Set to <code>true</code> to disable the input.</td>
+                                <td>
+                                    <p>Determines whether or not the input is disabled.</p>
+                                    <p>Set to <code>true</code> to disable the input.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -443,38 +488,57 @@
                             <tr>
                                 <td>focussed</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the input is focussed. Listen for it using <code>@focussed</code>.</td>
+                                <td>
+                                    <p>Dispatched when the input is focussed.</p>
+                                    <p>Listen for it using <code>@focussed</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>blurred</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the input loses focus. Listen for it using <code>@blurred</code>.</td>
+                                <td>
+                                    <p>Dispatched when the input loses focus.</p>
+                                    <p>Listen for it using <code>@blurred</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>changed</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the input is changed. Listen for it using <code>@changed</code>.</td>
+                                <td>
+                                    <p>Dispatched when the input is changed.</p>
+                                    <p>Listen for it using <code>@changed</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>keydown</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when a key is pressed in the input. An Event object is passed as the argument to the handler. Listen for it using <code>@keydown</code>.</td>
+                                <td>
+                                    <p>Dispatched when a key is pressed in the input.</p>
+                                    <p>An Event object is passed as the argument to the handler.</p>
+                                    <p>Listen for it using <code>@keydown</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td class="no-wrap">keydown-enter</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the <kbd>Enter</kbd> key is pressed in the input. An event object is passed as the argument to the handler. Listen for it using <code>@keydown-enter</code>.</td>
+                                <td>
+                                    <p>Dispatched when the <kbd>Enter</kbd> key is pressed in the input.</p>
+                                    <p>An event object is passed as the argument to the handler.</p>
+                                    <p>Listen for it using <code>@keydown-enter</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td class="no-wrap new-prop">ui-input::set-validity</td>
                                 <td>Received</td>
                                 <td>
-                                    <p>Trigger this event to programmatically change the input validation state. The handler accepts the following arguments:</p>
+                                    <p>Trigger this event to programmatically change the input validation state.</p>
+
+                                    <p>The handler accepts the following arguments:</p>
 
                                     <ul>
                                         <li><code>valid</code>: A Boolean indicating whether or not the input is valid</li>
@@ -488,8 +552,8 @@
                                 <td class="no-wrap">ui-input::reset</td>
                                 <td>Received</td>
                                 <td>
-                                    <p>Trigger this event to reset the input to its initial state. This event resets the <code>value</code>, <code>valid</code> and <code>dirty</code> props.</p>
-
+                                    <p>Trigger this event to reset the input to its initial state.</p>
+                                    <p>This event resets the <code>value</code>, <code>valid</code> and <code>dirty</code> props.</p>
                                     <p>You can optionally pass in an <code>id</code> to reset only a specific input (whose <code>id</code> you have set).</p>
                                 </td>
                             </tr>
@@ -534,7 +598,8 @@ export default {
 
         toggleValidity() {
             this.$broadcast(
-                'ui-input::set-validity', !this.isValid,
+                'ui-input::set-validity',
+                !this.isValid,
                 'The input is not valid. This error message was set externally.',
                 'set-validation-state'
             );
