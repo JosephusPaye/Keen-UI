@@ -2,11 +2,13 @@
     <section class="section section-ui-tooltip">
         <h2 class="section-heading">UiTooltip</h2>
 
-        <p>UiTooltip allows you to show a tooltip on an element. You can customize the position and the event the causes the tooltip to open.</p>
+        <p>UiTooltip allows you to show a tooltip on an element. You can customize the position and the event that causes the tooltip to open.</p>
 
         <p>UiTooltip is used internally by <a href="#/ui-icon-button-docs">UiIconButton</a> and <a href="#/ui-fab-docs">UiFab</a>.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiTooltipDocs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <div class="group the-simpsons">
@@ -46,7 +48,10 @@
                                 <td>trigger *</td>
                                 <td>HTMLElement</td>
                                 <td>(required)</td>
-                                <td>An Element to attach the tooltip to. By default, when this element is hovered or focused, the tooltip is shown.</td>
+                                <td>
+                                    <p>An Element to attach the tooltip to.</p>
+                                    <p>By default, when this element is hovered or focused, the tooltip is shown.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -60,14 +65,21 @@
                                 <td>position</td>
                                 <td>String</td>
                                 <td class="no-wrap"><code>"bottom center"</code></td>
-                                <td>The position of the tooltip relative to the trigger. One of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, or <code>top center</code>.</td>
+                                <td>
+                                    <p>The position of the tooltip relative to the trigger.</p>
+
+                                    <p>One of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, or <code>top center</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>openOn</td>
                                 <td>String</td>
                                 <td><code>"hover focus"</code></td>
-                                <td>The type of event(s) that will cause the tooltip to open. One or more of <code>click</code>, <code>hover</code>, or <code>focus</code>. Separate multiple events with a space.</td>
+                                <td>
+                                    <p>The type of event(s) that will cause the tooltip to open.</p>
+                                    <p>One or more of <code>click</code>, <code>hover</code>, or <code>focus</code>. Separate multiple events with a space.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -91,15 +103,15 @@ let theSimpsons = [
     {
         position: 'top center',
         name: 'Maggie Simpson',
-        image: 'http://i.imgur.com/eK26qtK.jpg'
+        image: 'https://i.imgur.com/eK26qtK.jpg'
     }, {
         position: 'bottom center',
         name: 'Lisa Simpson',
-        image: 'http://i.imgur.com/wIb44g9.jpg'
+        image: 'https://i.imgur.com/wIb44g9.jpg'
     }, {
         position: 'right middle',
         name: 'Bart Simpson',
-        image: 'http://i.imgur.com/XkEz9zg.jpg'
+        image: 'https://i.imgur.com/XkEz9zg.jpg'
     }
 ];
 
