@@ -4,7 +4,9 @@
 
         <p>A switch component that allows the user to toggle between two values like on and off. Supports keyboard focus, a disabled state and showing the label to the left of the switch.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiSwitchDocs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Default</h4>
@@ -80,7 +82,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>A unique identifier for the switch. Applied as the <code>id</code> attribute of the switch input and used when targeting a specific switch for reset.</td>
+                                <td>
+                                    <p>A unique identifier for the switch.</p>
+                                    <p>Applied as the <code>id</code> attribute of the switch input and used when targeting a specific switch for reset.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -104,7 +109,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>The switch label (text only). To use HTML in the label, use the default slot.</td>
+                                <td>
+                                    <p>The switch label (text only).</p>
+                                    <p>To use HTML in the label, use the default slot.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -112,7 +120,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the switch label is hidden. Set to <code>true</code> to hide the label.</td>
+                                <td>
+                                    <p>Determines whether or not the switch label is hidden.</p>
+                                    <p>Set to <code>true</code> to hide the label.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -120,7 +131,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Whether or not the label is shown to the left of the switch. Set to <code>true</code> to show the label on the left.</td>
+                                <td>
+                                    <p>Determines whether or not the label is shown to the left of the switch.</p>
+                                    <p>Set to <code>true</code> to show the label on the left.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -128,7 +142,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the switch is disabled. Set to <code>true</code> to disable the switch.</td>
+                                <td>
+                                    <p>Determines whether or not the switch is disabled.</p>
+                                    <p>Set to <code>true</code> to disable the switch.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -173,7 +190,6 @@
                                 <td>Received</td>
                                 <td>
                                     <p>Trigger this event to reset the switch to its initial state. This event resets the <code>value</code> prop.</p>
-
                                     <p>You can optionally pass in an <code>id</code> to reset only a specific switch (whose <code>id</code> you have set).</p>
                                 </td>
                             </tr>
