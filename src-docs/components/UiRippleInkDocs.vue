@@ -10,7 +10,9 @@
 
         <p>UiRippleInk is used internally by many components, including <a href="#/ui-button-docs">UiButton</a>, <a href="#/ui-collapsible-docs">UiCollapsible</a>, <a href="#/ui-icon-button-docs">UiIconButton</a>, <a href="#/ui-fab-docs">UiFab</a>, <a href="#/ui-menu-docs">UiMenu</a>, and <a href="#/ui-tabs-docs">UiTabs</a>.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiRippleInkDocs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Color: blue</h4>
@@ -55,7 +57,6 @@
                         <thead>
                             <th>Name</th>
                             <th>Type</th>
-                            <th>Default</th>
                             <th>Description</th>
                         </thead>
 
@@ -63,7 +64,6 @@
                             <tr>
                                 <td>trigger *</td>
                                 <td>HTMLElement</td>
-                                <td>(required)</td>
                                 <td>An Element to attach the click/touch event listeners to. When this element is clicked or touched, a ripple ink will be shown.</td>
                             </tr>
                         </tbody>
@@ -87,16 +87,16 @@ import UiTabs from '../../src/UiTabs.vue';
 let tvShows = [
     {
         name: 'Better Call Saul',
-        image: 'http://i.imgur.com/SwZPSS2.jpg'
+        image: 'https://i.imgur.com/SwZPSS2.jpg'
     }, {
         name: 'Breaking Bad',
-        image: 'http://i.imgur.com/tz6FJeN.jpg'
+        image: 'https://i.imgur.com/tz6FJeN.jpg'
     }, {
         name: 'Sherlock',
-        image: 'http://i.imgur.com/Pf1TkJY.jpg'
+        image: 'https://i.imgur.com/Pf1TkJY.jpg'
     }, {
         name: 'The Simpsons',
-        image: 'http://i.imgur.com/HJmBlzf.jpg'
+        image: 'https://i.imgur.com/HJmBlzf.jpg'
     }
 ];
 
@@ -104,15 +104,15 @@ let theSimpsons = [
     {
         value: 'maggie',
         text: 'Maggie Simpson',
-        image: 'http://i.imgur.com/eK26qtK.jpg'
+        image: 'https://i.imgur.com/eK26qtK.jpg'
     }, {
         value: 'lisa',
         text: 'Lisa Simpson',
-        image: 'http://i.imgur.com/wIb44g9.jpg'
+        image: 'https://i.imgur.com/wIb44g9.jpg'
     }, {
         value: 'bart',
         text: 'Bart Simpson',
-        image: 'http://i.imgur.com/XkEz9zg.jpg'
+        image: 'https://i.imgur.com/XkEz9zg.jpg'
     }
 ];
 
