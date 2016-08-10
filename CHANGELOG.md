@@ -47,6 +47,9 @@
 * UiSelect: Rename `disableFiltering` prop to `optionsDynamic`, because the prop does more than just disabling filtering
 * UiTextbox: `autocomplete` prop type changed to String, to allow for configuring browser autocomplete
 
+### Docs
+* Add View Source links for components and examples
+
 ## v0.8.8 (May 21, 2016)
 
 ### New
