@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-snackbar">
-        <h2 class="section-heading">UiSnackbar &amp; UiSnackbarContainer</h2>
+        <h2 class="section-heading">
+            UiSnackbar &amp; UiSnackbarContainer <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiSnackbar.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiSnackbar provides lightweight feedback about an operation by showing a brief message at the bottom of the screen. Snackbars can contain an action.</p>
 

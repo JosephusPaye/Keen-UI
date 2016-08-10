@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-modal">
-        <h2 class="section-heading">UiModal</h2>
+        <h2 class="section-heading">
+            UiModal <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiModal.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiModal is used to show modals. It's header, body and footer can be fully customized using <code>slots</code>.</p>
 

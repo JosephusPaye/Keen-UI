@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-progress-linear">
-        <h2 class="section-heading">UiProgressLinear</h2>
+        <h2 class="section-heading">
+            UiProgressLinear <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiProgressLinear.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>This component shows a linear progress bar that can be either determinate or indeterminate. A determinate progress bar shows a specific percentage of completion, while an indeterminate progress bar doesn't.</p>
 

@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-progress-circular">
-        <h2 class="section-heading">UiProgressCircular</h2>
+        <h2 class="section-heading">
+            UiProgressCircular <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiProgressCircular.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiProgressCircular shows a circular progress indicator (a spinner). Currently UiProgressCircular only works in browsers with <a href="http://caniuse.com/#feat=svg-smil" target="_blank">SVG SMIL animation support</a> (e.g. all modern browsers except IE and Edge).</p>
 

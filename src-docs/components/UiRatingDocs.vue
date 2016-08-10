@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-rating">
-        <h2 class="section-heading">UiRating &amp; UiRatingPreview</h2>
+        <h2 class="section-heading">
+            UiRating &amp; UiRatingPreview <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiRating.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiRating component shows a rating control whose icons can be stars or hearts. UiRatingPreview is the basic, read-only version.</p>
 

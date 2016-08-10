@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-icon-button">
-        <h2 class="section-heading">UiIconButton</h2>
+        <h2 class="section-heading">
+            UiIconButton <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiIconButton.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiIconButton shows an icon button which can include a dropdown (menu or popover) and can also show a loading spinner. It supports focus (mouse and keyboard separately), hover and disabled states.</p>
 

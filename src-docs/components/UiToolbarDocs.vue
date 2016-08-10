@@ -1,12 +1,16 @@
 <template>
     <section class="section section-ui-toolbar">
-        <h2 class="section-heading">UiToolbar</h2>
+        <h2 class="section-heading">
+            UiToolbar <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiToolbar.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiToolbar components shows a toolbar with a navigation icon, branding, a title as well as actions.</p>
 
         <p>Visually, UiToolbar has two types: <code>default</code> and <code>colored</code>. The toolbar can be raised (with a drop shadow) or flat. You can also customize the navigation icon as well as the brand, title and actions using slots.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiToolbarDocs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Default</h4>

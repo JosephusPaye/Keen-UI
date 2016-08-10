@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-switch">
-        <h2 class="section-heading">UiSwitch</h2>
+        <h2 class="section-heading">
+            UiSwitch <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiSwitch.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>A switch component that allows the user to toggle between two values like on and off. Supports keyboard focus, a disabled state and showing the label to the left of the switch.</p>
 

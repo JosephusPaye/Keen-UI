@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-tooltip">
-        <h2 class="section-heading">UiTooltip</h2>
+        <h2 class="section-heading">
+            UiTooltip <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiTooltip.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiTooltip allows you to show a tooltip on an element. You can customize the position and the event that causes the tooltip to open.</p>
 

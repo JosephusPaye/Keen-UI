@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-textbox">
-        <h2 class="section-heading">UiTextbox</h2>
+        <h2 class="section-heading">
+            UiTextbox <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiTextbox.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiTextbox is a versatile text input component that can perform validation and show errors. It supports hover, focus, active and disabled states.</p>
 

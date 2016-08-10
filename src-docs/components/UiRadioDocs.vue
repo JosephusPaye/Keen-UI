@@ -1,6 +1,8 @@
 f<template>
     <section class="section section-ui-radio">
-        <h2 class="section-heading">UiRadio</h2>
+        <h2 class="section-heading">
+            UiRadio <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiRadio.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiRadio shows a single radio button. A radio button can have an optional label. It supports hover, focus and disabled states. The label can also be shown to the left of the radio button.</p>
 

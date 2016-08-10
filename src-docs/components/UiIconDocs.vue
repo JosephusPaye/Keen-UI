@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-icon">
-        <h2 class="section-heading">UiIcon</h2>
+        <h2 class="section-heading">
+            UiIcon <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiIcon.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiIcon shows an icon glyph. By default it uses icons from the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a> web font, which must be loaded for icons to display properly. The simplest way to do this is by adding the Google Web font to the head of your page:</p>
 

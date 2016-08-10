@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-popover">
-        <h2 class="section-heading">UiPopover</h2>
+        <h2 class="section-heading">
+            UiPopover <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiPopover.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiPopover is used to show arbitrary content in a dropdown. It can also be setup to contain tab focus in the popover, returning focus to the trigger element on close.</p>
 

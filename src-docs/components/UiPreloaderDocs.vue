@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-preloader">
-        <h2 class="section-heading">UiPreloader</h2>
+        <h2 class="section-heading">
+            UiPreloader <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiPreloader.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>This component shows an indeterminate progress bar using the primary Material Design colors. Useful for indicating activity like a page load.</p>
 

@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-checkbox">
-        <h2 class="section-heading">UiCheckbox</h2>
+        <h2 class="section-heading">
+            UiCheckbox <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiCheckbox.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiCheckbox is a checkbox component that allows the user to select one or more options. It supports keyboard focus, a disabled state and showing the label to the left of the checkbox.</p>
 

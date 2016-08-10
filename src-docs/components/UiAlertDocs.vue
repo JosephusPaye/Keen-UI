@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-alert">
-        <h2 class="section-heading">UiAlert</h2>
+        <h2 class="section-heading">
+            UiAlert <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiAlert.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiAlerts are used to show inline alert messages to the user. Supported types are <code>info</code>, <code>success</code>, <code>warning</code> and <code>error</code>.</p>
 

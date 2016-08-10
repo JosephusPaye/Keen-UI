@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-confirm">
-        <h2 class="section-heading">UiConfirm</h2>
+        <h2 class="section-heading">
+            UiConfirm <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiConfirm.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiConfirm creates a confirmation dialog using <a href="#/ui-modal-docs">UiModal</a>.</p>
 

@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-menu">
-        <h2 class="section-heading">UiMenu</h2>
+        <h2 class="section-heading">
+            UiMenu <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiMenu.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiMenu creates a menu. Menu options can show an icon, secondary text (like keyboard shortcuts), or show a divider. Individual options can also be disabled.</p>
 

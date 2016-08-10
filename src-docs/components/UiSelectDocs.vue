@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-select">
-        <h2 class="section-heading">UiSelect</h2>
+        <h2 class="section-heading">
+            UiSelect <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiSelect.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiSelect is a select component that allows the user to choose one or more options from a group of pre-defined or dynamically loaded options. It supports default options, multiple selection, filtering and a loading indicator.</p>
 

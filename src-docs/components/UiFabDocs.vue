@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-fab">
-        <h2 class="section-heading">UiFab</h2>
+        <h2 class="section-heading">
+            UiFab <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiFab.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiFab is the floating action button (FAB) from Material Design. It supports focus (keyboard separately), hover and disabled states.</p>
 

@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-radio-group">
-        <h2 class="section-heading">UiRadioGroup</h2>
+        <h2 class="section-heading">
+            UiRadioGroup <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiRadioGroup.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiRadioGroup shows a group of mutually exclusive radio buttons. It supports hover, focus and disabled states. One or more options in the group can be disabled or the entire group can be disabled.</p>
 

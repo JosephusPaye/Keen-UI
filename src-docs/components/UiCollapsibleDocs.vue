@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-collapsible">
-        <h2 class="section-heading">UiCollapsible</h2>
+        <h2 class="section-heading">
+            UiCollapsible <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiCollapsible.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiCollapsible is used to show collapsible content. It includes a header and a body and can be initially opened or closed (defaults to closed).</p>
 

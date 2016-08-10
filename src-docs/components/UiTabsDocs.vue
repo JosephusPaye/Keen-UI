@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-tabs">
-        <h2 class="section-heading">UiTabs &amp; UiTab</h2>
+        <h2 class="section-heading">
+            UiTabs &amp; UiTab <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiTabs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>The UiTabs and UiTab components are used together to create a tab container with one or more tabs. Only a UiTab component should be the direct child of UiTabs.</p>
 
@@ -10,7 +12,9 @@
 
         <p>UiTabs header can be any of four possible background colors: <code>default</code>, <code>primary</code>, <code>accent</code> and <code>clear</code>. The header text color, header active text color and the active tab indicator colors can also be customized.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiTabsDocs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Text only</h4>

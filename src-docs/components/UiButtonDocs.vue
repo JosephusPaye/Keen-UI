@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-button">
-        <h2 class="section-heading">UiButton</h2>
+        <h2 class="section-heading">
+            UiButton <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiButton.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiButton is a versatile button component that largely implements the Material Design spec. UiButtons can show a dropdown and a loading spinner. They also support focus (mouse and keyboard separately), hover and disabled states.</p>
 

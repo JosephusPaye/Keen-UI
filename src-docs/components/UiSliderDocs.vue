@@ -1,6 +1,8 @@
 <template>
     <section class="section section-ui-slider">
-        <h2 class="section-heading">UiSlider</h2>
+        <h2 class="section-heading">
+            UiSlider <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiSlider.vue" target="_blank" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiSlider is a component that allows the user to select a value from a continuous range of values by moving the slider thumb, clicking on the slider, or using the arrow keys.</p>
 
