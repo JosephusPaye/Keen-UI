@@ -6,7 +6,9 @@
 
         <p>UiProgressLinear supports four colors: <code>primary</code>, <code>accent</code>, <code>black</code> and <code>white</code>.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiProgressLinearDocs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Determinate</h4>
@@ -68,14 +70,17 @@
                                 <td>show</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the progress bar is shown. Changing this value will show/hide the progress bar.</td>
+                                <td>
+                                    <p>Determines whether or not the progress bar is shown.</p>
+                                    <p>Changing this value will show/hide the progress bar.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>type</td>
                                 <td>String</td>
                                 <td><code>"indeterminate"</code></td>
-                                <td>The type of progress. One of <code>determinate</code> or <code>indeterminate</code>.</td>
+                                <td>The type of linear progress. One of <code>determinate</code> or <code>indeterminate</code>.</td>
                             </tr>
 
                             <tr>
@@ -115,8 +120,8 @@ export default {
     data() {
         return {
             progress: 0,
-            progressInterval: null,
-            loading: true
+            loading: true,
+            progressInterval: null
         };
     },
 
