@@ -49,7 +49,7 @@
     "merge-options": "0.0.64",
     "tether-drop": "^1.4.2",
     "tether-tooltip": "^1.2.0",
-    "validatorjs": "^2.0.5",
+    "validatorjs": "^2.1.1",
     "vue": "^1.0.21"
   },
   "devDependencies": {
