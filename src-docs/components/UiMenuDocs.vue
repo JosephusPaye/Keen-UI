@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-menu">
         <h2 class="section-heading">
-            UiMenu <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiMenu.vue" target="_blank" class="view-source-link">View Source</a>
+            UiMenu <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiMenu.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiMenu creates a menu. Menu options can show an icon, secondary text (like keyboard shortcuts), or show a divider. Individual options can also be disabled.</p>
@@ -10,12 +10,12 @@
 
         <p>UiMenu is keyboard accessible and is set by default to contain tab focus in the menu until it is closed, at which point it returns focus to the trigger element. It also emits events when opened, closed and when an option is selected from the menu.</p>
 
-        <p>The dropdown is powered by <a href="https://github.com/HubSpot/drop" target="_blank">Drop</a>, which uses <a href="https://github.com/HubSpot/tether" target="_blank">Tether</a>.</p>
+        <p>The dropdown is powered by <a href="https://github.com/HubSpot/drop" target="_blank" rel="noopener">Drop</a>, which uses <a href="https://github.com/HubSpot/tether" target="_blank" rel="noopener">Tether</a>.</p>
 
         <p>UiMenu is used internally by the <a href="#/ui-button-docs">UiButton</a> and <a href="#/ui-icon-button-docs">UiIconButton</a> components.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiMenuDocs.vue" target="_blank" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiMenuDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">
@@ -110,7 +110,7 @@
                                     <ul>
                                         <li><code>type</code>: Set to <code>"divider"</code> for a divider.</li>
 
-                                        <li><code>icon</code>: An icon to show with the option. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</li>
+                                        <li><code>icon</code>: An icon to show with the option. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</li>
 
                                         <li><code>secondaryText</code>: Text to show to the right of the option in the dropdown. Useful for showing keyboard shortcuts and badges.</li>
 
@@ -206,7 +206,7 @@
                                 <td>String</td>
                                 <td class="no-wrap"><code>"ui-menu-default"</code></td>
                                 <td>
-                                    <p>The ID of a registered <a href="http://vuejs.org/api/#partial" target="_blank">Vue partial</a> to use as the template for each menu item.</p>
+                                    <p>The ID of a registered <a href="http://vuejs.org/api/#partial" target="_blank" rel="noopener">Vue partial</a> to use as the template for each menu item.</p>
 
                                     <p>This partial is rendered into an <code>&lt;div&gt;</code> which has the partial's ID as a class. In the partial template, you have access to an <code>option</code> object from the options array, which you can use to render the menu option however you like.</p>
 

@@ -1,19 +1,19 @@
 <template>
     <section class="section section-ui-textbox">
         <h2 class="section-heading">
-            UiTextbox <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiTextbox.vue" target="_blank" class="view-source-link">View Source</a>
+            UiTextbox <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiTextbox.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiTextbox is a versatile text input component that can perform validation and show errors. It supports hover, focus, active and disabled states.</p>
 
         <p>A label can be shown above the input as well as help text below the input. UiTextbox can show an icon to the left or right of the input. It can also show a counter of the number of characters entered.</p>
 
-        <p>UiTextbox validation rules are written declaratively and validation is powered by <a href="https://github.com/skaterdav85/validatorjs" target="_blank">validatorjs</a>. If validation fails, an error message is shown below the input. Error messages can be customized.</p>
+        <p>UiTextbox validation rules are written declaratively and validation is powered by <a href="https://github.com/skaterdav85/validatorjs" target="_blank" rel="noopener">validatorjs</a>. If validation fails, an error message is shown below the input. Error messages can be customized.</p>
 
         <p>The validation state can be set programmatically from outside the component using an event.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiTextboxDocs.vue" target="_blank" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiTextboxDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">
@@ -295,7 +295,9 @@
                                 <td></td>
                                 <td>
                                     <p>Determines the type of autocomplete suggestions the browser should offer for the input.</p>
-                                    <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-autocomplete">here for more info</a>.</p>
+
+                                    <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-autocomplete" target="_blank" rel="noopener">here for more info</a>.</p>
+
                                     <p>Set to <code>"off"</code> to disable browser autocomplete.</p>
                                 </td>
                             </tr>
@@ -339,7 +341,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <p>The input icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>.</p>
+                                    <p>The input icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
                                     <p>Note that this should be the icon codepoint if you want to support IE9.</p>
                                 </td>
                             </tr>
@@ -406,7 +408,7 @@
                                 <td>
                                     <p>An array of rules or a pipe <code>|</code> separated list of rules for validating the input.</p>
 
-                                    <p>Can be any of the rules supported by <a href="https://github.com/skaterdav85/validatorjs#available-rules" target="_blank">validatorjs Validation Rules</a>, <b>except</b> the ones that involve multiple fields.</p>
+                                    <p>Can be any of the rules supported by <a href="https://github.com/skaterdav85/validatorjs#available-rules" target="_blank" rel="noopener">validatorjs Validation Rules</a>, <b>except</b> the ones that involve multiple fields.</p>
 
                                     <p>Example to validate a required email field: <code>validation-rules="required|email"</code>.</p>
 
@@ -424,7 +426,7 @@
                                 <td>
                                     <p>An object whose keys are the validation rules and whose values are the error messages for those rules.</p>
 
-                                    <p>See <a href="https://github.com/skaterdav85/validatorjs#custom-error-messages" target="_blank">validatorjs Custom Error Messages</a> for more details.</p>
+                                    <p>See <a href="https://github.com/skaterdav85/validatorjs#custom-error-messages" target="_blank" rel="noopener">validatorjs Custom Error Messages</a> for more details.</p>
                                 </td>
                             </tr>
 

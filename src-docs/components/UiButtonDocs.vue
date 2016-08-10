@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-button">
         <h2 class="section-heading">
-            UiButton <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiButton.vue" target="_blank" class="view-source-link">View Source</a>
+            UiButton <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiButton.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiButton is a versatile button component that largely implements the Material Design spec. UiButtons can show a dropdown and a loading spinner. They also support focus (mouse and keyboard separately), hover and disabled states.</p>
@@ -20,7 +20,7 @@
         <p><b>Note:</b> If you are having alignment issues when using multiple buttons next to each other, put the buttons in a container and add a class of <code>ui-button-group</code> for a flex-based workaround.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiButtonDocs.vue" target="_blank" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiButtonDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">
@@ -291,7 +291,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The button icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>.</p>
+                                    <p>The button icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
                                     <p>Note that this should be the icon codepoint if you want to support IE9.</p>
                                 </td>
                             </tr>
@@ -346,7 +346,7 @@
                                     <ul>
                                         <li><code>type</code>: Set to <code>"divider"</code> for a divider.</li>
 
-                                        <li><code>icon</code>: An icon to show with the option. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</li>
+                                        <li><code>icon</code>: An icon to show with the option. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</li>
 
                                         <li><code>secondaryText</code>: Text to show to the right of the option in the dropdown. Useful for showing keyboard shortcuts and badges.</li>
 

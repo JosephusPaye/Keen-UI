@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-alert">
         <h2 class="section-heading">
-            UiAlert <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiAlert.vue" target="_blank" class="view-source-link">View Source</a>
+            UiAlert <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiAlert.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiAlerts are used to show inline alert messages to the user. Supported types are <code>info</code>, <code>success</code>, <code>warning</code> and <code>error</code>.</p>
@@ -9,7 +9,7 @@
         <p>UiAlert supports keyboard navigation, can contain links and can be dismissible. The content can be fully customized using HTML and the icon can be changed or removed.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiAlertDocs.vue" target="_blank" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiAlertDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">
@@ -20,7 +20,7 @@
             </ui-alert>
 
             <ui-alert type="warning">
-                Ay caramba! Alerts can also contain HTML. <a href="https://google.com" target="_blank">Click here</a> for Google.com.
+                Ay caramba! Alerts can also contain HTML. <a href="https://google.com" target="_blank" rel="noopener">Click here</a> for Google.com.
             </ui-alert>
 
             <ui-alert
@@ -99,7 +99,7 @@
                                 <td></td>
                                 <td>
                                     <p>The name of a custom alert icon.</p>
-                                    <p>Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>.</p>
+                                    <p>Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
                                     <p>Note that this should be the icon codepoint if you want to support IE9. By default the icon is based on the alert type.</p>
                                 </td>
                             </tr>

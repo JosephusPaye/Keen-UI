@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-radio-group">
         <h2 class="section-heading">
-            UiRadioGroup <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiRadioGroup.vue" target="_blank" class="view-source-link">View Source</a>
+            UiRadioGroup <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiRadioGroup.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiRadioGroup shows a group of mutually exclusive radio buttons. It supports hover, focus and disabled states. One or more options in the group can be disabled or the entire group can be disabled.</p>
@@ -9,7 +9,7 @@
         <p>A radio group can have a label as well as help text and allows for resetting to the initial state.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiRadioGroupDocs.vue" target="_blank" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiRadioGroupDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

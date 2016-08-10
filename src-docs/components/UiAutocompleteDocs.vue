@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-autocomplete">
         <h2 class="section-heading">
-            UiAutocomplete <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiAutocomplete.vue" target="_blank" class="view-source-link">View Source</a>
+            UiAutocomplete <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiAutocomplete.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiAutocomplete shows a dropdown of suggestions below an input as the user types which they can select from to replace or append to what they have entered.</p>
@@ -11,7 +11,7 @@
         <p>UiAutocomplete supports validation, and the validation state can also be set programmatically from outside the component using an event.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiAutocompleteDocs.vue" target="_blank" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiAutocompleteDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="examples">
@@ -158,7 +158,7 @@
                                 <td><code>"ui-autocomplete-simple"</code></td>
                                 <td></td>
                                 <td>
-                                    <p>The ID of a registered <a href="http://vuejs.org/api/#partial" target="_blank">Vue partial</a> to use as the template for each suggestion.</p>
+                                    <p>The ID of a registered <a href="http://vuejs.org/api/#partial" target="_blank" rel="noopener">Vue partial</a> to use as the template for each suggestion.</p>
 
                                     <p>This partial is rendered into an <code>&lt;li&gt;</code> which has the partial's ID as a class. In the partial template, you have access to an <code>item</code> string/object from the suggestions array which you can use to render the suggestion however you like.</p>
 
@@ -219,7 +219,7 @@
                             <tr>
                                 <td class="new-prop">filter</td>
                                 <td>Function</td>
-                                <td>(<a href="https://www.npmjs.com/package/fuzzysearch" target="_blank">fuzzysearch</a>)</td>
+                                <td>(<a href="https://www.npmjs.com/package/fuzzysearch" target="_blank" rel="noopener">fuzzysearch</a>)</td>
                                 <td></td>
                                 <td>
                                     <p>Defines a custom filter function that is used for filtering the suggestions when the user types into the autocomplete.</p>
@@ -290,7 +290,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <p>The autocomplete icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>.</p>
+                                    <p>The autocomplete icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
                                     <p>Note that this should be the icon codepoint if you want to support IE9.</p>
                                 </td>
                             </tr>
@@ -356,7 +356,7 @@
                                 <td>
                                     <p>An array of rules or a pipe <code>|</code> separated list of rules for validating the input.</p>
 
-                                    <p>Can be any of the rules supported by <a href="https://github.com/skaterdav85/validatorjs#available-rules" target="_blank">validatorjs Validation Rules</a>, <b>except</b> the ones that involve multiple fields.</p>
+                                    <p>Can be any of the rules supported by <a href="https://github.com/skaterdav85/validatorjs#available-rules" target="_blank" rel="noopener">validatorjs Validation Rules</a>, <b>except</b> the ones that involve multiple fields.</p>
 
                                     <p>Example to validate a required email field: <code>validation-rules="required|email"</code>.</p>
 
@@ -374,7 +374,7 @@
                                 <td>
                                     <p>An Object whose keys are the validation rules and whose values are the error messages for those rules.</p>
 
-                                    <p>See <a href="https://github.com/skaterdav85/validatorjs#custom-error-messages" target="_blank">validatorjs Custom Error Messages</a> for more details.</p>
+                                    <p>See <a href="https://github.com/skaterdav85/validatorjs#custom-error-messages" target="_blank" rel="noopener">validatorjs Custom Error Messages</a> for more details.</p>
                                 </td>
                             </tr>
 

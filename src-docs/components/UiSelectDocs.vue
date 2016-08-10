@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-select">
         <h2 class="section-heading">
-            UiSelect <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiSelect.vue" target="_blank" class="view-source-link">View Source</a>
+            UiSelect <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiSelect.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiSelect is a select component that allows the user to choose one or more options from a group of pre-defined or dynamically loaded options. It supports default options, multiple selection, filtering and a loading indicator.</p>
@@ -11,7 +11,7 @@
         <p>UiSelect supports validation, and the validation state can also be set programmatically from outside the component using an event.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiSelectDocs.vue" target="_blank" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiSelectDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">
@@ -239,7 +239,7 @@
                                 <td><code>"ui-select-simple"</code></td>
                                 <td></td>
                                 <td>
-                                    <p>The ID of a registered <a href="http://vuejs.org/api/#partial" target="_blank">Vue partial</a> to use as the template for each option.</p>
+                                    <p>The ID of a registered <a href="http://vuejs.org/api/#partial" target="_blank" rel="noopener">Vue partial</a> to use as the template for each option.</p>
 
                                     <p>This partial is rendered into an <code>&lt;div&gt;</code> with a class of <code>ui-select-option-content</code> which also has the partial's ID as a class. In the partial template, you have access to an <code>option</code> object from the options array which you can use to render the option however you like.</p>
 
@@ -315,7 +315,7 @@
                             <tr>
                                 <td class="new-prop">filter</td>
                                 <td>Function</td>
-                                <td>(<a href="https://www.npmjs.com/package/fuzzysearch">fuzzysearch</a>)</td>
+                                <td>(<a href="https://www.npmjs.com/package/fuzzysearch" target="_blank" rel="noopener">fuzzysearch</a>)</td>
                                 <td></td>
                                 <td>
                                     <p>Defines a custom filter function that is used for filtering the options when the user types into the select search box.</p>
@@ -372,7 +372,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <p>The select icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>.</p>
+                                    <p>The select icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
                                     <p>Note that this should be the icon codepoint if you want to support IE9.</p>
                                 </td>
                             </tr>
@@ -454,7 +454,7 @@
                                 <td>
                                     <p>An object whose keys are the validation rules and whose values are the error messages for those rules.</p>
 
-                                    <p>See <a href="https://github.com/skaterdav85/validatorjs#custom-error-messages" target="_blank">validatorjs Custom Error Messages</a> for more details.</p>
+                                    <p>See <a href="https://github.com/skaterdav85/validatorjs#custom-error-messages" target="_blank" rel="noopener">validatorjs Custom Error Messages</a> for more details.</p>
                                 </td>
                             </tr>
 

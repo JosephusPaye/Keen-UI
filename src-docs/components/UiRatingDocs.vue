@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-rating">
         <h2 class="section-heading">
-            UiRating &amp; UiRatingPreview <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiRating.vue" target="_blank" class="view-source-link">View Source</a>
+            UiRating &amp; UiRatingPreview <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiRating.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiRating component shows a rating control whose icons can be stars or hearts. UiRatingPreview is the basic, read-only version.</p>
@@ -9,7 +9,7 @@
         <p>UiRating supports a label, help text, keyboard interaction and hover, focus and disabled states. It also allows for resetting to the initial state.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiRatingDocs.vue" target="_blank" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiRatingDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

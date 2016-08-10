@@ -1,19 +1,19 @@
 <template>
     <section class="section section-ui-popover">
         <h2 class="section-heading">
-            UiPopover <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiPopover.vue" target="_blank" class="view-source-link">View Source</a>
+            UiPopover <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiPopover.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiPopover is used to show arbitrary content in a dropdown. It can also be setup to contain tab focus in the popover, returning focus to the trigger element on close.</p>
 
         <p>The dropdown position relative to the trigger can be customized and the drop can either be always open or set to open on hover, click or focus of the trigger element.</p>
 
-        <p>The dropdown is powered by <a href="https://github.com/HubSpot/drop" target="_blank">Drop</a>, which uses <a href="https://github.com/HubSpot/tether" target="_blank">Tether</a>.</p>
+        <p>The dropdown is powered by <a href="https://github.com/HubSpot/drop" target="_blank" rel="noopener">Drop</a>, which uses <a href="https://github.com/HubSpot/tether" target="_blank" rel="noopener">Tether</a>.</p>
 
         <p>UiPopover is used internally by the <a href="#/ui-button-docs">UiButton</a> and <a href="#/ui-icon-button-docs">UiIconButton</a> components.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiPopoverDocs.vue" target="_blank" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiPopoverDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

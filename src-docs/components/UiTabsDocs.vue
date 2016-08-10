@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-tabs">
         <h2 class="section-heading">
-            UiTabs &amp; UiTab <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiTabs.vue" target="_blank" class="view-source-link">View Source</a>
+            UiTabs &amp; UiTab <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiTabs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>The UiTabs and UiTab components are used together to create a tab container with one or more tabs. Only a UiTab component should be the direct child of UiTabs.</p>
@@ -13,7 +13,7 @@
         <p>UiTabs header can be any of four possible background colors: <code>default</code>, <code>primary</code>, <code>accent</code> and <code>clear</code>. The header text color, header active text color and the active tab indicator colors can also be customized.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiTabsDocs.vue" target="_blank" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiTabsDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">
@@ -23,7 +23,7 @@
                 <ui-tab header="Books">
                     My books
 
-                    <a href="gogole.com">Hey</a>
+                    <a href="https://google.com" target="_blank" rel="noopener">Hey</a>
                 </ui-tab>
 
                 <ui-tab header="Authors">
@@ -499,7 +499,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The tab icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>.</p>
+                                    <p>The tab icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
                                     <p>Note that this should be the icon codepoint if you want to support IE9.</p>
                                 </td>
                             </tr>

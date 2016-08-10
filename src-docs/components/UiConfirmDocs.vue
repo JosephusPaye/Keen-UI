@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-confirm">
         <h2 class="section-heading">
-            UiConfirm <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiConfirm.vue" target="_blank" class="view-source-link">View Source</a>
+            UiConfirm <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiConfirm.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiConfirm creates a confirmation dialog using <a href="#/ui-modal-docs">UiModal</a>.</p>
@@ -11,7 +11,7 @@
         <p>UiConfirm can also show a loading spinner on the primary button (useful for AJAX operations).</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiConfirmDocs.vue" target="_blank" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiConfirmDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">
@@ -128,7 +128,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <p>The confirm button icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>.</p>
+                                    <p>The confirm button icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
                                     <p>Note that this should be the icon codepoint if you want to support IE9.</p>
                                 </td>
                             </tr>
@@ -147,7 +147,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <p>The deny button icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>.</p>
+                                    <p>The deny button icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
                                     <p>Note that this should be the icon codepoint if you want to support IE9.</p>
                                 </td>
                             </tr>

@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-progress-linear">
         <h2 class="section-heading">
-            UiProgressLinear <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiProgressLinear.vue" target="_blank" class="view-source-link">View Source</a>
+            UiProgressLinear <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiProgressLinear.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>This component shows a linear progress bar that can be either determinate or indeterminate. A determinate progress bar shows a specific percentage of completion, while an indeterminate progress bar doesn't.</p>
@@ -9,7 +9,7 @@
         <p>UiProgressLinear supports four colors: <code>primary</code>, <code>accent</code>, <code>black</code> and <code>white</code>.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiProgressLinearDocs.vue" target="_blank" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiProgressLinearDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">
