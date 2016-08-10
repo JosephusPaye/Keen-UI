@@ -2,11 +2,13 @@
     <section class="section section-ui-progress-circular">
         <h2 class="section-heading">UiProgressCircular</h2>
 
-        <p>UiProgressCircular shows a circular progress indicator (spinner). Currently UiProgressCircular only works in browsers with <a href="http://caniuse.com/#feat=svg-smil" target="_blank">SVG SMIL animation support</a> (e.g. all modern browsers except IE and Edge).</p>
+        <p>UiProgressCircular shows a circular progress indicator (a spinner). Currently UiProgressCircular only works in browsers with <a href="http://caniuse.com/#feat=svg-smil" target="_blank">SVG SMIL animation support</a> (e.g. all modern browsers except IE and Edge).</p>
 
-        <p>UiProgressCircular supports five possible colors: <code>primary</code>, <code>accent</code>, <code>multi-color</code> (alternating primary colors), <code>black</code> and <code>white</code>. The <code>size</code> (width and height) and <code>stroke</code> can also be customized.</p>
+        <p>UiProgressCircular supports five possible colors: <code>primary</code>, <code>accent</code>, <code>multi-color</code> (alternating primary colors), <code>black</code> and <code>white</code>. The <code>size</code> (width and height) and <code>stroke</code> can be customized.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiProgressCircularDocs.vue" target="_blank" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Determinate</h4>
@@ -35,11 +37,8 @@
 
             <div class="group">
                 <ui-progress-circular :show="loading" color="multi-color"></ui-progress-circular>
-
                 <ui-progress-circular :show="loading" color="primary"></ui-progress-circular>
-
                 <ui-progress-circular :show="loading" color="accent"></ui-progress-circular>
-
                 <ui-progress-circular :show="loading" color="black"></ui-progress-circular>
 
                 <div class="color-wrapper">
@@ -95,14 +94,17 @@
                                 <td>show</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the circular progress is shown. Changing this value will show/hide the circular progress.</td>
+                                <td>
+                                    <p>Determines whether or not the circular progress is shown.</p>
+                                    <p>Changing this value will show/hide the circular progress.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>type</td>
                                 <td>String</td>
                                 <td><code>"indeterminate"</code></td>
-                                <td>The type of progress. One of <code>determinate</code> or <code>indeterminate</code>.</td>
+                                <td>The type of circular progress. One of <code>determinate</code> or <code>indeterminate</code>.</td>
                             </tr>
 
                             <tr>
@@ -127,7 +129,11 @@
                                 <td>stroke</td>
                                 <td>Number</td>
                                 <td>auto or <code>4</code></td>
-                                <td>The stroke width of the circular progress in pixels (without any units). If <code>stroke</code> is not provided, it is automatically calculated unless <code>autoStroke</code> is set to <code>false</code>. See below for details.</td>
+                                <td>
+                                    <p>The stroke width of the circular progress in pixels (without any units).</p>
+
+                                    <p>If <code>stroke</code> is not provided, it is automatically calculated unless <code>autoStroke</code> is set to <code>false</code>. See below for details.</p>
+                                </td>
                             </tr>
 
                             <tr>
