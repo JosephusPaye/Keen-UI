@@ -1,12 +1,16 @@
 <template>
     <section class="section section-ui-alert">
-        <h2 class="section-heading">UiAlert</h2>
+        <h2 class="section-heading">
+            UiAlert <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiAlert.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiAlerts are used to show inline alert messages to the user. Supported types are <code>info</code>, <code>success</code>, <code>warning</code> and <code>error</code>.</p>
 
-        <p>An alert supports keyboard navigation, can contain links and can be dismissible. The content can be fully customized using HTML and the icon can be changed or removed.</p>
+        <p>UiAlert supports keyboard navigation, can contain links and can be dismissible. The content can be fully customized using HTML and the icon can be changed or removed.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiAlertDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <ui-alert text="Hi everybody! This is the default alert."></ui-alert>
@@ -16,7 +20,7 @@
             </ui-alert>
 
             <ui-alert type="warning">
-                Ay caramba! Alerts can also contain HTML. <a href="https://google.com" target="_blank">Click here</a> for Google.com.
+                Ay caramba! Alerts can also contain HTML. <a href="https://google.com" target="_blank" rel="noopener">Click here</a> for Google.com.
             </ui-alert>
 
             <ui-alert
@@ -63,42 +67,61 @@
                                 <td>show</td>
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
-                                <td>Determines whether or not the alert is shown. Changing this value will show/hide the alert.</td>
+                                <td>
+                                    <p>Determines whether or not the alert is shown.</p>
+                                    <p>Changing this value will show/hide the alert.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>type</td>
                                 <td>String</td>
                                 <td><code>"info"</code></td>
-                                <td>One of <code>info</code>, <code>success</code>, <code>warning</code> or <code>error</code>. Determines the alert background color and default icon.</td>
+                                <td>
+                                    <p>Determines the alert background color and default icon.</p>
+                                    <p>One of <code>info</code>, <code>success</code>, <code>warning</code> or <code>error</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>text</td>
                                 <td>String</td>
                                 <td></td>
-                                <td>The alert body content (text-only). To use HTML in the alert body, use the default slot.</td>
+                                <td>
+                                    <p>The alert body content (text-only).</p>
+                                    <p>To use HTML in the alert body, use the default slot.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>icon</td>
                                 <td>String</td>
                                 <td></td>
-                                <td>The alert icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9. By default the icon is based on the alert type.</td>
+                                <td>
+                                    <p>The name of a custom alert icon.</p>
+                                    <p>Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
+                                    <p>Note that this should be the icon codepoint if you want to support IE9. By default the icon is based on the alert type.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>hideIcon</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the alert icon is hidden. Set to <code>true</code> to hide the icon.</td>
+                                <td>
+                                    <p>Determines whether or not the alert icon is hidden.</p>
+                                    <p>Set to <code>true</code> to hide the icon.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>dismissible</td>
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
-                                <td>Determines whether or not the alert can be dismissed. Set to <code>false</code> to hide the close button and prevent the user from dismissing the alert.</td>
+                                <td>
+                                    <p>Determines whether or not the alert can be dismissed.</p>
+                                    <p>Set to <code>false</code> to hide the close button and prevent the user from dismissing the alert.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -140,7 +163,10 @@
                             <tr>
                                 <td>dismissed</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the alert is dismissed. Listen for it using <code>@dismissed</code>.</td>
+                                <td>
+                                    <p>Dispatched when the alert is dismissed.</p>
+                                    <p>Listen for it using <code>@dismissed</code>.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

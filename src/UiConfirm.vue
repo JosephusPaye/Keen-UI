@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import $ from 'dominus';
+import classlist from './helpers/classlist';
 
 import UiModal from './UiModal.vue';
 import UiButton from './UiButton.vue';
@@ -89,18 +89,19 @@ export default {
         },
 
         opened() {
+            let button;
+
             if (this.autofocus === 'confirm-button') {
-                $(this.$els.confirmButton)
-                    .addClass('autofocus')
-                    .once('blur', this.removeAutoFocus);
-
-                this.$els.confirmButton.focus();
+                button = this.$els.confirmButton;
             } else if (this.autofocus === 'deny-button') {
-                $(this.$els.denyButton)
-                    .addClass('autofocus')
-                    .once('blur', this.removeAutoFocus);
+                button = this.$els.denyButton;
+            }
 
-                this.$els.denyButton.focus();
+            if (button) {
+                classlist.add(button, 'autofocus');
+                button.addEventListener('blur', this.removeAutoFocus);
+
+                button.focus();
             }
 
             // Bubble event up
@@ -108,10 +109,19 @@ export default {
         },
 
         removeAutoFocus() {
+            let button;
+
             if (this.autofocus === 'confirm-button') {
-                $(this.$els.confirmButton).removeClass('autofocus');
+                button = this.$els.confirmButton;
             } else if (this.autofocus === 'deny-button') {
-                $(this.$els.denyButton).removeClass('autofocus');
+                button = this.$els.denyButton;
+            }
+
+            if (button) {
+                // This listener should run only once
+                button.removeEventListener('blur', this.removeAutoFocus);
+
+                classlist.remove(button, 'autofocus');
             }
         }
     },

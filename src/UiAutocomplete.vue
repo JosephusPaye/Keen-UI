@@ -21,10 +21,10 @@
 
                 <input
                     class="ui-autocomplete-input" :placeholder="placeholder" :name="name"
-                    :id="id" autocomplete="off"
+                    :id="id" autocomplete="off" v-autofocus="autofocus" :debounce="debounce"
 
-                    @focus="focus" @blur="blur" @keydown.up="highlight(highlightedItem - 1)"
-                    @keydown.down="highlight(highlightedItem + 1)" @keydown.tab="close"
+                    @focus="focus" @blur="blur" @keydown.up.prevent="highlight(highlightedItem - 1)"
+                    @keydown.down.prevent="highlight(highlightedItem + 1)" @keydown.tab="close"
                     @keydown.enter="selectHighlighted(highlightedItem, $event)"
 
                     v-model="value" v-disabled="disabled" v-el:input
@@ -33,6 +33,8 @@
                 <ul class="ui-autocomplete-suggestions" v-show="showDropdown">
                     <ui-autocomplete-suggestion
                         :highlighted="highlightedItem === index" :item="item" :partial="partial"
+                        :keys="keys"
+
                         v-for="(index, item) in suggestions | filterBy search | limitBy limit"
                         v-ref:items @click="select(item)"
                     ></ui-autocomplete-suggestion>
@@ -61,6 +63,7 @@ import fuzzysearch from 'fuzzysearch';
 import UiIcon from './UiIcon.vue';
 import UiAutocompleteSuggestion from './UiAutocompleteSuggestion.vue';
 
+import autofocus from './directives/autofocus';
 import HasTextInput from './mixins/HasTextInput';
 import ValidatesInput from './mixins/ValidatesInput';
 
@@ -92,6 +95,29 @@ export default {
         showOnUpDown: {
             type: Boolean,
             default: true
+        },
+        autofocus: {
+            type: Boolean,
+            default: false
+        },
+        filter: Function,
+        autoHighlightFirstMatch: {
+            type: Boolean,
+            default: true
+        },
+        cycleHighlight: {
+            type: Boolean,
+            default: true
+        },
+        keys: {
+            type: Object,
+            default() {
+                return {
+                    text: 'text',
+                    value: 'value',
+                    image: 'image'
+                };
+            }
         }
     },
 
@@ -110,7 +136,7 @@ export default {
     },
 
     events: {
-        'ui-input::reset'(id) {
+        'ui-input::reset': function(id) {
             // Abort if reset event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
                 return;
@@ -135,7 +161,7 @@ export default {
                 this.open();
             }
 
-            this.highlightedItem = 0;
+            this.highlightedItem = this.autoHighlightFirstMatch ? 0 : -1;
         }
     },
 
@@ -149,18 +175,28 @@ export default {
 
     methods: {
         search(item) {
-            let text = item.text || item;
-            let query = this.value.toLowerCase();
+            if (this.filter) {
+                return this.filter(item, this.value);
+            }
+
+            let text = item[this.keys.text] || item;
+            let query = this.value;
+
+            if (typeof query === 'string') {
+                query = query.toLowerCase();
+            }
 
             return fuzzysearch(query, text.toLowerCase());
         },
 
         select(item) {
             if (this.append) {
-                this.value += this.appendDelimiter + (item.text || item);
+                this.value += this.appendDelimiter + (item[this.keys.value] || item);
             } else {
-                this.value = item.text || item;
+                this.value = item[this.keys.value] || item;
             }
+
+            this.$dispatch('selected', item);
 
             this.validate();
 
@@ -171,16 +207,27 @@ export default {
         },
 
         highlight(index) {
-            if (index < 0) {
-                index = this.$refs.items.length - 1;
-            } else if (index >= this.$refs.items.length) {
-                index = 0;
+            let firstIndex = 0;
+            let lastIndex = this.$refs.items.length - 1;
+
+            if (index === -2) { // Allows for cycling from first to last when cycling is disabled
+                index = lastIndex;
+            } else if (index < firstIndex) {
+                index = this.cycleHighlight ? lastIndex : index;
+            } else if (index > lastIndex) {
+                index = this.cycleHighlight ? firstIndex : -1;
             }
 
             this.highlightedItem = index;
 
             if (this.showOnUpDown) {
                 this.open();
+            }
+
+            if (index < firstIndex || index > lastIndex) {
+                this.$dispatch('highlight-overflow', index);
+            } else {
+                this.$dispatch('highlighted', this.$refs.items[index].item, index);
             }
         },
 
@@ -196,13 +243,20 @@ export default {
         },
 
         open() {
-            this.showDropdown = true;
+            if (!this.showDropdown) {
+                this.showDropdown = true;
+                this.$dispatch('opened');
+            }
         },
 
         close() {
-            this.showDropdown = false;
+            if (this.showDropdown) {
+                this.showDropdown = false;
+                this.highlightedItem = -1;
 
-            this.validate();
+                this.$dispatch('closed');
+                this.validate();
+            }
         },
 
         closeOnExternalClick(e) {
@@ -227,6 +281,10 @@ export default {
     components: {
         UiIcon,
         UiAutocompleteSuggestion
+    },
+
+    directives: {
+        autofocus
     },
 
     mixins: [

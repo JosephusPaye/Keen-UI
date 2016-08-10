@@ -18,7 +18,7 @@ config.entry = {
     UiIcon: ['./src/UiIcon.vue'],
     UiIconButton: ['./src/UiIconButton.vue'],
     UiMenu: ['./src/UiMenu.vue'],
-    UiMenuItem: ['./src/UiMenuItem.vue'],
+    UiMenuOption: ['./src/UiMenuOption.vue'],
     UiModal: ['./src/UiModal.vue'],
     UiPopover: ['./src/UiPopover.vue'],
     UiPreloader: ['./src/UiPreloader.vue'],

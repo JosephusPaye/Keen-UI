@@ -1,12 +1,16 @@
 <template>
     <section class="section section-ui-snackbar">
-        <h2 class="section-heading">UiSnackbar &amp; UiSnackbarContainer</h2>
+        <h2 class="section-heading">
+            UiSnackbar &amp; UiSnackbarContainer <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiSnackbar.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiSnackbar provides lightweight feedback about an operation by showing a brief message at the bottom of the screen. Snackbars can contain an action.</p>
 
         <p>UiSnackbarContainer is a container that allows you to create snackbars using events, and it manages their visibility to ensure only one snackbar is shown at a time. It also allows you to position snackbars to the left, center or right of the container.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiSnackbarDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Default</h4>
@@ -87,9 +91,12 @@
                             <tr>
                                 <td>id</td>
                                 <td>String</td>
-                                <td class="no-wrap">(Auto-generated unique ID)</td>
+                                <td class="no-wrap">(Auto-generated <br> unique ID)</td>
                                 <td></td>
-                                <td>A unique identifier for the snackbar. Applied as the <code>id</code> attribute of the snackbar root element.</td>
+                                <td>
+                                    <p>A unique identifier for the snackbar.</p>
+                                    <p>Applied as the <code>id</code> attribute of the snackbar root element.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -97,7 +104,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>Two way</td>
-                                <td>Determines whether or not the snackbar is shown. Changing this value will show/hide the snackbar.</td>
+                                <td>
+                                    <p>Determines whether or not the snackbar is shown.</p>
+                                    <p>Changing this value will show/hide the snackbar.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -105,7 +115,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>The snackbar message. To use HTML in the snackbar, use the default slot.</td>
+                                <td>
+                                    <p>The snackbar message (text only).</p>
+                                    <p>To use HTML in the snackbar, use the default slot.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -113,7 +126,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>The snackbar action button text. Setting this prop will show an action button. Otherwise, no action button is shown.</td>
+                                <td>
+                                    <p>The snackbar action button text.</p>
+                                    <p>Setting this prop will show an action button. Otherwise, no action button is shown.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -121,7 +137,10 @@
                                 <td>String</td>
                                 <td><code>"accent"</code></td>
                                 <td></td>
-                                <td>The snackbar action button text color. One of <code>accent</code> or <code>primary</code>.</td>
+                                <td>
+                                    <p>The snackbar action button text color.</p>
+                                    <p>One of <code>accent</code> or <code>primary</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -129,7 +148,10 @@
                                 <td>Number</td>
                                 <td><code>5000</code></td>
                                 <td></td>
-                                <td>The duration of the snackbar in milliseconds. After this amount of time, the snackbar will be hidden if <code>autoHide</code> is enabled.</td>
+                                <td>
+                                    <p>The duration of the snackbar in milliseconds.</p>
+                                    <p>After this amount of time, the snackbar will be hidden if <code>autoHide</code> is enabled.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -137,7 +159,10 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td></td>
-                                <td>Determines whether or not the snackbar is automatically hidden after the given duration. Set to <code>false</code> to disable auto hiding.</td>
+                                <td>
+                                    <p>Determines whether or not the snackbar is automatically hidden after the given duration.</p>
+                                    <p>Set to <code>false</code> to disable auto hiding.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -145,7 +170,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the snackbar is persistent and cannot be hidden. Set to <code>true</code> for a persistent snackbar.</td>
+                                <td>
+                                    <p>Determines whether or not the snackbar is persistent and cannot be hidden.</p>
+                                    <p>Set to <code>true</code> for a persistent snackbar.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -186,25 +214,37 @@
                             <tr>
                                 <td>shown</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the snackbar is shown. Listen for it using <code>@shown</code>.</td>
+                                <td>
+                                    <p>Dispatched when the snackbar is shown.</p>
+                                    <p>Listen for it using <code>@shown</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>hidden</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the snackbar is hidden. Listen for it using <code>@hidden</code>.</td>
+                                <td>
+                                    <p>Dispatched when the snackbar is hidden.</p>
+                                    <p>Listen for it using <code>@hidden</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>clicked</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the snackbar is clicked. Listen for it using <code>@clicked</code>.</td>
+                                <td>
+                                    <p>Dispatched when the snackbar is clicked.</p>
+                                    <p>Listen for it using <code>@clicked</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>action-clicked</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the snackbar is action-clicked. Listen for it using <code>@action-clicked</code>.</td>
+                                <td>
+                                    <p>Dispatched when the snackbar action is action.</p>
+                                    <p>Listen for it using <code>@action-clicked</code>.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -234,7 +274,10 @@
                                 <td>defaultDuration</td>
                                 <td>Number</td>
                                 <td><code>5000</code></td>
-                                <td>The default duration in milliseconds of snackbars shown in this container. Only applies to snackbars created without a duration.</td>
+                                <td>
+                                    <p>The default duration in milliseconds of snackbars shown in this container.</p>
+                                    <p>Only applies to snackbars created without an explicit duration.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -243,10 +286,18 @@
                                 <td><code>false</code></td>
                                 <td>
                                     <p>Determines whether or not snackbars should be queued and shown one after the other.</p>
-
                                     <p>By default, creating a new snackbar while one is visible will cause the visible one to immediately transition out for the new one.</p>
-
                                     <p>Set this prop to <code>true</code> to ensure that each snackbar is shown for its complete duration.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="new-prop">allowHtml</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>
+                                    <p>Determines whether or not snackbars created in this container can have HTML in their <code>message</code> property.</p>
+                                    <p>Set this prop to <code>true</code> to allow HTML in the snackbars created in this container.</p>
                                 </td>
                             </tr>
 
@@ -254,7 +305,10 @@
                                 <td>position</td>
                                 <td>String</td>
                                 <td><code>"left"</code></td>
-                                <td>The position of snackbars relative to the container. One of <code>left</code>, <code>center</code> or <code>right</code>.</td>
+                                <td>
+                                    <p>The position of snackbars relative to the container.</p>
+                                    <p>One of <code>left</code>, <code>center</code> or <code>right</code>.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -318,7 +372,6 @@ export default {
         UiSwitch,
         UiTextbox,
         UiRadioGroup,
-
         UiSnackbar,
         UiSnackbarContainer
     },

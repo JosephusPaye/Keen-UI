@@ -1,12 +1,16 @@
 <template>
     <section class="section section-ui-slider">
-        <h2 class="section-heading">UiSlider</h2>
+        <h2 class="section-heading">
+            UiSlider <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiSlider.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiSlider is a component that allows the user to select a value from a continuous range of values by moving the slider thumb, clicking on the slider, or using the arrow keys.</p>
 
         <p>UiSlider allows for adding a label and an icon. The slider is keyboard accessible and can be disabled.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiSliderDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Default</h4>
@@ -49,7 +53,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>A unique identifier for the slider. Applied as the <code>id</code> attribute on the root element and used when targeting a specific slider for reset.</td>
+                                <td>
+                                    <p>A unique identifier for the slider.</p>
+                                    <p>Applied as the <code>id</code> attribute on the root element and used when targeting a specific slider for reset.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -81,7 +88,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>The slider icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</td>
+                                <td>
+                                    <p>The slider icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
+                                    <p>Note that this should be the icon codepoint if you want to support IE9.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -97,7 +107,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the slider label is hidden. Set to <code>true</code> to hide the label.</td>
+                                <td>
+                                    <p>Determines whether or not the slider label is hidden.</p>
+                                    <p>Set to <code>true</code> to hide the label.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -105,7 +118,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the slider is disabled. Set to <code>true</code> to disable the slider.</td>
+                                <td>
+                                    <p>Determines whether or not the slider is disabled.</p>
+                                    <p>Set to <code>true</code> to disable the slider.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -130,7 +146,6 @@
                                 <td>Received</td>
                                 <td>
                                     <p>Trigger this event to reset the slider to its initial state. This event resets the <code>value</code> prop.</p>
-
                                     <p>You can optionally pass in an <code>id</code> to reset only a specific slider (whose <code>id</code> you have set).</p>
                                 </td>
                             </tr>

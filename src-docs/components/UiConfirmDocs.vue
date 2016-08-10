@@ -1,14 +1,18 @@
 <template>
     <section class="section section-ui-confirm">
-        <h2 class="section-heading">UiConfirm</h2>
+        <h2 class="section-heading">
+            UiConfirm <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiConfirm.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h2>
 
-        <p>A component that creates a confirmation dialog using <a href="#/ui-modal-docs">UiModal</a>.</p>
+        <p>UiConfirm creates a confirmation dialog using <a href="#/ui-modal-docs">UiModal</a>.</p>
 
-        <p>The confirm and deny buttons can be customized (text, icon and color) and the confirm emits <code>opened</code>, <code>closed</code>, <code>confirmed</code> and <code>denied</code> events.</p>
+        <p>The confirm and deny buttons can be customized (text, icon and color) and the component emits <code>opened</code>, <code>closed</code>, <code>confirmed</code> and <code>denied</code> events.</p>
 
-        <p>A confirm can also show a loading spinner on the primary button (useful for AJAX operations).</p>
+        <p>UiConfirm can also show a loading spinner on the primary button (useful for AJAX operations).</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiConfirmDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <ui-confirm
@@ -82,7 +86,10 @@
                                 <td>Boolean</td>
                                 <td>(required)</td>
                                 <td>Two way</td>
-                                <td>Determines whether or not the dialog is shown. Changing this value will show/hide the dialog.</td>
+                                <td>
+                                    <p>Determines whether or not the modal is shown.</p>
+                                    <p>Changing this value will show/hide the modal.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -90,7 +97,10 @@
                                 <td>String</td>
                                 <td><code>"primary"</code></td>
                                 <td></td>
-                                <td>The type of confirm. Determines the color of the primary confirm button. Can be one of <code>default</code>, <code>primary</code>, <code>accent</code>, <code>success</code>, <code>warning</code> or <code>danger</code>.</td>
+                                <td>
+                                    <p>The type of confirm modal (determines the color of the primary confirm button).</p>
+                                    <p>Can be one of <code>default</code>, <code>primary</code>, <code>accent</code>, <code>success</code>, <code>warning</code> or <code>danger</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -98,7 +108,10 @@
                                 <td>String</td>
                                 <td><code>true</code></td>
                                 <td></td>
-                                <td>The dialog header (text only). If you want to use HTML in the header, consider directly using a <a href="#/ui-modal-docs">UiModal</a>.</td>
+                                <td>
+                                    <p>The confirm modal header (text only).</p>
+                                    <p>If you want to use HTML in the header, consider directly using a <a href="#/ui-modal-docs">UiModal</a>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -114,7 +127,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>The confirm button icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</td>
+                                <td>
+                                    <p>The confirm button icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
+                                    <p>Note that this should be the icon codepoint if you want to support IE9.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -130,7 +146,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>The deny button icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</td>
+                                <td>
+                                    <p>The deny button icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
+                                    <p>Note that this should be the icon codepoint if you want to support IE9.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -138,7 +157,10 @@
                                 <td>String</td>
                                 <td><code>"none"</code></td>
                                 <td></td>
-                                <td>The button to autofocus when the dialog is opened. Can be one of <code>confirm-button</code>, <code>deny-button</code> or <code>none</code>.</td>
+                                <td>
+                                    <p>The button to autofocus when the modal is opened.</p>
+                                    <p>Can be one of <code>confirm-button</code>, <code>deny-button</code> or <code>none</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -146,7 +168,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the dialog should be closed when the confirm button is clicked. Set to <code>true</code> to close the dialog on confirmation.</td>
+                                <td>
+                                    <p>Determines whether or not the modal should be closed when the confirm button is clicked.</p>
+                                    <p>Set to <code>true</code> to close the modal on confirmation.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -154,7 +179,10 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td></td>
-                                <td>Determines whether or not the dialog can be closed by clicking the backdrop. Set to <code>false</code> to disable this behaviour.</td>
+                                <td>
+                                    <p>Determines whether or not the dialog can be closed by clicking the backdrop.</p>
+                                    <p>Set to <code>false</code> to disable this behavior.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -162,7 +190,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not a loading spinner is shown on the confirm button. Setting this prop to <code>true</code> will show a spinner on the confirm button, disable the deny button and prevent the modal from being dismissed.</td>
+                                <td>
+                                    <p>Determines whether or not a loading spinner is shown on the confirm button.</p>
+                                    <p>Setting this prop to <code>true</code> will show a spinner on the confirm button, disable the deny button and prevent the modal from being dismissed.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -206,25 +237,37 @@
                             <tr>
                                 <td>opened</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the confirm dialog is opened. Listen for it using <code>@opened</code>.</td>
+                                <td>
+                                    <p>Dispatched when the confirm dialog is opened.</p>
+                                    <p>Listen for it using <code>@opened</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>closed</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the confirm dialog is closed. Listen for it using <code>@closed</code>.</td>
+                                <td>
+                                    <p>Dispatched when the confirm dialog is closed.</p>
+                                    <p>Listen for it using <code>@closed</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>confirmed</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the confirm button is selected. Listen for it using <code>@confirmed</code>.</td>
+                                <td>
+                                    <p>Dispatched when the confirm button is selected.</p>
+                                    <p>Listen for it using <code>@confirmed</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>denied</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the deny button is selected. Listen for it using <code>@denied</code>.</td>
+                                <td>
+                                    <p>Dispatched when the deny button is selected.</p>
+                                    <p>Listen for it using <code>@denied</code>.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

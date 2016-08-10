@@ -32,7 +32,7 @@ export default {
         },
         debounce: {
             type: Number,
-            default: false
+            default: null
         }
     },
 

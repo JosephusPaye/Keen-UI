@@ -81,7 +81,7 @@ export default {
     },
 
     events: {
-        'ui-input::reset'(id) {
+        'ui-input::reset': function(id) {
             // Abort if reset event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
                 return;

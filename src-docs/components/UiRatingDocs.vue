@@ -1,18 +1,21 @@
 <template>
     <section class="section section-ui-rating">
-        <h2 class="section-heading">UiRating &amp; UiRatingPreview</h2>
+        <h2 class="section-heading">
+            UiRating &amp; UiRatingPreview <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiRating.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiRating component shows a rating control whose icons can be stars or hearts. UiRatingPreview is the basic, read-only version.</p>
 
         <p>UiRating supports a label, help text, keyboard interaction and hover, focus and disabled states. It also allows for resetting to the initial state.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiRatingDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>UiRatingPreview</h4>
 
             <ui-rating-preview :total="5" :value="4"></ui-rating-preview>
-
             <ui-rating-preview :total="5" :value="3" type="heart"></ui-rating-preview>
 
             <h4>UiRating</h4>
@@ -63,7 +66,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>A unique identifier for the rating. Applied as the <code>id</code> attribute of the rating root element and used when targeting a specific rating for reset.</td>
+                                <td>
+                                    <p>A unique identifier for the rating.</p>
+                                    <p>Applied as the <code>id</code> attribute of the rating root element and used when targeting a specific rating for reset.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -71,7 +77,10 @@
                                 <td>String</td>
                                 <td><code>"star"</code></td>
                                 <td></td>
-                                <td>The type of rating. Determines the icon to show. One of <code>star</code> or <code>heart</code>.</td>
+                                <td>
+                                    <p>The type of rating (determines the icon to show).</p>
+                                    <p>One of <code>star</code> or <code>heart</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -79,7 +88,11 @@
                                 <td>Number</td>
                                 <td>(required)</td>
                                 <td>Two-way</td>
-                                <td>The model that the rating value (i.e. number of filled stars or hearts) syncs to. Can be set initially to show a default rating. Must be less than or equal to <code>total</code>.</td>
+                                <td>
+                                    <p>The model that the rating value (i.e. number of filled stars or hearts) syncs to.</p>
+                                    <p>Can be set initially to show a default rating.</p>
+                                    <p>Must be less than or equal to <code>total</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -103,7 +116,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the rating label is hidden. Set to <code>true</code> to hide the label.</td>
+                                <td>
+                                    <p>Determines whether or not the rating label is hidden.</p>
+                                    <p>Set to <code>true</code> to hide the label.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -113,7 +129,6 @@
                                 <td></td>
                                 <td>
                                     <p>The help text (hint) shown to the user below the rating.</p>
-
                                     <p>Extra space is reserved under the rating for the help text, but if no help text is available, this space is collapsed.</p>
                                 </td>
                             </tr>
@@ -124,8 +139,8 @@
                                 <td><code>false</code></td>
                                 <td></td>
                                 <td>
-                                    <p>Determines whether or not the rating is disabled. Set to <code>true</code> to disable the rating.</p>
-
+                                    <p>Determines whether or not the rating is disabled.</p>
+                                    <p>Set to <code>true</code> to disable the rating.</p>
                                     <p><b>Note</b>: this is not the same as a read-only rating, for that, use UiRatingPreview.</p>
                                 </td>
                             </tr>
@@ -151,15 +166,18 @@
                             <tr>
                                 <td>preview-value-changed</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the preview value of the rating is changed. Listen for it using <code>@preview-value-changed</code>.</td>
+                                <td>
+                                    <p>Dispatched when the preview value of the rating changes.</p>
+                                    <p>Listen for it using <code>@preview-value-changed</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td class="no-wrap">ui-input::reset</td>
                                 <td>Received</td>
                                 <td>
-                                    <p>Trigger this event to reset the rating to its initial state. This event resets the <code>value</code> prop.</p>
-
+                                    <p>Trigger this event to reset the rating to its initial state.</p>
+                                    <p>This event resets the <code>value</code> prop.</p>
                                     <p>You can optionally pass in an <code>id</code> to reset only a specific rating (whose <code>id</code> you have set).</p>
                                 </td>
                             </tr>
@@ -191,14 +209,20 @@
                                 <td>type</td>
                                 <td>String</td>
                                 <td><code>"star"</code></td>
-                                <td>The type of rating. Determines the icon to show. One of <code>star</code> or <code>heart</code>.</td>
+                                <td>
+                                    <p>The type of rating (determines the icon to show).</p>
+                                    <p>One of <code>star</code> or <code>heart</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>value *</td>
                                 <td>Number</td>
                                 <td>(required)</td>
-                                <td>The rating preview value (i.e. number of filled stars or hearts). Must be less than or equal to <code>total</code>.</td>
+                                <td>
+                                    <p>The rating preview value (i.e. number of filled stars or hearts).</p>
+                                    <p>Must be less than or equal to <code>total</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>

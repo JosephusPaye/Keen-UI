@@ -39,6 +39,16 @@ export default {
             type: Boolean,
             default: false
         },
+        keys: {
+            type: Object,
+            default() {
+                return {
+                    text: 'text',
+                    value: 'value',
+                    image: 'image'
+                };
+            }
+        }
     },
 
     computed: {
@@ -52,12 +62,18 @@ export default {
     },
 
     partials: {
-        'ui-select-simple':
-            '<li class="ui-select-item-text" v-text="option.text"></li>',
+        'ui-select-simple': `
+            <li class="ui-select-item-text" v-text="option[keys.text] || option"></li>
+        `,
 
-        'ui-select-image':
-            `<div class="ui-select-item-image" :style="{ 'background-image': 'url(' + option.image + ')' }"></div>
-            <div class="ui-select-item-text" v-text="option.text"></div>`
+        'ui-select-image': `
+            <div
+                class="ui-select-item-image"
+                :style="{ 'background-image': 'url(' + option[keys.image] + ')' }"
+            ></div>
+
+            <div class="ui-select-item-text" v-text="option[keys.text]"></div>
+        `
     }
 };
 </script>

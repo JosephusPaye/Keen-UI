@@ -1,6 +1,16 @@
 module.exports = {
     // Extend from the Airbnb JS style guide
-    extends: 'airbnb/base',
+    extends: [
+        './node_modules/eslint-config-airbnb-base/legacy.js',
+        './node_modules/eslint-config-airbnb-base/rules/es6.js'
+    ],
+
+    parserOptions: {
+        ecmaVersion: 7,
+        sourceType: 'module',
+    },
+
+    // extends: 'airbnb-base',
 
     // Specify environment for built-in functions
     env: {
@@ -25,27 +35,28 @@ module.exports = {
     // Override rules as needed
     // See http://eslint.org/docs/rules/{rule-name} for docs
     rules: {
-        'no-var': 0,
-        'no-new': 0,
-        'prefer-const': 0,
-        'no-trailing-spaces': 0,
+        'no-var': 'off',
+        'no-new': 'off',
+        'prefer-const': 'off',
+        'no-trailing-spaces': 'off',
 
-        indent: [2, 4, {
+        indent: ['error', 4, {
             SwitchCase: 1
         }],
 
-        'space-before-function-paren': 0,
-        'prefer-arrow-callback': 0,
-        'prefer-template': 0,
-        'no-multi-spaces': 0,
+        'space-before-function-paren': 'off',
+        'prefer-arrow-callback': 'off',
+        'prefer-template': 'off',
+        'no-multi-spaces': 'off',
+        'no-underscore-dangle': 'off',
 
-        'consistent-return': 0,
-        'no-console': 0,
-        'no-use-before-define': 0,
-        'func-names': 0,
-        'comma-dangle': 0,
-        'vars-on-top': 0,
-        'no-param-reassign': 0,
-        strict: 0
+        'consistent-return': 'off',
+        'no-console': 'off',
+        'no-use-before-define': 'off',
+        'func-names': 'off',
+        'comma-dangle': 'off',
+        'vars-on-top': 'off',
+        'no-param-reassign': 'off',
+        strict: 'off'
     }
 };

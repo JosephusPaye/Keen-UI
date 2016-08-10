@@ -1,7 +1,7 @@
 <template>
     <button
         class="ui-icon-button" :class="styleClasses" :aria-label="ariaLabel || tooltip"
-        v-disabled="disabled || loading" v-el:button
+        :type="buttonType" v-disabled="disabled || loading" v-el:button
     >
         <ui-icon
             class="ui-icon-button-icon" :icon="icon" v-show="!loading"
@@ -16,6 +16,7 @@
 
         <ui-tooltip
             :trigger="$els.button" :content="tooltip" :position="tooltipPosition" v-if="tooltip"
+            :open-on="openTooltipOn"
         ></ui-tooltip>
 
         <ui-menu
@@ -25,7 +26,10 @@
             :dropdown-position="dropdownPosition" v-if="hasDropdownMenu"
         ></ui-menu>
 
-        <ui-popover :trigger="$els.button" :open-on="openDropdownOn" v-if="hasPopover">
+        <ui-popover
+            :trigger="$els.button" :open-on="openDropdownOn" :dropdown-position="dropdownPosition"
+            v-if="hasPopover"
+        >
             <slot name="popover"></slot>
         </ui-popover>
     </button>
@@ -53,6 +57,10 @@ export default {
             coerce(type) {
                 return 'ui-icon-button-' + type;
             }
+        },
+        buttonType: {
+            type: String,
+            default: 'button'
         },
         color: {
             type: String,
@@ -376,7 +384,7 @@ export default {
 }
 
 .ui-icon-button-icon {
-    width: initial; // Firefox: needs the width and height reset for flexbox centering
+    width: 100%; // Firefox: needs the width and height reset for flexbox centering
     height: initial;
 }
 </style>

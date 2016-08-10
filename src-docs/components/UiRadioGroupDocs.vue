@@ -1,12 +1,16 @@
 <template>
     <section class="section section-ui-radio-group">
-        <h2 class="section-heading">UiRadioGroup</h2>
+        <h2 class="section-heading">
+            UiRadioGroup <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiRadioGroup.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiRadioGroup shows a group of mutually exclusive radio buttons. It supports hover, focus and disabled states. One or more options in the group can be disabled or the entire group can be disabled.</p>
 
         <p>A radio group can have a label as well as help text and allows for resetting to the initial state.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiRadioGroupDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Default</h4>
@@ -37,18 +41,18 @@
                 name="favourite_4" vertical
             ></ui-radio-group>
 
-            <h4>Disabled</h4>
-
-            <ui-radio-group
-                :options="options.group1" label="Favourite Flanders" :value.sync="favourite.group5"
-                name="favourite_5" disabled
-            ></ui-radio-group>
-
             <h4>Individual option disabled</h4>
 
             <ui-radio-group
                 :options="options.group2" label="Favourite Flanders" :value.sync="favourite.group6"
                 name="favourite_6"
+            ></ui-radio-group>
+
+            <h4>Group disabled</h4>
+
+            <ui-radio-group
+                :options="options.group1" label="Favourite Flanders" :value.sync="favourite.group5"
+                name="favourite_5" disabled
             ></ui-radio-group>
 
             <ui-button @click="reset">Reset Radio Buttons</ui-button>
@@ -76,7 +80,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>A unique identifier for the radio group. Applied as the <code>id</code> attribute of the radio group root element and used when targeting a specific radio group for reset.</td>
+                                <td>
+                                    <p>A unique identifier for the radio group.</p>
+                                    <p>Applied as the <code>id</code> attribute of the radio group root element and used when targeting a specific radio group for reset.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -84,7 +91,10 @@
                                 <td>String</td>
                                 <td>(required)</td>
                                 <td></td>
-                                <td>The name of the group. Applied as the <code>name</code> attribute on each <code>&lt;input&gt;</code> in the group.</td>
+                                <td>
+                                    <p>The name of the radio group.</p>
+                                    <p>Applied as the <code>name</code> attribute on each <code>&lt;input&gt;</code> in the radio group.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -92,7 +102,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>Two-way</td>
-                                <td>The model that the selected value in the radio group syncs to.</td>
+                                <td>
+                                    <p>The model that the selected value in the radio group syncs to.</p>
+                                    <p>This can be set as a default value.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -103,9 +116,11 @@
                                 <td>
                                     <p>An array of options to show to the user. The array can either be of strings or objects (but not both).</p>
 
-                                    <p>For an array of objects, each Object should have <code>text</code> and <code>value</code> properties. The <code>text</code> is shown to the user and the <code>value</code> is written to the model when the user makes a selection. You can also set <code>disabled: true</code> on an option to disable that option.</p>
+                                    <p>For an array of objects, each object should have <code>text</code> and <code>value</code> properties.</p>
 
-                                    <p>For an array of strings, each String is used as both the label and the value.</p>
+                                    <p>The <code>text</code> is shown to the user and the <code>value</code> is written to the model when the user makes a selection. You can also set <code>disabled: true</code> on an option to disable that option.</p>
+
+                                    <p>For an array of strings, each string is used as both the label and the value.</p>
                                 </td>
                             </tr>
 
@@ -122,7 +137,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the radio group label is hidden. Set to <code>true</code> to hide the label.</td>
+                                <td>
+                                    <p>Determines whether or not the radio group label is hidden.</p>
+                                    <p>Set to <code>true</code> to hide the label.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -132,7 +150,6 @@
                                 <td></td>
                                 <td>
                                     <p>The help text (hint) shown to the user below the radio group.</p>
-
                                     <p>Extra space is reserved under the input for the help text, but if no help text is available, this space is collapsed.</p>
                                 </td>
                             </tr>
@@ -142,7 +159,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the radio group is rendered vertically. Set to <code>true</code> for a vertical radio group.</td>
+                                <td>
+                                    <p>Determines whether or not the radio group is rendered vertically.</p>
+                                    <p>Set to <code>true</code> for a vertical radio group.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -150,7 +170,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the radio group is disabled. Set to <code>true</code> to disable the radio group.</td>
+                                <td>
+                                    <p>Determines whether or not the radio group is disabled.</p>
+                                    <p>Set to <code>true</code> to disable the radio group.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -176,7 +199,6 @@
                                 <td>Received</td>
                                 <td>
                                     <p>Trigger this event to reset the radio group to its initial state. This event resets the <code>value</code> prop.</p>
-
                                     <p>You can optionally pass in an <code>id</code> to reset only a specific radio group (whose <code>id</code> you have set).</p>
                                 </td>
                             </tr>

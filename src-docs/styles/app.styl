@@ -70,6 +70,13 @@ body {
             font-weight: normal;
             margin: 0;
         }
+
+        .version {
+            margin-left: 8px;
+            font-size: 0.5em;
+            display: inline-block;
+            vertical-align: super;
+        }
     }
 
     .subhead {
@@ -82,6 +89,16 @@ body {
 
         .ui-button {
             margin-top: 16px;
+        }
+
+        p {
+            &:first-child {
+                margin-top: 0;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
     }
 
@@ -111,7 +128,7 @@ body {
 
             &.active {
                 background-color: $md-grey-100;
-                color: $md-brand-primary;
+                color: $md-blue-700;
                 font-weight: 500;
             }
         }
@@ -164,7 +181,7 @@ h4 {
 
 a {
     text-decoration: none;
-    color: $md-blue;
+    color: $md-blue-700;
 
     &:hover,
     &:focus {
@@ -182,6 +199,28 @@ a {
     td {
         padding-top: 10px;
         padding-bottom: 10px;
+
+        &.new-prop::after {
+            content: 'New';
+            display: inline-block;
+            background-color: $md-brand-primary;
+            color: white;
+            font-size: 10px;
+            padding: 2px 4px;
+            border-radius: 2px;
+            margin-left: 8px;
+        }
+
+        &.changed-prop::after {
+            content: 'Changed';
+            display: inline-block;
+            background-color: $md-pink;
+            color: white;
+            font-size: 10px;
+            padding: 2px 4px;
+            border-radius: 2px;
+            margin-left: 8px;
+        }
     }
 
     p {
@@ -235,4 +274,22 @@ a {
             padding: 64px 18px 0 18px;
         }
     }
+}
+
+.view-source-link {
+    font-size: 0.6em;
+    display: inline-block;
+    margin-left: 8px;
+
+    .section-heading & {
+        font-size: 0.45em;
+    }
+}
+
+a.ui-button {
+    text-decoration: none;
+}
+
+.m-b-0 {
+    margin-bottom: 0;
 }

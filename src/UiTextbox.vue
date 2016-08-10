@@ -18,12 +18,14 @@
                 <input
                     class="ui-textbox-input" :type="type" :placeholder="placeholder" :name="name"
                     :id="id" :number="type === 'number' ? true : null" :min="minValue"
-                    :max="maxValue" :step="stepValue" :autocomplete="autocomplete ? null : 'off'"
+                    :max="maxValue" :step="stepValue"
+                    :autocomplete="autocomplete ? autocomplete : null"
 
                     @focus="focussed" @blur="blurred" @change="changed" @keydown="keydown"
-                    @keydown.enter="keydownEnter" debounce="debounce"
+                    @keydown.enter="keydownEnter" :debounce="debounce"
 
                     v-model="value | trim" v-disabled="disabled" v-if="!multiLine"
+                    v-autofocus="autofocus"
                 >
 
                 <textarea
@@ -31,7 +33,7 @@
                     :rows="rows"
 
                     @focus="focussed" @blur="blurred" @change="changed" @keydown="keydown"
-                    @keydown.enter="keydownEnter" debounce="debounce"
+                    @keydown.enter="keydownEnter" :debounce="debounce"
 
                     v-model="value | trim" v-disabled="disabled" v-else
                 ></textarea>
@@ -60,6 +62,7 @@
 <script>
 import UiIcon from './UiIcon.vue';
 
+import autofocus from './directives/autofocus';
 import HasTextInput from './mixins/HasTextInput';
 import ValidatesInput from './mixins/ValidatesInput';
 
@@ -88,9 +91,10 @@ export default {
             type: Boolean,
             default: false
         },
-        autocomplete: {
+        autocomplete: String,
+        autofocus: {
             type: Boolean,
-            default: true
+            default: false
         },
         min: Number,
         max: Number,
@@ -162,7 +166,7 @@ export default {
     },
 
     events: {
-        'ui-input::reset'(id) {
+        'ui-input::reset': function(id) {
             // Abort if reset event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
                 return;
@@ -238,6 +242,10 @@ export default {
 
     components: {
         UiIcon
+    },
+
+    directives: {
+        autofocus
     },
 
     mixins: [

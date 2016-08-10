@@ -1,21 +1,21 @@
 {
   "name": "keen-ui",
-  "version": "0.8.8",
-  "description": "A collection of essential UI components written with Vue and inspired by Material Design.",
+  "version": "0.8.9",
+  "description": "A lightweight but complete collection of essential UI components written with Vue and inspired by Material Design.",
   "main": "dist/keen-ui.js",
   "scripts": {
-    "dev": "npm run copy-docs-html && webpack --config webpack.config.js",
-    "copy-docs-html": "mkdir docs && cp ./src-docs/index.html docs/index.html",
+    "test": "karma start karma.config.js",
+    "dev": "npm run copy:docs && webpack --config webpack.config.js",
+    "copy:docs": "mkdir docs && cp ./src-docs/index.html docs/index.html",
     "build": "webpack --progress --hide-modules --config webpack.build.js",
     "build:min": "webpack --progress --hide-modules --config webpack.build.min.js",
     "build:lib": "webpack --progress --hide-modules --config webpack.lib.js",
-    "build:docs": "npm run copy-docs-html && webpack --progress --hide-modules --config webpack.docs.js",
+    "build:docs": "npm run copy:docs && webpack --progress --hide-modules --config webpack.docs.js",
     "build:all": "npm run build && npm run build:min && npm run build:lib",
     "clean:dist": "rm -r dist",
     "clean:docs": "rm -r docs",
     "clean:lib": "rm -r lib",
-    "clean:all": "npm run clean:dist && npm run clean:docs && npm run clean:lib",
-    "test": "karma start karma.config.js"
+    "clean:all": "npm run clean:dist && npm run clean:docs && npm run clean:lib"
   },
   "repository": {
     "type": "git",
@@ -44,13 +44,12 @@
   },
   "homepage": "https://github.com/JosephusPaye/keen-ui/",
   "dependencies": {
-    "dominus": "^5.0.6",
     "draggabilly": "^1.2.4",
     "fuzzysearch": "^1.0.3",
     "merge-options": "0.0.64",
     "tether-drop": "^1.4.2",
     "tether-tooltip": "^1.2.0",
-    "validatorjs": "^2.0.5",
+    "validatorjs": "^2.1.1",
     "vue": "^1.0.21"
   },
   "devDependencies": {
@@ -61,8 +60,8 @@
     "babel-preset-stage-2": "^6.0.0",
     "babel-runtime": "^5.8.0",
     "css-loader": "^0.23.1",
-    "eslint": "^2.3.0",
-    "eslint-config-airbnb": "^6.1.0",
+    "eslint": "^3.0.1",
+    "eslint-config-airbnb-base": "^4.0.0",
     "eslint-plugin-html": "^1.4.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.4",

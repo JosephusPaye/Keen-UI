@@ -1,6 +1,6 @@
 <template>
     <button
-        class="ui-button" :class="styleClasses" v-disabled="disabled || loading"
+        class="ui-button" :class="styleClasses" :type="buttonType" v-disabled="disabled || loading"
         v-el:button
     >
         <div class="ui-button-content" :class="{ 'invisible': loading }">
@@ -35,7 +35,10 @@
             :dropdown-position="dropdownPosition" v-if="hasDropdownMenu"
         ></ui-menu>
 
-        <ui-popover :trigger="$els.button" :open-on="openDropdownOn" v-if="hasPopover">
+        <ui-popover
+            :trigger="$els.button" :open-on="openDropdownOn" :dropdown-position="dropdownPosition"
+            v-if="hasPopover"
+        >
             <slot name="popover"></slot>
         </ui-popover>
     </button>
@@ -62,6 +65,10 @@ export default {
             coerce(type) {
                 return 'ui-button-' + type;
             }
+        },
+        buttonType: {
+            type: String,
+            default: 'submit' // HTML default
         },
         color: {
             type: String,

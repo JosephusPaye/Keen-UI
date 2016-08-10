@@ -13,7 +13,7 @@ export default {
     name: 'ui-popover',
 
     events: {
-        'dropdown-opened'() {
+        'dropdown-opened': function() {
             if (this.containFocus) {
                 document.addEventListener('focus', this.restrictFocus, true);
             }
@@ -24,7 +24,7 @@ export default {
             return true;
         },
 
-        'dropdown-closed'() {
+        'dropdown-closed': function() {
             if (this.containFocus) {
                 document.removeEventListener('focus', this.restrictFocus, true);
             }

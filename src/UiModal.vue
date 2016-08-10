@@ -1,7 +1,7 @@
 <template>
     <div
         class="ui-modal ui-modal-mask" v-show="show" :transition="transition" :class="[type]"
-        :role="role"
+        :role="role" @transitionend="transitionEnd | debounce 100"
     >
         <div class="ui-modal-wrapper" @click="close" v-el:modal-mask>
             <div
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import $ from 'dominus';
+import classlist from './helpers/classlist';
 
 import UiIconButton from './UiIconButton.vue';
 import UiButton from './UiButton.vue';
@@ -100,7 +100,7 @@ export default {
     },
 
     watch: {
-        'show'() {
+        show() {
             this.$nextTick(() => {
                 if (this.show) {
                     this.opened();
@@ -142,7 +142,7 @@ export default {
             this.lastFocussedElement = document.activeElement;
             this.$els.modalContainer.focus();
 
-            $('body').addClass('ui-modal-open');
+            classlist.add(document.body, 'ui-modal-open');
 
             document.addEventListener('focus', this.restrictFocus, true);
 
@@ -168,11 +168,21 @@ export default {
         },
 
         tearDown() {
-            $('body').removeClass('ui-modal-open');
+            classlist.remove(document.body, 'ui-modal-open');
 
             document.removeEventListener('focus', this.restrictFocus, true);
 
-            this.lastFocussedElement.focus();
+            if (this.lastFocussedElement) {
+                this.lastFocussedElement.focus();
+            }
+        },
+
+        transitionEnd() {
+            if (this.show) {
+                this.$dispatch('revealed');
+            } else {
+                this.$dispatch('hidden');
+            }
         }
     },
 

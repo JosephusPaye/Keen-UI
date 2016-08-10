@@ -166,10 +166,6 @@ export default {
             return this.menu[0];
         },
 
-        openGithub() {
-            window.open('https://github.com/JosephusPaye/keen-ui', '_blank');
-        },
-
         toggleSidebar() {
             this.showSidebar = !this.showSidebar;
         }

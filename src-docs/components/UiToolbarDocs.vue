@@ -1,12 +1,16 @@
 <template>
     <section class="section section-ui-toolbar">
-        <h2 class="section-heading">UiToolbar</h2>
+        <h2 class="section-heading">
+            UiToolbar <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiToolbar.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiToolbar components shows a toolbar with a navigation icon, branding, a title as well as actions.</p>
 
         <p>Visually, UiToolbar has two types: <code>default</code> and <code>colored</code>. The toolbar can be raised (with a drop shadow) or flat. You can also customize the navigation icon as well as the brand, title and actions using slots.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiToolbarDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Default</h4>
@@ -197,10 +201,6 @@
                 >
                     <div slot="actions">
                         <ui-icon-button
-                            type="clear" color="white" icon="view_modules"
-                        ></ui-icon-button>
-
-                        <ui-icon-button
                             type="clear" color="white" icon="more_vert" has-dropdown-menu
                             :menu-options="menu" dropdown-position="bottom right"
                         ></ui-icon-button>
@@ -291,7 +291,7 @@
                                 <td>navIcon</td>
                                 <td>String</td>
                                 <td><code>"menu"</code></td>
-                                <td>The toolbar navigation icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</td>
+                                <td>The toolbar navigation icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</td>
                             </tr>
 
                             <tr>

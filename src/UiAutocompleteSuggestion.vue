@@ -1,7 +1,7 @@
 <template>
     <li
-        class="ui-autocomplete-suggestion":id="id"
-        :class="[partial, { 'highlighted': highlighted }]"
+        class="ui-autocomplete-suggestion" :class="[partial, { 'highlighted': highlighted }]"
+        :id="id"
     >
         <partial :name="partial"></partial>
     </li>
@@ -31,16 +31,30 @@ export default {
         highlighted: {
             type: Boolean,
             default: false
+        },
+        keys: {
+            type: Object,
+            default() {
+                return {
+                    text: 'text',
+                    value: 'value',
+                    image: 'image'
+                };
+            }
         }
     },
 
     partials: {
-        'ui-autocomplete-simple':
-            '<li class="ui-autocomplete-suggestion-item" v-text="item.text || item"></li>',
+        'ui-autocomplete-simple': `
+            <li class="ui-autocomplete-suggestion-item" v-text="item[keys.text] || item"></li>
+        `,
 
-        'ui-autocomplete-image':
-            `<div class="image" :style="{ 'background-image': 'url(' + item.image + ')' }"></div>
-            <div class="text" v-text="item.text"></div>`
+        'ui-autocomplete-image': `
+            <div
+                class="image" :style="{ 'background-image': 'url(' + item[keys.image] + ')' }"
+            ></div>
+            <div class="text" v-text="item[keys.text]"></div>
+        `
     }
 };
 </script>

@@ -1,16 +1,20 @@
 <template>
     <section class="section section-ui-popover">
-        <h2 class="section-heading">UiPopover</h2>
+        <h2 class="section-heading">
+            UiPopover <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiPopover.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h2>
 
         <p>UiPopover is used to show arbitrary content in a dropdown. It can also be setup to contain tab focus in the popover, returning focus to the trigger element on close.</p>
 
-        <p>The dropdown position relative to the trigger can be customized and can either be always open or set to open on hover, click or focus of the trigger element.</p>
+        <p>The dropdown position relative to the trigger can be customized and the drop can either be always open or set to open on hover, click or focus of the trigger element.</p>
 
-        <p>The dropdown is powered by <a href="https://github.com/HubSpot/drop" target="_blank">Drop</a>, which uses <a href="https://github.com/HubSpot/tether" target="_blank">Tether</a>.</p>
+        <p>The dropdown is powered by <a href="https://github.com/HubSpot/drop" target="_blank" rel="noopener">Drop</a>, which uses <a href="https://github.com/HubSpot/tether" target="_blank" rel="noopener">Tether</a>.</p>
 
         <p>UiPopover is used internally by the <a href="#/ui-button-docs">UiButton</a> and <a href="#/ui-icon-button-docs">UiIconButton</a> components.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiPopoverDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Default</h4>
@@ -52,6 +56,20 @@
 
                 <p>Add <i>whatever</i> content you want here.</p>
             </ui-popover>
+
+            <h4>Can be opened and closed using events</h4>
+
+            <ui-button @click="openPopover('popover-e')">Click to open</ui-button>
+
+            <br><br>
+
+            <a v-el:trigger-e class="link-trigger">Default trigger (click to open)</a>
+
+            <ui-popover :trigger="$els.triggerE" id="popover-e">
+                Hey there, some popover content here.
+
+                <p>Add <i>whatever</i> content you want here.</p>
+            </ui-popover>
         </div>
 
         <h3>API</h3>
@@ -71,6 +89,16 @@
 
                         <tbody>
                             <tr>
+                                <td>id</td>
+                                <td>String</td>
+                                <td></td>
+                                <td>
+                                    <p>A unique identifier for the popover.</p>
+                                    <p>Applied as the <code>id</code> attribute of the popover's root element and used when targeting a specific popover for open/close/toggle.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>trigger *</td>
                                 <td class="no-wrap">HTMLElement</td>
                                 <td></td>
@@ -81,21 +109,32 @@
                                 <td>dropdownPosition</td>
                                 <td>String</td>
                                 <td class="no-wrap"><code>"bottom left"</code></td>
-                                <td>The position of the popover relative to the trigger. Can be any one of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, <code>top center</code>.</td>
+                                <td>
+                                    <p>The position of the popover relative to the trigger.</p>
+
+                                    <p>Can be any one of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, <code>top center</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>openOn</td>
                                 <td>String</td>
                                 <td><code>"click"</code></td>
-                                <td>The type of event that will cause the popover to open. One of <code>click</code>, <code>hover</code>, <code>focus</code>, or <code>always</code>. For <code>always</code> the popover is opened when rendered and it remains open.</td>
+                                <td>
+                                    <p>The type of event that will cause the popover to open.</p>
+
+                                    <p>One of <code>click</code>, <code>hover</code>, <code>focus</code>, or <code>always</code>. For <code>always</code> the popover is opened when rendered and it remains open.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>containFocus</td>
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
-                                <td>Determines whether or not tab focus should be contained in the popover. Set to <code>false</code> to allow tabbing to focus elements outside the popover.</td>
+                                <td>
+                                    <p>Determines whether or not tab focus should be contained in the popover.</p>
+                                    <p>Set to <code>false</code> to allow tabbing to focus elements outside the popover.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -119,13 +158,46 @@
                             <tr>
                                 <td>opened</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the popover is opened. Listen for it using <code>@opened</code>.</td>
+                                <td>
+                                    <p>Dispatched when the popover is opened.</p>
+                                    <p>Listen for it using <code>@opened</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>closed</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the popover is closed. Listen for it using <code>@closed</code>.</td>
+                                <td>
+                                    <p>Dispatched when the popover is closed.</p>
+                                    <p>Listen for it using <code>@closed</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="no-wrap new-prop">ui-dropdown::open</td>
+                                <td>Received</td>
+                                <td>
+                                    <p>Trigger this event to open the popover dropdown.</p>
+                                    <p>You can optionally pass in an <code>id</code> to only open the dropdown of a specific popover (whose <code>id</code> you have set).</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="no-wrap new-prop">ui-dropdown::close</td>
+                                <td>Received</td>
+                                <td>
+                                    <p>Trigger this event to close the popover dropdown.</p>
+                                    <p>You can optionally pass in an <code>id</code> to only close the dropdown of a specific popover (whose <code>id</code> you have set).</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="no-wrap new-prop">ui-dropdown::toggle</td>
+                                <td>Received</td>
+                                <td>
+                                    <p>Trigger this event to toggle the popover dropdown.</p>
+                                    <p>You can optionally pass in an <code>id</code> to only toggle the dropdown of a specific popover (whose <code>id</code> you have set).</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -176,6 +248,16 @@ export default {
         return {
             menuOptions
         };
+    },
+
+    methods: {
+        openPopover(id) {
+            // Use timeout so the popover is open and then immediately closed due to the current
+            // click event
+            setTimeout(() => {
+                this.$broadcast('ui-dropdown::open', id);
+            }, 100);
+        }
     },
 
     components: {

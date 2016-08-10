@@ -1,32 +1,46 @@
 <template>
     <section class="section section-ui-select">
-        <h2 class="section-heading">UiSelect</h2>
+        <h2 class="section-heading">
+            UiSelect <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiSelect.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h2>
 
-        <p>UiSelect is a select component that allows the user to choose one or more options from a group of pre-defined options. It supports default options, search, dynamic options and a loading indicator.</p>
+        <p>UiSelect is a select component that allows the user to choose one or more options from a group of pre-defined or dynamically loaded options. It supports default options, multiple selection, filtering and a loading indicator.</p>
 
-        <p>UiSelect can have an icon, show a label above the input as well as help text below the input. It also supports keyboard navigation and a disabled state.</p>
+        <p>UiSelect can have a label above the input, an icon, as well as help text and error message below the input. It also supports keyboard navigation and a disabled state.</p>
 
-        <h3>Examples</h3>
+        <p>UiSelect supports validation, and the validation state can also be set programmatically from outside the component using an event.</p>
+
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiSelectDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
-            <h4>Default</h4>
+            <h4>Options as plain array</h4>
 
             <ui-select
-                name="color" label="Favourite color" :options="colors" placeholder="Select a color"
+                name="color" label="Favourite color" :options="colorStrings"
+                placeholder="Select a color"
             ></ui-select>
 
-            <h4>With default selection</h4>
+            <h4>As above, with a default selection</h4>
 
             <ui-select
-                name="color" label="Favourite color" :options="colors" placeholder="Select a color"
-                :default="colors[0]"
+                name="color" label="Favourite color" :options="colorStrings" default="Lavender"
+                placeholder="Select a color"
             ></ui-select>
 
-            <h4>With images</h4>
+            <h4>With images (options as array of objects)</h4>
 
             <ui-select
                 name="color" label="Favourite color" :options="colors" partial="ui-select-image"
                 placeholder="Select a color"
+            ></ui-select>
+
+            <h4>As above, with a default selection</h4>
+
+            <ui-select
+                name="color" label="Favourite color" :options="colors" partial="ui-select-image"
+                placeholder="Select a color" default="lavender"
             ></ui-select>
 
             <h4>With help text</h4>
@@ -36,25 +50,25 @@
                 placeholder="Select a color" help-text="Will appear on your profile page"
             ></ui-select>
 
-            <h4>With search</h4>
+            <h4>With filtering</h4>
 
             <ui-select
                 name="color" label="Favourite color" :options="colors" partial="ui-select-image"
                 placeholder="Select a color" show-search
             ></ui-select>
 
-            <h4>Multiple</h4>
+            <h4>Multiple selection</h4>
 
             <ui-select
                 name="color" label="Favourite colors" :options="colors" partial="ui-select-image"
                 placeholder="Select some colors" show-search multiple
             ></ui-select>
 
-            <h4>Multiple with defaults selection</h4>
+            <h4>Multiple selection with defaults selected</h4>
 
             <ui-select
                 name="color" label="Favourite colors" partial="ui-select-image" show-search multiple
-                placeholder="Select some colors" :options="colors" :default="[colors[0], colors[3]]"
+                placeholder="Select some colors" :options="colors" :default="['red', 'blue']"
             ></ui-select>
 
             <h4>With validation</h4>
@@ -66,7 +80,7 @@
                 placeholder="Select a color" :options="colors" validation-rules="required"
             ></ui-select>
 
-            <h4>Multiple with validation</h4>
+            <h4>Multiple selection with validation</h4>
 
             <p class="code"><code>validation-rules="required|min:2|max:4"</code></p>
 
@@ -81,11 +95,11 @@
 
             <ui-select
                 name="color" label="Favourite color" partial="ui-select-image" show-search
-                search-placeholder="Type &quot;red&quot; or &quot;blue&quot;" disable-filtering
+                search-placeholder="Type &quot;red&quot; or &quot;blue&quot;" options-dynamic
                 placeholder="Select a color"
 
                 :options="dynamicSelect.options" :value.sync="dynamicSelect.value"
-                :loading="dynamicSelect.loading" :no-results="dynamicSelect.noResults"
+                :loading="dynamicSelect.loading" :options-loaded="dynamicSelect.optionsLoaded"
 
                 @query-changed="queryChanged | debounce 500"
             ></ui-select>
@@ -97,11 +111,11 @@
                 disabled
             ></ui-select>
 
-            <h4>Disabled with selection</h4>
+            <h4>Disabled with a selection</h4>
 
             <ui-select
                 name="color" label="Favourite color" :options="colors" placeholder="Select a color"
-                :default="colors[2]" disabled
+                default="blue" disabled
             ></ui-select>
 
             <ui-button @click="resetSelects">Reset selects</ui-button>
@@ -129,7 +143,21 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>A unique identifier for the select. Applied as the <code>id</code> attribute of the select root element and used when targeting a specific select for reset.</td>
+                                <td>
+                                    <p>A unique identifier for the select.</p>
+                                    <p>Applied as the <code>id</code> attribute of the select root element and used when targeting a specific select for reset.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>name *</td>
+                                <td>String</td>
+                                <td>(required)</td>
+                                <td></td>
+                                <td>
+                                    <p>The <code>name</code> attribute of the select input.</p>
+                                    <p>Used when generating validation error messages. A name with multiple words should be written in <code>snake_case</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -138,17 +166,26 @@
                                 <td></td>
                                 <td>Two way</td>
                                 <td>
-                                    <p>The selected value or array of values (is updated when the user makes a selection from the dropdown).</p>
-                                    <p>Do not set this initially, as it will be overriden when the select is initialized. For default values, use the <code>default</code> prop.</p>
+                                    <p>The selected value or array of values (is updated when the user makes a selection).</p>
+                                    <p>Do not set this initially, as it will be overriden when the select is initialized.</p>
+                                    <p>For pre-selected or default values, use the <code>default</code> prop.</p>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>default</td>
-                                <td>Object or Array</td>
+                                <td>String, Number, Object or Array</td>
                                 <td></td>
                                 <td></td>
-                                <td>The default value or values of the select. Note that the value or values should also be present in the <code>options</code> array.</td>
+                                <td>
+                                    <p>The initial/default value or values of the select.</p>
+
+                                    <p>Supports any string, number or object, or an array of those, provided the string, number or <code>value</code> key of the object matches with an option.</p>
+
+                                    <p>Also supports an array when the <code>multiple</code> prop is <code>true</code>.</p>
+
+                                    <p>To change the selected option after the select is initialized, trigger a <code>ui-select::set-selected</code> event.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -157,11 +194,15 @@
                                 <td><code>[]</code></td>
                                 <td></td>
                                 <td>
-                                    <p>An array of options to show to the user. Each option should be an object with at least a <code>text</code> property.</p>
+                                    <p>An array of options to show to the user.</p>
 
-                                    <p>The <code>text</code> is shown to the user in the dropdown, when the option is selected, and is also used for searching/filtering.</p>
+                                    <p>Supports a plain array, e.g. <code>['Red', 'Blue', 'Green']</code> as well as an array of objects whose keys can be optionally redefined.</p>
 
-                                    <p>The entire option object is written to the <code>value</code> prop when the user makes a selection.</p>
+                                    <p>For a plain array, the option is shown to the user and it is used for filtering.</p>
+
+                                    <p>For an array of objects, the <code>text</code> key is shown to the user and is used for filtering while the <code>value</code> key is used for matching options (like an ID).</p>
+
+                                    <p>The option object or string or number is written to the <code>value</code> prop when the user makes a selection.</p>
                                 </td>
                             </tr>
 
@@ -171,7 +212,8 @@
                                 <td><code>false</code></td>
                                 <td></td>
                                 <td>
-                                    <p>Determines whether or not the user can select multiple values. Set to <code>true</code> to allow multiple selection.</p>
+                                    <p>Determines whether or not the user can select multiple values.</p>
+                                    <p>Set to <code>true</code> to allow multiple selection.</p>
                                 </td>
                             </tr>
 
@@ -180,9 +222,7 @@
                                 <td>String</td>
                                 <td><code>", "</code></td>
                                 <td></td>
-                                <td>
-                                    <p>The delimiter (separator) to use for displaying multiple selected options.</p>
-                                </td>
+                                <td>The delimiter (separator) to use for displaying multiple selected options.</td>
                             </tr>
 
                             <tr>
@@ -199,13 +239,15 @@
                                 <td><code>"ui-select-simple"</code></td>
                                 <td></td>
                                 <td>
-                                    <p>The ID of a registered <a href="http://vuejs.org/api/#partial" target="_blank">Vue partial</a> to use as the template for each option.</p>
+                                    <p>The ID of a registered <a href="http://vuejs.org/api/#partial" target="_blank" rel="noopener">Vue partial</a> to use as the template for each option.</p>
 
                                     <p>This partial is rendered into an <code>&lt;div&gt;</code> with a class of <code>ui-select-option-content</code> which also has the partial's ID as a class. In the partial template, you have access to an <code>option</code> object from the options array which you can use to render the option however you like.</p>
 
                                     <p>The default partial simply renders the option text.</p>
 
                                     <p>There is another default partial, <code>ui-select-image</code>, which you can use to render the items with an image. To use, set an image URL as the <code>image</code> property on each option and set the partial to <code>ui-select-image</code>.</p>
+
+                                    <p>You can also redefine the <code>image</code> key to fit your data using the <code>keys</code> prop.</p>
                                 </td>
                             </tr>
 
@@ -214,7 +256,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not to show an input for searching/filtering the select options. Set to <code>true</code> to show a search input.</td>
+                                <td>
+                                    <p>Determines whether or not to show an input for filtering the select options or searching remote options.</p>
+                                    <p>Set to <code>true</code> to show a search input.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -226,12 +271,14 @@
                             </tr>
 
                             <tr>
-                                <td>disableFiltering</td>
+                                <td class="new-prop">optionsDynamic</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
                                 <td>
-                                    <p>Determines whether or not the search query is used to filter the select options. This prop is useful when you want to implement a custom (e.g. remote) search. Set to <code>true</code> to disable filtering.</p>
+                                    <p>Determines whether or not the options for the select are loaded dynamically.</p>
+
+                                    <p>This prop is useful when you want to implement a custom (e.g. remote) search. It disables filtering so the select search query can be used for searching.</p>
 
                                     <p>See the <b>Search with dynamic options</b> section above for an example.</p>
                                 </td>
@@ -243,21 +290,60 @@
                                 <td><code>false</code></td>
                                 <td></td>
                                 <td>
-                                    <p>Determines whether or not to show a circular progress spinner on the search input. This prop is useful for showing feedback to the user when you are doing a remote search. Set to <code>true</code> to show the spinner and <code>false</code> to hide it.</p>
+                                    <p>Determines whether or not to show a circular progress spinner on the search input.</p>
+
+                                    <p>This prop is useful for showing feedback to the user when you are doing a remote search. Set to <code>true</code> to show the spinner and <code>false</code> to hide it.</p>
 
                                     <p>See the <b>Search with dynamic options</b> section above for an example.</p>
                                 </td>
                             </tr>
 
                             <tr>
-                                <td>noResults</td>
+                                <td class="new-prop">optionsLoaded</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
                                 <td>
-                                    <p>Determines whether or not to show a "No results found" message below the search input. This prop is useful for showing feedback to the user when a remote search returns no results. Set to <code>true</code> to show the "No results found" message.</p>
+                                    <p>Determines whether or not the options for this select have been loaded.</p>
+
+                                    <p>If this is <code>true</code> and the <code>options</code> array is empty, then a "No results found" message is shown below the search input.</p>
 
                                     <p>See the <b>Search with dynamic options</b> section above for an example.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="new-prop">filter</td>
+                                <td>Function</td>
+                                <td>(<a href="https://www.npmjs.com/package/fuzzysearch" target="_blank" rel="noopener">fuzzysearch</a>)</td>
+                                <td></td>
+                                <td>
+                                    <p>Defines a custom filter function that is used for filtering the options when the user types into the select search box.</p>
+
+                                    <p>The function is called for each item in the <code>options</code> array with two arguments:</p>
+
+                                    <ul>
+                                        <li><code>option</code>: the current option, may be a string or an object</li>
+                                        <li><code>query</code>: the current value of the select search input (what the user has typed)</li>
+                                    </ul>
+
+                                    <p>The function should return <code>true</code> if the item matches the query or <code>false</code> otherwise.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="new-prop">keys</td>
+                                <td>Object</td>
+                                <td><pre>{
+  text: 'text',
+  value: 'value',
+  image: 'image'
+}</pre></td>
+                                <td></td>
+                                <td>
+                                    <p>Allows for redefining the <code>text</code>, <code>value</code> and <code>image</code> keys.</p>
+                                    <p>Pass an object with custom keys if your data does not match the default keys.</p>
+                                    <p>Note that if you redefine one key, you have to specify the other two as well.</p>
                                 </td>
                             </tr>
 
@@ -266,7 +352,10 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>Two-way</td>
-                                <td>Shows whether or not the select is valid. Only applicable when the <code>validationRules</code> prop is present.</td>
+                                <td>
+                                    <p>Shows whether or not the select is valid.</p>
+                                    <p>Only applicable when the <code>validationRules</code> prop is present.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -282,7 +371,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>The select icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>. Note that this should be the icon codepoint if you want to support IE9.</td>
+                                <td>
+                                    <p>The select icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
+                                    <p>Note that this should be the icon codepoint if you want to support IE9.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -290,7 +382,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the select icon is shown to the right. Set to <code>true</code> to show the icon to the right of the select.</td>
+                                <td>
+                                    <p>Determines whether or not the select icon is shown to the right.</p>
+                                    <p>Set to <code>true</code> to show the icon to the right of the select.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -306,7 +401,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the select label is hidden. Set to <code>true</code> to hide the label.</td>
+                                <td>
+                                    <p>Determines whether or not the select label is hidden.</p>
+                                    <p>Set to <code>true</code> to hide the label.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -316,7 +414,6 @@
                                 <td></td>
                                 <td>
                                     <p>The help text (hint) shown to the user below the select.</p>
-
                                     <p>Extra space is reserved under the select for the help text and validation errors. If none of these are enabled, this space is collapsed.</p>
                                 </td>
                             </tr>
@@ -327,19 +424,21 @@
                                 <td><code>false</code></td>
                                 <td></td>
                                 <td>
-                                    <p>Determines whether or not validation errors for the select are hidden. Set to <code>true</code> to hide all validation errors.</p>
-
-                                    <p>This prop is only applicable when the <code>validationRules</code> prop is present.</p>
+                                    <p>Determines whether or not validation errors for the select are hidden.</p>
+                                    <p>Set to <code>true</code> to hide all validation errors.</p>
+                                    <p>This prop is only applicable when the <code>validationRules</code> prop is provided.</p>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>validationRules</td>
-                                <td>String</td>
+                                <td>String or Array</td>
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <p>A pipe <code>|</code> seperated list of rules for validating the select. The supported rules are <code>required</code>, <code>min</code>, <code>max</code> and <code>between</code>. The <code>min</code>, <code>max</code> and <code>between</code> rules only apply for a multi select.</p>
+                                    <p>An array of rules or a pipe <code>|</code> seperated list of rules for validating the select.</p>
+
+                                    <p>The supported rules are <code>required</code>, <code>min</code>, <code>max</code> and <code>between</code>. The <code>min</code>, <code>max</code> and <code>between</code> rules only apply for a multi select.</p>
 
                                     <p>These rules will be applied and validation will occur automatically when a selection is made or when the select is closed. The error message of the first failing validation rule will then be shown to the user.</p>
 
@@ -352,7 +451,11 @@
                                 <td>Object</td>
                                 <td></td>
                                 <td></td>
-                                <td>An Object whose keys are the validation rules and whose values are the error messages for those rules. See <a href="https://github.com/skaterdav85/validatorjs#custom-error-messages" target="_blank">validatorjs Custom Error Messages</a> for more details.</td>
+                                <td>
+                                    <p>An object whose keys are the validation rules and whose values are the error messages for those rules.</p>
+
+                                    <p>See <a href="https://github.com/skaterdav85/validatorjs#custom-error-messages" target="_blank" rel="noopener">validatorjs Custom Error Messages</a> for more details.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -360,11 +463,16 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the select is disabled. Set to <code>true</code> to disable the select.</td>
+                                <td>
+                                    <p>Determines whether or not the select is disabled.</p>
+                                    <p>Set to <code>true</code> to disable the select.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
+                * Required prop
             </ui-tab>
 
             <ui-tab header="Events">
@@ -379,27 +487,64 @@
                         <tr>
                             <td>opened</td>
                             <td>Dispatched</td>
-                            <td>Dispatched when the select dropdown is opened. Listen for it using <code>@opened</code>.</td>
+                            <td>
+                                <p>Dispatched when the select dropdown is opened.</p>
+                                <p>Listen for it using <code>@opened</code>.</p>
+                            </td>
                         </tr>
 
                         <tr>
                             <td>closed</td>
                             <td>Dispatched</td>
-                            <td>Dispatched when the select dropdown is closed. Listen for it using <code>@closed</code>.</td>
+                            <td>
+                                <p>Dispatched when the select dropdown is closed.</p>
+                                <p>Listen for it using <code>@closed</code>.</p>
+                            </td>
                         </tr>
 
                         <tr>
                             <td>selected</td>
                             <td>Dispatched</td>
-                            <td>Dispatched when an option is selected. The handler is called with the option that was selected. Listen for it using <code>@selected</code>.</td>
+                            <td>
+                                <p>Dispatched when an option is selected.</p>
+                                <p>The handler is called with the option that was selected. Listen for it using <code>@selected</code>.</p>
+                            </td>
                         </tr>
 
                         <tr>
                             <td>query-changed</td>
                             <td>Dispatched</td>
                             <td>
-                                <p>Dispatched when the search query changes. The handler is called with the new query. Listen for it using <code>@query-changed</code>.</p>
+                                <p>Dispatched when the search input value (the query) changes.</p>
+                                <p>The handler is called with the new query. Listen for it using <code>@query-changed</code>.</p>
                                 <p>This can be used to fetch remote options dynamically. See the <b>Search with dynamic options</b> section above for an example.</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="no-wrap new-prop">ui-select::set-selected</td>
+                            <td>Received</td>
+                            <td>
+                                <p>Trigger this event to programmatically set or change the currently selected option. The handler accepts the following arguments:</p>
+
+                                <ul>
+                                    <li><code>value</code>: A string, number or object (provided the string, number or <code>value</code> key of the object matches with an option)</li>
+                                    <li><code>id</code>: The id of the specific select whose selected option you want to set or change</li>
+                                </ul>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="no-wrap new-prop">ui-input::set-validity</td>
+                            <td>Received</td>
+                            <td>
+                                <p>Trigger this event to programmatically change the select validation state. The handler accepts the following arguments:</p>
+
+                                <ul>
+                                    <li><code>valid</code>: A Boolean indicating whether or not the select is valid</li>
+                                    <li><code>error</code>: An optional string to set as the new error message</li>
+                                    <li><code>id</code>: The id of the specific select whose validity you want to change</li>
+                                </ul>
                             </td>
                         </tr>
 
@@ -408,6 +553,7 @@
                             <td>Received</td>
                             <td>
                                 <p>Trigger this event to reset the select to its initial state. This event resets the <code>value</code>, <code>valid</code> and <code>dirty</code> props and it also clears the search query.</p>
+
                                 <p>You can optionally pass in an <code>id</code> to reset only a specific select (whose <code>id</code> you have set).</p>
                             </td>
                         </tr>
@@ -419,7 +565,7 @@
 </template>
 
 <script>
-// startsWith polyfill
+// String.startsWith polyfill
 if (!String.prototype.startsWith) {
     String.prototype.startsWith = function(searchString, position) {
         position = position || 0;
@@ -431,6 +577,10 @@ import UiTab from '../../src/UiTab.vue';
 import UiTabs from '../../src/UiTabs.vue';
 import UiButton from '../../src/UiButton.vue';
 import UiSelect from '../../src/UiSelect.vue';
+
+let colorStrings = [
+    'Red', 'Blue', 'Green', 'Yellow', 'Purple', 'Pink', 'Lavender', 'Orange', 'Peach', 'Lime'
+];
 
 let colors = [
     {
@@ -659,12 +809,13 @@ export default {
     data() {
         return {
             colors,
+            colorStrings,
             dynamicSelect: {
                 value: null,
                 options: [],
                 timeout: null,
                 loading: false,
-                noResults: false
+                optionsLoaded: false
             }
         };
     },
@@ -675,7 +826,12 @@ export default {
         },
 
         queryChanged(query) {
+            if (!query.length) {
+                return;
+            }
+
             this.dynamicSelect.loading = true;
+            this.dynamicSelect.optionsLoaded = false;
 
             if (this.dynamicSelect.timeout) {
                 clearTimeout(this.dynamicSelect.timeout);
@@ -687,10 +843,11 @@ export default {
                 } else if (query.toLowerCase().startsWith('blue')) {
                     this.dynamicSelect.options = blueShades;
                 } else {
-                    this.dynamicSelect.noResults = true;
+                    this.dynamicSelect.options = [];
                 }
 
                 this.dynamicSelect.loading = false;
+                this.dynamicSelect.optionsLoaded = true;
             }, 2500);
         }
     }

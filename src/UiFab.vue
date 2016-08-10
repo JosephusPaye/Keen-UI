@@ -9,6 +9,7 @@
 
         <ui-tooltip
             :trigger="$els.button" :content="tooltip" :position="tooltipPosition" v-if="tooltip"
+            :open-on="openTooltipOn"
         ></ui-tooltip>
     </button>
 </template>
@@ -155,7 +156,7 @@ export default {
 
 .ui-fab-icon {
     margin: 0;
-    width: initial; // Firefox: needs the width and height reset for flexbox centering
+    width: 100%; // Firefox: needs the width and height reset for flexbox centering
     height: initial;
 }
 </style>

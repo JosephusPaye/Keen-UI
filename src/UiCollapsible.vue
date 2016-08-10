@@ -94,13 +94,13 @@ export default {
     },
 
     events: {
-        'ui-collapsible::refresh-height'(id) {
+        'ui-collapsible::refresh-height': function(id) {
             // Abort if refresh event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
                 return;
             }
 
-            this.setHeight();
+            this.$nextTick(this.setHeight);
         }
     },
 
@@ -117,7 +117,7 @@ export default {
             var body = this.$els.body;
 
             body.style.display = 'block';
-            this.height = body.offsetHeight;
+            this.height = body.scrollHeight;
 
             if (!this.open) {
                 body.style.display = 'none';

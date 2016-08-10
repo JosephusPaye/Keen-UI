@@ -1,10 +1,10 @@
 # Keen UI
 
-> A collection of essential UI components written with Vue and inspired by Material Design.
+> A lightweight but complete collection of essential UI components written with Vue and inspired by Material Design.
 
-Keen is designed to be a lightweight but complete [Vue.js](http://vuejs.org/) UI framework with a simple API. Though the design is inspired by Google's [Material Design](https://www.google.com/design/spec/material-design/introduction.html), Keen is not meant to be a full implementation of the spec.
+Keen UI is designed to be a lightweight but complete [Vue.js](http://vuejs.org/) UI framework with a simple API. Though the design is inspired by Google's [Material Design](https://www.google.com/design/spec/material-design/introduction.html), Keen UI is not meant to be a full implementation of the spec.
 
-Keen is **not** a CSS framework, and as such you won't find a grid system or styles for typography in it. Instead, the focus is on creating reusable components that have interactivity.
+Keen UI is **not** a CSS framework, and as such you won't find a grid system or styles for typography in it. Instead, the focus is on creating reusable components that have interactivity.
 
 ## Documentation and Demo
 [http://josephuspaye.github.io/Keen-UI/](http://josephuspaye.github.io/Keen-UI/)
@@ -34,7 +34,7 @@ bower install keen-ui --save
 ```
 
 ## Usage
-> Make sure to include the `dist/keen-ui.css` file if you are not using  individual components from `lib/` as the styles have been extracted into a single CSS file.
+> Make sure to include the `dist/keen-ui.css` file if you are not using individual components from `lib/` as the styles have been extracted into a single CSS file.
 
 ### Globals (script tag)
 The `keen-ui.js` file in the `dist` folder contains all the components exported on a global  `window.Keen` object.
@@ -138,23 +138,11 @@ new Vue({
 });
 ```
 
-### AMD
-
-```js
-define(['keen-ui'], function(Keen) {
-    new Vue({
-        components: {
-            'ui-button': Keen.UiButton
-        }
-    });
-});
-```
-
 ## Using standalone individual components
 
-Each component has been built as an standalone component which you can use without importing the rest of the framework. The standalone files are located in the `lib` folder and they contain their own CSS.
+Each component has been built as a self-contained file which you can use without importing the rest of the framework. The standalone files are located in the `lib/` folder and they contain their own CSS inlined.
 
-This is only recommended if you are using just a few components.
+**NOTE**: Files in the `lib/` contain all their own dependencies and a lot them contain the same dependencies. For example, UiAlert in `lib/` also includes a copy of UiIconButton, which includes UiMenu, UiPopover, UiIcon and UiTooltip, etc. As such, using multiple files from `lib/` could significantly increase the size of your bundle due to duplicate code, and is only recommended if you are using just a handful of components.
 
 ### Globals (script tag)
 Include the component JS file in your page and it will be available as the global `Keen.[ComponentName]`.
@@ -211,7 +199,6 @@ new Vue({
 ```
 
 ## Todo
-* [ ] Add CodePen demos
 * [ ] Test browser compatibility (IE 9+)
 * [ ] Add new components
   * [x] Tooltip

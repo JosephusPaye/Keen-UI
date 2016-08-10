@@ -36,7 +36,7 @@
                     <div class="ui-select-search" v-if="showSearch" @click.stop @keydown.space.stop>
                         <input
                             class="ui-select-search-input" type="text" v-el:search-input
-                            :placeholder="searchPlaceholder" v-model="query"
+                            :placeholder="searchPlaceholder" v-model="query" autocomplete="off"
                         >
 
                         <ui-progress-circular
@@ -46,14 +46,14 @@
 
                     <ul class="ui-select-options" v-el:options-list>
                         <ui-select-option
-                            :option="option" :partial="partial" :show-checkbox="multiple"
-                            @click.stop.prevent="select(option, index)"
+                            :option="option" :partial="partial" :show-checkbox="multiple" :
+                            :keys="keys" @click.stop.prevent="select(option, index)"
                             @mouseover.stop="highlight(index, true)"
 
-                            :highlighted="highlightedIndex === index" :selected="isSelected(option)"
+                            :highlighted="highlightedIndex === index"
+                            :selected="isSelected(option)"
 
                             v-for="(index, option) in filteredOptions" v-ref:options
-                            v-if="!noResults"
                         ></ui-select-option>
 
                         <li class="ui-select-no-results" v-if="nothingFound">No results found</li>
@@ -79,6 +79,7 @@
 <script>
 import merge from 'merge-options';
 import fuzzysearch from 'fuzzysearch';
+
 import { scrollIntoView, resetScroll } from './helpers/element-scroll';
 
 import UiIcon from './UiIcon.vue';
@@ -93,12 +94,12 @@ export default {
 
     props: {
         value: {
-            type: [Object, Array],
+            type: [Object, Array, String, Number],
             default: null,
             twoWay: true
         },
         default: {
-            type: [Object, Array],
+            type: [Object, Array, String, Number],
             default: null
         },
         options: {
@@ -122,18 +123,29 @@ export default {
             type: String,
             default: ', '
         },
-        disableFiltering: {
+        optionsDynamic: {
             type: Boolean,
             default: false
+        },
+        optionsLoaded: {
+            type: Boolean,
+            default: true
         },
         loading: {
             type: Boolean,
             default: false
         },
-        noResults: {
-            type: Boolean,
-            default: false
-        }
+        keys: {
+            type: Object,
+            default() {
+                return {
+                    text: 'text',
+                    value: 'value',
+                    image: 'image'
+                };
+            }
+        },
+        filter: Function
     },
 
     data() {
@@ -148,7 +160,7 @@ export default {
 
     computed: {
         filteredOptions() {
-            if (this.disableFiltering) {
+            if (this.optionsDynamic) {
                 return this.options;
             }
 
@@ -157,11 +169,12 @@ export default {
 
         displayText() {
             if (this.multiple && this.value.length) {
-                let labels = this.value.map((value) => value.text);
+                let labels = this.value.map((value) => value[this.keys.text] || value);
+
                 return labels.join(this.multipleDelimiter);
             }
 
-            return this.value ? this.value.text : '';
+            return this.value ? (this.value[this.keys.text] || this.value) : '';
         },
 
         hasDisplayText() {
@@ -173,11 +186,15 @@ export default {
         },
 
         nothingFound() {
-            if (this.disableFiltering) {
-                return this.noResults;
+            if (this.optionsDynamic && !this.optionsLoaded) {
+                return false;
             }
 
-            return Boolean(this.options.length && !this.filteredOptions.length);
+            if (this.query.length && !this.loading) {
+                return ! Boolean(this.filteredOptions.length);
+            }
+
+            return false;
         }
     },
 
@@ -227,7 +244,17 @@ export default {
     },
 
     events: {
-        'ui-input::reset'(id) {
+        'ui-select::set-selected': function(value, id) {
+            // Abort if event isn't meant for this component
+            if (!this.eventTargetsComponent(id)) {
+                return;
+            }
+
+            this.default = value;
+            this.initValue();
+        },
+
+        'ui-input::reset': function(id) {
             // Abort if reset event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
                 return;
@@ -249,13 +276,25 @@ export default {
             this.value = this.multiple ? [] : null;
 
             if (this.default) {
-                this.setDefaultValue(this.default);
+                let defaults = Array.isArray(this.default) ? this.default : [this.default];
+
+                if (defaults.length) {
+                    this.setDefaultValue(defaults);
+                }
             }
         },
 
         search(option) {
-            let text = option.text.toLowerCase();
+            if (this.filter) {
+                return this.filter(option, this.query);
+            }
+
             let query = this.query.toLowerCase();
+            let text = option[this.keys.text] || option;
+
+            if (typeof text === 'string') {
+                text = text.toLowerCase();
+            }
 
             return fuzzysearch(query, text);
         },
@@ -276,10 +315,9 @@ export default {
             if (this.multiple) {
                 if (this.isSelected(option)) {
                     this.deselect(option);
-                    return;
+                } else {
+                    this.value.push(option);
                 }
-
-                this.value.push(option);
             } else {
                 this.value = option;
                 this.selectedIndex = index;
@@ -316,14 +354,17 @@ export default {
         },
 
         highlight(index, preventScroll) {
-            if (this.highlightedIndex === index) {
+            if (this.highlightedIndex === index || this.$refs.options.length === 0) {
                 return;
             }
 
-            if (index < 0) {
-                index = this.$refs.options.length - 1;
-            } else if (index >= this.$refs.options.length) {
-                index = 0;
+            let firstIndex = 0;
+            let lastIndex = this.$refs.options.length - 1;
+
+            if (index < firstIndex) {
+                index = lastIndex;
+            } else if (index > lastIndex) {
+                index = firstIndex;
             }
 
             this.highlightedIndex = index;
@@ -396,35 +437,27 @@ export default {
         closed() {
             this.validate();
 
-            if (!this.multiple) {
-                this.highlightedIndex = this.selectedIndex;
-            } else {
+            if (this.multiple) {
                 this.highlightedIndex = -1;
+            } else {
+                this.highlightedIndex = this.selectedIndex;
             }
         },
 
         setDefaultValue(defaults) {
-            if (this.multiple) {
-                if (!defaults.length) {
-                    return;
-                }
+            let optionValue;
+            let defaultOptionValue;
 
-                for (let i = 0; i < this.options.length; i++) {
-                    for (let j = 0; j < defaults.length; j++) {
-                        if (this.options[i] === defaults[j]) {
-                            this.select(this.options[i], i, false);
-                            break;
-                        }
+            for (let i = 0; i < defaults.length; i++) {
+                defaultOptionValue = defaults[i][this.keys.value] || defaults[i];
+
+                for (let j = 0; j < this.options.length; j++) {
+                    optionValue = this.options[j][this.keys.value] || this.options[j];
+
+                    if (optionValue === defaultOptionValue) {
+                        this.select(this.options[j], j, false);
+                        break;
                     }
-                }
-
-                return;
-            }
-
-            for (let i = 0; i < this.options.length; i++) {
-                if (this.options[i] === defaults) {
-                    this.select(this.options[i], i, false);
-                    break;
                 }
             }
         },

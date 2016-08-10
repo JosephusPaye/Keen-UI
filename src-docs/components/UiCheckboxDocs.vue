@@ -1,25 +1,31 @@
 <template>
     <section class="section section-ui-checkbox">
-        <h2 class="section-heading">UiCheckbox</h2>
+        <h2 class="section-heading">
+            UiCheckbox <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiCheckbox.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h2>
 
-        <p>A checkbox component that allows the user to select one or more options. Supports keyboard focus, a disabled state and showing the label to the left of the checkbox.</p>
+        <p>UiCheckbox is a checkbox component that allows the user to select one or more options. It supports keyboard focus, a disabled state and showing the label to the left of the checkbox.</p>
 
-        <h3>Examples</h3>
+        <p>It also allows for connecting multiple checkboxes to the same model, to form an array.</p>
+
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiCheckboxDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <h4>Default</h4>
 
             <div class="group">
-                <ui-checkbox name="do_it_now" :value.sync="true">Do it now</ui-checkbox>
-                <ui-checkbox name="do_it_well" :value.sync="false">Do it well</ui-checkbox>
-                <ui-checkbox name="look_cool" :value.sync="true">Look cool while at it</ui-checkbox>
+                <ui-checkbox name="do_it_now" :model.sync="true">Do it now</ui-checkbox>
+                <ui-checkbox name="do_it_well" :model.sync="false">Do it well</ui-checkbox>
+                <ui-checkbox name="look_cool" :model.sync="true">Look cool while at it</ui-checkbox>
 
                 <ui-checkbox
-                    name="try_checking" :disabled="true" :value.sync="true"
+                    name="try_checking" :disabled="true" :model.sync="true"
                 >Can't change this</ui-checkbox>
 
                 <ui-checkbox
-                    name="try_checking_another" :disabled="true" :value.sync="false"
+                    name="try_checking_another" :disabled="true" :model.sync="false"
                 >Can't change this too</ui-checkbox>
             </div>
 
@@ -27,23 +33,23 @@
 
             <div class="group label-left">
                 <ui-checkbox
-                    name="do_it_now" :value.sync="true" label-left
+                    name="do_it_now" :model.sync="true" label-left
                 >Do it now</ui-checkbox>
 
                 <ui-checkbox
-                    name="do_it_well" :value.sync="false" label-left
+                    name="do_it_well" :model.sync="false" label-left
                 >Do it well</ui-checkbox>
 
                 <ui-checkbox
-                    name="look_cool" :value.sync="true" label-left
+                    name="look_cool" :model.sync="true" label-left
                 >Look cool while at it</ui-checkbox>
 
                 <ui-checkbox
-                    name="try_checking" :disabled="true" :value.sync="true" label-left
+                    name="try_checking" :disabled="true" :model.sync="true" label-left
                 >Can't change this</ui-checkbox>
 
                 <ui-checkbox
-                    name="try_checking_another" :disabled="true" :value.sync="false" label-left
+                    name="try_checking_another" :disabled="true" :model.sync="false" label-left
                 >Can't change this too</ui-checkbox>
             </div>
 
@@ -51,9 +57,35 @@
 
             <div class="group">
                 <ui-checkbox
-                    name="look_cool" :value.sync="true"
+                    name="look_cool" :model.sync="true"
                 >Just <b><i>do</i></b> it!</ui-checkbox>
             </div>
+
+            <h4>Multiple checkboxes connected to a single model</h4>
+
+            <div class="group">
+                <ui-checkbox
+                    name="favourite-simpsons" :model.sync="favouriteSimpsons" value="Maggie"
+                >Maggie</ui-checkbox>
+
+                <ui-checkbox
+                    name="favourite-simpsons" :model.sync="favouriteSimpsons" value="Lisa"
+                >Lisa</ui-checkbox>
+
+                <ui-checkbox
+                    name="favourite-simpsons" :model.sync="favouriteSimpsons" value="Bart"
+                >Bart</ui-checkbox>
+
+                <ui-checkbox
+                    name="favourite-simpsons" :model.sync="favouriteSimpsons" value="Marge"
+                >Marge</ui-checkbox>
+
+                <ui-checkbox
+                    name="favourite-simpsons" :model.sync="favouriteSimpsons" value="Homer"
+                >Homer</ui-checkbox>
+            </div>
+
+            <pre><code v-text="favouriteSimpsons | json"></code></pre>
 
             <ui-button @click="resetCheckboxes">Reset checkboxes</ui-button>
         </div>
@@ -80,7 +112,10 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>A unique identifier for the checkbox. Applied as the <code>id</code> attribute of the checkbox input and used when targeting a specific checkbox for reset.</td>
+                                <td>
+                                    <p>A unique identifier for the checkbox.</p>
+                                    <p>Applied as the <code>id</code> attribute of the checkbox input and used when targeting a specific checkbox for reset.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -88,15 +123,29 @@
                                 <td>String</td>
                                 <td></td>
                                 <td></td>
-                                <td>The checkbox input <code>name</code> attribute.</td>
+                                <td>The checkbox input element <code>name</code> attribute.</td>
                             </tr>
 
                             <tr>
-                                <td>value *</td>
-                                <td>Boolean</td>
+                                <td>model *</td>
+                                <td>Boolean or Array</td>
                                 <td>(required)</td>
                                 <td>Two way</td>
-                                <td>The model that the checkbox value syncs to.</td>
+                                <td>
+                                    <p>The model that the checkbox value syncs to.</p>
+                                    <p>Will be an array if the <code>value</code> prop is provided, otherwise a boolean.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>value</td>
+                                <td>String</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <p>The checkbox input <code>value</code> attribute. Use this for connecting a group of checkboxes to a single model.</p>
+                                    <p>See <b>Multiple checkboxes connected to a single model</b> above for an example.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -112,7 +161,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the checkbox label is hidden. Set to <code>true</code> to hide the label.</td>
+                                <td>
+                                    <p>Determines whether or not the checkbox label is hidden.</p>
+                                    <p>Set to <code>true</code> to hide the label.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -120,7 +172,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Whether or not the label is shown to the left of the checkbox. Set to <code>true</code> to show the label on the left.</td>
+                                <td>
+                                    <p>Determines whether or not the label is shown to the left of the checkbox (instead of to the right).</p>
+                                    <p>Set to <code>true</code> to show the label on the left.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -128,7 +183,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the checkbox is disabled. Set to <code>true</code> to disable the checkbox.</td>
+                                <td>
+                                    <p>Determines whether or not the checkbox is disabled.</p>
+                                    <p>Set to <code>true</code> to disable the checkbox.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -172,7 +230,7 @@
                                 <td class="no-wrap">ui-input::reset</td>
                                 <td>Received</td>
                                 <td>
-                                    <p>Trigger this event to reset the checkbox to its initial state. This event resets the <code>value</code> prop.</p>
+                                    <p>Trigger this event to reset the checkbox to its initial state. This event resets the <code>model</code> prop.</p>
 
                                     <p>You can optionally pass in an <code>id</code> to reset only a specific checkbox (whose <code>id</code> you have set).</p>
                                 </td>
@@ -195,6 +253,12 @@ import UiButton from '../../src/UiButton.vue';
 import UiCheckbox from '../../src/UiCheckbox.vue';
 
 export default {
+    data() {
+        return {
+            favouriteSimpsons: []
+        };
+    },
+
     components: {
         UiTab,
         UiTabs,

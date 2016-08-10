@@ -1,18 +1,22 @@
 <template>
     <section class="section section-ui-modal">
-        <h2 class="section-heading">UiModal</h2>
+        <h2 class="section-heading">
+            UiModal <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiModal.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h2>
 
-        <p>UiModal is used to show modals and dialog boxes. It's header, body and footer can be fully customized using <code>slots</code>.</p>
+        <p>UiModal is used to show modals. It's header, body and footer can be fully customized using <code>slots</code>.</p>
 
-        <p>UiModals are keyboard accessible (can be closed with the ESC key, keep tabbing focus in the modal and return focus to the element that had it before the modal was open).</p>
+        <p>UiModals are keyboard accessible (can be closed with the ESC key, keep tab focus in the modal and return focus to the element that had it before the modal was open).</p>
 
-        <p>UiModals can also be (optionally) dismissed by clicking their backdrop. Dismissing can also be disable to prevent the user from closing the modal.</p>
+        <p>UiModals can also be optionally dismissed by clicking their backdrop. Dismissing can also be disabled to prevent the user from closing the modal.</p>
 
         <p>UiModals have two transition types: a simple fade in, and scale in from above. They also emit events when opened and closed.</p>
 
-        <p>UiModals have three types: <code>small</code>, <code>normal</code> (default) and <code>large</code>. These sizes can also be customized using CSS. They also automatically add a vertical scrollbar when the modal content overflows the available space.</p>
+        <p>UiModals have three types: <code>small</code>, <code>normal</code> (default) and <code>large</code>. These sizes can also be customized using CSS. UiModals also automatically add a vertical scrollbar when the modal content overflows the available space.</p>
 
-        <h3>Examples</h3>
+        <h3>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiModalDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+        </h3>
 
         <div class="demo">
             <ui-modal
@@ -39,7 +43,7 @@
                 :show.sync="show.modal5"
             >
                 <div slot="header">
-                    <b>Custom</b> header has <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">HTML</a>
+                    <b>Custom</b> header has <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener">HTML</a>
                 </div>
 
                 Hey, some <b>nice</b> text here.
@@ -139,7 +143,10 @@
                                 <td>Boolean</td>
                                 <td>(required)</td>
                                 <td>Two-way</td>
-                                <td>Determines whether or not the modal is shown. Changing this value will show/hide the modal.</td>
+                                <td>
+                                    <p>Determines whether or not the modal is shown.</p>
+                                    <p>Changing this value will show/hide the modal.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -149,7 +156,6 @@
                                 <td></td>
                                 <td>
                                     <p>Determines the size of the modal. One of <code>small</code>, <code>normal</code>, or <code>large</code>.</p>
-
                                     <p>You can also customize the modal size by overriding the <code>width</code> property of <code>.ui-modal-container</code> using CSS.</p>
                                 </td>
                             </tr>
@@ -159,7 +165,10 @@
                                 <td>String</td>
                                 <td><code>"dialog"</code></td>
                                 <td></td>
-                                <td>The ARIA role for the modal (important for accessibility). One of <code>dialog</code> or <code>alertdialog</code>.</td>
+                                <td>
+                                    <p>The ARIA role for the modal (important for accessibility).</p>
+                                    <p>One of <code>dialog</code> or <code>alertdialog</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -167,7 +176,10 @@
                                 <td>String</td>
                                 <td><code>"UiModal Header"</code></td>
                                 <td></td>
-                                <td>Header content for the modal (text only). To use HTML in the header, use the <code>header</code> slot.</td>
+                                <td>
+                                    <p>Header content for the modal (text only).</p>
+                                    <p>To use HTML in the header, use the <code>header</code> slot.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -175,7 +187,10 @@
                                 <td>String</td>
                                 <td><code>"UiModal body"</code></td>
                                 <td></td>
-                                <td>Body content for the modal (text only). To use HTML in the body, use the <code>default</code> slot.</td>
+                                <td>
+                                    <p>Body content for the modal (text only).</p>
+                                    <p>To use HTML in the body, use the <code>default</code> slot.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -183,7 +198,11 @@
                                 <td>String</td>
                                 <td class="no-wrap"><code>"ui-modal-scale"</code></td>
                                 <td></td>
-                                <td>The modal enter/leave transition. One of <code>ui-modal-scale</code> or <code>ui-modal-fade</code>.</td>
+                                <td>
+                                    <p>The modal enter/leave transition.</p>
+                                    <p>One of <code>ui-modal-scale</code> or <code>ui-modal-fade</code>.</p>
+                                    <p>You can also provide the name of your own custom <a href="https://vuejs.org/guide/transitions.html" target="_blank" rel="noopener">Vue transition</a>.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -191,7 +210,10 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td></td>
-                                <td>Determines whether or not the header close button is shown. Set to <code>false</code> to hide the header close button.</td>
+                                <td>
+                                    <p>Determines whether or not the header close button is shown.</p>
+                                    <p>Set to <code>false</code> to hide the header close button.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -199,7 +221,10 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td></td>
-                                <td>Determines whether or not the footer block is hidden. Set to <code>true</code> to disable the footer block.</td>
+                                <td>
+                                    <p>Determines whether or not the footer block is hidden.</p>
+                                    <p>Set to <code>true</code> to disable the footer block.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -207,7 +232,10 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td></td>
-                                <td>Determines whether or not the modal can be dismissed. Set to <code>false</code> to disable the close button and prevent the user from dismissing the modal.</td>
+                                <td>
+                                    <p>Determines whether or not the modal can be dismissed.</p>
+                                    <p>Set to <code>false</code> to disable the close button and prevent the user from dismissing the modal.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -215,7 +243,10 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td></td>
-                                <td>Determines whether or not the modal can be dismissed by clicking the backdrop. Set to <code>false</code> to disable closing the modal when the backdrop is clicked.</td>
+                                <td>
+                                    <p>Determines whether or not the modal can be dismissed by clicking the backdrop.</p>
+                                    <p>Set to <code>false</code> to disable closing the modal when the backdrop is clicked.</p>
+                                </td>
                             </tr>
 
                         </tbody>
@@ -270,13 +301,37 @@
                             <tr>
                                 <td>opened</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the modal is opened. Listen for it using <code>@opened</code>.</td>
+                                <td>
+                                    <p>Dispatched when the modal is opened.</p>
+                                    <p>Listen for it using <code>@opened</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="new-prop">revealed</td>
+                                <td>Dispatched</td>
+                                <td>
+                                    <p>Dispatched when the modal open transition completes.</p>
+                                    <p>Listen for it using <code>@revealed</code>.</p>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>closed</td>
                                 <td>Dispatched</td>
-                                <td>Dispatched when the modal is closed. Listen for it using <code>@closed</code>.</td>
+                                <td>
+                                    <p>Dispatched when the modal is closed.</p>
+                                    <p>Listen for it using <code>@closed</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="new-prop">hidden</td>
+                                <td>Dispatched</td>
+                                <td>
+                                    <p>Dispatched when the modal close transition completes.</p>
+                                    <p>Listen for it using <code>@hidden</code>.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
