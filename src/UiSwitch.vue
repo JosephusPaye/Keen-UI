@@ -6,7 +6,7 @@
         <div class="ui-switch-container">
             <input
                 class="ui-switch-input" type="checkbox" :name="name" :id="id" v-model="value"
-                v-disabled="disabled"
+                v-disabled="disabled", @change="$emit('change', value)"
             >
 
             <div class="ui-switch-track"></div>
