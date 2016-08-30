@@ -1,6 +1,6 @@
 {
   "name": "keen-ui",
-  "version": "0.8.9",
+  "version": "1.0.0",
   "description": "A lightweight but complete collection of essential UI components written with Vue and inspired by Material Design.",
   "main": "dist/keen-ui.js",
   "scripts": {
