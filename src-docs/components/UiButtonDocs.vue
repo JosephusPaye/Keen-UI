@@ -144,36 +144,36 @@
 
             <div class="group">
                 <ui-button
-                    icon="refresh" :loading="loading.btn1" @click="loading.btn1 = true"
+                    icon="refresh" :loading="loading.btn1" @click.native="loading.btn1 = true"
                 >Refresh</ui-button>
 
                 <ui-button
-                    icon="add" color="primary" :loading="loading.btn2" @click="loading.btn2 = true"
+                    icon="add" color="primary" :loading="loading.btn2" @click.native="loading.btn2 = true"
                 >Add Post</ui-button>
 
                 <ui-button
-                    icon="delete" color="danger" :loading="loading.btn3" @click="loading.btn3 = true"
+                    icon="delete" color="danger" :loading="loading.btn3" @click.native="loading.btn3 = true"
                 >Delete</ui-button>
             </div>
 
             <div class="group">
                 <ui-button
-                    type="flat" icon="refresh" :loading="loading.btn4" @click="loading.btn4 = true"
+                    type="flat" icon="refresh" :loading="loading.btn4" @click.native="loading.btn4 = true"
                 >Refresh</ui-button>
 
                 <ui-button
                     type="flat" icon="add" color="primary" :loading="loading.btn5"
-                    @click="loading.btn5 = true"
+                    @click.native="loading.btn5 = true"
                 >Add Post</ui-button>
 
                 <ui-button
                     type="flat" icon="delete" color="danger" :loading="loading.btn6"
-                    @click="loading.btn6 = true"
+                    @click.native="loading.btn6 = true"
                 >Delete</ui-button>
             </div>
 
             <div class="group">
-                <ui-button @click="stopSpinners">Stop spinners</ui-button>
+                <ui-button @click.native="stopSpinners">Stop spinners</ui-button>
             </div>
         </div>
 

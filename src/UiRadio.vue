@@ -1,51 +1,67 @@
 <template>
-    <label
-        class="ui-radio"
-        :class="{ 'disabled': disabled, 'checked': active, 'label-left': labelLeft }"
+    <div class="ui-radio-group" :id="id"
+        :class="{ 'disabled': disabled, 'active': active, 'vertical': vertical }"
     >
-        <div class="ui-radio-input-wrapper">
-            <input
-                class="ui-radio-input" type="radio" :id="id" :name="name" :value="value"
-                :checked="checked" @focus="focus" @blur="blur" v-model="model" v-disabled="disabled"
-            >
+        <div class="ui-radio-group-label" v-text="label" v-if="!hideLabel&&label"></div>
+        <div class="ui-radio-group-options-wrapper">
+            <template class="ui-radio-group-options-wrapper" v-for="option in options">
+                <label
+                    class="ui-radio"
+                    :class="{ 'disabled': disabled || option.disabled, 'checked': currentValue===option.value, 'label-left': labelLeft }"
+                    @focus="focus" @blur="blur"
+                >
+                    <div class="ui-radio-input-wrapper">
+                        <input
+                            class="ui-radio-input" type="radio" :name="name" :value="option.value||option"
+                            :disabled="disabled || option.disabled" v-model="currentValue"
+                        >
+                        <span class="ui-radio-border"></span>
+                        <span class="ui-radio-inner-dot"></span>
+                    </div>
 
-            <span class="ui-radio-border"></span>
-            <span class="ui-radio-inner-dot"></span>
+                    <div class="ui-radio-label-text">
+                        <span v-text="option.text || option" v-if="!option.hideLabel"></span>
+                    </div>
+                </label>
+            </template>
         </div>
-
-        <div class="ui-radio-label-text" v-if="!hideLabel">
-            <slot>
-                <span v-text="label"></span>
-            </slot>
+        <div
+            class="ui-radio-group-feedback" v-if="showFeedback"
+            transition="ui-radio-group-feedback-toggle"
+        >
+            <div class="ui-radio-group-help-text" v-text="helpText">
+                {{currentValue}}
+            </div>
         </div>
-    </label>
+    </div>
 </template>
 
 <script>
-import disabled from './directives/disabled';
+import EventBus from './helpers/event-bus'
+import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent'
 
 export default {
     name: 'ui-radio',
 
     props: {
         id: String,
-        name: String,
-        model: {
+        name: {
             type: String,
-            default: '',
-            twoWay: true
-        },
-        checked: {
-            type: Boolean,
-            default: false
+            required: true
         },
         value: String,
+        options: [Array, Object],
+        helpText: String,
         label: String,
         hideLabel: {
             type: Boolean,
             default: false
         },
         labelLeft: {
+            type: Boolean,
+            default: false
+        },
+        vertical: {
             type: Boolean,
             default: false
         },
@@ -57,27 +73,52 @@ export default {
 
     data() {
         return {
-            active: false
+            active: false,
+            currentValue: this.value,
+            initialValue: this.value
         };
+    },
+
+    computed: {
+        showFeedback() {
+            return Boolean(this.helpText);
+        }
     },
 
     methods: {
         focus() {
-            this.active = true;
-
-            this.$dispatch('focussed');
+            this.active = true
         },
 
         blur() {
-            this.active = false;
-
-            this.$dispatch('blurred');
+            this.active = false
         }
     },
 
-    directives: {
-        disabled
-    }
+    created() {
+        this.currentValue = this.value
+        this.initialValue = this.value
+    },
+
+    mounted() {
+        EventBus.$on('ui-input::reset', (id) => {
+            if (!this.eventTargetsComponent(id)) {
+                return
+            }
+            this.currentValue = this.initialValue
+            this.$emit('input', this.initialValue)
+        })
+    },
+
+    watch: {
+        currentValue(val) {
+            this.$emit('input', val)
+        }
+    },
+
+    mixins: [
+        ReceivesTargetedEvent
+    ]
 };
 </script>
 
@@ -88,9 +129,10 @@ $size = 20px;
 $border-width = 2px;
 $transition-duration = 0.3s;
 
+// The radio itself
 .ui-radio {
     font-family: $font-stack;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     height: $size;
     font-size: 15px;
@@ -107,7 +149,7 @@ $transition-duration = 0.3s;
     &.label-left {
         .ui-radio-label-text {
             order: -1;
-            margin-right: auto;
+            margin-right: 16px;
             margin-left: 0;
         }
     }
@@ -193,5 +235,76 @@ $transition-duration = 0.3s;
 .ui-radio-label-text {
     margin-left: 16px;
     font-size: 15px;
+}
+
+.ui-radio-group {
+    font-family: $font-stack;
+
+    &:not(.disabled):hover {
+        .ui-radio-group-label {
+            color: alpha($md-dark-secondary, 65%);
+        }
+    }
+
+    &:not(.disabled).active {
+        .ui-radio-group-label {
+            color: darken($md-brand-primary, 20%);
+        }
+    }
+
+    &.vertical {
+        .ui-radio-group-options-wrapper {
+            height: auto;
+            margin-top: 8px;
+            flex-direction: column;
+
+            .ui-radio {
+                width: 100%;
+                margin-left: 0;
+                margin-bottom: 16px;
+            }
+        }
+    }
+
+    &.disabled {
+        .ui-radio-group-feedback {
+            opacity: 0.8;
+        }
+    }
+
+    .ui-radio {
+        margin-left: 24px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+}
+
+.ui-radio-group-label {
+    font-size: 14px;
+    color: $md-dark-secondary;
+    transition: color 0.1s ease;
+}
+
+.ui-radio-group-options-wrapper {
+    display: flex;
+    height: 32px;
+    align-items: center;
+}
+
+.ui-radio-group-feedback {
+    height: 20px;
+    overflow: hidden;
+    padding-top: 4px;
+    position: relative;
+    font-size: 14px;
+}
+
+.ui-radio-group-help-text {
+    @extends $disable-user-select;
+
+    color: $md-dark-hint;
+    line-height: 1.2;
 }
 </style>

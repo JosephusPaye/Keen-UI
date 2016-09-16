@@ -13,28 +13,62 @@ f<template>
         </h3>
 
         <div class="demo">
-            <h4>Default</h4>
-            <ui-radio label="Select"></ui-radio>
+            <h3>Option Style</h3>
+            <h4>Default style</h4>
+            <ui-radio name="single_1" v-model="single1" :options="options.single1"></ui-radio>
+            <p v-text="`model: ${single1}`"></p>
 
             <h4>Label left</h4>
-            <div class="max-width-200">
-                <ui-radio label="Select, button on right" label-left></ui-radio>
-            </div>
+            <ui-radio
+                name="single_2" v-model="single2" :options="options.single2"
+                labelLeft
+            ></ui-radio>
+            <p v-text="`model: ${single2}`"></p>
 
             <h4>Checked</h4>
-            <ui-radio label="Select" checked></ui-radio>
+            <ui-radio
+                name="single_3" v-model="single3" :options="options.single3"
+            ></ui-radio>
 
-            <h4>No Label</h4>
-            <ui-radio hide-label></ui-radio>
+            <h4>No label</h4>
+            <ui-radio
+                name="single_4" v-model="single4" :options="options.single4"
+            ></ui-radio>
 
-            <h4>No Label, checked</h4>
-            <ui-radio hide-label checked></ui-radio>
+            <h3>Radio Group</h3>
+            <h4>Default</h4>
+            <ui-radio name="favourite_1" v-model="favourite.group1" :options="options.group1"
+                label="Favourite Flanders"
+            ></ui-radio>
+            <p v-text="`model: ${favourite.group1}`"></p>
 
-            <h4>Disabled</h4>
-            <ui-radio label="Select" disabled></ui-radio>
+            <h4>With default selection</h4>
+            <ui-radio name="favourite_2" v-model="favourite.group2" :options="options.group1"
+                label="Favourite Flanders"
+            ></ui-radio>
+            <p v-text="`model: ${favourite.group2}`"></p>
 
-            <h4>Disabled, checked</h4>
-            <ui-radio label="Select" checked disabled></ui-radio>
+            <h4>With help text</h4>
+            <ui-radio name="favourite_3" v-model="favourite.group3" :options="options.group1"
+                label="Favourite Flanders" help-text="Choose your favourite neighbor-eeno"
+            ></ui-radio>
+
+            <h4>Vertical</h4>
+            <ui-radio name="favourite_4" v-model="favourite.group4" :options="options.group1"
+                label="Favourite Flanders" vertical
+            ></ui-radio>
+
+            <h4>Individual option disabled</h4>
+            <ui-radio name="favourite_5" v-model="favourite.group5" :options="options.group2"
+                label="Favourite Flanders"
+            ></ui-radio>
+
+            <h4>Group disabled</h4>
+            <ui-radio name="favourite_6" v-model="favourite.group6" :options="options.group2"
+                label="Favourite Flanders" disabled
+            ></ui-radio>
+
+            <ui-button @click.native="reset">Reset Radio Buttons</ui-button>
         </div>
 
         <h3>API</h3>
@@ -215,34 +249,90 @@ f<template>
 </template>
 
 <script>
-import UiTab from '../../src/UiTab.vue';
-import UiTabs from '../../src/UiTabs.vue';
-import UiRadio from '../../src/UiRadio.vue';
+import UiTab from '../../src/UiTab.vue'
+import UiTabs from '../../src/UiTabs.vue'
+import UiButton from '../../src/UiButton.vue'
+import EventBus from '../../src/helpers/event-bus'
+import UiRadio from '../../src/UiRadio.vue'
+
+let single1 = ['Default']
+let single2 = ['Label-left']
+let single3 = ['Checked']
+let single4 = [{value: 'No-Label', hideLabel: true}]
+
+let group1 = [
+    {
+        value: 'ned',
+        text: 'Ned'
+    }, {
+        value: 'rod',
+        text: 'Rod'
+    }, {
+        value: 'todd',
+        text: 'Todd'
+    }
+]
+
+let group2 = [
+    {
+        value: 'ned',
+        text: 'Ned'
+    }, {
+        value: 'maude',
+        text: 'Maude',
+        disabled: true
+    }, {
+        value: 'rod',
+        text: 'Rod'
+    }, {
+        value: 'todd',
+        text: 'Todd'
+    }
+]
 
 export default {
     data() {
         return {
-            radio1: false,
-            radio2: true,
-            radio3: false,
-            radio4: false,
-            radio5: true,
-            radio6: false
-        };
+            single1: '',
+            single2: '',
+            single3: 'Checked',
+            single4: '',
+            favourite: {
+                group1: '',
+                group2: 'rod',
+                group3: 'todd',
+                group4: 'ned',
+                group5: 'ned',
+                group6: 'ned'
+            },
+            options: {
+                single1,
+                single2,
+                single3,
+                single4,
+                group1,
+                group2
+            }
+        }
     },
 
     components: {
         UiTab,
         UiTabs,
-        UiRadio
+        UiRadio,
+        UiButton
+    },
+
+    methods: {
+        reset() {
+            EventBus.$emit('ui-input::reset')
+        }
     }
-};
+}
 </script>
 
 <style lang="stylus">
-.section-ui-radio {
-    .max-width-200 {
-        max-width: 200px;
-    }
+.ui-button {
+    margin-top: 24px;
 }
 </style>

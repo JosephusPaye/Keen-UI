@@ -14,21 +14,21 @@
 
         <div class="demo">
             <h4>Default</h4>
-            <ui-slider :value.sync="0"></ui-slider>
+            <ui-slider v-model="values.value1"></ui-slider>
 
             <h4>With label</h4>
-            <ui-slider :value.sync="25" label="Adjust volume"></ui-slider>
+            <ui-slider v-model="values.value2" label="Adjust volume"></ui-slider>
 
             <h4>With icon</h4>
-            <ui-slider :value.sync="50" icon="volume_up"></ui-slider>
+            <ui-slider v-model="values.value3" icon="volume_up"></ui-slider>
 
             <h4>With label and icon</h4>
-            <ui-slider :value.sync="75" label="Adjust volume" icon="volume_up"></ui-slider>
+            <ui-slider v-model="values.value4" label="Adjust volume" icon="volume_up"></ui-slider>
 
             <h4>Default with icon, disabled</h4>
-            <ui-slider :value.sync="50" icon="volume_up" disabled></ui-slider>
+            <ui-slider v-model="values.value5" icon="volume_up" disabled></ui-slider>
 
-            <ui-button @click="resetSliders">Reset sliders</ui-button>
+            <ui-button @click.native="resetSliders">Reset sliders</ui-button>
         </div>
 
         <h3>API</h3>
@@ -160,12 +160,25 @@
 </template>
 
 <script>
-import UiTab from '../../src/UiTab.vue';
-import UiTabs from '../../src/UiTabs.vue';
-import UiButton from '../../src/UiButton.vue';
-import UiSlider from '../../src/UiSlider.vue';
+import UiTab from '../../src/UiTab.vue'
+import UiTabs from '../../src/UiTabs.vue'
+import UiButton from '../../src/UiButton.vue'
+import UiSlider from '../../src/UiSlider.vue'
+import EventBus from '../../src/helpers/event-bus'
+let values = {
+    value1: 0,
+    value2: 25,
+    value3: 50,
+    value4: 75,
+    value5: 50
+}
 
 export default {
+    data() {
+        return {
+            values
+        }
+    },
     components: {
         UiTab,
         UiTabs,
@@ -175,7 +188,7 @@ export default {
 
     methods: {
         resetSliders() {
-            this.$broadcast('ui-input::reset');
+            EventBus.$emit('ui-input::reset')
         }
     }
 };

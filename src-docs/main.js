@@ -1,11 +1,14 @@
-import '../src/helpers/modality';
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import '../src/helpers/modality'
 
-import Vue from 'vue';
-import App from './App.vue';
 
-new Vue({
-    el: 'body',
-    components: {
-        App
-    }
-});
+
+
+const app = new Vue({
+    router,
+    ...App
+})
+
+app.$mount('#app')

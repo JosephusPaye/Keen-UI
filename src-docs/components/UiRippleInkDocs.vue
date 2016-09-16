@@ -24,10 +24,10 @@
                     :image="show.image" v-for="show in tvShows"
                 >
                     <div
-                        class="image-pane" v-el:show
+                        class="image-pane"
                         :style="{ 'background-image': 'url(' + image + ')' }"
                     >
-                        <ui-ripple-ink :trigger="$els.show"></ui-ripple-ink>
+                        <ui-ripple-ink></ui-ripple-ink>
                     </div>
                 </image-pane>
             </div>
@@ -39,10 +39,10 @@
                     :image="simpson.image" v-for="simpson in theSimpsons"
                 >
                     <div
-                        class="image-pane" v-el:portrait
+                        class="image-pane"
                         :style="{ 'background-image': 'url(' + image + ')' }"
                     >
-                        <ui-ripple-ink :trigger="$els.portrait"></ui-ripple-ink>
+                        <ui-ripple-ink></ui-ripple-ink>
                     </div>
                 </image-pane>
             </div>

@@ -73,7 +73,7 @@
 
             <br>
 
-            <ui-button @click="loading = !loading">Toggle Loading</ui-button>
+            <ui-button @click.native="loading = !loading">Toggle Loading</ui-button>
         </div>
 
         <h3>API</h3>
@@ -192,7 +192,7 @@ export default {
         UiProgressCircular
     },
 
-    ready() {
+    mounted() {
         this.progressInterval = setInterval(() => {
             if (this.progress >= 100) {
                 this.progress = 0;

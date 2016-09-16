@@ -20,27 +20,27 @@
 
         <div class="demo">
             <ui-modal
-                :show.sync="show.modal1" header="Default Modal"
+                v-model="show.modal1" header="Default Modal"
                 body="Hi there, World. What's happening?"
             ></ui-modal>
 
             <ui-modal
-                :show.sync="show.modal2" header="Can't close by clicking backdrop"
+                v-model="show.modal2" header="Can't close by clicking backdrop"
                 :backdrop-dismissible="false" body="Hi there, World. What's happening?"
             ></ui-modal>
 
             <ui-modal
-                :show.sync="show.modal3" header="Stuck with me!" :dismissible="false"
+                v-model="show.modal3" header="Stuck with me!" :dismissible="false"
                 body="Can't close at all. Refresh the page to continue."
             ></ui-modal>
 
             <ui-modal
-                :show.sync="show.modal4" header="Header &times; button is hidden"
+                v-model="show.modal4" header="Header &times; button is hidden"
                 body="Hi there, World. What's happening?" :show-close-button="false"
             ></ui-modal>
 
             <ui-modal
-                :show.sync="show.modal5"
+                v-model="show.modal5"
             >
                 <div slot="header">
                     <b>Custom</b> header has <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener">HTML</a>
@@ -50,32 +50,32 @@
             </ui-modal>
 
             <ui-modal
-                :show.sync="show.modal6" header="No Footer" hide-footer
+                v-model="show.modal6" header="No Footer" hide-footer
                 body="Hi there, World. What's happening?"
             ></ui-modal>
 
             <ui-modal
-                :show.sync="show.modal7" header="Custom Footer"
+                v-model="show.modal7" header="Custom Footer"
                 body="Hi there, World. What's happening?"
             >
                 <div slot="footer">
-                    <ui-button color="primary">Say Hi</ui-button>
-                    <ui-button @click="show.modal7 = false">Close</ui-button>
+                    <ui-button color="primary" @click.native.stop="say('Hi~')">Say Hi</ui-button>
+                    <ui-button @click.native="show.modal7 = false">Close</ui-button>
                 </div>
             </ui-modal>
 
             <ui-modal
-                :show.sync="show.modal8" type="small" header="Small Modal"
+                v-model="show.modal8" type="small" header="Small Modal"
                 body="Hi there, World. What's happening?"
             ></ui-modal>
 
             <ui-modal
-                :show.sync="show.modal9" type="large" header="Large Modal"
+                v-model="show.modal9" type="large" header="Large Modal"
                 body="Hi there, World. What's happening?"
             ></ui-modal>
 
             <ui-modal
-                :show.sync="show.modal10" header="Scrolling Modal"
+                v-model="show.modal10" header="Scrolling Modal"
             >
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit maiores perspiciatis suscipit sit nemo. Similique dignissimos, quas nisi aperiam dolorum omnis tenetur impedit, cum eaque harum officia? Rerum ullam ratione non perferendis, vel harum quam.</p>
                 <p>Provident iste, iusto adipisci, tenetur harum porro omnis sequi eveniet, accusantium facilis non ipsum. Excepturi deleniti tempore error atque aperiam quia dolorum perferendis. Libero accusamus dolor ipsam soluta impedit laboriosam optio veritatis obcaecati atque, asperiores!</p>
@@ -90,34 +90,34 @@
             </ui-modal>
 
             <ui-modal
-                :show.sync="show.modal11" header="Fade In Modal" transition="ui-modal-fade"
+                v-model="show.modal11" header="Fade In Modal" transition="fade"
                 body="Hi there, World. What's happening?"
             ></ui-modal>
 
             <div class="group">
-                <ui-button @click="show.modal1 = true">Default Modal</ui-button>
-                <ui-button @click="show.modal2 = true">Can't close by clicking backdrop</ui-button>
-                <ui-button @click="show.modal3 = true">Can't close at all</ui-button>
+                <ui-button @click.native="show.modal1 = true">Default Modal</ui-button>
+                <ui-button @click.native="show.modal2 = true">Can't close by clicking backdrop</ui-button>
+                <ui-button @click.native="show.modal3 = true">Can't close at all</ui-button>
             </div>
 
             <div class="group">
-                <ui-button @click="show.modal4 = true">No header close button</ui-button>
-                <ui-button @click="show.modal5 = true">Custom Header</ui-button>
+                <ui-button @click.native="show.modal4 = true">No header close button</ui-button>
+                <ui-button @click.native="show.modal5 = true">Custom Header</ui-button>
             </div>
 
             <div class="group">
-                <ui-button @click="show.modal6 = true">No footer</ui-button>
-                <ui-button @click="show.modal7 = true">Custom footer</ui-button>
+                <ui-button @click.native="show.modal6 = true">No footer</ui-button>
+                <ui-button @click.native="show.modal7 = true">Custom footer</ui-button>
             </div>
 
             <div class="group">
-                <ui-button @click="show.modal8 = true">Small Modal</ui-button>
-                <ui-button @click="show.modal9 = true">Large Modal</ui-button>
-                <ui-button @click="show.modal10 = true">Scrolling Modal</ui-button>
+                <ui-button @click.native="show.modal8 = true">Small Modal</ui-button>
+                <ui-button @click.native="show.modal9 = true">Large Modal</ui-button>
+                <ui-button @click.native="show.modal10 = true">Scrolling Modal</ui-button>
             </div>
 
             <div class="group">
-                <ui-button @click="show.modal11 = true">Fade in Modal</ui-button>
+                <ui-button @click.native="show.modal11 = true">Fade in Modal</ui-button>
             </div>
         </div>
 
@@ -367,7 +367,11 @@ export default {
             }
         };
     },
-
+    methods: {
+        say(str) {
+            alert(str)
+        }
+    },
     components: {
         UiTab,
         UiTabs,

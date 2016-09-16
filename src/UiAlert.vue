@@ -1,22 +1,22 @@
 <template>
     <div class="ui-alert">
-        <div
-            class="ui-alert-body" :class="[type]" role="alert" v-show="show"
-            transition="ui-alert-toggle"
-        >
-            <ui-icon class="ui-alert-icon" :icon="iconName" v-if="!hideIcon"></ui-icon>
+        <transition name="ui-alert-toggle">
+            <div class="ui-alert-body" :class="[type]" role="alert" v-show="show">
+                <ui-icon class="ui-alert-icon" :icon="iconName" v-if="!hideIcon"></ui-icon>
 
-            <div class="ui-alert-text">
-                <slot>
-                    <span v-text="text"></span>
-                </slot>
+                <div class="ui-alert-text">
+                    <slot>
+                        <span v-text="text"></span>
+                    </slot>
+                </div>
+
+                <ui-icon-button
+                    v-if="dismissible"
+                    class="ui-alert-close-button" type="clear" :icon="String('\uE5CD')" aria-label="Close"
+                    @click.native="close"
+                ></ui-icon-button>
             </div>
-
-            <ui-icon-button
-                class="ui-alert-close-button" type="clear" icon="&#xE5CD" aria-label="Close"
-                @click="close" v-if="dismissible"
-            ></ui-icon-button>
-        </div>
+        </transition>
     </div>
 </template>
 
@@ -27,11 +27,13 @@ import UiIconButton from './UiIconButton.vue';
 export default {
     name: 'ui-alert',
 
+    data() {
+        return {
+            show: true
+        }
+    },
+
     props: {
-        show: {
-            type: Boolean,
-            default: true
-        },
         type: {
             type: String,
             default: 'info' // 'info', 'success', 'warning', or 'error'
@@ -51,23 +53,23 @@ export default {
     computed: {
         iconName() {
             if (this.icon) {
-                return this.icon;
+                return this.icon
             }
 
-            let icon = this.type;
+            let icon = this.type
 
             if (icon === 'success') {
-                icon = 'check_circle';
+                icon = 'check_circle'
             }
 
-            return icon;
+            return icon
         }
     },
 
     methods: {
         close() {
-            this.show = false;
-            this.$dispatch('dismissed');
+            this.show = false
+            this.$emit('dismissed')
         }
     },
 
@@ -75,7 +77,7 @@ export default {
         UiIcon,
         UiIconButton
     }
-};
+}
 </script>
 
 <style lang="stylus">
@@ -124,6 +126,8 @@ export default {
     width: 100%;
     min-height: 52px;
     padding: 12px 16px;
+    margin-top: 0;
+    margin-bottom: 12px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -187,14 +191,13 @@ export default {
     color: alpha(black, 0.75);
 }
 
-.ui-alert-toggle-transition {
+.ui-alert-toggle-enter-active,
+.ui-alert-toggle-leave-active {
     transition: all 0.3s ease;
-    margin-top: 0;
-    margin-bottom: 12px;
 }
 
 .ui-alert-toggle-enter,
-.ui-alert-toggle-leave {
+.ui-alert-toggle-leave-active {
     margin-top: -52px;
     opacity: 0;
     margin-bottom: 0;

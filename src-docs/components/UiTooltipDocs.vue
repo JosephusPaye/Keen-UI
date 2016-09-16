@@ -19,11 +19,11 @@
                     v-for="simpson in theSimpsons"
                 >
                     <div
-                        class="image-pane" v-el:portrait
+                        class="image-pane" ref="portrait"
                         :style="{ 'background-image': 'url(' + image + ')' }"
                     >
                         <ui-tooltip
-                            :trigger="$els.portrait" :content="name" :position="position"
+                            trigger="portrait" :content="name" :position="position"
                         ></ui-tooltip>
                     </div>
                 </image-pane>

@@ -1,3 +1,3 @@
-export default function(value) {
-    this.el.autofocus = Boolean(value);
+export default function(el, value) {
+    el.autofocus = Boolean(value)
 }

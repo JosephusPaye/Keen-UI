@@ -4,7 +4,7 @@
         :class="['type-' + type, { 'active': active, 'disabled': disabled }]"
 
         :tabindex="active ? 0 : -1" :aria-controls="id" :aria-selected="active ? 'true' : null"
-        v-disabled="disabled" v-el:item
+        v-disabled="disabled" ref="item"
     >
         <div
             class="ui-tab-header-item-icon" v-if="type === 'icon' || type === 'icon-and-text'"
@@ -17,7 +17,7 @@
             v-if="type === 'text' || type === 'icon-and-text'"
         ></div>
 
-        <ui-ripple-ink :trigger="$els.item" v-if="!hideRippleInk && !disabled"></ui-ripple-ink>
+        <ui-ripple-ink v-if="!hideRippleInk && !disabled"></ui-ripple-ink>
     </li>
 </template>
 

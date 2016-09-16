@@ -1,26 +1,24 @@
 <template>
     <button
-        class="ui-fab" :class="[this.type, this.color]" :aria-label="ariaLabel || tooltip"
-        v-disabled="disabled" v-el:button
+        class="ui-fab" :class="[`ui-fab-${type}`, `color-${color}`]" :aria-label="ariaLabel || tooltip"
+        :disabled="disabled" ref="button"
     >
         <ui-icon class="ui-fab-icon" :icon="icon"></ui-icon>
 
-        <ui-ripple-ink :trigger="$els.button" v-if="!hideRippleInk && !disabled"></ui-ripple-ink>
+        <ui-ripple-ink v-if="!hideRippleInk && !disabled"></ui-ripple-ink>
 
         <ui-tooltip
-            :trigger="$els.button" :content="tooltip" :position="tooltipPosition" v-if="tooltip"
+            trigger="button" :content="tooltip" :position="tooltipPosition" v-if="tooltip"
             :open-on="openTooltipOn"
         ></ui-tooltip>
     </button>
 </template>
 
 <script>
-import UiIcon from './UiIcon.vue';
+import UiIcon from './UiIcon.vue'
 
-import disabled from './directives/disabled';
-
-import ShowsTooltip from './mixins/ShowsTooltip';
-import ShowsRippleInk from './mixins/ShowsRippleInk';
+import ShowsTooltip from './mixins/ShowsTooltip'
+import ShowsRippleInk from './mixins/ShowsRippleInk'
 
 export default {
     name: 'ui-fab',
@@ -29,16 +27,10 @@ export default {
         type: {
             type: String,
             default: 'normal',
-            coerce(type) {
-                return 'ui-fab-' + type;
-            }
         },
         color: {
             type: String,
             default: 'default', // 'default', primary', or 'accent'
-            coerce(color) {
-                return 'color-' + color;
-            }
         },
         icon: {
             type: String,
@@ -59,10 +51,6 @@ export default {
         ShowsTooltip,
         ShowsRippleInk
     ],
-
-    directives: {
-        disabled
-    }
 };
 </script>
 

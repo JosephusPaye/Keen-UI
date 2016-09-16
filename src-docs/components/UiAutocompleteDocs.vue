@@ -18,7 +18,7 @@
             <h4>Default (with label and help text), minimum characters: 2</h4>
 
             <ui-autocomplete
-                label="Favourite Month" :suggestions="months" :value.sync="favouriteMonth"
+                label="Favourite Month" :suggestions="months" v-model="favouriteMonth"
                 name="favourite_month" help-text="Pick your favourite month of the year"
                 placeholder="Enter your favourite month"
             ></ui-autocomplete>
@@ -27,8 +27,8 @@
 
             <ui-autocomplete
                 label="Favourite Simpson" icon="face" :min-chars="0" :suggestions="theSimpsons"
-                :value.sync="favouriteSimpson" name="favourite_simpson" validation-rules="required"
-                partial="ui-autocomplete-image" placeholder="Choose your favourite Simpson"
+                v-model="favouriteSimpson" name="favourite_simpson" validation-rules="required"
+                type="image" placeholder="Choose your favourite Simpson"
                 help-text="Pick your favourite member of the Simpsons family"
                 :keys="{ text: 'text', value: 'text', image: 'image' }"
             ></ui-autocomplete>
@@ -36,13 +36,13 @@
             <p>Suggestions are updated dynamically when the suggestions array changes.</p>
 
             <ui-button
-                :disabled="addedExtendedFamily" @click="add"
+                :disabled="addedExtendedFamily" @click.native="add"
             >Add Grandma &amp; Grandpa</ui-button>
 
             <h4>Disabled</h4>
 
             <ui-autocomplete
-                label="Favourite Color" :suggestions="[]" :value.sync="''" name="another_color"
+                label="Favourite Color" :suggestions="[]" v-model="favouriteDisabel" name="another_color"
                 placeholder="You can't interact with this" disabled
             ></ui-autocomplete>
         </div>
@@ -87,13 +87,13 @@
                             </tr>
 
                             <tr>
-                                <td>value</td>
+                                <td>v-model(value)</td>
                                 <td>String</td>
                                 <td></td>
-                                <td>Two way</td>
+                                <td></td>
                                 <td>
                                     <p>The autocomplete input value (is updated when the user types or makes a selection from the dropdown).</p>
-                                    <p>This can be set initially as a default value.</p>
+                                    <p>Component will save the initial value.</p>
                                 </td>
                             </tr>
 
@@ -149,24 +149,6 @@
                                 <td>
                                     <p>The minimum delay (in milliseconds) after each keystroke before the input’s value is synced to the model.</p>
                                     <p>You may want to use this if you are watching the value and making AJAX calls.</p>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>partial</td>
-                                <td>String</td>
-                                <td><code>"ui-autocomplete-simple"</code></td>
-                                <td></td>
-                                <td>
-                                    <p>The ID of a registered <a href="http://vuejs.org/api/#partial" target="_blank" rel="noopener">Vue partial</a> to use as the template for each suggestion.</p>
-
-                                    <p>This partial is rendered into an <code>&lt;li&gt;</code> which has the partial's ID as a class. In the partial template, you have access to an <code>item</code> string/object from the suggestions array which you can use to render the suggestion however you like.</p>
-
-                                    <p>The default partial simply renders the suggestion text.</p>
-
-                                    <p>There is another default partial, <code>ui-autocomplete-image</code>, which you can use to render the items with an image. To use, set an image URL as the <code>image</code> property on each suggestion and set the partial to <code>ui-autocomplete-image</code>.</p>
-
-                                    <p>You can also redefine the <code>image</code> key to fit your data using the <code>keys</code> prop.</p>
                                 </td>
                             </tr>
 
@@ -238,11 +220,7 @@
                             <tr>
                                 <td class="new-prop">keys</td>
                                 <td>Object</td>
-                                <td><pre>{
-  text: 'text',
-  value: 'value',
-  image: 'image'
-}</pre></td>
+                                <td><pre>{{`{\n  text: 'text',\n  value: 'value',\n  image: 'image'\n}`}}</pre></td>
                                 <td></td>
                                 <td>
                                     <p>Allows for redefining the <code>text</code>, <code>value</code> and <code>image</code> keys.</p>
@@ -530,6 +508,7 @@ export default {
             theSimpsons,
             favouriteMonth: '',
             favouriteSimpson: '',
+            favouriteDisabel: '',
             addedExtendedFamily: false
         };
     },
@@ -547,13 +526,11 @@ export default {
         UiButton,
         UiAutocomplete
     }
-};
+}
 </script>
 
 <style lang="stylus">
-.section-ui-autocomplete {
-    .ui-button {
-        margin-bottom: 12px;
-    }
-}
+.section-ui-autocomplete
+    .ui-button
+        margin-bottom 12px
 </style>

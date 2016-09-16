@@ -15,8 +15,8 @@
             class="ui-rating-icons-wrapper" @mouseenter="startPreview" @mouseleave="endPreview"
         >
             <ui-rating-icon
-                :type="type" v-for="n in total" :selected="(n + 1) <= value" @mouseover="preview(n)"
-                :filled="(n + 1) <= previewValue" @click="commitValue(n + 1)"
+                :type="type" v-for="n in total" :selected="n <= value" @mouseover.native="preview(n)"
+                :filled="n <= previewValue" @click.native="commitValue(n)"
             ></ui-rating-icon>
         </div>
 
@@ -29,9 +29,10 @@
 </template>
 
 <script>
-import UiRatingIcon from './UiRatingIcon.vue';
+import UiRatingIcon from './UiRatingIcon.vue'
 
-import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent';
+import EventBus from './helpers/event-bus'
+import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent'
 
 export default {
     name: 'ui-rating',
@@ -49,7 +50,6 @@ export default {
         },
         total: {
             type: Number,
-            coerce: Number,
             required: true
         },
         label: String,
@@ -85,7 +85,7 @@ export default {
         },
 
         previewValue() {
-            this.$dispatch('preview-value-changed', this.previewValue);
+            this.$emit('preview-value-changed', this.previewValue);
         }
     },
 
@@ -97,15 +97,15 @@ export default {
         this.previewValue = this.value;
     },
 
-    events: {
-        'ui-input::reset': function(id) {
+    mounted() {
+        EventBus.$on('ui-input::reset', (id) => {
             // Abort if reset event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
-                return;
+                return
             }
 
-            this.value = this.initialValue;
-        }
+            this.$emit('input', this.initialValue)
+        })
     },
 
     methods: {
@@ -131,7 +131,7 @@ export default {
                 return;
             }
 
-            this.previewValue = n + 1;
+            this.previewValue = n
         },
 
         commitValue(value) {
@@ -139,8 +139,8 @@ export default {
                 return;
             }
 
-            if (value > 0 && value <= this.total) {
-                this.value = value;
+            if (value > 0 && value <= this.total + 1) {
+                this.$emit('input', value)
             }
         },
 
@@ -150,7 +150,6 @@ export default {
             }
 
             var proposedValue = this.previewValue + 1;
-
             if (proposedValue <= this.total) {
                 this.previewValue = proposedValue;
             }

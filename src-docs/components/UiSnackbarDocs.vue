@@ -14,19 +14,19 @@
 
         <div class="demo">
             <h4>Default</h4>
-            <ui-snackbar show persistent>Post published</ui-snackbar>
+            <ui-snackbar v-model="model.show1" persistent>Post published</ui-snackbar>
 
             <h4>With action</h4>
-            <ui-snackbar show persistent action="Retry">Database connection failed</ui-snackbar>
+            <ui-snackbar v-model="model.show2" persistent action="Retry">Database connection failed</ui-snackbar>
 
             <h4>Multi-line</h4>
-            <ui-snackbar show persistent>
+            <ui-snackbar v-model="model.show3" persistent>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Set sur illo hic ullam atque omnis.
             </ui-snackbar>
 
             <h4>Multi-line with action, action color primary</h4>
             <ui-snackbar
-                show persistent action="Undo" action-color="primary"
+                v-model="model.show4" persistent action="Undo" action-color="primary"
             >
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Set sur illo hic ullam atque omnis.
             </ui-snackbar>
@@ -42,33 +42,33 @@
 
         <div class="preview-controls">
             <ui-textbox
-                label="Snackbar message" :value.sync="message" name="message"
+                label="Snackbar message" v-model="message" name="message"
                 placeholder="Enter a message"
             ></ui-textbox>
 
             <ui-textbox
-                label="Action text" :value.sync="action" name="action_text"
+                label="Action text" v-model="action" name="action_text"
                 placeholder="Enter action button text"
             ></ui-textbox>
 
             <ui-textbox
-                label="Duration (seconds)" :value.sync="duration" name="duration"
+                label="Duration (seconds)" v-model="duration" name="duration"
                 placeholder="Enter the duration in seconds" type="number"
             ></ui-textbox>
 
-            <ui-radio-group
+            <ui-radio
                 label="Action color" name="action_color" :options="['accent', 'primary']"
-                :value.sync="actionColor"
-            ></ui-radio-group>
+                v-model="actionColor"
+            ></ui-radio>
 
-            <ui-radio-group
+            <ui-radio
                 label="Position" name="position" :options="['left', 'center', 'right']"
-                :value.sync="position"
-            ></ui-radio-group>
+                v-model="position"
+            ></ui-radio>
 
-            <ui-switch :value.sync="queueSnackbars">Queue snackbars</ui-switch>
+            <ui-switch v-model="queueSnackbars">Queue snackbars</ui-switch>
 
-            <ui-button @click="createSnackbar">Create snackbar</ui-button>
+            <ui-button @click.native="createSnackbar">Create snackbar</ui-button>
         </div>
 
         <h3>API: UiSnackbar</h3>
@@ -354,15 +354,24 @@
 </template>
 
 <script>
-import UiTab from '../../src/UiTab.vue';
-import UiTabs from '../../src/UiTabs.vue';
-import UiButton from '../../src/UiButton.vue';
-import UiSwitch from '../../src/UiSwitch.vue';
-import UiTextbox from '../../src/UiTextbox.vue';
-import UiRadioGroup from '../../src/UiRadioGroup.vue';
+import UiTab from '../../src/UiTab.vue'
+import UiTabs from '../../src/UiTabs.vue'
+import UiButton from '../../src/UiButton.vue'
+import UiSwitch from '../../src/UiSwitch.vue'
+import UiTextbox from '../../src/UiTextbox.vue'
+import UiRadio from '../../src/UiRadio.vue'
 
-import UiSnackbar from '../../src/UiSnackbar.vue';
-import UiSnackbarContainer from '../../src/UiSnackbarContainer.vue';
+import UiSnackbar from '../../src/UiSnackbar.vue'
+import UiSnackbarContainer from '../../src/UiSnackbarContainer.vue'
+
+import EventBus from '../../src/helpers/event-bus'
+
+let model = {
+    show1: true,
+    show2: true,
+    show3: true,
+    show4: true,
+}
 
 export default {
     components: {
@@ -371,7 +380,7 @@ export default {
         UiButton,
         UiSwitch,
         UiTextbox,
-        UiRadioGroup,
+        UiRadio,
         UiSnackbar,
         UiSnackbarContainer
     },
@@ -384,13 +393,14 @@ export default {
             action: '',
             duration: 5,
             actionColor: 'accent',
-            message: 'Post deleted'
+            message: 'Post deleted',
+            model,
         };
     },
 
     methods: {
         createSnackbar() {
-            this.$broadcast('ui-snackbar::create', {
+            EventBus.$emit('ui-snackbar::create', {
                 message: this.message,
                 action: this.action,
                 actionColor: this.actionColor,

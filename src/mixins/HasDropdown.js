@@ -1,3 +1,5 @@
+import EventBus from '../helpers/event-bus'
+
 export default {
     props: {
         openDropdownOn: String,
@@ -28,7 +30,7 @@ export default {
 
     methods: {
         menuOptionSelect(option) {
-            this.$dispatch('menu-option-selected', option);
+            EventBus.$emit('menu-option-selected', option)
         }
     }
-};
+}

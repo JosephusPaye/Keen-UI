@@ -11,7 +11,7 @@
 
         <div class="ui-select-content">
             <div
-                class="ui-select-label" :tabindex="disabled ? null : '0'" v-el:label
+                class="ui-select-label" :tabindex="disabled ? null : '0'" ref="label"
                 @focus="focus" @keydown.tab="blur" @click="toggle" @keydown.space.prevent="open"
                 @keydown.enter.prevent="open"
             >
@@ -27,7 +27,7 @@
                 </div>
 
                 <div
-                    class="ui-select-dropdown" tabindex="-1" v-show="showDropdown" v-el:dropdown
+                    class="ui-select-dropdown" tabindex="-1" v-show="showDropdown" ref="dropdown"
                     @keydown.esc.prevent="close()" @keydown.tab="close()"
                     @keydown.up.prevent="highlight(highlightedIndex - 1)"
                     @keydown.down.prevent="highlight(highlightedIndex + 1)"
@@ -35,7 +35,7 @@
                 >
                     <div class="ui-select-search" v-if="showSearch" @click.stop @keydown.space.stop>
                         <input
-                            class="ui-select-search-input" type="text" v-el:search-input
+                            class="ui-select-search-input" type="text" ref="searchInput"
                             :placeholder="searchPlaceholder" v-model="query" autocomplete="off"
                         >
 
@@ -44,16 +44,15 @@
                         ></ui-progress-circular>
                     </div>
 
-                    <ul class="ui-select-options" v-el:options-list>
+                    <ul class="ui-select-options" ref="optionsList">
                         <ui-select-option
-                            :option="option" :partial="partial" :show-checkbox="multiple" :
-                            :keys="keys" @click.stop.prevent="select(option, index)"
-                            @mouseover.stop="highlight(index, true)"
+                            v-for="(option, index) in filteredOptions" ref="options"
+                            :option="option" :type="type" :show-checkbox="multiple"
+                            :keys="keys" @click.native.stop.prevent="select(option, index)"
+                            @mouseover.native.stop="highlight(index, true)"
 
                             :highlighted="highlightedIndex === index"
                             :selected="isSelected(option)"
-
-                            v-for="(index, option) in filteredOptions" v-ref:options
                         ></ui-select-option>
 
                         <li class="ui-select-no-results" v-if="nothingFound">No results found</li>
@@ -64,7 +63,7 @@
             <div class="ui-select-feedback" v-if="showFeedback">
                 <div
                     class="ui-select-error-text" transition="ui-select-feedback-toggle"
-                    v-text="validationError" v-show="!hideValidationErrors && !valid"
+                    v-text="validationError" v-if="!hideValidationErrors && !valid"
                 ></div>
 
                 <div
@@ -77,17 +76,17 @@
 </template>
 
 <script>
-import merge from 'merge-options';
-import fuzzysearch from 'fuzzysearch';
+import merge from 'merge-options'
+import fuzzysearch from 'fuzzysearch'
 
-import { scrollIntoView, resetScroll } from './helpers/element-scroll';
+import { scrollIntoView, resetScroll } from './helpers/element-scroll'
 
-import UiIcon from './UiIcon.vue';
-import UiSelectOption from './UiSelectOption.vue';
-import UiProgressCircular from './UiProgressCircular.vue';
-
-import HasTextInput from './mixins/HasTextInput';
-import ValidatesInput from './mixins/ValidatesInput';
+import UiIcon from './UiIcon.vue'
+import UiSelectOption from './UiSelectOption.vue'
+import UiProgressCircular from './UiProgressCircular.vue'
+import EventBus from './helpers/event-bus'
+import HasTextInput from './mixins/HasTextInput'
+import ValidatesInput from './mixins/ValidatesInput'
 
 export default {
     name: 'ui-select',
@@ -95,8 +94,6 @@ export default {
     props: {
         value: {
             type: [Object, Array, String, Number],
-            default: null,
-            twoWay: true
         },
         default: {
             type: [Object, Array, String, Number],
@@ -106,7 +103,7 @@ export default {
             type: Array,
             default: []
         },
-        partial: String,
+        type: String,
         showSearch: {
             type: Boolean,
             default: false
@@ -154,7 +151,8 @@ export default {
             selectedIndex: -1,
             highlightedIndex: -1,
             showDropdown: false,
-            ignoreQueryChange: false
+            ignoreQueryChange: false,
+            previewFilteredOptions: null,
         };
     },
 
@@ -200,23 +198,26 @@ export default {
 
     watch: {
         filteredOptions() {
-            this.highlightedIndex = 0;
-            resetScroll(this.$els.optionsList);
+            if (this.previewFilteredOptions.length !== this.filteredOptions.length) {
+                this.highlightedIndex = 0;
+                resetScroll(this.$refs.optionsList);
+                this.previewFilteredOptions = this.filteredOptions
+            }
         },
 
         showDropdown() {
             if (this.showDropdown) {
                 this.opened();
-                this.$dispatch('opened');
+                this.$emit('opened');
             } else {
                 this.closed();
-                this.$dispatch('closed');
+                this.$emit('closed');
             }
         },
 
         query() {
             if (!this.ignoreQueryChange) {
-                this.$dispatch('query-changed', this.query);
+                this.$emit('query-changed', this.query);
             }
         }
     },
@@ -231,20 +232,17 @@ export default {
         };
 
         if (this.validationRules) {
-            this.validationMessages = merge(errorMessages, this.validationMessages);
+            if (this.validationMessages) {
+                this._validationMessages = merge(errorMessages, this.validationMessages);
+            } else {
+                this._validationMessages = errorMessages
+            }
         }
     },
 
-    ready() {
-        document.addEventListener('click', this.closeOnExternalClick);
-    },
-
-    beforeDestroy() {
-        document.removeEventListener('click', this.closeOnExternalClick);
-    },
-
-    events: {
-        'ui-select::set-selected': function(value, id) {
+    mounted() {
+        document.addEventListener('click', this.closeOnExternalClick)
+        EventBus.$on('ui-select::set-selected', (value, id) => {
             // Abort if event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
                 return;
@@ -252,29 +250,31 @@ export default {
 
             this.default = value;
             this.initValue();
-        },
-
-        'ui-input::reset': function(id) {
+        })
+        EventBus.$on('ui-input::reset', (id) => {
             // Abort if reset event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
                 return;
             }
 
             // Reset state
-            this.initValue();
+            this.$emit('input', this.initialValue)
             this.dirty = false;
             this.valid = true;
 
             this.clearQuery();
             this.selectedIndex = -1;
             this.highlightedIndex = -1;
-        }
+        })
+    },
+
+    beforeDestroy() {
+        document.removeEventListener('click', this.closeOnExternalClick);
     },
 
     methods: {
         initValue() {
-            this.value = this.multiple ? [] : null;
-
+            this.previewFilteredOptions = this.filteredOptions
             if (this.default) {
                 let defaults = Array.isArray(this.default) ? this.default : [this.default];
 
@@ -312,18 +312,23 @@ export default {
         },
 
         select(option, index, close = true) {
+
             if (this.multiple) {
+
                 if (this.isSelected(option)) {
                     this.deselect(option);
                 } else {
-                    this.value.push(option);
+                    const arr = this.value.slice(0)
+                    arr.push(option)
+
+                    this.$emit('input', arr)
                 }
             } else {
-                this.value = option;
+                this.$emit('input', option)
                 this.selectedIndex = index;
             }
 
-            this.$dispatch('selected', option);
+            this.$emit('selected', option);
 
             this.highlightedIndex = index;
             this.clearQuery();
@@ -335,7 +340,9 @@ export default {
         },
 
         deselect(option) {
-            this.value.$remove(option);
+            const arr = this.value.slice(0)
+            arr.splice(this.value.indexOf(option) ,1)
+            this.$emit('input', arr)
         },
 
         isSelected(option) {
@@ -405,12 +412,12 @@ export default {
         opened() {
             this.$nextTick(() => {
                 if (this.showSearch) {
-                    this.$els.searchInput.focus();
+                    this.$refs.searchInput.focus();
                 } else {
-                    this.$els.dropdown.focus();
+                    this.$refs.dropdown.focus();
                 }
 
-                this.scrollOptionIntoView(this.$els.optionsList.querySelector('.selected'));
+                this.scrollOptionIntoView(this.$refs.optionsList.querySelector('.selected'));
             });
         },
 
@@ -424,7 +431,7 @@ export default {
             if (deactivate) {
                 this.active = false;
             } else {
-                this.$els.label.focus();
+                this.$refs.label.focus();
             }
         },
 
@@ -447,23 +454,24 @@ export default {
         setDefaultValue(defaults) {
             let optionValue;
             let defaultOptionValue;
+            let arr = []
 
             for (let i = 0; i < defaults.length; i++) {
                 defaultOptionValue = defaults[i][this.keys.value] || defaults[i];
-
                 for (let j = 0; j < this.options.length; j++) {
                     optionValue = this.options[j][this.keys.value] || this.options[j];
 
                     if (optionValue === defaultOptionValue) {
-                        this.select(this.options[j], j, false);
+                        arr.push(this.options[j])
                         break;
                     }
                 }
             }
+            this.$emit('input', arr.length > 1 ? arr : arr[0])
         },
 
         scrollOptionIntoView(optionEl) {
-            scrollIntoView(optionEl, this.$els.optionsList, 80);
+            scrollIntoView(optionEl, this.$refs.optionsList, 80);
         }
     },
 

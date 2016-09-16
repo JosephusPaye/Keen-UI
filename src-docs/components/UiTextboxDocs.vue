@@ -21,26 +21,28 @@
 
             <ui-textbox
                 label="Name" name="name" type="text" placeholder="Enter your name"
+                v-model="values.value1"
             ></ui-textbox>
 
             <h4>Disabled</h4>
 
             <ui-textbox
                 label="Name" name="name" type="text" placeholder="Enter your name" disabled
+                v-model="values.value2"
             ></ui-textbox>
 
             <h4>With default value</h4>
 
             <ui-textbox
                 label="Name" name="name" type="text" placeholder="Enter your name"
-                :value.sync="'John Doe'"
+                v-model="values.value3"
             ></ui-textbox>
 
             <h4>With default value, disabled</h4>
 
             <ui-textbox
                 label="Name" name="name" type="text" placeholder="Enter your name"
-                :value.sync="'John Doe'" disabled
+                disabled v-model="values.value4"
             ></ui-textbox>
 
              <h4>With help text</h4>
@@ -48,19 +50,23 @@
             <ui-textbox
                 label="Name" name="name" type="text" placeholder="Enter your name"
                 help-text="If you have multiple names, enter the one you prefer"
+                v-model="values.value5"
+
             ></ui-textbox>
 
             <h4>With icon</h4>
 
             <ui-textbox
                 label="Phone" name="phone" type="tel" placeholder="Enter your phone number"
-                icon="phone"
+                icon="phone" v-model="values.value6"
             ></ui-textbox>
 
             <h4>With icon, no label</h4>
 
             <ui-textbox
                 name="search" placeholder="Search" icon="search" hide-label
+                v-model="values.value7"
+
             ></ui-textbox>
 
             <h4>With icon (right) and help text</h4>
@@ -68,7 +74,7 @@
             <ui-textbox
                 label="Email" name="email" type="text" placeholder="Enter your email" icon="mail"
                 help-text="If you have multiple email addresses, enter the one you use the most"
-                icon-right
+                icon-right v-model="values.value8"
             ></ui-textbox>
 
             <h4>With validation</h4>
@@ -78,7 +84,7 @@
             <ui-textbox
                 label="Name" name="name" type="text" placeholder="Enter your name"
                 help-text="If you have multiple names, enter the one you prefer"
-                validation-rules="required" autocomplete="off"
+                validation-rules="required" autocomplete="off" v-model="values.value9"
             ></ui-textbox>
 
             <h4>Set validation state externally</h4>
@@ -86,10 +92,11 @@
             <ui-textbox
                 label="Name" name="name" type="text" placeholder="Enter your name"
                 help-text="If you have multiple names, enter the one you prefer"
-                autocomplete="off" id="set-validation-state" :valid.sync="isValid"
+                autocomplete="off" id="set-validation-state"
+                v-model="values.value10"
             ></ui-textbox>
 
-            <ui-button class="m-t-8" @click="toggleValidity">Toggle validity</ui-button>
+            <ui-button class="m-t-8" @click.native="toggleValidity">Toggle validity</ui-button>
 
             <h4>With validation and counter (max length)</h4>
 
@@ -99,6 +106,7 @@
                 label="Username" name="username" type="text" placeholder="Enter a username"
                 icon="person" :max-length="16" validation-rules="min:8|max:16"
                 help-text="Pick a unique username, minimum 8 characters, maximum 16 characters"
+                v-model="values.value11"
             ></ui-textbox>
 
             <h4>With multiple validation rules, validate on blur</h4>
@@ -109,7 +117,7 @@
                 label="Email" name="email" type="email" placeholder="Enter your email"
                 help-text="If you have multiple email addresses, enter the one you use most often"
                 validation-rules="required|email|min:10|max:64" validate-on-blur
-                autocomplete="off"
+                autocomplete="off" v-model="values.value12"
             ></ui-textbox>
 
             <h4>With custom validation messages</h4>
@@ -120,7 +128,7 @@
                 label="Email" name="email" type="text" placeholder="Enter your email"
                 help-text="If you have multiple email addresses, enter the one you use most often"
                 validation-rules="required|email" autocomplete="off"
-                :validation-messages="validationErrorMessages"
+                :validation-messages="validationErrorMessages" v-model="values.value13"
             ></ui-textbox>
 
             <h4>Number Input</h4>
@@ -131,7 +139,7 @@
                 label="Number of Cats" name="number_of_cats" type="number"
                 placeholder="Enter number of cats" :min="0" :max="99"
                 help-text="The ideal number of cats any one person should own, minimum 0, maximum 99"
-                validation-rules="numeric|min:0|max:99"
+                validation-rules="numeric|min:0|max:99" v-model="values.value14"
             ></ui-textbox>
 
             <h4>Multi-line input (textarea)</h4>
@@ -139,7 +147,7 @@
             <ui-textbox
                 label="Short bio" name="short_bio" :multi-line="true" :max-length="256"
                 placeholder="Introduce yourself in a few words" help-text="Max 256 characters"
-                validation-rules="max:256"
+                validation-rules="max:256" v-model="values.value15"
             ></ui-textbox>
 
             <h4>Multi-line input (textarea) with icon</h4>
@@ -147,10 +155,10 @@
             <ui-textbox
                 label="Short bio" name="short_bio" :multi-line="true" icon="face" :max-length="256"
                 placeholder="Introduce yourself in a few words" help-text="Max 256 characters"
-                validation-rules="max:256"
+                validation-rules="max:256" v-model="values.value16"
             ></ui-textbox>
 
-            <ui-button class="m-t-24" @click="resetFields">Reset all fields</ui-button>
+            <ui-button class="m-t-24" @click.native="resetFields">Reset all fields</ui-button>
         </div>
 
         <h3>API</h3>
@@ -572,11 +580,30 @@
 </template>
 
 <script>
-import UiTab from '../../src/UiTab.vue';
-import UiTabs from '../../src/UiTabs.vue';
-import UiTextbox from '../../src/UiTextbox.vue';
-import UiButton from '../../src/UiButton.vue';
+import UiTab from '../../src/UiTab.vue'
+import UiTabs from '../../src/UiTabs.vue'
+import UiTextbox from '../../src/UiTextbox.vue'
+import UiButton from '../../src/UiButton.vue'
+import EventBus from '../../src/helpers/event-bus'
 
+let values = {
+    value1: '',
+    value2: '',
+    value3: 'John Doe',
+    value4: 'John Doe',
+    value5: '',
+    value6: '',
+    value7: '',
+    value8: '',
+    value9: '',
+    value10: '',
+    value11: '',
+    value12: '',
+    value13: '',
+    value14: '',
+    value15: '',
+    value16: ''
+}
 export default {
     components: {
         UiTab,
@@ -591,17 +618,18 @@ export default {
                 required: 'Please enter your email. We won\'t be able to contact you without an email address.',
                 email: 'Oops, the email address you have entered seems to be wrong. Double check?'
             },
-            isValid: true
+            isValid: true,
+            values,
         };
     },
 
     methods: {
         resetFields() {
-            this.$broadcast('ui-input::reset');
+            EventBus.$emit('ui-input::reset');
         },
 
         toggleValidity() {
-            this.$broadcast(
+            EventBus.$emit(
                 'ui-input::set-validity',
                 !this.isValid,
                 'The input is not valid. This error message was set externally.',

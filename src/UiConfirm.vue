@@ -1,22 +1,21 @@
 <template>
     <div class="ui-confirm">
         <ui-modal
-            :show.sync="show" role="alertdialog" :header="header" @opened="opened" show-close-button
-            :dismissible="!loading" :backdrop-dismissible="backdropDismissible"
+            v-model="show" role="alertdialog" :header="header" @opened="opened" show-close-button
+            :dismissible="!loading" :backdrop-dismissible="backdropDismissible" @closed="$emit('input', false)"
         >
             <div class="ui-confirm-message">
                 <slot></slot>
             </div>
 
-            <div slot="footer">
+            <div slot="footer" class="slot">
                 <ui-button
                     :color="type" :text="confirmButtonText" :icon="confirmButtonIcon"
-                    @click="confirm" :loading="loading" v-el:confirm-button
+                    @click.native="confirm" :loading="loading" ref="confirmButton"
                 ></ui-button>
-
                 <ui-button
-                    :text="denyButtonText" :icon="denyButtonIcon" @click="deny"
-                    :disabled="loading" v-el:deny-button
+                    :text="denyButtonText" :icon="denyButtonIcon" @click.native="deny"
+                    :disabled="loading" ref="denyButton"
                 ></ui-button>
             </div>
         </ui-modal>
@@ -32,11 +31,28 @@ import UiButton from './UiButton.vue';
 export default {
     name: 'ui-confirm',
 
+    data() {
+        return {
+            show: false,
+        }
+    },
+
+    watch: {
+        value() {
+            this.show = this.value
+        }
+    },
+
+    created() {
+        if (this.value !== this.show) {
+            this.show = this.value
+        }
+    },
+
     props: {
-        show: {
+        value: {
             type: Boolean,
             required: true,
-            twoWay: true
         },
         type: {
             type: String,
@@ -58,7 +74,7 @@ export default {
         denyButtonIcon: String,
         autofocus: {
             type: String,
-            default: 'deny-button', // 'confirm-button', 'deny-button' or 'none'
+            default: 'deny', // 'confirm-button', 'deny-button' or 'none'
         },
         closeOnConfirm: {
             type: Boolean,
@@ -76,52 +92,49 @@ export default {
 
     methods: {
         confirm() {
-            this.$dispatch('confirmed');
+            this.$emit('confirmed');
 
             if (this.closeOnConfirm) {
-                this.show = false;
+                this.$emit('input', false)
             }
         },
 
         deny() {
-            this.show = false;
-            this.$dispatch('denied');
+            this.$emit('denied')
+            this.$emit('input', false)
         },
 
         opened() {
             let button;
 
-            if (this.autofocus === 'confirm-button') {
-                button = this.$els.confirmButton;
-            } else if (this.autofocus === 'deny-button') {
-                button = this.$els.denyButton;
+            if (this.autofocus === 'confirm') {
+                button = this.$refs.confirmButton.$el
+            } else if (this.autofocus === 'deny') {
+                button = this.$refs.denyButton.$el
             }
 
             if (button) {
-                classlist.add(button, 'autofocus');
-                button.addEventListener('blur', this.removeAutoFocus);
+                classlist.add(button, 'autofocus')
+                button.addEventListener('blur', this.removeAutoFocus)
 
-                button.focus();
+                button.focus()
             }
-
-            // Bubble event up
-            return true;
         },
 
         removeAutoFocus() {
             let button;
 
-            if (this.autofocus === 'confirm-button') {
-                button = this.$els.confirmButton;
-            } else if (this.autofocus === 'deny-button') {
-                button = this.$els.denyButton;
+            if (this.autofocus === 'confirm') {
+                button = this.$refs.confirmButton.$el
+            } else if (this.autofocus === 'deny') {
+                button = this.$refs.denyButton.$el
             }
 
             if (button) {
                 // This listener should run only once
-                button.removeEventListener('blur', this.removeAutoFocus);
+                button.removeEventListener('blur', this.removeAutoFocus)
 
-                classlist.remove(button, 'autofocus');
+                classlist.remove(button, 'autofocus')
             }
         }
     },

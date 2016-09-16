@@ -19,56 +19,58 @@
 
             <ui-select
                 name="color" label="Favourite color" :options="colorStrings"
-                placeholder="Select a color"
+                placeholder="Select a color" v-model="values.value1"
             ></ui-select>
 
             <h4>As above, with a default selection</h4>
 
             <ui-select
                 name="color" label="Favourite color" :options="colorStrings" default="Lavender"
-                placeholder="Select a color"
+                placeholder="Select a color" v-model="values.value2"
             ></ui-select>
 
             <h4>With images (options as array of objects)</h4>
 
             <ui-select
-                name="color" label="Favourite color" :options="colors" partial="ui-select-image"
-                placeholder="Select a color"
+                name="color" label="Favourite color" :options="colors" type="image"
+                placeholder="Select a color" v-model="values.value3"
             ></ui-select>
 
             <h4>As above, with a default selection</h4>
 
             <ui-select
-                name="color" label="Favourite color" :options="colors" partial="ui-select-image"
-                placeholder="Select a color" default="lavender"
+                name="color" label="Favourite color" :options="colors" type="image"
+                placeholder="Select a color" default="lavender" v-model="values.value4"
             ></ui-select>
 
             <h4>With help text</h4>
 
             <ui-select
-                name="color" label="Favourite color" :options="colors" partial="ui-select-image"
+                name="color" label="Favourite color" :options="colors" type="image"
                 placeholder="Select a color" help-text="Will appear on your profile page"
+                v-model="values.value5"
             ></ui-select>
 
             <h4>With filtering</h4>
 
             <ui-select
-                name="color" label="Favourite color" :options="colors" partial="ui-select-image"
-                placeholder="Select a color" show-search
+                name="color" label="Favourite color" :options="colors" type="image"
+                placeholder="Select a color" show-search v-model="values.value6"
             ></ui-select>
 
             <h4>Multiple selection</h4>
 
             <ui-select
-                name="color" label="Favourite colors" :options="colors" partial="ui-select-image"
-                placeholder="Select some colors" show-search multiple
+                name="color" label="Favourite colors" :options="colors" type="image"
+                placeholder="Select some colors" show-search multiple v-model="values.value7"
             ></ui-select>
 
             <h4>Multiple selection with defaults selected</h4>
 
             <ui-select
-                name="color" label="Favourite colors" partial="ui-select-image" show-search multiple
+                name="color" label="Favourite colors" type="image" show-search multiple
                 placeholder="Select some colors" :options="colors" :default="['red', 'blue']"
+                v-model="values.value8"
             ></ui-select>
 
             <h4>With validation</h4>
@@ -76,8 +78,9 @@
             <p class="code"><code>validation-rules="required"</code></p>
 
             <ui-select
-                name="favorite_color" label="Favourite color" partial="ui-select-image"
+                name="favorite_color" label="Favourite color" type="image"
                 placeholder="Select a color" :options="colors" validation-rules="required"
+                v-model="values.value9"
             ></ui-select>
 
             <h4>Multiple selection with validation</h4>
@@ -86,22 +89,22 @@
 
             <ui-select
                 label="Favourite colors" placeholder="Select some colors" name="favorite_colors"
-                partial="ui-select-image" multiple :options="colors"
+                type="image" multiple :options="colors"
                 help-text="Select at least 2 but no more than 4 colors"
-                validation-rules="required|min:2|max:4"
+                validation-rules="required|min:2|max:4" v-model="values.value10"
             ></ui-select>
 
             <h4>Search with dynamic options</h4>
 
             <ui-select
-                name="color" label="Favourite color" partial="ui-select-image" show-search
-                search-placeholder="Type &quot;red&quot; or &quot;blue&quot;" options-dynamic
+                name="color" label="Favourite color" type="image" show-search
+                :search-placeholder="`Type 'red' or 'blue'`" options-dynamic
                 placeholder="Select a color"
 
-                :options="dynamicSelect.options" :value.sync="dynamicSelect.value"
+                :options="dynamicSelect.options" v-model="dynamicSelect.value"
                 :loading="dynamicSelect.loading" :options-loaded="dynamicSelect.optionsLoaded"
 
-                @query-changed="queryChanged | debounce 500"
+                @query-changed="queryChanged"
             ></ui-select>
 
             <h4>Disabled</h4>
@@ -118,7 +121,7 @@
                 default="blue" disabled
             ></ui-select>
 
-            <ui-button @click="resetSelects">Reset selects</ui-button>
+            <ui-button @click.native="resetSelects">Reset selects</ui-button>
         </div>
 
         <h3>API</h3>
@@ -234,18 +237,18 @@
                             </tr>
 
                             <tr>
-                                <td>partial</td>
+                                <td>type</td>
                                 <td>String</td>
                                 <td><code>"ui-select-simple"</code></td>
                                 <td></td>
                                 <td>
-                                    <p>The ID of a registered <a href="http://vuejs.org/api/#partial" target="_blank" rel="noopener">Vue partial</a> to use as the template for each option.</p>
+                                    <p>The ID of a registered <a href="http://vuejs.org/api/#type" target="_blank" rel="noopener">Vue type</a> to use as the template for each option.</p>
 
-                                    <p>This partial is rendered into an <code>&lt;div&gt;</code> with a class of <code>ui-select-option-content</code> which also has the partial's ID as a class. In the partial template, you have access to an <code>option</code> object from the options array which you can use to render the option however you like.</p>
+                                    <p>This type is rendered into an <code>&lt;div&gt;</code> with a class of <code>ui-select-option-content</code> which also has the type's ID as a class. In the type template, you have access to an <code>option</code> object from the options array which you can use to render the option however you like.</p>
 
-                                    <p>The default partial simply renders the option text.</p>
+                                    <p>The default type simply renders the option text.</p>
 
-                                    <p>There is another default partial, <code>ui-select-image</code>, which you can use to render the items with an image. To use, set an image URL as the <code>image</code> property on each option and set the partial to <code>ui-select-image</code>.</p>
+                                    <p>There is another default type, <code>image</code>, which you can use to render the items with an image. To use, set an image URL as the <code>image</code> property on each option and set the type to <code>image</code>.</p>
 
                                     <p>You can also redefine the <code>image</code> key to fit your data using the <code>keys</code> prop.</p>
                                 </td>
@@ -573,10 +576,12 @@ if (!String.prototype.startsWith) {
     };
 }
 
-import UiTab from '../../src/UiTab.vue';
-import UiTabs from '../../src/UiTabs.vue';
-import UiButton from '../../src/UiButton.vue';
-import UiSelect from '../../src/UiSelect.vue';
+import UiTab from '../../src/UiTab.vue'
+import UiTabs from '../../src/UiTabs.vue'
+import UiButton from '../../src/UiButton.vue'
+import UiSelect from '../../src/UiSelect.vue'
+
+import EventBus from '../../src/helpers/event-bus'
 
 let colorStrings = [
     'Red', 'Blue', 'Green', 'Yellow', 'Purple', 'Pink', 'Lavender', 'Orange', 'Peach', 'Lime'
@@ -798,6 +803,19 @@ let blueShades = [
     }
 ];
 
+let values = {
+    value1: '',
+    value2: '',
+    value3: '',
+    value4: '',
+    value5: '',
+    value6: '',
+    value7: [],
+    value8: [],
+    value9: '',
+    value10: [],
+}
+
 export default {
     components: {
         UiTab,
@@ -810,6 +828,7 @@ export default {
         return {
             colors,
             colorStrings,
+            values,
             dynamicSelect: {
                 value: null,
                 options: [],
@@ -822,33 +841,35 @@ export default {
 
     methods: {
         resetSelects() {
-            this.$broadcast('ui-input::reset');
+            EventBus.$emit('ui-input::reset')
         },
 
         queryChanged(query) {
-            if (!query.length) {
-                return;
-            }
-
-            this.dynamicSelect.loading = true;
-            this.dynamicSelect.optionsLoaded = false;
-
-            if (this.dynamicSelect.timeout) {
-                clearTimeout(this.dynamicSelect.timeout);
-            }
-
-            this.dynamicSelect.timeout = setTimeout(() => {
-                if (query.toLowerCase().startsWith('red')) {
-                    this.dynamicSelect.options = redShades;
-                } else if (query.toLowerCase().startsWith('blue')) {
-                    this.dynamicSelect.options = blueShades;
-                } else {
-                    this.dynamicSelect.options = [];
+            setTimeout(()=> {
+                if (!query.length) {
+                    return;
                 }
 
-                this.dynamicSelect.loading = false;
-                this.dynamicSelect.optionsLoaded = true;
-            }, 2500);
+                this.dynamicSelect.loading = true;
+                this.dynamicSelect.optionsLoaded = false;
+
+                if (this.dynamicSelect.timeout) {
+                    clearTimeout(this.dynamicSelect.timeout);
+                }
+
+                this.dynamicSelect.timeout = setTimeout(() => {
+                    if (query.toLowerCase().startsWith('red')) {
+                        this.dynamicSelect.options = redShades;
+                    } else if (query.toLowerCase().startsWith('blue')) {
+                        this.dynamicSelect.options = blueShades;
+                    } else {
+                        this.dynamicSelect.options = [];
+                    }
+
+                    this.dynamicSelect.loading = false;
+                    this.dynamicSelect.optionsLoaded = true;
+                }, 2500);
+            }, 500)
         }
     }
 };

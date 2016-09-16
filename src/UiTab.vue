@@ -8,31 +8,42 @@
 </template>
 
 <script>
+import UUID from './helpers/uuid'
+
 export default {
     name: 'ui-tab',
-
+    data() {
+        return {
+            id: ''
+        }
+    },
     props: {
-        id: String,
         header: String,
         icon: String,
         disabled: {
             type: Boolean,
             default: false
-        }
+        },
+        _id: String,
     },
 
     computed: {
         active() {
-            return this.$parent.activeTab === this.id;
+            return this.$parent.activeTab === this.id
         }
     },
 
     watch: {
         active() {
             if (this.active) {
-                this.$dispatch('selected', this.id);
+                this.$emit('selected', this.id)
             } else {
-                this.$dispatch('deselected', this.id);
+                this.$emit('deselected', this.id)
+            }
+        },
+        id() {
+            if (this._id) {
+                this.id = this._id
             }
         }
     }

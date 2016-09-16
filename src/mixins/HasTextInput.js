@@ -1,5 +1,3 @@
-import disabled from '../directives/disabled';
-
 import ReceivesTargetedEvent from './ReceivesTargetedEvent';
 
 export default {
@@ -13,7 +11,6 @@ export default {
         value: {
             type: [String, Number],
             default: '',
-            twoWay: true
         },
         icon: String,
         iconRight: {
@@ -39,7 +36,7 @@ export default {
     data() {
         return {
             active: false,
-            initialValue: ''
+            initialValue: '',
         };
     },
 
@@ -54,11 +51,7 @@ export default {
 
     created() {
         // Cache value for later reset
-        this.initialValue = this.value;
-    },
-
-    directives: {
-        disabled
+        this.initialValue = this.value
     },
 
     mixins: [

@@ -1,7 +1,7 @@
 <template>
     <button
-        class="ui-button" :class="styleClasses" :type="buttonType" v-disabled="disabled || loading"
-        v-el:button
+        class="ui-button" :disabled="disabled || loading" ref="button"
+        :class="styleClasses" :type="buttonType"
     >
         <div class="ui-button-content" :class="{ 'invisible': loading }">
             <ui-icon
@@ -16,7 +16,7 @@
             </div>
 
             <ui-icon
-                class="ui-button-dropdown-icon" icon="&#xE5C5;"
+                class="ui-button-dropdown-icon" :icon="String('\uE5C5')"
                 v-if="!iconRight && showDropdownIcon && (hasDropdownMenu || hasPopover)"
             ></ui-icon>
         </div>
@@ -26,17 +26,18 @@
             disable-transition v-show="loading"
         ></ui-progress-circular>
 
-        <ui-ripple-ink v-if="!hideRippleInk && !disabled" :trigger="$els.button"></ui-ripple-ink>
+        <ui-ripple-ink v-if="!hideRippleInk && !disabled"></ui-ripple-ink>
 
         <ui-menu
-            class="ui-button-dropdown-menu" :trigger="$els.button" :options="menuOptions"
+            v-if="hasDropdownMenu"
+            class="ui-button-dropdown-menu" trigger="button" :options="menuOptions"
             :show-icons="showMenuIcons" :show-secondary-text="showMenuSecondaryText"
             :open-on="openDropdownOn" @option-selected="menuOptionSelect"
-            :dropdown-position="dropdownPosition" v-if="hasDropdownMenu"
+            :dropdown-position="dropdownPosition"
         ></ui-menu>
 
         <ui-popover
-            :trigger="$els.button" :open-on="openDropdownOn" :dropdown-position="dropdownPosition"
+            trigger="button" :open-on="openDropdownOn" :dropdown-position="dropdownPosition"
             v-if="hasPopover"
         >
             <slot name="popover"></slot>
@@ -50,8 +51,6 @@ import UiMenu from './UiMenu.vue';
 import UiPopover from './UiPopover.vue';
 import UiProgressCircular from './UiProgressCircular.vue';
 
-import disabled from './directives/disabled';
-
 import HasDropdown from './mixins/HasDropdown';
 import ShowsRippleInk from './mixins/ShowsRippleInk';
 
@@ -61,10 +60,7 @@ export default {
     props: {
         type: {
             type: String,
-            default: 'normal', // 'normal' or 'flat'
-            coerce(type) {
-                return 'ui-button-' + type;
-            }
+            default: 'normal' // 'normal' or 'flat'
         },
         buttonType: {
             type: String,
@@ -72,10 +68,7 @@ export default {
         },
         color: {
             type: String,
-            default: 'default', // 'default', 'primary', 'accent', 'success', 'warning', or 'danger'
-            coerce(color) {
-                return 'color-' + color;
-            }
+            default: 'default' // 'default', 'primary', 'accent', 'success', 'warning', or 'danger'
         },
         raised: {
             type: Boolean,
@@ -103,25 +96,21 @@ export default {
 
     computed: {
         styleClasses() {
-            let classes = [this.type, this.color];
+            let classes = [`ui-button-${this.type}`, `color-${this.color}`]
 
             if (this.raised) {
-                classes.push('ui-button-raised');
+                classes.push('ui-button-raised')
             }
 
             if (this.hasDropdownMenu || this.hasPopover) {
-                classes.push('has-dropdown');
+                classes.push('has-dropdown')
             }
 
-            return classes;
+            return classes
         },
 
         spinnerColor() {
-            if (this.color === 'color-default' || this.type === 'ui-button-flat') {
-                return 'black';
-            }
-
-            return 'white';
+            return (this.color === 'default' || this.type === 'flat') ? 'black' : 'white'
         },
 
         showIcon() {
@@ -139,12 +128,8 @@ export default {
     mixins: [
         HasDropdown,
         ShowsRippleInk
-    ],
-
-    directives: {
-        disabled
-    }
-};
+    ]
+}
 </script>
 
 <style lang="stylus">

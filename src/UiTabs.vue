@@ -1,41 +1,41 @@
 <template>
     <div class="ui-tabs" :class="styleClasses">
-        <div class="ui-tabs-header" :class="[backgroundColor]">
+        <div class="ui-tabs-header" :class="['background-color-'+backgroundColor]">
             <ul
-                class="ui-tabs-header-items" :class="[textColor, textColorActive]" role="tablist"
-                v-el:tabs-container
+                class="ui-tabs-header-items" :class="['text-color-'+textColor, 'text-color-active-'+textColorActive]" role="tablist"
+                ref="tabsContainer"
             >
                 <ui-tab-header-item
                     :type="type" :id="tab.id" :icon="tab.icon" :text="tab.header"
                     :active="activeTab === tab.id" :disabled="tab.disabled"
                     :hide-ripple-ink="hideRippleInk"
 
-                    @click="select($event, tab)" @keydown.left="selectPrev(index)"
-                    @keydown.right="selectNext($index)"
+                    @click.native="select($event, tab)" @keydown.left="selectPrev(index)"
+                    @keydown.right="selectNext(index)"
 
-                    v-for="(index, tab) in $children" v-ref:tab-elements
+                    v-for="(tab, index) in tabs" ref="tabElements"
                 ></ui-tab-header-item>
             </ul>
 
             <div
-                class="ui-tabs-active-tab-indicator" :class="[indicatorColor]"
+                class="ui-tabs-active-tab-indicator" :class="['color-' +indicatorColor]"
                 :style="{ 'left': indicatorLeft, 'right': indicatorRight }"
             ></div>
         </div>
 
-        <div class="ui-tabs-body">
+        <div class="ui-tabs-body" ref="body">
             <slot></slot>
         </div>
     </div>
 </template>
 
 <script>
-import UUID from './helpers/uuid';
+import UUID from './helpers/uuid'
 
-import UiTabHeaderItem from './UiTabHeaderItem.vue';
+import UiTabHeaderItem from './UiTabHeaderItem.vue'
+import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent'
 
-import disabled from './directives/disabled';
-import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent';
+import EventBus from './helpers/event-bus'
 
 export default {
     name: 'ui-tabs',
@@ -45,34 +45,21 @@ export default {
             type: String,
             default: 'text', // 'text', 'icon', or 'icon-and-text'
         },
-        activeTab: String,
         backgroundColor: {
             type: String,
             default: 'default', // 'default', 'primary', 'accent', or 'clear'
-            coerce(color) {
-                return 'background-color-' + color;
-            }
         },
         textColor: {
             type: String,
             default: 'black', // 'black', or 'white'
-            coerce(color) {
-                return 'text-color-' + color;
-            }
         },
         textColorActive: {
             type: String,
             default: 'primary', // 'primary', 'accent', or 'white'
-            coerce(color) {
-                return 'text-color-active-' + color;
-            }
         },
         indicatorColor: {
             type: String,
             default: 'primary', // 'primary', 'accent', or 'white'
-            coerce(color) {
-                return 'color-' + color;
-            }
         },
         fullwidth: {
             type: Boolean,
@@ -90,7 +77,9 @@ export default {
 
     data() {
         return {
-            activeTabElement: null
+            activeTabElement: null,
+            activeTab: String,
+            tabs: null,
         };
     },
 
@@ -121,32 +110,30 @@ export default {
             if (this.activeTabElement) {
                 let left = this.activeTabElement.offsetLeft;
                 let width = this.activeTabElement.offsetWidth;
-                let tabContainerWidth = this.$els.tabsContainer.offsetWidth;
+                let tabContainerWidth = this.$refs.tabsContainer.offsetWidth;
 
                 return (tabContainerWidth - (left + width)) + 'px';
             }
         }
     },
 
-    ready() {
-        // Setup default ids
+    mounted() {
+        this.tabs = this.$children.slice(0)
         for (let i = 0; i < this.$children.length; i++) {
             this.$children[i].id = this.$children[i].id || UUID.short('ui-tab-');
         }
 
         // Set the active tab
-        this.activeTab = this.activeTab || this.$children[0].id;
+        this.activeTab = this.$children[0].id;
 
         // Set the active tab element (to show indicator)
         this.$nextTick(() => {
-            if (this.$els.tabsContainer) {
-                this.activeTabElement = this.$els.tabsContainer.querySelector('.active');
+            if (this.$refs.tabsContainer) {
+                this.activeTabElement = this.$refs.tabsContainer.querySelector('.active');
             }
-        });
-    },
+        })
 
-    events: {
-        'ui-tabs::select': function(tabId, id) {
+        EventBus.$on('ui-tabs::select', (tabId, id) => {
             // Abort if event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
                 return;
@@ -157,7 +144,7 @@ export default {
             if (tab) {
                 this.select(tab.$el, tab);
             }
-        }
+        })
     },
 
     methods: {
@@ -173,7 +160,7 @@ export default {
             this.activeTabElement = newTabElement;
             this.activeTab = tab.id;
 
-            this.$dispatch('active-tab-changed', tab.id);
+            this.$emit('active-tab-changed', tab.id);
         },
 
         selectPrev(currentTabIndex) {
@@ -229,7 +216,8 @@ export default {
 
             let numOfTabs = this.$refs.tabElements.length;
 
-            for (let i = 0; i <= numOfTabs; i++) {
+            for (let i = 0; i < numOfTabs; i++) {
+                console.log(this.$refs.tabElements[i].id);
                 if (id === this.$refs.tabElements[i].id) {
                     tab = this.$refs.tabElements[i];
                     break;
@@ -242,10 +230,6 @@ export default {
 
     components: {
         UiTabHeaderItem
-    },
-
-    directives: {
-        disabled
     },
 
     mixins: [

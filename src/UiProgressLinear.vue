@@ -1,19 +1,21 @@
 <template>
-    <div
-        class="ui-progress-linear" :class="[color]" v-show="show"
-        transition="ui-progress-linear-toggle"
-    >
+    <transition name="ui-progress-linear-toggle">
         <div
-            class="ui-progress-linear-determinate" :style="{ 'width': progress + '%' }"
-            role="progressbar" :aria-valuemin="0" :aria-valuemax="100" :aria-valuenow="value"
-            v-if="type === 'determinate'"
-        ></div>
+            class="ui-progress-linear" :class="[`color-${color}`]" v-show="show"
 
-        <div
-            class="ui-progress-linear-indeterminate" role="progressbar" :aria-valuemin="0"
-            :aria-valuemax="100" v-else
-        ></div>
-    </div>
+        >
+            <div
+                class="ui-progress-linear-determinate" :style="{ 'width': progress + '%' }"
+                role="progressbar" :aria-valuemin="0" :aria-valuemax="100" :aria-valuenow="value"
+                v-if="type === 'determinate'"
+            ></div>
+
+            <div
+                class="ui-progress-linear-indeterminate" role="progressbar" :aria-valuemin="0"
+                :aria-valuemax="100" v-else
+            ></div>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -32,9 +34,6 @@ export default {
         color: {
             type: String,
             default: 'primary', // 'primary', 'accent', 'black' or 'white'
-            coerce(color) {
-                return 'color-' + color;
-            }
         },
         value: {
             type: Number,
@@ -146,7 +145,7 @@ export default {
     }
 }
 
-.ui-progress-linear-toggle-leave,
+.ui-progress-linear-toggle-leave-active,
 .ui-progress-linear-toggle-enter {
     opacity: 0;
     height: 0;

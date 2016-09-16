@@ -1,9 +1,10 @@
 <template>
-    <div class="ui-tooltip" v-text="content" v-el:tooltip></div>
+    <div class="ui-tooltip" v-text="content" ref="tooltip"></div>
 </template>
 
 <script>
-import Tooltip from 'tether-tooltip';
+import Tooltip from 'tether-tooltip'
+import typeCheck from './helpers/type-check'
 
 export default {
     name: 'ui-tooltip',
@@ -11,7 +12,7 @@ export default {
     props: {
         content: String,
         trigger: {
-            type: Element,
+            type: String,
             required: true
         },
         position: {
@@ -27,42 +28,42 @@ export default {
     data() {
         return {
             tooltip: null
-        };
+        }
     },
 
     watch: {
         trigger() {
             if (!this.tooltip) {
-                this.initialize();
+                this.initialize()
             }
         }
     },
 
-    ready() {
-        this.initialize();
+    mounted() {
+        this.initialize()
     },
 
     beforeDestory() {
         if (this.tooltip) {
-            this.tooltip.remove();
-            this.tooltip.destroy();
+            this.tooltip.remove()
+            this.tooltip.destroy()
         }
     },
 
     methods: {
         initialize() {
-            if (this.trigger) {
-                this.tooltip = new Tooltip({
-                    target: this.trigger,
-                    content: this.$els.tooltip,
-                    classes: 'ui-tooltip-theme',
-                    position: this.position,
-                    openOn: 'hover focus'
-                });
-            }
+            let _t = this.$parent.$refs[this.trigger]
+            this._trigger = typeCheck(_t) === 'array' ? _t[0] : _t
+            this.tooltip = new Tooltip({
+                target: this._trigger,
+                content: this.$refs.tooltip,
+                classes: 'ui-tooltip-theme',
+                position: this.position,
+                openOn: 'hover focus'
+            })
         }
     }
-};
+}
 </script>
 
 <style lang="stylus">

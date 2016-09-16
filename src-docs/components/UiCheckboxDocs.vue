@@ -16,16 +16,16 @@
             <h4>Default</h4>
 
             <div class="group">
-                <ui-checkbox name="do_it_now" :model.sync="true">Do it now</ui-checkbox>
-                <ui-checkbox name="do_it_well" :model.sync="false">Do it well</ui-checkbox>
-                <ui-checkbox name="look_cool" :model.sync="true">Look cool while at it</ui-checkbox>
+                <ui-checkbox name="do_it_now" v-model="firstValues.one">Do it now</ui-checkbox>
+                <ui-checkbox name="do_it_well" v-model="firstValues.two">Do it well</ui-checkbox>
+                <ui-checkbox name="look_cool" v-model="firstValues.three">Look cool while at it</ui-checkbox>
 
                 <ui-checkbox
-                    name="try_checking" :disabled="true" :model.sync="true"
+                    name="try_checking" :disabled="true" v-model="firstValues.four"
                 >Can't change this</ui-checkbox>
 
                 <ui-checkbox
-                    name="try_checking_another" :disabled="true" :model.sync="false"
+                    name="try_checking_another" :disabled="true" v-model="firstValues.five"
                 >Can't change this too</ui-checkbox>
             </div>
 
@@ -33,23 +33,23 @@
 
             <div class="group label-left">
                 <ui-checkbox
-                    name="do_it_now" :model.sync="true" label-left
+                    name="do_it_now" v-model="secondValues.one" label-left
                 >Do it now</ui-checkbox>
 
                 <ui-checkbox
-                    name="do_it_well" :model.sync="false" label-left
+                    name="do_it_well" v-model="secondValues.two" label-left
                 >Do it well</ui-checkbox>
 
                 <ui-checkbox
-                    name="look_cool" :model.sync="true" label-left
+                    name="look_cool" v-model="secondValues.three" label-left
                 >Look cool while at it</ui-checkbox>
 
                 <ui-checkbox
-                    name="try_checking" :disabled="true" :model.sync="true" label-left
+                    name="try_checking" :disabled="true" v-model="secondValues.four" label-left
                 >Can't change this</ui-checkbox>
 
                 <ui-checkbox
-                    name="try_checking_another" :disabled="true" :model.sync="false" label-left
+                    name="try_checking_another" :disabled="true" v-model="secondValues.five" label-left
                 >Can't change this too</ui-checkbox>
             </div>
 
@@ -57,7 +57,7 @@
 
             <div class="group">
                 <ui-checkbox
-                    name="look_cool" :model.sync="true"
+                    name="look_cool" v-model="htmlValue"
                 >Just <b><i>do</i></b> it!</ui-checkbox>
             </div>
 
@@ -65,29 +65,29 @@
 
             <div class="group">
                 <ui-checkbox
-                    name="favourite-simpsons" :model.sync="favouriteSimpsons" value="Maggie"
+                    name="favourite-simpsons" v-model="favouriteSimpsons" payload="Maggie"
                 >Maggie</ui-checkbox>
 
                 <ui-checkbox
-                    name="favourite-simpsons" :model.sync="favouriteSimpsons" value="Lisa"
+                    name="favourite-simpsons" v-model="favouriteSimpsons" payload="Lisa"
                 >Lisa</ui-checkbox>
 
                 <ui-checkbox
-                    name="favourite-simpsons" :model.sync="favouriteSimpsons" value="Bart"
+                    name="favourite-simpsons" v-model="favouriteSimpsons" payload="Bart"
                 >Bart</ui-checkbox>
 
                 <ui-checkbox
-                    name="favourite-simpsons" :model.sync="favouriteSimpsons" value="Marge"
+                    name="favourite-simpsons" v-model="favouriteSimpsons" payload="Marge"
                 >Marge</ui-checkbox>
 
                 <ui-checkbox
-                    name="favourite-simpsons" :model.sync="favouriteSimpsons" value="Homer"
+                    name="favourite-simpsons" v-model="favouriteSimpsons" payload="Homer"
                 >Homer</ui-checkbox>
             </div>
 
-            <pre><code v-text="favouriteSimpsons | json"></code></pre>
+            <pre><code v-text="`[${favouriteSimpsons.toString()}]`"></code></pre>
 
-            <ui-button @click="resetCheckboxes">Reset checkboxes</ui-button>
+            <ui-button @click.native="resetCheckboxes">Reset checkboxes</ui-button>
         </div>
 
         <h3>API</h3>
@@ -127,23 +127,24 @@
                             </tr>
 
                             <tr>
-                                <td>model *</td>
+                                <td>{{`model(value) *`}}</td>
                                 <td>Boolean or Array</td>
                                 <td>(required)</td>
-                                <td>Two way</td>
+                                <td></td>
                                 <td>
-                                    <p>The model that the checkbox value syncs to.</p>
+                                    <p>The v-model that the checkbox value syncs to.</p>
                                     <p>Will be an array if the <code>value</code> prop is provided, otherwise a boolean.</p>
                                 </td>
                             </tr>
 
                             <tr>
-                                <td>value</td>
-                                <td>String</td>
+                                <td>payload</td>
+                                <td>String or Others</td>
                                 <td></td>
                                 <td></td>
                                 <td>
                                     <p>The checkbox input <code>value</code> attribute. Use this for connecting a group of checkboxes to a single model.</p>
+                                    <p>In this case the v-model need to be an Array</p>
                                     <p>See <b>Multiple checkboxes connected to a single model</b> above for an example.</p>
                                 </td>
                             </tr>
@@ -247,15 +248,41 @@
 </template>
 
 <script>
-import UiTab from '../../src/UiTab.vue';
-import UiTabs from '../../src/UiTabs.vue';
-import UiButton from '../../src/UiButton.vue';
-import UiCheckbox from '../../src/UiCheckbox.vue';
+import UiTab from '../../src/UiTab.vue'
+import UiTabs from '../../src/UiTabs.vue'
+import UiButton from '../../src/UiButton.vue'
+import UiCheckbox from '../../src/UiCheckbox.vue'
+import EventBus from '../../src/helpers/event-bus'
 
 export default {
     data() {
         return {
-            favouriteSimpsons: []
+            favouriteSimpsons: [],
+            htmlValue: false,
+            firstValues: {
+                one: true,
+                two: false,
+                three: true,
+                four: true,
+                five: false,
+                six: true
+            },
+            secondValues: {
+                one: true,
+                two: false,
+                three: true,
+                four: true,
+                five: false,
+                six: true
+            },
+            thirdValues: {
+                one: true,
+                two: false,
+                three: true,
+                four: true,
+                five: false,
+                six: true
+            },
         };
     },
 
@@ -268,7 +295,7 @@ export default {
 
     methods: {
         resetCheckboxes() {
-            this.$broadcast('ui-input::reset');
+            EventBus.$emit('ui-input::reset')
         }
     }
 };

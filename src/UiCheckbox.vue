@@ -7,7 +7,7 @@
     >
         <input
             class="ui-checkbox-input" type="checkbox" :name="name" @focus="focus" @blur="blur"
-            :value="value ? value : null" v-model="model" v-disabled="disabled"
+            :value="value"  :disabled="disabled" @click="toggle($event)" @keydown.enter.prevent="toggle($event)"
         >
 
         <div class="ui-checkbox-checkmark">
@@ -23,21 +23,31 @@
 </template>
 
 <script>
-import disabled from './directives/disabled';
 
-import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent';
+import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent'
+import EventBus from './helpers/event-bus'
+
+const toggleArray = (arr, arg) => {
+    if (arr.indexOf(arg) > -1) {
+        arr.splice(arr.indexOf(arg), 1)
+    } else {
+        arr.push(arg)
+    }
+    return arr
+}
 
 export default {
     name: 'ui-checkbox',
 
     props: {
         name: String,
-        model: {
-            type: [Array, String, Boolean],
+        value: {
+            type: [Array, Boolean],
             required: true,
-            twoWay: true
         },
-        value: String,
+        payload: {
+            type: null
+        },
         label: String,
         hideLabel: {
             type: Boolean,
@@ -56,37 +66,51 @@ export default {
     data() {
         return {
             active: false,
-            initialValue: false
-        };
+            initialValue: false,
+        }
+    },
+
+    watch: {
+        value() {
+            this._val = this.value
+        }
     },
 
     computed: {
         isChecked() {
-            if (this.value) {
-                return this.model.indexOf(this.value) > -1;
+            if (this.payload) {
+                return this.value.indexOf(this.payload) > -1
             }
 
-            return this.model;
+            return this.value
         }
     },
 
     created() {
         // Cache initial value for later reset
-        this.initialValue = this.model;
+        this._val = this.initialValue = this.value
     },
 
-    events: {
-        'ui-input::reset': function(id) {
+    mounted() {
+        EventBus.$on('ui-input::reset', (id) => {
+
             // Abort if reset event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
-                return;
+                return
             }
-
-            this.model = this.initialValue;
-        }
+            this.$emit('input', this.initialValue)
+        })
     },
 
     methods: {
+        toggle(e) {
+            console.log(e.target)
+            if (typeof this.value === 'boolean') {
+                this.$emit('input', !this.value)
+            } else {
+                this.$emit('input', toggleArray(this._val.slice(0), this.payload))
+            }
+        },
         focus() {
             this.active = true;
         },
@@ -94,10 +118,6 @@ export default {
         blur() {
             this.active = false;
         }
-    },
-
-    directives: {
-        disabled
     },
 
     mixins: [

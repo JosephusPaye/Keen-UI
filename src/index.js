@@ -17,7 +17,6 @@ import UiPreloader from './UiPreloader.vue';
 import UiProgressCircular from './UiProgressCircular.vue';
 import UiProgressLinear from './UiProgressLinear.vue';
 import UiRadio from './UiRadio.vue';
-import UiRadioGroup from './UiRadioGroup.vue';
 import UiRating from './UiRating.vue';
 import UiRatingIcon from './UiRatingIcon.vue';
 import UiRatingPreview from './UiRatingPreview.vue';
@@ -85,7 +84,6 @@ const Keen = {
         Vue.component('ui-progress-circular', UiProgressCircular);
         Vue.component('ui-progress-linear', UiProgressLinear);
         Vue.component('ui-radio', UiRadio);
-        Vue.component('ui-radio-group', UiRadioGroup);
         Vue.component('ui-rating', UiRating);
         Vue.component('ui-rating-icon', UiRatingIcon);
         Vue.component('ui-rating-preview', UiRatingPreview);

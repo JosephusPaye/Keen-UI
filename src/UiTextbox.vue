@@ -21,10 +21,10 @@
                     :max="maxValue" :step="stepValue"
                     :autocomplete="autocomplete ? autocomplete : null"
 
-                    @focus="focussed" @blur="blurred" @change="changed" @keydown="keydown"
+                    @focus="focussed" @blur="blurred" @input="changed($event)" @keydown="keydown"
                     @keydown.enter="keydownEnter" :debounce="debounce"
 
-                    v-model="value | trim" v-disabled="disabled" v-if="!multiLine"
+                    :value="value" :disabled="disabled" v-if="!multiLine"
                     v-autofocus="autofocus"
                 >
 
@@ -32,17 +32,17 @@
                     class="ui-textbox-textarea" :placeholder="placeholder" :name="name" :id="id"
                     :rows="rows"
 
-                    @focus="focussed" @blur="blurred" @change="changed" @keydown="keydown"
+                    @focus="focussed" @blur="blurred" @input="changed($event)" @keydown="keydown"
                     @keydown.enter="keydownEnter" :debounce="debounce"
 
-                    v-model="value | trim" v-disabled="disabled" v-else
+                    :value="value" :disabled="disabled" v-else
                 ></textarea>
             </label>
 
             <div class="ui-textbox-feedback" v-if="showFeedback || maxLength">
                 <div
                     class="ui-textbox-error-text" transition="ui-textbox-feedback-toggle"
-                    v-text="validationError" v-show="!hideValidationErrors && !valid"
+                    v-text="validationError" v-if="!hideValidationErrors && !valid"
                 ></div>
 
                 <div
@@ -60,16 +60,21 @@
 </template>
 
 <script>
-import UiIcon from './UiIcon.vue';
+import UiIcon from './UiIcon.vue'
 
-import autofocus from './directives/autofocus';
-import HasTextInput from './mixins/HasTextInput';
-import ValidatesInput from './mixins/ValidatesInput';
+import EventBus from './helpers/event-bus'
+import autofocus from './directives/autofocus'
+import HasTextInput from './mixins/HasTextInput'
+import ValidatesInput from './mixins/ValidatesInput'
 
 export default {
     name: 'ui-textbox',
 
     props: {
+        value: {
+            type: [String, Number],
+            required: true
+        },
         type: {
             type: String,
             default: 'text'
@@ -165,8 +170,8 @@ export default {
         }
     },
 
-    events: {
-        'ui-input::reset': function(id) {
+    mounted() {
+        EventBus.$on('ui-input::reset', (id) => {
             // Abort if reset event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
                 return;
@@ -185,8 +190,8 @@ export default {
             }
 
             // Reset state
+            this.$emit('input', this.initialValue)
             this.validationError = '';
-            this.value = this.initialValue;
             this.valid = true;
             this.dirty = false;
 
@@ -194,13 +199,13 @@ export default {
             this.$nextTick(() => {
                 this.ignoreValueChange = false;
             });
-        }
+        })
     },
 
     methods: {
         focussed() {
             this.active = true;
-            this.$dispatch('focussed');
+            this.$emit('focussed');
         },
 
         blurred() {
@@ -210,20 +215,21 @@ export default {
                 this.dirty = true;
             }
 
-            this.$dispatch('blurred');
+            this.$emit('blurred');
             this.validate();
         },
 
-        changed() {
-            this.$dispatch('changed');
+        changed(e) {
+            this.$emit('input', e.target.value)
+            this.$emit('changed');
         },
 
         keydown(e) {
-            this.$dispatch('keydown', e);
+            this.$emit('keydown', e);
         },
 
         keydownEnter(e) {
-            this.$dispatch('keydown-enter', e);
+            this.$emit('keydown-enter', e);
         }
     },
 

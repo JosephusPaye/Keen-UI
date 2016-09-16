@@ -1,9 +1,17 @@
 <template>
     <li
-        class="ui-autocomplete-suggestion" :class="[partial, { 'highlighted': highlighted }]"
+        class="ui-autocomplete-suggestion" :class="['ui-autocomplete-'+type, { 'highlighted': highlighted }]"
         :id="id"
     >
-        <partial :name="partial"></partial>
+        <template v-if="type==='image'">
+            <div
+                class="image" :style="{ 'background-image': 'url(' + item[keys.image] + ')' }"
+            ></div>
+            <div class="text" v-text="item[keys.text]"></div>
+        </template>
+        <template v-else>
+            <li class="ui-autocomplete-suggestion-item" v-text="item[keys.text] || item"></li>
+        </template>
     </li>
 </template>
 
@@ -24,9 +32,9 @@ export default {
             type: [String, Object],
             required: true
         },
-        partial: {
+        type: {
             type: String,
-            default: 'ui-autocomplete-simple', // 'ui-autocomplete-simple', 'ui-autocomplete-image'
+            default: 'simple', // 'simple', 'image'
         },
         highlighted: {
             type: Boolean,

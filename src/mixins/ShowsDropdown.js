@@ -1,12 +1,15 @@
-import Drop from 'tether-drop';
-
-import classlist from '../helpers/classlist';
-import ReceivesTargetedEvent from './ReceivesTargetedEvent';
+import Drop from 'tether-drop'
+import classlist from '../helpers/classlist'
+import EventBus from '../helpers/event-bus'
+import typeCheck from '../helpers/type-check'
+import ReceivesTargetedEvent from './ReceivesTargetedEvent'
 
 export default {
     props: {
         id: String,
-        trigger: Element,
+        trigger: {
+            type: String
+        },
         containFocus: {
             type: Boolean,
             default: true
@@ -28,12 +31,6 @@ export default {
         };
     },
 
-    ready() {
-        if (this.trigger) {
-            this.initializeDropdown();
-        }
-    },
-
     beforeDestroy() {
         if (this.drop) {
             this.drop.remove();
@@ -41,40 +38,43 @@ export default {
         }
     },
 
-    events: {
-        'ui-dropdown::open': function(id) {
-            // Abort if event isn't meant for this component
-            if (!this.eventTargetsComponent(id)) {
-                return;
-            }
-
-            this.openDropdown();
-        },
-
-        'ui-dropdown::close': function(id) {
-            // Abort if event isn't meant for this component
-            if (!this.eventTargetsComponent(id)) {
-                return;
-            }
-
-            this.closeDropdown();
-        },
-
-        'ui-dropdown::toggle': function(id) {
-            // Abort if event isn't meant for this component
-            if (!this.eventTargetsComponent(id)) {
-                return;
-            }
-
-            this.toggleDropdown();
+    mounted() {
+        if (this.trigger) {
+            this.initializeDropdown();
         }
+        EventBus.$on('ui-dropdown::open', (id) => {
+            // Abort if event isn't meant for this component
+            if (!this.eventTargetsComponent(id)) {
+                return
+            }
+            this.openDropdown()
+        })
+
+        EventBus.$on('ui-dropdown::close', (id) => {
+            // Abort if event isn't meant for this component
+            if (!this.eventTargetsComponent(id)) {
+                return
+            }
+            this.closeDropdown()
+        })
+
+        EventBus.$on('ui-dropdown::toggle', (id) => {
+            // Abort if event isn't meant for this component
+            if (!this.eventTargetsComponent(id)) {
+                return
+            }
+            this.toggleDropdown()
+        })
     },
 
     methods: {
         initializeDropdown() {
+            let _t = this.$parent.$refs[this.trigger]
+
+            this._trigger = typeCheck(_t) === 'array' ? _t[0] : _t
             this.drop = new Drop({
-                target: this.trigger,
-                content: this.$els.dropdown,
+                target: this._trigger,
+                content: this.$refs.dropdown,
                 position: this.dropdownPosition,
                 constrainToWindow: true,
                 openOn: this.openOn
@@ -106,9 +106,9 @@ export default {
          */
         positionDrop() {
             const drop = this.drop;
-            const windowWidth = window.innerWidth
-                || document.documentElement.clientWidth
-                || document.body.clientWidth;
+            const windowWidth = window.innerWidth ||
+                document.documentElement.clientWidth ||
+                document.body.clientWidth;
 
             let dropWidth = drop.drop.getBoundingClientRect().width;
             let left = drop.target.getBoundingClientRect().left;
@@ -137,22 +137,21 @@ export default {
         },
 
         dropdownOpened() {
-            classlist.add(this.trigger, 'dropdown-open');
+            classlist.add(this._trigger, 'dropdown-open');
 
             this.lastFocussedElement = document.activeElement;
-            this.$els.dropdown.focus();
-
-            this.$dispatch('dropdown-opened');
+            this.$refs.dropdown.focus();
+            this.$emit('dropdown-opened');
         },
 
         dropdownClosed() {
-            classlist.remove(this.trigger, 'dropdown-open');
+            classlist.remove(this._trigger, 'dropdown-open');
 
             if (this.lastFocussedElement) {
                 this.lastFocussedElement.focus();
             }
 
-            this.$dispatch('dropdown-closed');
+            this.$emit('dropdown-closed');
         }
     },
 

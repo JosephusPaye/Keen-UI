@@ -5,8 +5,8 @@
     >
         <div class="ui-switch-container">
             <input
-                class="ui-switch-input" type="checkbox" :name="name" :id="id" v-model="value"
-                v-disabled="disabled"
+                class="ui-switch-input" type="checkbox" :name="name" :id="id"
+                :disabled="disabled" :value="value" @change="$emit('input', !value)"
             >
 
             <div class="ui-switch-track"></div>
@@ -24,9 +24,10 @@
 </template>
 
 <script>
-import disabled from './directives/disabled';
 
-import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent';
+import EventBus from './helpers/event-bus'
+
+import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent'
 
 export default {
     name: 'ui-switch',
@@ -36,7 +37,6 @@ export default {
         value: {
             type: Boolean,
             required: true,
-            twoWay: true
         },
         label: String,
         hideLabel: {
@@ -64,21 +64,15 @@ export default {
         this.initialValue = this.value;
     },
 
-    events: {
-        'ui-input::reset': function(id) {
+    mounted() {
+        EventBus.$on('ui-input::reset', (id) => {
             // Abort if reset event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
                 return;
             }
-
-            this.value = this.initialValue;
-        }
+            this.$emit('input', this.initialValue)
+        })
     },
-
-    directives: {
-        disabled
-    },
-
     mixins: [
         ReceivesTargetedEvent
     ]

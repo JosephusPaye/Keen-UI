@@ -4,11 +4,20 @@
         :class="{ 'divider': isDivider, 'disabled' : disabled }"
     >
         <div class="ui-menu-option-content" :class="[partial]">
-            <partial :name="partial"></partial>
+            <ui-icon
+                class="ui-menu-option-icon" :icon="icon" v-if="showIcon && !isDivider && icon"
+            ></ui-icon>
+
+            <div class="ui-menu-option-text" v-text="text" v-if="!isDivider"></div>
+
+            <div
+                class="ui-menu-option-secondary-text" v-text="secondaryText"
+                v-if="showSecondaryText && !isDivider && secondaryText"
+            ></div>
         </div>
 
         <ui-ripple-ink
-            :trigger="$el" v-if="!hideRippleInk && !disabled && !isDivider"
+            v-if="!hideRippleInk && !disabled && !isDivider"
         ></ui-ripple-ink>
     </a>
 </template>
@@ -22,7 +31,10 @@ export default {
     name: 'ui-menu-option',
 
     props: {
-        type: String,
+        type: {
+            type: String,
+            default: 'option'
+        },
         text: String,
         icon: String,
         showIcon: {
@@ -55,25 +67,10 @@ export default {
         UiIcon
     },
 
-    partials: {
-        'ui-menu-default': `
-            <ui-icon
-                class="ui-menu-option-icon" :icon="icon" v-if="showIcon && !isDivider && icon"
-            ></ui-icon>
-
-            <div class="ui-menu-option-text" v-text="text" v-if="!isDivider"></div>
-
-            <div
-                class="ui-menu-option-secondary-text" v-text="secondaryText"
-                v-if="showSecondaryText && !isDivider && secondaryText"
-            ></div>
-        `
-    },
-
     mixins: [
         ShowsRippleInk
     ]
-};
+}
 </script>
 
 <style lang="stylus">

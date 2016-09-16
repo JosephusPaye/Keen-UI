@@ -2,8 +2,8 @@
     <div class="ui-collapsible">
         <button
             class="ui-collapsible-header" :class="{ 'disabled': disabled }" :aria-controls="id"
-            :aria-expanded="open ? 'true' : 'false'" @click="toggleMenu" v-disabled="disabled"
-            v-el:button
+            :aria-expanded="state.open ? 'true' : 'false'" @click="toggleMenu" :disabled="disabled"
+            ref="button"
         >
             <div class="ui-collapsible-header-content">
                 <slot name="header">
@@ -14,35 +14,39 @@
             <ui-icon class="ui-collapsible-header-icon" :icon="icon" v-if="!hideIcon"></ui-icon>
 
             <ui-ripple-ink
-                v-if="!hideRippleInk && !disabled && isReady" :trigger="$els.button"
+                v-if="!hideRippleInk && !disabled && isReady"
             ></ui-ripple-ink>
         </button>
 
-        <div
-            class="ui-collapsible-body-wrapper" :transition="transition"
-            :style="{ 'height': calculatedHeight }" v-show="open"v-el:body
-        >
-            <div class="ui-collapsible-body" :id="id" :aria-hidden="open ? null : 'true'">
-                <slot></slot>
+        <transition name="ui-collapsible-toggle" :after-enter="afterEnter" :after-leave="afterLeave">
+            <div
+                class="ui-collapsible-body-wrapper"
+                :style="{ 'height': calculatedHeight }" v-show="state.open" ref="body"
+            >
+                <div class="ui-collapsible-body" :id="id" :aria-hidden="open ? null : 'true'">
+                    <slot></slot>
+                </div>
             </div>
-        </div>
+        </transiton>
     </div>
 </template>
 
 <script>
-import UiIcon from './UiIcon.vue';
+import UiIcon from './UiIcon.vue'
 
-import UUID from './helpers/uuid';
-import disabled from './directives/disabled';
-
-import ShowsRippleInk from './mixins/ShowsRippleInk';
-import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent';
+import UUID from './helpers/uuid'
+import EventBus from './helpers/event-bus'
+import ShowsRippleInk from './mixins/ShowsRippleInk'
+import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent'
 
 export default {
     name: 'ui-collapsible',
 
     props: {
-        id: String,
+        id: {
+            type: String,
+            default: UUID.short('ui-collapsible-')
+        },
         open: {
             type: Boolean,
             default: false
@@ -65,13 +69,16 @@ export default {
     data() {
         return {
             height: 0,
-            isReady: false
+            isReady: false,
+            state: {
+                open: false,
+            }
         };
     },
 
     computed: {
         icon() {
-            return this.open ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
+            return this.state.open ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
         },
 
         calculatedHeight() {
@@ -84,24 +91,20 @@ export default {
     },
 
     created() {
-        // Set default ID
-        this.id = this.id || UUID.short('ui-collapsible-');
+        this.state.open = this.open
     },
 
-    ready() {
-        this.isReady = true;
-        this.setHeight();
-    },
-
-    events: {
-        'ui-collapsible::refresh-height': function(id) {
+    mounted() {
+        this.isReady = true
+        this.setHeight()
+        EventBus.$on('ui-collapsible::refresh-height', (id) => {
             // Abort if refresh event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
-                return;
+                return
             }
 
-            this.$nextTick(this.setHeight);
-        }
+            this.$nextTick(this.setHeight)
+        })
     },
 
     methods: {
@@ -110,18 +113,26 @@ export default {
                 return;
             }
 
-            this.open = !this.open;
+            this.state.open = !this.state.open
         },
 
         setHeight() {
-            var body = this.$els.body;
+            var body = this.$refs.body;
 
             body.style.display = 'block';
             this.height = body.scrollHeight;
 
-            if (!this.open) {
+            if (!this.state.open) {
                 body.style.display = 'none';
             }
+        },
+        afterEnter() {
+            this.$emit('opened')
+            this.setHeight()
+        },
+
+        afterLeave() {
+            this.$emit('closed')
         }
     },
 
@@ -129,28 +140,11 @@ export default {
         UiIcon
     },
 
-    directives: {
-        disabled
-    },
-
     mixins: [
         ShowsRippleInk,
         ReceivesTargetedEvent
     ],
-
-    transitions: {
-        'ui-collapsible-toggle': {
-            afterEnter() {
-                this.$dispatch('opened');
-                this.setHeight();
-            },
-
-            afterLeave() {
-                this.$dispatch('closed');
-            }
-        }
-    }
-};
+}
 </script>
 
 <style lang="stylus">
@@ -230,12 +224,13 @@ export default {
     border-top: 0;
 }
 
-.ui-collapsible-toggle-transition {
+.ui-collapsible-toggle-enter-active,
+.ui-collapsible-toggle-leave-active {
     transition: height 0.2s ease;
 }
 
 .ui-collapsible-toggle-enter,
-.ui-collapsible-toggle-leave {
+.ui-collapsible-toggle-leave-active {
     height: 0!important;
 }
 </style>
