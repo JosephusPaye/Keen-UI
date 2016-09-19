@@ -3,44 +3,46 @@
         class="ui-button" :class="styleClasses" :type="buttonType" v-disabled="disabled || loading"
         v-el:button
     >
-        <div class="ui-button-content" :class="{ 'invisible': loading }">
-            <ui-icon
-                class="ui-button-icon" :class="{ 'position-right': iconRight }" :icon="icon"
-                v-if="showIcon"
-            ></ui-icon>
+        <div class="ui-button-wrapper">
+            <div class="ui-button-content" :class="{ 'invisible': loading }">
+                <ui-icon
+                    class="ui-button-icon" :class="{ 'position-right': iconRight }" :icon="icon"
+                    v-if="showIcon"
+                ></ui-icon>
 
-            <div class="ui-button-text">
-                <slot>
-                    <span v-text="text"></span>
-                </slot>
+                <div class="ui-button-text">
+                    <slot>
+                        <span v-text="text"></span>
+                    </slot>
+                </div>
+
+                <ui-icon
+                    class="ui-button-dropdown-icon" icon="&#xE5C5;"
+                    v-if="!iconRight && showDropdownIcon && (hasDropdownMenu || hasPopover)"
+                ></ui-icon>
             </div>
 
-            <ui-icon
-                class="ui-button-dropdown-icon" icon="&#xE5C5;"
-                v-if="!iconRight && showDropdownIcon && (hasDropdownMenu || hasPopover)"
-            ></ui-icon>
+            <ui-progress-circular
+                class="ui-button-spinner" :color="spinnerColor" :size="18" :stroke="4.5"
+                disable-transition v-show="loading"
+            ></ui-progress-circular>
+
+            <ui-ripple-ink v-if="!hideRippleInk && !disabled" :trigger="$els.button"></ui-ripple-ink>
+
+            <ui-menu
+                class="ui-button-dropdown-menu" :trigger="$els.button" :options="menuOptions"
+                :show-icons="showMenuIcons" :show-secondary-text="showMenuSecondaryText"
+                :open-on="openDropdownOn" @option-selected="menuOptionSelect"
+                :dropdown-position="dropdownPosition" v-if="hasDropdownMenu"
+            ></ui-menu>
+
+            <ui-popover
+                :trigger="$els.button" :open-on="openDropdownOn" :dropdown-position="dropdownPosition"
+                v-if="hasPopover"
+            >
+                <slot name="popover"></slot>
+            </ui-popover>
         </div>
-
-        <ui-progress-circular
-            class="ui-button-spinner" :color="spinnerColor" :size="18" :stroke="4.5"
-            disable-transition v-show="loading"
-        ></ui-progress-circular>
-
-        <ui-ripple-ink v-if="!hideRippleInk && !disabled" :trigger="$els.button"></ui-ripple-ink>
-
-        <ui-menu
-            class="ui-button-dropdown-menu" :trigger="$els.button" :options="menuOptions"
-            :show-icons="showMenuIcons" :show-secondary-text="showMenuSecondaryText"
-            :open-on="openDropdownOn" @option-selected="menuOptionSelect"
-            :dropdown-position="dropdownPosition" v-if="hasDropdownMenu"
-        ></ui-menu>
-
-        <ui-popover
-            :trigger="$els.button" :open-on="openDropdownOn" :dropdown-position="dropdownPosition"
-            v-if="hasPopover"
-        >
-            <slot name="popover"></slot>
-        </ui-popover>
     </button>
 </template>
 
@@ -188,6 +190,10 @@ export default {
 
     &:not([disabled]) {
         cursor: pointer;
+    }
+
+    .ui-button-wrapper {
+        flex: auto;
     }
 
     .ui-button-dropdown-menu {
