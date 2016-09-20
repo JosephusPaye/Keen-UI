@@ -102,6 +102,10 @@ export default {
             type: [Object, Array, String, Number],
             default: null
         },
+        displayTextRenderFunction: {
+            type: Function,
+            default: undefined
+        },
         options: {
             type: Array,
             default: []
@@ -167,14 +171,25 @@ export default {
             return this.options.filter(this.search);
         },
 
-        displayText() {
+        displayText() {          
+
             if (this.multiple && this.value.length) {
                 let labels = this.value.map((value) => value[this.keys.text] || value);
+
+                if ( this.displayTextRenderFunction ) {
+                    return this.displayTextRenderFunction(labels);
+                }
 
                 return labels.join(this.multipleDelimiter);
             }
 
-            return this.value ? (this.value[this.keys.text] || this.value) : '';
+            let returnText = this.value ? (this.value[this.keys.text] || this.value) : '';
+
+            if ( this.displayTextRenderFunction ) {
+                return this.displayTextRenderFunction(returnText);
+            }
+
+            return returnText;
         },
 
         hasDisplayText() {
