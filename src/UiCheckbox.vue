@@ -23,17 +23,16 @@
 </template>
 
 <script>
-
-import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent'
-import EventBus from './helpers/event-bus'
+import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent';
+import EventBus from './helpers/event-bus';
 
 const toggleArray = (arr, arg) => {
     if (arr.indexOf(arg) > -1) {
-        arr.splice(arr.indexOf(arg), 1)
+        arr.splice(arr.indexOf(arg), 1);
     } else {
-        arr.push(arg)
+        arr.push(arg);
     }
-    return arr
+    return arr;
 }
 
 export default {
@@ -67,28 +66,28 @@ export default {
         return {
             active: false,
             initialValue: false,
-        }
+        };
     },
 
     watch: {
         value() {
-            this._val = this.value
+            this._val = this.value;
         }
     },
 
     computed: {
         isChecked() {
             if (this.payload) {
-                return this.value.indexOf(this.payload) > -1
+                return this.value.indexOf(this.payload) > -1;
             }
 
-            return this.value
+            return this.value;
         }
     },
 
     created() {
         // Cache initial value for later reset
-        this._val = this.initialValue = this.value
+        this._val = this.initialValue = this.value;
     },
 
     mounted() {
@@ -96,19 +95,18 @@ export default {
 
             // Abort if reset event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
-                return
+                return;
             }
-            this.$emit('input', this.initialValue)
+            this.$emit('input', this.initialValue);
         })
     },
 
     methods: {
         toggle(e) {
-            console.log(e.target)
             if (typeof this.value === 'boolean') {
-                this.$emit('input', !this.value)
+                this.$emit('input', !this.value);
             } else {
-                this.$emit('input', toggleArray(this._val.slice(0), this.payload))
+                this.$emit('input', toggleArray(this._val.slice(0), this.payload));
             }
         },
         focus() {

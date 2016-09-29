@@ -32,12 +32,12 @@
 </template>
 
 <script>
-import UiIcon from './UiIcon.vue'
+import UiIcon from './UiIcon.vue';
 
-import UUID from './helpers/uuid'
-import EventBus from './helpers/event-bus'
-import ShowsRippleInk from './mixins/ShowsRippleInk'
-import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent'
+import UUID from './helpers/uuid';
+import EventBus from './helpers/event-bus';
+import ShowsRippleInk from './mixins/ShowsRippleInk';
+import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent';
 
 export default {
     name: 'ui-collapsible',
@@ -91,19 +91,19 @@ export default {
     },
 
     created() {
-        this.state.open = this.open
+        this.state.open = this.open;
     },
 
     mounted() {
-        this.isReady = true
-        this.setHeight()
+        this.isReady = true;
+        this.setHeight();
         EventBus.$on('ui-collapsible::refresh-height', (id) => {
             // Abort if refresh event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
-                return
+                return;
             }
 
-            this.$nextTick(this.setHeight)
+            this.$nextTick(this.setHeight);
         })
     },
 
@@ -113,7 +113,7 @@ export default {
                 return;
             }
 
-            this.state.open = !this.state.open
+            this.state.open = !this.state.open;
         },
 
         setHeight() {
@@ -127,12 +127,12 @@ export default {
             }
         },
         afterEnter() {
-            this.$emit('opened')
-            this.setHeight()
+            this.$emit('opened');
+            this.setHeight();
         },
 
         afterLeave() {
-            this.$emit('closed')
+            this.$emit('closed');
         }
     },
 
@@ -144,7 +144,7 @@ export default {
         ShowsRippleInk,
         ReceivesTargetedEvent
     ],
-}
+};
 </script>
 
 <style lang="stylus">

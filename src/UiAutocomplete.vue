@@ -59,13 +59,13 @@
 </template>
 
 <script>
-import fuzzysearch from 'fuzzysearch'
+import fuzzysearch from 'fuzzysearch';
 
-import UiIcon from './UiIcon.vue'
-import UiAutocompleteSuggestion from './UiAutocompleteSuggestion.vue'
-import EventBus from './helpers/event-bus'
-import HasTextInput from './mixins/HasTextInput'
-import ValidatesInput from './mixins/ValidatesInput'
+import UiIcon from './UiIcon.vue';
+import UiAutocompleteSuggestion from './UiAutocompleteSuggestion.vue';
+import EventBus from './helpers/event-bus';
+import HasTextInput from './mixins/HasTextInput';
+import ValidatesInput from './mixins/ValidatesInput';
 
 export default {
     name: 'ui-autocomplete',
@@ -132,11 +132,11 @@ export default {
     computed: {
         suggestionsAfterFilter() {
             return this.suggestions.filter((item, index) => {
-                return (this.search(item) && (index < this.limit))
-            })
+                return (this.search(item) && (index < this.limit));
+            });
         },
         showIcon() {
-            return Boolean(this.icon)
+            return Boolean(this.icon);
         }
     },
 
@@ -151,23 +151,23 @@ export default {
     },
 
     mounted() {
-        document.addEventListener('click', this.closeOnExternalClick)
+        document.addEventListener('click', this.closeOnExternalClick);
         EventBus.$on('ui-input::reset', (id) => {
             // Abort if reset event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
-                return
+                return;
             }
 
             // Blur input before resetting to avoid "required" errors
             // when input is blurred after reset
             if (document.activeElement === this.$refs.input) {
-                document.activeElement.blur()
+                document.activeElement.blur();
             }
 
             // Reset state
-            this.$emit('input', this.initialValue)
-            this.dirty = false
-            this.valid = true
+            this.$emit('input', this.initialValue);
+            this.dirty = false;
+            this.valid = true;
         })
     },
 
@@ -193,19 +193,19 @@ export default {
 
         select(item) {
             if (this.append) {
-                this.$emit('input', this.value + this.appendDelimiter + (item[this.keys.value] || item))
+                this.$emit('input', this.value + this.appendDelimiter + (item[this.keys.value] || item));
             } else {
-                this.$emit('input', item[this.keys.value] || item)
+                this.$emit('input', item[this.keys.value] || item);
             }
 
-            this.$emit('selected', item)
+            this.$emit('selected', item);
 
-            this.validate()
+            this.validate();
 
             this.$nextTick(() => {
-                this.close()
-                this.$refs.input.focus()
-            })
+                this.close();
+                this.$refs.input.focus();
+            });
         },
 
         highlight(index) {
@@ -241,14 +241,14 @@ export default {
         },
 
         clearSearch() {
-            this.$emit('input', '')
-            this.open()
+            this.$emit('input', '');
+            this.open();
         },
 
         open() {
             if (!this.showDropdown) {
                 this.showDropdown = true;
-                this.$emit('opened')
+                this.$emit('opened');
             }
         },
 
@@ -257,7 +257,7 @@ export default {
                 this.showDropdown = false;
                 this.highlightedItem = -1;
 
-                this.$emit('closed')
+                this.$emit('closed');
                 this.validate();
             }
         },

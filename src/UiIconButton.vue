@@ -36,14 +36,14 @@
 </template>
 
 <script>
-import UiIcon from './UiIcon.vue'
-import UiMenu from './UiMenu.vue'
-import UiPopover from './UiPopover.vue'
-import UiProgressCircular from './UiProgressCircular.vue'
+import UiIcon from './UiIcon.vue';
+import UiMenu from './UiMenu.vue';
+import UiPopover from './UiPopover.vue';
+import UiProgressCircular from './UiProgressCircular.vue';
 
-import HasDropdown from './mixins/HasDropdown'
-import ShowsTooltip from './mixins/ShowsTooltip'
-import ShowsRippleInk from './mixins/ShowsRippleInk'
+import HasDropdown from './mixins/HasDropdown';
+import ShowsTooltip from './mixins/ShowsTooltip';
+import ShowsRippleInk from './mixins/ShowsRippleInk';
 
 export default {
     name: 'ui-icon-button',
@@ -78,21 +78,21 @@ export default {
 
     computed: {
         styleClasses() {
-            let classes = [`ui-icon-button-${this.type}`, `color-${this.color}`]
+            let classes = [`ui-icon-button-${this.type}`, `color-${this.color}`];
 
             if (this.hasDropdown) {
-                classes.push('ui-dropdown')
+                classes.push('ui-dropdown');
             }
 
-            return classes
+            return classes;
         },
 
         spinnerColor() {
             if (this.color === 'default' || this.color === 'black') {
-                return 'black'
+                return 'black';
             }
 
-            return 'white'
+            return 'white';
         }
     },
 
@@ -108,7 +108,7 @@ export default {
         ShowsTooltip,
         ShowsRippleInk
     ]
-}
+};
 </script>
 
 <style lang="stylus">

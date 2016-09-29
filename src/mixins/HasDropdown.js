@@ -1,4 +1,4 @@
-import EventBus from '../helpers/event-bus'
+import EventBus from '../helpers/event-bus';
 
 export default {
     props: {
@@ -30,7 +30,7 @@ export default {
 
     methods: {
         menuOptionSelect(option) {
-            EventBus.$emit('menu-option-selected', option)
+            EventBus.$emit('menu-option-selected', option);
         }
     }
-}
+};

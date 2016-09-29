@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <link href="./favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="./favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="./favicon.ico" rel="bookmark" type="image/x-icon" />
+    <title>
+        {{title}}
+    </title>
+    <link href="./vendor/css/normalize.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <h1>{{message}}</h1>
+    <p>{{stack}}</p>
+</body>
+
+</html>

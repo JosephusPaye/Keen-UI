@@ -15,10 +15,10 @@
 </template>
 
 <script>
-import UiIcon from './UiIcon.vue'
+import UiIcon from './UiIcon.vue';
 
-import ShowsTooltip from './mixins/ShowsTooltip'
-import ShowsRippleInk from './mixins/ShowsRippleInk'
+import ShowsTooltip from './mixins/ShowsTooltip';
+import ShowsRippleInk from './mixins/ShowsRippleInk';
 
 export default {
     name: 'ui-fab',
