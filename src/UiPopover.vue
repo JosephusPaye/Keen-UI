@@ -17,23 +17,23 @@ export default {
             if (this.containFocus) {
                 document.addEventListener('focus', this.restrictFocus, true)
             }
-            this.$emit('opened')
-        })
+            this.$emit('opened');
+        });
 
         this.$on('dropdown-closed', function() {
             if (this.containFocus) {
                 document.removeEventListener('focus', this.restrictFocus, true)
             }
-            this.$emit('closed')
-        })
+            this.$emit('closed');
+        });
     },
 
     methods: {
         restrictFocus(e) {
             if (! this.$refs.dropdown.contains(e.target)) {
-                e.stopPropagation()
+                e.stopPropagation();
 
-                this.$refs.dropdown.focus()
+                this.$refs.dropdown.focus();
             }
         }
     },

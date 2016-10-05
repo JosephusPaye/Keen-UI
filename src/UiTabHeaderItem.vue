@@ -23,8 +23,6 @@
 
 <script>
 import UiIcon from './UiIcon.vue';
-
-import disabled from './directives/disabled';
 import ShowsRippleInk from './mixins/ShowsRippleInk';
 
 export default {
@@ -55,10 +53,6 @@ export default {
     mixins: [
         ShowsRippleInk
     ],
-
-    directives: {
-        disabled
-    }
 };
 </script>
 

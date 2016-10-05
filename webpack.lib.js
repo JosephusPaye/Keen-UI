@@ -25,7 +25,6 @@ config.entry = {
     UiProgressCircular: ['./src/UiProgressCircular.vue'],
     UiProgressLinear: ['./src/UiProgressLinear.vue'],
     UiRadio: ['./src/UiRadio.vue'],
-    UiRadioGroup: ['./src/UiRadioGroup.vue'],
     UiRating: ['./src/UiRating.vue'],
     UiRatingIcon: ['./src/UiRatingIcon.vue'],
     UiRatingPreview: ['./src/UiRatingPreview.vue'],

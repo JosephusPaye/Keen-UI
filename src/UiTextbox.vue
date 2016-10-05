@@ -60,12 +60,11 @@
 </template>
 
 <script>
-import UiIcon from './UiIcon.vue'
+import UiIcon from './UiIcon.vue';
 
-import EventBus from './helpers/event-bus'
-import autofocus from './directives/autofocus'
-import HasTextInput from './mixins/HasTextInput'
-import ValidatesInput from './mixins/ValidatesInput'
+import EventBus from './helpers/event-bus';
+import HasTextInput from './mixins/HasTextInput';
+import ValidatesInput from './mixins/ValidatesInput';
 
 export default {
     name: 'ui-textbox',
@@ -190,7 +189,7 @@ export default {
             }
 
             // Reset state
-            this.$emit('input', this.initialValue)
+            this.$emit('input', this.initialValue);
             this.validationError = '';
             this.valid = true;
             this.dirty = false;
@@ -220,7 +219,7 @@ export default {
         },
 
         changed(e) {
-            this.$emit('input', e.target.value)
+            this.$emit('input', e.target.value);
             this.$emit('changed');
         },
 
@@ -248,10 +247,6 @@ export default {
 
     components: {
         UiIcon
-    },
-
-    directives: {
-        autofocus
     },
 
     mixins: [

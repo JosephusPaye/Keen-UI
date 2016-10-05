@@ -29,10 +29,10 @@
 </template>
 
 <script>
-import UiRatingIcon from './UiRatingIcon.vue'
+import UiRatingIcon from './UiRatingIcon.vue';
 
-import EventBus from './helpers/event-bus'
-import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent'
+import EventBus from './helpers/event-bus';
+import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent';
 
 export default {
     name: 'ui-rating',
@@ -105,7 +105,7 @@ export default {
             }
 
             this.$emit('input', this.initialValue)
-        })
+        });
     },
 
     methods: {
@@ -131,7 +131,7 @@ export default {
                 return;
             }
 
-            this.previewValue = n
+            this.previewValue = n;
         },
 
         commitValue(value) {
@@ -140,7 +140,7 @@ export default {
             }
 
             if (value > 0 && value <= this.total + 1) {
-                this.$emit('input', value)
+                this.$emit('input', value);
             }
         },
 

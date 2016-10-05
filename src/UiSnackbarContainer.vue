@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import UUID from './helpers/uuid'
-import UiSnackbar from './UiSnackbar.vue'
-import EventBus from './helpers/event-bus'
+import UUID from './helpers/uuid';
+import UiSnackbar from './UiSnackbar.vue';
+import EventBus from './helpers/event-bus';
 
 export default {
     name: 'ui-snackbar-container',

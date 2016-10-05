@@ -168,7 +168,7 @@ export default {
             this.$emit('input', this.initialValue);
             this.dirty = false;
             this.valid = true;
-        })
+        });
     },
 
     beforeDestroy() {
@@ -296,162 +296,196 @@ export default {
 <style lang="stylus">
 @import './styles/imports'
 
-.ui-autocomplete
-    font-family $font-stack
-    display flex
-    position relative
-    margin-bottom 12px
-    align-items flex-start
+.ui-autocomplete {
+    font-family: $font-stack;
+    display: flex;
+    position: relative;
+    margin-bottom: 12px;
+    align-items: flex-start;
 
-    &:hover:not(.disabled)
-        .ui-autocomplete-label-text
-            color $input-label-color-hover
+    &:hover:not(.disabled) {
+        .ui-autocomplete-label-text {
+            color: $input-label-color-hover;
+        }
 
-        .ui-autocomplete-input
-            border-bottom-color $input-border-color-hover
+        .ui-autocomplete-input{
+            border-bottom-color: $input-border-color-hover;
+        }
+    }
 
-    &.active:not(.disabled)
+    &.active:not(.disabled) {
         .ui-autocomplete-label-text,
-        .ui-autocomplete-icon
-            color $input-label-color-active
+        .ui-autocomplete-icon {
+            color: $input-label-color-active;
+        }
 
-        .ui-autocomplete-input
-            border-bottom-width 2px
-            border-bottom-color $input-border-color-active
+        .ui-autocomplete-input {
+            border-bottom-width: 2px;
+            border-bottom-color: $input-border-color-active;
+        }
+    }
 
-    &.has-label
-        .ui-autocomplete-icon-wrapper
-            padding-top 20px
+    &.has-label {
+        .ui-autocomplete-icon-wrapper {
+            padding-top: 20px;
+        }
 
-        .ui-autocomplete-clear-button
-            top 22px
+        .ui-autocomplete-clear-button {
+            top: 22px;
+        }
+    }
 
-    &.icon-right
-        .ui-autocomplete-icon-wrapper
-            order 1
-            margin-left 8px
-            margin-right 0
+    &.icon-right {
+        .ui-autocomplete-icon-wrapper {
+            order: 1;
+            margin-left: 8px;
+            margin-right: 0;
+        }
+    }
 
-    &.invalid:not(.disabled)
+    &.invalid:not(.disabled) {
         .ui-autocomplete-label-text,
-        .ui-autocomplete-icon
-            color $input-label-color-invalid
+        .ui-autocomplete-icon {
+            color: $input-label-color-invalid;
+        }
 
-        .ui-autocomplete-input
-            border-bottom-color $input-border-color-invalid
+        .ui-autocomplete-input {
+            border-bottom-color: $input-border-color-invalid;
+        }
+    }
 
-     &.disabled
-        .ui-autocomplete-input
-            color $input-color-disabled
-            border-bottom-style dashed
+     &.disabled {
+        .ui-autocomplete-input {
+            color: $input-color-disabled;
+            border-bottom-style: dashed;
+        }
 
-        .ui-autocomplete-icon
-            opacity 0.6
+        .ui-autocomplete-icon {
+            opacity: 0.6;
+        }
 
-        .ui-autocomplete-feedback
-            opacity 0.8
+        .ui-autocomplete-feedback {
+            opacity: 0.8;
+        }
+    }
+}
 
-.ui-autocomplete-label
-    display block
-    position relative
-    width 100%
-    margin 0
-    padding 0
+.ui-autocomplete-label {
+    display: block;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
 
-.ui-autocomplete-icon-wrapper
-    height 24px
-    flex-shrink 0
-    margin-right 12px
-    padding-top 4px
+.ui-autocomplete-icon-wrapper {
+    height: 24px;
+    flex-shrink: 0;
+    margin-right: 12px;
+    padding-top: 4px;
+}
 
-.ui-autocomplete-icon
-    color $input-label-color
+.ui-autocomplete-icon {
+    color: $input-label-color;
+}
 
-.ui-autocomplete-content
-    flex-grow 1
+.ui-autocomplete-content {
+    flex-grow: 1;
+}
 
-.ui-autocomplete-label-text
-    font-size 14px
-    line-height 1
-    margin-bottom 2px
-    color $input-label-color
-    transition color 0.1s ease
+.ui-autocomplete-label-text {
+    font-size: 14px;
+    line-height: 1;
+    margin-bottom: 2px;
+    color: $input-label-color;
+    transition: color 0.1s ease;
+}
 
-.ui-autocomplete-input
-    cursor auto
-    background none
-    outline none
-    border none
-    padding 0
+.ui-autocomplete-input {
+    cursor: auto;
+    background: none;
+    outline: none;
+    border: none;
+    padding: 0;
 
     // Hide Edge and IE input clear button
-    &::-ms-clear
-        display none
+    &::-ms-clear {
+        display: none;
+    }
 
 
-    width 100%
-    height 32px
-    border-bottom-width 1px
-    border-bottom-style solid
-    border-bottom-color $input-border-color
+    width: 100%;
+    height: 32px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: $input-border-color;
 
-    transition border 0.1s ease
+    transition: border 0.1s ease;
 
-    color $input-color
-    font-weight normal
-    font-size 16px
-    font-family $font-stack
+    color: $input-color;
+    font-weight: normal;
+    font-size: 16px;
+    font-family: $font-stack;
+}
 
-.ui-autocomplete-clear-button
-    font-size 18px
-    position absolute
-    right 0
-    top 6px
-    color $input-clear-button-color
-    cursor pointer
+.ui-autocomplete-clear-button {
+    font-size: 18px;
+    position: absolute;
+    right: 0;
+    top: 6px;
+    color: $input-clear-button-color;
+    cursor: pointer;
 
-    &:hover
-        color $input-clear-button-color-hover
+    &:hover {
+        color: $input-clear-button-color-hover;
+    }
+}
 
-.ui-autocomplete-feedback
-    margin 0
-    height 20px
-    overflow hidden
-    position relative
-    font-size 14px
-    padding-top 4px
+.ui-autocomplete-feedback {
+    margin: 0;
+    height: 20px;
+    overflow: hidden;
+    position: relative;
+    font-size: 14px;
+    padding-top: 4px;
+}
 
-.ui-autocomplete-help-text
-    color $input-help-color
-    line-height 1
+.ui-autocomplete-help-text {
+    color: $input-help-color;
+    line-height: 1;
+}
 
-.ui-autocomplete-error-text
-    position absolute
-    color $input-error-color
-    line-height 1
-    opacity 1
-    margin-top 0
+.ui-autocomplete-error-text {
+    position: absolute;
+    color: $input-error-color;
+    line-height: 1;
+    opacity: 1;
+    margin-top: 0;
+}
 
 .ui-autocomplete-feedback-toggle-enter-active,
-.ui-autocomplete-feedback-toggle-leave-active
-    transition all .3s ease
+.ui-autocomplete-feedback-toggle-leave-active {
+    transition: all .3s ease;
+}
 
 .ui-autocomplete-feedback-toggle-enter,
-.ui-autocomplete-feedback-toggle-leave-active
-   opacity 0
-   margin-top -20px
+.ui-autocomplete-feedback-toggle-leave-active {
+   opacity: 0;
+   margin-top: -20px;
+}
 
-.ui-autocomplete-suggestions
-    min-width 100%
-    display block
-    position absolute
-    padding 0
-    margin 0
-    margin-bottom 8px
-    list-style-type none
-    box-shadow 1px 2px 8px $md-grey-600
-    background-color white
-    color $md-dark-text
-    transition left 0.1s ease-in-out
-    z-index $z-index-dropdown
+.ui-autocomplete-suggestions {
+    min-width: 100%;
+    display: block;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 8px;
+    list-style-type: none;
+    box-shadow: 1px 2px 8px $md-grey-600;
+    background-color: white;
+    color: $md-dark-text;
+    transition: left 0.1s ease-in-out;
+    z-index: $z-index-dropdown;
+}
 </style>

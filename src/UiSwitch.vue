@@ -25,9 +25,9 @@
 
 <script>
 
-import EventBus from './helpers/event-bus'
+import EventBus from './helpers/event-bus';
 
-import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent'
+import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent';
 
 export default {
     name: 'ui-switch',
@@ -70,7 +70,7 @@ export default {
             if (!this.eventTargetsComponent(id)) {
                 return;
             }
-            this.$emit('input', this.initialValue)
+            this.$emit('input', this.initialValue);
         })
     },
     mixins: [

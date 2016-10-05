@@ -136,7 +136,7 @@ export default {
             if (!this.eventTargetsComponent(id)) {
                 return
             }
-            this.$emit('input', this.initialValue)
+            this.$emit('input', this.initialValue);
         })
     },
 
@@ -224,7 +224,7 @@ export default {
                 moderatedValue = 0;
             }
 
-            this.$emit('input', moderatedValue)
+            this.$emit('input', moderatedValue);
         }
     },
 

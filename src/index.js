@@ -50,7 +50,6 @@ const Keen = {
     UiProgressCircular,
     UiProgressLinear,
     UiRadio,
-    UiRadioGroup,
     UiRating,
     UiRatingIcon,
     UiRatingPreview,

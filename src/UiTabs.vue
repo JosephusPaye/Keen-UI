@@ -30,12 +30,12 @@
 </template>
 
 <script>
-import UUID from './helpers/uuid'
+import UUID from './helpers/uuid';
 
-import UiTabHeaderItem from './UiTabHeaderItem.vue'
-import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent'
+import UiTabHeaderItem from './UiTabHeaderItem.vue';
+import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent';
 
-import EventBus from './helpers/event-bus'
+import EventBus from './helpers/event-bus';
 
 export default {
     name: 'ui-tabs',

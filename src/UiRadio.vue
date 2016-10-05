@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import EventBus from './helpers/event-bus'
-import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent'
+import EventBus from './helpers/event-bus';
+import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent';
 
 export default {
     name: 'ui-radio',
@@ -87,32 +87,32 @@ export default {
 
     methods: {
         focus() {
-            this.active = true
+            this.active = true;
         },
 
         blur() {
-            this.active = false
+            this.active = false;
         }
     },
 
     created() {
-        this.currentValue = this.value
-        this.initialValue = this.value
+        this.currentValue = this.value;
+        this.initialValue = this.value;
     },
 
     mounted() {
         EventBus.$on('ui-input::reset', (id) => {
             if (!this.eventTargetsComponent(id)) {
-                return
+                return;
             }
-            this.currentValue = this.initialValue
-            this.$emit('input', this.initialValue)
-        })
+            this.currentValue = this.initialValue;
+            this.$emit('input', this.initialValue);
+        });
     },
 
     watch: {
         currentValue(val) {
-            this.$emit('input', val)
+            this.$emit('input', val);
         }
     },
 

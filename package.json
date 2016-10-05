@@ -50,8 +50,8 @@
     "tether-drop": "^1.4.2",
     "tether-tooltip": "^1.2.0",
     "validatorjs": "^2.1.1",
-    "vue": "^2.0.0-rc.6",
-    "vue-router": "^2.0.0-rc.5"
+    "vue": "^2.0.1",
+    "vue-router": "^2.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
@@ -80,9 +80,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^2.3.1",
     "url-loader": "^0.5.7",
-    "vue-html-loader": "^1.0.0",
-    "vue-loader": "^9.4.2",
-    "vue-style-loader": "^1.0.0",
+    "vue-loader": "^9.5.1",
     "webpack": "^1.12.14"
   }
 }

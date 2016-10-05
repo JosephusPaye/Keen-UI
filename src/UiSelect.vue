@@ -76,17 +76,17 @@
 </template>
 
 <script>
-import merge from 'merge-options'
-import fuzzysearch from 'fuzzysearch'
+import merge from 'merge-options';
+import fuzzysearch from 'fuzzysearch';
 
-import { scrollIntoView, resetScroll } from './helpers/element-scroll'
+import { scrollIntoView, resetScroll } from './helpers/element-scroll';
 
-import UiIcon from './UiIcon.vue'
-import UiSelectOption from './UiSelectOption.vue'
-import UiProgressCircular from './UiProgressCircular.vue'
-import EventBus from './helpers/event-bus'
-import HasTextInput from './mixins/HasTextInput'
-import ValidatesInput from './mixins/ValidatesInput'
+import UiIcon from './UiIcon.vue';
+import UiSelectOption from './UiSelectOption.vue';
+import UiProgressCircular from './UiProgressCircular.vue';
+import EventBus from './helpers/event-bus';
+import HasTextInput from './mixins/HasTextInput';
+import ValidatesInput from './mixins/ValidatesInput';
 
 export default {
     name: 'ui-select',
@@ -201,7 +201,7 @@ export default {
             if (this.previewFilteredOptions.length !== this.filteredOptions.length) {
                 this.highlightedIndex = 0;
                 resetScroll(this.$refs.optionsList);
-                this.previewFilteredOptions = this.filteredOptions
+                this.previewFilteredOptions = this.filteredOptions;
             }
         },
 
@@ -235,7 +235,7 @@ export default {
             if (this.validationMessages) {
                 this._validationMessages = merge(errorMessages, this.validationMessages);
             } else {
-                this._validationMessages = errorMessages
+                this._validationMessages = errorMessages;
             }
         }
     },
@@ -250,7 +250,7 @@ export default {
 
             this.default = value;
             this.initValue();
-        })
+        });
         EventBus.$on('ui-input::reset', (id) => {
             // Abort if reset event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
@@ -265,7 +265,7 @@ export default {
             this.clearQuery();
             this.selectedIndex = -1;
             this.highlightedIndex = -1;
-        })
+        });
     },
 
     beforeDestroy() {
@@ -274,7 +274,7 @@ export default {
 
     methods: {
         initValue() {
-            this.previewFilteredOptions = this.filteredOptions
+            this.previewFilteredOptions = this.filteredOptions;
             if (this.default) {
                 let defaults = Array.isArray(this.default) ? this.default : [this.default];
 
@@ -318,13 +318,13 @@ export default {
                 if (this.isSelected(option)) {
                     this.deselect(option);
                 } else {
-                    const arr = this.value.slice(0)
-                    arr.push(option)
+                    const arr = this.value.slice(0);
+                    arr.push(option);
 
-                    this.$emit('input', arr)
+                    this.$emit('input', arr);
                 }
             } else {
-                this.$emit('input', option)
+                this.$emit('input', option);
                 this.selectedIndex = index;
             }
 
@@ -340,9 +340,9 @@ export default {
         },
 
         deselect(option) {
-            const arr = this.value.slice(0)
-            arr.splice(this.value.indexOf(option) ,1)
-            this.$emit('input', arr)
+            const arr = this.value.slice(0);
+            arr.splice(this.value.indexOf(option) ,1);
+            this.$emit('input', arr);
         },
 
         isSelected(option) {
@@ -454,7 +454,7 @@ export default {
         setDefaultValue(defaults) {
             let optionValue;
             let defaultOptionValue;
-            let arr = []
+            let arr = [];
 
             for (let i = 0; i < defaults.length; i++) {
                 defaultOptionValue = defaults[i][this.keys.value] || defaults[i];
@@ -462,12 +462,12 @@ export default {
                     optionValue = this.options[j][this.keys.value] || this.options[j];
 
                     if (optionValue === defaultOptionValue) {
-                        arr.push(this.options[j])
+                        arr.push(this.options[j]);
                         break;
                     }
                 }
             }
-            this.$emit('input', arr.length > 1 ? arr : arr[0])
+            this.$emit('input', arr.length > 1 ? arr : arr[0]);
         },
 
         scrollOptionIntoView(optionEl) {

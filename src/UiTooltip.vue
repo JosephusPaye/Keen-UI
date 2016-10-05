@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import Tooltip from 'tether-tooltip'
-import typeCheck from './helpers/type-check'
+import Tooltip from 'tether-tooltip';
+import typeCheck from './helpers/type-check';
 
 export default {
     name: 'ui-tooltip',
@@ -28,39 +28,39 @@ export default {
     data() {
         return {
             tooltip: null
-        }
+        };
     },
 
     watch: {
         trigger() {
             if (!this.tooltip) {
-                this.initialize()
+                this.initialize();
             }
         }
     },
 
     mounted() {
-        this.initialize()
+        this.initialize();
     },
 
     beforeDestory() {
         if (this.tooltip) {
-            this.tooltip.remove()
-            this.tooltip.destroy()
+            this.tooltip.remove();
+            this.tooltip.destroy();
         }
     },
 
     methods: {
         initialize() {
-            let _t = this.$parent.$refs[this.trigger]
-            this._trigger = typeCheck(_t) === 'array' ? _t[0] : _t
+            let _t = this.$parent.$refs[this.trigger];
+            this._trigger = typeCheck(_t) === 'array' ? _t[0] : _t;
             this.tooltip = new Tooltip({
                 target: this._trigger,
                 content: this.$refs.tooltip,
                 classes: 'ui-tooltip-theme',
                 position: this.position,
                 openOn: 'hover focus'
-            })
+            });
         }
     }
 }
