@@ -1,5 +1,9 @@
 <template>
     <div class="ui-tabs" :class="styleClasses">
+        <div v-if="placement === 'above'" class="ui-tabs-body">
+            <slot></slot>
+        </div>
+
         <div class="ui-tabs-header" :class="[backgroundColor]">
             <ul
                 class="ui-tabs-header-items" :class="[textColor, textColorActive]" role="tablist"
@@ -18,12 +22,12 @@
             </ul>
 
             <div
-                class="ui-tabs-active-tab-indicator" :class="[indicatorColor]"
+                class="ui-tabs-active-tab-indicator" :class="[indicatorColor, placement]"
                 :style="{ 'left': indicatorLeft, 'right': indicatorRight }"
             ></div>
         </div>
 
-        <div class="ui-tabs-body">
+        <div v-if="placement === 'below'" class="ui-tabs-body">
             <slot></slot>
         </div>
     </div>
@@ -66,6 +70,10 @@ export default {
             coerce(color) {
                 return 'text-color-active-' + color;
             }
+        },
+        placement: {
+            type: String,
+            default: 'below'
         },
         indicatorColor: {
             type: String,
@@ -375,7 +383,14 @@ export default {
 .ui-tabs-active-tab-indicator {
     position: absolute;
     height: 2px;
-    bottom: 0;
+
+    &.above {
+      top: 0;
+    }
+
+    &.below {
+      bottom: 0;
+    }
 
     transition: all 0.2s ease;
     box-shadow: 0 -1px 2px alpha(black, 0.05);
