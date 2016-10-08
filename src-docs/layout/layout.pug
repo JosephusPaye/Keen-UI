@@ -1,0 +1,19 @@
+- var project = 'Keen UI';
+- var projectDescription = 'A lightweight but complete collection of essential UI components written with Vue and inspired by Material Design';
+
+block variables
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    include /layout/head.pug
+    block meta
+        <meta name="description" content="#{ projectDescription }">
+</head>
+<body>
+    include /layout/body.pug
+
+    script(src="js/docs.shared.js")
+    block scripts
+</body>
+</html>

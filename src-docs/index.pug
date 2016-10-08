@@ -1,0 +1,13 @@
+extends /layout/layout.pug
+
+block variables
+    - var disableAssets = true;
+    - var slug = 'index';
+
+block meta
+    <meta name="description" content="#{ projectDescription }">
+    <meta name="twitter:description" content="#{ projectDescription }">
+    <meta property="og:description" content="#{ projectDescription }">
+
+block content
+    h1 Getting Started

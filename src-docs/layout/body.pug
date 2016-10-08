@@ -1,0 +1,45 @@
+<div class="sidebar-overlay" data-ref="sidebarOverlay" v-cloak></div>
+
+<div class="sidebar" data-ref="sidebar">
+    <div class="brand">
+        h1.title Keen UI
+            a.version(
+                rel="noopener"
+                target="_blank"
+                title="View release notes"
+                href="https://github.com/JosephusPaye/Keen-UI/releases/tag/v1.0.0"
+            )  v1.0.0
+
+        a.github-icon(
+            rel="noopener"
+            target="_blank"
+            title="View on Github"
+            href="https://github.com/JosephusPaye/Keen-UI/"
+        )
+            img(
+                width="24px"
+                height="24px"
+                src="images/github.svg"
+            )
+    </div>
+
+    include /layout/menu.pug
+
+    p.footer-attribution.
+        Created by <a href="https://twitter.com/JosephusPaye" target="_blank" rel="noopener" title="@JosephusPaye">Josephus Paye II</a>.
+</div>
+
+<div class="page">
+    <div class="page-toolbar" v-cloak>
+        <button class="sidebar-toggle-button" data-ref="sidebarToggleButton">
+            <i class="material-icons" aria-hidden="true">menu</i>
+        </button>
+
+        <div class="page-toolbar-title">#{ project } - #{ title }</div>
+    </div>
+
+    <div class="container">
+        block content
+            <div id="app"></div>
+    </div>
+</div>

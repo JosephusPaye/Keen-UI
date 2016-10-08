@@ -1,8 +1,10 @@
 @import '../../src/styles/imports';
 
-@import '_tables';
-@import '_code';
-@import '_helpers';
+@import 'code';
+@import 'prism.css'; // from node_modules
+
+@import 'tables';
+@import 'helpers';
 
 * {
     box-sizing: border-box;
@@ -61,43 +63,41 @@ body {
         height: 64px;
         padding: 0 16px;
         color: $md-dark-text;
-        border-bottom: 1px solid #EEE;
         display: flex;
         align-items: center;
+        position: relative;
+        box-shadow: 0 0 2px alpha(black, 0.12),0 2px 2px alpha(black, 0.2);
 
         .title {
-            font-size: 28px;
-            font-weight: normal;
             margin: 0;
+            font-size: 24px;
+            font-weight: normal;
+            position: relative;
         }
 
         .version {
+            top: -4px;
+            position: absolute;
             margin-left: 8px;
             font-size: 0.5em;
             display: inline-block;
-            vertical-align: super;
-        }
-    }
-
-    .subhead {
-        padding: 16px;
-        font-size: 14px;
-        padding-top: 12px;
-        line-height: 1.71em;
-        color: alpha(black, 0.75);
-        border-bottom: 1px solid #EEE;
-
-        .ui-button {
-            margin-top: 16px;
         }
 
-        p {
-            &:first-child {
-                margin-top: 0;
+        .github-icon {
+            position: absolute;
+            right: 16px;
+            top: 20px;
+            width: 24px;
+            height: 24px;
+            opacity: 0.4;
+
+            &:hover,
+            &:focus {
+                opacity: 1;
             }
 
-            &:last-child {
-                margin-bottom: 0;
+            img {
+                max-width: 100%;
             }
         }
     }
@@ -105,33 +105,44 @@ body {
     .menu {
         margin: 0;
         padding: 0;
-        padding-bottom: 16px;
+        padding-bottom: 4px;
 
         .menu-header {
-            padding: 12px 16px;
+            padding: 8px 16px;
             font-weight: 500;
             font-size: 16px;
         }
 
-        .menu-item {
+        .menu-item,
+        .sub-menu-item {
             display: block;
             padding: 8px 16px;
-            padding-left: 40px;
             color: $md-dark-text;
             cursor: pointer;
             text-decoration: none;
 
             &:focus,
             &:hover {
-                background-color: $md-grey-200;
+                background-color: $md-grey-300;
             }
 
             &.active {
-                background-color: $md-grey-100;
+                background-color: $md-grey-200;
                 color: $md-blue-700;
                 font-weight: 500;
             }
         }
+
+        .sub-menu-item {
+            padding-left: 40px;
+        }
+    }
+
+    .footer-attribution {
+        border-top: 1px solid #EEE;
+        padding: 8px 16px;
+        margin: 0;
+        font-size: 14px;
     }
 }
 
@@ -165,7 +176,13 @@ body {
 .section-heading {
     @extends $md-text-display-1;
     border-bottom: 1px solid $md-dark-divider;
-    padding-bottom: 8px;
+    padding-bottom: 16px;
+    margin-bottom: 40px;
+    display: flex;
+
+    a {
+        margin-left: auto;
+    }
 }
 
 h3 {
@@ -290,6 +307,8 @@ a.ui-button {
     text-decoration: none;
 }
 
-.m-b-0 {
-    margin-bottom: 0;
+.warning {
+    background-color: $md-red-50;
+    padding: 12px 16px;
+    border-radius: 2px;
 }
