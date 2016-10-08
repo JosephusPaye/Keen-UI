@@ -103,4 +103,9 @@ const Keen = {
     }
 };
 
+// Automatically install the plugin if Vue is available globally
+if (typeof window !== 'undefined' && window.Vue) {
+    window.Vue.use(Keen);
+}
+
 module.exports = Keen;
