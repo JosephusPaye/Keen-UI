@@ -1,5 +1,5 @@
-import Validator from 'validatorjs';
-import EventBus from '../helpers/event-bus';
+import Validator from 'validatorjs'
+import EventBus from '../helpers/event-bus'
 
 export default {
     props: {
@@ -17,11 +17,11 @@ export default {
             valid: true,
             dirty: false,
             _validationMessages: null,
-        };
+        }
     },
 
     created() {
-        this._validationMessages = this.validationMessages;
+        this._validationMessages = this.validationMessages
     },
 
     mounted() {
@@ -30,8 +30,8 @@ export default {
             if (!this.eventTargetsComponent(id)) {
                 return;
             }
-            this.setValidity(valid, error);
-        });
+            this.setValidity(valid, error)
+        })
     },
 
     methods: {
@@ -59,10 +59,10 @@ export default {
             this.valid = valid;
 
             if (!valid && error && error.length) {
-                this.validationError = error;
-                this.$emit('validationError', error);
+                this.validationError = error
+                this.$emit('validationError', error)
             } else {
-                this.$emit('valid', valid);
+                this.$emit('valid', valid)
             }
         }
     }

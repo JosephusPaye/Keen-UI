@@ -1,8 +1,8 @@
-import Drop from 'tether-drop';
-import classlist from '../helpers/classlist';
-import EventBus from '../helpers/event-bus';
-import typeCheck from '../helpers/type-check';
-import ReceivesTargetedEvent from './ReceivesTargetedEvent';
+import Drop from '../lib/tether-drop'
+import classlist from '../helpers/classlist'
+import EventBus from '../helpers/event-bus'
+import typeCheck from '../helpers/type-check'
+import ReceivesTargetedEvent from './ReceivesTargetedEvent'
 
 export default {
     props: {
@@ -45,33 +45,33 @@ export default {
         EventBus.$on('ui-dropdown::open', (id) => {
             // Abort if event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
-                return;
+                return
             }
-            this.openDropdown();
-        });
+            this.openDropdown()
+        })
 
         EventBus.$on('ui-dropdown::close', (id) => {
             // Abort if event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
-                return;
+                return
             }
-            this.closeDropdown();
-        });
+            this.closeDropdown()
+        })
 
         EventBus.$on('ui-dropdown::toggle', (id) => {
             // Abort if event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
-                return;
+                return
             }
-            this.toggleDropdown();
-        });
+            this.toggleDropdown()
+        })
     },
 
     methods: {
         initializeDropdown() {
-            let _t = this.$parent.$refs[this.trigger];
+            let _t = this.$parent.$refs[this.trigger]
 
-            this._trigger = typeCheck(_t) === 'array' ? _t[0] : _t;
+            this._trigger = typeCheck(_t) === 'array' ? _t[0] : _t
             this.drop = new Drop({
                 target: this._trigger,
                 content: this.$refs.dropdown,

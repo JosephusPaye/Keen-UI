@@ -1,4 +1,4 @@
-import UiRippleInk from '../UiRippleInk.vue';
+import UiRippleInk from '../UiRippleInk.vue'
 
 
 export default {
@@ -12,4 +12,4 @@ export default {
     components: {
         UiRippleInk
     }
-};
+}

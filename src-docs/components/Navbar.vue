@@ -83,7 +83,10 @@ let menu = [
     }, {
         id: 'button',
         text: 'UiButton'
-    }, {
+    },{
+        id: 'carousel',
+        text: 'UiCarousel'
+    },{
         id: 'checkbox',
         text: 'UiCheckbox'
     }, {

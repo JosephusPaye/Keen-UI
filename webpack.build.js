@@ -10,10 +10,7 @@ config.entry = './src/index.js';
 config.devtool = 'source-map';
 
 config.plugins = [
-    new webpack.BannerPlugin(config.banner, {
-        raw: true,
-        entryOnly: true
-    }),
+    new webpack.BannerPlugin(config.banner),
 
     new ExtractTextPlugin('./keen-ui.css')
 ];

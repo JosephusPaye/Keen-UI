@@ -21,9 +21,7 @@ config.plugins = [
         compress: {
             warnings: false
         }
-    }),
-
-    new webpack.optimize.OccurenceOrderPlugin()
+    })
 ];
 
 module.exports = config;

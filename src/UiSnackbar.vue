@@ -77,7 +77,7 @@ export default {
 
         hide() {
             if (!this.persistent) {
-                this.$emit('input', false);
+                this.$emit('input', false)
             }
         },
 

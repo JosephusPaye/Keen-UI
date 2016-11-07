@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import classlist from './helpers/classlist';
+import classlist from './helpers/classlist'
 
-import UiIconButton from './UiIconButton.vue';
-import UiButton from './UiButton.vue';
-import EventBus from './helpers/event-bus';
+import UiIconButton from './UiIconButton.vue'
+import UiButton from './UiButton.vue'
+import EventBus from './helpers/event-bus'
 
 export default {
     name: 'ui-modal',
@@ -102,11 +102,11 @@ export default {
         value() {
             this.$nextTick(() => {
                 if (this.value) {
-                    this.opened();
+                    this.opened()
                 } else {
-                    this.closed();
+                    this.closed()
                 }
-            });
+            })
         }
     },
 
@@ -135,50 +135,56 @@ export default {
                 return;
             }
 
-            this.$emit('input', false);
+            this.$emit('input', false)
         },
 
         opened() {
-            this.lastFocussedElement = document.activeElement;
-            this.$refs.modalContainer.focus();
-            classlist.add(document.body, 'ui-modal-open');
-            document.addEventListener('focus', this.restrictFocus, true);
-            this.$emit('opened');
+            this.lastFocussedElement = document.activeElement
+            this.$refs.modalContainer.focus()
+
+            classlist.add(document.body, 'ui-modal-open')
+
+            document.addEventListener('focus', this.restrictFocus, true)
+
+            this.$emit('opened')
         },
 
         closed() {
-            this.tearDown();
-            this.$emit('closed');
+            this.tearDown()
+            this.$emit('closed')
         },
 
         redirectFocus(e) {
-            e.stopPropagation();
-            this.$refs.modalContainer.focus();
+            e.stopPropagation()
+
+            this.$refs.modalContainer.focus()
         },
 
         restrictFocus(e) {
             if (!this.$refs.modalContainer.contains(e.target)) {
-                e.stopPropagation();
-                this.$refs.modalContainer.focus();
+                e.stopPropagation()
+                this.$refs.modalContainer.focus()
             }
         },
 
         tearDown() {
-            classlist.remove(document.body, 'ui-modal-open');
-            document.removeEventListener('focus', this.restrictFocus, true);
+            classlist.remove(document.body, 'ui-modal-open')
+
+            document.removeEventListener('focus', this.restrictFocus, true)
+
             if (this.lastFocussedElement) {
-                this.lastFocussedElement.focus();
+                this.lastFocussedElement.focus()
             }
         },
 
         transitionEnd() {
             setTimeout(() => {
                 if (this.show) {
-                    this.$emit('revealed');
+                    this.$emit('revealed')
                 } else {
-                    this.$emit('hidden');
+                    this.$emit('hidden')
                 }
-            }, 500);
+            }, 500)
         }
     },
 

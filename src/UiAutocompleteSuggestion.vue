@@ -50,6 +50,19 @@ export default {
                 };
             }
         }
+    },
+
+    partials: {
+        'ui-autocomplete-simple': `
+            <li class="ui-autocomplete-suggestion-item" v-text="item[keys.text] || item"></li>
+        `,
+
+        'ui-autocomplete-image': `
+            <div
+                class="image" :style="{ 'background-image': 'url(' + item[keys.image] + ')' }"
+            ></div>
+            <div class="text" v-text="item[keys.text]"></div>
+        `
     }
 };
 </script>

@@ -30,7 +30,7 @@ export default {
     data() {
         return {
             show: true
-        };
+        }
     },
 
     props: {
@@ -53,23 +53,23 @@ export default {
     computed: {
         iconName() {
             if (this.icon) {
-                return this.icon;
+                return this.icon
             }
 
-            let icon = this.type;
+            let icon = this.type
 
             if (icon === 'success') {
-                icon = 'check_circle';
+                icon = 'check_circle'
             }
 
-            return icon;
+            return icon
         }
     },
 
     methods: {
         close() {
-            this.show = false;
-            this.$emit('dismissed');
+            this.show = false
+            this.$emit('dismissed')
         }
     },
 
@@ -77,7 +77,7 @@ export default {
         UiIcon,
         UiIconButton
     }
-};
+}
 </script>
 
 <style lang="stylus">

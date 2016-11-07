@@ -70,7 +70,7 @@ export default {
     mixins: [
         ShowsRippleInk
     ]
-};
+}
 </script>
 
 <style lang="stylus">

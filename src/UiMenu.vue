@@ -20,8 +20,9 @@
 </template>
 
 <script>
-import UiMenuOption from './UiMenuOption.vue';
-import ShowsDropdown from './mixins/ShowsDropdown';
+import UiMenuOption from './UiMenuOption.vue'
+import ShowsDropdown from './mixins/ShowsDropdown'
+
 
 export default {
     name: 'ui-menu',
@@ -56,12 +57,12 @@ export default {
         optionSelect(option) {
             if (!(option.disabled || option.type === 'divider')) {
                 if (Object.prototype.toString.call(option.callback) === '[object Function]') {
-                    option.callback();
+                    option.callback()
                 } else {
-                    this.$emit('option-selected', option);
+                    this.$emit('option-selected', option)
                 }
                 if (this.closeOnSelect) {
-                    setTimeout(()=>{this.closeDropdown()}, 150);
+                    setTimeout(()=>{this.closeDropdown()}, 150)
                 }
             }
         },
@@ -69,12 +70,14 @@ export default {
         restrictFocus(e) {
             if (! this.$refs.dropdown.contains(e.target)) {
                 e.stopPropagation();
+
                 this.$refs.dropdown.querySelector('.ui-menu-option').focus();
             }
         },
 
         redirectFocus(e) {
             e.stopPropagation();
+
             this.$refs.dropdown.querySelector('.ui-menu-option').focus();
         }
     },
@@ -82,14 +85,14 @@ export default {
     mounted() {
         this.$on('dropdown-opened', function() {
             if (this.containFocus) {
-                document.addEventListener('focus', this.restrictFocus, true);
+                document.addEventListener('focus', this.restrictFocus, true)
             }
-            this.$emit('opened');
+            this.$emit('opened')
         })
 
         this.$on('dropdown-closed', function() {
             if (this.containFocus) {
-                document.removeEventListener('focus', this.restrictFocus, true);
+                document.removeEventListener('focus', this.restrictFocus, true)
             }
             this.$emit('closed');
         })

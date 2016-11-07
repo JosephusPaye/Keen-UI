@@ -96,21 +96,21 @@ export default {
 
     computed: {
         styleClasses() {
-            let classes = [`ui-button-${this.type}`, `color-${this.color}`];
+            let classes = [`ui-button-${this.type}`, `color-${this.color}`]
 
             if (this.raised) {
-                classes.push('ui-button-raised');
+                classes.push('ui-button-raised')
             }
 
             if (this.hasDropdownMenu || this.hasPopover) {
-                classes.push('has-dropdown');
+                classes.push('has-dropdown')
             }
 
-            return classes;
+            return classes
         },
 
         spinnerColor() {
-            return (this.color === 'default' || this.type === 'flat') ? 'black' : 'white';
+            return (this.color === 'default' || this.type === 'flat') ? 'black' : 'white'
         },
 
         showIcon() {
@@ -129,7 +129,7 @@ export default {
         HasDropdown,
         ShowsRippleInk
     ]
-};
+}
 </script>
 
 <style lang="stylus">

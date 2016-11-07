@@ -42,10 +42,7 @@ config.entry = {
 };
 
 config.plugins = [
-    new webpack.BannerPlugin(config.banner, {
-        raw: true,
-        entryOnly: true
-    }),
+    new webpack.BannerPlugin(config.banner),
 
     new webpack.DefinePlugin({
         'process.env': {
@@ -57,9 +54,7 @@ config.plugins = [
         compress: {
             warnings: false
         }
-    }),
-
-    new webpack.optimize.OccurenceOrderPlugin()
+    })
 ];
 
 config.output = {

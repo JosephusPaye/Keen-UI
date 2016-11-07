@@ -3,6 +3,7 @@ import Vue from 'vue'
 import UiAlertDocs from '../components/UiAlertDocs.vue'
 import UiAutocompleteDocs from '../components/UiAutocompleteDocs.vue'
 import UiButtonDocs from '../components/UiButtonDocs.vue'
+import UiCarouselDocs from '../components/UiCarouselDocs.vue'
 import UiCheckboxDocs from '../components/UiCheckboxDocs.vue'
 import UiCollapsibleDocs from '../components/UiCollapsibleDocs.vue'
 import UiConfirmDocs from '../components/UiConfirmDocs.vue'
@@ -46,6 +47,11 @@ let routes = [
         path: '/button',
         component: UiButtonDocs,
         meta: 'UiButton'
+    },
+    {
+        path: '/carousel',
+        component: UiCarouselDocs,
+        meta: 'UiCarousel'
     },
     {
         path: '/checkbox',

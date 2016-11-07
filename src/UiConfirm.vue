@@ -23,10 +23,10 @@
 </template>
 
 <script>
+import classlist from './helpers/classlist';
+
 import UiModal from './UiModal.vue';
 import UiButton from './UiButton.vue';
-
-import classlist from './helpers/classlist';
 
 export default {
     name: 'ui-confirm',
@@ -34,18 +34,18 @@ export default {
     data() {
         return {
             show: false,
-        };
+        }
     },
 
     watch: {
         value() {
-            this.show = this.value;
+            this.show = this.value
         }
     },
 
     created() {
         if (this.value !== this.show) {
-            this.show = this.value;
+            this.show = this.value
         }
     },
 
@@ -95,29 +95,29 @@ export default {
             this.$emit('confirmed');
 
             if (this.closeOnConfirm) {
-                this.$emit('input', false);
+                this.$emit('input', false)
             }
         },
 
         deny() {
-            this.$emit('denied');
-            this.$emit('input', false);
+            this.$emit('denied')
+            this.$emit('input', false)
         },
 
         opened() {
             let button;
 
             if (this.autofocus === 'confirm') {
-                button = this.$refs.confirmButton.$el;
+                button = this.$refs.confirmButton.$el
             } else if (this.autofocus === 'deny') {
-                button = this.$refs.denyButton.$el;
+                button = this.$refs.denyButton.$el
             }
 
             if (button) {
-                classlist.add(button, 'autofocus');
-                button.addEventListener('blur', this.removeAutoFocus);
+                classlist.add(button, 'autofocus')
+                button.addEventListener('blur', this.removeAutoFocus)
 
-                button.focus();
+                button.focus()
             }
         },
 
@@ -125,16 +125,16 @@ export default {
             let button;
 
             if (this.autofocus === 'confirm') {
-                button = this.$refs.confirmButton.$el;
+                button = this.$refs.confirmButton.$el
             } else if (this.autofocus === 'deny') {
-                button = this.$refs.denyButton.$el;
+                button = this.$refs.denyButton.$el
             }
 
             if (button) {
                 // This listener should run only once
-                button.removeEventListener('blur', this.removeAutoFocus);
+                button.removeEventListener('blur', this.removeAutoFocus)
 
-                classlist.remove(button, 'autofocus');
+                classlist.remove(button, 'autofocus')
             }
         }
     },

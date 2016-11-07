@@ -29,21 +29,21 @@ export default {
 
     computed: {
         active() {
-            return this.$parent.activeTab === this.id;
+            return this.$parent.activeTab === this.id
         }
     },
 
     watch: {
         active() {
             if (this.active) {
-                this.$emit('selected', this.id);
+                this.$emit('selected', this.id)
             } else {
-                this.$emit('deselected', this.id);
+                this.$emit('deselected', this.id)
             }
         },
         id() {
             if (this._id) {
-                this.id = this._id;
+                this.id = this._id
             }
         }
     }

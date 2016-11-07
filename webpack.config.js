@@ -44,9 +44,6 @@ module.exports = {
                 limit: 10000,
                 name: '[name].[ext]?[hash]'
             }
-        }, {
-            test: /draggabilly|desandro|get\-size|classie|unidragger|unipointer|eventemitter/,
-            loader: 'imports?define=>false&this=>window'
         }]
     },
 
@@ -71,5 +68,9 @@ module.exports = {
         new ExtractTextPlugin('docs.bundle.css')
     ],
 
-    banner: banner
+    banner: {
+        banner,
+        raw: true,
+        entryOnly: true
+    }
 };

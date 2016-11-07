@@ -70,7 +70,7 @@ export default {
     computed: {
 
         _stroke() {
-            return this.stroke ? this.stroke : this.autoStroke ? parseInt(this.size / 8, 10) : 4;
+            return this.stroke ? this.stroke : this.autoStroke ? parseInt(this.size / 8, 10) : 4
         },
 
         strokeDashArray() {
