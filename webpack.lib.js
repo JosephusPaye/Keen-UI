@@ -1,14 +1,12 @@
 var path = require('path');
 var webpack = require('webpack');
 var config = require('./webpack.config.js');
-
-const banner = config.banner;
+var banner = require('./webpack.banner.js');
 
 delete config.devtool;
 delete config.watch;
 delete config.plugins;
-delete config.vue.loaders;
-delete config.banner;
+delete config.module.rules[0].use.options.loaders;
 
 config.entry = {
     UiAlert: ['./src/UiAlert.vue'],

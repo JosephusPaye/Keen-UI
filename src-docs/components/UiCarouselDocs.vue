@@ -4,7 +4,7 @@
             UiCarousel <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiAlert.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
-        <p>It's in progress.</p>
+        <p>It's in progress. Time needed.</p>
 
         <h3>
             Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiAlertDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
@@ -12,9 +12,7 @@
 
         <div class="demo demo-1">
             <ui-carousel :itemNum="items">
-                <img src="assets/img/fullimage1.jpg" alt="1" slot="1"/>
-                <img src="assets/img/fullimage2.jpg" alt="2" slot="2"/>
-                <img src="assets/img/fullimage3.jpg" alt="3" slot="3"/>
+                <img v-for="n of 5" :src="aliyunOss+n+'.jpg'" alt="views" :slot="n"/>
             </ui-carousel>
         </div>
 
@@ -149,8 +147,8 @@ import UiCarousel from '../../src/UiCarousel.vue';
 export default {
     data() {
         return {
-            items: 3,
-            controllers: 2
+            items: 5,
+            aliyunOss: 'http://fancy-oss.oss-cn-shenzhen.aliyuncs.com/images/',
         }
     },
     components: {
