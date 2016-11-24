@@ -432,7 +432,6 @@ export default {
     font-size: 18px;
     position: absolute;
     right: 0;
-    top: 6px;
     color: $input-clear-button-color;
     cursor: pointer;
 
