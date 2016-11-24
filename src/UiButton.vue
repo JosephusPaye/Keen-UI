@@ -155,7 +155,8 @@ export default {
     font-family: $font-stack;
     @extends $md-text-button;
     line-height: 1;
-
+    
+    cursor: pointer;
     background: none;
     overflow: hidden;
     outline: none;
