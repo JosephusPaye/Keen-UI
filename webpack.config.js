@@ -19,12 +19,12 @@ module.exports = {
         rules: [{
             test: /\.vue$/,
             use: {
-                loader: 'vue',
+                loader: 'vue-loader',
                 options: {
                     loaders: {
-                        css: ExtractTextPlugin.extract('css'),
+                        css: ExtractTextPlugin.extract('css-loader'),
                         // extract css and stylus files to a single file
-                        stylus: ExtractTextPlugin.extract('css!stylus')
+                        stylus: ExtractTextPlugin.extract('css-loader!stylus-loader')
                     },
 
                     autoprefixer: {
@@ -35,23 +35,23 @@ module.exports = {
         }, {
             test: /\.js$/,
             use: {
-                loader: 'babel',
+                loader: 'babel-loader',
             },
             exclude: /node_modules|src\/(helpers|lib|mixins)/
         }, {
             test: /\.json$/,
             use: {
-                loader: 'json'
+                loader: 'json-loader'
             }
         }, {
             test: /\.html$/,
             use: {
-                loader: 'vue-html'
+                loader: 'vue-html-loader'
             }
         }, {
             test: /\.(png|jpg|gif|svg)$/,
             use: {
-                loader: 'url',
+                loader: 'url-loader',
                 options: {
                     limit: 10000,
                     name: '[name].[ext]?[hash]'

@@ -2274,7 +2274,9 @@ body[modality="keyboard"] .ui-alert .ui-alert-close-button:focus {
 }
 .ui-carousel .ui-carousel-wrapper-inner {
   position: relative;
-  transform: translate3d(0, 0, 0);
+  perspective-origin: 25% center;
+  perspective: 1200px;
+  transform-origin: 0px center 0px;
 }
 .ui-carousel .ui-carousel-wrapper-inner::after {
   content: '';
@@ -2286,7 +2288,6 @@ body[modality="keyboard"] .ui-alert .ui-alert-close-button:focus {
 }
 .ui-carousel .ui-carousel-item {
   float: left;
-  transform: translate3d(0, 0, 0);
 }
 .ui-carousel .ui-carousel-item,
 .ui-carousel .ui-carousel-wrapper-inner {
@@ -2348,6 +2349,377 @@ body[modality="keyboard"] .ui-alert .ui-alert-close-button:focus {
   transform: scale(1.2);
   transition-property: transform, opacity, background-color;
   transition-duration: 0.3s;
+}
+.basic-enter-active {
+  animation: basicIn 0.4s both ease;
+  position: absolute;
+}
+.basic-leave-active {
+  animation: basicOut 0.4s both ease;
+}
+.fade-enter-active {
+  animation: fadeIn 0.7s both ease;
+  position: absolute;
+}
+.fade-leave-active {
+  animation: fadeOut 0.7s both ease;
+}
+.backSlide-enter-active {
+  animation: backSlideIn 1s both ease;
+  position: absolute;
+}
+.backSlide-leave-active {
+  animation: backSlideOut 1s both ease;
+}
+.goDown-enter-active {
+  animation: goDown 0.7s both ease;
+  position: absolute;
+}
+.goDown-leave-active {
+  animation: scaleToFade 0.7s both ease;
+}
+.fadeUp-enter-active {
+  animation: scaleUpFrom 0.5s both ease;
+  position: absolute;
+}
+.fadeUp-leave-active {
+  animation: scaleUpTo 0.5s both ease;
+}
+@-moz-keyframes basicIn {
+0% {
+    transform: translateX(100%);
+}
+100% {
+    transform: translateX(0);
+}
+}
+@-webkit-keyframes basicIn {
+0% {
+    transform: translateX(100%);
+}
+100% {
+    transform: translateX(0);
+}
+}
+@-o-keyframes basicIn {
+0% {
+    transform: translateX(100%);
+}
+100% {
+    transform: translateX(0);
+}
+}
+@keyframes basicIn {
+0% {
+    transform: translateX(100%);
+}
+100% {
+    transform: translateX(0);
+}
+}
+@-moz-keyframes basicOut {
+0% {
+    transform: translateX(0);
+}
+100% {
+    transform: translateX(-100%);
+}
+}
+@-webkit-keyframes basicOut {
+0% {
+    transform: translateX(0);
+}
+100% {
+    transform: translateX(-100%);
+}
+}
+@-o-keyframes basicOut {
+0% {
+    transform: translateX(0);
+}
+100% {
+    transform: translateX(-100%);
+}
+}
+@keyframes basicOut {
+0% {
+    transform: translateX(0);
+}
+100% {
+    transform: translateX(-100%);
+}
+}
+@-moz-keyframes fadeIn {
+0% {
+    opacity: 0;
+}
+100% {
+    opacity: 1;
+}
+}
+@-webkit-keyframes fadeIn {
+0% {
+    opacity: 0;
+}
+100% {
+    opacity: 1;
+}
+}
+@-o-keyframes fadeIn {
+0% {
+    opacity: 0;
+}
+100% {
+    opacity: 1;
+}
+}
+@keyframes fadeIn {
+0% {
+    opacity: 0;
+}
+100% {
+    opacity: 1;
+}
+}
+@-moz-keyframes fadeOut {
+0% {
+    opacity: 1;
+}
+100% {
+    opacity: 0;
+}
+}
+@-webkit-keyframes fadeOut {
+0% {
+    opacity: 1;
+}
+100% {
+    opacity: 0;
+}
+}
+@-o-keyframes fadeOut {
+0% {
+    opacity: 1;
+}
+100% {
+    opacity: 0;
+}
+}
+@keyframes fadeOut {
+0% {
+    opacity: 1;
+}
+100% {
+    opacity: 0;
+}
+}
+@-moz-keyframes backSlideIn {
+0%, 25% {
+    opacity: 0.5;
+    transform: translateZ(-500px) translateX(200%);
+}
+75% {
+    opacity: 0.5;
+    transform: translateZ(-500px);
+}
+100% {
+    opacity: 0.5;
+    transform: translateZ(0) translateX(0);
+}
+}
+@-webkit-keyframes backSlideIn {
+0%, 25% {
+    opacity: 0.5;
+    transform: translateZ(-500px) translateX(200%);
+}
+75% {
+    opacity: 0.5;
+    transform: translateZ(-500px);
+}
+100% {
+    opacity: 0.5;
+    transform: translateZ(0) translateX(0);
+}
+}
+@-o-keyframes backSlideIn {
+0%, 25% {
+    opacity: 0.5;
+    transform: translateZ(-500px) translateX(200%);
+}
+75% {
+    opacity: 0.5;
+    transform: translateZ(-500px);
+}
+100% {
+    opacity: 0.5;
+    transform: translateZ(0) translateX(0);
+}
+}
+@keyframes backSlideIn {
+0%, 25% {
+    opacity: 0.5;
+    transform: translateZ(-500px) translateX(200%);
+}
+75% {
+    opacity: 0.5;
+    transform: translateZ(-500px);
+}
+100% {
+    opacity: 0.5;
+    transform: translateZ(0) translateX(0);
+}
+}
+@-moz-keyframes backSlideOut {
+25% {
+    opacity: 0.5;
+    transform: translateZ(-500px);
+}
+75% {
+    opacity: 0.5;
+    transform: translateZ(-500px) translateX(-200%);
+}
+100% {
+    opacity: 0.5;
+    transform: translateZ(-500px) translateX(-200%);
+}
+}
+@-webkit-keyframes backSlideOut {
+25% {
+    opacity: 0.5;
+    transform: translateZ(-500px);
+}
+75% {
+    opacity: 0.5;
+    transform: translateZ(-500px) translateX(-200%);
+}
+100% {
+    opacity: 0.5;
+    transform: translateZ(-500px) translateX(-200%);
+}
+}
+@-o-keyframes backSlideOut {
+25% {
+    opacity: 0.5;
+    transform: translateZ(-500px);
+}
+75% {
+    opacity: 0.5;
+    transform: translateZ(-500px) translateX(-200%);
+}
+100% {
+    opacity: 0.5;
+    transform: translateZ(-500px) translateX(-200%);
+}
+}
+@keyframes backSlideOut {
+25% {
+    opacity: 0.5;
+    transform: translateZ(-500px);
+}
+75% {
+    opacity: 0.5;
+    transform: translateZ(-500px) translateX(-200%);
+}
+100% {
+    opacity: 0.5;
+    transform: translateZ(-500px) translateX(-200%);
+}
+}
+@-moz-keyframes goDown {
+from {
+    transform: translateY(-100%);
+    opacity: 0.5;
+}
+}
+@-webkit-keyframes goDown {
+from {
+    transform: translateY(-100%);
+    opacity: 0.5;
+}
+}
+@-o-keyframes goDown {
+from {
+    transform: translateY(-100%);
+    opacity: 0.5;
+}
+}
+@keyframes goDown {
+from {
+    transform: translateY(-100%);
+    opacity: 0.5;
+}
+}
+@-moz-keyframes scaleToFade {
+to {
+    transform: scale(0.8);
+    opacity: 0;
+}
+}
+@-webkit-keyframes scaleToFade {
+to {
+    transform: scale(0.8);
+    opacity: 0;
+}
+}
+@-o-keyframes scaleToFade {
+to {
+    transform: scale(0.8);
+    opacity: 0;
+}
+}
+@keyframes scaleToFade {
+to {
+    transform: scale(0.8);
+    opacity: 0;
+}
+}
+@-moz-keyframes scaleUpFrom {
+from {
+    opacity: 0;
+    transform: scale(1.5);
+}
+}
+@-webkit-keyframes scaleUpFrom {
+from {
+    opacity: 0;
+    transform: scale(1.5);
+}
+}
+@-o-keyframes scaleUpFrom {
+from {
+    opacity: 0;
+    transform: scale(1.5);
+}
+}
+@keyframes scaleUpFrom {
+from {
+    opacity: 0;
+    transform: scale(1.5);
+}
+}
+@-moz-keyframes scaleUpTo {
+to {
+    opacity: 0;
+    transform: scale(1.5);
+}
+}
+@-webkit-keyframes scaleUpTo {
+to {
+    opacity: 0;
+    transform: scale(1.5);
+}
+}
+@-o-keyframes scaleUpTo {
+to {
+    opacity: 0;
+    transform: scale(1.5);
+}
+}
+@keyframes scaleUpTo {
+to {
+    opacity: 0;
+    transform: scale(1.5);
+}
 }
 
 .section-ui-checkbox .group {

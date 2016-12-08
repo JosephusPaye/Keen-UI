@@ -2,9 +2,16 @@
 <div class="ui-carousel">
     <div class="ui-carousel-wrapper-outer" ref="outerWrapper">
         <div class="ui-carousel-wrapper-inner" :style="innerStyle">
-            <div class="ui-carousel-item" :class="`item-${num}`" v-for="num of itemNum" ref="item" :style="itemStyle">
-                <slot :name="num"></slot>
-            </div>
+            <!-- <transition-group :name="type">
+                <div class="ui-carousel-item" :class="`item-${num}`" v-for="num of itemNum" ref="item" :style="itemStyle" v-show="num === activeNum" key="num">
+                    <slot :name="num"></slot>
+                </div>
+            </transition-group> -->
+            <transition :name="type" v-for="num of itemNum">
+                <div class="ui-carousel-item" :class="`item-${num}`" ref="item" :style="itemStyle" v-show="num === activeNum" key="num">
+                    <slot :name="num"></slot>
+                </div>
+            </transition>
         </div>
     </div>
     <div class="ui-carousel-controls" v-if="dots">
@@ -25,6 +32,8 @@
 
 <script>
 import UiButton from './UiButton.vue'
+import { throttle } from 'lodash'
+
 export default {
     props: {
         type: {
@@ -53,6 +62,9 @@ export default {
             innerWidth: 0,
             translateX: 0,
             activeNum: 0,
+            transitionTime: 0.4,
+            transformOrigin: 0,
+            perspectiveOrigin: 0
         }
     },
     computed: {
@@ -60,9 +72,7 @@ export default {
             return {
                 width: `${this.innerWidth}px`,
                 left: 0,
-                display: 'block',
-                transition: 'all .4s ease',
-                transform: `translate3d(${this.translateX}px, 0px, 0px)`
+                display: 'block'
             }
         },
         itemStyle() {
@@ -73,12 +83,25 @@ export default {
     },
     mounted() {
         this.init()
+        this.resizeThrottled = throttle(this.recaculate, 500)
+        window.addEventListener('resize', this.resizeThrottled, false)
     },
     methods: {
         init() {
             this.outerWidth = this.$refs.outerWrapper.clientWidth
-            this.innerWidth = this.itemNum * 2 * this.outerWidth
+            this.innerWidth = 2 * this.outerWidth
             this.activeNum = 1
+        },
+        recaculate() {
+            this.outerWidth = this.$refs.outerWrapper.clientWidth
+            this.innerWidth = 2 * this.outerWidth
+
+            // set the transition time to 0 dealing with the shaking when resize
+            this.transitionTime = 0
+            this.show()
+            setTimeout(() => {
+                this.transitionTime = 0.4
+            }, 500)
         },
         show() {
             this.translateX = -this.outerWidth * (this.activeNum - 1)
@@ -126,7 +149,9 @@ $transition-duration = 0.3s;
             transition height .5s ease-in-out
     .ui-carousel-wrapper-inner
         position relative
-        transform translate3d(0, 0, 0)
+        perspective-origin 25% center
+        perspective 1200px
+        transform-origin 0px center 0px
         &::after
             content ''
             display block
@@ -136,8 +161,6 @@ $transition-duration = 0.3s;
             height 0
     .ui-carousel-item
         float left
-        transform translate3d(0, 0, 0)
-        // min-width 1200px
     .ui-carousel-item,
     .ui-carousel-wrapper-inner
         backface-visibility hidden
@@ -198,4 +221,97 @@ $transition-duration = 0.3s;
 
         transition-property transform, opacity, background-color
         transition-duration $transition-duration
+
+// transition part
+.basic-enter-active
+    animation basicIn .4s both ease
+    position absolute
+.basic-leave-active
+    animation basicOut .4s both ease
+
+.fade-enter-active
+    animation fadeIn .7s both ease
+    position absolute
+.fade-leave-active
+    animation fadeOut .7s both ease
+
+.backSlide-enter-active
+    animation backSlideIn 1s both ease
+    position absolute
+.backSlide-leave-active
+    animation backSlideOut 1s both ease
+
+.goDown-enter-active
+    animation goDown .7s both ease
+    position absolute
+.goDown-leave-active
+    animation scaleToFade .7s both ease
+
+.fadeUp-enter-active
+    animation scaleUpFrom .5s both ease
+    position absolute
+.fadeUp-leave-active
+    animation scaleUpTo .5s both ease
+
+@keyframes basicIn
+    0%
+        transform translateX(100%)
+    100%
+        transform translateX(0)
+@keyframes basicOut
+    0%
+        transform translateX(0)
+    100%
+        transform translateX(-100%)
+
+@keyframes fadeIn
+    0%
+        opacity 0
+    100%
+        opacity 1
+@keyframes fadeOut
+    0%
+        opacity 1
+    100%
+        opacity 0
+
+@keyframes backSlideIn
+    0%,
+    25%
+        opacity .5
+        transform translateZ(-500px) translateX(200%)
+    75%
+        opacity .5
+        transform translateZ(-500px)
+    100%
+        opacity .5
+        transform translateZ(0) translateX(0)
+@keyframes backSlideOut
+    25%
+        opacity .5
+        transform translateZ(-500px)
+    75%
+        opacity .5
+        transform translateZ(-500px) translateX(-200%)
+    100%
+        opacity .5
+        transform translateZ(-500px) translateX(-200%)
+
+@keyframes goDown
+    from
+        transform translateY(-100%)
+        opacity .5
+@keyframes scaleToFade
+    to
+        transform scale(.8)
+        opacity 0
+
+@keyframes scaleUpFrom
+    from
+        opacity 0
+        transform scale(1.5)
+@keyframes scaleUpTo
+    to
+        opacity 0
+        transform scale(1.5)
 </style>

@@ -11,8 +11,8 @@
         </h3>
 
         <div class="demo demo-1">
-            <ui-carousel :itemNum="items">
-                <img v-for="n of 5" :src="aliyunOss+n+'.jpg'" alt="views" :slot="n"/>
+            <ui-carousel :itemNum="items" type="fadeUp">
+                <img v-for="n of 5" :src="aliyunOss+n+'.jpg_1200'" alt="views" :slot="n"/>
             </ui-carousel>
         </div>
 
