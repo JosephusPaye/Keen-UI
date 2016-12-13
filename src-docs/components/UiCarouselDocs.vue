@@ -130,12 +130,9 @@
                             </tr>
                         </tbody>
                     </table>
-
                 </div>
             </ui-tab>
-
         </ui-tabs>
-
     </section>
 </template>
 

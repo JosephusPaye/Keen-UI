@@ -2,11 +2,6 @@
 <div class="ui-carousel">
     <div class="ui-carousel-wrapper-outer" ref="outerWrapper">
         <div class="ui-carousel-wrapper-inner" :style="innerStyle">
-            <!-- <transition-group :name="type">
-                <div class="ui-carousel-item" :class="`item-${num}`" v-for="num of itemNum" ref="item" :style="itemStyle" v-show="num === activeNum" key="num">
-                    <slot :name="num"></slot>
-                </div>
-            </transition-group> -->
             <transition :name="type" v-for="num of itemNum">
                 <div class="ui-carousel-item" :class="`item-${num}`" ref="item" :style="itemStyle" v-show="num === activeNum" key="num">
                     <slot :name="num"></slot>
@@ -14,7 +9,7 @@
             </transition>
         </div>
     </div>
-    <div class="ui-carousel-controls" v-if="dots">
+    <div class="ui-carousel-controls" v-if="controlDot">
         <div class="ui-carousel-pagination" :class="{disable: disable}">
             <div class="ui-carousel-page" v-for="num of itemNum" :class="{'active': num === activeNum}"
                     @click="go(num)">
@@ -23,7 +18,7 @@
             </div>
         </div>
     </div>
-    <div class="ui-carousel-button">
+    <div class="ui-carousel-button" v-if="controlButton">
         <ui-button type="flat" raised color="primary" @click.native="prev">Prev</ui-button>
         <ui-button type="flat" raised color="primary" @click.native="next">Next</ui-button>
     </div>
@@ -40,9 +35,25 @@ export default {
             type: String,
             default: 'basic'
         },
-        dots: {
+        autoLoop: {
             type: Boolean,
             default: true
+        },
+        loopTime: {
+            type: Number,
+            default: 10000
+        },
+        controlDot: {
+            type: Boolean,
+            default: true
+        },
+        controlButton: {
+            type: Boolean,
+            default: false
+        },
+        buttonType: {
+            type: String,
+            default: 'basic'
         },
         disable: {
             type: Boolean,
@@ -51,20 +62,13 @@ export default {
         itemNum: {
             type: Number,
             required: true
-        },
-        controllerNum: {
-            type: Number,
         }
     },
     data() {
         return {
             outerWidth: 0,
             innerWidth: 0,
-            translateX: 0,
-            activeNum: 0,
-            transitionTime: 0.4,
-            transformOrigin: 0,
-            perspectiveOrigin: 0
+            activeNum: 1,
         }
     },
     computed: {
@@ -85,26 +89,25 @@ export default {
         this.init()
         this.resizeThrottled = throttle(this.recaculate, 500)
         window.addEventListener('resize', this.resizeThrottled, false)
+        if (this.autoLoop) {
+            this.loop()
+        }
+    },
+    destroy() {
+        window.removeEventListener('resize', this.resizeThrottled)
+        if (this.autoLoop) {
+            this.clearLoop()
+        }
     },
     methods: {
         init() {
             this.outerWidth = this.$refs.outerWrapper.clientWidth
             this.innerWidth = 2 * this.outerWidth
-            this.activeNum = 1
         },
         recaculate() {
             this.outerWidth = this.$refs.outerWrapper.clientWidth
             this.innerWidth = 2 * this.outerWidth
-
-            // set the transition time to 0 dealing with the shaking when resize
-            this.transitionTime = 0
-            this.show()
-            setTimeout(() => {
-                this.transitionTime = 0.4
-            }, 500)
-        },
-        show() {
-            this.translateX = -this.outerWidth * (this.activeNum - 1)
+            this.resetLoop()
         },
         next() {
             if (this.activeNum === this.itemNum) {
@@ -112,7 +115,6 @@ export default {
             } else {
                 this.activeNum++
             }
-            this.show()
         },
         prev() {
             if (this.activeNum === 1) {
@@ -120,11 +122,27 @@ export default {
             } else {
                 this.activeNum--
             }
-            this.show()
         },
         go(num) {
             this.activeNum = num;
-            this.show(num)
+
+            // reset interval
+            if (this.autoLoop) {
+                this.resetLoop()
+            }
+        },
+        loop() {
+            this.loopInterval = setInterval(this.next, this.loopTime)
+        },
+        clearLoop() {
+            clearInterval(this.loopInterval)
+            this.loopInterval = null
+        },
+        resetLoop() {
+            this.clearLoop()
+            setTimeout(() => {
+                this.loop()
+            }, 500)
         }
     },
     components: {UiButton}
