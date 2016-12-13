@@ -37,33 +37,33 @@
 
             <h4>With trigger element (creates a dropdown)</h4>
 
-            <a v-el:trigger-a class="link-trigger">Click here for the menu</a>
+            <a ref="triggerA" class="link-trigger">Click here for the menu</a>
 
-            <ui-menu :trigger="$els.triggerA" :options="menuOptions" show-icons></ui-menu>
+            <ui-menu trigger="triggerA" :options="menuOptions" show-icons></ui-menu>
 
             <h4>Open on hover</h4>
 
-            <a v-el:trigger-b class="link-trigger">Hover here for the menu</a>
+            <a ref="triggerB" class="link-trigger">Hover here for the menu</a>
 
             <ui-menu
-                :trigger="$els.triggerB" :options="menuOptions" show-icons open-on="hover"
+                trigger="triggerB" :options="menuOptions" show-icons open-on="hover"
             ></ui-menu>
 
             <h4>Dropdown position (may change based on available space)</h4>
 
-            <a v-el:trigger-c class="link-trigger">Click here for bottom right menu</a>
+            <a ref="triggerC" class="link-trigger">Click here for bottom right menu</a>
 
             <ui-menu
-                :trigger="$els.triggerC" :options="menuOptions" show-icons
+                trigger="triggerC" :options="menuOptions" show-icons
                 dropdown-position="bottom right"
             ></ui-menu>
 
             <br><br>
 
-            <a v-el:trigger-d class="link-trigger">Click here for top left menu</a>
+            <a ref="triggerD" class="link-trigger">Click here for top left menu</a>
 
             <ui-menu
-                :trigger="$els.triggerD" :options="menuOptions" show-icons
+                trigger="triggerD" :options="menuOptions" show-icons
                 dropdown-position="top left"
             ></ui-menu>
         </div>

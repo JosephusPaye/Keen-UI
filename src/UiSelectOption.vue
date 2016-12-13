@@ -2,8 +2,18 @@
     <li
         class="ui-select-option" :class="{ highlighted: highlighted, selected: selected }"
     >
-        <div class="ui-select-option-content" :class="[partial]">
-            <partial :name="partial"></partial>
+        <div class="ui-select-option-content" :class="[`ui-select-${type}`]">
+            <template v-if="type==='image'">
+                <div
+                    class="ui-select-item-image"
+                    :style="{ 'background-image': 'url(' + option[keys.image] + ')' }"
+                ></div>
+
+                <div class="ui-select-item-text" v-text="option[keys.text]"></div>
+            </template>
+            <template v-else>
+                <li class="ui-select-item-text" v-text="option[keys.text] || option"></li>
+            </template>
         </div>
 
         <ui-icon
@@ -23,9 +33,9 @@ export default {
             type: [String, Object],
             required: true
         },
-        partial: {
+        type: {
             type: String,
-            default: 'ui-select-simple', // 'ui-select-simple', 'ui-select-image'
+            default: 'simple', // 'simple', 'ui-select-image'
         },
         showCheckbox: {
             type: Boolean,
@@ -60,21 +70,6 @@ export default {
     components: {
         UiIcon
     },
-
-    partials: {
-        'ui-select-simple': `
-            <li class="ui-select-item-text" v-text="option[keys.text] || option"></li>
-        `,
-
-        'ui-select-image': `
-            <div
-                class="ui-select-item-image"
-                :style="{ 'background-image': 'url(' + option[keys.image] + ')' }"
-            ></div>
-
-            <div class="ui-select-item-text" v-text="option[keys.text]"></div>
-        `
-    }
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
     <div class="ui-snackbar-container" :class="[position]">
         <ui-snackbar
-            :duration="s.duration" :show.sync="s.show" :action="s.action"
+            :duration="s.duration" v-model="s.show" :action="s.action"
             :action-color="s.actionColor" :persistent="s.persistent" :id="s.id" auto-hide
 
             @shown="shown(s)" @hidden="hidden(s)" @clicked="clicked(s)"
@@ -16,8 +16,9 @@
 </template>
 
 <script>
-import UUID from './helpers/uuid';
-import UiSnackbar from './UiSnackbar.vue';
+import UUID from './helpers/uuid'
+import UiSnackbar from './UiSnackbar.vue'
+import EventBus from './helpers/event-bus'
 
 export default {
     name: 'ui-snackbar-container',
@@ -40,8 +41,8 @@ export default {
         }
     },
 
-    events: {
-        'ui-snackbar::create': function(snackbar) {
+    mounted() {
+        EventBus.$on('ui-snackbar::create', (snackbar) => {
             snackbar.show = false;
             snackbar.id = snackbar.id || UUID.short('ui-snackbar-');
             snackbar.duration = snackbar.duration || this.defaultDuration;
@@ -55,7 +56,7 @@ export default {
                     this.queue[0].show = false;
                 }
             }
-        }
+        })
     },
 
     data() {
@@ -71,19 +72,21 @@ export default {
             }
 
             // Show the next snackbar in the queue
-            this.queue[0].show = true;
+            setTimeout(() => {
+                this.queue[0].show = true;
+            }, 0)
         },
 
         shown(snackbar) {
-            this.$dispatch('snackbar-shown', snackbar);
+            this.$emit('snackbar-shown', snackbar);
             this.callHook('onShow', snackbar);
         },
 
         hidden(snackbar) {
-            this.$dispatch('snackbar-hidden', snackbar);
+            this.$emit('snackbar-hidden', snackbar);
             this.callHook('onHide', snackbar);
 
-            this.queue.$remove(snackbar);
+            this.queue.shift();
             this.showNext();
         },
 

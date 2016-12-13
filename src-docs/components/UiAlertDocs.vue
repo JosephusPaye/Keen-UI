@@ -23,7 +23,7 @@
                 Ay caramba! Alerts can also contain HTML. <a href="https://google.com" target="_blank" rel="noopener">Click here</a> for Google.com.
             </ui-alert>
 
-            <ui-alert
+            <ui-alert @dismissed="eventTest()"
                 type="error"
                 text="D'oh! Something went wrong and we cannot process your request at this time. Try again later."
             ></ui-alert>
@@ -63,15 +63,6 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>show</td>
-                                <td>Boolean</td>
-                                <td><code>true</code></td>
-                                <td>
-                                    <p>Determines whether or not the alert is shown.</p>
-                                    <p>Changing this value will show/hide the alert.</p>
-                                </td>
-                            </tr>
 
                             <tr>
                                 <td>type</td>
@@ -162,10 +153,10 @@
                         <tbody>
                             <tr>
                                 <td>dismissed</td>
-                                <td>Dispatched</td>
+                                <td>Emitted</td>
                                 <td>
-                                    <p>Dispatched when the alert is dismissed.</p>
-                                    <p>Listen for it using <code>@dismissed</code>.</p>
+                                    <p>Emitted when the alert is dismissed.</p>
+                                    <p>Listen for it using <code>@dismissed</code> inline.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -189,6 +180,11 @@ export default {
         UiTab,
         UiTabs,
         UiAlert
+    },
+    methods: {
+        eventTest() {
+            alert('custom event: "dismissed"')
+        }
     }
 };
 </script>

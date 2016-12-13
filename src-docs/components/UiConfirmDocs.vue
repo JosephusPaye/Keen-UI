@@ -16,7 +16,8 @@
 
         <div class="demo">
             <ui-confirm
-                @confirmed="confirmed" @denied="denied" :show.sync="show.genericConfirm"
+
+                @confirmed="confirmed" @denied="denied" v-model="show.genericConfirm"
                 close-on-confirm
             >
                 Do you want to confirm this?
@@ -24,8 +25,8 @@
 
             <ui-confirm
                 header="Confirm this" confirm-button-text="Confirm" deny-button-text="Deny"
-                @confirmed="confirmed" @denied="denied" :show.sync="show.genericConfirm2"
-                autofocus="confirm-button" close-on-confirm
+                @confirmed="confirmed" @denied="denied" v-model="show.genericConfirm2"
+                autofocus="confirm" close-on-confirm
             >
                 The confirm button in this UiConfirm is focussed by default.
             </ui-confirm>
@@ -33,7 +34,7 @@
             <ui-confirm
                 type="primary" header="Publish Post" confirm-button-text="Publish"
                 confirm-button-icon="send" deny-button-text="Cancel" @confirmed="publishConfirmed"
-                @denied="publishDenied" :show.sync="show.publishConfirm"
+                @denied="publishDenied" v-model="show.publishConfirm"
                 :loading="publishRequestInProgress"
             >
                 Publish post for the world to see?
@@ -42,22 +43,22 @@
             <ui-confirm
                 header="Delete Post" type="danger" confirm-button-text="Delete"
                 confirm-button-icon="delete" deny-button-text="Cancel" @confirmed="deleteConfirmed"
-                @denied="deleteDenied" :show.sync="show.deleteConfirm" close-on-confirm
+                @denied="deleteDenied" v-model="show.deleteConfirm" close-on-confirm
             >
                 Are you sure you want to delete the post?
             </ui-confirm>
 
             <div class="group">
-                <ui-button @click="show.genericConfirm = true">Default Confirm</ui-button>
+                <ui-button @click.native="show.genericConfirm = true">Default Confirm</ui-button>
 
-                <ui-button @click="show.genericConfirm2 = true">Focus Primary Button</ui-button>
+                <ui-button @click.native="show.genericConfirm2 = true">Focus Primary Button</ui-button>
 
                 <ui-button
-                    color="primary" @click="show.publishConfirm = true"
+                    color="primary" @click.native="show.publishConfirm = true"
                 >Publish Post</ui-button>
 
                 <ui-button
-                    type="flat" color="danger" @click="show.deleteConfirm = true"
+                    type="flat" color="danger" @click.native="show.deleteConfirm = true"
                 >Delete Post</ui-button>
             </div>
 

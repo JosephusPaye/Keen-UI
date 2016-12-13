@@ -19,9 +19,9 @@
         <div class="demo">
             <h4>Default</h4>
 
-            <a v-el:trigger-a class="link-trigger">Click here for the popover</a>
+            <a ref="triggerA" class="link-trigger">Click here for the popover</a>
 
-            <ui-popover :trigger="$els.triggerA">
+            <ui-popover trigger="triggerA">
                 Hey there, some popover content here.
 
                 <p>Add <i>whatever</i> content you want here.</p>
@@ -29,9 +29,9 @@
 
             <h4>Open on hover</h4>
 
-            <a v-el:trigger-b class="link-trigger">Hover here for the popover</a>
+            <a ref="triggerB" class="link-trigger">Hover here for the popover</a>
 
-            <ui-popover :trigger="$els.triggerB" open-on="hover">
+            <ui-popover trigger="triggerB" open-on="hover">
                 Hey there, some popover content here.
 
                 <p>Add <i>whatever</i> content you want here.</p>
@@ -39,9 +39,9 @@
 
             <h4>Dropdown position (may change based on available space)</h4>
 
-            <a v-el:trigger-c class="link-trigger">Click here for a popover dropping bottom right</a>
+            <a ref="triggerC" class="link-trigger">Click here for a popover dropping bottom right</a>
 
-            <ui-popover :trigger="$els.triggerC" dropdown-position="bottom right">
+            <ui-popover trigger="triggerC" dropdown-position="bottom right">
                 Hey there, some popover content here.
 
                 <p>Add <i>whatever</i> content you want here.</p>
@@ -49,9 +49,9 @@
 
             <br><br>
 
-            <a v-el:trigger-d class="link-trigger">Click here for top left popover</a>
+            <a ref="triggerD" class="link-trigger">Click here for top left popover</a>
 
-            <ui-popover :trigger="$els.triggerD" dropdown-position="top left">
+            <ui-popover trigger="triggerD" dropdown-position="top left">
                 Hey there, some popover content here.
 
                 <p>Add <i>whatever</i> content you want here.</p>
@@ -59,13 +59,13 @@
 
             <h4>Can be opened and closed using events</h4>
 
-            <ui-button @click="openPopover('popover-e')">Click to open</ui-button>
+            <ui-button @click.native="openPopover('popover-e')">Click to open</ui-button>
 
             <br><br>
 
-            <a v-el:trigger-e class="link-trigger">Default trigger (click to open)</a>
+            <a ref="triggerE" class="link-trigger">Default trigger (click to open)</a>
 
-            <ui-popover :trigger="$els.triggerE" id="popover-e">
+            <ui-popover trigger="triggerE" id="popover-e">
                 Hey there, some popover content here.
 
                 <p>Add <i>whatever</i> content you want here.</p>
@@ -210,11 +210,13 @@
 </template>
 
 <script>
-import UiTab from '../../src/UiTab.vue';
-import UiTabs from '../../src/UiTabs.vue';
+import UiTab from '../../src/UiTab.vue'
+import UiTabs from '../../src/UiTabs.vue'
 
-import UiPopover from '../../src/UiPopover.vue';
-import UiButton from '../../src/UiButton.vue';
+import UiPopover from '../../src/UiPopover.vue'
+import UiButton from '../../src/UiButton.vue'
+
+import EventBus from '../../src/helpers/event-bus'
 
 let menuOptions = [
     {
@@ -255,7 +257,7 @@ export default {
             // Use timeout so the popover is open and then immediately closed due to the current
             // click event
             setTimeout(() => {
-                this.$broadcast('ui-dropdown::open', id);
+                EventBus.$emit('ui-dropdown::open', id);
             }, 100);
         }
     },

@@ -1,17 +1,8 @@
-import Validator from 'validatorjs';
+import Validator from 'validatorjs'
+import EventBus from '../helpers/event-bus'
 
 export default {
     props: {
-        valid: {
-            type: Boolean,
-            default: true,
-            twoWay: true
-        },
-        dirty: {
-            type: Boolean,
-            default: false,
-            twoWay: true
-        },
         hideValidationErrors: {
             type: Boolean,
             default: false
@@ -22,19 +13,25 @@ export default {
 
     data() {
         return {
-            validationError: ''
-        };
+            validationError: '',
+            valid: true,
+            dirty: false,
+            _validationMessages: null,
+        }
     },
 
-    events: {
-        'ui-input::set-validity': function(valid, error, id) {
+    created() {
+        this._validationMessages = this.validationMessages
+    },
+
+    mounted() {
+        EventBus.$on('ui-input::set-validity', (valid, error, id) => {
             // Abort if event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
                 return;
             }
-
-            this.setValidity(valid, error);
-        }
+            this.setValidity(valid, error)
+        })
     },
 
     methods: {
@@ -51,7 +48,7 @@ export default {
                 value: this.validationRules
             };
 
-            let validation = new Validator(data, rules, this.validationMessages);
+            let validation = new Validator(data, rules, this._validationMessages);
 
             validation.setAttributeNames({ value: this.name.replace(/_/g, ' ') });
 
@@ -62,7 +59,10 @@ export default {
             this.valid = valid;
 
             if (!valid && error && error.length) {
-                this.validationError = error;
+                this.validationError = error
+                this.$emit('validationError', error)
+            } else {
+                this.$emit('valid', valid)
             }
         }
     }

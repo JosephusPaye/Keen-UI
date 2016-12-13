@@ -15,8 +15,8 @@
         <div class="demo">
             <ui-preloader :show="loading"></ui-preloader>
 
-            <ui-button @click="loading = !loading">Toggle Loading</ui-button>
-        </div>
+            <ui-button @click.native="loading = !loading">Toggle Loading</ui-button>
+        </div
 
         <h3>API</h3>
 

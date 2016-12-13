@@ -1,7 +1,7 @@
 <template>
     <button
-        class="ui-icon-button" :class="styleClasses" :aria-label="ariaLabel || tooltip"
-        :type="buttonType" v-disabled="disabled || loading" v-el:button
+        class="ui-icon-button" :disabled="disabled || loading" ref="button"
+        :type="buttonType" :class="styleClasses" :aria-label="ariaLabel || tooltip"
     >
         <ui-icon
             class="ui-icon-button-icon" :icon="icon" v-show="!loading"
@@ -12,22 +12,22 @@
             disable-transition v-show="loading"
         ></ui-progress-circular>
 
-        <ui-ripple-ink v-if="!hideRippleInk && !disabled" :trigger="$els.button"></ui-ripple-ink>
+        <ui-ripple-ink v-if="!hideRippleInk && !disabled"></ui-ripple-ink>
 
         <ui-tooltip
-            :trigger="$els.button" :content="tooltip" :position="tooltipPosition" v-if="tooltip"
+            trigger="button" :content="tooltip" :position="tooltipPosition" v-if="tooltip"
             :open-on="openTooltipOn"
         ></ui-tooltip>
 
         <ui-menu
-            class="ui-button-dropdown-menu" :trigger="$els.button" :options="menuOptions"
+            class="ui-button-dropdown-menu" trigger="button" :options="menuOptions"
             :show-icons="showMenuIcons" :show-secondary-text="showMenuSecondaryText"
             :open-on="openDropdownOn" @option-selected="menuOptionSelect"
             :dropdown-position="dropdownPosition" v-if="hasDropdownMenu"
         ></ui-menu>
 
         <ui-popover
-            :trigger="$els.button" :open-on="openDropdownOn" :dropdown-position="dropdownPosition"
+            trigger="button" :open-on="openDropdownOn" :dropdown-position="dropdownPosition"
             v-if="hasPopover"
         >
             <slot name="popover"></slot>
@@ -36,16 +36,14 @@
 </template>
 
 <script>
-import UiIcon from './UiIcon.vue';
-import UiMenu from './UiMenu.vue';
-import UiPopover from './UiPopover.vue';
-import UiProgressCircular from './UiProgressCircular.vue';
+import UiIcon from './UiIcon.vue'
+import UiMenu from './UiMenu.vue'
+import UiPopover from './UiPopover.vue'
+import UiProgressCircular from './UiProgressCircular.vue'
 
-import disabled from './directives/disabled';
-
-import HasDropdown from './mixins/HasDropdown';
-import ShowsTooltip from './mixins/ShowsTooltip';
-import ShowsRippleInk from './mixins/ShowsRippleInk';
+import HasDropdown from './mixins/HasDropdown'
+import ShowsTooltip from './mixins/ShowsTooltip'
+import ShowsRippleInk from './mixins/ShowsRippleInk'
 
 export default {
     name: 'ui-icon-button',
@@ -54,9 +52,6 @@ export default {
         type: {
             type: String,
             default: 'normal', // 'normal' or 'flat' or 'clear'
-            coerce(type) {
-                return 'ui-icon-button-' + type;
-            }
         },
         buttonType: {
             type: String,
@@ -65,9 +60,6 @@ export default {
         color: {
             type: String,
             default: 'default', // 'default', 'primary', 'accent', 'success', 'warning', or 'danger'
-            coerce(color) {
-                return 'color-' + color;
-            }
         },
         icon: {
             type: String,
@@ -86,21 +78,21 @@ export default {
 
     computed: {
         styleClasses() {
-            let classes = [this.type, this.color];
+            let classes = [`ui-icon-button-${this.type}`, `color-${this.color}`]
 
             if (this.hasDropdown) {
-                classes.push('ui-dropdown');
+                classes.push('ui-dropdown')
             }
 
-            return classes;
+            return classes
         },
 
         spinnerColor() {
-            if (this.color === 'color-default' || this.color === 'color-black') {
-                return 'black';
+            if (this.color === 'default' || this.color === 'black') {
+                return 'black'
             }
 
-            return 'white';
+            return 'white'
         }
     },
 
@@ -115,12 +107,8 @@ export default {
         HasDropdown,
         ShowsTooltip,
         ShowsRippleInk
-    ],
-
-    directives: {
-        disabled
-    }
-};
+    ]
+}
 </script>
 
 <style lang="stylus">

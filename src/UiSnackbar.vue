@@ -1,20 +1,22 @@
 <template>
-    <div
-        class="ui-snackbar" :id="id" transition="ui-snackbar-toggle" @click="click" v-show="show"
-    >
-        <div class="ui-snackbar-text">
-            <slot>
-                <span v-text="message"></span>
-            </slot>
-        </div>
+    <transition name="ui-snackbar-toggle" @after-enter="afterEnter" @after-leave="afterLeave">
+        <div
+            class="ui-snackbar" :id="id"  @click="click" v-show="value"
+        >
+            <div class="ui-snackbar-text">
+                <slot>
+                    <span v-text="message"></span>
+                </slot>
+            </div>
 
-        <div class="ui-snackbar-action">
-            <ui-button
-                class="ui-snackbar-action-button" type="flat" :color="actionColor"
-                :text="action" @click.stop="actionClick" v-if="action"
-            ></ui-button>
+            <div class="ui-snackbar-action">
+                <ui-button
+                    class="ui-snackbar-action-button" type="flat" :color="actionColor"
+                    :text="action" @click.stop="actionClick" v-if="action"
+                ></ui-button>
+            </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -25,10 +27,9 @@ export default {
 
     props: {
         id: String,
-        show: {
+        value: {
             type: Boolean,
             default: false,
-            twoWay: true
         },
         message: String,
         action: String,
@@ -65,18 +66,35 @@ export default {
 
     methods: {
         click() {
-            this.$dispatch('clicked');
+            this.$emit('clicked');
             this.hide();
         },
 
         actionClick() {
-            this.$dispatch('action-clicked');
+            this.$emit('action-clicked');
             this.hide();
         },
 
         hide() {
             if (!this.persistent) {
-                this.show = false;
+                this.$emit('input', false)
+            }
+        },
+
+        afterEnter() {
+            this.$emit('shown');
+
+            if (this.autoHide) {
+                this.timeout = setTimeout(this.hide, this.duration);
+            }
+        },
+
+        afterLeave() {
+            this.$emit('hidden');
+
+            if (this.timeout) {
+                clearTimeout(this.timeout);
+                this.timeout = null;
             }
         }
     },
@@ -84,27 +102,6 @@ export default {
     components: {
         UiButton
     },
-
-    transitions: {
-        'ui-snackbar-toggle': {
-            afterEnter() {
-                this.$dispatch('shown');
-
-                if (this.autoHide) {
-                    this.timeout = setTimeout(this.hide, this.duration);
-                }
-            },
-
-            afterLeave() {
-                this.$dispatch('hidden');
-
-                if (this.timeout) {
-                    clearTimeout(this.timeout);
-                    this.timeout = null;
-                }
-            }
-        }
-    }
 };
 </script>
 
@@ -153,18 +150,19 @@ $md-snackbar-bg = #323232;
     }
 }
 
-.ui-snackbar-toggle-transition {
-    transition: transform 0.3s ease;
+.ui-snackbar-toggle-enter-active,
+.ui-snackbar-toggle-leave-active {
+    transition: transform .3s ease;
 
     .ui-snackbar-text,
     .ui-snackbar-action {
         opacity: 1;
-        transition: opacity 0.3s ease;
+        transition: opacity .3s ease;
     }
 }
 
 .ui-snackbar-toggle-enter,
-.ui-snackbar-toggle-leave {
+.ui-snackbar-toggle-leave-active {
     transform: translateY(84px);
 
     .ui-snackbar-text,

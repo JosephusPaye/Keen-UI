@@ -1,63 +1,62 @@
 <template>
-    <div
-        class="ui-modal ui-modal-mask" v-show="show" :transition="transition" :class="[type]"
-        :role="role" @transitionend="transitionEnd | debounce 100"
-    >
-        <div class="ui-modal-wrapper" @click="close" v-el:modal-mask>
-            <div
-                class="ui-modal-container" tabindex="-1" @keydown.esc="close"
-                v-el:modal-container
-            >
-                <div class="ui-modal-header">
-                    <slot name="header">
-                        <h1 v-text="header" class="ui-modal-header-text"></h1>
-                    </slot>
+    <transition :name="`ui-modal-${transition}`">
+        <div
+            class="ui-modal ui-modal-mask" v-show="value"  :class="[`ui-modal-${type}`]"
+            :role="role" @transitionEnd="transitionEnd"
+        >
+            <div class="ui-modal-wrapper" @click="close" ref="modalMask">
+                <div
+                    class="ui-modal-container" tabindex="-1" @keydown.esc="close"
+                    ref="modalContainer"
+                >
+                    <div class="ui-modal-header">
+                        <slot name="header">
+                            <h1 v-text="header" class="ui-modal-header-text"></h1>
+                        </slot>
 
-                    <ui-icon-button
-                        type="clear" icon="&#xE5CD" class="ui-modal-close-button" @click="close"
-                        :disabled="!dismissible" v-if="showCloseButton" v-el:close-button
-                    ></ui-icon-button>
+                        <ui-icon-button
+                            type="clear" :icon="String('\uE5CD')" class="ui-modal-close-button" @click.native.stop="close"
+                            :disabled="!dismissible" v-if="showCloseButton" ref="closeButton"
+                        ></ui-icon-button>
+                    </div>
+
+                    <div class="ui-modal-body">
+                        <slot>
+                            <div v-text="body"></div>
+                        </slot>
+                    </div>
+
+                    <div class="ui-modal-footer" v-if="!hideFooter">
+                        <slot name="footer">
+                            <ui-button @click.native.stop="close" v-if="dismissible">Close</ui-button>
+                        </slot>
+                    </div>
+
+                    <div class="focus-redirector" @focus="redirectFocus" tabindex="0"></div>
                 </div>
-
-                <div class="ui-modal-body">
-                    <slot>
-                        <div v-text="body"></div>
-                    </slot>
-                </div>
-
-                <div class="ui-modal-footer" v-if="!hideFooter">
-                    <slot name="footer">
-                        <ui-button @click="close" v-if="dismissible">Close</ui-button>
-                    </slot>
-                </div>
-
-                <div class="focus-redirector" @focus="redirectFocus" tabindex="0"></div>
             </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
-import classlist from './helpers/classlist';
+import classlist from './helpers/classlist'
 
-import UiIconButton from './UiIconButton.vue';
-import UiButton from './UiButton.vue';
+import UiIconButton from './UiIconButton.vue'
+import UiButton from './UiButton.vue'
+import EventBus from './helpers/event-bus'
 
 export default {
     name: 'ui-modal',
 
     props: {
-        show: {
+        value: {
             type: Boolean,
             required: true,
-            twoWay: true
         },
         type: {
             type: String,
             default: 'normal', // 'small', 'normal', or 'large'
-            coerce(type) {
-                return 'ui-modal-' + type;
-            }
         },
         header: {
             type: String,
@@ -73,7 +72,7 @@ export default {
         },
         transition: {
             type: String,
-            default: 'ui-modal-scale', // 'ui-modal-scale', or 'ui-modal-fade'
+            default: 'scale', // 'scale', or 'fade'
         },
         showCloseButton: {
             type: Boolean,
@@ -100,14 +99,14 @@ export default {
     },
 
     watch: {
-        show() {
+        value() {
             this.$nextTick(() => {
-                if (this.show) {
-                    this.opened();
+                if (this.value) {
+                    this.opened()
                 } else {
-                    this.closed();
+                    this.closed()
                 }
-            });
+            })
         }
     },
 
@@ -119,70 +118,73 @@ export default {
 
     methods: {
         close(e) {
+            // console.log(e.currentTarget, e.target)
             if (!this.dismissible) {
                 return;
             }
 
             // Make sure the element clicked was the modal mask and not a child
             // whose click event has bubbled up
-            if (e.currentTarget === this.$els.modalMask && e.target !== e.currentTarget) {
+            if (e.currentTarget === this.$refs.modalMask && e.target !== e.currentTarget) {
                 return;
             }
 
             // Don't close if this event was triggered by the modal mask
             // and this.backdropDismissible is false
-            if (e.currentTarget === this.$els.modalMask && !this.backdropDismissible) {
+            if (e.currentTarget === this.$refs.modalMask && !this.backdropDismissible) {
                 return;
             }
 
-            this.show = false;
+            this.$emit('input', false)
         },
 
         opened() {
-            this.lastFocussedElement = document.activeElement;
-            this.$els.modalContainer.focus();
+            this.lastFocussedElement = document.activeElement
+            this.$refs.modalContainer.focus()
 
-            classlist.add(document.body, 'ui-modal-open');
+            classlist.add(document.body, 'ui-modal-open')
 
-            document.addEventListener('focus', this.restrictFocus, true);
+            document.addEventListener('focus', this.restrictFocus, true)
 
-            this.$dispatch('opened');
+            this.$emit('opened')
         },
 
         closed() {
-            this.tearDown();
-            this.$dispatch('closed');
+            this.tearDown()
+            this.$emit('closed')
         },
 
         redirectFocus(e) {
-            e.stopPropagation();
+            e.stopPropagation()
 
-            this.$els.modalContainer.focus();
+            this.$refs.modalContainer.focus()
         },
 
         restrictFocus(e) {
-            if (!this.$els.modalContainer.contains(e.target)) {
-                e.stopPropagation();
-                this.$els.modalContainer.focus();
+            if (!this.$refs.modalContainer.contains(e.target)) {
+                e.stopPropagation()
+                this.$refs.modalContainer.focus()
             }
         },
 
         tearDown() {
-            classlist.remove(document.body, 'ui-modal-open');
+            classlist.remove(document.body, 'ui-modal-open')
 
-            document.removeEventListener('focus', this.restrictFocus, true);
+            document.removeEventListener('focus', this.restrictFocus, true)
 
             if (this.lastFocussedElement) {
-                this.lastFocussedElement.focus();
+                this.lastFocussedElement.focus()
             }
         },
 
         transitionEnd() {
-            if (this.show) {
-                this.$dispatch('revealed');
-            } else {
-                this.$dispatch('hidden');
-            }
+            setTimeout(() => {
+                if (this.show) {
+                    this.$emit('revealed')
+                } else {
+                    this.$emit('hidden')
+                }
+            }, 500)
         }
     },
 
@@ -194,9 +196,9 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/imports';
+@import './styles/imports'
 
-$transition-duration = 0.2s;
+$transition-duration = .3s
 
 .ui-modal {
     font-family: $font-stack;
@@ -299,13 +301,13 @@ body.ui-modal-open {
     padding-top: 8px;
 
     &,
-    [slot] {
+    .slot {
         display: flex;
         justify-content: flex-end;
     }
 
     .ui-modal-footer-left,
-    [slot].ui-modal-footer-left {
+    .slot.ui-modal-footer-left {
         justify-content: flex-start;
     }
 
@@ -319,17 +321,17 @@ body.ui-modal-open {
 }
 
 .ui-modal-fade-enter,
-.ui-modal-fade-leave {
+.ui-modal-fade-leave-active {
     opacity: 0;
 }
 
 .ui-modal-scale-enter,
-.ui-modal-scale-leave {
+.ui-modal-scale-leave-active {
     opacity: 0;
 }
 
 .ui-modal-scale-enter .ui-modal-container,
-.ui-modal-scale-leave .ui-modal-container {
+.ui-modal-scale-leave-active .ui-modal-container {
     transform: scale(1.1);
 }
 </style>

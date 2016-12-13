@@ -1,32 +1,34 @@
 <template>
-    <div
-        class="ui-progress-circular" :style="{ 'width': size + 'px', 'height': size + 'px' }"
-        v-show="show" :transition="disableTransition ? null : 'ui-progress-circular-toggle'"
-    >
-        <svg
-            class="ui-progress-circular-determinate" :width="size" :height="size"
-            role="progressbar" :aria-valuemin="0" :aria-valuemax="100" :aria-valuenow="value"
-            v-if="type === 'determinate'"
+    <transition :name="disableTransition ? '' : 'ui-progress-circular-toggle'">
+        <div
+            class="ui-progress-circular" :style="{ 'width': size + 'px', 'height': size + 'px' }"
+            v-show="show"
         >
-            <circle
-                class="ui-progress-circular-determinate-path" :class="[color]" :r="radius"
-                :cx="size / 2" :cy="size / 2" fill="transparent" :stroke-dasharray="strokeDashArray"
-                stroke-dashoffset="0"
-
-                :style="{ 'stroke-dashoffset': strokeDashOffset, 'stroke-width': stroke }"
-            ></circle>
-        </svg>
-
-        <svg
-            class="ui-progress-circular-indeterminate" viewBox="25 25 50 50"
-            role="progressbar" :aria-valuemin="0" :aria-valuemax="100" v-else
-        >
-            <circle
-                class="ui-progress-circular-indeterminate-path" :class="[color]" cx="50" cy="50"
-                r="20" fill="none" stroke-miterlimit="10" :stroke-width="stroke"
+            <svg
+                class="ui-progress-circular-determinate" :width="size" :height="size"
+                role="progressbar" :aria-valuemin="0" :aria-valuemax="100" :aria-valuenow="value"
+                v-if="type === 'determinate'"
             >
-        </svg>
-    </div>
+                <circle
+                    class="ui-progress-circular-determinate-path" :class="[color]" :r="radius"
+                    :cx="size / 2" :cy="size / 2" fill="transparent" :stroke-dasharray="strokeDashArray"
+                    stroke-dashoffset="0"
+
+                    :style="{ 'stroke-dashoffset': strokeDashOffset, 'stroke-width': _stroke }"
+                ></circle>
+            </svg>
+
+            <svg
+                class="ui-progress-circular-indeterminate" viewBox="25 25 50 50"
+                role="progressbar" :aria-valuemin="0" :aria-valuemax="100" v-else
+            >
+                <circle
+                    class="ui-progress-circular-indeterminate-path" :class="[color]" cx="50" cy="50"
+                    r="20" fill="none" stroke-miterlimit="10" :stroke-width="_stroke"
+                >
+            </svg>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -66,6 +68,11 @@ export default {
     },
 
     computed: {
+
+        _stroke() {
+            return this.stroke ? this.stroke : this.autoStroke ? parseInt(this.size / 8, 10) : 4
+        },
+
         strokeDashArray() {
             let circumference = 2 * Math.PI * this.radius;
 
@@ -81,17 +88,7 @@ export default {
         },
 
         radius() {
-            return (this.size - this.stroke) / 2;
-        }
-    },
-
-    created() {
-        if (!this.stroke) {
-            if (this.autoStroke) {
-                this.stroke = parseInt(this.size / 8, 10);
-            } else {
-                this.stroke = 4;
-            }
+            return (this.size - this._stroke) / 2;
         }
     },
 
@@ -120,6 +117,8 @@ $determinate-transition-duration = 0.3s;
 
 .ui-progress-circular {
     position: relative;
+    opacity: 1;
+    transform: scale(1);
 
     .ui-progress-circular-determinate {
         transform: rotate(270deg);
@@ -193,17 +192,15 @@ $determinate-transition-duration = 0.3s;
     }
 }
 
-.ui-progress-circular-toggle-transition {
-    opacity: 1;
-    transform: scale(1);
-
+.ui-progress-circular-toggle-enter-active,
+.ui-progress-circular-toggle-leave-active {
     transition-duration: 0.3s;
     transition-timing-function: ease;
     transition-property: transform, opacity;
 }
 
 .ui-progress-circular-toggle-enter,
-.ui-progress-circular-toggle-leave {
+.ui-progress-circular-toggle-leave-active {
     opacity: 0;
     transform: scale(0);
 }

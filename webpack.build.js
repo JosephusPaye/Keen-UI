@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var config = require('./webpack.config.js');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var banner = require('./webpack.banner.js');
 
 delete config.watch;
 delete config.plugins;
@@ -10,10 +11,7 @@ config.entry = './src/index.js';
 config.devtool = 'source-map';
 
 config.plugins = [
-    new webpack.BannerPlugin(config.banner, {
-        raw: true,
-        entryOnly: true
-    }),
+    new webpack.BannerPlugin(banner),
 
     new ExtractTextPlugin('./keen-ui.css')
 ];

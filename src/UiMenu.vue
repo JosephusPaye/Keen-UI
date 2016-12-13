@@ -1,17 +1,16 @@
 <template>
     <ul
-        class="ui-menu" role="menu" tabindex="-1" @keydown.esc="closeDropdown" v-el:dropdown
+        class="ui-menu" role="menu" tabindex="-1" @keydown.esc="closeDropdown" ref="dropdown"
         :class="{ 'has-icons': showIcons, 'has-secondary-text': showSecondaryText }"
     >
         <ui-menu-option
+            v-for="option in options"
+
             :type="option.type" :icon="option.icon" :text="option.text" :disabled="option.disabled"
             :secondary-text="option.secondaryText" :option="option" :show-icon="showIcons"
             :show-secondary-text="showSecondaryText" :hide-ripple-ink="hideRippleInk"
-            :partial="option.partial || partial"
 
-            @keydown.enter.prevent="optionSelect(option)" @click="optionSelect(option)"
-
-            v-for="option in options"
+            @keydown.native.enter.prevent="optionSelect(option)" @click.native="optionSelect(option)"
         ></ui-menu-option>
 
         <div
@@ -21,9 +20,9 @@
 </template>
 
 <script>
-import UiMenuOption from './UiMenuOption.vue';
+import UiMenuOption from './UiMenuOption.vue'
+import ShowsDropdown from './mixins/ShowsDropdown'
 
-import ShowsDropdown from './mixins/ShowsDropdown';
 
 export default {
     name: 'ui-menu',
@@ -52,60 +51,51 @@ export default {
             type: Boolean,
             default: true
         },
-        partial: {
-            type: String,
-            default: 'ui-menu-default'
-        }
-    },
-
-    events: {
-        'dropdown-opened': function() {
-            if (this.containFocus) {
-                document.addEventListener('focus', this.restrictFocus, true);
-            }
-
-            this.$dispatch('opened');
-
-            // Bubble the event up
-            return true;
-        },
-
-        'dropdown-closed': function() {
-            if (this.containFocus) {
-                document.removeEventListener('focus', this.restrictFocus, true);
-            }
-
-            this.$dispatch('closed');
-
-            // Bubble the event up
-            return true;
-        }
     },
 
     methods: {
         optionSelect(option) {
-            if (! (option.disabled || option.type === 'divider')) {
-                this.$dispatch('option-selected', option);
-
+            if (!(option.disabled || option.type === 'divider')) {
+                if (Object.prototype.toString.call(option.callback) === '[object Function]') {
+                    option.callback()
+                } else {
+                    this.$emit('option-selected', option)
+                }
                 if (this.closeOnSelect) {
-                    this.closeDropdown();
+                    setTimeout(()=>{this.closeDropdown()}, 150)
                 }
             }
         },
 
         restrictFocus(e) {
-            if (! this.$els.dropdown.contains(e.target)) {
+            if (! this.$refs.dropdown.contains(e.target)) {
                 e.stopPropagation();
 
-                this.$els.dropdown.querySelector('.ui-menu-option').focus();
+                this.$refs.dropdown.querySelector('.ui-menu-option').focus();
             }
         },
 
         redirectFocus(e) {
             e.stopPropagation();
 
-            this.$els.dropdown.querySelector('.ui-menu-option').focus();
+            this.$refs.dropdown.querySelector('.ui-menu-option').focus();
         }
+    },
+
+    mounted() {
+        this.$on('dropdown-opened', function() {
+            if (this.containFocus) {
+                document.addEventListener('focus', this.restrictFocus, true)
+            }
+            this.$emit('opened')
+        })
+
+        this.$on('dropdown-closed', function() {
+            if (this.containFocus) {
+                document.removeEventListener('focus', this.restrictFocus, true)
+            }
+            this.$emit('closed');
+        })
     },
 
     components: {

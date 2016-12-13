@@ -52,7 +52,7 @@
 
                 <ui-icon-button
                     type="clear" color="white" icon="refresh" :loading="loading.spinner1"
-                    @click="startSpinner(1)"
+                    @click.native="startSpinner(1)"
                 ></ui-icon-button>
 
                 <ui-icon-button
@@ -70,7 +70,7 @@
 
                 <ui-icon-button
                     type="clear" color="black" icon="refresh"  :loading="loading.spinner2"
-                    @click="startSpinner(2)"
+                    @click.native="startSpinner(2)"
                 ></ui-icon-button>
 
                 <ui-icon-button

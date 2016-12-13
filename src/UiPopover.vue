@@ -1,6 +1,6 @@
 <template>
     <div
-        class="ui-popover" role="dialog" tabindex="-1" @keydown.esc="closeDropdown" v-el:dropdown
+        class="ui-popover" role="dialog" tabindex="-1" @keydown.esc="closeDropdown" ref="dropdown"
     >
         <slot></slot>
     </div>
@@ -12,36 +12,28 @@ import ShowsDropdown from './mixins/ShowsDropdown';
 export default {
     name: 'ui-popover',
 
-    events: {
-        'dropdown-opened': function() {
+    mounted() {
+        this.$on('dropdown-opened', function() {
             if (this.containFocus) {
-                document.addEventListener('focus', this.restrictFocus, true);
+                document.addEventListener('focus', this.restrictFocus, true)
             }
+            this.$emit('opened')
+        })
 
-            this.$dispatch('opened');
-
-            // Bubble the event up
-            return true;
-        },
-
-        'dropdown-closed': function() {
+        this.$on('dropdown-closed', function() {
             if (this.containFocus) {
-                document.removeEventListener('focus', this.restrictFocus, true);
+                document.removeEventListener('focus', this.restrictFocus, true)
             }
-
-            this.$dispatch('closed');
-
-            // Bubble the event up
-            return true;
-        }
+            this.$emit('closed')
+        })
     },
 
     methods: {
         restrictFocus(e) {
-            if (! this.$els.dropdown.contains(e.target)) {
-                e.stopPropagation();
+            if (! this.$refs.dropdown.contains(e.target)) {
+                e.stopPropagation()
 
-                this.$els.dropdown.focus();
+                this.$refs.dropdown.focus()
             }
         }
     },

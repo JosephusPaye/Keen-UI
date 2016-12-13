@@ -3,7 +3,7 @@
         <div class="ui-toolbar-left">
             <ui-icon-button
                 class="ui-toolbar-nav-icon" type="clear" :color="iconColor" :icon="navIcon"
-                @click="navIconClick" v-if="!hideNavIcon"
+                @click.native="navIconClick" v-if="!hideNavIcon"
             ></ui-icon-button>
 
             <div class="ui-toolbar-brand" v-if="showBrand">
@@ -43,16 +43,10 @@ export default {
         type: {
             type: String,
             default: 'default', // 'default' or 'colored' - colored is brand primary color
-            coerce(type) {
-                return 'ui-toolbar-' + type;
-            }
         },
         textColor: {
             type: String,
             default: 'black', // 'black' or 'white'
-            coerce(color) {
-                return 'text-color-' + color;
-            }
         },
         title: String,
         brand: String,
@@ -88,7 +82,7 @@ export default {
 
     computed: {
         styleClasses() {
-            var classes = [this.type, this.textColor];
+            var classes = [`ui-toolbar-${this.type}`, `text-color-${this.textColor}`];
 
             if (!this.flat) {
                 classes.push('ui-toolbar-raised');
@@ -98,7 +92,7 @@ export default {
         },
 
         iconColor() {
-            if (this.textColor === 'text-color-black') {
+            if (this.textColor === 'black') {
                 return 'black';
             }
 
@@ -106,7 +100,7 @@ export default {
         },
 
         preloaderColor() {
-            if (this.textColor === 'text-color-black') {
+            if (this.textColor === 'black') {
                 return 'primary';
             }
 
@@ -128,7 +122,7 @@ export default {
 
     methods: {
         navIconClick() {
-            this.$dispatch('nav-icon-clicked');
+            this.$emit('nav-icon-clicked');
         }
     },
 

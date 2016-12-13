@@ -21,12 +21,12 @@
             <h4>UiRating</h4>
 
             <ui-rating
-                :total="5" :value.sync="3" label="Rate this post" type="heart"
+                :total="5" v-model="values.value1" label="Rate this post" type="heart"
                 help-text="Be honest, it won't hurt our feelings :)"
             ></ui-rating>
 
             <ui-rating
-                :total="6" :value.sync="3" label="Rate your last bagel"
+                :total="6" v-model="values.value2" label="Rate your last bagel"
                 help-text="1 for terrible, 3 for meh and 5 for fantastic"
                 @preview-value-changed="updateText"
             ></ui-rating>
@@ -35,12 +35,12 @@
                 <code>Your last bagel was: <b v-text="bagelRating"></b>.</code>
             </p>
 
-            <ui-button @click="reset">Reset Ratings</ui-button>
+            <ui-button @click.native="reset">Reset Ratings</ui-button>
 
             <h4>UiRating, disabled</h4>
 
             <ui-rating
-                :total="5" :value.sync="3" label="Rate this post" disabled
+                :total="5" v-model="values.value3" label="Rate this post" disabled
             ></ui-rating>
         </div>
 
@@ -245,22 +245,28 @@
 </template>
 
 <script>
-import UiTab from '../../src/UiTab.vue';
-import UiTabs from '../../src/UiTabs.vue';
-import UiButton from '../../src/UiButton.vue';
-import UiRating from '../../src/UiRating.vue';
-import UiRatingPreview from '../../src/UiRatingPreview.vue';
+import UiTab from '../../src/UiTab.vue'
+import UiTabs from '../../src/UiTabs.vue'
+import UiButton from '../../src/UiButton.vue'
+import UiRating from '../../src/UiRating.vue'
+import UiRatingPreview from '../../src/UiRatingPreview.vue'
+import EventBus from '../../src/helpers/event-bus'
 
 export default {
     data() {
         return {
-            bagelRating: 'meh'
+            bagelRating: 'meh',
+            values: {
+                value1: 3,
+                value2: 3,
+                value3: 5,
+            }
         };
     },
 
     methods: {
         reset() {
-            this.$broadcast('ui-input::reset');
+            EventBus.$emit('ui-input::reset')
         },
 
         updateText(previewRating) {

@@ -1,6 +1,6 @@
 <template>
     <div
-        class="ui-autocomplete" v-el:autocomplete
+        class="ui-autocomplete" ref="autocomplete"
         :class="{
             'disabled': disabled, 'invalid': !valid, 'dirty': dirty, 'active': active,
             'has-label': !hideLabel, 'icon-right': iconRight
@@ -15,42 +15,43 @@
                 <div class="ui-autocomplete-label-text" v-text="label" v-if="!hideLabel"></div>
 
                 <ui-icon
-                    class="ui-autocomplete-clear-button" icon="&#xE5CD" title="Clear"
-                    @click="clearSearch" v-show="!disabled && value.length"
+                    class="ui-autocomplete-clear-button" :icon="String('\uE5CD')" title="Clear"
+                    @click.native="clearSearch" v-show="!disabled && value.length"
                 ></ui-icon>
 
                 <input
-                    class="ui-autocomplete-input" :placeholder="placeholder" :name="name"
-                    :id="id" autocomplete="off" v-autofocus="autofocus" :debounce="debounce"
+                    class="ui-autocomplete-input" ref="input"
+                    :disabled="disabled" :placeholder="placeholder" :name="name"
+                    :id="id" autocomplete="off" :autofocus="autofocus" :debounce="debounce"
 
                     @focus="focus" @blur="blur" @keydown.up.prevent="highlight(highlightedItem - 1)"
                     @keydown.down.prevent="highlight(highlightedItem + 1)" @keydown.tab="close"
                     @keydown.enter="selectHighlighted(highlightedItem, $event)"
-
-                    v-model="value" v-disabled="disabled" v-el:input
+                    :value="value" @input="$emit('input', $event.target.value)"
                 >
 
                 <ul class="ui-autocomplete-suggestions" v-show="showDropdown">
                     <ui-autocomplete-suggestion
-                        :highlighted="highlightedItem === index" :item="item" :partial="partial"
+                        v-for="(item, index) in suggestionsAfterFilter"
+                        :highlighted="highlightedItem === index" :item="item" :type="type"
                         :keys="keys"
 
-                        v-for="(index, item) in suggestions | filterBy search | limitBy limit"
-                        v-ref:items @click="select(item)"
+                        ref="items" @click.native="select(item)"
                     ></ui-autocomplete-suggestion>
                 </ul>
             </label>
 
             <div class="ui-autocomplete-feedback" v-if="showFeedback">
-                <div
-                    class="ui-autocomplete-error-text" v-text="validationError"
-                    transition="ui-autocomplete-feedback-toggle"
-                    v-show="!hideValidationErrors && !valid"
-                ></div>
+                <transition name="ui-autocomplete-feedback-toggle">
+                    <div
+                        class="ui-autocomplete-error-text" v-text="validationError"
+                        v-show="!hideValidationErrors && !valid"
+                    ></div>
+                </transition>
 
                 <div
                     class="ui-autocomplete-help-text" transition="ui-autocomplete-feedback-toggle"
-                    v-text="helpText" v-else
+                    v-text="helpText" v-show="hideValidationErrors || valid"
                 ></div>
             </div>
         </div>
@@ -58,14 +59,13 @@
 </template>
 
 <script>
-import fuzzysearch from 'fuzzysearch';
+import fuzzysearch from 'fuzzysearch'
 
-import UiIcon from './UiIcon.vue';
-import UiAutocompleteSuggestion from './UiAutocompleteSuggestion.vue';
-
-import autofocus from './directives/autofocus';
-import HasTextInput from './mixins/HasTextInput';
-import ValidatesInput from './mixins/ValidatesInput';
+import UiIcon from './UiIcon.vue'
+import UiAutocompleteSuggestion from './UiAutocompleteSuggestion.vue'
+import EventBus from './helpers/event-bus'
+import HasTextInput from './mixins/HasTextInput'
+import ValidatesInput from './mixins/ValidatesInput'
 
 export default {
     name: 'ui-autocomplete',
@@ -79,7 +79,7 @@ export default {
             type: Number,
             default: 8
         },
-        partial: String,
+        type: String,
         append: {
             type: Boolean,
             default: false
@@ -130,28 +130,13 @@ export default {
     },
 
     computed: {
+        suggestionsAfterFilter() {
+            return this.suggestions.filter((item, index) => {
+                return (this.search(item) && (index < this.limit))
+            })
+        },
         showIcon() {
-            return Boolean(this.icon);
-        }
-    },
-
-    events: {
-        'ui-input::reset': function(id) {
-            // Abort if reset event isn't meant for this component
-            if (!this.eventTargetsComponent(id)) {
-                return;
-            }
-
-            // Blur input before resetting to avoid "required" errors
-            // when input is blurred after reset
-            if (document.activeElement === this.$els.input) {
-                document.activeElement.blur();
-            }
-
-            // Reset state
-            this.value = this.initialValue;
-            this.dirty = false;
-            this.valid = true;
+            return Boolean(this.icon)
         }
     },
 
@@ -165,8 +150,25 @@ export default {
         }
     },
 
-    ready() {
-        document.addEventListener('click', this.closeOnExternalClick);
+    mounted() {
+        document.addEventListener('click', this.closeOnExternalClick)
+        EventBus.$on('ui-input::reset', (id) => {
+            // Abort if reset event isn't meant for this component
+            if (!this.eventTargetsComponent(id)) {
+                return
+            }
+
+            // Blur input before resetting to avoid "required" errors
+            // when input is blurred after reset
+            if (document.activeElement === this.$refs.input) {
+                document.activeElement.blur()
+            }
+
+            // Reset state
+            this.$emit('input', this.initialValue)
+            this.dirty = false
+            this.valid = true
+        })
     },
 
     beforeDestroy() {
@@ -191,19 +193,19 @@ export default {
 
         select(item) {
             if (this.append) {
-                this.value += this.appendDelimiter + (item[this.keys.value] || item);
+                this.$emit('input', this.value + this.appendDelimiter + (item[this.keys.value] || item))
             } else {
-                this.value = item[this.keys.value] || item;
+                this.$emit('input', item[this.keys.value] || item)
             }
 
-            this.$dispatch('selected', item);
+            this.$emit('selected', item)
 
-            this.validate();
+            this.validate()
 
             this.$nextTick(() => {
-                this.close();
-                this.$els.input.focus();
-            });
+                this.close()
+                this.$refs.input.focus()
+            })
         },
 
         highlight(index) {
@@ -225,9 +227,9 @@ export default {
             }
 
             if (index < firstIndex || index > lastIndex) {
-                this.$dispatch('highlight-overflow', index);
+                this.$emit('highlight-overflow', index);
             } else {
-                this.$dispatch('highlighted', this.$refs.items[index].item, index);
+                this.$emit('highlighted', this.$refs.items[index].item, index);
             }
         },
 
@@ -239,13 +241,14 @@ export default {
         },
 
         clearSearch() {
-            this.value = '';
+            this.$emit('input', '')
+            this.open()
         },
 
         open() {
             if (!this.showDropdown) {
                 this.showDropdown = true;
-                this.$dispatch('opened');
+                this.$emit('opened')
             }
         },
 
@@ -254,13 +257,13 @@ export default {
                 this.showDropdown = false;
                 this.highlightedItem = -1;
 
-                this.$dispatch('closed');
+                this.$emit('closed')
                 this.validate();
             }
         },
 
         closeOnExternalClick(e) {
-            if (! this.$els.autocomplete.contains(e.target) && this.showDropdown) {
+            if (! this.$refs.autocomplete.contains(e.target) && this.showDropdown) {
                 this.close();
             }
         },
@@ -283,10 +286,6 @@ export default {
         UiAutocompleteSuggestion
     },
 
-    directives: {
-        autofocus
-    },
-
     mixins: [
         HasTextInput,
         ValidatesInput
@@ -295,197 +294,164 @@ export default {
 </script>
 
 <style lang="stylus">
-@import './styles/imports';
+@import './styles/imports'
 
-.ui-autocomplete {
-    font-family: $font-stack;
-    display: flex;
-    position: relative;
-    margin-bottom: 12px;
-    align-items: flex-start;
+.ui-autocomplete
+    font-family $font-stack
+    display flex
+    position relative
+    margin-bottom 12px
+    align-items flex-start
 
-    &:hover:not(.disabled) {
-        .ui-autocomplete-label-text {
-            color: $input-label-color-hover;
-        }
+    &:hover:not(.disabled)
+        .ui-autocomplete-label-text
+            color $input-label-color-hover
 
-        .ui-autocomplete-input {
-            border-bottom-color: $input-border-color-hover;
-        }
-    }
+        .ui-autocomplete-input
+            border-bottom-color $input-border-color-hover
 
-    &.active:not(.disabled) {
+    &.active:not(.disabled)
         .ui-autocomplete-label-text,
-        .ui-autocomplete-icon {
-            color: $input-label-color-active;
-        }
+        .ui-autocomplete-icon
+            color $input-label-color-active
 
-        .ui-autocomplete-input {
-            border-bottom-width: 2px;
-            border-bottom-color: $input-border-color-active;
-        }
-    }
+        .ui-autocomplete-input
+            border-bottom-width 2px
+            border-bottom-color $input-border-color-active
 
-    &.has-label {
-        .ui-autocomplete-icon-wrapper {
-            padding-top: 20px;
-        }
+    &.has-label
+        .ui-autocomplete-icon-wrapper
+            padding-top 20px
 
-        .ui-autocomplete-clear-button {
-            top: 22px;
-        }
-    }
+        .ui-autocomplete-clear-button
+            top 22px
 
-    &.icon-right {
-        .ui-autocomplete-icon-wrapper {
-            order: 1;
-            margin-left: 8px;
-            margin-right: 0;
-        }
-    }
+    &.icon-right
+        .ui-autocomplete-icon-wrapper
+            order 1
+            margin-left 8px
+            margin-right 0
 
-    &.invalid:not(.disabled) {
+    &.invalid:not(.disabled)
         .ui-autocomplete-label-text,
-        .ui-autocomplete-icon {
-            color: $input-label-color-invalid;
-        }
+        .ui-autocomplete-icon
+            color $input-label-color-invalid
 
-        .ui-autocomplete-input {
-            border-bottom-color: $input-border-color-invalid;
-        }
-    }
+        .ui-autocomplete-input
+            border-bottom-color $input-border-color-invalid
 
-     &.disabled {
-        .ui-autocomplete-input {
-            color: $input-color-disabled;
-            border-bottom-style: dashed;
-        }
+     &.disabled
+        .ui-autocomplete-input
+            color $input-color-disabled
+            border-bottom-style dashed
 
-        .ui-autocomplete-icon {
-            opacity: 0.6;
-        }
+        .ui-autocomplete-icon
+            opacity 0.6
 
-        .ui-autocomplete-feedback {
-            opacity: 0.8;
-        }
-    }
-}
+        .ui-autocomplete-feedback
+            opacity 0.8
 
-.ui-autocomplete-label {
-    display: block;
-    position: relative;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
+.ui-autocomplete-label
+    display block
+    position relative
+    width 100%
+    margin 0
+    padding 0
 
-.ui-autocomplete-icon-wrapper {
-    height: 24px;
-    flex-shrink: 0;
-    margin-right: 12px;
-    padding-top: 4px;
-}
+.ui-autocomplete-icon-wrapper
+    height 24px
+    flex-shrink 0
+    margin-right 12px
+    padding-top 4px
 
-.ui-autocomplete-icon {
-    color: $input-label-color;
-}
+.ui-autocomplete-icon
+    color $input-label-color
 
-.ui-autocomplete-content {
-    flex-grow: 1;
-}
+.ui-autocomplete-content
+    flex-grow 1
 
-.ui-autocomplete-label-text {
-    font-size: 14px;
-    line-height: 1;
-    margin-bottom: 2px;
-    color: $input-label-color;
-    transition: color 0.1s ease;
-}
+.ui-autocomplete-label-text
+    font-size 14px
+    line-height 1
+    margin-bottom 2px
+    color $input-label-color
+    transition color 0.1s ease
 
-.ui-autocomplete-input {
-    cursor: auto;
-    background: none;
-    outline: none;
-    border: none;
-    padding: 0;
+.ui-autocomplete-input
+    cursor auto
+    background none
+    outline none
+    border none
+    padding 0
 
     // Hide Edge and IE input clear button
-    &::-ms-clear {
-        display: none;
-    }
+    &::-ms-clear
+        display none
 
-    width: 100%;
-    height: 32px;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: $input-border-color;
 
-    transition: border 0.1s ease;
+    width 100%
+    height 32px
+    border-bottom-width 1px
+    border-bottom-style solid
+    border-bottom-color $input-border-color
 
-    color: $input-color;
-    font-weight: normal;
-    font-size: 16px;
-    font-family: $font-stack;
-}
+    transition border 0.1s ease
 
-.ui-autocomplete-clear-button {
-    font-size: 18px;
-    position: absolute;
-    right: 0;
-    top: 6px;
-    color: $input-clear-button-color;
-    cursor: pointer;
+    color $input-color
+    font-weight normal
+    font-size 16px
+    font-family $font-stack
 
-    &:hover {
-        color: $input-clear-button-color-hover;
-    }
-}
+.ui-autocomplete-clear-button
+    font-size 18px
+    position absolute
+    right 0
+    top 6px
+    color $input-clear-button-color
+    cursor pointer
 
-.ui-autocomplete-feedback {
-    margin: 0;
-    height: 20px;
-    overflow: hidden;
-    position: relative;
-    font-size: 14px;
-    padding-top: 4px;
-}
+    &:hover
+        color $input-clear-button-color-hover
 
-.ui-autocomplete-help-text {
-    color: $input-help-color;
-    line-height: 1;
-}
+.ui-autocomplete-feedback
+    margin 0
+    height 20px
+    overflow hidden
+    position relative
+    font-size 14px
+    padding-top 4px
 
-.ui-autocomplete-error-text {
-    position: absolute;
-    color: $input-error-color;
-    line-height: 1;
-}
+.ui-autocomplete-help-text
+    color $input-help-color
+    line-height 1
 
-.ui-autocomplete-feedback-toggle-transition {
-    transition-property: opacity, margin-top;
-    transition-duration: 0.3s;
-    opacity: 1;
-    margin-top: 0;
-}
+.ui-autocomplete-error-text
+    position absolute
+    color $input-error-color
+    line-height 1
+    opacity 1
+    margin-top 0
+
+.ui-autocomplete-feedback-toggle-enter-active,
+.ui-autocomplete-feedback-toggle-leave-active
+    transition all .3s ease
 
 .ui-autocomplete-feedback-toggle-enter,
-.ui-autocomplete-feedback-toggle-leave {
-   opacity: 0;
-   margin-top: -20px;
-}
+.ui-autocomplete-feedback-toggle-leave-active
+   opacity 0
+   margin-top -20px
 
-.ui-autocomplete-suggestions {
-    min-width: 100%;
-    display: block;
-    position: absolute;
-    padding: 0;
-    margin: 0;
-    margin-bottom: 8px;
-    list-style-type: none;
-    box-shadow: 1px 2px 8px $md-grey-600;
-    background-color: white;
-    color: $md-dark-text;
-    transition: left 0.1s ease-in-out;
-    z-index: $z-index-dropdown;
-}
+.ui-autocomplete-suggestions
+    min-width 100%
+    display block
+    position absolute
+    padding 0
+    margin 0
+    margin-bottom 8px
+    list-style-type none
+    box-shadow 1px 2px 8px $md-grey-600
+    background-color white
+    color $md-dark-text
+    transition left 0.1s ease-in-out
+    z-index $z-index-dropdown
 </style>

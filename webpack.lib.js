@@ -1,11 +1,12 @@
 var path = require('path');
 var webpack = require('webpack');
 var config = require('./webpack.config.js');
+var banner = require('./webpack.banner.js');
 
 delete config.devtool;
 delete config.watch;
 delete config.plugins;
-delete config.vue.loaders;
+delete config.module.rules[0].use.options.loaders;
 
 config.entry = {
     UiAlert: ['./src/UiAlert.vue'],
@@ -25,7 +26,6 @@ config.entry = {
     UiProgressCircular: ['./src/UiProgressCircular.vue'],
     UiProgressLinear: ['./src/UiProgressLinear.vue'],
     UiRadio: ['./src/UiRadio.vue'],
-    UiRadioGroup: ['./src/UiRadioGroup.vue'],
     UiRating: ['./src/UiRating.vue'],
     UiRatingIcon: ['./src/UiRatingIcon.vue'],
     UiRatingPreview: ['./src/UiRatingPreview.vue'],
@@ -43,10 +43,7 @@ config.entry = {
 };
 
 config.plugins = [
-    new webpack.BannerPlugin(config.banner, {
-        raw: true,
-        entryOnly: true
-    }),
+    new webpack.BannerPlugin(banner),
 
     new webpack.DefinePlugin({
         'process.env': {
@@ -58,9 +55,7 @@ config.plugins = [
         compress: {
             warnings: false
         }
-    }),
-
-    new webpack.optimize.OccurenceOrderPlugin()
+    })
 ];
 
 config.output = {

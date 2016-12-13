@@ -248,7 +248,7 @@
                     My collections
                 </ui-tab>
 
-                <ui-tab icon="favorite" header="Favourites" id="tab-set-1-favourites">
+                <ui-tab icon="favorite" header="Favourites" v-bind:_id="String('tab-set-1-favourites')">
                     <b>Favourite with longer content</b>
 
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dolorum laudantium nulla ex asperiores, deserunt quidem perspiciatis eligendi, dolores repudiandae.</p>
@@ -257,7 +257,7 @@
                 </ui-tab>
             </ui-tabs>
 
-            <ui-button @click="selectFavouritesTab">Select Favourites tab</ui-button>
+            <ui-button @click.native="selectFavouritesTab">Select Favourites tab</ui-button>
 
             <h4>Disabled tab</h4>
 
@@ -581,14 +581,15 @@
 </template>
 
 <script>
-import UiTab from '../../src/UiTab.vue';
-import UiTabs from '../../src/UiTabs.vue';
-import UiButton from '../../src/UiButton.vue';
+import UiTab from '../../src/UiTab.vue'
+import UiTabs from '../../src/UiTabs.vue'
+import UiButton from '../../src/UiButton.vue'
+import EventBus from '../../src/helpers/event-bus'
 
 export default {
     methods: {
         selectFavouritesTab() {
-            this.$broadcast('ui-tabs::select', 'tab-set-1-favourites', 'tab-set-1');
+            EventBus.$emit('ui-tabs::select', 'tab-set-1-favourites', 'tab-set-1')
         }
     },
 

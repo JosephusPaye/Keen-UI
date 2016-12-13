@@ -14,16 +14,16 @@
             <h4>Default</h4>
 
             <div class="group">
-                <ui-switch name="do_it_now" :value.sync="true">Do it now</ui-switch>
-                <ui-switch name="do_it_well" :value.sync="false">Do it well</ui-switch>
-                <ui-switch name="look_cool" :value.sync="true">Look cool while at it</ui-switch>
+                <ui-switch name="do_it_now" v-model="values.value1">Do it now</ui-switch>
+                <ui-switch name="do_it_well" v-model="values.value2">Do it well</ui-switch>
+                <ui-switch name="look_cool" v-model="values.value3">Look cool while at it</ui-switch>
 
                 <ui-switch
-                    name="try_checking" disabled :value.sync="true"
+                    name="try_checking" disabled v-model="values.value4"
                 >Can't change this</ui-switch>
 
                 <ui-switch
-                    name="try_checking_another" disabled :value.sync="false"
+                    name="try_checking_another" disabled v-model="values.value5"
                 >Can't change this too</ui-switch>
             </div>
 
@@ -31,23 +31,23 @@
 
             <div class="group label-left">
                 <ui-switch
-                    name="do_it_now" :value.sync="true" label-left
+                    name="do_it_now" v-model="values.value6" label-left
                 >Do it now</ui-switch>
 
                 <ui-switch
-                    name="do_it_well" :value.sync="false" label-left
+                    name="do_it_well" v-model="values.value7" label-left
                 >Do it well</ui-switch>
 
                 <ui-switch
-                    name="look_cool" :value.sync="true" label-left
+                    name="look_cool" v-model="values.value8" label-left
                 >Look cool while at it</ui-switch>
 
                 <ui-switch
-                    name="try_checking" disabled :value.sync="true" label-left
+                    name="try_checking" disabled v-model="values.value9" label-left
                 >Can't change this</ui-switch>
 
                 <ui-switch
-                    name="try_checking_another" disabled :value.sync="false" label-left
+                    name="try_checking_another" disabled v-model="values.value10" label-left
                 >Can't change this too</ui-switch>
             </div>
 
@@ -55,11 +55,11 @@
 
             <div class="group">
                 <ui-switch
-                    name="look_cool" :value.sync="true"
+                    name="look_cool" v-model="values.value11"
                 >Just <b><i>do</i></b> it!</ui-switch>
             </div>
 
-            <ui-button @click="resetSwitches">Reset switches</ui-button>
+            <ui-button @click.native="resetSwitches">Reset switches</ui-button>
         </div>
 
         <h3>API</h3>
@@ -207,12 +207,32 @@
 </template>
 
 <script>
-import UiTab from '../../src/UiTab.vue';
-import UiTabs from '../../src/UiTabs.vue';
-import UiButton from '../../src/UiButton.vue';
-import UiSwitch from '../../src/UiSwitch.vue';
+import UiTab from '../../src/UiTab.vue'
+import UiTabs from '../../src/UiTabs.vue'
+import UiButton from '../../src/UiButton.vue'
+import UiSwitch from '../../src/UiSwitch.vue'
+import EventBus from '../../src/helpers/event-bus'
+
+let values = {
+    value1: true,
+    value2: false,
+    value3: true,
+    value4: false,
+    value5: false,
+    value6: true,
+    value7: false,
+    value8: true,
+    value9: false,
+    value10: false,
+    value11: true
+}
 
 export default {
+    data() {
+        return {
+            values
+        }
+    },
     components: {
         UiTab,
         UiTabs,
@@ -222,7 +242,7 @@ export default {
 
     methods: {
         resetSwitches() {
-            this.$broadcast('ui-input::reset');
+            EventBus.$emit('ui-input::reset');
         }
     }
 };

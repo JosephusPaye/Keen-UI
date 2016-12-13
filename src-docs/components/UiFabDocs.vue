@@ -11,7 +11,6 @@
         <h3>
             Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiFabDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
-
         <div class="demo">
             <div class="group">
                 <ui-fab color="primary" icon="add"></ui-fab>

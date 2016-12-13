@@ -23,11 +23,12 @@
 </template>
 
 <script>
-import disabled from './directives/disabled';
+import disabled from './directives/disabled'
 
-import UiRadio from './UiRadio.vue';
+import UiRadio from './UiRadio.vue'
 
-import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent';
+import EventBus from './helpers/event-bus'
+import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent'
 
 export default {
     name: 'ui-radio-group',
@@ -80,15 +81,15 @@ export default {
         }
     },
 
-    events: {
-        'ui-input::reset': function(id) {
+    mounted() {
+        EventBus.$on('ui-input::reset', (id) => {
             // Abort if reset event isn't meant for this component
             if (!this.eventTargetsComponent(id)) {
                 return;
             }
 
             this.value = this.initialValue;
-        }
+        })
     },
 
     methods: {
