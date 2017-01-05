@@ -1,50 +1,61 @@
 <template>
     <div class="ui-confirm">
         <ui-modal
-            :show.sync="show" role="alertdialog" :header="header" @opened="opened" show-close-button
-            :dismissible="!loading" :backdrop-dismissible="backdropDismissible"
+            ref="modal"
+            role="alertdialog"
+
+            :dismiss-on="dismissOn"
+            :dismissible="!loading"
+            :title="title"
+
+            @close="onModalClose"
+            @open="onModalOpen"
         >
-            <div class="ui-confirm-message">
+            <div class="ui-confirm__message">
                 <slot></slot>
             </div>
 
-            <div slot="footer">
+            <div class="ui-confirm__footer" slot="footer">
                 <ui-button
-                    :color="type" :text="confirmButtonText" :icon="confirmButtonIcon"
-                    @click="confirm" :loading="loading" v-el:confirm-button
-                ></ui-button>
+                    ref="confirmButton"
+
+                    :color="confirmButtonColor"
+                    :icon="confirmButtonIcon"
+                    :loading="loading"
+
+                    @click.native="confirm"
+                >{{ confirmButtonText }}</ui-button>
 
                 <ui-button
-                    :text="denyButtonText" :icon="denyButtonIcon" @click="deny"
-                    :disabled="loading" v-el:deny-button
-                ></ui-button>
+                    ref="denyButton"
+
+                    :icon="denyButtonIcon"
+                    :disabled="loading"
+
+                    @click.native="deny"
+                >{{ denyButtonText }}</ui-button>
             </div>
         </ui-modal>
     </div>
 </template>
 
 <script>
-import classlist from './helpers/classlist';
-
 import UiModal from './UiModal.vue';
 import UiButton from './UiButton.vue';
+
+import classlist from './helpers/classlist';
 
 export default {
     name: 'ui-confirm',
 
     props: {
-        show: {
-            type: Boolean,
-            required: true,
-            twoWay: true
+        title: {
+            type: String,
+            default: 'UiConfirm title'
         },
         type: {
             type: String,
-            default: 'primary', // any of the color prop values of UiButton
-        },
-        header: {
-            type: String,
-            default: 'UiConfirm'
+            default: 'primary' // any of the color prop values of UiButton
         },
         confirmButtonText: {
             type: String,
@@ -58,70 +69,93 @@ export default {
         denyButtonIcon: String,
         autofocus: {
             type: String,
-            default: 'deny-button', // 'confirm-button', 'deny-button' or 'none'
+            default: 'deny-button' // 'confirm-button', 'deny-button' or 'none'
         },
         closeOnConfirm: {
             type: Boolean,
             default: false
         },
-        backdropDismissible: {
-            type: Boolean,
-            default: true
-        },
+        dismissOn: String,
         loading: {
             type: Boolean,
             default: false
         }
     },
 
+    computed: {
+        confirmButtonColor() {
+            const typeToColor = {
+                default: 'default',
+                primary: 'primary',
+                accent: 'accent',
+                success: 'green',
+                warning: 'orange',
+                danger: 'red'
+            };
+
+            return typeToColor[this.type];
+        }
+    },
+
     methods: {
+        open() {
+            this.$refs.modal.open();
+        },
+
+        close() {
+            this.$refs.modal.close();
+        },
+
         confirm() {
-            this.$dispatch('confirmed');
+            this.$emit('confirm');
 
             if (this.closeOnConfirm) {
-                this.show = false;
+                this.$refs.modal.close();
             }
         },
 
         deny() {
-            this.show = false;
-            this.$dispatch('denied');
+            this.$refs.modal.close();
+            this.$emit('deny');
         },
 
-        opened() {
+        onModalOpen() {
             let button;
 
             if (this.autofocus === 'confirm-button') {
-                button = this.$els.confirmButton;
+                button = this.$refs.confirmButton.$el;
             } else if (this.autofocus === 'deny-button') {
-                button = this.$els.denyButton;
+                button = this.$refs.denyButton.$el;
             }
 
             if (button) {
-                classlist.add(button, 'autofocus');
+                classlist.add(button, 'has-focus-ring');
                 button.addEventListener('blur', this.removeAutoFocus);
-
                 button.focus();
             }
 
-            // Bubble event up
-            return true;
+            // Bubble the event up
+            this.$emit('open');
+        },
+
+        onModalClose() {
+            this.$emit('close');
         },
 
         removeAutoFocus() {
             let button;
 
             if (this.autofocus === 'confirm-button') {
-                button = this.$els.confirmButton;
+                button = this.$refs.confirmButton.$el;
             } else if (this.autofocus === 'deny-button') {
-                button = this.$els.denyButton;
+                button = this.$refs.denyButton.$el;
             }
 
             if (button) {
+                classlist.remove(button, 'has-focus-ring');
+
                 // This listener should run only once
                 button.removeEventListener('blur', this.removeAutoFocus);
-
-                classlist.remove(button, 'autofocus');
             }
         }
     },
@@ -133,11 +167,15 @@ export default {
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
-.ui-confirm-message {
+.ui-confirm__message {
     font-family: $font-stack;
     font-size: 15px;
+}
+
+.ui-confirm__footer {
+    display: flex;
 }
 </style>

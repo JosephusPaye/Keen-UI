@@ -5,22 +5,26 @@ export function inView(element, container) {
 
     container = container || element.parentElement;
 
-    let top = element.offsetTop;
-    let parentTop = container.scrollTop;
-    let bottom = top + element.offsetHeight;
-    let parentBottom = container.offsetHeight;
+    const top = element.offsetTop;
+    const parentTop = container.scrollTop;
+    const bottom = top + element.offsetHeight;
+    const parentBottom = container.offsetHeight;
 
     return top >= parentTop && bottom <= parentBottom;
 }
 
-export function scrollIntoView(element, container, marginTop = 0) {
-    if (!element || inView(element, container)) {
+export function scrollIntoView(element, options = { container: null, marginTop: 0 }) {
+    if (!element) {
         return;
     }
 
-    container = container || element.parentElement;
+    options.container = options.container || element.parentElement;
 
-    container.scrollTop = element.offsetTop - marginTop;
+    if (inView(element, options.container)) {
+        return;
+    }
+
+    options.container.scrollTop = element.offsetTop - options.marginTop;
 }
 
 export function resetScroll(element) {

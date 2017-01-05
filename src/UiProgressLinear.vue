@@ -1,19 +1,29 @@
 <template>
-    <div
-        class="ui-progress-linear" :class="[color]" v-show="show"
-        transition="ui-progress-linear-toggle"
-    >
-        <div
-            class="ui-progress-linear-determinate" :style="{ 'width': progress + '%' }"
-            role="progressbar" :aria-valuemin="0" :aria-valuemax="100" :aria-valuenow="value"
-            v-if="type === 'determinate'"
-        ></div>
+    <transition name="ui-progress-linear--transition-fade">
+        <div class="ui-progress-linear" :class="classes">
+            <div
+                class="ui-progress-linear__progress-bar is-determinate"
+                role="progressbar"
 
-        <div
-            class="ui-progress-linear-indeterminate" role="progressbar" :aria-valuemin="0"
-            :aria-valuemax="100" v-else
-        ></div>
-    </div>
+                :aria-valuemax="100"
+                :aria-valuemin="0"
+                :aria-valuenow="moderatedProgress"
+                :style="{ 'transform': `scaleX(${moderatedProgress / 100})` }"
+
+                v-if="type === 'determinate'"
+            ></div>
+
+            <div
+                class="ui-progress-linear__progress-bar is-indeterminate"
+                role="progressbar"
+
+                :aria-valuemax="100"
+                :aria-valuemin="0"
+
+                v-else
+            ></div>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -21,141 +31,100 @@ export default {
     name: 'ui-progress-linear',
 
     props: {
-        show: {
-            type: Boolean,
-            default: false
-        },
         type: {
             type: String,
-            default: 'indeterminate', // 'determinate' or 'indeterminate'
+            default: 'indeterminate' // 'determinate' or 'indeterminate'
         },
         color: {
             type: String,
-            default: 'primary', // 'primary', 'accent', 'black' or 'white'
-            coerce(color) {
-                return 'color-' + color;
-            }
+            default: 'primary' // 'primary', 'accent', 'black' or 'white'
         },
-        value: {
+        progress: {
             type: Number,
-            coerce: Number,
             default: 0
         }
     },
 
     computed: {
-        progress() {
-            if (this.value < 0) {
+        classes() {
+            return [
+                'ui-progress-linear--color-' + this.color,
+                'ui-progress-linear--type-' + this.type
+            ];
+        },
+
+        moderatedProgress() {
+            if (this.progress < 0) {
                 return 0;
             }
 
-            if (this.value > 100) {
+            if (this.progress > 100) {
                 return 100;
             }
 
-            return this.value;
+            return this.progress;
         }
     }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
 .ui-progress-linear {
-    position: relative;
-    overflow: hidden;
     display: block;
     height: 4px;
-    width: 100%;
-
+    overflow: hidden;
+    position: relative;
+    transition-duration: 0.3s;
     transition-property: height, opacity;
     transition-timing-function: ease;
-    transition-duration: 0.3s;
-
-    &.color-primary {
-        background-color: alpha($md-brand-primary, 0.4);
-
-        .ui-progress-linear-determinate,
-        .ui-progress-linear-indeterminate {
-            background-color: $md-brand-primary;
-        }
-    }
-
-    &.color-accent {
-        background-color: alpha($md-brand-accent, 0.4);
-
-        .ui-progress-linear-determinate,
-        .ui-progress-linear-indeterminate {
-            background-color: $md-brand-accent;
-        }
-    }
-
-    &.color-black {
-        background-color: alpha($md-grey-700, 0.4);
-
-        .ui-progress-linear-determinate,
-        .ui-progress-linear-indeterminate {
-            background-color: $md-grey-700;
-        }
-    }
-
-    &.color-white {
-        background-color: alpha(white, 0.4);
-
-        .ui-progress-linear-determinate,
-        .ui-progress-linear-indeterminate {
-            background-color: white;
-        }
-    }
+    width: 100%;
 }
 
-.ui-progress-linear-determinate {
-    transition: width 0.3s linear;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    top: 0;
-}
-
-.ui-progress-linear-indeterminate {
-    &:before {
-        background-color: inherit;
-        will-change: left, right;
+.ui-progress-linear__progress-bar {
+    &.is-determinate {
+        height: 4px;
+        left: 0;
         position: absolute;
-        content: '';
-        bottom: 0;
         top: 0;
-        left:0;
-
-        animation: ui-progress-linear-indeterminate 2.1s cubic-bezier(0.650, 0.815, 0.735, 0.395) infinite;
+        transform-origin: left;
+        transition: transform 0.2s linear;
+        width: 100%;
     }
 
-    &:after {
-        background-color: inherit;
-        will-change: left, right;
-        position: absolute;
-        content: '';
-        bottom: 0;
-        top: 0;
-        left:0;
+    &.is-indeterminate {
+        &::before {
+            animation: ui-progress-linear-indeterminate 2.1s cubic-bezier(0.650, 0.815, 0.735, 0.395) infinite;
+            background-color: inherit;
+            content: '';
+            height: 4px;
+            left: 0;
+            position: absolute;
+            top: 0;
+        }
 
-        animation: ui-progress-linear-indeterminate-short 2.1s cubic-bezier(0.165, 0.840, 0.440, 1.000) infinite;
-
-        animation-delay: 1.15s;
+        &::after {
+            animation: ui-progress-linear-indeterminate-short 2.1s cubic-bezier(0.165, 0.840, 0.440, 1.000) infinite;
+            animation-delay: 1.15s;
+            background-color: inherit;
+            content: '';
+            height: 4px;
+            left: 0;
+            position: absolute;
+            top: 0;
+        }
     }
 }
 
-.ui-progress-linear-toggle-leave,
-.ui-progress-linear-toggle-enter {
-    opacity: 0;
-    height: 0;
-}
+// ================================================
+// Animations
+// ================================================
 
 @keyframes ui-progress-linear-indeterminate {
     0% {
         left: -35%;
-        right:100%;
+        right: 100%;
     }
 
     60% {
@@ -183,6 +152,56 @@ export default {
     100% {
         left: 107%;
         right: -8%;
+    }
+}
+
+// ================================================
+// Toggle transition
+// ================================================
+
+.ui-progress-linear--transition-fade-enter-active,
+.ui-progress-linear--transition-fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.ui-progress-linear--transition-fade-enter,
+.ui-progress-linear--transition-fade-leave-active {
+    opacity: 0;
+}
+
+// ================================================
+// Colors
+// ================================================
+
+.ui-progress-linear--color-primary {
+    background-color: rgba($brand-primary-color, 0.4);
+
+    .ui-progress-linear__progress-bar {
+        background-color: $brand-primary-color;
+    }
+}
+
+.ui-progress-linear--color-accent {
+    background-color: rgba($brand-accent-color, 0.4);
+
+    .ui-progress-linear__progress-bar {
+        background-color: $brand-accent-color;
+    }
+}
+
+.ui-progress-linear--color-black {
+    background-color: rgba($md-grey-700, 0.4);
+
+    .ui-progress-linear__progress-bar {
+        background-color: $md-grey-700;
+    }
+}
+
+.ui-progress-linear--color-white {
+    background-color: rgba(white, 0.4);
+
+    .ui-progress-linear__progress-bar {
+        background-color: white;
     }
 }
 </style>

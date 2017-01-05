@@ -1,51 +1,58 @@
 <template>
-    <label
-        class="ui-checkbox"
-        :class="{
-            'disabled': disabled, 'checked': isChecked, 'active': active, 'label-left': labelLeft
-        }"
-    >
+    <label class="ui-checkbox" :class="classes">
         <input
-            class="ui-checkbox-input" type="checkbox" :name="name" @focus="focus" @blur="blur"
-            :value="value ? value : null" v-model="model" v-disabled="disabled"
+            class="ui-checkbox__input"
+            type="checkbox"
+
+            :disabled="disabled"
+            :name="name"
+
+            @blur="onBlur"
+            @change="onChange"
+            @focus="onFocus"
+
+            v-model="isChecked"
         >
 
-        <div class="ui-checkbox-checkmark">
-            <div class="ui-checkbox-focus-ring"></div>
+        <div class="ui-checkbox__checkmark">
+            <div class="ui-checkbox__focus-ring"></div>
         </div>
 
-        <div class="ui-checkbox-label-text" v-if="!hideLabel">
-            <slot>
-                <span v-text="label"></span>
-            </slot>
+        <div class="ui-checkbox__label-text" v-if="label || $slots.default">
+            <slot>{{ label }}</slot>
         </div>
     </label>
 </template>
 
 <script>
-import disabled from './directives/disabled';
-
-import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent';
+import { looseEqual } from 'helpers/util';
 
 export default {
     name: 'ui-checkbox',
 
     props: {
         name: String,
-        model: {
-            type: [Array, String, Boolean],
-            required: true,
-            twoWay: true
-        },
-        value: String,
         label: String,
-        hideLabel: {
+        value: {
+            required: true
+        },
+        trueValue: {
+            default: true
+        },
+        falseValue: {
+            default: false
+        },
+        checked: {
             type: Boolean,
             default: false
         },
-        labelLeft: {
-            type: Boolean,
-            default: false
+        boxPosition: {
+            type: String,
+            default: 'left' // 'left' or 'right'
+        },
+        color: {
+            type: String,
+            default: 'primary' // 'primary' or 'accent'
         },
         disabled: {
             type: Boolean,
@@ -55,209 +62,233 @@ export default {
 
     data() {
         return {
-            active: false,
-            initialValue: false
+            isActive: false,
+            isChecked: looseEqual(this.value, this.trueValue) || this.checked
         };
     },
 
     computed: {
-        isChecked() {
-            if (this.value) {
-                return this.model.indexOf(this.value) > -1;
-            }
+        classes() {
+            return [
+                'ui-checkbox--color-' + this.color,
+                'ui-checkbox--box-position-' + this.boxPosition,
+                { 'is-checked': this.isChecked },
+                { 'is-active': this.isActive },
+                { 'is-disabled': this.disabled }
+            ];
+        }
+    },
 
-            return this.model;
+    watch: {
+        isChecked() {
+            this.$emit('input', this.isChecked ? this.trueValue : this.falseValue);
+        },
+
+        value() {
+            this.isChecked = looseEqual(this.value, this.trueValue);
         }
     },
 
     created() {
-        // Cache initial value for later reset
-        this.initialValue = this.model;
-    },
-
-    events: {
-        'ui-input::reset': function(id) {
-            // Abort if reset event isn't meant for this component
-            if (!this.eventTargetsComponent(id)) {
-                return;
-            }
-
-            this.model = this.initialValue;
-        }
+        this.$emit('input', this.isChecked ? this.trueValue : this.falseValue);
     },
 
     methods: {
-        focus() {
-            this.active = true;
+        onChange(e) {
+            this.$emit('change', this.isChecked ? this.trueValue : this.falseValue, e);
         },
 
-        blur() {
-            this.active = false;
+        onFocus(e) {
+            this.isActive = true;
+            this.$emit('focus', e);
+        },
+
+        onBlur(e) {
+            this.isActive = false;
+            this.$emit('blur', e);
         }
-    },
-
-    directives: {
-        disabled
-    },
-
-    mixins: [
-        ReceivesTargetedEvent
-    ]
+    }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
-$border-width = 2px;
-$checkmark-width = 2px;
-$focus-ring-transition-duration = 0.2s;
+$ui-checkbox-border-width           : 2px !default;
+$ui-checkbox-checkmark-width        : 2px !default;
+$ui-checkbox-transition-duration    : 0.15s !default;
+$ui-checkbox-label-font-size        : 16px !default;
 
 .ui-checkbox {
+    align-items: center;
+    cursor: default;
+    display: flex;
     font-family: $font-stack;
     font-weight: normal;
-    display: flex;
-    align-items: center;
     margin: 0;
-    margin-bottom: 12px;
-    cursor: default;
+    margin-bottom: 8px;
     position: relative;
 
-    &:not(.disabled):not(.checked):hover,
-    &:not(.disabled):not(.checked).active {
-        .ui-checkbox-checkmark:before {
-            border-color: $md-dark-secondary;
+    &:not(.is-disabled):not(.is-checked):hover,
+    &:not(.is-disabled):not(.is-checked).is-active {
+        .ui-checkbox__checkmark::before {
+            border-color: $secondary-text-color;
         }
     }
 
-    &:not(.disabled).checked:hover,
-    &:not(.disabled).checked.active {
-        .ui-checkbox-checkmark:before {
-            background-color: darken($md-brand-primary, 15%);
-            border-color: darken($md-brand-primary, 15%);
+    &.is-checked {
+        .ui-checkbox__checkmark::after {
+            border-bottom: $ui-checkbox-checkmark-width solid white;
+            border-right: $ui-checkbox-checkmark-width solid white;
+            opacity: 1;
         }
     }
 
-    &.checked {
-        .ui-checkbox-checkmark {
-            &:before {
-                background: $md-brand-primary;
-                border-color: $md-brand-primary;
-            }
-
-            &:after {
-                border-right: $checkmark-width solid white;
-                border-bottom: $checkmark-width solid white;
-                opacity: 1;
-            }
+    &.is-disabled {
+        .ui-checkbox__label-text {
+            color: $disabled-text-color;
+            cursor: default;
         }
 
-        .ui-checkbox-focus-ring {
-            background-color: alpha($md-brand-primary, 0.12);
-        }
-    }
-
-    &.label-left {
-        .ui-checkbox-label-text {
-            margin-left: 0;
-            margin-right: auto;
-            order: -1;
-        }
-    }
-
-    &.disabled {
-        .ui-checkbox-label-text {
-            color: $md-dark-disabled;
+        .ui-checkbox__checkmark::before {
+            border-color: rgba(black, 0.26);
         }
 
-        .ui-checkbox-checkmark:before {
-            border-color: alpha(black, 0.26);
-        }
-
-        &.checked {
-            .ui-checkbox-checkmark:before {
+        &.is-checked {
+            .ui-checkbox__checkmark::before {
+                background-color: rgba(black, 0.26);
                 border: none;
-                background: alpha(black, 0.26);
             }
         }
     }
-
-    &:not(.disabled) {
-        .ui-checkbox-label-text {
-            cursor: pointer;
-        }
-    }
 }
 
-.ui-checkbox-label-text {
+.ui-checkbox__label-text {
+    cursor: pointer;
+    font-size: $ui-checkbox-label-font-size;
     margin-left: 8px;
-    font-size: 15px;
 }
 
-.ui-checkbox-checkmark {
-    position: relative;
+.ui-checkbox__checkmark {
+    background-color: white;
     height: 20px;
+    position: relative;
     width: 20px;
-    background: white;
 
     // Background
-    &:before {
+    &::before {
+        border-radius: $ui-default-border-radius;
+        border: $ui-checkbox-border-width solid $hint-text-color;
         box-sizing: border-box;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        display: block;
         content: "";
-        border-radius: 2px;
-        border: $border-width solid $md-dark-hint;
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
         transition: all 0.3s ease;
+        width: 100%;
     }
 
     // Checkmark
-    &:after {
-        box-sizing: border-box;
-        position: absolute;
-        left: 7px;
+    &::after {
         bottom: 5px;
-        display: block;
-        content: "";
-        width: 6px;
-        height: 13px;
-        transform: rotate(45deg);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        transition-delay: 0.1s;
         box-sizing: border-box;
+        content: "";
+        display: block;
+        height: 13px;
+        left: 7px;
+        opacity: 0;
+        position: absolute;
+        transform: rotate(45deg);
+        transition-delay: 0.1s;
+        transition: opacity 0.3s ease;
+        width: 6px;
     }
 }
 
-.ui-checkbox-input {
+.ui-checkbox__input {
     position: absolute;
     opacity: 0;
 
-    body[modality="keyboard"] &:focus + .ui-checkbox-checkmark {
-        .ui-checkbox-focus-ring {
+    body[modality="keyboard"] &:focus + .ui-checkbox__checkmark {
+        .ui-checkbox__focus-ring {
             opacity: 1;
             transform: scale(1);
         }
     }
 }
 
-.ui-checkbox-focus-ring {
-    position: absolute;
-    width: 48px;
+.ui-checkbox__focus-ring {
+    background-color: rgba(black, 0.12);
+    border-radius: 50%;
     height: 48px;
-    background-color: alpha(black, 0.1);
     margin-left: -14px;
     margin-top: -14px;
-    border-radius: 50%;
-    transition-property: opacity, transform;
-    transition-duration: $focus-ring-transition-duration;
-    transition-timing-function: ease;
-
-    transform: scale(0);
     opacity: 0;
+    position: absolute;
+    transform: scale(0);
+    transition-duration: $ui-checkbox-transition-duration;
+    transition-property: opacity, transform;
+    transition-timing-function: ease-out;
+    width: 48px;
+}
+
+// ================================================
+// Box Positions
+// ================================================
+
+.ui-checkbox--box-position-right {
+    .ui-checkbox__label-text {
+        margin-left: 0;
+        margin-right: auto;
+        order: -1;
+    }
+}
+
+// ================================================
+// Colors
+// ================================================
+
+.ui-checkbox--color-primary {
+    &:not(.is-disabled).is-checked:hover,
+    &:not(.is-disabled).is-checked.is-active {
+        .ui-checkbox__checkmark::before {
+            background-color: darken($brand-primary-color, 5%);
+            border-color: darken($brand-primary-color, 5%);
+        }
+    }
+
+    &.is-checked {
+        .ui-checkbox__checkmark::before {
+            background-color: $brand-primary-color;
+            border-color: $brand-primary-color;
+        }
+
+        .ui-checkbox__focus-ring {
+            background-color: rgba($brand-primary-color, 0.15);
+        }
+    }
+}
+
+.ui-checkbox--color-accent {
+    &:not(.is-disabled).is-checked:hover,
+    &:not(.is-disabled).is-checked.is-active {
+        .ui-checkbox__checkmark::before {
+            background-color: darken($brand-accent-color, 5%);
+            border-color: darken($brand-accent-color, 5%);
+        }
+    }
+
+    &.is-checked {
+        .ui-checkbox__checkmark::before {
+            background-color: $brand-accent-color;
+            border-color: $brand-accent-color;
+        }
+
+        .ui-checkbox__focus-ring {
+            background-color: rgba($brand-accent-color, 0.15);
+        }
+    }
 }
 </style>

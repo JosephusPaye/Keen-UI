@@ -1,44 +1,56 @@
 <template>
-    <div class="ui-alert">
-        <div
-            class="ui-alert-body" :class="[type]" role="alert" v-show="show"
-            transition="ui-alert-toggle"
-        >
-            <ui-icon class="ui-alert-icon" :icon="iconName" v-if="!hideIcon"></ui-icon>
+    <transition name="ui-alert-toggle">
+        <div class="ui-alert" :class="classes" role="alert">
+            <div class="ui-alert__body">
+                <div class="ui-alert__icon" v-if="!removeIcon">
+                    <slot name="icon">
+                        <ui-icon v-if="type === 'info'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12.984 9V6.984h-1.97V9h1.97zm0 8.016v-6h-1.97v6h1.97zm-.984-15c5.53 0 9.984 4.453 9.984 9.984S17.53 21.984 12 21.984 2.016 17.53 2.016 12 6.47 2.016 12 2.016z"/></svg>
+                        </ui-icon>
 
-            <div class="ui-alert-text">
-                <slot>
-                    <span v-text="text"></span>
-                </slot>
+                        <ui-icon v-if="type === 'success'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9.984 17.016l9-9-1.406-1.453-7.594 7.594-3.563-3.563L5.016 12zm2.016-15c5.53 0 9.984 4.453 9.984 9.984S17.53 21.984 12 21.984 2.016 17.53 2.016 12 6.47 2.016 12 2.016z"/></svg>
+                        </ui-icon>
+
+                        <ui-icon v-if="type === 'warning'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12.984 14.016v-4.03h-1.97v4.03h1.97zm0 3.984v-2.016h-1.97V18h1.97zm-12 3L12 2.016 23.016 21H.986z"/></svg>
+                        </ui-icon>
+
+                        <ui-icon v-if="type === 'error'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12.984 12.984v-6h-1.97v6h1.97zm0 4.032V15h-1.97v2.016h1.97zm-.984-15c5.53 0 9.984 4.453 9.984 9.984S17.53 21.984 12 21.984 2.016 17.53 2.016 12 6.47 2.016 12 2.016z"/></svg>
+                        </ui-icon>
+                    </slot>
+                </div>
+
+                <div class="ui-alert__content">
+                    <slot></slot>
+                </div>
+
+                <div class="ui-alert__dismiss-button">
+                    <ui-close-button
+                        size="small"
+                        @click.native="dismissAlert"
+                        v-if="dismissible"
+                    ></ui-close-button>
+                </div>
             </div>
-
-            <ui-icon-button
-                class="ui-alert-close-button" type="clear" icon="&#xE5CD" aria-label="Close"
-                @click="close" v-if="dismissible"
-            ></ui-icon-button>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
 import UiIcon from './UiIcon.vue';
-import UiIconButton from './UiIconButton.vue';
+import UiCloseButton from './UiCloseButton.vue';
 
 export default {
     name: 'ui-alert',
 
     props: {
-        show: {
-            type: Boolean,
-            default: true
-        },
         type: {
             type: String,
             default: 'info' // 'info', 'success', 'warning', or 'error'
         },
-        text: String,
-        icon: String,
-        hideIcon: {
+        removeIcon: {
             type: Boolean,
             default: false
         },
@@ -49,44 +61,42 @@ export default {
     },
 
     computed: {
-        iconName() {
-            if (this.icon) {
-                return this.icon;
-            }
-
-            let icon = this.type;
-
-            if (icon === 'success') {
-                icon = 'check_circle';
-            }
-
-            return icon;
+        classes() {
+            return [
+                'ui-alert--type-' + this.type
+            ];
         }
     },
 
     methods: {
-        close() {
-            this.show = false;
-            this.$dispatch('dismissed');
+        dismissAlert() {
+            this.$emit('dismiss');
         }
     },
 
     components: {
         UiIcon,
-        UiIconButton
+        UiCloseButton
     }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
+
+$ui-alert-color             : rgba(black, 0.75) !default;
+$ui-alert-font-size         : 15px !default;
+$ui-alert-margin-bottom     : 16px !default;
 
 .ui-alert {
-    font-family: $font-stack;
-    font-size: 15px;
-    line-height: 1.4em;
-    overflow: hidden;
     display: flex;
+    font-family: $font-stack;
+    font-size: $ui-alert-font-size;
+    line-height: 1.4em;
+    margin-bottom: $ui-alert-margin-bottom;
+    overflow: hidden;
+    position: relative;
+    transition: margin-bottom 0.3s;
     width: 100%;
 
     a {
@@ -97,106 +107,109 @@ export default {
             text-decoration: underline;
         }
     }
-
-    .ui-alert-close-button {
-        flex-shrink: 0;
-        width: 32px;
-        height: 32px;
-        margin-right: -8px;
-        margin-top: -4px;
-        margin-bottom: -4px;
-        color: $md-dark-hint;
-        margin-left: 8px;
-
-        &:not([disabled]):hover,
-        body[modality="keyboard"] &:focus {
-            color: alpha(black, 0.8);
-        }
-
-        .ui-icon {
-            font-size: 18px;
-            margin: 0;
-        }
-    }
 }
 
-.ui-alert-body {
-    width: 100%;
-    min-height: 52px;
-    padding: 12px 16px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    &.error {
-        background-color: alpha($md-red, 0.12);
-
-        a {
-            color: $md-red;
-        }
-
-        .ui-alert-icon {
-            color: $md-red;
-        }
-    }
-
-    &.success {
-        background-color: alpha($md-green, 0.12);
-
-        a {
-            color: $md-green;
-        }
-
-        .ui-alert-icon {
-            color: $md-green;
-        }
-    }
-
-    &.info {
-        background-color: alpha($md-blue, 0.12);
-
-        a {
-            color: $md-blue;
-        }
-
-        .ui-alert-icon {
-            color: $md-blue;
-        }
-    }
-
-    &.warning {
-        background-color: alpha($md-orange, 0.12);
-
-        a {
-            color: $md-orange;
-        }
-
-        .ui-alert-icon {
-            color: $md-orange;
-        }
-    }
-}
-
-.ui-alert-icon {
+.ui-alert__icon {
     flex-shrink: 0;
     margin-right: 12px;
 }
 
-.ui-alert-text {
-    flex-grow: 1;
-    color: alpha(black, 0.75);
+.ui-alert__body {
+    align-items: flex-start;
+    color: $ui-alert-color;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0;
+    margin-top: 0;
+    min-height: 48px;
+    padding: 12px 16px;
+    transition: opacity 0.3s, margin-top 0.4s;
+    width: 100%;
 }
 
-.ui-alert-toggle-transition {
-    transition: all 0.3s ease;
-    margin-top: 0;
-    margin-bottom: 12px;
+.ui-alert__content {
+    flex-grow: 1;
 }
+
+.ui-alert__dismiss-button {
+    flex-shrink: 0;
+    margin-bottom: -4px;
+    margin-left: 8px;
+    margin-right: -8px;
+    margin-top: -4px;
+}
+
+// ================================================
+// Types
+// ================================================
+
+.ui-alert--type-info {
+    .ui-alert__body {
+        background-color: rgba($md-blue, 0.12);
+    }
+
+    .ui-alert__icon {
+        color: $md-blue;
+    }
+
+    a {
+        color: $md-blue;
+    }
+}
+
+.ui-alert--type-success {
+    .ui-alert__body {
+        background-color: rgba($md-green, 0.12);
+    }
+
+    .ui-alert__icon {
+        color: $md-green;
+    }
+
+    a {
+        color: $md-green;
+    }
+}
+
+.ui-alert--type-warning {
+    .ui-alert__body {
+        background-color: rgba($md-orange, 0.12);
+    }
+
+    .ui-alert__icon {
+        color: $md-orange;
+    }
+
+    a {
+        color: $md-orange;
+    }
+}
+
+.ui-alert--type-error  {
+    .ui-alert__body {
+        background-color: rgba($md-red, 0.12);
+    }
+
+    .ui-alert__icon {
+        color: $md-red;
+    }
+
+    a {
+        color: $md-red;
+    }
+}
+
+// ================================================
+// Transition
+// ================================================
 
 .ui-alert-toggle-enter,
-.ui-alert-toggle-leave {
-    margin-top: -52px;
-    opacity: 0;
+.ui-alert-toggle-leave-active {
     margin-bottom: 0;
+
+    .ui-alert__body {
+        margin-top: -56px;
+        opacity: 0;
+    }
 }
 </style>

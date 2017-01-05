@@ -4,28 +4,26 @@
 
 <script>
 /**
- * Adapted from rippleJS (https://github.com/samthor/rippleJS)
- * removed jQuery
- *
- * Version: 1.0.3
+ * Adapted from rippleJS (https://github.com/samthor/rippleJS, version 1.0.3)
+ * removed jQuery, convert to ES6
  */
 import classlist from './helpers/classlist';
 
-var startRipple = function startRipple(eventType, event) {
-    var holder = event.currentTarget;
+const startRipple = function (eventType, event) {
+    let holder = event.currentTarget || event.target;
 
-    if (! classlist.has(holder, 'ui-ripple-ink')) {
+    if (holder && !classlist.has(holder, 'ui-ripple-ink')) {
         holder = holder.querySelector('.ui-ripple-ink');
+    }
 
-        if (!holder) {
-            return;
-        }
+    if (!holder) {
+        return;
     }
 
     // Store the event use to generate this ripple on the holder: don't allow
     // further events of different types until we're done. Prevents double-
     // ripples from mousedown/touchstart.
-    var prev = holder.getAttribute('data-ui-event');
+    const prev = holder.getAttribute('data-ui-event');
 
     if (prev && prev !== eventType) {
         return;
@@ -34,19 +32,19 @@ var startRipple = function startRipple(eventType, event) {
     holder.setAttribute('data-ui-event', eventType);
 
     // Create and position the ripple
-    var rect = holder.getBoundingClientRect();
-    var x = event.offsetX;
-    var y;
+    const rect = holder.getBoundingClientRect();
+    let x = event.offsetX;
+    let y;
 
-    if (x !== undefined) {
-        y = event.offsetY;
-    } else {
+    if (x === undefined) {
         x = event.clientX - rect.left;
         y = event.clientY - rect.top;
+    } else {
+        y = event.offsetY;
     }
 
-    var ripple = document.createElement('div');
-    var max;
+    const ripple = document.createElement('div');
+    let max;
 
     if (rect.width === rect.height) {
         max = rect.width * 1.412;
@@ -56,7 +54,7 @@ var startRipple = function startRipple(eventType, event) {
         );
     }
 
-    var dim = (max * 2) + 'px';
+    const dim = (max * 2) + 'px';
 
     ripple.style.width = dim;
     ripple.style.height = dim;
@@ -64,44 +62,43 @@ var startRipple = function startRipple(eventType, event) {
     ripple.style.marginTop = -max + y + 'px';
 
     // Activate/add the element
-    ripple.className = 'ripple';
+    ripple.className = 'ui-ripple-ink__ink';
     holder.appendChild(ripple);
 
-    setTimeout(function() {
-        classlist.add(ripple, 'held');
+    setTimeout(() => {
+        classlist.add(ripple, 'is-held');
     }, 0);
 
-    var releaseEvent = (eventType === 'mousedown' ? 'mouseup' : 'touchend');
+    const releaseEvent = (eventType === 'mousedown' ? 'mouseup' : 'touchend');
 
-    var release = function() {
-        document.removeEventListener(releaseEvent, release);
+    const handleRelease = function () {
+        document.removeEventListener(releaseEvent, handleRelease);
 
-        classlist.add(ripple, 'done');
+        classlist.add(ripple, 'is-done');
 
         // Larger than the animation duration in CSS
-        setTimeout(function() {
+        setTimeout(() => {
             holder.removeChild(ripple);
 
-            if (!holder.children.length) {
-                classlist.remove(holder, 'active');
+            if (holder.children.length === 0) {
                 holder.removeAttribute('data-ui-event');
             }
         }, 450);
     };
 
-    document.addEventListener(releaseEvent, release);
+    document.addEventListener(releaseEvent, handleRelease);
 };
 
-var handleMouseDown = function handleMouseDown(e) {
+const handleMouseDown = function (e) {
     // Trigger on left click only
     if (e.button === 0) {
         startRipple(e.type, e);
     }
 };
 
-var handleTouchStart = function handleTouchStart(e) {
+const handleTouchStart = function (e) {
     if (e.changedTouches) {
-        for (var i = 0; i < e.changedTouches.length; ++i) {
+        for (let i = 0; i < e.changedTouches.length; ++i) {
             startRipple(e.type, e.changedTouches[i]);
         }
     }
@@ -112,7 +109,7 @@ export default {
 
     props: {
         trigger: {
-            type: Element,
+            type: String,
             required: true
         }
     },
@@ -123,30 +120,40 @@ export default {
         }
     },
 
-    ready() {
-        this.initialize();
+    mounted() {
+        this.$nextTick(() => {
+            this.initialize();
+        });
     },
 
-    beforeDestory() {
-        if (this.trigger) {
-            this.trigger.removeEventListener('mousedown', handleMouseDown);
-            this.trigger.removeEventListener('touchstart', handleTouchStart);
+    beforeDestroy() {
+        const triggerEl = this.trigger ? this.$parent.$refs[this.trigger] : null;
+
+        if (!triggerEl) {
+            return;
         }
+
+        triggerEl.removeEventListener('mousedown', handleMouseDown);
+        triggerEl.removeEventListener('touchstart', handleTouchStart);
     },
 
     methods: {
         initialize() {
-            if (this.trigger) {
-                this.trigger.addEventListener('touchstart', handleTouchStart);
-                this.trigger.addEventListener('mousedown', handleMouseDown);
+            const triggerEl = this.trigger ? this.$parent.$refs[this.trigger] : null;
+
+            if (!triggerEl) {
+                return;
             }
+
+            triggerEl.addEventListener('touchstart', handleTouchStart);
+            triggerEl.addEventListener('mousedown', handleMouseDown);
         }
     }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
 .ui-ripple-ink {
     display: block;
@@ -163,7 +170,7 @@ export default {
     -webkit-mask-image: -webkit-radial-gradient(circle, white, black);
 }
 
-.ui-ripple-ink .ripple {
+.ui-ripple-ink__ink {
     position: absolute;
     width: 0;
     height: 0;
@@ -180,12 +187,12 @@ export default {
 
     transition: transform 0.4s ease-out, opacity 0.4s ease-out;
 
-    &.held {
+    &.is-held {
         opacity: 0.4;
         transform: scale(1);
     }
 
-    &.done {
+    &.is-done {
         opacity: 0!important;
     }
 }

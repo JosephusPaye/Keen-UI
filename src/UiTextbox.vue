@@ -1,59 +1,82 @@
 <template>
-    <div
-        class="ui-textbox"
-        :class="{
-            'disabled': disabled, 'invalid': !valid, 'dirty': dirty, 'active': active,
-            'has-label': !hideLabel, 'is-multi-line': multiLine, 'icon-right': iconRight,
-            'has-counter': maxLength
-        }"
-    >
-        <div class="ui-textbox-icon-wrapper" v-if="showIcon">
-            <ui-icon :icon="icon" class="ui-textbox-icon"></ui-icon>
+    <div class="ui-textbox" :class="classes">
+        <div class="ui-textbox__icon-wrapper" v-if="icon || $slots.icon">
+            <slot name="icon">
+                <ui-icon :icon="icon"></ui-icon>
+            </slot>
         </div>
 
-        <div class="ui-textbox-content">
-            <label class="ui-textbox-label">
-                <div class="ui-textbox-label-text" v-text="label" v-if="!hideLabel"></div>
+        <div class="ui-textbox__content">
+            <label class="ui-textbox__label">
+                <div
+                    class="ui-textbox__label-text"
+                    :class="labelClasses"
+                    v-if="label || $slots.default"
+                >
+                    <slot>{{ label }}</slot>
+                </div>
 
                 <input
-                    class="ui-textbox-input" :type="type" :placeholder="placeholder" :name="name"
-                    :id="id" :number="type === 'number' ? true : null" :min="minValue"
-                    :max="maxValue" :step="stepValue"
+                    class="ui-textbox__input"
+                    ref="input"
+
                     :autocomplete="autocomplete ? autocomplete : null"
+                    :disabled="disabled"
+                    :max="maxValue"
+                    :maxlength="enforceMaxlength ? maxlength : null"
+                    :min="minValue"
+                    :name="name"
+                    :number="type === 'number' ? true : null"
+                    :placeholder="hasFloatingLabel ? null : placeholder"
+                    :required="required"
+                    :step="stepValue"
+                    :type="type"
+                    :value="value"
 
-                    @focus="focussed" @blur="blurred" @change="changed" @keydown="keydown"
-                    @keydown.enter="keydownEnter" :debounce="debounce"
+                    @blur="onBlur"
+                    @change="onChange"
+                    @focus="onFocus"
+                    @input="updateValue($event.target.value)"
+                    @keydown.enter="onKeydownEnter"
+                    @keydown="onKeydown"
 
-                    v-model="value | trim" v-disabled="disabled" v-if="!multiLine"
                     v-autofocus="autofocus"
+                    v-if="!multiLine"
                 >
 
                 <textarea
-                    class="ui-textbox-textarea" :placeholder="placeholder" :name="name" :id="id"
+                    class="ui-textbox__textarea"
+                    ref="textarea"
+
+                    :autocomplete="autocomplete ? autocomplete : null"
+                    :disabled="disabled"
+                    :maxlength="enforceMaxlength ? maxlength : null"
+                    :name="name"
+                    :placeholder="hasFloatingLabel ? null : placeholder"
+                    :required="required"
                     :rows="rows"
+                    :value="value"
 
-                    @focus="focussed" @blur="blurred" @change="changed" @keydown="keydown"
-                    @keydown.enter="keydownEnter" :debounce="debounce"
+                    @blur="onBlur"
+                    @change="onChange"
+                    @focus="onFocus"
+                    @input="updateValue($event.target.value)"
+                    @keydown.enter="onKeydownEnter"
+                    @keydown="onKeydown"
 
-                    v-model="value | trim" v-disabled="disabled" v-else
-                ></textarea>
+                    v-autofocus="autofocus"
+                    v-else
+                >{{ value }}</textarea>
             </label>
 
-            <div class="ui-textbox-feedback" v-if="showFeedback || maxLength">
-                <div
-                    class="ui-textbox-error-text" transition="ui-textbox-feedback-toggle"
-                    v-text="validationError" v-show="!hideValidationErrors && !valid"
-                ></div>
+            <div class="ui-textbox__feedback" v-if="hasFeedback || maxlength">
+                <div class="ui-textbox__feedback-text" v-if="showError || showHelp">
+                    {{ showError ? error : help }}
+                </div>
 
-                <div
-                    class="ui-textbox-help-text" transition="ui-textbox-feedback-toggle"
-                    v-text="helpText" v-else
-                ></div>
-
-                <div
-                    class="ui-textbox-counter" v-text="value.length + '/' + maxLength"
-                    v-if="maxLength"
-                ></div>
+                <div class="ui-textbox__counter" v-if="maxlength">
+                    {{ value.length + '/' + maxlength }}
+                </div>
             </div>
         </div>
     </div>
@@ -61,18 +84,39 @@
 
 <script>
 import UiIcon from './UiIcon.vue';
+import autofocus from 'directives/autofocus';
 
-import autofocus from './directives/autofocus';
-import HasTextInput from './mixins/HasTextInput';
-import ValidatesInput from './mixins/ValidatesInput';
+import autosize from 'autosize';
 
 export default {
     name: 'ui-textbox',
 
     props: {
+        name: String,
+        placeholder: String,
+        value: {
+            type: [String, Number],
+            required: true
+        },
+        icon: String,
+        iconPosition: {
+            type: String,
+            default: 'left' // 'left' or 'right'
+        },
+        label: String,
+        floatingLabel: {
+            type: Boolean,
+            default: false
+        },
+        help: String,
+        error: String,
+        disabled: {
+            type: Boolean,
+            default: false
+        },
         type: {
             type: String,
-            default: 'text'
+            default: 'text' // all the possible HTML5 input types, except those that have a special UI
         },
         multiLine: {
             type: Boolean,
@@ -82,62 +126,84 @@ export default {
             type: Number,
             default: 2
         },
-        maxLength: Number,
-        trimValue: {
-            type: Boolean,
-            default: true
-        },
-        validateOnBlur: {
-            type: Boolean,
-            default: false
-        },
         autocomplete: String,
         autofocus: {
             type: Boolean,
             default: false
         },
+        autosize: {
+            type: Boolean,
+            default: true
+        },
         min: Number,
         max: Number,
         step: {
             type: String,
-            default: 'any',
-            coerce: String
-        }
-    },
-
-    watch: {
-        value() {
-            if (this.ignoreValueChange) {
-                return;
-            }
-
-            if (!this.dirty) {
-                this.dirty = true;
-            }
-
-            if (!this.validateOnBlur) {
-                this.validate();
-            }
+            default: 'any'
+        },
+        maxlength: Number,
+        enforceMaxlength: {
+            type: Boolean,
+            default: false
+        },
+        required: {
+            type: Boolean,
+            default: false
+        },
+        invalid: {
+            type: Boolean,
+            default: false
+        },
+        touched: {
+            type: Boolean,
+            default: false
         }
     },
 
     data() {
         return {
-            ignoreValueChange: false
+            isActive: false,
+            initialValue: this.value,
+            autosizeInitialized: false
         };
     },
 
     computed: {
-        showIcon() {
-            return Boolean(this.icon);
+        classes() {
+            return [
+                'ui-textbox--icon-position-' + this.iconPosition,
+                { 'is-active': this.isActive },
+                { 'is-invalid': this.invalid },
+                { 'is-touched': this.touched },
+                { 'is-multi-line': this.multiLine },
+                { 'has-counter': this.maxlength },
+                { 'is-disabled': this.disabled },
+                { 'has-label': this.hasLabel },
+                { 'has-floating-label': this.hasFloatingLabel }
+            ];
+        },
+
+        labelClasses() {
+            return {
+                'is-inline': this.hasFloatingLabel && this.isLabelInline,
+                'is-floating': this.hasFloatingLabel && !this.isLabelInline
+            };
+        },
+
+        hasLabel() {
+            return Boolean(this.label) || Boolean(this.$slots.default);
+        },
+
+        hasFloatingLabel() {
+            return this.hasLabel && this.floatingLabel;
+        },
+
+        isLabelInline() {
+            return this.value.length === 0 && !this.isActive;
         },
 
         minValue() {
-            if (this.type !== 'number') {
-                return null;
-            }
-
-            if (this.min || this.min === 0) {
+            if (this.type === 'number' && this.min !== undefined) {
                 return this.min;
             }
 
@@ -145,11 +211,7 @@ export default {
         },
 
         maxValue() {
-            if (this.type !== 'number') {
-                return null;
-            }
-
-            if (this.max || this.max === 0) {
+            if (this.type === 'number' && this.max !== undefined) {
                 return this.max;
             }
 
@@ -157,85 +219,82 @@ export default {
         },
 
         stepValue() {
-            if (this.type === 'number') {
-                return this.step;
-            }
+            return this.type === 'number' ? this.step : null;
+        },
 
-            return null;
+        hasFeedback() {
+            return Boolean(this.help) || Boolean(this.error);
+        },
+
+        showError() {
+            return this.invalid && Boolean(this.error);
+        },
+
+        showHelp() {
+            return !this.showError && Boolean(this.help);
         }
     },
 
-    events: {
-        'ui-input::reset': function(id) {
-            // Abort if reset event isn't meant for this component
-            if (!this.eventTargetsComponent(id)) {
-                return;
-            }
+    mounted() {
+        if (this.multiLine && this.autosize) {
+            autosize(this.$refs.textarea);
+            this.autosizeInitialized = true;
+        }
+    },
 
-            // Temporarily disable watcher
-            this.ignoreValueChange = true;
-
-            // Blur the input if it's focussed to prevent required errors
-            // when it's value is reset
-            if (
-                document.activeElement === this.$el.querySelector('input') ||
-                document.activeElement === this.$el.querySelector('textarea')
-            ) {
-                document.activeElement.blur();
-            }
-
-            // Reset state
-            this.validationError = '';
-            this.value = this.initialValue;
-            this.valid = true;
-            this.dirty = false;
-
-            // Re-enable watcher
-            this.$nextTick(() => {
-                this.ignoreValueChange = false;
-            });
+    beforeDestroy() {
+        if (this.autosizeInitialized) {
+            autosize.destroy(this.$refs.textarea);
         }
     },
 
     methods: {
-        focussed() {
-            this.active = true;
-            this.$dispatch('focussed');
+        updateValue(value) {
+            this.$emit('input', value);
         },
 
-        blurred() {
-            this.active = false;
+        onChange(e) {
+            this.$emit('change', this.value, e);
+        },
 
-            if (!this.dirty) {
-                this.dirty = true;
+        onFocus(e) {
+            this.isActive = true;
+            this.$emit('focus', e);
+        },
+
+        onBlur(e) {
+            this.isActive = false;
+            this.$emit('blur', e);
+
+            if (!this.touched) {
+                this.$emit('touch');
+            }
+        },
+
+        onKeydown(e) {
+            this.$emit('keydown', e);
+        },
+
+        onKeydownEnter(e) {
+            this.$emit('keydown-enter', e);
+        },
+
+        reset() {
+            // Blur the input if it's focussed to prevent required errors
+            // when it's value is reset
+            if (
+                document.activeElement === this.$refs.input ||
+                document.activeElement === this.$refs.textarea
+            ) {
+                document.activeElement.blur();
             }
 
-            this.$dispatch('blurred');
-            this.validate();
+            this.updateValue(this.initialValue);
         },
 
-        changed() {
-            this.$dispatch('changed');
-        },
-
-        keydown(e) {
-            this.$dispatch('keydown', e);
-        },
-
-        keydownEnter(e) {
-            this.$dispatch('keydown-enter', e);
-        }
-    },
-
-    filters: {
-        trim: {
-            // Trim the value when it's written to the model
-            write(value) {
-                if (this.type !== 'number' && this.trimValue) {
-                    return value.trim();
-                }
-
-                return value;
+        refreshSize() {
+            if (this.autosizeInitialized) {
+                autosize.update(this.$refs.textarea);
             }
         }
     },
@@ -246,209 +305,192 @@ export default {
 
     directives: {
         autofocus
-    },
-
-    mixins: [
-        HasTextInput,
-        ValidatesInput
-    ]
+    }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
 .ui-textbox {
-    font-family: $font-stack;
-    display: flex;
     align-items: flex-start;
-    margin-bottom: 12px;
+    display: flex;
+    font-family: $font-stack;
+    margin-bottom: $ui-input-margin-bottom;
 
-    &:hover:not(.disabled):not(.invalid) {
-        .ui-textbox-label-text {
-            color: $input-label-color-hover;
+    &:hover:not(.is-disabled) {
+        .ui-textbox__label-text {
+            color: $ui-input-label-color--hover;
         }
 
-        .ui-textbox-input,
-        .ui-textbox-textarea {
-            border-bottom-color: $input-border-color-hover;
+        .ui-textbox__input,
+        .ui-textbox__textarea {
+            border-bottom-color: $ui-input-border-color--hover;
         }
     }
 
-    &.active:not(.disabled) {
-        .ui-textbox-input,
-        .ui-textbox-textarea {
-            border-bottom-width: 2px;
+    &.is-active:not(.is-disabled) {
+        .ui-textbox__input,
+        .ui-textbox__textarea {
+            border-bottom-color: $ui-input-border-color--active;
+            border-bottom-width: $ui-input-border-width--active;
         }
 
-        &:not(.invalid) {
-            .ui-textbox-label-text,
-            .ui-textbox-icon {
-                color: $input-label-color-active;
-            }
-
-            .ui-textbox-input,
-            .ui-textbox-textarea {
-                border-bottom-color: $input-border-color-active;
-            }
+        .ui-textbox__label-text,
+        .ui-textbox__icon-wrapper .ui-icon {
+            color: $ui-input-label-color--active;
         }
     }
 
     &.has-label {
-        .ui-textbox-icon-wrapper {
-            padding-top: 20px;
-        }
-    }
-
-    &.icon-right {
-        .ui-textbox-icon-wrapper {
-            order: 1;
-            margin-left: 8px;
-            margin-right: 0;
-        }
-    }
-
-    &.is-multi-line {
-        .ui-textbox-label-text {
-            margin-bottom: 8px;
+        .ui-textbox__icon-wrapper {
+            padding-top: $ui-input-icon-margin-top--with-label;
         }
     }
 
     &.has-counter {
-        .ui-textbox-feedback {
+        .ui-textbox__feedback-text {
             padding-right: 48px;
         }
     }
 
-    &.invalid {
-        .ui-textbox-label-text,
-        .ui-textbox-icon,
-        .ui-textbox-counter {
-            color: $input-label-color-invalid;
-        }
+    &.has-floating-label {
+        .ui-textbox__label-text {
+            // Behaves like a block, but width is the width of its content.
+            // Needed here so label doesn't overflow parent when scaled.
+            display: table;
 
-        .ui-textbox-input,
-        .ui-textbox-textarea {
-            border-bottom-color: $input-border-color-invalid;
+            &.is-inline {
+                color: $ui-input-label-color; // So it doesn't get darker when hovered
+                cursor: text;
+                transform: translateY($ui-input-label-top--inline) scale(1.1);
+            }
+
+            &.is-floating {
+                transform: translateY(0) scale(1);
+            }
         }
     }
 
-    &.disabled {
-        .ui-textbox-input,
-        .ui-textbox-textarea {
-            color: $input-color-disabled;
-            border-bottom-style: dotted;
-            border-bottom-width: 2px;
+    &.is-invalid:not(.is-disabled) {
+        .ui-textbox__label-text,
+        .ui-textbox__icon-wrapper .ui-icon,
+        .ui-textbox__counter {
+            color: $ui-input-label-color--invalid;
         }
 
-        .ui-textbox-icon {
-            opacity: 0.6;
+        .ui-textbox__input,
+        .ui-textbox__textarea {
+            border-bottom-color: $ui-input-border-color--invalid;
         }
 
-        .ui-textbox-feedback {
-            opacity: 0.8;
+        .ui-textbox__feedback {
+            color: $ui-input-feedback-color--invalid;
+        }
+    }
+
+    &.is-disabled {
+        .ui-textbox__input,
+        .ui-textbox__textarea {
+            color: $ui-input-text-color--disabled;
+            border-bottom-style: $ui-input-border-style--disabled;
+            border-bottom-width: $ui-input-border-width--active;
+        }
+
+        .ui-textbox__icon-wrapper .ui-icon {
+            opacity: $ui-input-icon-opacity--disabled;
+        }
+
+        .ui-textbox__feedback {
+            opacity: $ui-input-feedback-opacity--disabled;
         }
     }
 }
 
-.ui-textbox-label {
-    width: 100%;
+.ui-textbox__label {
+    display: block;
     margin: 0;
     padding: 0;
+    width: 100%;
 }
 
-.ui-textbox-icon-wrapper {
-    height: 24px;
+.ui-textbox__icon-wrapper {
     flex-shrink: 0;
     margin-right: 12px;
-    padding-top: 4px;
+    padding-top: $ui-input-icon-margin-top;
+
+    .ui-icon {
+        color: $ui-input-icon-color;
+    }
 }
 
-.ui-textbox-icon {
-    color: $input-label-color;
-}
-
-.ui-textbox-content {
+.ui-textbox__content {
     flex-grow: 1;
 }
 
-.ui-textbox-label-text {
-    font-size: 14px;
-    line-height: 1;
-    margin-bottom: 2px;
-    color: $input-label-color;
-    transition: color 0.1s ease;
+.ui-textbox__label-text {
+    color: $ui-input-label-color;
+    font-size: $ui-input-label-font-size;
+    line-height: $ui-input-label-line-height;
+    margin-bottom: $ui-input-label-margin-bottom;
+    transform-origin: left;
+    transition: color 0.1s ease, transform 0.2s ease;
 }
 
-.ui-textbox-input,
-.ui-textbox-textarea {
-    cursor: auto;
+.ui-textbox__input,
+.ui-textbox__textarea {
     background: none;
-    outline: none;
     border: none;
-    padding: 0;
-    display: block;
-
-    width: 100%;
-    border-bottom-width: 1px;
+    border-bottom-color: $ui-input-border-color;
     border-bottom-style: solid;
-    border-bottom-color: $input-border-color;
-
-    transition: border 0.1s ease;
-
-    color: $input-color;
-    font-weight: normal;
-    font-size: 16px;
+    border-bottom-width: $ui-input-border-width;
+    color: $ui-input-text-color;
+    cursor: auto;
+    display: block;
     font-family: $font-stack;
+    font-size: $ui-input-text-font-size;
+    font-weight: normal;
+    margin: 0;
+    outline: none;
+    padding: 0;
+    transition: border 0.1s ease;
+    width: 100%;
 }
 
-.ui-textbox-input {
-    height: 32px;
+.ui-textbox__input {
+    height: $ui-input-height;
 }
 
-.ui-textbox-textarea {
+.ui-textbox__textarea {
     resize: vertical;
     overflow-x: hidden;
-    padding-bottom: 8px;
+    padding-bottom: 6px;
 }
 
-.ui-textbox-feedback {
+.ui-textbox__feedback {
+    color: $ui-input-feedback-color;
+    font-size: $ui-input-feedback-font-size;
+    line-height: $ui-input-feedback-line-height;
     margin: 0;
-    min-height: 20px;
-    overflow: hidden;
+    padding-top: $ui-input-feedback-padding-top;
     position: relative;
-    font-size: 14px;
-    padding-top: 2px;
 }
 
-.ui-textbox-help-text,
-.ui-textbox-counter {
-    color: $input-help-color;
-    line-height: 1.2;
-}
-
-.ui-textbox-error-text {
-    position: absolute;
-    color: $input-error-color;
-    line-height: 1.2;
-}
-
-.ui-textbox-counter {
+.ui-textbox__counter {
     position: absolute;
     right: 0;
-    top: 2px;
+    top: $ui-input-feedback-padding-top;
 }
 
-.ui-textbox-feedback-toggle-transition {
-    transition-property: opacity, margin-top;
-    transition-duration: 0.3s;
-    margin-top: 0;
-    opacity: 1;
-}
+// ================================================
+// Icon position
+// ================================================
 
-.ui-textbox-feedback-toggle-enter,
-.ui-textbox-feedback-toggle-leave {
-    margin-top: -20px;
-    opacity: 0;
+.ui-textbox--icon-position-right {
+    .ui-textbox__icon-wrapper {
+        margin-left: 8px;
+        margin-right: 0;
+        order: 1;
+    }
 }
 </style>

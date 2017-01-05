@@ -1,85 +1,83 @@
 <template>
-    <div
-        class="ui-modal ui-modal-mask" v-show="show" :transition="transition" :class="[type]"
-        :role="role" @transitionend="transitionEnd | debounce 100"
-    >
-        <div class="ui-modal-wrapper" @click="close" v-el:modal-mask>
+    <transition :name="toggleTransition">
+        <div
+            class="ui-modal ui-modal__mask"
+
+            :class="classes"
+            :role="role"
+
+            @transitionend="onTransitionEnd"
+            v-show="isOpen"
+        >
             <div
-                class="ui-modal-container" tabindex="-1" @keydown.esc="close"
-                v-el:modal-container
+                class="ui-modal__wrapper"
+                ref="backdrop"
+                @click="dismissOnBackdrop && closeModal($event)"
             >
-                <div class="ui-modal-header">
-                    <slot name="header">
-                        <h1 v-text="header" class="ui-modal-header-text"></h1>
-                    </slot>
+                <div
+                    class="ui-modal__container"
+                    ref="container"
+                    tabindex="-1"
+                    @keydown.esc="dismissOnEsc && closeModal($event)"
+                >
+                    <div class="ui-modal__header">
+                        <slot name="header">
+                            <h1 class="ui-modal__header-text">{{ title }}</h1>
+                        </slot>
 
-                    <ui-icon-button
-                        type="clear" icon="&#xE5CD" class="ui-modal-close-button" @click="close"
-                        :disabled="!dismissible" v-if="showCloseButton" v-el:close-button
-                    ></ui-icon-button>
+                        <div class="ui-modal__close-button">
+                            <ui-close-button
+                                @click.native="closeModal"
+                                v-if="dismissOnCloseButton && !removeCloseButton && dismissible"
+                            ></ui-close-button>
+                        </div>
+                    </div>
+
+                    <div class="ui-modal__body">
+                        <slot></slot>
+                    </div>
+
+                    <div class="ui-modal__footer" v-if="hasFooter">
+                        <slot name="footer"></slot>
+                    </div>
+
+                    <div
+                        class="ui-modal__focus-redirect"
+                        tabindex="0"
+                        @focus.stop="redirectFocus"
+                    ></div>
                 </div>
-
-                <div class="ui-modal-body">
-                    <slot>
-                        <div v-text="body"></div>
-                    </slot>
-                </div>
-
-                <div class="ui-modal-footer" v-if="!hideFooter">
-                    <slot name="footer">
-                        <ui-button @click="close" v-if="dismissible">Close</ui-button>
-                    </slot>
-                </div>
-
-                <div class="focus-redirector" @focus="redirectFocus" tabindex="0"></div>
             </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
-import classlist from './helpers/classlist';
+import UiCloseButton from './UiCloseButton.vue';
 
-import UiIconButton from './UiIconButton.vue';
-import UiButton from './UiButton.vue';
+import classlist from './helpers/classlist';
 
 export default {
     name: 'ui-modal',
 
     props: {
-        show: {
-            type: Boolean,
-            required: true,
-            twoWay: true
-        },
-        type: {
+        title: {
             type: String,
-            default: 'normal', // 'small', 'normal', or 'large'
-            coerce(type) {
-                return 'ui-modal-' + type;
-            }
+            default: 'UiModal title'
         },
-        header: {
+        size: {
             type: String,
-            default: 'UiModal Header'
-        },
-        body: {
-            type: String,
-            default: 'UiModal body'
+            default: 'normal' // 'small', 'normal', or 'large'
         },
         role: {
             type: String,
-            default: 'dialog', // 'dialog' or 'alertdialog'
+            default: 'dialog' // 'dialog' or 'alertdialog'
         },
         transition: {
             type: String,
-            default: 'ui-modal-scale', // 'ui-modal-scale', or 'ui-modal-fade'
+            default: 'scale' // 'scale', or 'fade'
         },
-        showCloseButton: {
-            type: Boolean,
-            default: true
-        },
-        hideFooter: {
+        removeCloseButton: {
             type: Boolean,
             default: false
         },
@@ -87,89 +85,114 @@ export default {
             type: Boolean,
             default: true
         },
-        backdropDismissible: {
-            type: Boolean,
-            default: true
+        dismissOn: {
+            type: String,
+            default: 'backdrop esc close-button'
         }
     },
 
     data() {
         return {
+            isOpen: false,
             lastFocussedElement: null
         };
     },
 
+    computed: {
+        classes() {
+            return [
+                'ui-modal--size-' + this.size,
+                { 'has-footer': this.hasFooter },
+                { 'is-open': this.isOpen }
+            ];
+        },
+
+        hasFooter() {
+            return Boolean(this.$slots.footer);
+        },
+
+        toggleTransition() {
+            return 'ui-modal--transition-' + this.transition;
+        },
+
+        dismissOnBackdrop() {
+            return this.dismissOn.indexOf('backdrop') > -1;
+        },
+
+        dismissOnCloseButton() {
+            return this.dismissOn.indexOf('close-button') > -1;
+        },
+
+        dismissOnEsc() {
+            return this.dismissOn.indexOf('esc') > -1;
+        }
+    },
+
     watch: {
-        show() {
+        isOpen() {
             this.$nextTick(() => {
-                if (this.show) {
-                    this.opened();
-                } else {
-                    this.closed();
-                }
+                this[this.isOpen ? 'onOpen' : 'onClose']();
             });
         }
     },
 
     beforeDestroy() {
-        if (this.show) {
-            this.tearDown();
+        if (this.isOpen) {
+            this.teardownModal();
         }
     },
 
     methods: {
-        close(e) {
+        open() {
+            this.isOpen = true;
+        },
+
+        close() {
+            this.isOpen = false;
+        },
+
+        closeModal(e) {
             if (!this.dismissible) {
                 return;
             }
 
-            // Make sure the element clicked was the modal mask and not a child
-            // whose click event has bubbled up
-            if (e.currentTarget === this.$els.modalMask && e.target !== e.currentTarget) {
+            // Make sure the element clicked was the backdrop and not a child whose click
+            // event has bubbled up
+            if (e.currentTarget === this.$refs.backdrop && e.target !== e.currentTarget) {
                 return;
             }
 
-            // Don't close if this event was triggered by the modal mask
-            // and this.backdropDismissible is false
-            if (e.currentTarget === this.$els.modalMask && !this.backdropDismissible) {
-                return;
-            }
-
-            this.show = false;
+            this.isOpen = false;
         },
 
-        opened() {
+        onOpen() {
             this.lastFocussedElement = document.activeElement;
-            this.$els.modalContainer.focus();
+            this.$refs.container.focus();
 
-            classlist.add(document.body, 'ui-modal-open');
-
+            classlist.add(document.body, 'ui-modal--is-open');
             document.addEventListener('focus', this.restrictFocus, true);
 
-            this.$dispatch('opened');
+            this.$emit('open');
         },
 
-        closed() {
-            this.tearDown();
-            this.$dispatch('closed');
+        onClose() {
+            this.teardownModal();
+            this.$emit('close');
         },
 
-        redirectFocus(e) {
-            e.stopPropagation();
-
-            this.$els.modalContainer.focus();
+        redirectFocus() {
+            this.$refs.container.focus();
         },
 
         restrictFocus(e) {
-            if (!this.$els.modalContainer.contains(e.target)) {
+            if (!this.$refs.container.contains(e.target)) {
                 e.stopPropagation();
-                this.$els.modalContainer.focus();
+                this.$refs.container.focus();
             }
         },
 
-        tearDown() {
-            classlist.remove(document.body, 'ui-modal-open');
-
+        teardownModal() {
+            classlist.remove(document.body, 'ui-modal--is-open');
             document.removeEventListener('focus', this.restrictFocus, true);
 
             if (this.lastFocussedElement) {
@@ -177,137 +200,117 @@ export default {
             }
         },
 
-        transitionEnd() {
-            if (this.show) {
-                this.$dispatch('revealed');
-            } else {
-                this.$dispatch('hidden');
+        onTransitionEnd(e) {
+            // Only emit the event for the opacity transition
+            if (e.propertyName === 'opacity') {
+                this.$emit(this.isOpen ? 'reveal' : 'hide');
             }
         }
     },
 
     components: {
-        UiIconButton,
-        UiButton
+        UiCloseButton
     }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
-$transition-duration = 0.2s;
+$ui-modal-transition-duration   : 0.3s !default;
+$ui-modal-mask-background       : rgba(black, 0.5) !default;
+$ui-modal-header-height         : 56px;
+$ui-modal-footer-height         : 70px;
 
 .ui-modal {
     font-family: $font-stack;
     font-size: 14px;
 
-    &.ui-modal-large {
-        .ui-modal-container {
-            width: 848px;
+    &.has-footer {
+        .ui-modal__body {
+            max-height: calc(100vh - #{$ui-modal-header-height + $ui-modal-footer-height});
         }
     }
 
-    &.ui-modal-small {
-        .ui-modal-container {
-            width: 320px;
+    &:not(.has-footer) {
+        .ui-modal__body {
+            padding: 16px 24px 24px;
         }
     }
 }
 
-body.ui-modal-open {
+.ui-modal--is-open {
     overflow: hidden;
 }
 
-.ui-modal-mask {
-    position: fixed;
-    z-index: $z-index-modal;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: alpha(black, 0.5);
+.ui-modal__mask {
+    background-color: $ui-modal-mask-background;
     display: table;
-    transition: opacity $transition-duration ease;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    transition: opacity $ui-modal-transition-duration ease;
+    width: 100%;
+    z-index: $z-index-modal;
 }
 
-.ui-modal-wrapper {
+.ui-modal__wrapper {
     display: table-cell;
     vertical-align: middle;
 }
 
-.ui-modal-container {
-    outline: none;
-    width: 528px;
-    margin: 0px auto;
-    padding: 0;
+.ui-modal__container {
     background-color: white;
     border-radius: 2px;
-    box-shadow: 0 2px 8px alpha(black, 0.33);
-    transition: all $transition-duration ease;
-
+    box-shadow: 0 2px 8px rgba(black, 0.33);
+    margin: 0px auto;
     max-height: 100vh;
     max-width: 100vw;
-    overflow-x: hidden;
+    outline: none;
+    overflow: hidden;
+    padding: 0;
+    transition: all $ui-modal-transition-duration ease;
+    width: 528px;
+}
+
+.ui-modal__header {
+    align-items: center;
+    display: flex;
+    padding: 0 24px;
+    height: $ui-modal-header-height;
+    background-color: #F5F5F5;
+    box-shadow: 0 1px 1px rgba(black, 0.16);
+    position: relative;
+    z-index: 1;
+}
+
+.ui-modal__header-text {
+    align-items: center;
+    display: flex;
+    flex-grow: 1;
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0;
+}
+
+.ui-modal__close-button {
+    margin-right: -8px;
+    margin-left: auto;
+}
+
+.ui-modal__body {
+    padding: 16px 24px;
+    max-height: calc(100vh - #{$ui-modal-header-height});
     overflow-y: auto;
 }
 
-.ui-modal-header {
-    display: flex;
+.ui-modal__footer {
     align-items: center;
-    padding: 24px 24px 8px;
-
-    .ui-modal-header-text {
-        flex-grow: 1;
-        font-size: 22px;
-        display: flex;
-        align-items: center;
-        margin: 0;
-        font-weight: normal;
-    }
-
-    .ui-modal-close-button {
-        margin-top: -12px;
-        margin-right: -8px;
-        margin-left: auto;
-
-        &:hover:not([disabled]),
-        body[modality="keyboard"] &:focus {
-            .ui-icon {
-                color: alpha(black, 0.8);
-            }
-        }
-
-        .ui-icon {
-            font-size: 20px;
-            color: alpha(black, 0.4);
-        }
-
-        &[disabled] {
-            opacity: 0.5;
-        }
-    }
-}
-
-.ui-modal-body {
-    padding: 16px 24px 24px;
-}
-
-.ui-modal-footer {
-    margin-top: -8px;
-    padding: 24px;
-    padding-top: 8px;
-
-    &,
-    [slot] {
-        display: flex;
-        justify-content: flex-end;
-    }
-
-    .ui-modal-footer-left,
-    [slot].ui-modal-footer-left {
-        justify-content: flex-start;
-    }
+    display: flex;
+    height: $ui-modal-footer-height;
+    justify-content: flex-end;
+    padding: 0 24px;
 
     .ui-button {
         margin-left: 8px;
@@ -318,18 +321,37 @@ body.ui-modal-open {
     }
 }
 
-.ui-modal-fade-enter,
-.ui-modal-fade-leave {
+// ================================================
+// Sizes
+// ================================================
+
+.ui-modal--size-large {
+    .ui-modal__container {
+        width: 848px;
+    }
+}
+
+.ui-modal--size-small {
+    .ui-modal__container {
+        width: 320px;
+    }
+}
+
+// ================================================
+// Transitions
+// ================================================
+
+.ui-modal--transition-fade-enter,
+.ui-modal--transition-fade-leave-active {
     opacity: 0;
 }
 
-.ui-modal-scale-enter,
-.ui-modal-scale-leave {
+.ui-modal--transition-scale-enter,
+.ui-modal--transition-scale-leave-active {
     opacity: 0;
-}
 
-.ui-modal-scale-enter .ui-modal-container,
-.ui-modal-scale-leave .ui-modal-container {
-    transform: scale(1.1);
+    .ui-modal__container {
+        transform: scale(1.1);
+    }
 }
 </style>

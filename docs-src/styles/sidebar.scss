@@ -1,0 +1,119 @@
+.keen-docs-mobile-sidebar__backdrop {
+    background-color: rgba(black, 0.2);
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: $z-index-nav-drawer - 1;
+}
+
+.keen-docs-sidebar {
+    background-color: #FFF;
+    box-shadow: 0 2px 5px 0 rgba(black, 0.16), 0 2px 10px 0 rgba(black, 0.12);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    height: 100vh;
+    width: 296px;
+    z-index: 1;
+
+    &.is-mobile {
+        max-width: 280px;
+        z-index: $z-index-nav-drawer;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
+
+.keen-docs-sidebar__scrollable {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.keen-docs-sidebar__header {
+    border-bottom: 1px solid #DDD;
+    font-size: 1.5rem;
+    padding: 16px;
+
+    .version {
+        vertical-align: super;
+        font-size: 0.9rem;
+        display: inline-block;
+    }
+}
+
+.keen-docs-sidebar__description {
+    color: rgba(black, 0.54);
+    padding: 16px;
+
+    p {
+        margin: 0;
+
+        & + p {
+            margin-top: 12px;
+        }
+    }
+}
+
+.keen-docs-sidebar__menu,
+.keen-docs-sidebar__menu-section-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.keen-docs-sidebar__menu-section-header {
+    color: rgba(black, 0.7);
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: 16px;
+}
+
+.keen-docs-sidebar__menu-item {
+    display: block;
+    padding: 12px;
+    padding-left: 40px;
+    color: rgba(black, 0.87);
+
+    &.is-active {
+        color: $link-color;
+        font-weight: 500;
+        background-color: rgba(black, 0.05);
+    }
+
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        background-color: rgba(black, 0.05);
+    }
+}
+
+.transition-fade-enter-active,
+.transition-fade-leave-active {
+    transition: opacity 0.2s ease-out;
+}
+
+.transition-fade-enter,
+.transition-fade-leave-active {
+    opacity: 0;
+}
+
+.transition-slide-enter-active,
+.transition-slide-leave-active {
+    transition: transform 0.2s ease-out;
+}
+
+
+.transition-slide-enter,
+.transition-slide-leave-active {
+    transform: translateX(-280px);
+}
+
+@media screen and (max-width: $mobile-breakpoint) {
+    .keen-docs-sidebar.is-desktop {
+        display: none;
+    }
+}

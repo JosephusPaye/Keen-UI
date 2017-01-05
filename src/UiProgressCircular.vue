@@ -1,32 +1,59 @@
 <template>
-    <div
-        class="ui-progress-circular" :style="{ 'width': size + 'px', 'height': size + 'px' }"
-        v-show="show" :transition="disableTransition ? null : 'ui-progress-circular-toggle'"
-    >
-        <svg
-            class="ui-progress-circular-determinate" :width="size" :height="size"
-            role="progressbar" :aria-valuemin="0" :aria-valuemax="100" :aria-valuenow="value"
-            v-if="type === 'determinate'"
+    <transition name="ui-progress-circular--transition-fade">
+        <div
+            class="ui-progress-circular"
+            :class="classes"
+            :style="{ 'width': size + 'px', 'height': size + 'px' }"
         >
-            <circle
-                class="ui-progress-circular-determinate-path" :class="[color]" :r="radius"
-                :cx="size / 2" :cy="size / 2" fill="transparent" :stroke-dasharray="strokeDashArray"
-                stroke-dashoffset="0"
+            <!-- Alternative circle rendering to explore: http://jsfiddle.net/6e3QJ/29/ -->
+            <svg
+                class="ui-progress-circular__determinate"
+                role="progressbar"
 
-                :style="{ 'stroke-dashoffset': strokeDashOffset, 'stroke-width': stroke }"
-            ></circle>
-        </svg>
+                :aria-valuemax="100"
+                :aria-valuemin="0"
+                :aria-valuenow="progress"
+                :height="size"
+                :width="size"
 
-        <svg
-            class="ui-progress-circular-indeterminate" viewBox="25 25 50 50"
-            role="progressbar" :aria-valuemin="0" :aria-valuemax="100" v-else
-        >
-            <circle
-                class="ui-progress-circular-indeterminate-path" :class="[color]" cx="50" cy="50"
-                r="20" fill="none" stroke-miterlimit="10" :stroke-width="stroke"
+                v-if="type === 'determinate'"
             >
-        </svg>
-    </div>
+                <circle
+                    class="ui-progress-circular__determinate-path"
+                    fill="transparent"
+                    stroke-dashoffset="0"
+
+                    :cx="size / 2"
+                    :cy="size / 2"
+                    :r="radius"
+                    :stroke-dasharray="strokeDashArray"
+                    :style="{ 'stroke-dashoffset': strokeDashOffset, 'stroke-width': calculatedStroke }"
+                ></circle>
+            </svg>
+
+            <svg
+                class="ui-progress-circular__indeterminate"
+                role="progressbar"
+                viewBox="25 25 50 50"
+
+                :aria-valuemax="100"
+                :aria-valuemin="0"
+
+                v-else
+            >
+                <circle
+                    class="ui-progress-circular__indeterminate-path"
+                    cx="50"
+                    cy="50"
+                    fill="none"
+                    r="20"
+                    stroke-miterlimit="10"
+
+                    :stroke-width="calculatedStroke"
+                ></circle>
+            </svg>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -34,19 +61,15 @@ export default {
     name: 'ui-progress-circular',
 
     props: {
-        show: {
-            type: Boolean,
-            default: false
-        },
         type: {
             type: String,
-            default: 'indeterminate', // 'indeterminate' or 'determinate'
+            default: 'indeterminate' // 'indeterminate' or 'determinate'
         },
         color: {
             type: String,
             default: 'primary' // 'primary', 'accent', multi-color', 'black', or 'white'
         },
-        value: {
+        progress: {
             type: Number,
             default: 0
         },
@@ -66,147 +89,160 @@ export default {
     },
 
     computed: {
-        strokeDashArray() {
-            let circumference = 2 * Math.PI * this.radius;
+        classes() {
+            return [
+                'ui-progress-circular--color-' + this.color,
+                'ui-progress-circular--type-' + this.type
+            ];
+        },
 
-            // Get first 3 decimal places, rounding as appropriate
+        strokeDashArray() {
+            const circumference = 2 * Math.PI * this.radius;
+
+            // Use first 3 decimal places, rounded as appropriate
             return Math.round(circumference * 1000) / 1000;
         },
 
         strokeDashOffset() {
-            let value = this.moderateValue(this.value);
-            let circumference = 2 * Math.PI * this.radius;
+            const progress = this.moderateProgress(this.progress);
+            const circumference = 2 * Math.PI * this.radius;
 
-            return ((100 - value) / 100) * circumference;
+            return ((100 - progress) / 100) * circumference;
         },
 
         radius() {
-            return (this.size - this.stroke) / 2;
-        }
-    },
+            const stroke = this.stroke ? this.stroke : 4;
+            return (this.size - stroke) / 2;
+        },
 
-    created() {
-        if (!this.stroke) {
-            if (this.autoStroke) {
-                this.stroke = parseInt(this.size / 8, 10);
-            } else {
-                this.stroke = 4;
+        calculatedStroke() {
+            if (this.stroke) {
+                return this.stroke;
             }
+
+            if (this.autoStroke) {
+                return parseInt(this.size / 8, 10);
+            }
+
+            return 4;
         }
     },
 
     methods: {
-        moderateValue(value) {
-            if (isNaN(value) || value < 0) {
+        moderateProgress(progress) {
+            if (isNaN(progress) || progress < 0) {
                 return 0;
             }
 
-            if (value > 100) {
+            if (progress > 100) {
                 return 100;
             }
 
-            return value;
+            return progress;
         }
-    },
+    }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
-$indeterminate-rotation-duration = 1.4s;
-$indeterminate-color-duration = 6s;
-$determinate-transition-duration = 0.3s;
+$ui-progress-indeterminate-rotation-duration    : 0.7s !default;
+$ui-progress-indeterminate-color-duration       : 6s !default;
+$ui-progress-determinate-transition-duration    : 0.3s !default;
 
 .ui-progress-circular {
     position: relative;
+}
 
-    .ui-progress-circular-determinate {
-        transform: rotate(270deg);
+.ui-progress-circular__determinate {
+    transform: rotate(270deg);
+}
 
-        .ui-progress-circular-determinate-path {
-            stroke-dashoffset: 0;
-            transition: stroke-dashoffset $determinate-transition-duration ease;
+.ui-progress-circular__determinate-path {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset $ui-progress-determinate-transition-duration;
+}
 
-            &.primary,
-            &.multi-color {
-                stroke: $md-brand-primary;
-            }
+.ui-progress-circular__indeterminate {
+    animation: ui-progress-circular-rotate $ui-progress-indeterminate-rotation-duration linear infinite;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform-origin: center center;
+    width: 100%;
+}
 
-            &.accent {
-                stroke: $md-brand-accent;
-            }
+.ui-progress-circular__indeterminate-path {
+    stroke-dasharray: 89,200;
+    stroke-dashoffset: -35px;
+    stroke-linecap: round;
+}
 
-            &.black {
-                stroke: $md-grey-900;
-            }
+// ================================================
+// Colors
+// ================================================
 
-            &.white {
-                stroke: white;
-            }
-        }
+.ui-progress-circular--color-multi-color {
+    .ui-progress-circular__determinate-path {
+        stroke: $brand-primary-color;
     }
 
-    .ui-progress-circular-indeterminate {
-        animation: ui-progress-circular-rotate $indeterminate-rotation-duration linear infinite;
-        transform-origin: center center;
-
-        width: 100%;
-        height: 100%;
-        margin: auto;
-
-        position: absolute;
-        top: 0;
-        bottom: 0;
-
-        left: 0;
-        right: 0;
-    }
-
-    .ui-progress-circular-indeterminate-path {
-        stroke-dasharray: 1,200;
-        stroke-dashoffset: 0;
-        stroke-linecap: round;
-
-        animation: ui-progress-circular-dash $indeterminate-rotation-duration ease-in-out infinite;
-
-        &.multi-color {
-            animation: ui-progress-circular-dash $indeterminate-rotation-duration ease-in-out infinite,
-                       ui-progress-circular-color $indeterminate-color-duration ease-in-out infinite;
-        }
-
-        &.primary {
-            stroke: $md-brand-primary;
-        }
-
-        &.accent {
-            stroke: $md-brand-accent;
-        }
-
-        &.black {
-            stroke: $md-grey-900;
-        }
-
-        &.white {
-            stroke: white;
-        }
+    .ui-progress-circular__indeterminate-path {
+        animation: ui-progress-circular-color $ui-progress-indeterminate-color-duration ease-in-out infinite;
     }
 }
 
-.ui-progress-circular-toggle-transition {
-    opacity: 1;
-    transform: scale(1);
-
-    transition-duration: 0.3s;
-    transition-timing-function: ease;
-    transition-property: transform, opacity;
+.ui-progress-circular--color-primary {
+    .ui-progress-circular__determinate-path,
+    .ui-progress-circular__indeterminate-path {
+        stroke: $brand-primary-color;
+    }
 }
 
-.ui-progress-circular-toggle-enter,
-.ui-progress-circular-toggle-leave {
+.ui-progress-circular--color-accent {
+    .ui-progress-circular__determinate-path,
+    .ui-progress-circular__indeterminate-path {
+        stroke: $brand-accent-color;
+    }
+}
+
+.ui-progress-circular--color-black {
+    .ui-progress-circular__determinate-path,
+    .ui-progress-circular__indeterminate-path {
+        stroke: $md-grey-900;
+    }
+}
+
+.ui-progress-circular--color-white {
+    .ui-progress-circular__determinate-path,
+    .ui-progress-circular__indeterminate-path {
+        stroke: white;
+    }
+}
+
+// ================================================
+// Toggle transition
+// ================================================
+
+.ui-progress-circular--transition-fade-enter-active,
+.ui-progress-circular--transition-fade-leave-active {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.ui-progress-circular--transition-fade-enter,
+.ui-progress-circular--transition-fade-leave-active {
     opacity: 0;
     transform: scale(0);
 }
+
+// ================================================
+// Animations
+// ================================================
 
 @keyframes ui-progress-circular-rotate {
     100% {
@@ -214,33 +250,23 @@ $determinate-transition-duration = 0.3s;
     }
 }
 
-@keyframes ui-progress-circular-dash {
-    0% {
-        stroke-dasharray: 1,200;
-        stroke-dashoffset: 0;
-    }
-    50% {
-        stroke-dasharray: 89,200;
-        stroke-dashoffset: -35px;
-    }
-    100% {
-        stroke-dasharray: 89,200;
-        stroke-dashoffset: -124px;
-    }
-}
-
 @keyframes ui-progress-circular-color {
-    100%, 0% {
-        stroke: $md-red; // #d62d20;
+    0%,
+    100% {
+        stroke: $md-red;
     }
+
     40% {
-        stroke: $md-blue; // #0057e7;
+        stroke: $md-blue;
     }
+
     66% {
-        stroke: $md-green; // #008744;
+        stroke: $md-green;
     }
-    80%, 90% {
-        stroke: $md-orange; // #ffa700;
+
+    80%,
+    90% {
+        stroke: $md-orange;
     }
 }
 </style>

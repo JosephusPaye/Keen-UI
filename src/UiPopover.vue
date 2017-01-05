@@ -1,67 +1,234 @@
 <template>
     <div
-        class="ui-popover" role="dialog" tabindex="-1" @keydown.esc="closeDropdown" v-el:dropdown
+        class="ui-popover"
+        role="dialog"
+        tabindex="-1"
+        :class="{ 'is-raised': raised }"
+        @keydown.esc="closeDropdown"
     >
         <slot></slot>
+        <div class="ui-popover__focus-redirector" tabindex="0" @focus="restrictFocus"></div>
     </div>
 </template>
 
 <script>
-import ShowsDropdown from './mixins/ShowsDropdown';
+import Drop from 'tether-drop';
+import classlist from 'helpers/classlist';
 
 export default {
     name: 'ui-popover',
 
-    events: {
-        'dropdown-opened': function() {
-            if (this.containFocus) {
-                document.addEventListener('focus', this.restrictFocus, true);
-            }
-
-            this.$dispatch('opened');
-
-            // Bubble the event up
-            return true;
+    props: {
+        trigger: {
+            type: String,
+            required: true
         },
+        dropdownPosition: {
+            type: String,
+            default: 'bottom left'
+        },
+        openOn: {
+            type: String,
+            default: 'click' // 'click', 'hover', 'focus', or 'always'
+        },
+        containFocus: {
+            type: Boolean,
+            default: false
+        },
+        focusRedirector: Function,
+        raised: {
+            type: Boolean,
+            default: true
+        }
+    },
 
-        'dropdown-closed': function() {
-            if (this.containFocus) {
-                document.removeEventListener('focus', this.restrictFocus, true);
-            }
+    data() {
+        return {
+            dropInstance: null,
+            lastFocussedElement: null
+        };
+    },
 
-            this.$dispatch('closed');
+    computed: {
+        triggerEl() {
+            return this.$parent.$refs[this.trigger];
+        }
+    },
 
-            // Bubble the event up
-            return true;
+    mounted() {
+        if (this.triggerEl) {
+            this.initializeDropdown();
+        }
+    },
+
+    beforeDestroy() {
+        if (this.dropInstance) {
+            this.dropInstance.remove();
+            this.dropInstance.destroy();
         }
     },
 
     methods: {
-        restrictFocus(e) {
-            if (! this.$els.dropdown.contains(e.target)) {
-                e.stopPropagation();
+        initializeDropdown() {
+            this.dropInstance = new Drop({
+                target: this.triggerEl,
+                content: this.$el,
+                position: this.dropdownPosition,
+                constrainToWindow: true,
+                openOn: this.openOn
+            });
 
-                this.$els.dropdown.focus();
+            // TO FIX: Workaround for Tether not positioning
+            // correctly for positions other than 'bottom left'
+            if (this.dropdownPosition !== 'bottom left') {
+                this.dropInstance.open();
+                this.dropInstance.close();
+                this.dropInstance.open();
+                this.dropInstance.close();
             }
-        }
-    },
 
-    mixins: [
-        ShowsDropdown
-    ]
+            this.dropInstance.on('open', this.onOpen);
+            this.dropInstance.on('close', this.onClose);
+        },
+
+        openDropdown() {
+            if (this.dropInstance) {
+                this.dropInstance.open();
+            }
+        },
+
+        closeDropdown() {
+            if (this.dropInstance) {
+                this.dropInstance.close();
+            }
+        },
+
+        toggleDropdown(e) {
+            if (this.dropInstance) {
+                this.dropInstance.toggle(e);
+            }
+        },
+
+        /**
+         * Ensures drop is horizontally within viewport (vertical is already solved by drop.js).
+         * https://github.com/HubSpot/drop/issues/16
+         */
+        positionDrop() {
+            const drop = this.dropInstance;
+            const windowWidth = window.innerWidth || document.documentElement.clientWidth ||
+                document.body.clientWidth;
+
+            const width = drop.drop.getBoundingClientRect().width;
+            const left = drop.target.getBoundingClientRect().left;
+            const availableSpace = windowWidth - left;
+
+            if (width > availableSpace) {
+                const direction = width > availableSpace ? 'right' : 'left';
+
+                drop.tether.attachment.left = direction;
+                drop.tether.targetAttachment.left = direction;
+
+                drop.position();
+            }
+        },
+
+        onOpen() {
+            this.positionDrop();
+            classlist.add(this.triggerEl, 'has-dropdown-open');
+
+            this.lastFocussedElement = document.activeElement;
+            this.$el.focus();
+
+            this.$emit('open');
+        },
+
+        onClose() {
+            classlist.remove(this.triggerEl, 'has-dropdown-open');
+
+            if (this.lastFocussedElement) {
+                this.lastFocussedElement.focus();
+            }
+
+            this.$emit('close');
+        },
+
+        restrictFocus(e) {
+            if (!this.containFocus) {
+                this.closeDropdown();
+                return;
+            }
+
+            e.stopPropagation();
+
+            if (this.focusRedirector) {
+                this.focusRedirector(e);
+            } else {
+                this.$el.focus();
+            }
+        },
+
+        open() {
+            this.openDropdown();
+        },
+
+        close() {
+            this.closeDropdown();
+        },
+
+        toggle() {
+            this.toggleDropdown();
+        }
+    }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
 .ui-popover {
-    padding: 16px;
+    background-color: white;
     outline: none;
 
-    background-color: white;
-    box-shadow: 0 2px 4px -1px alpha(black, 0.3),
-                0 4px 5px 0 alpha(black, 0.15),
-                0 1px 10px 0 alpha(black, 0.13);
+    &.is-raised {
+        box-shadow: 0 2px 4px -1px rgba(black, 0.2),
+                    0 4px 5px 0 rgba(black, 0.14),
+                    0 1px 10px 0 rgba(black, 0.12);
+    }
+
+    .ui-menu {
+        border: none;
+    }
+}
+
+.ui-popover__focus-redirector {
+    position: absolute;
+    opacity: 0;
+}
+
+.drop-element {
+    display: none;
+    max-height: 100%;
+    max-width: 100%;
+    opacity: 0;
+    position: absolute;
+    transition: opacity 0.2s ease;
+    z-index: $z-index-dropdown;
+
+    &,
+    &:after,
+    &:before,
+    & *,
+    & *:after,
+    & *:before {
+        box-sizing: border-box;
+    }
+
+    &.drop-open {
+        display: block;
+    }
+
+    &.drop-after-open {
+        opacity: 1;
+    }
 }
 </style>

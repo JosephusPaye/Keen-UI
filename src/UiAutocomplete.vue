@@ -1,85 +1,132 @@
 <template>
-    <div
-        class="ui-autocomplete" v-el:autocomplete
-        :class="{
-            'disabled': disabled, 'invalid': !valid, 'dirty': dirty, 'active': active,
-            'has-label': !hideLabel, 'icon-right': iconRight
-        }"
-    >
-        <div class="ui-autocomplete-icon-wrapper" v-if="showIcon">
-            <ui-icon :icon="icon" class="ui-autocomplete-icon"></ui-icon>
+    <div class="ui-autocomplete" :class="classes">
+        <div class="ui-autocomplete__icon-wrapper" v-if="icon || $slots.icon">
+            <slot name="icon">
+                <ui-icon :icon="icon"></ui-icon>
+            </slot>
         </div>
 
-        <div class="ui-autocomplete-content">
-            <label class="ui-autocomplete-label">
-                <div class="ui-autocomplete-label-text" v-text="label" v-if="!hideLabel"></div>
+        <div class="ui-autocomplete__content">
+            <label class="ui-autocomplete__label">
+                <div
+                    class="ui-autocomplete__label-text"
+                    :class="labelClasses"
+                    v-if="label || $slots.default"
+                >
+                    <slot>{{ label }}</slot>
+                </div>
 
                 <ui-icon
-                    class="ui-autocomplete-clear-button" icon="&#xE5CD" title="Clear"
-                    @click="clearSearch" v-show="!disabled && value.length"
-                ></ui-icon>
+                    class="ui-autocomplete__clear-button"
+                    title="Clear"
+                    @click.native="updateValue('')"
+                    v-show="!disabled && value.length"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18.984 6.422L13.406 12l5.578 5.578-1.406 1.406L12 13.406l-5.578 5.578-1.406-1.406L10.594 12 5.016 6.422l1.406-1.406L12 10.594l5.578-5.578z"/></svg>
+                </ui-icon>
 
                 <input
-                    class="ui-autocomplete-input" :placeholder="placeholder" :name="name"
-                    :id="id" autocomplete="off" v-autofocus="autofocus" :debounce="debounce"
+                    autocomplete="off"
+                    class="ui-autocomplete__input"
+                    ref="input"
 
-                    @focus="focus" @blur="blur" @keydown.up.prevent="highlight(highlightedItem - 1)"
-                    @keydown.down.prevent="highlight(highlightedItem + 1)" @keydown.tab="close"
-                    @keydown.enter="selectHighlighted(highlightedItem, $event)"
+                    :disabled="disabled"
+                    :name="name"
+                    :placeholder="hasFloatingLabel ? null : placeholder"
+                    :value="value"
 
-                    v-model="value" v-disabled="disabled" v-el:input
+                    @blur="onBlur"
+                    @change="onChange"
+                    @focus="onFocus"
+                    @input="updateValue($event.target.value)"
+                    @keydown.down.prevent="highlightSuggestion(highlightedIndex + 1)"
+                    @keydown.enter="selectHighlighted(highlightedIndex, $event)"
+                    @keydown.esc="closeDropdown"
+                    @keydown.tab="closeDropdown"
+                    @keydown.up.prevent="highlightSuggestion(highlightedIndex - 1)"
+
+                    v-autofocus="autofocus"
                 >
 
-                <ul class="ui-autocomplete-suggestions" v-show="showDropdown">
+                <ul class="ui-autocomplete__suggestions" v-show="showDropdown">
                     <ui-autocomplete-suggestion
-                        :highlighted="highlightedItem === index" :item="item" :partial="partial"
-                        :keys="keys"
+                        ref="suggestions"
 
-                        v-for="(index, item) in suggestions | filterBy search | limitBy limit"
-                        v-ref:items @click="select(item)"
-                    ></ui-autocomplete-suggestion>
+                        :highlighted="highlightedIndex === index"
+                        :keys="keys"
+                        :suggestion="suggestion"
+                        :type="type"
+
+                        @click.native="selectSuggestion(suggestion)"
+
+                        v-for="(suggestion, index) in matchingSuggestions"
+                    >
+                        <slot
+                            name="suggestion"
+                            :highlighted="highlightedIndex === index"
+                            :index="index"
+                            :suggestion="suggestion"
+                        ></slot>
+                    </ui-autocomplete-suggestion>
                 </ul>
             </label>
 
-            <div class="ui-autocomplete-feedback" v-if="showFeedback">
-                <div
-                    class="ui-autocomplete-error-text" v-text="validationError"
-                    transition="ui-autocomplete-feedback-toggle"
-                    v-show="!hideValidationErrors && !valid"
-                ></div>
-
-                <div
-                    class="ui-autocomplete-help-text" transition="ui-autocomplete-feedback-toggle"
-                    v-text="helpText" v-else
-                ></div>
+            <div class="ui-autocomplete__feedback" v-if="hasFeedback">
+                <div class="ui-autocomplete__feedback-text" v-if="showError || showHelp">
+                    {{ showError ? error : help }}
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import fuzzysearch from 'fuzzysearch';
-
 import UiIcon from './UiIcon.vue';
 import UiAutocompleteSuggestion from './UiAutocompleteSuggestion.vue';
 
-import autofocus from './directives/autofocus';
-import HasTextInput from './mixins/HasTextInput';
-import ValidatesInput from './mixins/ValidatesInput';
+import fuzzysearch from 'fuzzysearch';
+import autofocus from 'directives/autofocus';
 
 export default {
     name: 'ui-autocomplete',
 
     props: {
+        name: String,
+        placeholder: String,
+        value: {
+            type: [String, Number],
+            required: true
+        },
+        icon: String,
+        iconPosition: {
+            type: String,
+            default: 'left' // 'left' or 'right'
+        },
+        label: String,
+        floatingLabel: {
+            type: Boolean,
+            default: false
+        },
+        help: String,
+        error: String,
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        type: {
+            type: String,
+            default: 'simple' // 'simple' or 'image'
+        },
         suggestions: {
             type: Array,
-            default: []
+            default() {
+                return [];
+            }
         },
         limit: {
             type: Number,
             default: 8
         },
-        partial: String,
         append: {
             type: Boolean,
             default: false
@@ -101,7 +148,7 @@ export default {
             default: false
         },
         filter: Function,
-        autoHighlightFirstMatch: {
+        highlightOnFirstMatch: {
             type: Boolean,
             default: true
         },
@@ -113,73 +160,110 @@ export default {
             type: Object,
             default() {
                 return {
-                    text: 'text',
+                    label: 'label',
                     value: 'value',
                     image: 'image'
                 };
             }
+        },
+        invalid: {
+            type: Boolean,
+            default: false
+        },
+        touched: {
+            type: Boolean,
+            default: false
         }
     },
 
     data() {
         return {
+            initialValue: this.value,
+            isActive: false,
             showDropdown: false,
-            highlightedItem: -1,
-            ignoreValueChange: false
+            highlightedIndex: -1
         };
     },
 
     computed: {
-        showIcon() {
-            return Boolean(this.icon);
-        }
-    },
+        classes() {
+            return [
+                'ui-autocomplete--type-' + this.type,
+                'ui-autocomplete--icon-position-' + this.iconPosition,
+                { 'is-active': this.isActive },
+                { 'is-invalid': this.invalid },
+                { 'is-touched': this.touched },
+                { 'is-disabled': this.disabled },
+                { 'has-label': this.hasLabel },
+                { 'has-floating-label': this.hasFloatingLabel }
+            ];
+        },
 
-    events: {
-        'ui-input::reset': function(id) {
-            // Abort if reset event isn't meant for this component
-            if (!this.eventTargetsComponent(id)) {
-                return;
-            }
+        labelClasses() {
+            return {
+                'is-inline': this.hasFloatingLabel && this.isLabelInline,
+                'is-floating': this.hasFloatingLabel && !this.isLabelInline
+            };
+        },
 
-            // Blur input before resetting to avoid "required" errors
-            // when input is blurred after reset
-            if (document.activeElement === this.$els.input) {
-                document.activeElement.blur();
-            }
+        hasLabel() {
+            return Boolean(this.label) || Boolean(this.$slots.default);
+        },
 
-            // Reset state
-            this.value = this.initialValue;
-            this.dirty = false;
-            this.valid = true;
+        hasFloatingLabel() {
+            return this.hasLabel && this.floatingLabel;
+        },
+
+        isLabelInline() {
+            return this.value.length === 0 && !this.isActive;
+        },
+
+        hasFeedback() {
+            return Boolean(this.help) || Boolean(this.error);
+        },
+
+        showError() {
+            return this.invalid && Boolean(this.error);
+        },
+
+        showHelp() {
+            return !this.showError && Boolean(this.help);
+        },
+
+        matchingSuggestions() {
+            return this.suggestions
+                .filter((suggestion, index) => {
+                    if (this.filter) {
+                        return this.filter(suggestion, this.value);
+                    }
+
+                    return this.defaultFilter(suggestion, index);
+                })
+                .slice(0, this.limit);
         }
     },
 
     watch: {
         value() {
-            if (!this.ignoreValueChange && this.value.length >= this.minChars) {
-                this.open();
+            if (this.isActive && this.value.length >= this.minChars) {
+                this.openDropdown();
             }
 
-            this.highlightedItem = this.autoHighlightFirstMatch ? 0 : -1;
+            this.highlightedIndex = this.highlightOnFirstMatch ? 0 : -1;
         }
     },
 
-    ready() {
-        document.addEventListener('click', this.closeOnExternalClick);
+    mounted() {
+        document.addEventListener('click', this.onExternalClick);
     },
 
     beforeDestroy() {
-        document.removeEventListener('click', this.closeOnExternalClick);
+        document.removeEventListener('click', this.onExternalClick);
     },
 
     methods: {
-        search(item) {
-            if (this.filter) {
-                return this.filter(item, this.value);
-            }
-
-            let text = item[this.keys.text] || item;
+        defaultFilter(suggestion) {
+            const text = suggestion[this.keys.label] || suggestion;
             let query = this.value;
 
             if (typeof query === 'string') {
@@ -189,28 +273,29 @@ export default {
             return fuzzysearch(query, text.toLowerCase());
         },
 
-        select(item) {
+        selectSuggestion(suggestion) {
+            let value;
+
             if (this.append) {
-                this.value += this.appendDelimiter + (item[this.keys.value] || item);
+                value += this.appendDelimiter + (suggestion[this.keys.value] || suggestion);
             } else {
-                this.value = item[this.keys.value] || item;
+                value = suggestion[this.keys.value] || suggestion;
             }
 
-            this.$dispatch('selected', item);
-
-            this.validate();
+            this.updateValue(value);
+            this.$emit('select', suggestion);
 
             this.$nextTick(() => {
-                this.close();
-                this.$els.input.focus();
+                this.closeDropdown();
+                this.$refs.input.focus();
             });
         },
 
-        highlight(index) {
-            let firstIndex = 0;
-            let lastIndex = this.$refs.items.length - 1;
+        highlightSuggestion(index) {
+            const firstIndex = 0;
+            const lastIndex = this.$refs.suggestions.length - 1;
 
-            if (index === -2) { // Allows for cycling from first to last when cycling is disabled
+            if (index === -2) { // Allows for cycling from first to last when cycleHighlight is disabled
                 index = lastIndex;
             } else if (index < firstIndex) {
                 index = this.cycleHighlight ? lastIndex : index;
@@ -218,63 +303,79 @@ export default {
                 index = this.cycleHighlight ? firstIndex : -1;
             }
 
-            this.highlightedItem = index;
+            this.highlightedIndex = index;
 
             if (this.showOnUpDown) {
-                this.open();
+                this.openDropdown();
             }
 
             if (index < firstIndex || index > lastIndex) {
-                this.$dispatch('highlight-overflow', index);
+                this.$emit('highlight-overflow', index);
             } else {
-                this.$dispatch('highlighted', this.$refs.items[index].item, index);
+                this.$emit('highlight', this.$refs.suggestions[index].suggestion, index);
             }
         },
 
         selectHighlighted(index, e) {
-            if (this.showDropdown && this.$refs.items.length) {
+            if (this.showDropdown && this.$refs.suggestions.length > 0) {
                 e.preventDefault();
-                this.select(this.$refs.items[index].item);
+                this.selectSuggestion(this.$refs.suggestions[index].suggestion);
             }
         },
 
-        clearSearch() {
-            this.value = '';
-        },
-
-        open() {
+        openDropdown() {
             if (!this.showDropdown) {
                 this.showDropdown = true;
-                this.$dispatch('opened');
+                this.$emit('dropdown-open');
             }
         },
 
-        close() {
+        closeDropdown() {
             if (this.showDropdown) {
                 this.showDropdown = false;
-                this.highlightedItem = -1;
-
-                this.$dispatch('closed');
-                this.validate();
+                this.highlightedIndex = -1;
+                this.$emit('dropdown-close');
             }
         },
 
-        closeOnExternalClick(e) {
-            if (! this.$els.autocomplete.contains(e.target) && this.showDropdown) {
-                this.close();
+        updateValue(value) {
+            this.$emit('input', value);
+        },
+
+        onFocus(e) {
+            this.isActive = true;
+            this.$emit('focus', e);
+        },
+
+        onChange(e) {
+            this.$emit('change', this.value, e);
+        },
+
+        onBlur(e) {
+            this.isActive = false;
+            this.$emit('blur', e);
+
+            if (!this.touched) {
+                this.$emit('touch');
             }
         },
 
-        focus() {
-            this.active = true;
+        onExternalClick(e) {
+            if (!this.$el.contains(e.target) && this.showDropdown) {
+                this.closeDropdown();
+            }
         },
 
-        blur() {
-            this.active = false;
-
-            if (!this.dirty) {
-                this.dirty = true;
+        reset() {
+            // Blur input before resetting to avoid "required" errors
+            // when the input is blurred after reset
+            if (document.isActiveElement === this.$refs.input) {
+                document.isActiveElement.blur();
             }
+
+            // Reset state
+            this.$emit('input', this.initialValue);
+            this.touched = false;
         }
     },
 
@@ -285,207 +386,201 @@ export default {
 
     directives: {
         autofocus
-    },
-
-    mixins: [
-        HasTextInput,
-        ValidatesInput
-    ]
+    }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
 .ui-autocomplete {
-    font-family: $font-stack;
-    display: flex;
-    position: relative;
-    margin-bottom: 12px;
     align-items: flex-start;
+    display: flex;
+    font-family: $font-stack;
+    margin-bottom: $ui-input-margin-bottom;
+    position: relative;
 
-    &:hover:not(.disabled) {
-        .ui-autocomplete-label-text {
-            color: $input-label-color-hover;
+    &:hover:not(.is-disabled) {
+        .ui-autocomplete__label-text {
+            color: $ui-input-label-color--hover;
         }
 
-        .ui-autocomplete-input {
-            border-bottom-color: $input-border-color-hover;
+        .ui-autocomplete__input {
+            border-bottom-color: $ui-input-border-color--hover;
         }
     }
 
-    &.active:not(.disabled) {
-        .ui-autocomplete-label-text,
-        .ui-autocomplete-icon {
-            color: $input-label-color-active;
+    &.is-active:not(.is-disabled) {
+        .ui-autocomplete__label-text,
+        .ui-autocomplete__icon-wrapper .ui-icon {
+            color: $ui-input-label-color--active;
         }
 
-        .ui-autocomplete-input {
-            border-bottom-width: 2px;
-            border-bottom-color: $input-border-color-active;
+        .ui-autocomplete__input {
+            border-bottom-color: $ui-input-border-color--active;
+            border-bottom-width: $ui-input-border-width--active;
+        }
+    }
+
+    &.has-floating-label {
+        .ui-autocomplete__label-text {
+            // Behaves like a block, but width is the width of its content.
+            // Needed here so label doesn't overflow parent when scaled.
+            display: table;
+
+            &.is-inline {
+                color: $ui-input-label-color; // So it doesn't get darker when hovered
+                cursor: text;
+                transform: translateY($ui-input-label-top--inline) scale(1.1);
+            }
+
+            &.is-floating {
+                transform: translateY(0) scale(1);
+            }
         }
     }
 
     &.has-label {
-        .ui-autocomplete-icon-wrapper {
-            padding-top: 20px;
+        .ui-autocomplete__icon-wrapper {
+            padding-top: $ui-input-icon-margin-top--with-label;
         }
 
-        .ui-autocomplete-clear-button {
-            top: 22px;
-        }
-    }
-
-    &.icon-right {
-        .ui-autocomplete-icon-wrapper {
-            order: 1;
-            margin-left: 8px;
-            margin-right: 0;
+        .ui-autocomplete__clear-button {
+            top: $ui-input-button-margin-top--with-label;
         }
     }
 
-    &.invalid:not(.disabled) {
-        .ui-autocomplete-label-text,
-        .ui-autocomplete-icon {
-            color: $input-label-color-invalid;
+    &.is-invalid:not(.is-disabled) {
+        .ui-autocomplete__label-text,
+        .ui-autocomplete__icon-wrapper .ui-icon {
+            color: $ui-input-label-color--invalid;
         }
 
-        .ui-autocomplete-input {
-            border-bottom-color: $input-border-color-invalid;
+        .ui-autocomplete__input {
+            border-bottom-color: $ui-input-border-color--invalid;
+        }
+
+        .ui-autocomplete__feedback {
+            color: $ui-input-feedback-color--invalid;
         }
     }
 
-     &.disabled {
-        .ui-autocomplete-input {
-            color: $input-color-disabled;
-            border-bottom-style: dashed;
+    &.is-disabled {
+        .ui-autocomplete__input {
+            border-bottom-style: $ui-input-border-style--disabled;
+            border-bottom-width: $ui-input-border-width--active;
+            color: $ui-input-text-color--disabled;
         }
 
-        .ui-autocomplete-icon {
-            opacity: 0.6;
+        .ui-autocomplete__icon-wrapper .ui-icon {
+            opacity: $ui-input-icon-opacity--disabled;
         }
 
-        .ui-autocomplete-feedback {
-            opacity: 0.8;
+        .ui-autocomplete__feedback {
+            opacity: $ui-input-feedback-opacity--disabled;
         }
     }
 }
 
-.ui-autocomplete-label {
+.ui-autocomplete__label {
     display: block;
-    position: relative;
-    width: 100%;
     margin: 0;
     padding: 0;
+    position: relative;
+    width: 100%;
 }
 
-.ui-autocomplete-icon-wrapper {
-    height: 24px;
+.ui-autocomplete__icon-wrapper {
     flex-shrink: 0;
-    margin-right: 12px;
-    padding-top: 4px;
+    margin-right: $ui-input-icon-margin-right;
+    padding-top: $ui-input-icon-margin-top;
+
+    .ui-icon {
+        color: $ui-input-icon-color;
+    }
 }
 
-.ui-autocomplete-icon {
-    color: $input-label-color;
-}
-
-.ui-autocomplete-content {
+.ui-autocomplete__content {
     flex-grow: 1;
 }
 
-.ui-autocomplete-label-text {
-    font-size: 14px;
-    line-height: 1;
-    margin-bottom: 2px;
-    color: $input-label-color;
-    transition: color 0.1s ease;
+.ui-autocomplete__label-text {
+    color: $ui-input-label-color;
+    font-size: $ui-input-label-font-size;
+    line-height: $ui-input-label-line-height;
+    margin-bottom: $ui-input-label-margin-bottom;
+    transform-origin: left;
+    transition: color 0.1s ease, transform 0.2s ease;
 }
 
-.ui-autocomplete-input {
-    cursor: auto;
+.ui-autocomplete__input {
     background: none;
-    outline: none;
     border: none;
+    border-bottom-color: $ui-input-border-color;
+    border-bottom-style: solid;
+    border-bottom-width: $ui-input-border-width;
+    color: $ui-input-text-color;
+    cursor: auto;
+    font-family: $font-stack;
+    font-size: $ui-input-text-font-size;
+    font-weight: normal;
+    height: $ui-input-height;
+    outline: none;
     padding: 0;
+    transition: border 0.1s ease;
+    width: 100%;
 
     // Hide Edge and IE input clear button
     &::-ms-clear {
         display: none;
     }
-
-    width: 100%;
-    height: 32px;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: $input-border-color;
-
-    transition: border 0.1s ease;
-
-    color: $input-color;
-    font-weight: normal;
-    font-size: 16px;
-    font-family: $font-stack;
 }
 
-.ui-autocomplete-clear-button {
-    font-size: 18px;
+.ui-autocomplete__clear-button {
+    color: $ui-input-button-color;
+    cursor: pointer;
+    font-size: $ui-input-button-size;
     position: absolute;
     right: 0;
-    top: 6px;
-    color: $input-clear-button-color;
-    cursor: pointer;
+    top: $ui-input-button-margin-top;
 
     &:hover {
-        color: $input-clear-button-color-hover;
+        color: $ui-input-button-color--hover;
     }
 }
 
-.ui-autocomplete-feedback {
-    margin: 0;
-    height: 20px;
-    overflow: hidden;
-    position: relative;
-    font-size: 14px;
-    padding-top: 4px;
-}
-
-.ui-autocomplete-help-text {
-    color: $input-help-color;
-    line-height: 1;
-}
-
-.ui-autocomplete-error-text {
-    position: absolute;
-    color: $input-error-color;
-    line-height: 1;
-}
-
-.ui-autocomplete-feedback-toggle-transition {
-    transition-property: opacity, margin-top;
-    transition-duration: 0.3s;
-    opacity: 1;
-    margin-top: 0;
-}
-
-.ui-autocomplete-feedback-toggle-enter,
-.ui-autocomplete-feedback-toggle-leave {
-   opacity: 0;
-   margin-top: -20px;
-}
-
-.ui-autocomplete-suggestions {
-    min-width: 100%;
+.ui-autocomplete__suggestions {
+    background-color: white;
+    box-shadow: 1px 2px 8px $md-grey-600;
+    color: $primary-text-color;
     display: block;
-    position: absolute;
-    padding: 0;
+    list-style-type: none;
     margin: 0;
     margin-bottom: 8px;
-    list-style-type: none;
-    box-shadow: 1px 2px 8px $md-grey-600;
-    background-color: white;
-    color: $md-dark-text;
-    transition: left 0.1s ease-in-out;
+    min-width: 100%;
+    padding: 0;
+    position: absolute;
     z-index: $z-index-dropdown;
+}
+
+.ui-autocomplete__feedback {
+    color: $ui-input-feedback-color;
+    font-size: $ui-input-feedback-font-size;
+    line-height: $ui-input-feedback-line-height;
+    margin: 0;
+    padding-top: $ui-input-feedback-padding-top;
+    position: relative;
+}
+
+// ================================================
+// Icon positions
+// ================================================
+
+.ui-autocomplete--icon-position-right {
+    .ui-autocomplete__icon-wrapper {
+        margin-left: 8px;
+        margin-right: 0;
+        order: 1;
+    }
 }
 </style>

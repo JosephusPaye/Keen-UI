@@ -1,51 +1,61 @@
 <template>
-    <label
-        class="ui-switch"
-        :class="{ 'checked': value, 'disabled': disabled, 'label-left': labelLeft }"
-    >
-        <div class="ui-switch-container">
+    <label class="ui-switch" :class="classes">
+        <div class="ui-switch__input-wrapper">
             <input
-                class="ui-switch-input" type="checkbox" :name="name" :id="id" v-model="value"
-                v-disabled="disabled"
+                class="ui-switch__input"
+                type="checkbox"
+
+                :disabled="disabled"
+                :name="name"
+
+                @blur="onBlur"
+                @focus="onFocus"
+
+                v-model="isChecked"
             >
 
-            <div class="ui-switch-track"></div>
-            <div class="ui-switch-thumb"></div>
+            <div class="ui-switch__thumb">
+                <div class="ui-switch__focus-ring"></div>
+            </div>
 
-            <div class="ui-switch-focus-ring"></div>
+            <div class="ui-switch__track"></div>
         </div>
 
-        <div class="ui-switch-label-text" v-if="!hideLabel">
-            <slot>
-                <span v-text="label"></span>
-            </slot>
+        <div class="ui-switch__label-text" v-if="label || $slots.default">
+            <slot>{{ label }}</slot>
         </div>
     </label>
 </template>
 
 <script>
-import disabled from './directives/disabled';
-
-import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent';
+import { looseEqual } from 'helpers/util';
 
 export default {
     name: 'ui-switch',
 
     props: {
         name: String,
-        value: {
-            type: Boolean,
-            required: true,
-            twoWay: true
-        },
         label: String,
-        hideLabel: {
+        value: {
+            required: true
+        },
+        trueValue: {
+            default: true
+        },
+        falseValue: {
+            default: false
+        },
+        checked: {
             type: Boolean,
             default: false
         },
-        labelLeft: {
-            type: Boolean,
-            default: false
+        color: {
+            type: String,
+            default: 'primary' // 'primary' or 'accent'
+        },
+        switchPosition: {
+            type: String,
+            default: 'left' // 'left' or 'right'
         },
         disabled: {
             type: Boolean,
@@ -55,166 +65,202 @@ export default {
 
     data() {
         return {
-            initialValue: false
+            isActive: false,
+            isChecked: looseEqual(this.value, this.trueValue) || this.checked,
+            initialValue: this.value
         };
     },
 
-    created() {
-        // Cache initial value for later reset
-        this.initialValue = this.value;
-    },
-
-    events: {
-        'ui-input::reset': function(id) {
-            // Abort if reset event isn't meant for this component
-            if (!this.eventTargetsComponent(id)) {
-                return;
-            }
-
-            this.value = this.initialValue;
+    computed: {
+        classes() {
+            return [
+                'ui-switch--color-' + this.color,
+                'ui-switch--switch-position-' + this.switchPosition,
+                { 'is-active': this.isActive },
+                { 'is-checked': this.isChecked },
+                { 'is-disabled': this.disabled }
+            ];
         }
     },
 
-    directives: {
-        disabled
+    watch: {
+        value() {
+            this.isChecked = looseEqual(this.value, this.trueValue);
+        },
+
+        isChecked() {
+            this.$emit('input', this.isChecked ? this.trueValue : this.falseValue);
+            this.$emit('change', this.isChecked ? this.trueValue : this.falseValue);
+        }
     },
 
-    mixins: [
-        ReceivesTargetedEvent
-    ]
+    created() {
+        this.$emit('input', this.isChecked ? this.trueValue : this.falseValue);
+    },
+
+    methods: {
+        onFocus() {
+            this.isActive = true;
+            this.$emit('focus');
+        },
+
+        onBlur() {
+            this.isActive = false;
+            this.$emit('blur');
+        }
+    }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
-$thumb-size = 20px;
-$thumb-bg-color = $md-grey-50;
+$ui-switch-height: 32px !default;
 
-$track-width = 34px;
-$track-height = 14px;
+$ui-switch-thumb-size: 20px !default;
+$ui-switch-thumb-color: $md-grey-50 !default;
 
-$focus-ring-size = 42px;
-$focus-ring-left = -(($focus-ring-size - $thumb-size) / 2);
-$focus-ring-top = -(($focus-ring-size - $thumb-size) / 2);
+$ui-switch-track-width: 34px !default;
+$ui-switch-track-height: 14px !default;
+
+$ui-switch-focus-ring-size: 42px !default;
 
 .ui-switch {
-    font-family: $font-stack;
-    position: relative;
-    height: 32px;
-    display: flex;
     align-items: center;
-
-    &.checked {
-        .ui-switch-track {
-            background-color: alpha($md-brand-primary, 0.5);
-        }
-
-        .ui-switch-thumb {
-            left: 14px;
-            background-color: $md-brand-primary;
-        }
-
-        .ui-switch-focus-ring {
-            left: $focus-ring-left + 14px;
-            background-color: alpha($md-brand-primary, 0.12);
-        }
-    }
-
-    &.label-left {
-        .ui-switch-label-text {
-            margin-left: 0;
-            margin-right: auto;
-            order: -1;
-        }
-    }
-
-    &.disabled {
-        .ui-switch-label-text {
-            color: $md-dark-disabled;
-        }
-
-        .ui-switch-thumb {
-            background-color: $md-grey-400;
-            box-shadow: 0 1px 3px alpha(black, 0.2);
-        }
-
-        .ui-switch-track {
-            background-color: alpha(black, 0.12);
-        }
-    }
-
-    &:not(.disabled) {
-        .ui-switch-label-text {
-            cursor: pointer;
-        }
-    }
-}
-
-.ui-switch-container {
+    display: flex;
+    font-family: $font-stack;
+    height: $ui-switch-height;
     position: relative;
-    width: $track-width;
-    height: $thumb-size;
-}
 
-.ui-switch-track {
-    position: absolute;
-    top: ( ($thumb-size - $track-height) / 2 );
+    &.is-checked {
+        .ui-switch__thumb {
+            transform: translateX($ui-switch-track-width - $ui-switch-thumb-size);
+        }
+    }
 
-    height: $track-height;
-    width: $track-width;
+    &.is-disabled {
+        .ui-switch__track {
+            background-color: rgba(black, 0.12);
+        }
 
-    background-color: alpha(black, 0.26);
-    border-radius: 8px;
+        .ui-switch__thumb {
+            background-color: $md-grey-400;
+            box-shadow: none; // 0 1px 3px rgba(black, 0.2);
+        }
 
-    transition: background-color 0.1s linear;
-}
-
-.ui-switch-thumb {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: $thumb-size;
-    height: $thumb-size;
-
-    border-radius: 50%;
-    background-color: $thumb-bg-color;
-
-    box-shadow: 0 1px 3px alpha(black, 0.4);
-
-    transition: all 0.2s ease;
-}
-
-.ui-switch-focus-ring {
-    position: absolute;
-    top: $focus-ring-top;
-    left: $focus-ring-left;
-    z-index: -1;
-
-    border-radius: 50%;
-    width: $focus-ring-size;
-    height: $focus-ring-size;
-
-    background-color: alpha(black, 0.1);
-    transform: scale(0);
-    opacity: 0;
-
-    transition: all 0.2s ease;
-}
-
-.ui-switch-input {
-    position: absolute;
-    opacity: 0;
-
-    body[modality="keyboard"] &:focus ~ .ui-switch-focus-ring {
-        transform: scale(1);
-        opacity: 1;
+        .ui-switch__label-text {
+            color: $disabled-text-color;
+            cursor: default;
+        }
     }
 }
 
-.ui-switch-label-text {
-    margin-left: 16px;
+.ui-switch__input-wrapper {
+    height: $ui-switch-thumb-size;
+    position: relative;
+    width: $ui-switch-track-width;
+}
+
+.ui-switch__input {
+    opacity: 0;
+    position: absolute;
+
+    body[modality="keyboard"] &:focus + .ui-switch__thumb {
+        .ui-switch__focus-ring {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+}
+
+.ui-switch__track {
+    background-color: rgba(black, 0.26);
+    border-radius: 8px;
+    height: $ui-switch-track-height;
+    position: absolute;
+    top: (($ui-switch-thumb-size - $ui-switch-track-height) / 2);
+    transition: background-color 0.1s linear;
+    width: $ui-switch-track-width;
+    z-index: -1;
+}
+
+.ui-switch__thumb {
+    background-color: $ui-switch-thumb-color;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(black, 0.4);
+    height: $ui-switch-thumb-size;
+    position: absolute;
+    transition-duration: 0.2s;
+    transition-property: background-color, transform;
+    transition-timing-function: ease;
+    width: $ui-switch-thumb-size;
+}
+
+.ui-switch__focus-ring {
+    background-color: rgba(black, 0.1);
+    border-radius: 50%;
+    height: $ui-switch-focus-ring-size;
+    left: -(($ui-switch-focus-ring-size - $ui-switch-thumb-size) / 2);
+    opacity: 0;
+    position: absolute;
+    top: -(($ui-switch-focus-ring-size - $ui-switch-thumb-size) / 2);
+    transform: scale(0);
+    transition: background-color 0.2s ease, transform 0.15s ease, opacity 0.15s ease;
+    width: $ui-switch-focus-ring-size;
+    z-index: -1;
+}
+
+.ui-switch__label-text {
+    cursor: pointer;
     font-size: 15px;
+    margin-left: 16px;
+}
+
+// ================================================
+// Switch positions
+// ================================================
+
+.ui-switch--switch-position-right {
+    .ui-switch__label-text {
+        margin-left: 0;
+        margin-right: auto;
+        order: -1;
+    }
+}
+
+// ================================================
+// Colors
+// ================================================
+
+.ui-switch--color-primary {
+    &.is-checked:not(.is-disabled) {
+        .ui-switch__track {
+            background-color: rgba($brand-primary-color, 0.5);
+        }
+
+        .ui-switch__thumb {
+            background-color: $brand-primary-color;
+        }
+
+        .ui-switch__focus-ring {
+            background-color: rgba($brand-primary-color, 0.12);
+        }
+    }
+}
+
+.ui-switch--color-accent {
+    &.is-checked:not(.is-disabled) {
+        .ui-switch__track {
+            background-color: rgba($brand-accent-color, 0.5);
+        }
+
+        .ui-switch__thumb {
+            background-color: $brand-accent-color;
+        }
+
+        .ui-switch__focus-ring {
+            background-color: rgba($brand-accent-color, 0.12);
+        }
+    }
 }
 </style>

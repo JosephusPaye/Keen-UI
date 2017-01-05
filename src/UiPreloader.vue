@@ -1,8 +1,9 @@
 <template>
-    <div class="ui-preloader">
+    <div class="ui-preloader" :class="{ 'is-loading' : show }">
         <div
-            class="ui-preloader-progressbar" :class="{ 'loading' : show }"
-            :aria-busy="show ? 'true' : false" role="progressbar"
+            class="ui-preloader__progressbar"
+            role="progressbar"
+            :aria-busy="show ? 'true' : false"
         ></div>
     </div>
 </template>
@@ -20,123 +21,126 @@ export default {
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
-$duration = 3s;
-$height = 3px;
+$ui-preloader-duration  : 3s !default;
+$ui-preloader-height    : 3px !default;
 
-$color-green = #159756;
-$color-red = #da4733;
-$color-blue = #3b78e7;
-$color-yellow = #fdba2c;
+$ui-preloader-color-1   : #159756 !default; // green
+$ui-preloader-color-2   : #da4733 !default; // red
+$ui-preloader-color-3   : #3b78e7 !default; // blue
+$ui-preloader-color-4   : #fdba2c !default; // orange
 
 .ui-preloader {
     position: relative;
     width: 100%;
+
+    &.is-loading {
+        .ui-preloader__progressbar {
+            opacity: 1;
+            padding-top: $ui-preloader-height;
+        }
+    }
 }
 
-.ui-preloader-progressbar {
+.ui-preloader__progressbar {
+    animation: ui-preloader-background linear $ui-preloader-duration infinite;
+    background-color: $ui-preloader-color-1;
+    left: 0;
     opacity: 0;
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
-    background-color: $color-green;
-
-    animation: ui-preloader-background linear $duration infinite;
-    transition-property: opacity, padding-top;
     transition-duration: 0.3s;
+    transition-property: opacity, padding-top;
     transition-timing-function: ease;
-
-    &.loading {
-        opacity: 1;
-        padding-top: $height;
-    }
+    width: 100%;
+    overflow: hidden;
 
     &::before,
     &::after {
+        animation: ui-preloader-front linear $ui-preloader-duration infinite;
+        content: '';
         display: block;
+        height: $ui-preloader-height;
         position: absolute;
         top: 0;
+        width: 100%;
         z-index: 1;
-        width: 0;
-        height: $height;
-        background: #afa;
-        animation: ui-preloader-front linear $duration infinite;
-        content: '';
     }
 
     &::before {
         right: 50%;
+        transform-origin: right;
     }
 
     &::after {
         left: 50%;
+        transform-origin: left;
     }
 }
 
 @keyframes ui-preloader-background {
     0%,
     24.9% {
-        background-color: $color-green;
+        background-color: $ui-preloader-color-1;
     }
 
     25%,
     49.9% {
-        background-color: $color-red;
+        background-color: $ui-preloader-color-2;
     }
 
     50%,
     74.9% {
-        background-color: $color-blue;
+        background-color: $ui-preloader-color-3;
     }
 
     75%,
     100% {
-        background-color: $color-yellow;
+        background-color: $ui-preloader-color-4;
     }
 }
 
 @keyframes ui-preloader-front {
     0% {
-        width: 0;
-        background-color: $color-red;
+        transform: scaleX(0);
+        background-color: $ui-preloader-color-2;
     }
 
     24.9% {
-        width: 50%;
-        background-color: $color-red;
+        transform: scaleX(0.5);
+        background-color: $ui-preloader-color-2;
     }
 
     25% {
-        width: 0;
-        background-color: $color-blue;
+        transform: scaleX(0);
+        background-color: $ui-preloader-color-3;
     }
 
     49.9% {
-        width: 50%;
-        background-color: $color-blue;
+        transform: scaleX(0.5);
+        background-color: $ui-preloader-color-3;
     }
 
     50% {
-        width: 0;
-        background-color: $color-yellow;
+        transform: scaleX(0);
+        background-color: $ui-preloader-color-4;
     }
 
     74.9% {
-        width: 50%;
-        background-color: $color-yellow;
+        transform: scaleX(0.5);
+        background-color: $ui-preloader-color-4;
     }
 
     75% {
-        width: 0%;
-        background-color: $color-green;
+        transform: scaleX(0);
+        background-color: $ui-preloader-color-1;
     }
 
     100% {
-        width: 50%;
-        background-color: $color-green;
+        transform: scaleX(0.5);
+        background-color: $ui-preloader-color-1;
     }
 }
 </style>

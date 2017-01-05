@@ -1,119 +1,165 @@
 <template>
-    <div
-        class="ui-select" :id="id" :class="{
-            'disabled': disabled, 'invalid': !valid, 'dirty': dirty, 'active': active,
-            'has-label': !hideLabel, 'icon-right': iconRight
-        }"
-    >
-        <div class="ui-select-icon-wrapper" v-if="showIcon">
-            <ui-icon :icon="icon" class="ui-select-icon"></ui-icon>
+    <div class="ui-select" :class="classes">
+        <div class="ui-select__icon-wrapper" v-if="icon || $slots.icon">
+            <slot name="icon">
+                <ui-icon :icon="icon"></ui-icon>
+            </slot>
         </div>
 
-        <div class="ui-select-content">
+        <div class="ui-select__content">
             <div
-                class="ui-select-label" :tabindex="disabled ? null : '0'" v-el:label
-                @focus="focus" @keydown.tab="blur" @click="toggle" @keydown.space.prevent="open"
-                @keydown.enter.prevent="open"
+                class="ui-select__label"
+                ref="label"
+
+                :tabindex="disabled ? null : '0'"
+
+                @click="toggleDropdown"
+                @focus="onFocus"
+                @keydown.enter.prevent="openDropdown"
+                @keydown.space.prevent="openDropdown"
+                @keydown.tab="onBlur"
             >
-                <div class="ui-select-label-text" v-text="label" v-if="!hideLabel"></div>
-
-                <div class="ui-select-display">
-                    <div
-                        class="ui-select-value" :class="{ placeholder: !hasDisplayText }"
-                        v-text="hasDisplayText ? displayText : placeholder"
-                    ></div>
-
-                    <ui-icon icon="arrow_drop_down" class="ui-select-dropdown-icon"></ui-icon>
+                <div class="ui-select__label-text" :class="labelClasses" v-if="label || $slots.default">
+                    <slot>{{ label }}</slot>
                 </div>
 
-                <div
-                    class="ui-select-dropdown" tabindex="-1" v-show="showDropdown" v-el:dropdown
-                    @keydown.esc.prevent="close()" @keydown.tab="close()"
-                    @keydown.up.prevent="highlight(highlightedIndex - 1)"
-                    @keydown.down.prevent="highlight(highlightedIndex + 1)"
-                    @keydown.enter.prevent.stop="selectHighlighted(highlightedIndex, $event)"
-                >
-                    <div class="ui-select-search" v-if="showSearch" @click.stop @keydown.space.stop>
-                        <input
-                            class="ui-select-search-input" type="text" v-el:search-input
-                            :placeholder="searchPlaceholder" v-model="query" autocomplete="off"
-                        >
-
-                        <ui-progress-circular
-                            class="ui-select-search-spinner" :size="24" :stroke="4" :show="loading"
-                        ></ui-progress-circular>
+                <div class="ui-select__display">
+                    <div
+                        class="ui-select__display-value"
+                        :class="{ 'is-placeholder': !hasDisplayText }"
+                    >
+                        {{ hasDisplayText ? displayText : (hasFloatingLabel && isLabelInline) ? null : placeholder }}
                     </div>
 
-                    <ul class="ui-select-options" v-el:options-list>
-                        <ui-select-option
-                            :option="option" :partial="partial" :show-checkbox="multiple" :
-                            :keys="keys" @click.stop.prevent="select(option, index)"
-                            @mouseover.stop="highlight(index, true)"
-
-                            :highlighted="highlightedIndex === index"
-                            :selected="isSelected(option)"
-
-                            v-for="(index, option) in filteredOptions" v-ref:options
-                        ></ui-select-option>
-
-                        <li class="ui-select-no-results" v-if="nothingFound">No results found</li>
-                    </ul>
+                    <ui-icon class="ui-select__dropdown-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6.984 9.984h10.03L12 15z"/></svg>
+                    </ui-icon>
                 </div>
+
+                <transition name="ui-select--transition-fade">
+                    <div
+                        class="ui-select__dropdown"
+                        ref="dropdown"
+                        tabindex="-1"
+
+                        @keydown.down.prevent="highlightOption(highlightedIndex + 1)"
+                        @keydown.enter.prevent.stop="selectHighlighted(highlightedIndex, $event)"
+                        @keydown.esc.prevent="closeDropdown()"
+                        @keydown.tab="onBlur"
+                        @keydown.up.prevent="highlightOption(highlightedIndex - 1)"
+
+                        v-show="showDropdown"
+                    >
+                        <div
+                            class="ui-select__search"
+
+                            @click.stop
+                            @keydown.space.stop
+
+                            v-if="hasSearch"
+                        >
+                            <input
+                                autocomplete="off"
+                                class="ui-select__search-input"
+                                ref="searchInput"
+                                type="text"
+
+                                :placeholder="searchPlaceholder"
+
+                                v-model="query"
+                            >
+
+                            <ui-icon class="ui-select__search-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9.516 14.016c2.484 0 4.5-2.016 4.5-4.5s-2.016-4.5-4.5-4.5-4.5 2.016-4.5 4.5 2.016 4.5 4.5 4.5zm6 0l4.97 4.97-1.5 1.5-4.97-4.97v-.797l-.28-.282c-1.126.984-2.626 1.547-4.22 1.547-3.61 0-6.516-2.86-6.516-6.47S5.906 3 9.516 3s6.47 2.906 6.47 6.516c0 1.594-.564 3.094-1.548 4.22l.28.28h.798z"/></svg>
+                            </ui-icon>
+
+                            <ui-progress-circular
+                                class="ui-select__search-progress"
+                                :show="loading"
+                                :size="20"
+                                :stroke="4"
+                            ></ui-progress-circular>
+                        </div>
+
+                        <ul class="ui-select__options" ref="optionsList">
+                            <ui-select-option
+                                ref="options"
+
+                                :highlighted="highlightedIndex === index"
+                                :keys="keys"
+                                :option="option"
+                                :selected="isOptionSelected(option)"
+                                :multiple="multiple"
+                                :type="type"
+
+                                @click.native.stop="selectOption(option, index)"
+                                @mouseover.native.stop="highlightOption(index, { autoScroll: false })"
+
+                                v-for="(option, index) in filteredOptions"
+                            >
+                                <slot
+                                    name="option"
+                                    :highlighted="highlightedIndex === index"
+                                    :index="index"
+                                    :option="option"
+                                    :selected="isOptionSelected(option)"
+                                ></slot>
+                            </ui-select-option>
+
+                            <div class="ui-select__no-results" v-show="hasNoResults">
+                                <slot name="no-results">No results found</slot>
+                            </div>
+                        </ul>
+                    </div>
+                </transition>
             </div>
 
-            <div class="ui-select-feedback" v-if="showFeedback">
-                <div
-                    class="ui-select-error-text" transition="ui-select-feedback-toggle"
-                    v-text="validationError" v-show="!hideValidationErrors && !valid"
-                ></div>
-
-                <div
-                    class="ui-select-help-text" transition="ui-select-feedback-toggle"
-                    v-text="helpText" v-else
-                ></div>
+            <div class="ui-select__feedback" v-if="hasFeedback">
+                <div class="ui-select__feedback-text" v-if="showError || showHelp">
+                    {{ showError ? error : help }}
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import merge from 'merge-options';
-import fuzzysearch from 'fuzzysearch';
-
-import { scrollIntoView, resetScroll } from './helpers/element-scroll';
-
 import UiIcon from './UiIcon.vue';
 import UiSelectOption from './UiSelectOption.vue';
 import UiProgressCircular from './UiProgressCircular.vue';
 
-import HasTextInput from './mixins/HasTextInput';
-import ValidatesInput from './mixins/ValidatesInput';
+import fuzzysearch from 'fuzzysearch';
+import { looseIndexOf, looseEqual } from 'helpers/util';
+import { scrollIntoView, resetScroll } from 'helpers/element-scroll';
 
 export default {
     name: 'ui-select',
 
     props: {
         value: {
-            type: [Object, Array, String, Number],
-            default: null,
-            twoWay: true
-        },
-        default: {
-            type: [Object, Array, String, Number],
-            default: null
+            type: [String, Number, Object, Array],
+            required: true
         },
         options: {
             type: Array,
-            default: []
+            default() {
+                return [];
+            }
         },
-        partial: String,
-        showSearch: {
+        placeholder: String,
+        icon: String,
+        iconPosition: {
+            type: String,
+            default: 'left' // 'left' or 'right'
+        },
+        label: String,
+        floatingLabel: {
             type: Boolean,
             default: false
         },
-        searchPlaceholder: {
+        type: {
             type: String,
-            default: 'Search'
+            default: 'simple' // 'simple' or 'image'
         },
         multiple: {
             type: Boolean,
@@ -123,15 +169,24 @@ export default {
             type: String,
             default: ', '
         },
-        optionsDynamic: {
+        hasSearch: {
             type: Boolean,
             default: false
         },
-        optionsLoaded: {
+        searchPlaceholder: {
+            type: String,
+            default: 'Search'
+        },
+        filter: Function,
+        disableFilter: {
             type: Boolean,
-            default: true
+            default: false
         },
         loading: {
+            type: Boolean,
+            default: false
+        },
+        noResults: {
             type: Boolean,
             default: false
         },
@@ -139,227 +194,171 @@ export default {
             type: Object,
             default() {
                 return {
-                    text: 'text',
+                    label: 'label',
                     value: 'value',
                     image: 'image'
                 };
             }
         },
-        filter: Function
+        invalid: {
+            type: Boolean,
+            default: false
+        },
+        touched: {
+            type: Boolean,
+            default: false
+        },
+        help: String,
+        error: String,
+        disabled: {
+            type: Boolean,
+            default: false
+        }
     },
 
     data() {
         return {
             query: '',
+            isActive: false,
             selectedIndex: -1,
             highlightedIndex: -1,
             showDropdown: false,
-            ignoreQueryChange: false
+            initialValue: JSON.stringify(this.value)
         };
     },
 
     computed: {
+        classes() {
+            return [
+                'ui-select--type-' + this.type,
+                'ui-select--icon-position-' + this.iconPosition,
+                { 'is-active': this.isActive },
+                { 'is-invalid': this.invalid },
+                { 'is-touched': this.touched },
+                { 'is-disabled': this.disabled },
+                { 'is-multiple': this.multiple },
+                { 'has-label': this.hasLabel },
+                { 'has-floating-label': this.hasFloatingLabel }
+            ];
+        },
+
+        labelClasses() {
+            return {
+                'is-inline': this.hasFloatingLabel && this.isLabelInline,
+                'is-floating': this.hasFloatingLabel && !this.isLabelInline
+            };
+        },
+
+        hasLabel() {
+            return Boolean(this.label) || Boolean(this.$slots.default);
+        },
+
+        hasFloatingLabel() {
+            return this.hasLabel && this.floatingLabel;
+        },
+
+        isLabelInline() {
+            return this.value.length === 0 && !this.isActive;
+        },
+
+        hasFeedback() {
+            return Boolean(this.help) || Boolean(this.error);
+        },
+
+        showError() {
+            return this.invalid && Boolean(this.error);
+        },
+
+        showHelp() {
+            return !this.showError && Boolean(this.help);
+        },
+
         filteredOptions() {
-            if (this.optionsDynamic) {
+            if (this.disableFilter) {
                 return this.options;
             }
 
-            return this.options.filter(this.search);
+            return this.options.filter((option, index) => {
+                if (this.filter) {
+                    return this.filter(option, this.query);
+                }
+
+                return this.defaultFilter(option, index);
+            });
         },
 
         displayText() {
-            if (this.multiple && this.value.length) {
-                let labels = this.value.map((value) => value[this.keys.text] || value);
-
-                return labels.join(this.multipleDelimiter);
+            if (this.multiple && this.value.length > 0) {
+                return this.value.map(value => value[this.keys.label] || value)
+                        .join(this.multipleDelimiter);
             }
 
-            return this.value ? (this.value[this.keys.text] || this.value) : '';
+            return this.value ? (this.value[this.keys.label] || this.value) : '';
         },
 
         hasDisplayText() {
-            return this.displayText && Boolean(this.displayText.length);
+            return Boolean(this.displayText.length);
         },
 
-        showIcon() {
-            return Boolean(this.icon);
-        },
-
-        nothingFound() {
-            if (this.optionsDynamic && !this.optionsLoaded) {
+        hasNoResults() {
+            if (this.loading || this.query.length === 0) {
                 return false;
             }
 
-            if (this.query.length && !this.loading) {
-                return ! Boolean(this.filteredOptions.length);
-            }
-
-            return false;
+            return this.disableFilter ? this.noResults : this.filteredOptions.length === 0;
         }
     },
 
     watch: {
         filteredOptions() {
             this.highlightedIndex = 0;
-            resetScroll(this.$els.optionsList);
+            resetScroll(this.$refs.optionsList);
         },
 
         showDropdown() {
             if (this.showDropdown) {
-                this.opened();
-                this.$dispatch('opened');
+                this.onOpen();
+                this.$emit('dropdown-open');
             } else {
-                this.closed();
-                this.$dispatch('closed');
+                this.onClose();
+                this.$emit('dropdown-close');
             }
         },
 
         query() {
-            if (!this.ignoreQueryChange) {
-                this.$dispatch('query-changed', this.query);
-            }
+            this.$emit('query-change', this.query);
         }
     },
 
     created() {
-        this.initValue();
-
-        let errorMessages = {
-            min: 'You must select at least :min options.',
-            max: 'You must select no more than :max options.',
-            between: 'You must select at least :min but no more than :max options.'
-        };
-
-        if (this.validationRules) {
-            this.validationMessages = merge(errorMessages, this.validationMessages);
+        if (!this.value || this.value === '') {
+            this.setValue(null);
         }
     },
 
-    ready() {
-        document.addEventListener('click', this.closeOnExternalClick);
+    mounted() {
+        document.addEventListener('click', this.onExternalClick);
     },
 
     beforeDestroy() {
-        document.removeEventListener('click', this.closeOnExternalClick);
-    },
-
-    events: {
-        'ui-select::set-selected': function(value, id) {
-            // Abort if event isn't meant for this component
-            if (!this.eventTargetsComponent(id)) {
-                return;
-            }
-
-            this.default = value;
-            this.initValue();
-        },
-
-        'ui-input::reset': function(id) {
-            // Abort if reset event isn't meant for this component
-            if (!this.eventTargetsComponent(id)) {
-                return;
-            }
-
-            // Reset state
-            this.initValue();
-            this.dirty = false;
-            this.valid = true;
-
-            this.clearQuery();
-            this.selectedIndex = -1;
-            this.highlightedIndex = -1;
-        }
+        document.removeEventListener('click', this.onExternalClick);
     },
 
     methods: {
-        initValue() {
-            this.value = this.multiple ? [] : null;
+        setValue(value) {
+            value = value ? value : this.multiple ? [] : '';
 
-            if (this.default) {
-                let defaults = Array.isArray(this.default) ? this.default : [this.default];
-
-                if (defaults.length) {
-                    this.setDefaultValue(defaults);
-                }
-            }
+            this.$emit('input', value);
+            this.$emit('change', value);
         },
 
-        search(option) {
-            if (this.filter) {
-                return this.filter(option, this.query);
-            }
-
-            let query = this.query.toLowerCase();
-            let text = option[this.keys.text] || option;
-
-            if (typeof text === 'string') {
-                text = text.toLowerCase();
-            }
-
-            return fuzzysearch(query, text);
-        },
-
-        clearQuery() {
-            this.ignoreQueryChange = true;
-
-            this.$nextTick(() => {
-                this.query = '';
-
-                this.$nextTick(() => {
-                    this.ignoreQueryChange = false;
-                });
-            });
-        },
-
-        select(option, index, close = true) {
-            if (this.multiple) {
-                if (this.isSelected(option)) {
-                    this.deselect(option);
-                } else {
-                    this.value.push(option);
-                }
-            } else {
-                this.value = option;
-                this.selectedIndex = index;
-            }
-
-            this.$dispatch('selected', option);
-
-            this.highlightedIndex = index;
-            this.clearQuery();
-            this.validate();
-
-            if (!this.multiple && close) {
-                this.close();
-            }
-        },
-
-        deselect(option) {
-            this.value.$remove(option);
-        },
-
-        isSelected(option) {
-            if (this.multiple) {
-                return this.value.indexOf(option) > -1;
-            }
-
-            return this.value === option;
-        },
-
-        selectHighlighted(index, e) {
-            if (this.$refs.options.length) {
-                e.preventDefault();
-                this.select(this.$refs.options[index].option, index);
-            }
-        },
-
-        highlight(index, preventScroll) {
+        highlightOption(index, options = { autoScroll: true }) {
             if (this.highlightedIndex === index || this.$refs.options.length === 0) {
                 return;
             }
 
-            let firstIndex = 0;
-            let lastIndex = this.$refs.options.length - 1;
+            const firstIndex = 0;
+            const lastIndex = this.$refs.options.length - 1;
 
             if (index < firstIndex) {
                 index = lastIndex;
@@ -369,32 +368,84 @@ export default {
 
             this.highlightedIndex = index;
 
-            if (!preventScroll) {
+            if (options.autoScroll) {
                 this.scrollOptionIntoView(this.$refs.options[index].$el);
             }
         },
 
-        focus() {
-            this.active = true;
-        },
-
-        blur() {
-            this.active = false;
-
-            if (this.showDropdown) {
-                this.close();
+        selectHighlighted(index, e) {
+            if (this.$refs.options.length > 0) {
+                e.preventDefault();
+                this.selectOption(this.$refs.options[index].option, index);
             }
         },
 
-        toggle() {
-            if (this.showDropdown) {
-                this.close();
+        selectOption(option, index, options = { autoClose: true }) {
+            if (this.multiple) {
+                this.updateOption(option, { select: !this.isOptionSelected(option) });
             } else {
-                this.open();
+                this.setValue(option);
+                this.selectedIndex = index;
+            }
+
+            this.$emit('select', option);
+
+            this.highlightedIndex = index;
+            this.clearQuery();
+
+            if (!this.multiple && options.autoClose) {
+                this.closeDropdown();
             }
         },
 
-        open() {
+        isOptionSelected(option) {
+            if (this.multiple) {
+                return looseIndexOf(this.value, option) > -1;
+            }
+
+            return looseEqual(this.value, option);
+        },
+
+        updateOption(option, options = { select: true }) {
+            let value = [];
+            let updated = false;
+            const i = looseIndexOf(this.value, option);
+
+            if (options.select && i < 0) {
+                value = this.value.concat(option);
+                updated = true;
+            }
+
+            if (!options.select && i > -1) {
+                value = this.value.slice(0, i).concat(this.value.slice(i + 1));
+                updated = true;
+            }
+
+            if (updated) {
+                this.setValue(value);
+            }
+        },
+
+        defaultFilter(option) {
+            const query = this.query.toLowerCase();
+            let text = option[this.keys.label] || option;
+
+            if (typeof text === 'string') {
+                text = text.toLowerCase();
+            }
+
+            return fuzzysearch(query, text);
+        },
+
+        clearQuery() {
+            this.query = '';
+        },
+
+        toggleDropdown() {
+            this[this.showDropdown ? 'closeDropdown' : 'openDropdown']();
+        },
+
+        openDropdown() {
             if (this.disabled) {
                 return;
             }
@@ -402,68 +453,68 @@ export default {
             this.showDropdown = true;
         },
 
-        opened() {
-            this.$nextTick(() => {
-                if (this.showSearch) {
-                    this.$els.searchInput.focus();
-                } else {
-                    this.$els.dropdown.focus();
-                }
+        closeDropdown(options = { autoBlur: false }) {
+            this.showDropdown = false;
 
-                this.scrollOptionIntoView(this.$els.optionsList.querySelector('.selected'));
+            if (!this.touched) {
+                this.$emit('touch');
+            }
+
+            if (options.autoBlur) {
+                this.isActive = false;
+            } else {
+                this.$refs.label.focus();
+            }
+        },
+
+        onFocus(e) {
+            this.isActive = true;
+            this.$emit('focus', e);
+        },
+
+        onBlur(e) {
+            this.isActive = false;
+            this.$emit('blur', e);
+
+            if (this.showDropdown) {
+                this.closeDropdown({ autoBlur: true });
+            }
+        },
+
+        onOpen() {
+            this.$nextTick(() => {
+                this.$refs[this.hasSearch ? 'searchInput' : 'dropdown'].focus();
+                this.scrollOptionIntoView(this.$refs.optionsList.querySelector('.is-selected'));
             });
         },
 
-        close(deactivate) {
-            this.showDropdown = false;
-
-            if (!this.dirty) {
-                this.dirty = true;
-            }
-
-            if (deactivate) {
-                this.active = false;
-            } else {
-                this.$els.label.focus();
-            }
+        onClose() {
+            this.highlightedIndex = this.multiple ? -1 : this.selectedIndex;
         },
 
-        closeOnExternalClick(e) {
-            if (! this.$el.contains(e.target) && (this.showDropdown || this.active)) {
-                this.close(true);
-            }
-        },
-
-        closed() {
-            this.validate();
-
-            if (this.multiple) {
-                this.highlightedIndex = -1;
-            } else {
-                this.highlightedIndex = this.selectedIndex;
-            }
-        },
-
-        setDefaultValue(defaults) {
-            let optionValue;
-            let defaultOptionValue;
-
-            for (let i = 0; i < defaults.length; i++) {
-                defaultOptionValue = defaults[i][this.keys.value] || defaults[i];
-
-                for (let j = 0; j < this.options.length; j++) {
-                    optionValue = this.options[j][this.keys.value] || this.options[j];
-
-                    if (optionValue === defaultOptionValue) {
-                        this.select(this.options[j], j, false);
-                        break;
-                    }
+        onExternalClick(e) {
+            if (!this.$el.contains(e.target)) {
+                if (this.showDropdown) {
+                    this.closeDropdown({ autoBlur: true });
+                } else if (this.isActive) {
+                    this.isActive = false;
                 }
             }
         },
 
         scrollOptionIntoView(optionEl) {
-            scrollIntoView(optionEl, this.$els.optionsList, 80);
+            scrollIntoView(optionEl, {
+                container: this.$refs.optionsList,
+                marginTop: 48
+            });
+        },
+
+        reset() {
+            this.setValue(JSON.parse(this.initialValue));
+            this.clearQuery();
+
+            this.selectedIndex = -1;
+            this.highlightedIndex = -1;
         }
     },
 
@@ -471,266 +522,308 @@ export default {
         UiIcon,
         UiSelectOption,
         UiProgressCircular
-    },
-
-    mixins: [
-        HasTextInput,
-        ValidatesInput
-    ]
+    }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
 .ui-select {
-    font-family: $font-stack;
-    display: flex;
-    position: relative;
-    margin-bottom: 12px;
     align-items: flex-start;
+    display: flex;
+    font-family: $font-stack;
+    margin-bottom: $ui-input-margin-bottom;
     outline: none;
+    position: relative;
 
-    &:hover:not(.disabled) {
-        .ui-select-label-text {
-            color: $input-label-color-hover;
+    &:hover:not(.is-disabled) {
+        .ui-select__label-text {
+            color: $ui-input-label-color--hover;
         }
 
-        .ui-select-display {
-            border-bottom-color: $input-border-color-hover;
+        .ui-select__display {
+            border-bottom-color: $ui-input-border-color--hover;
         }
 
-        .ui-select-dropdown-icon {
-            color: $input-clear-button-color-hover;
+        .ui-select__dropdown-button {
+            color: $ui-input-button-color--hover;
         }
     }
 
-    &.active:not(.disabled) {
-        .ui-select-label-text,
-        .ui-select-icon {
-            color: $input-label-color-active;
+    &.is-active:not(.is-disabled) {
+        .ui-select__label-text,
+        .ui-select__icon-wrapper .ui-icon {
+            color: $ui-input-label-color--active;
         }
 
-        .ui-select-display {
-            border-bottom-width: 2px;
-            border-bottom-color: $input-border-color-active;
+        .ui-select__display {
+            border-bottom-color: $ui-input-border-color--active;
+            border-bottom-width: $ui-input-border-width--active;
+        }
+    }
+
+    &.has-floating-label {
+        .ui-select__label-text {
+            // Behaves like a block, but width is the width of its content.
+            // Needed here so label doesn't overflow parent when scaled.
+            display: table;
+
+            &.is-inline {
+                cursor: pointer;
+                color: $ui-input-label-color; // So it doesn't get darker when hovered
+                transform: translateY($ui-input-label-top--inline) scale(1.1);
+            }
+
+            &.is-floating {
+                transform: translateY(0) scale(1);
+            }
         }
     }
 
     &.has-label {
-        .ui-select-icon-wrapper {
-            padding-top: 20px;
+        .ui-select__icon-wrapper {
+            padding-top: $ui-input-icon-margin-top--with-label;
         }
 
-        .ui-select-dropdown-icon {
-            top: 20px;
-        }
-    }
-
-    &.icon-right {
-        .ui-select-icon-wrapper {
-            order: 1;
-            margin-left: 8px;
-            margin-right: 0;
+        .ui-select__dropdown-button {
+            top: $ui-input-button-margin-top--with-label;
         }
     }
 
-    &.invalid:not(.disabled) {
-        .ui-select-label-text,
-        .ui-select-icon {
-            color: $input-label-color-invalid;
-        }
-
-        .ui-select-display {
-            border-bottom-color: $input-border-color-invalid;
+    &:not(.is-multiple) {
+        .ui-select__display {
+            height: $ui-input-height;
+            line-height: 1;
         }
     }
 
-     &.disabled {
-        .ui-select-display {
+    &.is-multiple {
+        .ui-select__display {
+            padding-bottom: 4px;
+            padding-top: 4px;
+            line-height: 1.4;
+        }
+    }
+
+    &.is-invalid:not(.is-disabled) {
+        .ui-select__label-text,
+        .ui-select__icon-wrapper .ui-icon {
+            color: $ui-input-label-color--invalid;
+        }
+
+        .ui-select__display {
+            border-bottom-color: $ui-input-border-color--invalid;
+        }
+
+        .ui-select__feedback {
+            color: $ui-input-feedback-color--invalid;
+        }
+    }
+
+    &.is-disabled {
+        .ui-select__display {
+            border-bottom-style: $ui-input-border-style--disabled;
+            border-bottom-width: $ui-input-border-width--active;
+            color: $ui-input-text-color--disabled;
             cursor: default;
-            color: $input-color-disabled;
-            border-bottom-style: dashed;
         }
 
-        .ui-select-dropdown-icon,
-        .ui-select-value.placeholder {
-            opacity: 0.6;
-            color: $input-color-disabled;
+        .ui-select__dropdown-button,
+        .ui-select__display-value.is-placeholder {
+            opacity: $ui-input-button-opacity--disabled;
+            color: $ui-input-text-color--disabled;
         }
 
-        .ui-select-icon {
-            opacity: 0.6;
+        .ui-select__icon-wrapper .ui-icon {
+            opacity: $ui-input-icon-opacity--disabled;
         }
 
-        .ui-select-feedback {
-            opacity: 0.8;
+        .ui-select__feedback {
+            opacity: $ui-input-feedback-opacity--disabled;
         }
     }
 }
 
-.ui-select-icon-wrapper {
-    height: 24px;
-    flex-shrink: 0;
-    margin-right: 12px;
-    padding-top: 4px;
-}
-
-.ui-select-icon {
-    color: $input-label-color;
-}
-
-.ui-select-content {
-    flex-grow: 1;
-}
-
-.ui-select-label {
-    outline: none;
+.ui-select__label {
     display: block;
+    margin: 0;
+    outline: none;
+    padding: 0;
     position: relative;
     width: 100%;
-    margin: 0;
-    padding: 0;
 }
 
-.ui-select-label-text {
-    font-size: 14px;
-    line-height: 1;
-    margin-bottom: 2px;
-    color: $input-label-color;
-    transition: color 0.1s ease;
-}
+.ui-select__icon-wrapper {
+    flex-shrink: 0;
+    margin-right: $ui-input-icon-margin-right;
+    padding-top: $ui-input-icon-margin-top;
 
-.ui-select-display {
-    cursor: pointer;
-    outline: none;
-    border: none;
-    padding: 0;
-
-    display: flex;
-    align-items: center;
-
-    width: 100%;
-    height: 0; // IE
-    min-height: 32px;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: $input-border-color;
-
-    transition: border 0.1s ease;
-
-    line-height: 1;
-    color: $input-color;
-    font-weight: normal;
-    font-size: 16px;
-    font-family: $font-stack;
-}
-
-.ui-select-value {
-    flex-grow: 1;
-    line-height: 1.4;
-
-    &.placeholder {
-        color: $md-dark-hint;
+    .ui-icon {
+        color: $ui-input-icon-color;
     }
 }
 
-.ui-select-dropdown-icon {
-    margin-left: auto;
-    margin-right: -4px;
-    color: $input-clear-button-color;
+.ui-select__content {
+    flex-grow: 1;
 }
 
-.ui-select-dropdown {
+.ui-select__label-text {
+    color: $ui-input-label-color;
+    font-size: $ui-input-label-font-size;
+    line-height: $ui-input-label-line-height;
+    margin-bottom: $ui-input-label-margin-bottom;
+    transform-origin: left;
+    transition: color 0.1s ease, transform 0.2s ease;
+}
+
+.ui-select__display {
+    align-items: center;
+    background: none;
+    border: none;
+    border-bottom-color: $ui-input-border-color;
+    border-bottom-style: solid;
+    border-bottom-width: $ui-input-border-width;
+    color: $ui-input-text-color;
+    cursor: pointer;
+    display: flex;
+    font-family: $font-stack;
+    font-size: $ui-input-text-font-size;
+    font-weight: normal;
     outline: none;
-    width: 100%;
-    min-width: 180px;
-    display: block;
-    position: absolute;
     padding: 0;
+    transition: border 0.1s ease;
+    user-select: none;
+    width: 100%;
+}
+
+.ui-select__display-value {
+    flex-grow: 1;
+
+    &.is-placeholder {
+        color: $hint-text-color;
+    }
+}
+
+.ui-select__dropdown-button {
+    color: $ui-input-button-color;
+    font-size: $ui-input-button-size;
+    margin-left: auto;
+    margin-right: -4px;
+}
+
+.ui-select__dropdown {
+    background-color: white;
+    box-shadow: 1px 2px 8px $md-grey-600;
+    color: $primary-text-color;
+    display: block;
+    list-style-type: none;
     margin: 0;
     margin-bottom: 8px;
-    list-style-type: none;
-    box-shadow: 1px 2px 8px $md-grey-600;
-    background-color: white;
-    color: $md-dark-text;
-    transition: left 0.1s ease-in-out;
+    min-width: 180px;
+    outline: none;
+    padding: 0;
+    position: absolute;
+    width: 100%;
     z-index: $z-index-dropdown;
 }
 
-.ui-select-search-input {
-    margin: 0;
-    border: none;
-    outline: none;
+.ui-select__search-input {
     background: none;
+    border: none;
+    border-bottom-color: $ui-input-border-color;
+    border-bottom-style: solid;
+    border-bottom-width: $ui-input-border-width;
+    color: $ui-input-text-color;
+    cursor: auto;
+    font-family: $font-stack;
+    font-size: $ui-input-text-font-size - 1px;
+    font-weight: normal;
+    height: $ui-input-height + 4px;
+    outline: none;
     padding: 0 12px;
+    padding-left: 40px;
+    transition: border 0.1s ease;
     width: 100%;
-    height: 42px;
-    font-size: 15px;
-    border-bottom: 1px solid $input-border-color;
 
     // Hide Edge and IE input clear button
     &::-ms-clear {
         display: none;
     }
+
+    &:focus + .ui-select__search-icon {
+        color: $ui-input-label-color--active;
+    }
 }
 
-.ui-select-search-spinner {
+.ui-select__search-icon,
+.ui-select__search-progress {
     position: absolute;
     top: 8px;
+}
+
+.ui-select__search-icon {
+    left: 12px;
+    font-size: 20px;
+    color: $ui-input-icon-color;
+}
+
+.ui-select__search-progress {
     right: 12px;
 }
 
-.ui-select-options {
-    position: relative;
+.ui-select__options {
+    background-color: white;
+    color: $primary-text-color;
     display: block;
-    min-width: 100%;
+    list-style-type: none;
+    margin: 0;
     max-height: 256px;
+    min-width: 100%;
     overflow-y: auto;
     padding: 0;
-    margin: 0;
-    list-style-type: none;
-    background-color: white;
-    color: $md-dark-text;
+    position: relative;
 }
 
-.ui-select-no-results {
+.ui-select__no-results {
     padding: 8px 12px;
     font-size: 14px;
-    color: $md-dark-secondary;
+    color: $secondary-text-color;
     width: 100%;
 }
 
-.ui-select-feedback {
+.ui-select__feedback {
+    color: $ui-input-feedback-color;
+    font-size: $ui-input-feedback-font-size;
+    line-height: $ui-input-feedback-line-height;
     margin: 0;
-    height: 20px;
-    overflow: hidden;
+    padding-top: $ui-input-feedback-padding-top;
     position: relative;
-    font-size: 14px;
-    padding-top: 4px;
 }
 
-.ui-select-help-text {
-    color: $input-help-color;
-    line-height: 1;
+// ================================================
+// Icon Positions
+// ================================================
+
+.ui-select--icon-position-right {
+    .ui-select__icon-wrapper {
+        margin-left: 8px;
+        margin-right: 0;
+        order: 1;
+    }
 }
 
-.ui-select-error-text {
-    position: absolute;
-    color: $input-error-color;
-    line-height: 1;
+// ================================================
+// Transitions
+// ================================================
+
+.ui-select--transition-fade-enter-active,
+.ui-select--transition-fade-leave-active {
+    transition: opacity 0.2s ease;
 }
 
-.ui-select-feedback-toggle-transition {
-    transition-property: opacity, margin-top;
-    transition-duration: 0.3s;
-    opacity: 1;
-    margin-top: 0;
-}
-
-.ui-select-feedback-toggle-enter,
-.ui-select-feedback-toggle-leave {
-   opacity: 0;
-   margin-top: -20px;
+.ui-select--transition-fade-enter,
+.ui-select--transition-fade-leave-active {
+    opacity: 0;
 }
 </style>

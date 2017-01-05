@@ -1,20 +1,23 @@
 <template>
-    <div
-        class="ui-snackbar" :id="id" transition="ui-snackbar-toggle" @click="click" v-show="show"
-    >
-        <div class="ui-snackbar-text">
-            <slot>
-                <span v-text="message"></span>
-            </slot>
-        </div>
+    <transition name="ui-snackbar-toggle" @after-enter="onEnter" @after-leave="onLeave">
+        <div class="ui-snackbar" @click="onClick">
+            <div class="ui-snackbar__message">
+                <slot>{{ message }}</slot>
+            </div>
 
-        <div class="ui-snackbar-action">
-            <ui-button
-                class="ui-snackbar-action-button" type="flat" :color="actionColor"
-                :text="action" @click.stop="actionClick" v-if="action"
-            ></ui-button>
+            <div class="ui-snackbar__action">
+                <ui-button
+                    class="ui-snackbar__action-button"
+                    type="secondary"
+
+                    :color="actionColor"
+
+                    @click.native.stop="onActionClick"
+                    v-if="action"
+                >{{ action }}</ui-button>
+            </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -24,151 +27,93 @@ export default {
     name: 'ui-snackbar',
 
     props: {
-        id: String,
-        show: {
-            type: Boolean,
-            default: false,
-            twoWay: true
-        },
         message: String,
         action: String,
         actionColor: {
             type: String,
-            default: 'accent', // 'primary' or 'accent'
-        },
-        persistent: {
-            type: Boolean,
-            default: false
-        },
-        duration: {
-            type: Number,
-            default: 5000
-        },
-        autoHide: {
-            type: Boolean,
-            default: true
-        }
-    },
-
-    data() {
-        return {
-            height: 0,
-            timeout: null
-        };
-    },
-
-    beforeDestroy() {
-        if (this.timeout) {
-            clearTimeout(this.timeout);
+            default: 'accent' // 'primary' or 'accent'
         }
     },
 
     methods: {
-        click() {
-            this.$dispatch('clicked');
-            this.hide();
+        onClick() {
+            this.$emit('click');
         },
 
-        actionClick() {
-            this.$dispatch('action-clicked');
-            this.hide();
+        onActionClick() {
+            this.$emit('action-click');
         },
 
-        hide() {
-            if (!this.persistent) {
-                this.show = false;
-            }
+        onEnter() {
+            this.$emit('show');
+        },
+
+        onLeave() {
+            this.$emit('hide');
         }
     },
 
     components: {
         UiButton
-    },
-
-    transitions: {
-        'ui-snackbar-toggle': {
-            afterEnter() {
-                this.$dispatch('shown');
-
-                if (this.autoHide) {
-                    this.timeout = setTimeout(this.hide, this.duration);
-                }
-            },
-
-            afterLeave() {
-                this.$dispatch('hidden');
-
-                if (this.timeout) {
-                    clearTimeout(this.timeout);
-                    this.timeout = null;
-                }
-            }
-        }
     }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
-$md-snackbar-bg = #323232;
+$ui-snackbar-background-color   : #323232 !default;
+$ui-snackbar-font-size          : 14px !default;
 
 .ui-snackbar {
-    font-family: $font-stack;
-    display: inline-flex;
     align-items: center;
-
-    min-width: 288px;
+    background-color: $ui-snackbar-background-color;
+    border-radius: $ui-default-border-radius;
+    box-shadow: 0 1px 3px rgba(black, 0.12), 0 1px 2px rgba(black, 0.24);
+    display: inline-flex;
+    font-family: $font-stack;
     max-width: 568px;
     min-height: 48px;
-
+    min-width: 288px;
     padding: 14px 24px;
-
-    border-radius: 2px;
-    background-color: $md-snackbar-bg;
-
-    box-shadow: 0 1px 3px alpha(black, 0.12), 0 1px 2px alpha(black, 0.24);
+    transition: transform 0.4s ease;
 }
 
-.ui-snackbar-text {
-    line-height: 1.5;
-    font-size: 14px;
+.ui-snackbar__message {
     color: white;
     cursor: default;
+    font-size: $ui-snackbar-font-size;
+    line-height: 1.5;
 }
 
-.ui-snackbar-action {
+.ui-snackbar__action {
     margin: -9px -12px -9px auto;
     padding-left: 48px;
+}
 
-    .ui-snackbar-action-button {
-        margin: 0;
-        padding: 12px;
-        min-height: initial;
-        min-width: initial;
+.ui-snackbar__action-button {
+    margin: 0;
+    min-height: initial;
+    min-width: initial;
+    padding: 12px;
 
-        &:hover {
-            background-color: alpha(white, 0.05);
-        }
+    &:hover:not(.is-disabled) {
+        background-color: rgba(white, 0.05);
     }
 }
 
-.ui-snackbar-toggle-transition {
-    transition: transform 0.3s ease;
-
-    .ui-snackbar-text,
-    .ui-snackbar-action {
-        opacity: 1;
-        transition: opacity 0.3s ease;
-    }
+.ui-snackbar__message,
+.ui-snackbar__action {
+    opacity: 1;
+    transition: opacity 0.4s ease;
 }
 
 .ui-snackbar-toggle-enter,
-.ui-snackbar-toggle-leave {
+.ui-snackbar-toggle-leave-active {
     transform: translateY(84px);
 
-    .ui-snackbar-text,
-    .ui-snackbar-action {
+    .ui-snackbar__message,
+    .ui-snackbar__action {
         opacity: 0;
     }
 }

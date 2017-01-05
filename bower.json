@@ -21,20 +21,18 @@
     "url": "git+https://github.com/JosephusPaye/keen-ui.git"
   },
   "moduleType": [
-    "amd",
     "es6",
     "globals",
     "node"
   ],
   "ignore": [
-    "**/.*",
     "node_modules",
     "bower_components",
+    "build",
     "docs",
-    "src-docs",
-    "karma.config.js",
-    "webpack.*",
-    "test",
-    "tests"
+    "docs-src",
+    "**/.*",
+    "CONTRIBUTING.md"
+    "gulpfile.js"
   ]
 }

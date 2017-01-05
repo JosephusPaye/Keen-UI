@@ -1,22 +1,24 @@
 <template>
-    <div class="ui-snackbar-container" :class="[position]">
+    <div class="ui-snackbar-container" :class="classes">
         <ui-snackbar
-            :duration="s.duration" :show.sync="s.show" :action="s.action"
-            :action-color="s.actionColor" :persistent="s.persistent" :id="s.id" auto-hide
+            :action-color="snackbar.actionColor"
+            :action="snackbar.action"
+            :message="snackbar.message"
 
-            @shown="shown(s)" @hidden="hidden(s)" @clicked="clicked(s)"
-            @action-clicked="actionClicked(s)"
+            @action-click="onActionClick(snackbar)"
+            @click="onClick(snackbar)"
+            @hide="onHide(snackbar, index)"
+            @show="onShow(snackbar)"
 
-            v-for="s in queue"
+            v-for="(snackbar, index) in queue"
+            v-show="snackbar.show"
         >
-            <div v-html="s.message" v-if="s.allowHtml"></div>
-            <span v-text="s.message" v-else></span>
+            <div v-html="snackbar.message" v-if="allowHtml"></div>
         </ui-snackbar>
     </div>
 </template>
 
 <script>
-import UUID from './helpers/uuid';
 import UiSnackbar from './UiSnackbar.vue';
 
 export default {
@@ -27,71 +29,111 @@ export default {
             type: Boolean,
             default: false
         },
-        defaultDuration: {
+        duration: {
             type: Number,
             default: 5000
         },
+        allowHtml: {
+            type: Boolean,
+            default: false
+        },
         position: {
             type: String,
-            default: 'left', // 'left', 'center', 'right'
-            coerce(position) {
-                return 'position-' + position;
-            }
-        }
-    },
-
-    events: {
-        'ui-snackbar::create': function(snackbar) {
-            snackbar.show = false;
-            snackbar.id = snackbar.id || UUID.short('ui-snackbar-');
-            snackbar.duration = snackbar.duration || this.defaultDuration;
-
-            this.queue.push(snackbar);
-
-            if (this.queue.length === 1) {
-                this.showNext();
-            } else {
-                if (!this.queueSnackbars) {
-                    this.queue[0].show = false;
-                }
-            }
+            default: 'left' // 'left', 'center', 'right'
         }
     },
 
     data() {
         return {
-            queue: [] // List of options for snackbars to show
+            queue: [],
+            snackbarTimeout: null
         };
     },
 
+    computed: {
+        classes() {
+            return [
+                'ui-snackbar-container--position-' + this.position
+            ];
+        }
+    },
+
+    beforeDestroy() {
+        this.resetTimeout();
+    },
+
     methods: {
-        showNext() {
-            if (!this.queue.length) {
+        createSnackbar(snackbar) {
+            snackbar.show = false;
+            snackbar.duration = snackbar.duration || this.duration;
+
+            this.queue.push(snackbar);
+
+            if (this.queue.length === 1) {
+                // If there's only one item in the queue,
+                // it's the new snackbar, show it immediately
+                return this.showNextSnackbar();
+            } else if (!this.queueSnackbars) {
+                // If we're not queuing snackbars, hide the current one.
+                // This will trigger onHide(), which will show the new snackbar
+                this.queue[0].show = false;
+            }
+        },
+
+        showNextSnackbar() {
+            if (this.queue.length === 0) {
                 return;
             }
 
-            // Show the next snackbar in the queue
+            // Show the first snackbar in the queue.
+            // Will trigger onShow(), which will hide the snackbar after its duration
             this.queue[0].show = true;
         },
 
-        shown(snackbar) {
-            this.$dispatch('snackbar-shown', snackbar);
+        onShow(snackbar) {
+            // Abort if the snackbar is not the first in the queue
+            // (since v-show triggers @show for all the snackbars, regardless of actual visibility)
+            if (this.queue.indexOf(snackbar) !== 0) {
+                return;
+            }
+
+            // Hide the snackbar after it's duration is complete.
+            // Will trigger onHide(), which will remove it from
+            // the queue and show the next snackbar
+            this.snackbarTimeout = setTimeout(() => {
+                this.queue[0].show = false;
+            }, snackbar.duration);
+
+            this.$emit('snackbar-show', snackbar);
             this.callHook('onShow', snackbar);
         },
 
-        hidden(snackbar) {
-            this.$dispatch('snackbar-hidden', snackbar);
+        onHide(snackbar, index) {
+            if (this.queueSnackbars || this.queue.length === 1) {
+                // Remove the snackbar from the queue
+                this.queue.splice(index, 1);
+            } else {
+                // If snackbars are created too rapidly, a backlog grows even if we're
+                // not queuing, due to the leave transition we have to wait for.
+                //
+                // When this happens, remove the current snackbar and all
+                // other snackbars except the last.
+                this.queue.splice(index, this.queue.length - 1);
+            }
+
+            this.$emit('snackbar-hide', snackbar);
             this.callHook('onHide', snackbar);
 
-            this.queue.$remove(snackbar);
-            this.showNext();
+            this.resetTimeout();
+            this.showNextSnackbar();
         },
 
-        clicked(snackbar) {
+        onClick(snackbar) {
+            snackbar.show = false;
             this.callHook('onClick', snackbar);
         },
 
-        actionClicked(snackbar) {
+        onActionClick(snackbar) {
             this.callHook('onActionClick', snackbar);
         },
 
@@ -99,6 +141,11 @@ export default {
             if (typeof snackbar[hook] === 'function') {
                 snackbar[hook].call(undefined, snackbar);
             }
+        },
+
+        resetTimeout() {
+            clearTimeout(this.snackbarTimeout);
+            this.snackbarTimeout = null;
         }
     },
 
@@ -108,30 +155,29 @@ export default {
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
 .ui-snackbar-container {
-    position: absolute;
-    overflow: hidden;
-
     bottom: 0;
     left: 8px;
-
-    &.position-right {
-        left: initial;
-        right: 8px;
-    }
-
-    &.position-center {
-        left: 8px;
-        right: 8px;
-        display: flex;
-        justify-content: center;
-    }
+    overflow: hidden;
+    position: absolute;
 
     .ui-snackbar {
         margin: 4px 4px 12px 4px;
     }
+}
+
+.ui-snackbar-container--position-right {
+    left: initial;
+    right: 8px;
+}
+
+.ui-snackbar-container--position-center {
+    display: flex;
+    justify-content: center;
+    left: 8px;
+    right: 8px;
 }
 </style>

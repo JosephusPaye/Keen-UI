@@ -1,32 +1,32 @@
 <template>
-    <li
-        class="ui-autocomplete-suggestion" :class="[partial, { 'highlighted': highlighted }]"
-        :id="id"
-    >
-        <partial :name="partial"></partial>
+    <li class="ui-autocomplete-suggestion" :class="classes">
+        <slot>
+            <div class="ui-autocomplete-suggestion__simple" v-if="type === 'simple'">
+                {{ suggestion[keys.label] || suggestion }}
+            </div>
+
+            <div class="ui-autocomplete-suggestion__image" v-if="type === 'image'">
+                <div class="ui-autocomplete-suggestion__image-object" :style="imageStyle"></div>
+                <div
+                    class="ui-autocomplete-suggestion__image-text"
+                >{{ suggestion[keys.label] }}</div>
+            </div>
+        </slot>
     </li>
 </template>
 
 <script>
-import UUID from './helpers/uuid';
-
 export default {
     name: 'ui-autocomplete-suggestion',
 
     props: {
-        id: {
-            type: String,
-            default() {
-                return UUID.short();
-            }
-        },
-        item: {
+        suggestion: {
             type: [String, Object],
             required: true
         },
-        partial: {
+        type: {
             type: String,
-            default: 'ui-autocomplete-simple', // 'ui-autocomplete-simple', 'ui-autocomplete-image'
+            default: 'simple' // 'simple' or 'image'
         },
         highlighted: {
             type: Boolean,
@@ -36,62 +36,62 @@ export default {
             type: Object,
             default() {
                 return {
-                    text: 'text',
-                    value: 'value',
+                    label: 'label',
                     image: 'image'
                 };
             }
         }
     },
 
-    partials: {
-        'ui-autocomplete-simple': `
-            <li class="ui-autocomplete-suggestion-item" v-text="item[keys.text] || item"></li>
-        `,
+    computed: {
+        classes() {
+            return [
+                'ui-autocomplete-suggestion--type-' + this.type,
+                { 'is-highlighted': this.highlighted }
+            ];
+        },
 
-        'ui-autocomplete-image': `
-            <div
-                class="image" :style="{ 'background-image': 'url(' + item[keys.image] + ')' }"
-            ></div>
-            <div class="text" v-text="item[keys.text]"></div>
-        `
+        imageStyle() {
+            return { 'background-image': 'url(' + this.suggestion[this.keys.image] + ')' };
+        }
     }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
 .ui-autocomplete-suggestion {
-    font-family: $font-stack;
     cursor: pointer;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    font-family: $font-stack;
+    font-size: $ui-dropdown-item-font-size;
     padding: 8px 12px;
-    font-weight: normal;
-    font-size: 15px;
 
     &:hover {
-        background-color: alpha(black, 0.06);
+        background-color: rgba(black, 0.06);
     }
 
-    &.highlighted {
-        background-color: alpha(black, 0.1);
+    &.is-highlighted {
+        background-color: rgba(black, 0.1);
     }
 }
 
-.ui-autocomplete-image {
+.ui-autocomplete-suggestion__simple,
+.ui-autocomplete-suggestion__image-text {
+    @include text-truncation;
+}
+
+.ui-autocomplete-suggestion__image {
     display: flex;
     align-items: center;
+}
 
-    .image {
-        width: 32px;
-        height: 32px;
-        background-size: cover;
-        background-position: 50%;
-        margin-right: 12px;
-        border-radius: 50%;
-    }
+.ui-autocomplete-suggestion__image-object {
+    background-position: 50%;
+    background-size: cover;
+    border-radius: 50%;
+    height: 32px;
+    margin-right: 12px;
+    width: 32px;
 }
 </style>

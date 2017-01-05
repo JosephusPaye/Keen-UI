@@ -1,3 +1,7 @@
-export default function(value) {
-    this.el.autofocus = Boolean(value);
-}
+export default {
+    inserted(el, { value }) {
+        if (value) {
+            el.focus();
+        }
+    }
+};

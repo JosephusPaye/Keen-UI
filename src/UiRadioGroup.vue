@@ -1,33 +1,41 @@
 <template>
-    <div
-        class="ui-radio-group" :id="id"
-        :class="{ 'disabled': disabled, 'active': active, 'vertical': vertical }"
-    >
-        <div class="ui-radio-group-label" v-text="label" v-if="!hideLabel"></div>
-
-        <div class="ui-radio-group-options-wrapper">
-            <ui-radio
-                class="ui-radio-group-radio" v-for="option in options" :model.sync="value"
-                :name="name" :label="option.text || option" :value="option.value || option"
-                :disabled="disabled || option.disabled" @focussed="focus" @blurred="blur"
-            ></ui-radio>
+    <div class="ui-radio-group" :class="classes">
+        <div class="ui-radio-group__label-text" v-if="label || $slots.default">
+            <slot>{{ label }}</slot>
         </div>
 
-        <div
-            class="ui-radio-group-feedback" v-if="showFeedback"
-            transition="ui-radio-group-feedback-toggle"
-        >
-            <div class="ui-radio-group-help-text" v-text="helpText"></div>
+        <div class="ui-radio-group__radios">
+            <ui-radio
+                class="ui-radio-group__radio"
+
+                :button-position="buttonPosition"
+                :checked="isOptionCheckedByDefault(option)"
+                :class="option[keys.class]"
+                :color="color"
+                :disabled="disabled || option[keys.disabled]"
+                :id="option[keys.id]"
+                :key="option[keys.id]"
+                :name="name"
+                :true-value="option[keys.value] || option"
+
+                @blur="onBlur"
+                @focus="onFocus"
+
+                v-for="option in options"
+                v-model="selectedOptionValue"
+            >{{ option[keys.label] || option }}</ui-radio>
+        </div>
+
+        <div class="ui-radio-group__feedback" v-if="hasFeedback">
+            <div class="ui-radio-group__feedback-text" v-if="showError || showHelp">
+                {{ showError ? error : help }}
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import disabled from './directives/disabled';
-
 import UiRadio from './UiRadio.vue';
-
-import ReceivesTargetedEvent from './mixins/ReceivesTargetedEvent';
 
 export default {
     name: 'ui-radio-group',
@@ -37,22 +45,43 @@ export default {
             type: String,
             required: true
         },
-        value: {
-            type: String,
-            default: '',
-            twoWay: true
-        },
+        label: String,
         options: {
             type: Array,
             required: true
         },
-        label: String,
-        hideLabel: {
+        value: {
+            type: [Number, String],
+            required: true
+        },
+        keys: {
+            type: Object,
+            default() {
+                return {
+                    id: 'id',
+                    class: 'class',
+                    label: 'label',
+                    value: 'value',
+                    checked: 'checked',
+                    disabled: 'disabled'
+                };
+            }
+        },
+        color: {
+            type: String,
+            default: 'primary' // 'primary' or 'accent'
+        },
+        buttonPosition: {
+            type: String,
+            default: 'left' // 'left' or 'right'
+        },
+        vertical: {
             type: Boolean,
             default: false
         },
-        helpText: String,
-        vertical: {
+        help: String,
+        error: String,
+        invalid: {
             type: Boolean,
             default: false
         },
@@ -64,128 +93,162 @@ export default {
 
     data() {
         return {
-            active: false,
-            initialValue: ''
+            isActive: false,
+            initialValue: this.value,
+            selectedOptionValue: this.value
         };
     },
 
-    created() {
-        // Cache initial value for later reset
-        this.initialValue = this.value;
-    },
-
     computed: {
-        showFeedback() {
-            return Boolean(this.helpText);
+        classes() {
+            return [
+                'ui-radio-group--color-' + this.color,
+                'ui-radio-group--button-position-' + this.buttonPosition,
+                { 'is-vertical': this.vertical },
+                { 'is-active': this.isActive },
+                { 'is-invalid': this.invalid },
+                { 'is-disabled': this.disabled }
+            ];
+        },
+
+        hasFeedback() {
+            return Boolean(this.help) || this.showError;
+        },
+
+        showError() {
+            return this.invalid && Boolean(this.error);
+        },
+
+        showHelp() {
+            return !this.showError && Boolean(this.help);
         }
     },
 
-    events: {
-        'ui-input::reset': function(id) {
-            // Abort if reset event isn't meant for this component
-            if (!this.eventTargetsComponent(id)) {
-                return;
-            }
+    watch: {
+        selectedOptionValue() {
+            this.$emit('input', this.selectedOptionValue);
+            this.$emit('change', this.selectedOptionValue);
+        },
 
-            this.value = this.initialValue;
+        value() {
+            this.selectedOptionValue = this.value;
         }
     },
 
     methods: {
-        focus() {
-            this.active = true;
+        reset() {
+            this.$emit('input', this.initialValue);
         },
 
-        blur() {
-            this.active = false;
+        isOptionCheckedByDefault(option) {
+            // eslint-disable-next-line eqeqeq
+            return this.initialValue == option[this.keys.value] || this.initialValue == option ||
+                option[this.keys.checked];
+        },
+
+        onFocus(e) {
+            this.isActive = true;
+            this.$emit('focus', e);
+        },
+
+        onBlur(e) {
+            this.isActive = false;
+            this.$emit('blur', e);
         }
     },
 
     components: {
         UiRadio
-    },
-
-    directives: {
-        disabled
-    },
-
-    mixins: [
-        ReceivesTargetedEvent
-    ]
+    }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
 .ui-radio-group {
     font-family: $font-stack;
 
-    &:not(.disabled):hover {
-        .ui-radio-group-label {
-            color: alpha($md-dark-secondary, 65%);
+    &:not(.is-disabled):not(.is-invalid):hover {
+       .ui-radio-group__label-text {
+          color: $ui-input-label-color--hover;
         }
     }
 
-    &:not(.disabled).active {
-        .ui-radio-group-label {
-            color: darken($md-brand-primary, 20%);
+    &:not(.is-disabled):not(.is-invalid).is-active {
+        .ui-radio-group__label-text {
+            color: $ui-input-label-color--active;
         }
     }
 
-    &.vertical {
-        .ui-radio-group-options-wrapper {
-            height: auto;
-            margin-top: 8px;
+    &.is-vertical {
+        .ui-radio-group__radios {
             flex-direction: column;
-
-            .ui-radio {
-                width: 100%;
-                margin-left: 0;
-                margin-bottom: 16px;
-            }
+            padding-top: 8px;
         }
-    }
 
-    &.disabled {
-        .ui-radio-group-feedback {
-            opacity: 0.8;
-        }
-    }
-
-    .ui-radio {
-        margin-left: 24px;
-
-        &:first-child {
+        .ui-radio-group__radio {
+            margin-bottom: 12px;
             margin-left: 0;
+            width: 100%;
+        }
+    }
+
+    &.is-invalid {
+        .ui-radio-group__label-text {
+           color: $ui-input-border-color--invalid;
+        }
+
+        .ui-radio-group__feedback {
+            color: $ui-input-feedback-color--invalid;
+        }
+    }
+
+    &.is-disabled {
+        .ui-radio-group__feedback {
+            opacity: $ui-input-feedback-opacity--disabled;
         }
     }
 }
 
-.ui-radio-group-label {
-    font-size: 14px;
-    color: $md-dark-secondary;
+.ui-radio-group__label-text {
+    color: $ui-input-label-color;
+    font-size: $ui-input-label-font-size;
     transition: color 0.1s ease;
 }
 
-.ui-radio-group-options-wrapper {
-    display: flex;
-    height: 32px;
+.ui-radio-group__radios {
     align-items: center;
+    display: flex;
+    min-height: $ui-input-height;
 }
 
-.ui-radio-group-feedback {
-    height: 20px;
-    overflow: hidden;
-    padding-top: 4px;
+.ui-radio.ui-radio-group__radio {
+    margin-left: 24px;
+
+    &:first-child {
+        margin-left: 0;
+    }
+}
+
+.ui-radio-group__feedback {
+    color: $ui-input-feedback-color;
+    font-size: $ui-input-feedback-font-size;
+    line-height: $ui-input-feedback-line-height;
+    margin: 0;
+    padding-top: $ui-input-feedback-padding-top - 4px;
     position: relative;
-    font-size: 14px;
 }
 
-.ui-radio-group-help-text {
-    @extends $disable-user-select;
+// ================================================
+// Button Positions
+// ================================================
 
-    color: $md-dark-hint;
-    line-height: 1.2;
+.ui-radio-group--button-position-right {
+    &:not(.is-vertical) {
+        .ui-radio__label-text {
+            margin-right: 8px;
+        }
+    }
 }
 </style>

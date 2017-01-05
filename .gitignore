@@ -1,4 +1,7 @@
 _del
-Thumbs.db
+_deprecated
+_older
+._reminder
 /node_modules
+Thumbs.db
 npm-debug.log

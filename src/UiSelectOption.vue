@@ -1,14 +1,27 @@
 <template>
-    <li
-        class="ui-select-option" :class="{ highlighted: highlighted, selected: selected }"
-    >
-        <div class="ui-select-option-content" :class="[partial]">
-            <partial :name="partial"></partial>
-        </div>
+    <li class="ui-select-option" :class="classes">
+        <slot>
+            <div class="ui-select-option__simple" v-if="type === 'simple'">
+                {{ option[keys.label] || option }}
+            </div>
 
-        <ui-icon
-            class="ui-select-option-checkbox" :icon="icon" v-if="showCheckbox"
-        ></ui-icon>
+            <div class="ui-select-option__image" v-if="type === 'image'">
+                <div class="ui-select-option__image-object" :style="imageStyle"></div>
+                <div
+                    class="ui-select-option__image-text"
+                >{{ option[keys.label] }}</div>
+            </div>
+
+            <div class="ui-select-option__checkbox" v-if="multiple">
+                <ui-icon v-if="selected">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9.984 17.016l9-9-1.406-1.453-7.594 7.594-3.563-3.563L5.016 12zm9-14.016C20.11 3 21 3.938 21 5.016v13.97C21 20.062 20.11 21 18.984 21H5.014C3.89 21 3 20.064 3 18.986V5.015C3 3.94 3.89 3 5.014 3h13.97z"/></svg>
+                </ui-icon>
+
+                <ui-icon v-else>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18.984 3C20.062 3 21 3.938 21 5.016v13.97C21 20.062 20.062 21 18.984 21H5.014C3.938 21 3 20.064 3 18.986V5.015C3 3.94 3.936 3 5.014 3h13.97zm0 2.016H5.014v13.97h13.97V5.015z"/></svg>
+                </ui-icon>
+            </div>
+        </slot>
     </li>
 </template>
 
@@ -23,11 +36,11 @@ export default {
             type: [String, Object],
             required: true
         },
-        partial: {
+        type: {
             type: String,
-            default: 'ui-select-simple', // 'ui-select-simple', 'ui-select-image'
+            default: 'simple' // 'simple' or 'image'
         },
-        showCheckbox: {
+        multiple: {
             type: Boolean,
             default: false
         },
@@ -43,8 +56,7 @@ export default {
             type: Object,
             default() {
                 return {
-                    text: 'text',
-                    value: 'value',
+                    label: 'label',
                     image: 'image'
                 };
             }
@@ -52,93 +64,84 @@ export default {
     },
 
     computed: {
-        icon() {
-            return this.selected ? 'check_box' : 'check_box_outline_blank';
+        classes() {
+            return [
+                'ui-select-option--type-' + this.type,
+                { 'is-highlighted': this.highlighted },
+                { 'is-selected': this.selected }
+            ];
+        },
+
+        imageStyle() {
+            return { 'background-image': 'url(' + this.option[this.keys.image] + ')' };
         }
     },
 
     components: {
         UiIcon
-    },
-
-    partials: {
-        'ui-select-simple': `
-            <li class="ui-select-item-text" v-text="option[keys.text] || option"></li>
-        `,
-
-        'ui-select-image': `
-            <div
-                class="ui-select-item-image"
-                :style="{ 'background-image': 'url(' + option[keys.image] + ')' }"
-            ></div>
-
-            <div class="ui-select-item-text" v-text="option[keys.text]"></div>
-        `
     }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
 .ui-select-option {
-    display: flex;
     align-items: center;
-    font-family: $font-stack;
     cursor: pointer;
-    overflow: hidden;
+    display: flex;
+    font-family: $font-stack;
+    font-size: $ui-dropdown-item-font-size;
+    user-select: none;
 
-    &.selected {
-        color: $md-brand-primary;
+    &.is-selected {
+        background-color: rgba(black, 0.05);
+        color: $brand-primary-color;
         font-weight: 500;
 
-        .ui-select-option-checkbox {
-            color: $md-brand-primary;
+        .ui-select-option__checkbox {
+            color: $brand-primary-color;
         }
     }
 
-    &.highlighted {
-        color: white;
-        background-color: $md-brand-primary-lighter;
-
-        .ui-select-option-checkbox {
-            color: white;
-        }
+    &.is-highlighted {
+        background-color: rgba(black, 0.1);
     }
 }
 
-.ui-select-option-content {
-    flex-grow: 1;
-    display: flex;
-
-    max-height: 42px;
-    padding: 6px 12px;
-    font-weight: normal;
-    font-size: 15px;
+.ui-select-option__simple,
+.ui-select-option__image-text {
+    @include text-truncation;
 }
 
-.ui-select-option-checkbox {
-    color: $md-dark-secondary;
-    margin-right: 8px;
-}
-
-.ui-select-image {
+.ui-select-option__image {
     display: flex;
     align-items: center;
 }
 
-.ui-select-item-text {
-    @extends $truncate-text;
-    width: 0;
-    flex-grow: 1;
+.ui-select-option__image-object {
+    background-position: 50%;
+    background-size: cover;
+    border-radius: 50%;
+    height: 32px;
+    margin-right: 12px;
+    width: 32px;
 }
 
-.ui-select-item-image {
-    width: 32px;
-    height: 32px;
-    background-size: cover;
-    background-position: 50%;
-    margin-right: 12px;
-    border-radius: 50%;
+.ui-select-option__checkbox {
+    color: $ui-input-icon-color;
+    margin-left: auto;
+}
+
+// ================================================
+// Types
+// ================================================
+
+.ui-select-option--type-simple {
+    padding: 6px 12px;
+}
+
+.ui-select-option--type-image {
+    padding: 4px 12px;
 }
 </style>

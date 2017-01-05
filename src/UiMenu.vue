@@ -1,21 +1,28 @@
 <template>
-    <ul
-        class="ui-menu" role="menu" tabindex="-1" @keydown.esc="closeDropdown" v-el:dropdown
-        :class="{ 'has-icons': showIcons, 'has-secondary-text': showSecondaryText }"
-    >
+    <ul class="ui-menu" role="menu" :class="classes">
         <ui-menu-option
-            :type="option.type" :icon="option.icon" :text="option.text" :disabled="option.disabled"
-            :secondary-text="option.secondaryText" :option="option" :show-icon="showIcons"
-            :show-secondary-text="showSecondaryText" :hide-ripple-ink="hideRippleInk"
-            :partial="option.partial || partial"
+            :disable-ripple="disableRipple"
+            :disabled="option[keys.disabled]"
+            :icon-props="iconProps || option[keys.iconProps]"
+            :icon="hasIcons ? option[keys.icon] : null"
+            :label="option[keys.type] === 'divider' ? null : option[keys.label] || option"
+            :secondary-text="hasSecondaryText ? option[keys.secondaryText] : null"
+            :type="option[keys.type]"
 
-            @keydown.enter.prevent="optionSelect(option)" @click="optionSelect(option)"
+            @click.native="selectOption(option)"
+            @keydown.enter.native.prevent="selectOption(option)"
+            @keydown.esc.native.esc="closeMenu"
 
             v-for="option in options"
-        ></ui-menu-option>
+        >
+            <slot name="option" :option="option"></slot>
+        </ui-menu-option>
 
         <div
-            class="ui-menu-focus-redirector" @focus="redirectFocus" tabindex="0"
+            class="ui-menu__focus-redirector"
+            tabindex="0"
+            @focus="redirectFocus"
+            v-if="containFocus"
         ></div>
     </ul>
 </template>
@@ -23,127 +30,120 @@
 <script>
 import UiMenuOption from './UiMenuOption.vue';
 
-import ShowsDropdown from './mixins/ShowsDropdown';
-
 export default {
     name: 'ui-menu',
 
     props: {
         options: {
             type: Array,
-            required: true,
             default() {
                 return [];
             }
         },
-        showIcons: {
+        hasIcons: {
             type: Boolean,
             default: false
         },
-        showSecondaryText: {
+        iconProps: Object,
+        hasSecondaryText: {
             type: Boolean,
             default: false
         },
-        hideRippleInk: {
+        containFocus: {
             type: Boolean,
             default: false
         },
-        closeOnSelect: {
-            type: Boolean,
-            default: true
+        keys: {
+            type: Object,
+            default() {
+                return {
+                    icon: 'icon',
+                    type: 'type',
+                    label: 'label',
+                    secondaryText: 'secondaryText',
+                    iconProps: 'iconProps',
+                    disabled: 'disabled'
+                };
+            }
         },
-        partial: {
-            type: String,
-            default: 'ui-menu-default'
+        disableRipple: {
+            type: Boolean,
+            default: false
+        },
+        raised: {
+            type: Boolean,
+            default: false
         }
     },
 
-    events: {
-        'dropdown-opened': function() {
-            if (this.containFocus) {
-                document.addEventListener('focus', this.restrictFocus, true);
-            }
-
-            this.$dispatch('opened');
-
-            // Bubble the event up
-            return true;
-        },
-
-        'dropdown-closed': function() {
-            if (this.containFocus) {
-                document.removeEventListener('focus', this.restrictFocus, true);
-            }
-
-            this.$dispatch('closed');
-
-            // Bubble the event up
-            return true;
+    computed: {
+        classes() {
+            return {
+                'is-raised': this.raised,
+                'has-icons': this.hasIcons,
+                'has-secondary-text': this.hasSecondaryText
+            };
         }
     },
 
     methods: {
-        optionSelect(option) {
-            if (! (option.disabled || option.type === 'divider')) {
-                this.$dispatch('option-selected', option);
-
-                if (this.closeOnSelect) {
-                    this.closeDropdown();
-                }
+        selectOption(option) {
+            if (option.disabled || option.type === 'divider') {
+                return;
             }
+
+            this.$emit('select', option);
+            this.closeMenu();
         },
 
-        restrictFocus(e) {
-            if (! this.$els.dropdown.contains(e.target)) {
-                e.stopPropagation();
-
-                this.$els.dropdown.querySelector('.ui-menu-option').focus();
-            }
+        closeMenu() {
+            this.$emit('close');
         },
 
         redirectFocus(e) {
             e.stopPropagation();
-
-            this.$els.dropdown.querySelector('.ui-menu-option').focus();
+            this.$el.querySelector('.ui-menu-option').focus();
         }
     },
 
     components: {
         UiMenuOption
-    },
-
-    mixins: [
-        ShowsDropdown
-    ]
+    }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
 .ui-menu {
-    font-family: $font-stack;
-
-    margin: 0;
-    padding: 4px 0;
-    outline: none;
-    list-style: none;
-
     background-color: white;
-    box-shadow: 0 2px 4px -1px alpha(black, 0.3),
-                0 4px 5px 0 alpha(black, 0.15),
-                0 1px 10px 0 alpha(black, 0.13);
-
-    min-width: 168px;
-    max-width: 272px;
-
+    border: 1px solid rgba(black, 0.08);
+    font-family: $font-stack;
+    list-style: none;
+    margin: 0;
     max-height: 100vh;
-    overflow-y: auto;
+    max-width: 272px;
+    min-width: 168px;
+    outline: none;
     overflow-x: hidden;
+    overflow-y: auto;
+    padding: 4px 0;
+
+    &.is-raised {
+        border: none;
+        box-shadow: 0 2px 4px -1px rgba(black, 0.2),
+                    0 4px 5px 0 rgba(black, 0.14),
+                    0 1px 10px 0 rgba(black, 0.12);
+    }
 
     &.has-secondary-text {
-        min-width: 208px;
+        min-width: 240px;
         max-width: 304px;
     }
+}
+
+.ui-menu__focus-redirector {
+    position: absolute;
+    opacity: 0;
 }
 </style>

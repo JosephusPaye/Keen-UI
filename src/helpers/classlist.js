@@ -3,8 +3,8 @@
  * https://github.com/bevacqua/dominus/blob/master/src/classes.js
  */
 
-var trim = /^\s+|\s+$/g;
-var whitespace = /\s+/g;
+const trim = /^\s+|\s+$/g;
+const whitespace = /\s+/g;
 
 function interpret(input) {
     return typeof input === 'string' ? input.replace(trim, '').split(whitespace) : input;
@@ -25,8 +25,8 @@ function set(el, input) {
 }
 
 function add(el, input) {
-    var current = remove(el, input);
-    var values = interpret(input);
+    const current = remove(el, input);
+    const values = interpret(input);
 
     current.push.apply(current, values);
     set(el, current);
@@ -35,11 +35,11 @@ function add(el, input) {
 }
 
 function remove(el, input) {
-    var current = classes(el);
-    var values = interpret(input);
+    const current = classes(el);
+    const values = interpret(input);
 
-    values.forEach(function(value) {
-        var i = current.indexOf(value);
+    values.forEach(value => {
+        const i = current.indexOf(value);
         if (i !== -1) {
             current.splice(i, 1);
         }
@@ -51,17 +51,16 @@ function remove(el, input) {
 }
 
 function contains(el, input) {
-    var current = classes(el);
-    var values = interpret(input);
+    const current = classes(el);
+    const values = interpret(input);
 
-    return values.every(function(value) {
+    return values.every(value => {
         return current.indexOf(value) !== -1;
     });
 }
 
 function isElement(o) {
-    var elementObjects = typeof HTMLElement === 'object';
-
+    const elementObjects = typeof HTMLElement === 'object';
     return elementObjects ? o instanceof HTMLElement : isElementObject(o);
 }
 

@@ -1,153 +1,153 @@
 <template>
-    <a
-        class="ui-menu-option" role="menu-item" :tabindex="(isDivider || disabled) ? null : '0'"
-        :class="{ 'divider': isDivider, 'disabled' : disabled }"
+    <li
+        class="ui-menu-option"
+        ref="menuOption"
+        role="menu-item"
+
+        :class="classes"
+        :tabindex="(isDivider || disabled) ? null : '0'"
     >
-        <div class="ui-menu-option-content" :class="[partial]">
-            <partial :name="partial"></partial>
-        </div>
+        <slot v-if="!isDivider">
+            <div class="ui-menu-option__content">
+                <ui-icon
+                    class="ui-menu-option__icon"
+
+                    :icon-set="iconProps.iconSet"
+                    :icon="icon"
+                    :remove-text="iconProps.removeText"
+                    :use-svg="iconProps.useSvg"
+
+                    v-if="icon"
+                ></ui-icon>
+
+                <div class="ui-menu-option__text">{{ label }}</div>
+
+                <div class="ui-menu-option__secondary-text" v-if="secondaryText">
+                    {{ secondaryText }}
+                </div>
+            </div>
+        </slot>
 
         <ui-ripple-ink
-            :trigger="$el" v-if="!hideRippleInk && !disabled && !isDivider"
+            trigger="menuOption"
+            v-if="!disabled && !isDivider && !disableRipple"
         ></ui-ripple-ink>
-    </a>
+    </li>
 </template>
 
 <script>
 import UiIcon from './UiIcon.vue';
-
-import ShowsRippleInk from './mixins/ShowsRippleInk';
+import UiRippleInk from './UiRippleInk.vue';
 
 export default {
     name: 'ui-menu-option',
 
     props: {
         type: String,
-        text: String,
+        label: String,
         icon: String,
-        showIcon: {
-            type: Boolean,
-            default: false
+        iconProps: {
+            type: Object,
+            default() {
+                return {};
+            }
         },
         secondaryText: String,
-        showSecondaryText: {
+        disableRipple: {
             type: Boolean,
             default: false
-        },
-        partial: {
-            type: String,
-            default: 'ui-menu-default',
         },
         disabled: {
             type: Boolean,
             default: false
-        },
-        option: Object
+        }
     },
 
     computed: {
+        classes() {
+            return {
+                'is-divider': this.isDivider,
+                'is-disabled': this.disabled
+            };
+        },
+
         isDivider() {
             return this.type === 'divider';
         }
     },
 
     components: {
-        UiIcon
-    },
-
-    partials: {
-        'ui-menu-default': `
-            <ui-icon
-                class="ui-menu-option-icon" :icon="icon" v-if="showIcon && !isDivider && icon"
-            ></ui-icon>
-
-            <div class="ui-menu-option-text" v-text="text" v-if="!isDivider"></div>
-
-            <div
-                class="ui-menu-option-secondary-text" v-text="secondaryText"
-                v-if="showSecondaryText && !isDivider && secondaryText"
-            ></div>
-        `
-    },
-
-    mixins: [
-        ShowsRippleInk
-    ]
+        UiIcon,
+        UiRippleInk
+    }
 };
 </script>
 
-<style lang="stylus">
-@import './styles/imports';
+<style lang="sass">
+@import '~styles/imports';
 
 .ui-menu-option {
-    @extends $disable-user-select;
+    display: block;
     font-family: $font-stack;
     position: relative;
-    display: block;
-    height: 40px;
+    user-select: none;
+    width: 100%;
 
-    &.divider {
+    &.is-divider {
+        background-color: rgba(black, 0.08);
         display: block;
-        width: 100%;
+        height: 1px;
         margin: 6px 0;
         padding: 0;
-        height: 1px;
-
-        background-color: alpha(black, 0.08);
     }
 
-    &:not(.divider) {
-        width: 100%;
-        text-decoration: none;
-        color: $md-dark-text;
-        font-size: 14px;
+    &:not(.is-divider) {
+        color: $primary-text-color;
+        cursor: pointer;
+        font-size: $ui-dropdown-item-font-size; // 15px;
         font-weight: normal;
+        min-height: 40px;
         outline: none;
 
-        &:hover:not(.disabled) {
-            background-color: alpha(black, 0.06);
-        }
-
+        &:hover:not(.is-disabled),
         body[modality="keyboard"] &:focus {
-            background-color: alpha(black, 0.1);
+            background-color: #EEEEEE; // rgba(black, 0.1);
         }
 
-        &.disabled {
+        &.is-disabled {
+            color: $secondary-text-color;
+            cursor: default;
             opacity: 0.5;
-            color: $md-dark-secondary;
 
-            .ui-menu-option-secondary-text {
-                color: $md-dark-secondary;
+            .ui-menu-option__secondary-text {
+                color: $secondary-text-color;
             }
-        }
-
-        &:not(.disabled) {
-            cursor: pointer;
         }
     }
 }
 
-.ui-menu-option-content.ui-menu-default {
+.ui-menu-option__content {
     display: flex;
     align-items: center;
-    padding: 8px 16px;
+    padding: 0 16px;
+    height: 40px;
 }
 
-.ui-menu-option-icon {
-    margin-right: 16px;
+.ui-menu-option__icon {
+    color: $secondary-text-color;
     font-size: 18px;
-    color: $md-dark-secondary;
+    margin-right: 16px;
 }
 
-.ui-menu-option-text {
+.ui-menu-option__text {
+    @include text-truncation;
     flex-grow: 1;
-    @extends $truncate-text;
 }
 
-.ui-menu-option-secondary-text {
+.ui-menu-option__secondary-text {
+    color: $hint-text-color;
     flex-shrink: 0;
-    margin-left: 4px;
     font-size: 13px;
-    color: $md-dark-hint;
+    margin-left: 4px;
 }
 </style>

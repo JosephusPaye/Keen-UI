@@ -1,62 +1,27 @@
 module.exports = {
-    // Extend from the Airbnb JS style guide
-    extends: [
-        './node_modules/eslint-config-airbnb-base/legacy.js',
-        './node_modules/eslint-config-airbnb-base/rules/es6.js'
-    ],
-
-    parserOptions: {
-        ecmaVersion: 7,
-        sourceType: 'module',
-    },
-
-    // extends: 'airbnb-base',
-
-    // Specify environment for built-in functions
-    env: {
+	root: true,
+	plugins: ['html', 'unicorn', 'promise', 'no-use-extend-native'],
+	extends: ['xo/esnext', 'plugin:unicorn/recommended'],
+	env: {
         browser: true,
         node: true
     },
-
-    // Setup globals
-    globals: {
-        // For Jasmine
-        it: false,
-        expect: false,
-        describe: false,
-        beforeEach: false,
-        afterEach: false
-    },
-
-    plugins: [
-        'eslint-plugin-html' // lint <script> blocks in HTML files
-    ],
-
-    // Override rules as needed
-    // See http://eslint.org/docs/rules/{rule-name} for docs
     rules: {
-        'no-var': 'off',
-        'no-new': 'off',
-        'prefer-const': 'off',
-        'no-trailing-spaces': 'off',
+        indent: ['error', 4],
 
-        indent: ['error', 4, {
-            SwitchCase: 1
-        }],
+        // Need PascalCase for components and kebab-case for everything else
+        'unicorn/filename-case': ['off'],
 
-        'space-before-function-paren': 'off',
-        'prefer-arrow-callback': 'off',
-        'prefer-template': 'off',
-        'no-multi-spaces': 'off',
-        'no-underscore-dangle': 'off',
+        // False positives when used with html plugin
+        'unicorn/no-abusive-eslint-disable': ['off'],
 
-        'consistent-return': 'off',
-        'no-console': 'off',
-        'no-use-before-define': 'off',
-        'func-names': 'off',
-        'comma-dangle': 'off',
-        'vars-on-top': 'off',
-        'no-param-reassign': 'off',
-        strict: 'off'
+        // Prefer spacing in inline object curlies: e.g. { curlies }
+        'object-curly-spacing': ['error', 'always'],
+
+        // These are copied from xo as they're not available in the plugins for extending
+        'no-use-extend-native/no-use-extend-native': 'error',
+		'promise/param-names': 'error',
+		'promise/no-promise-in-callback': 'error',
+		'promise/no-callback-in-promise': 'error'
     }
 };

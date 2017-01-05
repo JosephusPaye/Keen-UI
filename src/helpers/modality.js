@@ -2,9 +2,9 @@
  * Adapted from https://github.com/alice/modality
  * Version: 1.0.2
  */
-document.addEventListener('DOMContentLoaded', function() {
-    var hadKeyboardEvent = false;
-    var keyboardModalityWhitelist = [
+document.addEventListener('DOMContentLoaded', () => {
+    let hadKeyboardEvent = false;
+    const keyboardModalityWhitelist = [
         'input:not([type])',
         'input[type=text]',
         'input[type=number]',
@@ -16,10 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
         '[supports-modality=keyboard]'
     ].join(',');
 
-    var isHandlingKeyboardThrottle;
+    let isHandlingKeyboardThrottle;
 
-    var matcher = (function() {
-        var el = document.body;
+    const matcher = (() => {
+        const el = document.body;
 
         if (el.matchesSelector) {
             return el.matchesSelector;
@@ -38,12 +38,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         console.error('Couldn\'t find any matchesSelector method on document.body.');
-    }());
+    })();
 
-    var disableFocusRingByDefault = function() {
-        var css = 'body:not([modality=keyboard]) :focus { outline: none; }';
-        var head = document.head || document.getElementsByTagName('head')[0];
-        var style = document.createElement('style');
+    const disableFocusRingByDefault = function () {
+        const css = 'body:not([modality=keyboard]) :focus { outline: none; }';
+        const head = document.head || document.getElementsByTagName('head')[0];
+        const style = document.createElement('style');
 
         style.type = 'text/css';
         style.id = 'disable-focus-ring';
@@ -57,8 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
         head.insertBefore(style, head.firstChild);
     };
 
-    var focusTriggersKeyboardModality = function(el) {
-        var triggers = false;
+    const focusTriggersKeyboardModality = function (el) {
+        let triggers = false;
 
         if (matcher) {
             triggers = matcher.call(el, keyboardModalityWhitelist) &&
@@ -70,25 +70,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     disableFocusRingByDefault();
 
-    document.body.addEventListener('keydown', function() {
+    document.body.addEventListener('keydown', () => {
         hadKeyboardEvent = true;
 
         if (isHandlingKeyboardThrottle) {
             clearTimeout(isHandlingKeyboardThrottle);
         }
 
-        isHandlingKeyboardThrottle = setTimeout(function() {
+        isHandlingKeyboardThrottle = setTimeout(() => {
             hadKeyboardEvent = false;
         }, 100);
     }, true);
 
-    document.body.addEventListener('focus', function(e) {
+    document.body.addEventListener('focus', e => {
         if (hadKeyboardEvent || focusTriggersKeyboardModality(e.target)) {
             document.body.setAttribute('modality', 'keyboard');
         }
     }, true);
 
-    document.body.addEventListener('blur', function() {
+    document.body.addEventListener('blur', () => {
         document.body.removeAttribute('modality');
     }, true);
 });

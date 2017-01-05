@@ -1,0 +1,125 @@
+.keen-docs-content {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.keen-docs-content__toolbar {
+    height: 62px;
+    background-color: $toolbar-color;
+    color: white;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.keen-docs-content__toolbar-content {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1092px;
+    padding-left: 24px;
+    padding-right: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.ui-icon.keen-docs-content__toolbar-menu-button {
+    margin-right: 16px;
+    display: none;
+    cursor: pointer;
+}
+
+.keen-docs-content__toolbar-title {
+    margin: 0;
+    font-weight: normal;
+    font-size: 1.3rem;
+}
+
+.keen-docs-content__toolbar-action {
+    margin-left: auto;
+    font-size: 0.9rem;
+    color: white;
+}
+
+.keen-docs-content__page-content {
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.page {
+    margin: 0 auto;
+    max-width: 1092px;
+    padding-top: 48px;
+    padding-bottom: 32px;
+    padding-left: 32px;
+    padding-right: 32px;
+    line-height: 1.6;
+
+    & > p:first-child,
+    & > h1:first-child,
+    & > h2:first-child,
+    & > h3:first-child,
+    & > h4:first-child {
+        margin-top: 0;
+    }
+
+    .page__section-title {
+        margin-top: 32px;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 1.33em;
+
+        a {
+            font-size: 0.6em;
+            padding-left: 4px;
+        }
+    }
+
+    .page__demo-title {
+        font-size: 18px;
+    }
+
+    .table {
+        margin-bottom: 0;
+    }
+}
+
+.page__title {
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 1.176em;
+}
+
+td,
+th {
+    p:first-child {
+        margin-top: 0;
+    }
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+}
+
+tbody td:first-child {
+    min-width: 88px;
+}
+
+@media screen and (max-width: $mobile-breakpoint) {
+    .keen-docs-content__toolbar-content {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .ui-icon.keen-docs-content__toolbar-menu-button {
+        display: flex;
+    }
+
+    .page {
+        padding: 16px;
+        padding-top: 32px;
+    }
+}

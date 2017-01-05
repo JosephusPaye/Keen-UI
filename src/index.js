@@ -4,13 +4,13 @@ import UiAlert from './UiAlert.vue';
 import UiAutocomplete from './UiAutocomplete.vue';
 import UiButton from './UiButton.vue';
 import UiCheckbox from './UiCheckbox.vue';
+import UiCheckboxGroup from './UiCheckboxGroup.vue';
 import UiCollapsible from './UiCollapsible.vue';
 import UiConfirm from './UiConfirm.vue';
 import UiFab from './UiFab.vue';
 import UiIcon from './UiIcon.vue';
 import UiIconButton from './UiIconButton.vue';
 import UiMenu from './UiMenu.vue';
-import UiMenuOption from './UiMenuOption.vue';
 import UiModal from './UiModal.vue';
 import UiPopover from './UiPopover.vue';
 import UiPreloader from './UiPreloader.vue';
@@ -18,9 +18,6 @@ import UiProgressCircular from './UiProgressCircular.vue';
 import UiProgressLinear from './UiProgressLinear.vue';
 import UiRadio from './UiRadio.vue';
 import UiRadioGroup from './UiRadioGroup.vue';
-import UiRating from './UiRating.vue';
-import UiRatingIcon from './UiRatingIcon.vue';
-import UiRatingPreview from './UiRatingPreview.vue';
 import UiRippleInk from './UiRippleInk.vue';
 import UiSelect from './UiSelect.vue';
 import UiSlider from './UiSlider.vue';
@@ -38,13 +35,13 @@ const Keen = {
     UiAutocomplete,
     UiButton,
     UiCheckbox,
+    UiCheckboxGroup,
     UiCollapsible,
     UiConfirm,
     UiFab,
     UiIcon,
     UiIconButton,
     UiMenu,
-    UiMenuOption,
     UiModal,
     UiPopover,
     UiPreloader,
@@ -52,9 +49,6 @@ const Keen = {
     UiProgressLinear,
     UiRadio,
     UiRadioGroup,
-    UiRating,
-    UiRatingIcon,
-    UiRatingPreview,
     UiRippleInk,
     UiSelect,
     UiSlider,
@@ -72,13 +66,13 @@ const Keen = {
         Vue.component('ui-autocomplete', UiAutocomplete);
         Vue.component('ui-button', UiButton);
         Vue.component('ui-checkbox', UiCheckbox);
+        Vue.component('ui-checkbox-group', UiCheckboxGroup);
         Vue.component('ui-collapsible', UiCollapsible);
         Vue.component('ui-confirm', UiConfirm);
         Vue.component('ui-fab', UiFab);
         Vue.component('ui-icon', UiIcon);
         Vue.component('ui-icon-button', UiIconButton);
         Vue.component('ui-menu', UiMenu);
-        Vue.component('ui-menu-option', UiMenuOption);
         Vue.component('ui-modal', UiModal);
         Vue.component('ui-popover', UiPopover);
         Vue.component('ui-preloader', UiPreloader);
@@ -86,9 +80,6 @@ const Keen = {
         Vue.component('ui-progress-linear', UiProgressLinear);
         Vue.component('ui-radio', UiRadio);
         Vue.component('ui-radio-group', UiRadioGroup);
-        Vue.component('ui-rating', UiRating);
-        Vue.component('ui-rating-icon', UiRatingIcon);
-        Vue.component('ui-rating-preview', UiRatingPreview);
         Vue.component('ui-ripple-ink', UiRippleInk);
         Vue.component('ui-select', UiSelect);
         Vue.component('ui-slider', UiSlider);
@@ -103,9 +94,9 @@ const Keen = {
     }
 };
 
-// Automatically install the plugin if Vue is available globally
+// Automatically install Keen UI if Vue is available globally
 if (typeof window !== 'undefined' && window.Vue) {
     window.Vue.use(Keen);
 }
 
-module.exports = Keen;
+export default Keen;

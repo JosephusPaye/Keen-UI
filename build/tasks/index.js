@@ -1,23 +1,9 @@
-var buildDist = require('./build.dist.js');
-var buildDocs = require('./build.docs.js');
-var buildLib = require('./build.lib.js');
+const dev = require('./dev.js');
 
-var compileHtml = require('./docs.html.js');
-var compileStylus = require('./docs.stylus.js');
-var copyStaticAssets = require('./docs.static.js');
+const tasks = [dev];
 
-var cleanDist = require('./clean.dist.js');
-var cleanDocs = require('./clean.docs.js');
-var cleanLib = require('./clean.lib.js');
-
-var tasks = [
-    buildDist, buildDocs, buildLib,
-    compileHtml, compileStylus, copyStaticAssets,
-    cleanDist, cleanDocs, cleanLib
-];
-
-var registerAll = function (gulp) {
-    tasks.forEach(function(task) {
+const registerAll = function (gulp) {
+    tasks.forEach(task => {
         gulp.task(task.name, task.task);
     });
 };
