@@ -2,11 +2,11 @@
 
 > A lightweight but collection of essential UI components written with Vue and inspired by Material Design.
 
-Keen UI is designed to be a lightweight [Vue.js](http://vuejs.org/) UI framework with a simple API. Though the design is inspired by Google's [Material Design](https://material.io/guidelines), Keen UI is not meant to be a full implementation of the spec.
+Keen UI is designed to be a lightweight [Vue.js](http://vuejs.org/) UI library with a simple API. Though the design is inspired by Google's [Material Design](https://material.io/guidelines), Keen UI is not meant to be a full implementation of the spec.
 
 Keen UI is **not** a CSS framework, and as such you won't find a grid system or styles for typography in it. Instead, the focus is on creating reusable components that have interactivity.
 
-## Documentation and Demo
+## Documentation and demo
 [http://josephuspaye.github.io/Keen-UI/](http://josephuspaye.github.io/Keen-UI/)
 
 ## Requirements
@@ -16,7 +16,7 @@ Optional
 * [Roboto Web Font](https://www.google.com/fonts/specimen/Roboto) (Normal 400, Medium 500)
 * [Material Icons Web Font](http://google.github.io/material-design-icons/#icon-font-for-the-web)
 
-## Browser Support
+## Browser support
 IE 10+ (due to [Flexbox support](http://caniuse.com/#search=flexbox)).
 
 ## Installation
@@ -127,7 +127,7 @@ new Vue({
   * [x] Tooltip
   * [x] Slider
   * [x] Select
-  * [ ] Datepicker
+  * [x] Datepicker
 * [ ] Add theming guide
 * [ ] Add unit tests
 
