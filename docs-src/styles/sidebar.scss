@@ -34,14 +34,34 @@
 }
 
 .keen-docs-sidebar__header {
-    border-bottom: 1px solid #DDD;
+    background-color: $toolbar-color;
+    color: white;
     font-size: 1.5rem;
     padding: 16px;
+}
 
-    .version {
-        vertical-align: super;
-        font-size: 0.9rem;
-        display: inline-block;
+.keen-docs-sidebar__header-version {
+    color: white;
+    display: inline-block;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    vertical-align: super;
+
+    &:hover,
+    &:focus {
+        opacity: 1;
+    }
+}
+
+.keen-docs-sidebar__header-github-link {
+    color: white;
+    float: right;
+    line-height: 1;
+    opacity: 0.8;
+
+    &:hover,
+    &:focus {
+        opacity: 1;
     }
 }
 
@@ -55,6 +75,19 @@
         & + p {
             margin-top: 12px;
         }
+    }
+}
+
+.keen-docs-sidebar__version-select {
+    padding: 16px;
+    padding-top: 8px;
+
+    .ui-select {
+        margin: 0;
+    }
+
+    .ui-select-option {
+        min-height: 40px;
     }
 }
 

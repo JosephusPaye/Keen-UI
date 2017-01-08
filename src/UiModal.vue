@@ -20,7 +20,7 @@
                     tabindex="-1"
                     @keydown.esc="dismissOnEsc && closeModal($event)"
                 >
-                    <div class="ui-modal__header">
+                    <div class="ui-modal__header" v-if="!removeHeader">
                         <slot name="header">
                             <h1 class="ui-modal__header-text">{{ title }}</h1>
                         </slot>
@@ -76,6 +76,10 @@ export default {
         transition: {
             type: String,
             default: 'scale' // 'scale', or 'fade'
+        },
+        removeHeader: {
+            type: Boolean,
+            default: false
         },
         removeCloseButton: {
             type: Boolean,

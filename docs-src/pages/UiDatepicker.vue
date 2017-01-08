@@ -1,204 +1,168 @@
 <template>
-    <section class="page page-ui-select">
-        <h2 class="page__title">UiSelect</h2>
+    <section class="page page-ui-datepicker">
+        <h2 class="page__title">UiDatepicker</h2>
 
-        <p>UiSelect is a select component that allows the user to choose one or more options from a group of pre-defined or dynamically loaded options. It supports default options, multiple selection and filtering.</p>
-
-        <p>UiSelect can show a label above the input, an icon, as well as help or error below the input. It is keyboard accessible and supports a disabled state.</p>
+        <p>UiDatepicker is ...</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiSelectDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiDatepickerDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">
-            <h4 class="page__demo-title">Options as plain array</h4>
+            <h4 class="page__demo-title">Basic</h4>
 
-            <ui-select
-                label="Favourite colour"
-                placeholder="Select a colour"
-                :options="colourStrings"
-                v-model="select1"
-            ></ui-select>
+            <ui-datepicker
+                placeholder="Select a date"
+                v-model="picker1"
+            >Your Birthday</ui-datepicker>
 
-            <h4 class="page__demo-title">With floating label</h4>
+            <h4 class="page__demo-title">Floating label</h4>
 
-            <ui-select
+            <ui-datepicker
+                floating-label
+                placeholder="Select a date"
+                v-model="picker2"
+            >Your Birthday</ui-datepicker>
+
+            <h4 class="page__demo-title">With default value</h4>
+
+            <ui-datepicker
+                placeholder="Select a date"
+                v-model="picker3"
+            >Christmas Day</ui-datepicker>
+
+            <h4 class="page__demo-title">Color: accent</h4>
+
+            <ui-datepicker
+                color="accent"
+                placeholder="Select a date"
+                v-model="picker4"
+            >Your Birthday</ui-datepicker>
+
+            <h4 class="page__demo-title">Orientation: landscape</h4>
+
+            <ui-datepicker
+                orientation="landscape"
+                placeholder="Select a date"
+                v-model="picker5"
+            >Your Birthday</ui-datepicker>
+
+            <h4 class="page__demo-title">Picker type: modal</h4>
+
+            <ui-datepicker
+                placeholder="Select a date"
+                picker-type="modal"
+                v-model="picker6"
+            >Your Birthday</ui-datepicker>
+
+            <h4 class="page__demo-title">Picker type: modal, orientation: landscape</h4>
+
+            <ui-datepicker
+                orientation="landscape"
+                placeholder="Select a date"
+                picker-type="modal"
+                v-model="picker7"
+            >Your Birthday</ui-datepicker>
+
+            <h4 class="page__demo-title">With custom formatter</h4>
+
+            <ui-datepicker
+                help="Pick a date within the next two weeks"
+                orientation="landscape"
+                placeholder="Select a date"
+
+                :custom-formatter="picker8Formatter"
+
+                v-model="picker8"
+            >A Special Day</ui-datepicker>
+
+            <h4 class="page__demo-title">With min and max date</h4>
+
+            <ui-datepicker
+                help="Pick a date within the next two weeks"
+                orientation="landscape"
+                placeholder="Select a date"
+
+                :max-date="picker9Max"
+                :min-date="picker9Min"
+
+                v-model="picker9"
+            >A Special Day</ui-datepicker>
+
+            <h4 class="page__demo-title">With date filter</h4>
+
+            <p>The following date picker has a filter which disables weekends.</p>
+
+            <ui-datepicker
+                orientation="landscape"
+                placeholder="Select a date"
+
+                :date-filter="picker10Filter"
+
+                v-model="picker10"
+            >A Special Day</ui-datepicker>
+
+            <h4 class="page__demo-title">With custom lang: French</h4>
+
+            <ui-datepicker
+                orientation="landscape"
+                placeholder="Select a date"
+
+                :lang="picker11Lang"
+
+                v-model="picker11"
+            >A Special Day</ui-datepicker>
+
+            <h4 class="page__demo-title">With validation: required</h4>
+
+            <ui-datepicker
+                error="This field is required"
+                orientation="landscape"
+                placeholder="Select a date"
+
+                :invalid="!picker12"
+
+                v-model="picker12"
+            >A Special Day</ui-datepicker>
+
+            <h4 class="page__demo-title">Disabled</h4>
+
+            <ui-datepicker
+                disabled
+                placeholder="Select a date"
+                v-model="picker13"
+            >A Special Day</ui-datepicker>
+
+            <h4 class="page__demo-title">Disabled with selection</h4>
+
+            <ui-datepicker
+                disabled
+                placeholder="Select a date"
+                v-model="picker14"
+            >A Special Day</ui-datepicker>
+
+            <!-- <h4 class="page__demo-title">With floating label</h4>
+
+            <ui-datepicker
                 floating-label
                 label="Favourite colour"
                 placeholder="Select a colour"
                 :options="colourStrings"
                 v-model="select2"
-            ></ui-select>
+            ></ui-datepicker>
 
             <h4 class="page__demo-title">With icon</h4>
 
-            <ui-select
+            <ui-datepicker
                 icon="colorize"
                 label="Favourite colour"
                 placeholder="Select a colour"
                 :options="colourStrings"
                 v-model="select2o5"
-            ></ui-select>
-
-            <h4 class="page__demo-title">With a default selection</h4>
-
-            <ui-select
-                label="Favourite colour"
-                placeholder="Select a colour"
-                :options="colourStrings"
-                v-model="select3"
-            ></ui-select>
-
-            <h4 class="page__demo-title">Type: image</h4>
-
-            <ui-select
-                label="Favourite colour"
-                placeholder="Select a colour"
-                type="image"
-                :options="colours"
-                v-model="select4"
-            ></ui-select>
-
-            <h4 class="page__demo-title">Type: image, with a default selection</h4>
-
-            <ui-select
-                label="Favourite colour"
-                placeholder="Select a colour"
-                type="image"
-                :options="colours"
-                v-model="select5"
-            ></ui-select>
-
-            <h4 class="page__demo-title">With help</h4>
-
-            <ui-select
-                help="You favourite colour will be used on your profile page"
-                label="Favourite colour"
-                placeholder="Select a colour"
-                type="image"
-                :options="colours"
-                v-model="select6"
-            ></ui-select>
-
-            <h4 class="page__demo-title">Multiple selection</h4>
-
-            <ui-select
-                label="Favourite colours"
-                multiple
-                placeholder="Select some colours"
-                type="image"
-                :options="colours"
-                v-model="select7"
-            ></ui-select>
-
-            <h4 class="page__demo-title">Multiple selection with defaults</h4>
-
-            <ui-select
-                label="Favourite colours"
-                multiple
-                placeholder="Select some colours"
-                type="image"
-                :options="colours"
-                v-model="select8"
-            ></ui-select>
-
-            <h4 class="page__demo-title">With search</h4>
-
-            <ui-select
-                has-search
-                label="Favourite colours"
-                multiple
-                placeholder="Select some colours"
-                type="image"
-                :options="colours"
-                v-model="select9"
-            ></ui-select>
-
-            <h4 class="page__demo-title">With validation</h4>
-
-            <ui-select
-                error="You must select at least 2 colours"
-                has-search
-                help="Select 2 or more colours"
-                label="Favourite colours"
-                multiple
-                placeholder="Select some colours"
-                type="image"
-
-                :invalid="select10Touched && select10.length < 2"
-                :options="colours"
-                :touched="select10Touched"
-
-                @touch="select10Touched = true"
-                v-model="select10"
-            ></ui-select>
-
-            <h4 class="page__demo-title">With dynamic options (remote search)</h4>
-
-            <ui-select
-                disable-filter
-                has-search
-                label="Favourite colours"
-                placeholder="Select a colour"
-                search-placeholder="Type &quot;red&quot; or &quot;blue&quot;"
-                type="image"
-
-                :loading="select11Loading"
-                :no-results="select11NoResults"
-                :options="select11Options"
-
-                @query-change="onQueryChange"
-
-                v-model="select11"
-            ></ui-select>
-
-            <h4 class="page__demo-title">With many options (248)</h4>
-
-            <ui-select
-                has-search
-                label="Country"
-                placeholder="Select your country"
-                :options="countries"
-                :keys="{ label: 'name', value: 'code' }"
-                v-model="select12"
-            ></ui-select>
-
-            <h4 class="page__demo-title">With custom template</h4>
-
-            <ui-select
-                has-search
-                label="Favourite colours"
-                multiple
-                placeholder="Select some colours"
-                :options="colourStrings"
-                v-model="select12o5"
-            >
-                <template scope="props" slot="option">
-                    <code>{{ props }}</code>
-                </template>
-            </ui-select>
-
-            <h4 class="page__demo-title">Disabled</h4>
-
-            <ui-select
-                disabled
-                label="Favourite colour"
-                placeholder="Select a colour"
-                v-model="select13"
-            ></ui-select>
-
-            <h4 class="page__demo-title">Disabled with a selection</h4>
-
-            <ui-select
-                disabled
-                label="Favourite colour"
-                placeholder="Select a colour"
-                :options="colourStrings"
-                v-model="select14"
-            ></ui-select>
+            ></ui-datepicker> -->
         </div>
 
-        <h3 class="page__section-title">API</h3>
+        <!-- <h3 class="page__section-title">API</h3>
 
         <ui-tabs raised>
             <ui-tab title="Props">
@@ -346,20 +310,6 @@
                                         <li>The <code>disableFilter</code> prop is <code>true</code></li>
                                     </ul>
                                     <p>See the <b>With dynamic options (remote search)</b> section above for an example usage.</p>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>keys</td>
-                                <td>Object</td>
-                                <td class="no-wrap"><pre class="language-javascript is-compact">{
-  label: 'label',
-  image: 'image'
-}</pre></td>
-                                <td>
-                                    <p>Allows for redefining each option object's keys.</p>
-                                    <p>Pass an object with custom keys if your data does not match the default keys.</p>
-                                    <p>Note that if you redefine one key, you have to define all the others as well.</p>
                                 </td>
                             </tr>
 
@@ -610,117 +560,64 @@
                     </table>
                 </div>
             </ui-tab>
-        </ui-tabs>
+        </ui-tabs> -->
     </section>
 </template>
 
 <script>
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
-import UiSelect from 'src/UiSelect.vue';
+import UiDatepicker from 'src/UiDatepicker.vue';
 
-import debounce from 'lodash.debounce';
-import { startsWith } from 'helpers/util';
-
-import countries from '../data/countries';
-import { colourStrings, colours, redShades, blueShades } from '../data/colours';
+import languageFr from '../data/date-picker-lang.fr.js';
 
 export default {
     data() {
+        const twoWeeksFromNow = new Date();
+        twoWeeksFromNow.setDate(twoWeeksFromNow.getDate() + 14);
+
         return {
-            select1: '',
-            select2: '',
-            select2o5: '',
-            select3: 'Orange',
-            select4: '',
-            select5: {
-                label: 'Lavender',
-                image: 'https://placehold.it/64/e6e6fa/e6e6fa',
-                value: 'lavender'
-            },
-            select6: '',
-            select7: '',
-            select8: [
-                {
-                    label: 'Orange',
-                    image: 'https://placehold.it/64/ffa500/ffa500',
-                    value: 'orange'
-                },
-                {
-                    label: 'Lime',
-                    image: 'https://placehold.it/64/00ff00/00ff00',
-                    value: 'lime'
-                }
-            ],
-            select9: [],
-            select10: [],
-            select10Touched: false,
-            select11: '',
-            select11Options: [],
-            select11Loading: false,
-            select11NoResults: false,
-            select11LoadingTimeout: null,
-            select12: {
-                name: 'Australia',
-                code: 'AU'
-            },
-            select12o5: '',
-            select13: '',
-            select14: 'Peach',
-            colours,
-            colourStrings,
-            countries
+            picker1: null,
+            picker2: null,
+            picker3: new Date((new Date()).getFullYear(), 11, 25),
+            picker4: null,
+            picker5: null,
+            picker6: null,
+            picker7: null,
+            picker8: null,
+            picker9: null,
+            picker9Min: new Date(),
+            picker9Max: twoWeeksFromNow,
+            picker10: null,
+            picker11: null,
+            picker11Lang: languageFr,
+            picker12: null,
+            picker13: null,
+            picker14: new Date()
         };
     },
 
     methods: {
-        onQueryChange(query) {
-            if (query.length === 0) {
-                return;
-            }
-
-            this.fetchRemoteResults(query);
+        picker8Formatter(date) {
+            return date.toLocaleDateString();
         },
 
-        fetchRemoteResults: debounce(function (query) {
-            this.select11Loading = true;
-
-            if (this.select11LoadingTimeout) {
-                clearTimeout(this.select11LoadingTimeout);
-                this.select11LoadingTimeout = null;
-            }
-
-            this.select11LoadingTimeout = setTimeout(() => {
-                query = query.toLowerCase();
-
-                if (startsWith(query, 'red')) {
-                    this.select11Options = redShades;
-                    this.select11NoResults = false;
-                } else if (startsWith(query, 'blue')) {
-                    this.select11Options = blueShades;
-                    this.select11NoResults = false;
-                } else {
-                    this.select11Options = [];
-                    this.select11NoResults = true;
-                }
-
-                this.select11Loading = false;
-                this.select11LoadingTimeout = null;
-            }, 1200);
-        }, 500)
+        picker10Filter(date) {
+            return date.getDay() !== 0 && date.getDay() !== 6;
+        }
     },
 
     components: {
         UiTab,
         UiTabs,
-        UiSelect
+        UiDatepicker
     }
 };
 </script>
 
 <style lang="sass">
-.page-ui-select {
-    .ui-select {
+.page-ui-datepicker {
+    .ui-datepicker {
         max-width: 400px;
         margin-bottom: 32px;
     }

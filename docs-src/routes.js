@@ -8,6 +8,7 @@ import UiCheckbox from './pages/UiCheckbox.vue';
 import UiCheckboxGroup from './pages/UiCheckboxGroup.vue';
 import UiCollapsible from './pages/UiCollapsible.vue';
 import UiConfirm from './pages/UiConfirm.vue';
+import UiDatepicker from './pages/UiDatepicker.vue';
 import UiFab from './pages/UiFab.vue';
 import UiIcon from './pages/UiIcon.vue';
 import UiIconButton from './pages/UiIconButton.vue';
@@ -88,6 +89,12 @@ const menu = [
                 path: '/ui-confirm',
                 component: UiConfirm,
                 title: 'UiConfirm',
+                sourceUrl: '#'
+            },
+            {
+                path: '/ui-datepicker',
+                component: UiDatepicker,
+                title: 'UiDatepicker',
                 sourceUrl: '#'
             },
             {

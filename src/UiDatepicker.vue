@@ -1,0 +1,594 @@
+<template>
+    <div class="ui-datepicker" :class="classes">
+        <div class="ui-datepicker__icon-wrapper" v-if="icon || $slots.icon">
+            <slot name="icon">
+                <ui-icon :icon="icon"></ui-icon>
+            </slot>
+        </div>
+
+        <div class="ui-datepicker__content">
+            <div
+                class="ui-datepicker__label"
+                ref="label"
+
+                :tabindex="disabled ? null : '0'"
+
+                @focus="onFocus"
+                @click="onClick"
+                @keydown.enter.prevent="openPicker"
+                @keydown.space.prevent="openPicker"
+                @keydown.tab="onBlur"
+            >
+                <div
+                    class="ui-datepicker__label-text"
+                    :class="labelClasses"
+                    v-if="label || $slots.default"
+                >
+                    <slot>{{ label }}</slot>
+                </div>
+
+                <div class="ui-datepicker__display">
+                    <div
+                        class="ui-datepicker__display-value"
+                        :class="{ 'is-placeholder': !hasDisplayText }"
+                    >
+                        {{ hasDisplayText ? displayText : (hasFloatingLabel && isLabelInline) ? null : placeholder }}
+                    </div>
+
+                    <ui-icon class="ui-datepicker__dropdown-button" v-if="usesPopover && !disabled">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M6.984 9.984h10.03L12 15z"/>
+                        </svg>
+                    </ui-icon>
+                </div>
+            </div>
+
+            <div class="ui-datepicker__feedback" v-if="hasFeedback">
+                <div class="ui-datepicker__feedback-text" v-if="showError || showHelp">
+                    {{ showError ? error : help }}
+                </div>
+            </div>
+        </div>
+
+        <ui-modal
+            ref="modal"
+            remove-header
+
+            @close="onPickerClose"
+            @open="onPickerOpen"
+
+            v-if="usesModal && !disabled"
+        >
+            <ui-calendar
+                :color="color"
+                :date-filter="dateFilter"
+                :lang="lang"
+                :max-date="maxDate"
+                :min-date="minDate"
+                :orientation="orientation"
+                :value="value"
+                @date-select="onDateSelect"
+            >
+                <div class="ui-datepicker__modal-buttons" slot="footer">
+                    <ui-button
+                        type="secondary"
+                        :color="color"
+                        @click.native="$refs.modal.close()"
+                    >OK</ui-button>
+
+                    <ui-button
+                        type="secondary"
+                        :color="color"
+                        @click.native="onPickerCancel"
+                    >Cancel</ui-button>
+                </div>
+            </ui-calendar>
+        </ui-modal>
+
+        <ui-popover
+            contain-focus
+            ref="popover"
+            trigger="label"
+
+            @close="onPickerClose"
+            @open="onPickerOpen"
+
+            v-if="usesPopover && !disabled"
+        >
+            <ui-calendar
+                :color="color"
+                :date-filter="dateFilter"
+                :lang="lang"
+                :max-date="maxDate"
+                :min-date="minDate"
+                :orientation="orientation"
+                :value="value"
+                @date-select="onDateSelect"
+            ></ui-calendar>
+        </ui-popover>
+    </div>
+</template>
+
+<script>
+import UiButton from './UiButton.vue';
+import UiCalendar from './UiCalendar.vue';
+import UiIcon from './UiIcon.vue';
+import UiModal from './UiModal.vue';
+import UiPopover from './UiPopover.vue';
+
+import dateUtils from 'helpers/date';
+
+export default {
+    name: 'ui-datepicker',
+
+    props: {
+        value: Date,
+        minDate: Date,
+        maxDate: Date,
+        lang: {
+            type: Object,
+            default() {
+                return dateUtils.defaultLang;
+            }
+        },
+        yearRange: Array,
+        customFormatter: Function,
+        dateFilter: Function,
+        color: {
+            type: String,
+            default: 'primary' // 'primary' or 'accent'
+        },
+        orientation: {
+            type: String,
+            default: 'portrait' // 'portrait' or 'landscape'
+        },
+        pickerType: {
+            type: String,
+            default: 'popover' // 'popover' or 'modal'
+        },
+        placeholder: String,
+        icon: String,
+        iconPosition: {
+            type: String,
+            default: 'left' // 'left' or 'right'
+        },
+        label: String,
+        floatingLabel: {
+            type: Boolean,
+            default: false
+        },
+        invalid: {
+            type: Boolean,
+            default: false
+        },
+        touched: {
+            type: Boolean,
+            default: false
+        },
+        help: String,
+        error: String,
+        disabled: {
+            type: Boolean,
+            default: false
+        }
+    },
+
+    data() {
+        return {
+            isActive: false,
+            valueAtModalOpen: null,
+            initialValue: JSON.stringify(this.value)
+        };
+    },
+
+    computed: {
+        classes() {
+            return [
+                'ui-datepicker--icon-position-' + this.iconPosition,
+                'ui-datepicker--orientation-' + this.orientation,
+                { 'is-active': this.isActive },
+                { 'is-invalid': this.invalid },
+                { 'is-touched': this.touched },
+                { 'is-disabled': this.disabled },
+                { 'has-label': this.hasLabel },
+                { 'has-floating-label': this.hasFloatingLabel }
+            ];
+        },
+
+        labelClasses() {
+            return {
+                'is-inline': this.hasFloatingLabel && this.isLabelInline,
+                'is-floating': this.hasFloatingLabel && !this.isLabelInline
+            };
+        },
+
+        hasLabel() {
+            return Boolean(this.label) || Boolean(this.$slots.default);
+        },
+
+        hasFloatingLabel() {
+            return this.hasLabel && this.floatingLabel;
+        },
+
+        isLabelInline() {
+            return !this.value && !this.isActive;
+        },
+
+        hasFeedback() {
+            return Boolean(this.help) || Boolean(this.error);
+        },
+
+        showError() {
+            return this.invalid && Boolean(this.error);
+        },
+
+        showHelp() {
+            return !this.showError && Boolean(this.help);
+        },
+
+        displayText() {
+            if (!this.value) {
+                return '';
+            }
+
+            return this.customFormatter ?
+                this.customFormatter(this.value, this.lang) :
+                dateUtils.humanize(this.value, this.lang);
+        },
+
+        hasDisplayText() {
+            return Boolean(this.displayText.length);
+        },
+
+        usesPopover() {
+            return this.pickerType === 'popover';
+        },
+
+        usesModal() {
+            return this.pickerType === 'modal';
+        }
+    },
+
+    mounted() {
+        document.addEventListener('click', this.onExternalClick);
+    },
+
+    beforeDestroy() {
+        document.removeEventListener('click', this.onExternalClick);
+    },
+
+    methods: {
+        onDateSelect(date) {
+            this.$emit('input', date);
+            this.closePicker();
+        },
+
+        togglePicker() {
+            if (this.usesPopover) {
+                this.$refs.popover.toggle();
+            }
+        },
+
+        openPicker() {
+            if (this.disabled) {
+                return;
+            }
+
+            if (this.usesModal) {
+                this.$refs.modal.open();
+            } else {
+                this.$refs.popover.open();
+            }
+        },
+
+        closePicker(options = { autoBlur: false }) {
+            if (this.usesPopover) {
+                this.$refs.popover.close();
+            }
+
+            if (!this.touched) {
+                this.$emit('touch');
+            }
+
+            if (options.autoBlur) {
+                this.isActive = false;
+            } else {
+                this.$refs.label.focus();
+            }
+        },
+
+        onClick() {
+            if (this.usesModal && !this.disabled) {
+                this.$refs.modal.open();
+            }
+        },
+
+        onFocus(e) {
+            this.isActive = true;
+            this.$emit('focus', e);
+        },
+
+        onBlur(e) {
+            this.isActive = false;
+            this.$emit('blur', e);
+
+            if (this.usesPopover && this.$refs.popover.dropInstance.isOpened()) {
+                this.closePicker({ autoBlur: true });
+            }
+        },
+
+        onPickerOpen() {
+            if (this.usesModal) {
+                this.valueAtModalOpen = this.value ? dateUtils.clone(this.value) : null;
+            }
+
+            this.isActive = true;
+            this.$emit('picker-open');
+        },
+
+        onPickerClose() {
+            this.$emit('picker-close');
+        },
+
+        onPickerCancel() {
+            this.$emit('input', this.valueAtModalOpen);
+            this.$refs.modal.close();
+        },
+
+        onExternalClick(e) {
+            if (this.disabled) {
+                return;
+            }
+
+            const clickWasInternal = this.$el.contains(e.target) ||
+                this.$refs[this.usesPopover ? 'popover' : 'modal'].$el.contains(e.target);
+
+            if (clickWasInternal) {
+                return;
+            }
+
+            if (this.isActive) {
+                this.isActive = false;
+            }
+        },
+
+        reset() {
+            this.$emit('input', JSON.parse(this.initialValue));
+        }
+    },
+
+    components: {
+        UiButton,
+        UiCalendar,
+        UiIcon,
+        UiModal,
+        UiPopover
+    }
+};
+</script>
+
+<style lang="sass">
+@import '~styles/imports';
+
+.ui-datepicker {
+    align-items: flex-start;
+    display: flex;
+    font-family: $font-stack;
+    margin-bottom: $ui-input-margin-bottom;
+    outline: none;
+    position: relative;
+
+    &:hover:not(.is-disabled) {
+        .ui-datepicker__label-text {
+            color: $ui-input-label-color--hover;
+        }
+
+        .ui-datepicker__display {
+            border-bottom-color: $ui-input-border-color--hover;
+        }
+
+        .ui-datepicker__dropdown-button {
+            color: $ui-input-button-color--hover;
+        }
+    }
+
+    &.is-active:not(.is-disabled) {
+        .ui-datepicker__label-text,
+        .ui-datepicker__icon-wrapper .ui-icon {
+            color: $ui-input-label-color--active;
+        }
+
+        .ui-datepicker__display {
+            border-bottom-color: $ui-input-border-color--active;
+            border-bottom-width: $ui-input-border-width--active;
+        }
+    }
+
+    &.has-floating-label {
+        .ui-datepicker__label-text {
+            // Behaves like a block, but width is the width of its content.
+            // Needed here so label doesn't overflow parent when scaled.
+            display: table;
+
+            &.is-inline {
+                cursor: pointer;
+                color: $ui-input-label-color; // So it doesn't get darker when hovered
+                transform: translateY($ui-input-label-top--inline) scale(1.1);
+            }
+
+            &.is-floating {
+                transform: translateY(0) scale(1);
+            }
+        }
+    }
+
+    &.has-label {
+        .ui-datepicker__icon-wrapper {
+            padding-top: $ui-input-icon-margin-top--with-label;
+        }
+
+        .ui-datepicker__dropdown-button {
+            top: $ui-input-button-margin-top--with-label;
+        }
+    }
+
+    &.is-invalid:not(.is-disabled) {
+        .ui-datepicker__label-text,
+        .ui-datepicker__icon-wrapper .ui-icon {
+            color: $ui-input-label-color--invalid;
+        }
+
+        .ui-datepicker__display {
+            border-bottom-color: $ui-input-border-color--invalid;
+        }
+
+        .ui-datepicker__feedback {
+            color: $ui-input-feedback-color--invalid;
+        }
+    }
+
+    &.is-disabled {
+        .ui-datepicker__display {
+            border-bottom-style: $ui-input-border-style--disabled;
+            border-bottom-width: $ui-input-border-width--active;
+            color: $ui-input-text-color--disabled;
+            cursor: default;
+        }
+
+        .ui-datepicker__dropdown-button,
+        .ui-datepicker__display-value.is-placeholder {
+            opacity: $ui-input-button-opacity--disabled;
+            color: $ui-input-text-color--disabled;
+        }
+
+        .ui-datepicker__icon-wrapper .ui-icon {
+            opacity: $ui-input-icon-opacity--disabled;
+        }
+
+        .ui-datepicker__feedback {
+            opacity: $ui-input-feedback-opacity--disabled;
+        }
+    }
+
+    .ui-modal:not(.has-footer) .ui-modal__body {
+        padding: 0;
+
+        .ui-calendar__body {
+            height: 348px;
+        }
+    }
+
+    .ui-modal__container {
+        width: 268px;
+    }
+}
+
+.ui-datepicker__label {
+    display: block;
+    margin: 0;
+    outline: none;
+    padding: 0;
+    position: relative;
+    width: 100%;
+}
+
+.ui-datepicker__icon-wrapper {
+    flex-shrink: 0;
+    margin-right: $ui-input-icon-margin-right;
+    padding-top: $ui-input-icon-margin-top;
+
+    .ui-icon {
+        color: $ui-input-icon-color;
+    }
+}
+
+.ui-datepicker__content {
+    flex-grow: 1;
+}
+
+.ui-datepicker__label-text {
+    color: $ui-input-label-color;
+    font-size: $ui-input-label-font-size;
+    line-height: $ui-input-label-line-height;
+    margin-bottom: $ui-input-label-margin-bottom;
+    transform-origin: left;
+    transition: color 0.1s ease, transform 0.2s ease;
+}
+
+.ui-datepicker__display {
+    align-items: center;
+    background: none;
+    border: none;
+    border-bottom-color: $ui-input-border-color;
+    border-bottom-style: solid;
+    border-bottom-width: $ui-input-border-width;
+    color: $ui-input-text-color;
+    cursor: pointer;
+    display: flex;
+    font-family: $font-stack;
+    font-size: $ui-input-text-font-size;
+    font-weight: normal;
+    height: $ui-input-height;
+    line-height: 1;
+    outline: none;
+    padding: 0;
+    transition: border 0.1s ease;
+    user-select: none;
+    width: 100%;
+}
+
+.ui-datepicker__display-value {
+    flex-grow: 1;
+
+    &.is-placeholder {
+        color: $hint-text-color;
+    }
+}
+
+.ui-datepicker__dropdown-button {
+    color: $ui-input-button-color;
+    font-size: $ui-input-button-size;
+    margin-left: auto;
+    margin-right: -4px;
+}
+
+.ui-datepicker__feedback {
+    color: $ui-input-feedback-color;
+    font-size: $ui-input-feedback-font-size;
+    line-height: $ui-input-feedback-line-height;
+    margin: 0;
+    padding-top: $ui-input-feedback-padding-top;
+    position: relative;
+}
+
+.ui-datepicker__modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+
+    .ui-button {
+        min-width: 64px;
+    }
+}
+
+// ================================================
+// Icon Positions
+// ================================================
+
+.ui-datepicker--icon-position-right {
+    .ui-datepicker__icon-wrapper {
+        margin-left: 8px;
+        margin-right: 0;
+        order: 1;
+    }
+}
+
+// ================================================
+// Orientations
+// ================================================
+
+.ui-datepicker--orientation-landscape {
+    .ui-modal__container {
+        width: 396px;
+    }
+}
+</style>
