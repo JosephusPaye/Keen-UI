@@ -10,7 +10,7 @@ Keen UI is **not** a CSS framework, and as such you won't find a grid system or 
 [http://josephuspaye.github.io/Keen-UI/](http://josephuspaye.github.io/Keen-UI/)
 
 ## Requirements
-* [Vue.js](http://vuejs.org/) (^v2.0.7) - use [v0.8.9](http://josephuspaye.github.io/Keen-UI/v0.8.9/) for Vue 1.x support.
+* [Vue.js](http://vuejs.org/) (^v2.1.0) - use [keen-ui@0.8.9](http://josephuspaye.github.io/Keen-UI/v0.8.9/) for Vue 1.x support.
 
 Optional
 * [Roboto Web Font](https://www.google.com/fonts/specimen/Roboto) (Normal 400, Medium 500)
@@ -35,6 +35,39 @@ bower install keen-ui --save
 
 ## Usage
 > Make sure to include the `dist/keen-ui.css` file if you are not using individual components from `lib/` as the styles have been extracted into a single CSS file.
+
+### ES6
+
+*The following instructions can also be used with CommonJS by replacing the ES6-specific syntax with the CommonJS equivalent.*
+
+Use as a plugin (registers all components globally):
+
+```js
+import Vue from 'vue';
+import Keen from 'keen-ui';
+
+Vue.use(Keen);
+
+new Vue({
+    components: {
+        // all Keen UI components already registered
+    }
+});
+```
+
+Use individual components:
+
+```js
+import Vue from 'vue';
+import { UiAlert, UiButton } from 'keen-ui';
+
+new Vue({
+    components: {
+        UiAlert,
+        UiButton
+    }
+});
+```
 
 ### Globals (script tag)
 The `keen-ui.js` file in the `dist` folder contains all the components exported on a global  `window.Keen` object.
@@ -67,40 +100,6 @@ Sample usage:
 </html>
 ```
 
-### ES6
-
-*The following instructions can also be used with CommonJS by replacing the ES6-specific syntax with their
-CommonJS equivalents.*
-
-Use as a plugin (registers all components globally):
-
-```js
-import Vue from 'vue';
-import Keen from 'keen-ui';
-
-Vue.use(Keen);
-
-new Vue({
-    components: {
-        // all Keen UI components already registered
-    }
-});
-```
-
-Use individual components:
-
-```js
-import Vue from 'vue';
-import { UiAlert, UiButton } from 'keen-ui';
-
-new Vue({
-    components: {
-        UiAlert,
-        UiButton
-    }
-});
-```
-
 ## Using *standalone* individual components
 
 Each component has been compiled as a self-contained file which you can use without importing the rest of the library. The standalone files are located in the `lib/` folder and they contain their own CSS inlined.
@@ -109,8 +108,7 @@ Each component has been compiled as a self-contained file which you can use with
 
 ### ES6
 
-*The following instructions can also be used with CommonJS by replacing the ES6-specific syntax with their
-CommonJS equivalents.*
+*The following instructions can also be used with CommonJS by replacing the ES6-specific syntax with the CommonJS equivalent.*
 
 ```js
 import Vue from 'vue';
