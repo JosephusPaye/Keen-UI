@@ -53,169 +53,169 @@ const menu = [
                 path: '/ui-alert',
                 component: UiAlert,
                 title: 'UiAlert',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiAlert.vue'
             },
             {
                 path: '/ui-autocomplete',
                 component: UiAutocomplete,
                 title: 'UiAutocomplete',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiAutocomplete.vue'
             },
             {
                 path: '/ui-button',
                 component: UiButton,
                 title: 'UiButton',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiButton.vue'
             },
             {
                 path: '/ui-checkbox',
                 component: UiCheckbox,
                 title: 'UiCheckbox',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiCheckbox.vue'
             },
             {
                 path: '/ui-checkbox-group',
                 component: UiCheckboxGroup,
                 title: 'UiCheckboxGroup',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiCheckboxGroup.vue'
             },
             {
                 path: '/ui-collapsible',
                 component: UiCollapsible,
                 title: 'UiCollapsible',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiCollapsible.vue'
             },
             {
                 path: '/ui-confirm',
                 component: UiConfirm,
                 title: 'UiConfirm',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiConfirm.vue'
             },
             {
                 path: '/ui-datepicker',
                 component: UiDatepicker,
                 title: 'UiDatepicker',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiDatepicker.vue'
             },
             {
                 path: '/ui-fab',
                 component: UiFab,
                 title: 'UiFab',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiFab.vue'
             },
             {
                 path: '/ui-icon',
                 component: UiIcon,
                 title: 'UiIcon',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiIcon.vue'
             },
             {
                 path: '/ui-icon-button',
                 component: UiIconButton,
                 title: 'UiIconButton',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiIconButton.vue'
             },
             {
                 path: '/ui-menu',
                 component: UiMenu,
                 title: 'UiMenu',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiMenu.vue'
             },
             {
                 path: '/ui-modal',
                 component: UiModal,
                 title: 'UiModal',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiModal.vue'
             },
             {
                 path: '/ui-popover',
                 component: UiPopover,
                 title: 'UiPopover',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiPopover.vue'
             },
             {
                 path: '/ui-preloader',
                 component: UiPreloader,
                 title: 'UiPreloader',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiPreloader.vue'
             },
             {
                 path: '/ui-progress-circular',
                 component: UiProgressCircular,
                 title: 'UiProgressCircular',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiProgressCircular.vue'
             },
             {
                 path: '/ui-progress-linear',
                 component: UiProgressLinear,
                 title: 'UiProgressLinear',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiProgressLinear.vue'
             },
             {
                 path: '/ui-radio',
                 component: UiRadio,
                 title: 'UiRadio',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiRadio.vue'
             },
             {
                 path: '/ui-radio-group',
                 component: UiRadioGroup,
                 title: 'UiRadioGroup',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiRadioGroup.vue'
             },
             {
                 path: '/ui-ripple-ink',
                 component: UiRippleInk,
                 title: 'UiRippleInk',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiRippleInk.vue'
             },
             {
                 path: '/ui-select',
                 component: UiSelect,
                 title: 'UiSelect',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiSelect.vue'
             },
             {
                 path: '/ui-slider',
                 component: UiSlider,
                 title: 'UiSlider',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiSlider.vue'
             },
             {
                 path: '/ui-snackbar',
                 component: UiSnackbar,
                 title: 'UiSnackbar & UiSnackbarContainer',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiSnackbarContainer.vue'
             },
             {
                 path: '/ui-switch',
                 component: UiSwitch,
                 title: 'UiSwitch',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiSwitch.vue'
             },
             {
                 path: '/ui-tabs',
                 component: UiTabs,
                 title: 'UiTabs',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiTabs.vue'
             },
             {
                 path: '/ui-textbox',
                 component: UiTextbox,
                 title: 'UiTextbox',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiTextbox.vue'
             },
             {
                 path: '/ui-toolbar',
                 component: UiToolbar,
                 title: 'UiToolbar',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiToolbar.vue'
             },
             {
                 path: '/ui-tooltip',
                 component: UiTooltip,
                 title: 'UiTooltip',
-                sourceUrl: '#'
+                sourceUrl: 'src/UiTooltip.vue'
             }
         ]
     }

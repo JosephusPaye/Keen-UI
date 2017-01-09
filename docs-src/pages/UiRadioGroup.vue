@@ -7,10 +7,10 @@
         <p>UiRadioGroup can show a label above the group as well as help or error below the group and it allows for resetting the group to its initial state.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiRadioGroupDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiRadioGroup.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="demo">
+        <div class="page__demo">
             <h4 class="page__demo-title">Default</h4>
 
             <ui-radio-group

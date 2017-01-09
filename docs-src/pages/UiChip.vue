@@ -6,10 +6,10 @@
         <p>A chip can have an image or text icon and it can show a delete button.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiChipDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiChip.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="demo">
+        <div class="page__demo">
             <h4 class="page__demo-title">Default</h4>
 
             <div class="group">

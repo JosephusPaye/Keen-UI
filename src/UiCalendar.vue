@@ -9,9 +9,7 @@
 
                 @click="showYearPicker = true"
                 @keydown.enter="showYearPicker = true"
-            >
-                {{ headerYear }}
-            </div>
+            >{{ headerYear }}</div>
 
             <div
                 class="ui-calendar__header-details"
@@ -103,7 +101,7 @@ export default {
                 const thisYear = (new Date()).getFullYear();
 
                 // Generates a range of 200 years
-                // (100 years into the past and 99 years into the future, plus the current year)
+                // (100 years into the past and 100 years into the future, including the current year)
                 return Array.apply(null, Array(200))
                     .map((item, index) => {
                         return (thisYear - 100) + index;
@@ -132,8 +130,8 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-calendar--color-' + this.color,
-                'ui-calendar--orientation-' + this.orientation
+                `ui-calendar--color-${this.color}`,
+                `ui-calendar--orientation-${this.orientation}`
             ];
         },
 
@@ -280,8 +278,8 @@ $ui-calendar-padding    : 8px !default;
 }
 
 .ui-calendar__header-year {
-    margin-bottom: 8px;
     font-weight: 500;
+    margin-bottom: 8px;
 }
 
 .ui-calendar__header-details {
@@ -289,18 +287,18 @@ $ui-calendar-padding    : 8px !default;
 }
 
 .ui-calendar__body {
+    height: ($ui-calendar-cell-size * 6) + $ui-calendar-controls-height +
+        $ui-calendar-month-header-height  + ($ui-calendar-padding * 2);
     overflow: hidden;
     padding: $ui-calendar-padding;
     position: relative;
-    height: ($ui-calendar-cell-size * 6) + $ui-calendar-controls-height +
-        $ui-calendar-month-header-height  + ($ui-calendar-padding * 2);
     width: ($ui-calendar-cell-size * 7) + ($ui-calendar-padding * 2);
 }
 
 .ui-calendar__years {
+    height: 312px;
     list-style: none;
     margin: -$ui-calendar-padding;
-    height: 312px;
     overflow-y: auto;
     padding: 8px 0;
 }
@@ -315,9 +313,9 @@ $ui-calendar-padding    : 8px !default;
     outline: none;
 
     &.is-selected {
-        height: 40px;
         font-size: 24px;
         font-weight: 500;
+        height: 40px;
     }
 }
 

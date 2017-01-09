@@ -7,10 +7,10 @@
         <p>UiFab has two sizes: <code>normal</code> and <code>small</code> and three colors: <code>default</code> (white), <code>primary</code> and <code>accent</code>.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiFabDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiFab.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="demo">
+        <div class="page__demo">
             <ui-radio-group
                 name="size"
                 :options="['small', 'normal']"

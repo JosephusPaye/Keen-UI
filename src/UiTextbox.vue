@@ -361,7 +361,7 @@ export default {
             display: table;
 
             &.is-inline {
-                color: $ui-input-label-color; // So it doesn't get darker when hovered
+                color: $ui-input-label-color; // So the hover styles don't override it
                 cursor: text;
                 transform: translateY($ui-input-label-top--inline) scale(1.1);
             }

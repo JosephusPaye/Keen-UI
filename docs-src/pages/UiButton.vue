@@ -16,10 +16,10 @@
         <p><b>Note:</b> If you are having alignment issues when using multiple buttons next to each other, put the buttons in a container and add a class of <code>ui-button-group</code> for a flex-based workaround.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiButtonDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiButton.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="demo">
+        <div class="page__demo">
             <ui-radio-group
                 name="size"
                 :options="['small', 'normal', 'large']"
@@ -161,7 +161,7 @@
             </div>
         </div>
 
-        <div class="demo">
+        <div class="page__demo">
             <h4 class="page__demo-title">Has dropdown, with menu</h4>
 
             <div class="group">

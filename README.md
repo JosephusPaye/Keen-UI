@@ -10,11 +10,11 @@ Keen UI is **not** a CSS framework, and as such you won't find a grid system or 
 [http://josephuspaye.github.io/Keen-UI/](http://josephuspaye.github.io/Keen-UI/)
 
 ## Requirements
-* [Vue.js](http://vuejs.org/) (^v2.1.0) - use [keen-ui@0.8.9](http://josephuspaye.github.io/Keen-UI/v0.8.9/) for Vue 1.x support.
+* [Vue.js](http://vuejs.org/) (^v2.1.0) - use [keen-ui@0.8.9](http://josephuspaye.github.io/Keen-UI/0.8.9/) for Vue 1.x support.
 
 Optional
-* [Roboto Web Font](https://www.google.com/fonts/specimen/Roboto) (Normal 400, Medium 500)
-* [Material Icons Web Font](http://google.github.io/material-design-icons/#icon-font-for-the-web)
+* [Roboto web font](https://www.google.com/fonts/specimen/Roboto) (Normal 400, Medium 500)
+* [Material Icons web font](http://google.github.io/material-design-icons/#icon-font-for-the-web)
 
 ## Browser support
 IE 10+ (due to [Flexbox support](http://caniuse.com/#search=flexbox)).
@@ -70,9 +70,12 @@ new Vue({
 ```
 
 ### Globals (script tag)
-The `keen-ui.js` file in the `dist` folder contains all the components exported on a global  `window.Keen` object.
 
-Sample usage:
+First, add a link to the Keen UI CSS file in `dist/keen-ui.css`. Then, add a script tag pointing to `dist/keen-ui.js` after adding Vue.
+
+If Keen UI detects `Vue` on the `window` object, all the components will be automatically registered. The components are also made available on the global `window.Keen` object.
+
+Example:
 
 ```html
 <html>

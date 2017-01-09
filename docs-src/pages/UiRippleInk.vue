@@ -11,10 +11,10 @@
         <p>UiRippleInk is used internally by many components, including <a href="#/ui-button">UiButton</a>, <a href="#/ui-collapsible">UiCollapsible</a>, <a href="#/ui-icon-button">UiIconButton</a>, <a href="#/ui-fab">UiFab</a>, <a href="#/ui-menu">UiMenu</a>, and <a href="#/ui-tabs">UiTabs</a>.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiRippleInkDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiRippleInk.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="demo">
+        <div class="page__demo">
             <h4 class="page__demo-title">Color: blue</h4>
 
             <div class="group group--type-tv-shows has-custom-color group--color-blue">

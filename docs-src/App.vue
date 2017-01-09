@@ -29,7 +29,7 @@
                         rel="noopener"
                         target="_blank"
 
-                        :href="$route.meta.sourceUrl"
+                        :href="'https://github.com/JosephusPaye/Keen-UI/blob/1.0/' + $route.meta.sourceUrl"
 
                         v-if="$route.meta.sourceUrl"
                     >View Source</a>
@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import UiIcon from 'src/UiIcon.vue';
 import Sidebar from './Sidebar.vue';
+import UiIcon from 'src/UiIcon.vue';
 
 export default {
     data() {
@@ -65,8 +65,8 @@ export default {
     },
 
     components: {
-        UiIcon,
-        Sidebar
+        Sidebar,
+        UiIcon
     }
 };
 </script>

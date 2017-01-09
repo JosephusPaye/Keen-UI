@@ -1,5 +1,13 @@
 <template>
     <div class="ui-datepicker" :class="classes">
+        <input
+            class="ui-datepicker__hidden-input"
+            type="hidden"
+
+            :name="name"
+            :value="submittedValue"
+        >
+
         <div class="ui-datepicker__icon-wrapper" v-if="icon || $slots.icon">
             <slot name="icon">
                 <ui-icon :icon="icon"></ui-icon>
@@ -13,8 +21,8 @@
 
                 :tabindex="disabled ? null : '0'"
 
-                @focus="onFocus"
                 @click="onClick"
+                @focus="onFocus"
                 @keydown.enter.prevent="openPicker"
                 @keydown.space.prevent="openPicker"
                 @keydown.tab="onBlur"
@@ -44,8 +52,12 @@
             </div>
 
             <div class="ui-datepicker__feedback" v-if="hasFeedback">
-                <div class="ui-datepicker__feedback-text" v-if="showError || showHelp">
-                    {{ showError ? error : help }}
+                <div class="ui-datepicker__feedback-text" v-if="showError">
+                    <slot name="error">{{ error }}</slot>
+                </div>
+
+                <div class="ui-datepicker__feedback-text" v-else-if="showHelp">
+                    <slot name="help">{{ help }}</slot>
                 </div>
             </div>
         </div>
@@ -74,13 +86,13 @@
                         type="secondary"
                         :color="color"
                         @click.native="$refs.modal.close()"
-                    >OK</ui-button>
+                    >{{ okButtonText }}</ui-button>
 
                     <ui-button
                         type="secondary"
                         :color="color"
                         @click.native="onPickerCancel"
-                    >Cancel</ui-button>
+                    >{{ cancelButtonText }}</ui-button>
                 </div>
             </ui-calendar>
         </ui-modal>
@@ -122,16 +134,17 @@ export default {
     name: 'ui-datepicker',
 
     props: {
+        name: String,
         value: Date,
         minDate: Date,
         maxDate: Date,
+        yearRange: Array,
         lang: {
             type: Object,
             default() {
                 return dateUtils.defaultLang;
             }
         },
-        yearRange: Array,
         customFormatter: Function,
         dateFilter: Function,
         color: {
@@ -145,6 +158,14 @@ export default {
         pickerType: {
             type: String,
             default: 'popover' // 'popover' or 'modal'
+        },
+        okButtonText: {
+            type: String,
+            default: 'OK'
+        },
+        cancelButtonText: {
+            type: String,
+            default: 'Cancel'
         },
         placeholder: String,
         icon: String,
@@ -184,8 +205,8 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-datepicker--icon-position-' + this.iconPosition,
-                'ui-datepicker--orientation-' + this.orientation,
+                `ui-datepicker--icon-position-${this.iconPosition}`,
+                `ui-datepicker--orientation-${this.orientation}`,
                 { 'is-active': this.isActive },
                 { 'is-invalid': this.invalid },
                 { 'is-touched': this.touched },
@@ -240,6 +261,12 @@ export default {
             return Boolean(this.displayText.length);
         },
 
+        submittedValue() {
+            return this.value ?
+                `${this.value.getFullYear()}-${this.value.getMonth()}-${this.value.getDate()}` :
+                '';
+        },
+
         usesPopover() {
             return this.pickerType === 'popover';
         },
@@ -263,22 +290,12 @@ export default {
             this.closePicker();
         },
 
-        togglePicker() {
-            if (this.usesPopover) {
-                this.$refs.popover.toggle();
-            }
-        },
-
         openPicker() {
             if (this.disabled) {
                 return;
             }
 
-            if (this.usesModal) {
-                this.$refs.modal.open();
-            } else {
-                this.$refs.popover.open();
-            }
+            this.$refs[this.usesModal ? 'modal' : 'popover'].open();
         },
 
         closePicker(options = { autoBlur: false }) {
@@ -323,11 +340,11 @@ export default {
             }
 
             this.isActive = true;
-            this.$emit('picker-open');
+            this.$emit('open');
         },
 
         onPickerClose() {
-            this.$emit('picker-close');
+            this.$emit('close');
         },
 
         onPickerCancel() {
@@ -411,8 +428,8 @@ export default {
             display: table;
 
             &.is-inline {
+                color: $ui-input-label-color; // So the hover styles don't override it
                 cursor: pointer;
-                color: $ui-input-label-color; // So it doesn't get darker when hovered
                 transform: translateY($ui-input-label-top--inline) scale(1.1);
             }
 
@@ -457,8 +474,8 @@ export default {
 
         .ui-datepicker__dropdown-button,
         .ui-datepicker__display-value.is-placeholder {
-            opacity: $ui-input-button-opacity--disabled;
             color: $ui-input-text-color--disabled;
+            opacity: $ui-input-button-opacity--disabled;
         }
 
         .ui-datepicker__icon-wrapper .ui-icon {

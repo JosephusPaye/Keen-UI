@@ -9,10 +9,10 @@
         <p>UiTextbox also supports multi-line text input (textarea) and the textbox will grow by default to fit its content.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiTextboxDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiTextbox.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="demo">
+        <div class="page__demo">
             <h4 class="page__demo-title">Default</h4>
 
             <ui-textbox label="Name" placeholder="Enter your name" v-model="textbox1"></ui-textbox>

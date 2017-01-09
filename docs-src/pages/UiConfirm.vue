@@ -9,10 +9,10 @@
         <p>UiConfirm can also show a loading spinner on the confirm button (useful for AJAX operations).</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiConfirmDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiConfirm.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="demo">
+        <div class="page__demo">
             <ui-confirm close-on-confirm ref="confirm1" @confirm="onConfirm" @deny="onDeny">
                 Do you want to confirm this?
             </ui-confirm>

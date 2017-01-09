@@ -25,10 +25,10 @@
         <p>If you are using an SVG sprite, set <code>useSvg</code> to <code>true</code> and set the <code>icon</code> prop to the icon symbol's <code>id</code> in your sprite. This will render the correct <code>&lt;svg&gt;</code> and <code>&lt;use&gt;</code> tags referencing the icon.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiIconDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiIcon.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="demo">
+        <div class="page__demo">
             <h4 class="page__demo-title">Default: icon font</h4>
 
             <div class="boxed-demo">

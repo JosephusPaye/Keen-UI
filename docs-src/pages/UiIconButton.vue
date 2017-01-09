@@ -15,10 +15,10 @@
         <p>The <code>black</code> and <code>white</code> colors should only be paired with <code>type="secondary"</code>.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiIconButtonDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiIconButton.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="demo">
+        <div class="page__demo">
             <ui-radio-group
                 name="size"
                 :options="['small', 'normal', 'large']"

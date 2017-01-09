@@ -6,7 +6,7 @@
         <p>UiAutocomplete can show a label above the input as well as help or error below the input, and it supports keyboard navigation.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiAutocompleteDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiAutocomplete.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
         <div class="page__examples">

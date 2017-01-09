@@ -7,10 +7,10 @@
         <p>UiPreloader is not from the Material Design spec, but inspired by a similar component seen in Google's Inbox app.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiPreloaderDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiPreloader.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="demo">
+        <div class="page__demo">
             <ui-preloader :show="loading"></ui-preloader>
             <ui-button @click.native="loading = !loading">Toggle Loading</ui-button>
         </div>

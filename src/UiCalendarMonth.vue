@@ -14,12 +14,12 @@
         >
             <ui-calendar-week
                 :date-filter="dateFilter"
+                :key="index"
                 :max-date="maxDate"
                 :min-date="minDate"
                 :month="currentWeekStartDates[1].getMonth()"
                 :selected="selected"
                 :week-start="date"
-                :key="index"
 
                 @date-select="onDateSelect"
 
@@ -29,13 +29,13 @@
 
         <div class="ui-calendar-month__week is-other" ref="other" :class="weekClasses">
             <ui-calendar-week
+                :key="index"
                 :max-date="maxDate"
                 :min-date="minDate"
                 :month="otherWeekStartDates[1].getMonth()"
                 :selected="selected"
-                :week-start="date"
-                :key="index"
                 :visible="false"
+                :week-start="date"
 
                 @date-select="onDateSelect"
 
@@ -73,7 +73,7 @@ export default {
     computed: {
         weekClasses() {
             return [
-                this.slideDirection,
+                { [`ui-calendar-month--slide-${this.slideDirection}`]: this.isSliding },
                 { 'is-sliding': this.isSliding }
             ];
         },
@@ -174,7 +174,7 @@ export default {
     &.is-other {
         left: $week-width;
 
-        &.right {
+        &.ui-calendar-month--slide-right {
             left: -$week-width;
         }
     }
@@ -182,11 +182,11 @@ export default {
     &.is-sliding {
         transition: transform 250ms ease;
 
-        &.left {
+        &.ui-calendar-month--slide-left {
             transform: translate3d(-$week-width, 0, 0);
         }
 
-        &.right {
+        &.ui-calendar-month--slide-right {
             transform: translate3d($week-width, 0, 0);
         }
     }

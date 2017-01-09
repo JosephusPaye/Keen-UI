@@ -4,6 +4,7 @@
             class="ui-calendar-controls__nav-button"
             icon="keyboard_arrow_left"
             type="secondary"
+
             :disabled="previousMonthDisabled"
 
             @click.native="goToPreviousMonth"
@@ -21,6 +22,7 @@
             class="ui-calendar-controls__nav-button"
             icon="keyboard_arrow_right"
             type="secondary"
+
             :disabled="nextMonthDisabled"
 
             @click.native="goToNextMonth"

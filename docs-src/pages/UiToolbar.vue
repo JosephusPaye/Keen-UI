@@ -7,10 +7,10 @@
         <p>UiToolbar has two types: <code>default</code>, <code>colored</code> and <code>clear</code>. The toolbar can be raised (with a drop shadow) or flat. The navigation icon, brand, title and actions can be customized using slots.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiToolbarDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiToolbar.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="demo">
+        <div class="page__demo">
             <h4 class="page__demo-title">Type: default</h4>
 
             <div class="group">
