@@ -244,6 +244,12 @@ routes.unshift({
     redirect: '/getting-started'
 });
 
+// Add the catch all route to redirect 404s
+routes.push({
+    path: '*',
+    redirect: '/getting-started'
+});
+
 export default {
     menu,
     routes
