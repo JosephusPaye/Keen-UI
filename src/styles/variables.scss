@@ -4,6 +4,9 @@
 // The UI font stack
 $font-stack:  Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 
+// Base font size
+$base-font-size                 : 100% !default; // typically 16px in most browsers
+
 // Brand colors
 $brand-primary-color            : $md-blue !default;
 $brand-accent-color             : $md-purple-a400 !default;
