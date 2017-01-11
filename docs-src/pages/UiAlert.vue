@@ -154,11 +154,11 @@
 </template>
 
 <script>
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
-import UiIcon from 'src/UiIcon.vue';
 import UiAlert from 'src/UiAlert.vue';
 import UiButton from 'src/UiButton.vue';
+import UiIcon from 'src/UiIcon.vue';
+import UiTab from 'src/UiTab.vue';
+import UiTabs from 'src/UiTabs.vue';
 
 export default {
     data() {
@@ -186,11 +186,11 @@ export default {
     },
 
     components: {
-        UiTab,
-        UiTabs,
-        UiIcon,
         UiAlert,
-        UiButton
+        UiButton,
+        UiIcon,
+        UiTab,
+        UiTabs
     }
 };
 </script>

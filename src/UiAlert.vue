@@ -1,5 +1,5 @@
 <template>
-    <transition name="ui-alert-toggle">
+    <transition name="ui-alert--transition-toggle">
         <div class="ui-alert" :class="classes" role="alert">
             <div class="ui-alert__body">
                 <div class="ui-alert__icon" v-if="!removeIcon">
@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import UiIcon from './UiIcon.vue';
 import UiCloseButton from './UiCloseButton.vue';
+import UiIcon from './UiIcon.vue';
 
 export default {
     name: 'ui-alert',
@@ -63,7 +63,7 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-alert--type-' + this.type
+                `ui-alert--type-${this.type}`
             ];
         }
     },
@@ -75,8 +75,8 @@ export default {
     },
 
     components: {
-        UiIcon,
-        UiCloseButton
+        UiCloseButton,
+        UiIcon
     }
 };
 </script>
@@ -85,14 +85,14 @@ export default {
 @import '~styles/imports';
 
 $ui-alert-color             : rgba(black, 0.75) !default;
-$ui-alert-font-size         : 15px !default;
-$ui-alert-margin-bottom     : 16px !default;
+$ui-alert-font-size         : rem-calc(15px) !default;
+$ui-alert-margin-bottom     : rem-calc(16px) !default;
 
 .ui-alert {
     display: flex;
     font-family: $font-stack;
     font-size: $ui-alert-font-size;
-    line-height: 1.4em;
+    line-height: 1.4;
     margin-bottom: $ui-alert-margin-bottom;
     overflow: hidden;
     position: relative;
@@ -110,19 +110,20 @@ $ui-alert-margin-bottom     : 16px !default;
 }
 
 .ui-alert__icon {
+    align-self: flex-start;
     flex-shrink: 0;
-    margin-right: 12px;
+    margin-right: rem-calc(12px);
 }
 
 .ui-alert__body {
-    align-items: flex-start;
+    align-items: center;
     color: $ui-alert-color;
     display: flex;
     flex-direction: row;
     margin-bottom: 0;
     margin-top: 0;
-    min-height: 48px;
-    padding: 12px 16px;
+    min-height: rem-calc(48px);
+    padding: rem-calc(12px 16px);
     transition: opacity 0.3s, margin-top 0.4s;
     width: 100%;
 }
@@ -132,11 +133,12 @@ $ui-alert-margin-bottom     : 16px !default;
 }
 
 .ui-alert__dismiss-button {
+    align-self: flex-start;
     flex-shrink: 0;
-    margin-bottom: -4px;
-    margin-left: 8px;
-    margin-right: -8px;
-    margin-top: -4px;
+    margin-bottom: rem-calc(-4px);
+    margin-left: rem-calc(8px);
+    margin-right: rem-calc(-8px);
+    margin-top: rem-calc(-4px);
 }
 
 // ================================================
@@ -203,12 +205,12 @@ $ui-alert-margin-bottom     : 16px !default;
 // Transition
 // ================================================
 
-.ui-alert-toggle-enter,
-.ui-alert-toggle-leave-active {
+.ui-alert--transition-toggle-enter,
+.ui-alert--transition-toggle-leave-active {
     margin-bottom: 0;
 
     .ui-alert__body {
-        margin-top: -56px;
+        margin-top: rem-calc(-56px);
         opacity: 0;
     }
 }
