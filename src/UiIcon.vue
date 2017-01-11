@@ -34,7 +34,7 @@ export default {
 <style lang="sass">
 @import '~styles/imports';
 
-$ui-icon-font-size  : 24px !default;
+$ui-icon-font-size  : rem-calc(24px) !default;
 $ui-icon-size       : 1em !default;
 
 .ui-icon {
