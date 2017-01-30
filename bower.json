@@ -15,10 +15,10 @@
     "material-design",
     "components"
   ],
-  "homepage": "https://github.com/JosephusPaye/keen-ui",
+  "homepage": "https://github.com/JosephusPaye/Keen-UI",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JosephusPaye/keen-ui.git"
+    "url": "git+https://github.com/JosephusPaye/Keen-UI.git"
   },
   "moduleType": [
     "es6",
@@ -26,13 +26,11 @@
     "node"
   ],
   "ignore": [
-    "node_modules",
-    "bower_components",
     "build",
     "docs",
     "docs-src",
+    "node_modules",
     "**/.*",
     "CONTRIBUTING.md"
-    "gulpfile.js"
   ]
 }

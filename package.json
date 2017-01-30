@@ -3,16 +3,19 @@
   "version": "1.0.0",
   "description": "A lightweight collection of essential UI components written with Vue and inspired by Material Design.",
   "main": "dist/keen-ui.js",
+  "module": "src/index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.js --open --inline --hot",
-    "build": "gulp build",
-    "dist": "gulp dist",
-    "clean": "gulp clean",
-    "lint": "eslint --format=node_modules/eslint-formatter-pretty --ext .js,.vue,.html"
+    "build": "webpack --config build/webpack.dist.js",
+    "build:docs": "webpack --config build/webpack.docs.js",
+    "build:lib": "webpack --config build/webpack.lib.js",
+    "build:all": "npm run build && npm run build:lib",
+    "clean": "rimraf ./dist ./lib ./docs/docs.bundle.css ./docs/docs.bundle.js",
+    "lint": "eslint --format=node_modules/eslint-formatter-pretty --ext .js,.vue,.html ./"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JosephusPaye/keen-ui.git"
+    "url": "git+https://github.com/JosephusPaye/Keen-UI.git"
   },
   "keywords": [
     "vue",
@@ -34,17 +37,16 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/JosephusPaye/keen-ui/issues"
+    "url": "https://github.com/JosephusPaye/Keen-UI/issues"
   },
-  "homepage": "https://github.com/JosephusPaye/keen-ui/",
+  "homepage": "https://github.com/JosephusPaye/Keen-UI/",
   "dependencies": {
     "autosize": "^3.0.20",
+    "deep-assign": "^2.0.0",
     "fuzzysearch": "^1.0.3",
     "lodash.debounce": "^4.0.8",
-    "merge-options": "^0.0.64",
     "tether-drop": "^1.4.2",
-    "tether-tooltip": "^1.2.0",
-    "vue": "^2.1.7"
+    "tether-tooltip": "^1.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.5.4",
@@ -62,23 +64,17 @@
     "eslint-plugin-no-use-extend-native": "^0.3.12",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-unicorn": "^1.0.0",
-    "extract-text-webpack-plugin": "2.0.0-beta.4",
-    "file-loader": "^0.9.0",
-    "gulp": "github:gulpjs/gulp#4.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-util": "^3.0.7",
-    "imports-loader": "^0.6.5",
-    "json-loader": "^0.5.4",
+    "extract-text-webpack-plugin": "2.0.0-beta.5",
     "node-sass": "^3.13.0",
     "prismjs": "^1.5.1",
     "rimraf": "^2.5.4",
     "sass-loader": "^4.0.2",
+    "vue": "^2.1.7",
     "vue-loader": "^10.0.2",
     "vue-router": "^2.1.0",
     "vue-style-loader": "^1.0.0",
     "vue-template-compiler": "^2.1.7",
-    "webpack": "^2.1.0-beta.25",
-    "webpack-dev-server": "^2.1.0-beta.0",
-    "webpack-stream": "^3.2.0"
+    "webpack": "^2.2.0",
+    "webpack-dev-server": "^2.2.0"
   }
 }
