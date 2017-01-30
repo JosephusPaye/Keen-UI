@@ -159,6 +159,6 @@ new Vue({
 ## Licence
 Keen UI is open source and released under the [MIT Licence](LICENCE).
 
-I would love to know how you're using Keen UI. Tweet to me at [@JosephusPaye](https://twitter.com/JosephusPaye).
-
 Copyright (c) 2016-2017 [Josephus Paye II](https://twitter.com/JosephusPaye).
+
+> *PS: I would love to know how you're using Keen UI. Tweet to me at [@JosephusPaye](https://twitter.com/JosephusPaye)*.
