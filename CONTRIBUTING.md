@@ -10,11 +10,11 @@ Please take care to observe the following when you contribute code to Keen UI:
 
 4. For HTML, use the following formatting guide:
 
-    For tags that cross the max line limit (100 characters), open the tag, then drop down to an indented line and place each attribute on a new line, sorted alphabetically and grouped according to the following order:
+    For tags that cross the max line limit (100 characters), open the tag, then drop down to an indented line and place each attribute on a new line, sorted alphabetically and grouped (new line separating groups) according to the following order:
 
     - normal attributes
-    - v-bind attributes (`:` shorthand only)
-    - v-on attributes (`@` shorthand only)
+    - `v-bind` attributes (`:` shorthand only)
+    - `v-on` attributes (`@` shorthand only)
     - directives
 
     After all attributes, drop down to a new line with the same indent as opening tag, add the closing `>` and then close the tag.
