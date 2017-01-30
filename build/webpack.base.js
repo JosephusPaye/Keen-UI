@@ -1,6 +1,5 @@
 const options = require('./options');
 const autoprefixer = require('autoprefixer');
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     resolve: {
@@ -8,6 +7,7 @@ module.exports = {
             options.paths.root,
             options.paths.resolve('node_modules')
         ],
+
         alias: {
             src: 'src',
             directives: 'src/directives',
@@ -16,6 +16,7 @@ module.exports = {
             styles: 'src/styles',
             vue$: 'vue/dist/vue.common.js'
         },
+
         extensions: ['.js', '.json', '.vue', '.scss']
     },
 
@@ -25,13 +26,12 @@ module.exports = {
                 test: /\.vue$/,
                 loader: 'vue-loader',
                 options: {
-                    // loaders: {
-                        // sass: ExtractTextPlugin.extract('css-loader!sass-loader')
-                    // },
-
+                    loaders: {
+                        // configured in the script specific webpack configs
+                    },
                     postcss: [
                         autoprefixer({
-                            browsers: ['last 2 versions', 'ie > 8', 'Firefox ESR']
+                            browsers: ['last 2 versions', 'ie > 9', 'Firefox ESR']
                         })
                     ]
                 }
@@ -40,21 +40,6 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/
-            },
-            {
-                test: /\.json$/,
-                loader: 'json-loader'
-            },
-            {
-                test: /\.(png|jpg|gif|svg)$/,
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]?[hash]'
-                }
-            },
-            {
-                test: /draggabilly|desandro|get-size|classie|unidragger|unipointer|eventemitter/,
-                loader: 'imports-loader?define=>false&this=>window'
             }
         ]
     },
