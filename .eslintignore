@@ -1,6 +1,7 @@
 node_modules
-docs
 build
+dist
+docs
 lib
 _older
 _deprecated
