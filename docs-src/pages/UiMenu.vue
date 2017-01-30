@@ -1,5 +1,5 @@
 <template>
-    <section class="page page-ui-menu">
+    <section class="page page--ui-menu">
         <h2 class="page__title">UiMenu</h2>
 
         <p>UiMenu shows a menu of options. Options can show an icon, secondary text (like keyboard shortcuts), or show a divider. Individual options can be disabled.</p>
@@ -9,11 +9,11 @@
         <p>UiMenu is keyboard accessible and is can be set to contain tab focus in the menu until it is closed.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiMenu.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiMenu.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
-            <h4 class="page__demo-title">Default</h4>
+        <div class="page__examples">
+            <h4 class="page__demo-title">Basic</h4>
             <ui-menu :options="menuOptions"></ui-menu>
 
             <h4 class="page__demo-title">Raised</h4>
@@ -35,11 +35,11 @@
                 </template>
             </ui-menu>
 
-            <h4 class="page__demo-title">In a popover (creates a dropdown)</h4>
+            <h4 class="page__demo-title">In UiPopover (creates a dropdown)</h4>
 
             <a
-                ref="dropdownTrigger"
                 class="popover-trigger"
+                ref="dropdownTrigger"
                 tabindex="0"
             >Click here for the menu</a>
 
@@ -48,7 +48,9 @@
                     contain-focus
                     has-icons
                     has-secondary-text
+
                     :options="menuOptions"
+
                     @close="$refs.dropdown.close()"
                 ></ui-menu>
             </ui-popover>
@@ -84,7 +86,7 @@
                                         <li><code>secondaryText</code>: (String) - text to show to the right of the option in the dropdown. Can be used to show keyboard shortcuts.</li>
                                         <li><code>icon</code>: (String) - an icon to show with the option. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</li>
                                         <li><code>iconProps</code>: (String) - an object with any of the following props of <a href="#/ui-icon">UiIcon</a>: <code>iconSet</code>, <code>removeText</code> or <code>useSvg</code>. These will be passed as props to the rendered UiIcon component.</li>
-                                        <li><code>disabled</code>: (Boolean) - determines whether or not the option is disabled.</li>
+                                        <li><code>disabled</code>: (Boolean) - Whether or not the option is disabled.</li>
                                     </ul>
 
                                     <p>You can redefine these keys to fit your data using the <code>keys</code> prop.</p>
@@ -96,7 +98,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the menu options have icons.</p>
+                                    <p>Whether or not the menu options have icons.</p>
                                     <p>Set to <code>true</code> to show icons.</p>
                                 </td>
                             </tr>
@@ -115,7 +117,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the menu options have secondary text.</p>
+                                    <p>Whether or not the menu options have secondary text.</p>
                                     <p>Set to <code>true</code> to show secondary text.</p>
                                 </td>
                             </tr>
@@ -125,7 +127,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not tab focus should be contained in the menu.</p>
+                                    <p>Whether or not tab focus should be contained in the menu.</p>
                                     <p>Set to <code>true</code> to contain tab focus in the menu until it's closed.</p>
                                 </td>
                             </tr>
@@ -153,7 +155,8 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the ripple ink animation is disabled.</p>
+                                    <p>Whether or not the ripple ink animation is disabled.</p>
+                                    <p>Can be set using the <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#global-config" target="_blank" rel="noopener">global config</a>.</p>
                                     <p>Set to <code>true</code> to disable the ripple ink animation.</p>
                                 </td>
                             </tr>
@@ -163,7 +166,7 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>
-                                    <p>Determines whether or not the menu has a drop shadow.</p>
+                                    <p>Whether or not the menu has a drop shadow.</p>
                                     <p>Set to <code>true</code> to add a drop shadow to the menu.</p>
                                 </td>
                             </tr>
@@ -196,7 +199,7 @@
                             <tr>
                                 <td>close</td>
                                 <td>
-                                    <p>Emitted when the menu should be closed (i.e. when an option is selected, when tab focus leaves the menu and <code>containFocus</code> is <code>false</code> or when the Esc key is pressed).</p>
+                                    <p>Emitted when the menu should be closed (i.e. when an option is selected, when tab focus leaves the menu and <code>containFocus</code> is <code>false</code> or when the ESC key is pressed).</p>
                                     <p>You should listen for this event and close the corresponding UiPopover if the menu is contained in a popover.</p>
                                     <p>Listen for it using <code>@close</code>.</p>
                                 </td>
@@ -238,12 +241,10 @@
 </template>
 
 <script>
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
 import UiMenu from 'src/UiMenu.vue';
 import UiPopover from 'src/UiPopover';
-
-// import UiButton from 'src/UiButton.vue';
+import UiTab from 'src/UiTab.vue';
+import UiTabs from 'src/UiTabs.vue';
 
 const menuOptions = [
     {
@@ -251,20 +252,24 @@ const menuOptions = [
         label: 'Edit',
         icon: 'edit',
         secondaryText: 'Ctrl+E'
-    }, {
+    },
+    {
         id: 'duplicate',
         label: 'Duplicate',
         icon: 'content_copy',
         secondaryText: 'Ctrl+D'
-    }, {
+    },
+    {
         id: 'share',
         label: 'Share',
         icon: 'share',
         secondaryText: 'Ctrl+Shift+S',
         disabled: true
-    }, {
+    },
+    {
         type: 'divider'
-    }, {
+    },
+    {
         id: 'delete',
         label: 'Delete',
         icon: 'delete',
@@ -280,19 +285,18 @@ export default {
     },
 
     components: {
-        UiTab,
-        UiTabs,
         UiMenu,
-        UiPopover
-        // UiButton
+        UiPopover,
+        UiTab,
+        UiTabs
     }
 };
 </script>
 
-<style lang="sass">
+<style lang="scss">
 @import '~styles/imports';
 
-.page-ui-menu {
+.page--ui-menu {
     .popover-trigger {
         background-color: $md-blue-grey;
         color: white;

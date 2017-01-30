@@ -1,5 +1,5 @@
 f<template>
-    <section class="page page-ui-radio">
+    <section class="page page--ui-radio">
         <h2 class="page__title">UiRadio</h2>
 
         <p>UiRadio shows a single radio button. The radio button can have a label. It supports hover and disabled states. The position of the radio button relative to the label can be changed.</p>
@@ -9,11 +9,11 @@ f<template>
         <p>To show a group of mutually exclusive radio buttons, use <a href="#/ui-radio-group">UiRadioGroup</a> or use multiple UiRadios with a shared <code>v-model</code>/<code>value</code> and <code>name</code> prop.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiRadio.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiRadio.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
-            <h4 class="page__demo-title">Default</h4>
+        <div class="page__examples">
+            <h4 class="page__demo-title">Basic</h4>
             <ui-radio v-model="radio1" true-value="radio1-value">Select</ui-radio>
 
             <h4 class="page__demo-title">Checked</h4>
@@ -26,7 +26,7 @@ f<template>
             <ui-radio v-model="radio4" color="accent" true-value="radio4-value" checked>Select</ui-radio>
 
             <h4 class="page__demo-title">Button position: right</h4>
-            <div class="group has-button-right">
+            <div class="page__demo-group has-button-right">
                 <ui-radio v-model="radio5" button-position="right" true-value="radio5-value">Select</ui-radio>
             </div>
 
@@ -71,7 +71,7 @@ f<template>
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The radio label (text only). For HTML in the label, use the <code>default</code> slot.</p>
+                                    <p>The radio label (text only). For HTML, use the <code>default</code> slot.</p>
                                 </td>
                             </tr>
 
@@ -96,7 +96,7 @@ f<template>
                                 <td>checked</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the radio is selected by default.</td>
+                                <td>Whether or not the radio is selected by default.</td>
                             </tr>
 
                             <tr>
@@ -118,7 +118,7 @@ f<template>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the radio button is disabled.</p>
+                                    <p>Whether or not the radio button is disabled.</p>
                                     <p>Set to <code>true</code> to disable the radio.</p>
                                 </td>
                             </tr>
@@ -163,7 +163,7 @@ f<template>
                             <tr>
                                 <td>focus</td>
                                 <td>
-                                    <p>Emitted when the radio button is focussed.</p>
+                                    <p>Emitted when the radio button is focused.</p>
                                     <p>Listen for it using <code>@focus</code>.</p>
                                 </td>
                             </tr>
@@ -202,9 +202,9 @@ f<template>
 </template>
 
 <script>
+import UiRadio from 'src/UiRadio.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
-import UiRadio from 'src/UiRadio.vue';
 
 export default {
     data() {
@@ -222,17 +222,19 @@ export default {
     },
 
     components: {
+        UiRadio,
         UiTab,
-        UiTabs,
-        UiRadio
+        UiTabs
     }
 };
 </script>
 
-<style lang="sass">
-.page-ui-radio {
-    .group.has-button-right {
-        max-width: 200px;
+<style lang="scss">
+@import '~styles/imports';
+
+.page--ui-radio {
+    .page__demo-group.has-button-right {
+        max-width: rem-calc(200px);
     }
 }
 </style>

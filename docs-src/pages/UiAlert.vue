@@ -1,5 +1,5 @@
 <template>
-    <section class="page page-ui-alert">
+    <section class="page page--ui-alert">
         <h2 class="page__title">UiAlert</h2>
 
         <p>UiAlert shows an inline alert message to the user. Supported types are <code>info</code>, <code>success</code>, <code>warning</code> and <code>error</code>.</p>
@@ -7,10 +7,10 @@
         <p>UiAlert supports keyboard navigation, can contain links and can be dismissed. The alert icon can be changed or removed.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiAlert.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiAlert.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
+        <div class="page__examples">
             <ui-alert @dismiss="showAlert1 = false" v-show="showAlert1">
                 Hi everybody! This is the default alert.
             </ui-alert>
@@ -46,7 +46,7 @@
                 This alert has no icon is not dismissible.
             </ui-alert>
 
-            <ui-button @click.native="resetAlerts">Reset Alerts</ui-button>
+            <ui-button @click="resetAlerts">Reset Alerts</ui-button>
         </div>
 
         <h3 class="page__section-title">API</h3>
@@ -80,7 +80,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the alert icon is removed.</p>
+                                    <p>Whether or not the alert icon is removed.</p>
                                     <p>Set to <code>true</code> to remove the icon.</p>
                                 </td>
                             </tr>
@@ -90,7 +90,7 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>
-                                    <p>Determines whether or not the alert shows a dismiss button.</p>
+                                    <p>Whether or not the alert shows a dismiss button.</p>
                                     <p>You should listen for the <code>dismiss</code> event and hide the alert.</p>
                                     <p>Set to <code>false</code> to remove the dismiss button.</p>
                                 </td>
@@ -112,12 +112,12 @@
 
                         <tbody>
                             <tr>
-                                <td class="fixed-width">(default)</td>
+                                <td>(default)</td>
                                 <td>Holds the alert content and can contain HTML.</td>
                             </tr>
 
                             <tr>
-                                <td class="fixed-width">icon</td>
+                                <td>icon</td>
                                 <td>
                                     <p>Holds the button icon and can contain any custom or SVG icon.</p>
                                 </td>

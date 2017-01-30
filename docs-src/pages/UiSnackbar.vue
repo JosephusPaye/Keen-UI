@@ -1,17 +1,17 @@
 <template>
-    <section class="page page-ui-snackbar">
+    <section class="page page--ui-snackbar">
         <h2 class="page__title">UiSnackbar &amp; UiSnackbarContainer</h2>
 
         <p>UiSnackbar provides lightweight feedback about an operation by showing a brief message at the bottom of the screen. Snackbars can contain an action.</p>
 
-        <p>UiSnackbarContainer allows you to create and manage multiple snackbars, controlling their visibility to ensure only one snackbar is shown at a time. The position of snackbars relative to the container can be customized.</p>
+        <p>UiSnackbarContainer allows you to create and manage multiple snackbars, controlling their visibility to ensure only one snackbar is shown at a time. The transition and position of snackbars relative to the container can be customized.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiSnackbar.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiSnackbar.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
-            <h4 class="page__demo-title">Default</h4>
+        <div class="page__examples">
+            <h4 class="page__demo-title">Basic</h4>
             <ui-snackbar>Post published</ui-snackbar>
 
             <h4 class="page__demo-title">With action</h4>
@@ -36,6 +36,12 @@
                 :options="['left', 'center', 'right']"
                 v-model="position"
             >Position</ui-radio-group>
+
+            <ui-radio-group
+                name="transition"
+                :options="['slide', 'fade']"
+                v-model="transition"
+            >Transition</ui-radio-group>
 
             <ui-switch v-model="queueSnackbars">
                 Queue snackbars: {{ queueSnackbars ? 'On' : 'Off' }}
@@ -63,13 +69,14 @@
                 v-model.number="duration"
             >Duration (seconds)</ui-textbox>
 
-            <ui-button @click.native="createSnackbar">Create snackbar</ui-button>
+            <ui-button @click="createSnackbar">Create snackbar</ui-button>
         </div>
 
         <div class="preview-pane">
             <ui-snackbar-container
                 ref="snackbarContainer"
                 :position="position"
+                :transition="transition"
                 :queue-snackbars="queueSnackbars"
             ></ui-snackbar-container>
         </div>
@@ -95,7 +102,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The snackbar message (text-only). For HTML in the snackbar (not recommended), use the default slot.</p>
+                                    <p>The snackbar message (text-only). For HTML (not recommended), use the default slot.</p>
                                 </td>
                             </tr>
 
@@ -115,6 +122,15 @@
                                 <td><code>"accent"</code></td>
                                 <td>
                                     <p>The snackbar action button text color. One of <code>accent</code> or <code>primary</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>transition</td>
+                                <td>String</td>
+                                <td><code>"slide"</code></td>
+                                <td>
+                                    <p>The snackbar show/hide transition. One of <code>slide</code> or <code>fade</code>.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -221,7 +237,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not snackbars should be queued and shown one after the other.</p>
+                                    <p>Whether or not snackbars should be queued and shown one after the other.</p>
                                     <p>By default, creating a new snackbar while one is visible will cause the visible one to immediately transition out for the new one.</p>
                                     <p>Set to <code>true</code> to ensure that each snackbar is shown for its complete duration.</p>
                                 </td>
@@ -232,7 +248,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not snackbars created in this container can have HTML in their <code>message</code> property.</p>
+                                    <p>Whether or not snackbars created in this container can have HTML in their <code>message</code> property.</p>
                                     <p>Set this prop to <code>true</code> to allow HTML in the snackbars created in this container.</p>
                                     <p><b>Note</b>: Using HTML in snackbars is not recommended.</p>
                                 </td>
@@ -244,6 +260,15 @@
                                 <td><code>"left"</code></td>
                                 <td>
                                     <p>The position of snackbars relative to the container. One of <code>left</code>, <code>center</code> or <code>right</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>transition</td>
+                                <td>String</td>
+                                <td><code>"slide"</code></td>
+                                <td>
+                                    <p>The show/hide transition of snackbars in the container. One of <code>slide</code> or <code>fade</code>.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -319,17 +344,18 @@
 import UiSnackbar from 'src/UiSnackbar.vue';
 import UiSnackbarContainer from 'src/UiSnackbarContainer.vue';
 
+import UiButton from 'src/UiButton.vue';
+import UiRadioGroup from 'src/UiRadioGroup.vue';
+import UiSwitch from 'src/UiSwitch.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
-import UiButton from 'src/UiButton.vue';
-import UiSwitch from 'src/UiSwitch.vue';
 import UiTextbox from 'src/UiTextbox.vue';
-import UiRadioGroup from 'src/UiRadioGroup.vue';
 
 export default {
     data() {
         return {
             position: 'left',
+            transition: 'slide',
             queueSnackbars: false,
             action: '',
             duration: 5,
@@ -350,34 +376,36 @@ export default {
     },
 
     components: {
+        UiButton,
+        UiRadioGroup,
+        UiSnackbar,
+        UiSnackbarContainer,
+        UiSwitch,
         UiTab,
         UiTabs,
-        UiButton,
-        UiSnackbar,
-        UiSwitch,
-        UiTextbox,
-        UiRadioGroup,
-        UiSnackbarContainer
+        UiTextbox
     }
 };
 </script>
 
-<style lang="sass">
-.page-ui-snackbar {
+<style lang="scss">
+@import '~styles/imports';
+
+.page--ui-snackbar {
     .preview-controls {
-        max-width: 400px;
-        margin-bottom: 18px;
+        margin-bottom: rem-calc(18px);
+        max-width: rem-calc(400px);
 
         .ui-textbox,
         .ui-radio-group,
         .ui-switch {
-            margin-bottom: 18px;
+            margin-bottom: rem-calc(18px);
         }
     }
 
     .preview-pane {
         border: 2px solid #777;
-        height: 148px;
+        height: rem-calc(148px);
         position: relative;
     }
 }

@@ -1,6 +1,3 @@
-import GettingStarted from './pages/GettingStarted.vue';
-import Theming from './pages/Theming.vue';
-
 import UiAlert from './pages/UiAlert.vue';
 import UiAutocomplete from './pages/UiAutocomplete.vue';
 import UiButton from './pages/UiButton.vue';
@@ -10,6 +7,7 @@ import UiCollapsible from './pages/UiCollapsible.vue';
 import UiConfirm from './pages/UiConfirm.vue';
 import UiDatepicker from './pages/UiDatepicker.vue';
 import UiFab from './pages/UiFab.vue';
+import UiFileupload from './pages/UiFileupload.vue';
 import UiIcon from './pages/UiIcon.vue';
 import UiIconButton from './pages/UiIconButton.vue';
 import UiMenu from './pages/UiMenu.vue';
@@ -31,21 +29,6 @@ import UiToolbar from './pages/UiToolbar.vue';
 import UiTooltip from './pages/UiTooltip.vue';
 
 const menu = [
-    {
-        title: 'Usage',
-        menu: [
-            {
-                path: '/getting-started',
-                component: GettingStarted,
-                title: 'Getting Started'
-            },
-            {
-                path: '/theming',
-                component: Theming,
-                title: 'Theming'
-            }
-        ]
-    },
     {
         title: 'Components',
         menu: [
@@ -102,6 +85,12 @@ const menu = [
                 component: UiFab,
                 title: 'UiFab',
                 sourceUrl: 'src/UiFab.vue'
+            },
+            {
+                path: '/ui-fileupload',
+                component: UiFileupload,
+                title: 'UiFileupload',
+                sourceUrl: 'src/UiFileupload.vue'
             },
             {
                 path: '/ui-icon',
@@ -241,13 +230,13 @@ const routes = menu.reduce((paths, section) => {
 // Add the default route at the beginning of the routes array
 routes.unshift({
     path: '/',
-    redirect: '/getting-started'
+    redirect: '/ui-alert'
 });
 
 // Add the catch all route to redirect 404s
 routes.push({
     path: '*',
-    redirect: '/getting-started'
+    redirect: '/ui-alert'
 });
 
 export default {

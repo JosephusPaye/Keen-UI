@@ -1,16 +1,17 @@
 <template>
-    <section class="page page-ui-autocomplete">
+    <section class="page page--ui-autocomplete">
         <h2 class="page__title">UiAutocomplete</h2>
 
         <p>UiAutocomplete shows a dropdown of autocomplete suggestions below an input as the user types.</p>
+
         <p>UiAutocomplete can show a label above the input as well as help or error below the input, and it supports keyboard navigation.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiAutocomplete.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiAutocomplete.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
         <div class="page__examples">
-            <h4 class="page__demo-title">Default</h4>
+            <h4 class="page__demo-title">Basic</h4>
 
             <ui-autocomplete
                 help="Pick your favourite month of the year"
@@ -19,19 +20,21 @@
                 placeholder="Enter your favourite month"
 
                 :suggestions="months"
+
                 v-model="autocomplete1"
             ></ui-autocomplete>
 
             <h4 class="page__demo-title">Floating label</h4>
 
             <ui-autocomplete
+                floating-label
                 help="Pick your favourite month of the year"
                 label="Favourite Month"
                 name="favourite_month"
                 placeholder="Enter your favourite month"
-                floating-label
 
                 :suggestions="months"
+
                 v-model="autocomplete2"
             ></ui-autocomplete>
 
@@ -45,23 +48,24 @@
                 placeholder="Enter your favourite month"
 
                 :suggestions="months"
+
                 v-model="autocomplete3"
             ></ui-autocomplete>
 
             <h4 class="page__demo-title">Validation: required</h4>
 
             <ui-autocomplete
-                help="Pick your favourite month of the year"
                 error="This field is required"
+                help="Pick your favourite month of the year"
                 label="Favourite Month"
                 name="favourite_month"
                 placeholder="Enter your favourite month"
 
-                :suggestions="months"
-                :touched="autocomplete4Touched"
                 :invalid="autocomplete4Touched && !autocomplete4.length > 0"
+                :suggestions="months"
 
                 @touch="autocomplete4Touched = true"
+
                 v-model="autocomplete4"
             ></ui-autocomplete>
 
@@ -74,16 +78,16 @@
                 placeholder="Choose your favourite Simpson"
                 type="image"
 
+                :keys="{ label: 'label', value: 'label', image: 'image' }"
                 :min-chars="0"
                 :suggestions="theSimpsons"
-                :keys="{ label: 'label', value: 'label', image: 'image' }"
 
                 v-model="autocomplete5"
             ></ui-autocomplete>
 
             <p>Suggestions are updated dynamically when the suggestions array changes.</p>
 
-            <ui-button :disabled="addedGrannies" @click.native="addGrannies">
+            <ui-button :disabled="addedGrannies" @click="addGrannies">
                 Add Grandma &amp; Grandpa
             </ui-button>
 
@@ -178,7 +182,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the value of the selected suggestion should be appended to the current value (instead of replacing the current value).</p>
+                                    <p>Whether or not the value of the selected suggestion should be appended to the current value (instead of replacing the current value).</p>
                                     <p>Set to <code>true</code> to append selected suggestions.</p>
                                 </td>
                             </tr>
@@ -224,16 +228,9 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the autocomplete is invalid.</p>
+                                    <p>Whether or not the autocomplete is invalid.</p>
                                     <p>When <code>invalid</code> is <code>true</code>, the autocomplete label appears red and the error is shown if available.</p>
                                 </td>
-                            </tr>
-
-                            <tr>
-                                <td>touched</td>
-                                <td>Boolean</td>
-                                <td><code>false</code></td>
-                                <td>Determines whether or not the autocomplete has been focussed or clicked, and then blurred.</td>
                             </tr>
 
                             <tr>
@@ -241,7 +238,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the autocomplete should automatically receive focus when it is rendered for the first time.</p>
+                                    <p>Whether or not the autocomplete should automatically receive focus when it is rendered for the first time.</p>
                                     <p>Only one input element should have this prop set to <code>true</code> in the document for the autofocus to work properly.</p>
                                 </td>
                             </tr>
@@ -254,6 +251,7 @@
                                     <p>Defines a custom filter function that is used for filtering the suggestions when the user types into the autocomplete.</p>
 
                                     <p>The function is called for each item in the <code>suggestions</code> array with two arguments:</p>
+
                                     <ul>
                                         <li><code>suggestion</code>: (Object or String) - the current suggestion</li>
                                         <li><code>query</code>: (String) - the current value of the autocomplete input (what the user has typed)</li>
@@ -283,7 +281,7 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>
-                                    <p>Determines whether or not the first matching suggestion is automatically highlighted when the user input changes.</p>
+                                    <p>Whether or not the first matching suggestion is automatically highlighted when the user input changes.</p>
                                     <p>Set to <code>false</code> to disable automatically highlighting the first match.</p>
                                 </td>
                             </tr>
@@ -293,7 +291,7 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>
-                                    <p>Determines whether or not highlighting should cycle (wrap around) immediately on overflow.</p>
+                                    <p>Whether or not highlighting should cycle (wrap around) immediately on overflow.</p>
 
                                     <p>When this is set to <code>false</code>, pressing the down arrow key when on the last suggestion will not immediately highlight the first suggestion, but pressing it a second time will.</p>
 
@@ -323,7 +321,7 @@
                                 <td>String</td>
                                 <td><code>"left"</code></td>
                                 <td>
-                                    <p>Determines the position of the icon relative to the input. One of <code>left</code> or <code>right</code>.</p>
+                                    <p>The position of the icon relative to the input. One of <code>left</code> or <code>right</code>.</p>
                                 </td>
                             </tr>
 
@@ -332,7 +330,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The autocomplete label (text only). For HTML in the label, use the <code>default</code> slot.</p>
+                                    <p>The autocomplete label (text only). For HTML, use the <code>default</code> slot.</p>
                                 </td>
                             </tr>
 
@@ -341,7 +339,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the autocomplete label starts out inline and moves to float above the input when it is focussed.</p>
+                                    <p>Whether or not the autocomplete label starts out inline and moves to float above the input when it is focused.</p>
                                     <p>Set to <code>true</code> for a floating label. This will disable the input placeholder.</p>
                                 </td>
                             </tr>
@@ -351,7 +349,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The help text (hint) shown to the user below the autocomplete input.</p>
+                                    <p>The help text (hint) shown to the user below the autocomplete input. For HTML, use the <code>help</code> slot.</p>
                                     <p>Extra space is reserved under the input for the help and error, but if neither is available, this space is collapsed.</p>
                                 </td>
                             </tr>
@@ -361,16 +359,23 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The error text shown to the user below the autocomplete input when the <code>invalid</code> prop is <code>true</code>.</p>
+                                    <p>The error text shown to the user below the autocomplete input when the <code>invalid</code> prop is <code>true</code>. For HTML, use the <code>error</code> slot.</p>
                                     <p>Extra space is reserved under the input for the help and error, but if neither is available, this space is collapsed.</p>
                                 </td>
+                            </tr>
+
+                            <tr>
+                                <td>readonly</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>The <code>readonly</code> attribute of the autocomplete input element.</td>
                             </tr>
 
                             <tr>
                                 <td>disabled</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the autocomplete is disabled. Set to <code>true</code> to disable the autocomplete.</td>
+                                <td>Whether or not the autocomplete is disabled. Set to <code>true</code> to disable the autocomplete.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -414,6 +419,20 @@
                                 <td>icon</td>
                                 <td>
                                     <p>Holds the autocomplete icon and can contain any custom or SVG icon.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>help</td>
+                                <td>
+                                    <p>Holds the autocomplete help and can contain HTML.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>error</td>
+                                <td>
+                                    <p>Holds the autocomplete error and can contain HTML.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -460,7 +479,7 @@
                         <tr>
                             <td>touch</td>
                             <td>
-                                <p>Emitted when the autocomplete is focussed and then blurred. You should listen for this event and update the <code>touched</code> prop to <code>true</code>.</p>
+                                <p>Emitted when the autocomplete is focused for the first time and then blurred.</p>
                                 <p>Listen for it using <code>@touch</code>.
                             </td>
                         </tr>
@@ -468,7 +487,7 @@
                         <tr>
                             <td>focus</td>
                             <td>
-                                <p>Emitted when the autocomplete input is focussed.</p>
+                                <p>Emitted when the autocomplete input is focused.</p>
                                 <p>Listen for it using <code>@focus</code>.
                             </td>
                         </tr>
@@ -542,6 +561,11 @@
                                     <p>Call this method to reset the autocomplete to its initial value. You should also reset the <code>invalid</code> and <code>touched</code> props.</p>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td class="no-wrap"><code>resetTouched()</code></td>
+                                <td>Call this method to reset the touched state of the autocomplete. By default it will set the touched state to <code>false</code>, but you can pass an object with <code>{ touched: true }</code> to set the touched state to <code>true</code>.</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -551,31 +575,48 @@
 </template>
 
 <script>
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
 import UiAutocomplete from 'src/UiAutocomplete.vue';
 import UiButton from 'src/UiButton.vue';
+import UiTab from 'src/UiTab.vue';
+import UiTabs from 'src/UiTabs.vue';
 
-const months = 'January February March April May June July August September October November December'.split(' ');
+const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+];
 
 const theSimpsons = [
     {
         value: 'maggie',
         label: 'Maggie Simpson',
         image: 'https://i.imgur.com/eK26qtK.jpg'
-    }, {
+    },
+    {
         value: 'lisa',
         label: 'Lisa Simpson',
         image: 'https://i.imgur.com/wIb44g9.jpg'
-    }, {
+    },
+    {
         value: 'bart',
         label: 'Bart Simpson',
         image: 'https://i.imgur.com/XkEz9zg.jpg'
-    }, {
+    },
+    {
         value: 'marge',
         label: 'Marge Simpson',
         image: 'https://i.imgur.com/MuFcpQ4.jpg'
-    }, {
+    },
+    {
         value: 'homer',
         label: 'Homer Simpson',
         image: 'https://i.imgur.com/aYPRWX4.jpg'
@@ -587,7 +628,8 @@ const grannies = [
         value: 'mona',
         label: 'Mona Simpson',
         image: 'https://i.imgur.com/z5xy1eW.jpg'
-    }, {
+    },
+    {
         value: 'abe',
         label: 'Abe Simpson',
         image: 'https://i.imgur.com/3UF8hrf.jpg'
@@ -619,22 +661,20 @@ export default {
     },
 
     components: {
-        UiTab,
-        UiTabs,
         UiAutocomplete,
-        UiButton
+        UiButton,
+        UiTab,
+        UiTabs
     }
 };
 </script>
 
-<style lang="sass">
-.page-ui-autocomplete {
-    .page__examples {
-        max-width: 512px;
-    }
+<style lang="scss">
+@import '~styles/imports';
 
-    button {
-        margin-bottom: 12px;
+.page--ui-autocomplete {
+    .page__examples {
+        max-width: rem-calc(512px);
     }
 }
 </style>

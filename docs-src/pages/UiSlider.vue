@@ -1,5 +1,5 @@
 <template>
-    <section class="page page-ui-slider">
+    <section class="page page--ui-slider">
         <h2 class="page__title">UiSlider</h2>
 
         <p>UiSlider allows the user to select a value from a continuous range of values by moving the slider thumb, clicking on the slider, or using the keyboard arrow keys.</p>
@@ -7,11 +7,11 @@
         <p>UiSlider supports an icon and a disabled state. The slider is keyboard accessible.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiSlider.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiSlider.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
-            <h4 class="page__demo-title">Default</h4>
+        <div class="page__examples">
+            <h4 class="page__demo-title">Basic</h4>
             <ui-slider v-model="slider1"></ui-slider>
 
             <h4 class="page__demo-title">With icon</h4>
@@ -26,14 +26,16 @@
                 icon="volume_up"
                 show-marker
                 snap-to-steps
+
                 :step="20"
+
                 v-model="slider4"
             ></ui-slider>
 
             <h4 class="page__demo-title">Disabled</h4>
             <ui-slider icon="volume_up" v-model="slider5" disabled></ui-slider>
 
-            <ui-button @click.native="resetSliders">Reset Sliders</ui-button>
+            <ui-button @click="resetSliders">Reset Sliders</ui-button>
         </div>
 
         <h3 class="page__section-title">API</h3>
@@ -52,6 +54,15 @@
                         </thead>
 
                         <tbody>
+                            <tr>
+                                <td>name</td>
+                                <td>String</td>
+                                <td></td>
+                                <td>
+                                    <p>The <code>name</code> attribute of the slider's hidden input element. Useful when traditionally submitting a form the slider is a part of.</p>
+                                </td>
+                            </tr>
+
                             <tr>
                                 <td class="no-wrap">value, v-model *</td>
                                 <td>Number</td>
@@ -83,21 +94,21 @@
                                 <td>snapToSteps</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the slider value should be snapped to distrete steps. Setting to <code>true</code> will ensure that the value is always a multiple of the <code>step</code> prop when a drag is completed.</td>
+                                <td>Whether or not the slider value should be snapped to distrete steps. Setting to <code>true</code> will ensure that the value is always a multiple of the <code>step</code> prop when a drag is completed.</td>
                             </tr>
 
                             <tr>
                                 <td>showMarker</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not to show a marker (like a tooltip) above the slider which shows the current value. The value shown can be customized using the <code>markerValue</code> prop.</td>
+                                <td>Whether or not to show a marker (like a tooltip) above the slider which shows the current value. The value shown can be customized using the <code>markerValue</code> prop.</td>
                             </tr>
 
                             <tr>
                                 <td>markerValue</td>
                                 <td>Number, String</td>
                                 <td></td>
-                                <td>The value shown in the marker when <code>showMarker</code> is <code>true</code>. If not provided, the slider's value is shown in the marker.</td>
+                                <td>The value shown in the marker when <code>showMarker</code> is <code>true</code>. If not provided and <code>showMarker</code> is <code>true</code>, the slider's value is shown in the marker.</td>
                             </tr>
 
                             <tr>
@@ -105,7 +116,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the slider is disabled.</p>
+                                    <p>Whether or not the slider is disabled.</p>
                                     <p>Set to <code>true</code> to disable the slider.</p>
                                 </td>
                             </tr>
@@ -150,7 +161,7 @@
                             <tr>
                                 <td>focus</td>
                                 <td>
-                                    <p>Emitted when the slider is focussed.</p>
+                                    <p>Emitted when the slider is focused.</p>
                                     <p>Listen for it using <code>@focus</code>.</p>
                                 </td>
                             </tr>
@@ -224,10 +235,10 @@
 </template>
 
 <script>
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
 import UiButton from 'src/UiButton.vue';
 import UiSlider from 'src/UiSlider.vue';
+import UiTab from 'src/UiTab.vue';
+import UiTabs from 'src/UiTabs.vue';
 
 export default {
     data() {
@@ -250,26 +261,28 @@ export default {
     },
 
     components: {
-        UiTab,
-        UiTabs,
         UiButton,
-        UiSlider
+        UiSlider,
+        UiTab,
+        UiTabs
     }
 };
 </script>
 
-<style lang="sass">
-.page-ui-slider {
-    .demo {
-        max-width: 500px;
+<style lang="scss">
+@import '~styles/imports';
+
+.page--ui-slider {
+    .page__examples {
+        max-width: rem-calc(500px);
     }
 
     .ui-slider {
-        margin-bottom: 8px;
+        margin-bottom: rem-calc(8px);
     }
 
     .ui-button {
-        margin-top: 24px;
+        margin-top: rem-calc(24px);
     }
 }
 </style>

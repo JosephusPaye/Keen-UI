@@ -1,5 +1,5 @@
 <template>
-    <section class="page page-ui-select">
+    <section class="page page--ui-select">
         <h2 class="page__title">UiSelect</h2>
 
         <p>UiSelect is a select component that allows the user to choose one or more options from a group of pre-defined or dynamically loaded options. It supports default options, multiple selection and filtering.</p>
@@ -7,11 +7,11 @@
         <p>UiSelect can show a label above the input, an icon, as well as help or error below the input. It is keyboard accessible and supports a disabled state.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiSelect.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiSelect.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
-            <h4 class="page__demo-title">Options as plain array</h4>
+        <div class="page__examples">
+            <h4 class="page__demo-title">Basic</h4>
 
             <ui-select
                 label="Favourite colour"
@@ -127,7 +127,6 @@
 
                 :invalid="select10Touched && select10.length < 2"
                 :options="colours"
-                :touched="select10Touched"
 
                 @touch="select10Touched = true"
                 v-model="select10"
@@ -158,8 +157,10 @@
                 has-search
                 label="Country"
                 placeholder="Select your country"
-                :options="countries"
+
                 :keys="{ label: 'name', value: 'code' }"
+                :options="countries"
+
                 v-model="select12"
             ></ui-select>
 
@@ -215,6 +216,15 @@
 
                         <tbody>
                             <tr>
+                                <td>name</td>
+                                <td>String</td>
+                                <td></td>
+                                <td>
+                                    <p>The <code>name</code> attribute of the select's hidden input element. Useful when traditionally submitting a form the select is a part of.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td class="no-wrap">value, v-model *</td>
                                 <td>String, Number, Object or Array</td>
                                 <td></td>
@@ -233,7 +243,7 @@
                                     <p>Can be a plain array, e.g. <code>['Red', 'Blue', 'Green']</code> as well as an array of objects.</p>
                                     <p>For a plain array, the option is shown to the user and it is used for filtering.</p>
 
-                                    <p>For an array of objects, the <code>label</code> is shown to the user and is used for filtering. You can redefine these keys to fit your data using the <code>keys</code> prop.</p>
+                                    <p>For an array of objects, the <code>label</code> is shown to the user and is used for filtering, and the <code>value</code> is submitted to the server. You can redefine these keys to fit your data using the <code>keys</code> prop.</p>
 
                                     <p>The entire option is written to the model when the user makes a selection.</p>
                                 </td>
@@ -244,7 +254,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the user can select multiple options.</p>
+                                    <p>Whether or not the user can select multiple options.</p>
                                     <p>Set to <code>true</code> to allow multiple selection.</p>
                                 </td>
                             </tr>
@@ -266,10 +276,10 @@
                             <tr>
                                 <td>type</td>
                                 <td>String</td>
-                                <td><code>"simple"</code></td>
+                                <td><code>"basic"</code></td>
                                 <td>
-                                    <p>The type of template to use for rendering each option. One of <code>simple</code> or <code>image</code>.</p>
-                                    <p>The default type is <code>simple</code>, which simply renders the option text.</p>
+                                    <p>The type of template to use for rendering each option. One of <code>basic</code> or <code>image</code>.</p>
+                                    <p>The default type is <code>basic</code>, which simply renders the option text.</p>
 
                                     <p>The <code>image</code> type renders each option with with an image. To use, set <code>type</code> to <code>image</code> and set an image URL as the <code>image</code> property on each option. You can redefine the <code>image</code> key to fit your data using the <code>keys</code> prop.</p>
 
@@ -282,7 +292,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not to show a search input for filtering the select options or getting a query for remote search.</p>
+                                    <p>Whether or not to show a search input for filtering the select options or getting a query for remote search.</p>
                                     <p>Set to <code>true</code> to show a search input.</p>
                                 </td>
                             </tr>
@@ -316,8 +326,8 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not to disable the internal filtering of options. With this set to <code>true</code>, you have to implement filtering externally if needed.</p>
-                                    <p>This prop is useful when you want to implement custom (e.g. remote) search.</p>
+                                    <p>Whether or not to disable the internal filtering of options. With this set to <code>true</code>, you have to implement filtering externally if needed.</p>
+                                    <p>This prop is useful when you want to implement custom/remote search.</p>
                                     <p>See the <b>With dynamic options (remote search)</b> section above for an example usage.</p>
                                 </td>
                             </tr>
@@ -327,7 +337,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not to show a circular progress spinner on the search input.</p>
+                                    <p>Whether or not to show a circular progress spinner on the search input.</p>
                                     <p>This prop is useful for showing feedback to the user when you are doing a remote search. Set to <code>true</code> to show the spinner and <code>false</code> to hide it.</p>
                                     <p>See the <b>With dynamic options (remote search)</b> section above for an example usage.</p>
                                 </td>
@@ -338,7 +348,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the no results message is be shown.</p>
+                                    <p>Whether or not the no results message is be shown.</p>
                                     <p>The no results message will be shown if this is <code>true</code> and following conditions are met:</p>
                                     <ul>
                                         <li>The query (user input) is empty</li>
@@ -368,16 +378,9 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the select is invalid.</p>
+                                    <p>Whether or not the select is invalid.</p>
                                     <p>When <code>invalid</code> is <code>true</code>, the select label appears red and the error is shown if available.</p>
                                 </td>
-                            </tr>
-
-                            <tr>
-                                <td>touched</td>
-                                <td>Boolean</td>
-                                <td><code>false</code></td>
-                                <td>Determines whether or not the select dropdown has been opened at least once.</td>
                             </tr>
 
                             <tr>
@@ -395,7 +398,7 @@
                                 <td>String</td>
                                 <td><code>"left"</code></td>
                                 <td>
-                                    <p>Determines the position of the icon relative to the select. One of <code>left</code> or <code>right</code>.</p>
+                                    <p>The position of the icon relative to the select. One of <code>left</code> or <code>right</code>.</p>
                                 </td>
                             </tr>
 
@@ -404,7 +407,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The select label (text only). For HTML in the label, use the <code>default</code> slot.</p>
+                                    <p>The select label (text only). For HTML, use the <code>default</code> slot.</p>
                                 </td>
                             </tr>
 
@@ -413,8 +416,8 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the label starts out inline and moves to float above the select when it is focussed.</p>
-                                    <p>Set to <code>true</code> for a floating label. This will disable the select placeholder.</p>
+                                    <p>Whether or not the label starts out inline and moves to float above the select when it is focused.</p>
+                                    <p>Set to <code>true</code> for a floating label. This will disable the select placeholder until the label is floating.</p>
                                 </td>
                             </tr>
 
@@ -423,7 +426,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The help text (hint) shown to the user below the select.</p>
+                                    <p>The help text (hint) shown to the user below the select. For HTML, use the <code>help</code> slot.</p>
                                     <p>Extra space is reserved under the select for the help and error, but if neither is available, this space is collapsed.</p>
                                 </td>
                             </tr>
@@ -433,7 +436,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The error text shown to the user below the select when the <code>invalid</code> prop is <code>true</code>.</p>
+                                    <p>The error text shown to the user below the select when the <code>invalid</code> prop is <code>true</code>. For HTML, use the <code>error</code> slot.</p>
                                     <p>Extra space is reserved under the select for the help and error, but if neither is available, this space is collapsed.</p>
                                 </td>
                             </tr>
@@ -443,7 +446,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the select is disabled. Set to <code>true</code> to disable the select.</p>
+                                    <p>Whether or not the select is disabled. Set to <code>true</code> to disable the select.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -485,6 +488,13 @@
                             </tr>
 
                             <tr>
+                                <td class="no-wrap">no-results</td>
+                                <td>
+                                    <p>Holds the content shown to the user when there is no matching option for their query.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>icon</td>
                                 <td>
                                     <p>Holds the select icon and can contain any custom or SVG icon.</p>
@@ -492,9 +502,16 @@
                             </tr>
 
                             <tr>
-                                <td class="no-wrap">no-results</td>
+                                <td>help</td>
                                 <td>
-                                    <p>Holds the content shown to the user when there is no matching option for their query.</p>
+                                    <p>Holds the select help and can contain HTML.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>error</td>
+                                <td>
+                                    <p>Holds the select error and can contain HTML.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -515,7 +532,8 @@
                         <tr>
                             <td>select</td>
                             <td>
-                                <p>Emitted when an option is selected. The handler is called with the selected option.</p>
+                                <p>Emitted when an option is selected. The handler is called with the selected option and an object which shows if the option was selected or deselected.</p>
+                                <p>This object will have <code>{ selected: true }</code> if the option was selected or <code>{ selected: false }</code> otherwise.</p>
                                 <p>Listen for it using <code>@select</code>.
                             </td>
                         </tr>
@@ -523,7 +541,7 @@
                         <tr>
                             <td class="no-wrap">query-change</td>
                             <td>
-                                <p>Emitted when the search input value (the query) changes.</p>
+                                <p>Emitted when the query (the search input value) changes.</p>
                                 <p>The handler is called with the new query. Listen for it using <code>@query-change</code>.</p>
                                 <p>See the <b>With dynamic options (remote search)</b> section above for an example usage.</p>
                             </td>
@@ -549,7 +567,7 @@
                         <tr>
                             <td>touch</td>
                             <td>
-                                <p>Emitted when the select is focussed and then blurred. You should listen for this event and update the <code>touched</code> prop to <code>true</code>.</p>
+                                <p>Emitted when the select is focused for the first time and then blurred.</p>
                                 <p>Listen for it using <code>@touch</code>.
                             </td>
                         </tr>
@@ -557,7 +575,7 @@
                         <tr>
                             <td>focus</td>
                             <td>
-                                <p>Emitted when the select is focussed.</p>
+                                <p>Emitted when the select is focused.</p>
                                 <p>Listen for it using <code>@focus</code>.
                             </td>
                         </tr>
@@ -601,10 +619,15 @@
 
                         <tbody>
                             <tr>
-                                <td class="no-wrap"><code>reset()</code></td>
+                                <td><code>reset()</code></td>
                                 <td>
-                                    <p>Call this method to reset the select to its initial value. You should also reset the <code>invalid</code> and <code>touched</code> props.</p>
+                                    <p>Call this method to reset the select to its initial value. You should also reset the <code>invalid</code> prop.</p>
                                 </td>
+                            </tr>
+
+                            <tr>
+                                <td class="no-wrap"><code>resetTouched()</code></td>
+                                <td>Call this method to reset the touched state of the select. By default it will set the touched state to <code>false</code>, but you can pass an object with <code>{ touched: true }</code> to set the touched state to <code>true</code>.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -615,9 +638,9 @@
 </template>
 
 <script>
+import UiSelect from 'src/UiSelect.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
-import UiSelect from 'src/UiSelect.vue';
 
 import debounce from 'lodash.debounce';
 import { startsWith } from 'helpers/util';
@@ -711,18 +734,20 @@ export default {
     },
 
     components: {
+        UiSelect,
         UiTab,
-        UiTabs,
-        UiSelect
+        UiTabs
     }
 };
 </script>
 
-<style lang="sass">
-.page-ui-select {
+<style lang="scss">
+@import '~styles/imports';
+
+.page--ui-select {
     .ui-select {
-        max-width: 400px;
-        margin-bottom: 32px;
+        margin-bottom: rem-calc(32px);
+        max-width: rem-calc(400px);
     }
 }
 </style>

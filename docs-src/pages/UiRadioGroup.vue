@@ -1,5 +1,5 @@
 <template>
-    <section class="page page-ui-radio-group">
+    <section class="page page--ui-radio-group">
         <h2 class="page__title">UiRadioGroup</h2>
 
         <p>UiRadioGroup shows a group of mutually exclusive radio buttons. It supports hover, focus and disabled states. One or more options in the group can be disabled or the entire group can be disabled.</p>
@@ -7,11 +7,11 @@
         <p>UiRadioGroup can show a label above the group as well as help or error below the group and it allows for resetting the group to its initial state.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiRadioGroup.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiRadioGroup.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
-            <h4 class="page__demo-title">Default</h4>
+        <div class="page__examples">
+            <h4 class="page__demo-title">Basic</h4>
 
             <ui-radio-group
                 name="group1"
@@ -105,7 +105,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The radio group label (text only). For HTML in the label, use the <code>default</code> slot.</p>
+                                    <p>The radio group label (text only). For HTML, use the <code>default</code> slot.</p>
                                 </td>
                             </tr>
 
@@ -132,8 +132,8 @@
                                         <li><code>class</code>: Applied as the <code>class</code> attribute of the option's root element.</li>
                                         <li><code>label</code>*: The option's label - shown to the user.</li>
                                         <li><code>value</code>*: The option's value - written to the model when the option is selected.</li>
-                                        <li><code>checked</code>: Determines whether or not the option is selected by default. This is overridden by the radio group's initial <code>value</code> if it's non-empty.</li>
-                                        <li><code>disabled</code>: Determines whether or not the option is disabled.</li>
+                                        <li><code>checked</code>: Whether or not the option is selected by default. This is overridden by the radio group's initial <code>value</code> if it's non-empty.</li>
+                                        <li><code>disabled</code>: Whether or not the option is disabled.</li>
                                     </ul>
 
                                     <p>For an array of strings, each option string is used as both the label and the value.</p>
@@ -177,7 +177,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the radio group options are rendered vertically, one over the other.</p>
+                                    <p>Whether or not the radio group options are rendered vertically, one over the other.</p>
                                     <p>Set to <code>true</code> for a vertical radio group.</p>
                                 </td>
                             </tr>
@@ -187,7 +187,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The help text (hint) shown to the user below the radio group.</p>
+                                    <p>The help text (hint) shown to the user below the radio group. For HTML, use the <code>help</code> slot.</p>
                                     <p>Extra space is reserved under the radio group for the help and error, but if neither is available, this space is collapsed.</p>
                                 </td>
                             </tr>
@@ -197,7 +197,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The error text shown to the user below the radio group.</p>
+                                    <p>The error text shown to the user below the radio group when the <code>invalid</code> prop is <code>true</code>. For HTML, use the <code>error</code> slot.</p>
                                     <p>Extra space is reserved under the radio group for the help and error, but if neither is available, this space is collapsed.</p>
                                 </td>
                             </tr>
@@ -207,7 +207,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the radio group is invalid.</p>
+                                    <p>Whether or not the radio group is invalid.</p>
                                     <p>When <code>invalid</code> is <code>true</code>, the radio group label appears red and the error is shown if available.</p>
                                 </td>
                             </tr>
@@ -217,7 +217,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the radio group is disabled.</p>
+                                    <p>Whether or not the radio group is disabled.</p>
                                     <p>Set to <code>true</code> to disable the radio group.</p>
                                 </td>
                             </tr>
@@ -243,6 +243,20 @@
                                 <td>(default)</td>
                                 <td>Holds the radio group label and can contain HTML.</td>
                             </tr>
+
+                            <tr>
+                                <td>help</td>
+                                <td>
+                                    <p>Holds the radio group help and can contain HTML.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>error</td>
+                                <td>
+                                    <p>Holds the radio group error and can contain HTML.</p>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -262,7 +276,7 @@
                             <tr>
                                 <td>focus</td>
                                 <td>
-                                    <p>Emitted when a radio button in the group is focussed.</p>
+                                    <p>Emitted when a radio button in the group is focused.</p>
                                     <p>Listen for it using <code>@focus</code>.</p>
                                 </td>
                             </tr>
@@ -322,9 +336,9 @@
 </template>
 
 <script>
+import UiRadioGroup from 'src/UiRadioGroup.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
-import UiRadioGroup from 'src/UiRadioGroup.vue';
 
 const defaultGroup = [
     {
@@ -379,9 +393,9 @@ export default {
     },
 
     components: {
+        UiRadioGroup,
         UiTab,
-        UiTabs,
-        UiRadioGroup
+        UiTabs
     }
 };
 </script>

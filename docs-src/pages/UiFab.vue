@@ -1,5 +1,5 @@
 <template>
-    <section class="page page-ui-fab">
+    <section class="page page--ui-fab">
         <h2 class="page__title">UiFab</h2>
 
         <p>UiFab shows a primary, floating action button. It supports mouse and keyboard focus, hover and disabled states.</p>
@@ -7,10 +7,10 @@
         <p>UiFab has two sizes: <code>normal</code> and <code>small</code> and three colors: <code>default</code> (white), <code>primary</code> and <code>accent</code>.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiFab.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiFab.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
+        <div class="page__examples">
             <ui-radio-group
                 name="size"
                 :options="['small', 'normal']"
@@ -19,7 +19,7 @@
 
             <h4 class="page__demo-title">Colors</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-fab color="primary" icon="add" :size="size"></ui-fab>
                 <ui-fab color="accent" icon="edit" :size="size"></ui-fab>
                 <ui-fab icon="keyboard_voice" :size="size"></ui-fab>
@@ -27,7 +27,7 @@
 
             <h4 class="page__demo-title">With tooltip</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-fab
                     color="primary"
                     icon="edit"
@@ -138,7 +138,8 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the ripple ink animation is shown when the button is clicked.</p>
+                                    <p>Whether or not the ripple ink animation is shown when the FAB is clicked.</p>
+                                    <p>Can be set using the <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#global-config" target="_blank" rel="noopener">global config</a>.</p>
                                     <p>Set to <code>true</code> to disable the ripple ink animation.</p>
                                 </td>
                             </tr>
@@ -159,7 +160,7 @@
 
                         <tbody>
                             <tr>
-                                <td class="fixed-width">icon</td>
+                                <td>icon</td>
                                 <td>
                                     <p>Holds the FAB icon and can contain any custom or SVG icon.</p>
                                 </td>
@@ -174,9 +175,9 @@
 
 <script>
 import UiFab from 'src/UiFab.vue';
+import UiRadioGroup from 'src/UiRadioGroup.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
-import UiRadioGroup from 'src/UiRadioGroup.vue';
 
 export default {
     data() {
@@ -186,28 +187,30 @@ export default {
     },
 
     components: {
-        UiTab,
-        UiTabs,
         UiFab,
-        UiRadioGroup
+        UiRadioGroup,
+        UiTab,
+        UiTabs
     }
 };
 </script>
 
-<style lang="sass">
-.page-ui-fab {
+<style lang="scss">
+@import '~styles/imports';
+
+.page--ui-fab {
     .ui-radio-group {
-        margin-bottom: 16px;
+        margin-bottom: rem-calc(16px);
     }
 
-    .group {
-        display: flex;
-        margin-bottom: 16px;
+    .page__demo-group {
         align-items: flex-end;
+        display: flex;
         flex-wrap: wrap;
+        margin-bottom: rem-calc(16px);
 
         .ui-fab {
-            margin-right: 18px;
+            margin-right: rem-calc(18px);
         }
     }
 }

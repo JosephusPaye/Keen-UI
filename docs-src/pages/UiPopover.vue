@@ -1,18 +1,19 @@
 <template>
-    <section class="page page-ui-popover">
+    <section class="page page--ui-popover">
         <h2 class="page__title">UiPopover</h2>
 
-        <p>UiPopover is used to show content in a dropdown. It can be setup to contain tab focus in the popover, returning focus to the trigger element on close.</p>
+        <p>UiPopover shows content in a popup/dropdown. It can be setup to contain tab focus in the popover, returning focus to the trigger element on close.</p>
+
         <p>The dropdown position relative to the trigger and the event that causes the dropdown to open can be customized.</p>
 
         <p>The dropdown is powered by <a href="https://github.com/HubSpot/drop" target="_blank" rel="noopener">Drop</a>, which uses <a href="https://github.com/HubSpot/tether" target="_blank" rel="noopener">Tether</a>.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiPopover.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiPopover.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
-            <h4 class="page__demo-title">Default</h4>
+        <div class="page__examples">
+            <h4 class="page__demo-title">Basic</h4>
 
             <a ref="trigger1" class="popover-trigger">Click here for the popover</a>
 
@@ -67,7 +68,7 @@
 
             <h4 class="page__demo-title">Can be opened/closed programmatically</h4>
 
-            <ui-button @click.native="openPopover">Click to open the popover below</ui-button>
+            <ui-button @click="openPopover">Click to open the popover below</ui-button>
 
             <br><br>
 
@@ -134,7 +135,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not tab focus should be contained in the popover.</p>
+                                    <p>Whether or not tab focus should be contained in the popover.</p>
                                     <p>Set to <code>true</code> to contain focus within the popover.</p>
                                 </td>
                             </tr>
@@ -154,7 +155,7 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>
-                                    <p>Determines whether or not the popover has a drop shadow.</p>
+                                    <p>Whether or not the popover has a drop shadow.</p>
                                     <p>Set to <code>false</code> to remove the default drop shadow.</p>
                                 </td>
                             </tr>
@@ -254,10 +255,10 @@
 </template>
 
 <script>
+import UiButton from 'src/UiButton.vue';
+import UiPopover from 'src/UiPopover.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
-import UiPopover from 'src/UiPopover.vue';
-import UiButton from 'src/UiButton.vue';
 
 export default {
     methods: {
@@ -267,18 +268,18 @@ export default {
     },
 
     components: {
-        UiTab,
-        UiTabs,
         UiButton,
-        UiPopover
+        UiPopover,
+        UiTab,
+        UiTabs
     }
 };
 </script>
 
-<style lang="sass">
+<style lang="scss">
 @import '~styles/imports';
 
-.page-ui-popover {
+.page--ui-popover {
     .popover-trigger {
         background-color: $md-blue-grey;
         color: white;

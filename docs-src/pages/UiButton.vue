@@ -1,14 +1,16 @@
 <template>
-    <section class="page page-ui-button">
+    <section class="page page--ui-button">
         <h2 class="page__title">UiButton</h2>
 
-        <p>UiButton is a button component that largely implements the Material Design spec. UiButton can show a dropdown and a loading spinner. They also support focus (mouse and keyboard separately), hover and disabled states.</p>
+        <p>UiButton is a button component that can show a dropdown and a loading spinner. It also supports focus (mouse and keyboard separately), hover and disabled states.</p>
 
         <p>UiButton has two types:</p>
+
         <ul>
             <li><b>Primary</b>: more prominent, has a background color, with white or black text color.</li>
             <li><b>Secondary</b>: less prominent, has no background, text color is the button color.</li>
         </ul>
+
         <p>Additionally, UiButton can be raised to show a box-shadow.</p>
 
         <p>Supported colors are <code>primary</code>, <code>accent</code>, <code>green</code>, <code>orange</code> and <code>red</code>, in addition to the default gray.</p>
@@ -16,10 +18,10 @@
         <p><b>Note:</b> If you are having alignment issues when using multiple buttons next to each other, put the buttons in a container and add a class of <code>ui-button-group</code> for a flex-based workaround.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiButton.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiButton.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
+        <div class="page__examples">
             <ui-radio-group
                 name="size"
                 :options="['small', 'normal', 'large']"
@@ -32,10 +34,12 @@
                 v-model="iconPosition"
             >Icon Position</ui-radio-group>
 
-            <ui-switch v-model="loading">Loading: {{ loading ? 'On' : 'Off' }}</ui-switch>
+            <ui-switch v-model="loading">
+                Loading: <code>{{ loading ? 'true' : 'false' }}</code>
+            </ui-switch>
 
             <div class="table-responsive">
-                <table class="table table-bordered demo__table">
+                <table class="table table-bordered page__demo-table">
                     <tbody>
                         <tr>
                             <th></th>
@@ -164,14 +168,16 @@
         <div class="page__demo">
             <h4 class="page__demo-title">Has dropdown, with menu</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-button color="primary" has-dropdown ref="dropdownButton" :size="size">
                     <ui-menu
                         contain-focus
                         has-icons
                         has-secondary-text
                         slot="dropdown"
+
                         :options="menuOptions"
+
                         @close="$refs.dropdownButton.closeDropdown()"
                     ></ui-menu>
                     Click for Menu
@@ -180,12 +186,13 @@
 
             <h4 class="page__demo-title">Has dropdown, custom content</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-button has-dropdown :size="size">
                     <div class="custom-popover-content" slot="dropdown">
                         <p><b>Hey</b> there!</p>
                         <p>Button dropdowns can have any content, not just menus.</p>
                     </div>
+
                     Click for custom dropdown
                 </ui-button>
             </div>
@@ -248,7 +255,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the button progress spinner is shown.</p>
+                                    <p>Whether or not the button progress spinner is shown.</p>
                                     <p>Set to <code>true</code> to show the progress. This disables the button.</p>
                                 </td>
                             </tr>
@@ -258,7 +265,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the button has a drop shadow.</p>
+                                    <p>Whether or not the button has a drop shadow.</p>
                                     <p>Set to <code>true</code> to show a drop shadow.</p>
                                 </td>
                             </tr>
@@ -278,7 +285,7 @@
                                 <td>String</td>
                                 <td><code>"left"</code></td>
                                 <td>
-                                    <p>Determines the position of the icon relative to the button text. One of <code>left</code> or <code>right</code>.</p>
+                                    <p>The position of the icon relative to the button text. One of <code>left</code> or <code>right</code>.</p>
                                 </td>
                             </tr>
 
@@ -287,7 +294,8 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the ripple ink animation is shown when the button is clicked.</p>
+                                    <p>Whether or not the ripple ink animation is shown when the button is clicked.</p>
+                                    <p>Can be set using the <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#global-config" target="_blank" rel="noopener">global config</a>.</p>
                                     <p>Set to <code>true</code> to disable the ripple ink animation.</p>
                                 </td>
                             </tr>
@@ -297,7 +305,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the button contains a dropdown.</p>
+                                    <p>Whether or not the button contains a dropdown.</p>
                                     <p>Use the <code>dropdown</code> slot to add any dropdown content, including a <a href="#/ui-menu">UiMenu</a>.</p>
                                 </td>
                             </tr>
@@ -327,7 +335,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the button is disabled.</p>
+                                    <p>Whether or not the button is disabled.</p>
                                     <p>Set to <code>true</code> to disable the button.</p>
                                 </td>
                             </tr>
@@ -348,19 +356,19 @@
 
                         <tbody>
                             <tr>
-                                <td class="fixed-width">(default)</td>
+                                <td>(default)</td>
                                 <td>Holds the button text and can contain HTML.</td>
                             </tr>
 
                             <tr>
-                                <td class="fixed-width">icon</td>
+                                <td>icon</td>
                                 <td>
                                     <p>Holds the button icon and can contain any custom or SVG icon.</p>
                                 </td>
                             </tr>
 
                             <tr>
-                                <td class="fixed-width">dropdown</td>
+                                <td>dropdown</td>
                                 <td>
                                     <p>Holds the the dropdown content and can contain HTML.</p>
                                     <p>For a dropdown menu, add a <a href="#/ui-menu">UiMenu</a> component in this slot, and then call the <code>closeDropdown()</code> method when the <code>close</code> event is emitted on the menu.</p>
@@ -383,7 +391,7 @@
 
                         <tbody>
                             <tr>
-                                <td class="fixed-width">dropdown-open</td>
+                                <td class="no-wrap">dropdown-open</td>
                                 <td>
                                     <p>Emitted when the button dropdown is opened.</p>
                                     <p>Listen for it using <code>@dropdown-open</code>.</p>
@@ -391,7 +399,7 @@
                             </tr>
 
                             <tr>
-                                <td class="fixed-width">dropdown-close</td>
+                                <td class="no-wrap">dropdown-close</td>
                                 <td>
                                     <p>Emitted when the button dropdown is closed.</p>
                                     <p>Listen for it using <code>@dropdown-close</code>.</p>
@@ -414,21 +422,21 @@
 
                         <tbody>
                             <tr>
-                                <td class="fixed-width"><code>openDropdown()</code></td>
+                                <td class="no-wrap"><code>openDropdown()</code></td>
                                 <td>
                                     <p>Call this method to open the button dropdown.</p>
                                 </td>
                             </tr>
 
                             <tr>
-                                <td class="fixed-width"><code>closeDropdown()</code></td>
+                                <td class="no-wrap"><code>closeDropdown()</code></td>
                                 <td>
                                     <p>Call this method to close the button dropdown.</p>
                                 </td>
                             </tr>
 
                             <tr>
-                                <td class="fixed-width"><code>toggleDropdown()</code></td>
+                                <td class="no-wrap"><code>toggleDropdown()</code></td>
                                 <td>
                                     <p>Call this method to toggle the button dropdown.</p>
                                 </td>
@@ -442,12 +450,12 @@
 </template>
 
 <script>
+import UiButton from 'src/UiButton.vue';
+import UiMenu from 'src/UiMenu.vue';
+import UiRadioGroup from 'src/UiRadioGroup.vue';
+import UiSwitch from 'src/UiSwitch.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
-import UiMenu from 'src/UiMenu.vue';
-import UiButton from 'src/UiButton.vue';
-import UiSwitch from 'src/UiSwitch.vue';
-import UiRadioGroup from 'src/UiRadioGroup.vue';
 
 const menuOptions = [
     {
@@ -455,20 +463,24 @@ const menuOptions = [
         label: 'Edit',
         icon: 'edit',
         secondaryText: 'Ctrl+E'
-    }, {
+    },
+    {
         id: 'duplicate',
         label: 'Duplicate',
         icon: 'content_copy',
         secondaryText: 'Ctrl+D'
-    }, {
+    },
+    {
         id: 'share',
         label: 'Share',
         icon: 'share',
         secondaryText: 'Ctrl+Shift+S',
         disabled: true
-    }, {
+    },
+    {
         type: 'divider'
-    }, {
+    },
+    {
         id: 'delete',
         label: 'Delete',
         icon: 'delete',
@@ -487,52 +499,58 @@ export default {
     },
 
     components: {
-        UiTab,
-        UiTabs,
-        UiMenu,
         UiButton,
+        UiMenu,
+        UiRadioGroup,
         UiSwitch,
-        UiRadioGroup
+        UiTab,
+        UiTabs
     }
 };
 </script>
 
-<style lang="sass">
-.page-ui-button {
+<style lang="scss">
+@import '~styles/imports';
+
+.page--ui-button {
     .ui-radio-group,
     .ui-switch {
-        margin-bottom: 16px;
+        margin-bottom: rem-calc(16px);
+    }
+
+    .ui-switch {
+        display: inline-flex;
     }
 
     .ui-button {
-        margin-bottom: 12px;
-        margin-right: 8px;
+        margin-bottom: rem-calc(12px);
+        margin-right: rem-calc(8px);
     }
 
-    .demo__group {
-        margin-bottom: 18px;
+    .page__demo-group {
+        margin-bottom: rem-calc(18px);
     }
 
-    .demo__table {
-        max-width: 600px;
+    .page__demo-table {
+        max-width: rem-calc(600px);
 
         .ui-button {
             display: flex;
 
             &.ui-button--size-normal {
-                min-width: 100px;
+                min-width: rem-calc(100px);
             }
 
             &.ui-button--size-large {
-                min-width: 124px;
+                min-width: rem-calc(124px);
             }
         }
     }
 }
 
 .custom-popover-content {
-    padding: 16px;
-    max-width: 360px;
+    padding: rem-calc(16px);
+    max-width: rem-calc(360px);
 
     p:first-child {
         margin-top: 0;

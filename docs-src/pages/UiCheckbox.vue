@@ -1,5 +1,5 @@
 <template>
-    <section class="page page-ui-checkbox">
+    <section class="page page--ui-checckbox">
         <h2 class="page__title">UiCheckbox</h2>
 
         <p>UiCheckbox shows a checkbox. It supports keyboard focus, hover and disabled states. The position of the checkbox relative to the label can be changed.</p>
@@ -12,10 +12,10 @@
             Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/components/ui-checkbox/UiCheckboxDocs.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
-            <h4 class="page__demo-title">Default</h4>
+        <div class="page__examples">
+            <h4 class="page__demo-title">Basic</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-checkbox v-model="check1">Do it now</ui-checkbox>
                 <ui-checkbox v-model="check2">Do it well</ui-checkbox>
 
@@ -25,7 +25,7 @@
 
             <h4 class="page__demo-title">Color: accent</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-checkbox v-model="check1" color="accent">Do it now</ui-checkbox>
                 <ui-checkbox v-model="check2" color="accent">Do it well</ui-checkbox>
 
@@ -35,7 +35,7 @@
 
             <h4 class="page__demo-title">Box position: right</h4>
 
-            <div class="group has-box-right">
+            <div class="page__demo-group has-box-right">
                 <ui-checkbox v-model="check1" box-position="right">Do it now</ui-checkbox>
                 <ui-checkbox v-model="check2" box-position="right">Do it well</ui-checkbox>
 
@@ -45,7 +45,7 @@
 
             <h4 class="page__demo-title">HTML in Label</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-checkbox v-model="check5">Just <b><i>do</i></b> it!</ui-checkbox>
             </div>
         </div>
@@ -78,7 +78,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The checkbox label (text only). For HTML in the label, use the <code>default</code> slot.</p>
+                                    <p>The checkbox label (text only). For HTML, use the <code>default</code> slot.</p>
                                 </td>
                             </tr>
 
@@ -97,7 +97,7 @@
                                 <td>checked</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the checkbox is checked by default.</td>
+                                <td>Whether or not the checkbox is checked by default.</td>
                             </tr>
 
                             <tr>
@@ -112,6 +112,13 @@
                                 <td></td>
                                 <td><code>false</code></td>
                                 <td>The value that will be written to the model when the checkbox is unchecked.</td>
+                            </tr>
+
+                            <tr>
+                                <td>submittedValue</td>
+                                <td></td>
+                                <td><code>"on"</code></td>
+                                <td>The value that will be submitted for the checkbox when it is checked. Applied as the <code>value</code> attribute of the checkbox input element.</td>
                             </tr>
 
                             <tr>
@@ -133,7 +140,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the checkbox is disabled.</p>
+                                    <p>Whether or not the checkbox is disabled.</p>
                                     <p>Set to <code>true</code> to disable the checkbox.</p>
                                 </td>
                             </tr>
@@ -178,7 +185,7 @@
                             <tr>
                                 <td>focus</td>
                                 <td>
-                                    <p>Emitted when the checkbox is focussed.</p>
+                                    <p>Emitted when the checkbox is focused.</p>
                                     <p>Listen for it using <code>@focus</code>.</p>
                                 </td>
                             </tr>
@@ -217,9 +224,9 @@
 </template>
 
 <script>
+import UiCheckbox from 'src/UiCheckbox.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
-import UiCheckbox from 'src/UiCheckbox.vue';
 
 export default {
     data() {
@@ -233,22 +240,22 @@ export default {
     },
 
     components: {
+        UiCheckbox,
         UiTab,
-        UiTabs,
-        UiCheckbox
+        UiTabs
     }
 };
 </script>
 
-<style lang="sass">
+<style lang="scss">
 @import '~styles/imports';
 
-.page-ui-checkbox {
-    .group {
-        margin-bottom: 32px;
+.page--ui-checckbox {
+    .page__demo-group {
+        margin-bottom: rem-calc(32px);
 
         &.has-box-right {
-            max-width: 200px;
+            max-width: rem-calc(200px);
         }
     }
 }

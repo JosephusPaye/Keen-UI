@@ -1,5 +1,5 @@
 <template>
-    <section class="page page-ui-tooltip">
+    <section class="page page--ui-tooltip">
         <h2 class="page__title">UiTooltip</h2>
 
         <p>UiTooltip shows a tooltip on an element. The tooltip position relative to the associated element and the event that causes the tooltip to open can be customized.</p>
@@ -7,16 +7,18 @@
         <p>UiTooltip is used internally by <a href="#/ui-icon-button-docs">UiIconButton</a> and <a href="#/ui-fab-docs">UiFab</a>.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiTooltip.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiTooltip.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
-            <div class="group group--the-simpsons">
+        <div class="page__examples">
+            <div class="page__demo-group page__demo-group--the-simpsons">
                 <image-pane
                     tabindex="0"
+
                     :image="simpson.image"
                     :name="simpson.name"
                     :tooltip-position="simpson.position"
+
                     v-for="simpson in theSimpsons"
                 ></image-pane>
             </div>
@@ -39,7 +41,7 @@
 
                         <tbody>
                             <tr>
-                                <td style="min-width: 80px">trigger *</td>
+                                <td>trigger *</td>
                                 <td>String</td>
                                 <td>required</td>
                                 <td>
@@ -67,6 +69,15 @@
                                 <td>
                                     <p>The type of event or events that will cause the tooltip to open.</p>
                                     <p>One or more of <code>click</code>, <code>hover</code>, or <code>focus</code>. Separate multiple events with a space.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>openDelay</td>
+                                <td>Number</td>
+                                <td><code>0</code></td>
+                                <td>
+                                    <p>The amount of time to wait (in milliseconds) before showing the tooltip when it is triggered.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -149,36 +160,36 @@ export default {
     },
 
     components: {
+        ImagePane,
         UiTab,
         UiTabs,
-        UiTooltip,
-        ImagePane
+        UiTooltip
     }
 };
 </script>
 
-<style lang="sass">
+<style lang="scss">
 @import '~styles/imports';
 
-.page-ui-tooltip {
-    .group {
+.page--ui-tooltip {
+    .page__demo-group {
         display: flex;
         flex-wrap: wrap;
     }
 
-    .group--the-simpsons {
+    .page__demo-group--the-simpsons {
         .image-pane {
-            border-radius: 8px;
-            height: 120px;
-            width: 120px;
+            border-radius: rem-calc(8px);
+            height: rem-calc(120px);
+            width: rem-calc(120px);
         }
     }
 
     .image-pane {
         background-position: 50%;
         background-size: cover;
-        margin-bottom: 16px;
-        margin-right: 16px;
+        margin-bottom: rem-calc(16px);
+        margin-right: rem-calc(16px);
         position: relative;
     }
 }

@@ -6,27 +6,28 @@
 }
 
 .keen-docs-content__toolbar {
-    height: 62px;
+    height: rem-calc(62px);
     background-color: $toolbar-color;
     color: white;
     width: 100%;
     display: flex;
     align-items: center;
     flex-shrink: 0;
+    z-index: $z-index-toolbar;
 }
 
 .keen-docs-content__toolbar-content {
     margin: 0 auto;
     width: 100%;
-    max-width: 1092px;
-    padding-left: 24px;
-    padding-right: 24px;
+    max-width: rem-calc(1092px);
+    padding-left: rem-calc(24px);
+    padding-right: rem-calc(24px);
     display: flex;
     align-items: center;
 }
 
-.ui-icon.keen-docs-content__toolbar-menu-button {
-    margin-right: 16px;
+.ui-icon-button.keen-docs-content__toolbar-menu-button {
+    margin-right: rem-calc(16px);
     display: none;
     cursor: pointer;
 }
@@ -51,11 +52,11 @@
 
 .page {
     margin: 0 auto;
-    max-width: 1092px;
-    padding-top: 48px;
-    padding-bottom: 32px;
-    padding-left: 32px;
-    padding-right: 32px;
+    max-width: rem-calc(1092px);
+    padding-top: rem-calc(48px);
+    padding-bottom: rem-calc(32px);
+    padding-left: rem-calc(32px);
+    padding-right: rem-calc(32px);
     line-height: 1.6;
 
     & > p:first-child,
@@ -67,19 +68,19 @@
     }
 
     .page__section-title {
-        margin-top: 32px;
+        margin-top: rem-calc(32px);
         font-weight: 400;
-        font-size: 24px;
+        font-size: rem-calc(24px);
         line-height: 1.33em;
 
         a {
             font-size: 0.6em;
-            padding-left: 4px;
+            padding-left: rem-calc(4px);
         }
     }
 
     .page__demo-title {
-        font-size: 18px;
+        font-size: rem-calc(18px);
     }
 
     .table {
@@ -88,7 +89,7 @@
 }
 
 .page__title {
-    font-size: 34px;
+    font-size: rem-calc(34px);
     font-weight: 400;
     line-height: 1.176em;
 }
@@ -105,21 +106,21 @@ th {
 }
 
 tbody td:first-child {
-    min-width: 88px;
+    min-width: rem-calc(88px);
 }
 
 @media screen and (max-width: $mobile-breakpoint) {
     .keen-docs-content__toolbar-content {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left: rem-calc(16px);
+        padding-right: rem-calc(16px);
     }
 
-    .ui-icon.keen-docs-content__toolbar-menu-button {
+    .ui-icon-button.keen-docs-content__toolbar-menu-button {
         display: flex;
     }
 
     .page {
-        padding: 16px;
-        padding-top: 32px;
+        padding: rem-calc(16px);
+        padding-top: rem-calc(32px);
     }
 }

@@ -8,6 +8,9 @@ import VueRouter from 'vue-router';
 import App from './App.vue';
 import Routes from './routes.js';
 
+// Allow inspection, even in production mode
+Vue.config.devtools = true;
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({

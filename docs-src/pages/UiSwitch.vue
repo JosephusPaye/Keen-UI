@@ -1,5 +1,5 @@
 <template>
-    <section class="page page-ui-switch">
+    <section class="page page--ui-switch">
         <h2 class="page__title">UiSwitch</h2>
 
         <p>UiSwitch shows a switch that allows the user to toggle between two states. It supports keyboard focus and a disabled state.
@@ -7,36 +7,36 @@
         <p>The position of the switch relative to the label can be customized.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiSwitch.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiSwitch.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
-            <h4 class="page__demo-title">Default</h4>
+        <div class="page__examples">
+            <h4 class="page__demo-title">Basic</h4>
 
-            <div class="group">
-                <ui-switch v-model="switch1">Do it now</ui-switch>
-                <ui-switch v-model="switch2">Do it well</ui-switch>
-                <ui-switch v-model="switch3">Look cool while at it</ui-switch>
+            <div class="page__demo-group">
+                <ui-switch v-model="switch1">Bluetooth</ui-switch>
+                <ui-switch v-model="switch2">WiFi</ui-switch>
+                <ui-switch v-model="switch3">Location</ui-switch>
                 <ui-switch v-model="switch4" disabled>Can't change this</ui-switch>
                 <ui-switch v-model="switch5" disabled>Can't change this too</ui-switch>
             </div>
 
             <h4 class="page__demo-title">Color: accent</h4>
 
-            <div class="group">
-                <ui-switch v-model="switch1" color="accent">Do it now</ui-switch>
-                <ui-switch v-model="switch2" color="accent">Do it well</ui-switch>
-                <ui-switch v-model="switch3" color="accent">Look cool while at it</ui-switch>
+            <div class="page__demo-group">
+                <ui-switch v-model="switch1" color="accent">Bluetooth</ui-switch>
+                <ui-switch v-model="switch2" color="accent">WiFi</ui-switch>
+                <ui-switch v-model="switch3" color="accent">Location</ui-switch>
                 <ui-switch v-model="switch4" color="accent" disabled>Can't change this</ui-switch>
                 <ui-switch v-model="switch5" color="accent" disabled>Can't change this too</ui-switch>
             </div>
 
             <h4 class="page__demo-title">Switch position: right</h4>
 
-            <div class="group has-switch-right">
-                <ui-switch v-model="switch1" switch-position="right">Do it now</ui-switch>
-                <ui-switch v-model="switch2" switch-position="right">Do it well</ui-switch>
-                <ui-switch v-model="switch3" switch-position="right">Look cool while at it</ui-switch>
+            <div class="page__demo-group has-switch-right">
+                <ui-switch v-model="switch1" switch-position="right">Bluetooth</ui-switch>
+                <ui-switch v-model="switch2" switch-position="right">WiFi</ui-switch>
+                <ui-switch v-model="switch3" switch-position="right">Location</ui-switch>
                 <ui-switch v-model="switch4" switch-position="right" disabled>Can't change this</ui-switch>
                 <ui-switch v-model="switch5" switch-position="right" disabled>Can't change this too</ui-switch>
             </div>
@@ -70,7 +70,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The switch label (text only). For HTML in the label, use the <code>default</code> slot.</p>
+                                    <p>The switch label (text only). For HTML, use the <code>default</code> slot.</p>
                                 </td>
                             </tr>
 
@@ -89,7 +89,7 @@
                                 <td>checked</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the switch is on by default.</td>
+                                <td>Whether or not the switch is on by default.</td>
                             </tr>
 
                             <tr>
@@ -107,10 +107,17 @@
                             </tr>
 
                             <tr>
+                                <td>submittedValue</td>
+                                <td></td>
+                                <td><code>"on"</code></td>
+                                <td>The value that will be submitted for the switch when it is turned on. Applied as the <code>value</code> attribute of the switch's input element.</td>
+                            </tr>
+
+                            <tr>
                                 <td>color</td>
                                 <td>String</td>
                                 <td><code>"primary"</code></td>
-                                <td>The color of a checked switch. One of <code>primary</code> or <code>accent</code>.</td>
+                                <td>The color of the switch when turned on. One of <code>primary</code> or <code>accent</code>.</td>
                             </tr>
 
                             <tr>
@@ -128,7 +135,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the switch is disabled.</p>
+                                    <p>Whether or not the switch is disabled.</p>
                                     <p>Set to <code>true</code> to disable the switch.</p>
                                 </td>
                             </tr>
@@ -173,7 +180,7 @@
                             <tr>
                                 <td>focus</td>
                                 <td>
-                                    <p>Emitted when the switch is focussed.</p>
+                                    <p>Emitted when the switch is focused.</p>
                                     <p>Listen for it using <code>@focus</code>.</p>
                                 </td>
                             </tr>
@@ -211,10 +218,9 @@
 </template>
 
 <script>
+import UiSwitch from 'src/UiSwitch.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
-import UiSwitch from 'src/UiSwitch.vue';
-// import UiButton from 'src/UiButton.vue';
 
 export default {
     data() {
@@ -228,30 +234,27 @@ export default {
     },
 
     components: {
+        UiSwitch,
         UiTab,
-        UiTabs,
-        UiSwitch
-        // UiButton,
+        UiTabs
     }
 };
 </script>
 
-<style lang="sass">
-.page-ui-switch {
+<style lang="scss">
+@import '~styles/imports';
+
+.page--ui-switch {
     .ui-switch {
-        margin-bottom: 8px;
+        margin-bottom: rem-calc(8px);
     }
 
-    .group {
-        margin-bottom: 32px;
+    .page__demo-group {
+        margin-bottom: rem-calc(32px);
 
         &.has-switch-right {
-            max-width: 208px;
+            max-width: rem-calc(208px);
         }
-    }
-
-    button {
-        margin-top: 24px;
     }
 }
 </style>

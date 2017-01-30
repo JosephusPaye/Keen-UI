@@ -1,5 +1,5 @@
 <template>
-    <section class="page page-ui-ripple-ink">
+    <section class="page page--ui-ripple-ink">
         <h2 class="page__title">UiRippleInk</h2>
 
         <p>UiRippleInk shows a ripple ink animation when the element it is associated with is touched or clicked. The ripple ink color and opacity can be customized.</p>
@@ -11,19 +11,23 @@
         <p>UiRippleInk is used internally by many components, including <a href="#/ui-button">UiButton</a>, <a href="#/ui-collapsible">UiCollapsible</a>, <a href="#/ui-icon-button">UiIconButton</a>, <a href="#/ui-fab">UiFab</a>, <a href="#/ui-menu">UiMenu</a>, and <a href="#/ui-tabs">UiTabs</a>.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiRippleInk.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiRippleInk.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
+        <div class="page__examples">
             <h4 class="page__demo-title">Color: blue</h4>
 
-            <div class="group group--type-tv-shows has-custom-color group--color-blue">
+            <div
+                class="page__demo-group page__demo-group--tv-shows page__demo-group--color-blue has-custom-color"
+            >
                 <image-pane :image="show.image" v-for="show in tvShows"></image-pane>
             </div>
 
             <h4 class="page__demo-title">Color: orange, Opacity: 0.95</h4>
 
-            <div class="group group--type-the-simpsons has-custom-color group--color-orange has-custom-opacity">
+            <div
+                class="page__demo-group page__demo-group--the-simpsons page__demo-group--color-orange has-custom-color has-custom-opacity
+            ">
                 <image-pane :image="simpson.image" v-for="simpson in theSimpsons"></image-pane>
             </div>
         </div>
@@ -65,9 +69,9 @@
 </template>
 
 <script>
+import UiRippleInk from 'src/UiRippleInk.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
-import UiRippleInk from 'src/UiRippleInk.vue';
 
 const tvShows = [
     {
@@ -132,19 +136,19 @@ export default {
     },
 
     components: {
-        UiTab,
-        UiTabs,
         ImagePane,
-        UiRippleInk
+        UiRippleInk,
+        UiTab,
+        UiTabs
     }
 };
 </script>
 
-<style lang="sass">
+<style lang="scss">
 @import '~styles/imports';
 
-.page-ui-ripple-ink {
-    .group {
+.page--ui-ripple-ink {
+    .page__demo-group {
         display: flex;
         flex-wrap: wrap;
 
@@ -165,34 +169,34 @@ export default {
         }
     }
 
-    .group--color-orange {
+    .page__demo-group--color-orange {
         color: $md-orange;
     }
 
-    .group--color-blue {
+    .page__demo-group--color-blue {
         color: $md-blue;
     }
 
-    .group--type-tv-shows {
+    .page__demo-group--tv-shows {
         .image-pane {
-            width: 120px;
-            height: 180px;
+            height: rem-calc(180px);
+            width: rem-calc(120px);
         }
     }
 
-    .group--type-the-simpsons {
+    .page__demo-group--the-simpsons {
         .image-pane {
-            width: 120px;
-            height: 120px;
-            border-radius: 8px;
+            border-radius: rem-calc(8px);
+            height: rem-calc(120px);
+            width: rem-calc(120px);
         }
     }
 
     .image-pane {
-        background-size: cover;
         background-position: 50%;
-        margin-right: 16px;
-        margin-bottom: 16px;
+        background-size: cover;
+        margin-bottom: rem-calc(16px);
+        margin-right: rem-calc(16px);
         position: relative;
     }
 }

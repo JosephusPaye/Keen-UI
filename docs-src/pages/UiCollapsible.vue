@@ -1,20 +1,20 @@
 <template>
-    <section class="page page-ui-collapsible">
+    <section class="page page--ui-collapsible">
         <h2 class="page__title">UiCollapsible</h2>
 
-        <p>UiCollapsible is used to show collapsible content. It includes a header and a body and can be initially opened or closed (defaults to closed).</p>
+        <p>UiCollapsible shows collapsible content. It includes a header and a body and can be initially opened or closed (defaults to closed).</p>
 
         <p>Both the header and body are fully customizable (using <code>slots</code>). UiCollapsible is keyboard accessible and it supports a disabled state.</p>
 
-        <p>However, it doesn't support accordion sets (i.e. closing other collapsibles when one is opened). You can achieve that effect by listening for <code>@open</code> and <code>@close</code> on each collapsible in the set and then adjusting their <code>open</code> prop accordingly.</p>
+        <p>UiCollapsible doesn't support accordion sets (i.e. closing other collapsibles when one is opened). You can achieve that effect by listening for <code>@open</code> and <code>@close</code> on each collapsible in the set and then adjusting their <code>open</code> prop accordingly.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiCollapsible.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiCollapsible.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
         <div class="page__demo">
-            <ui-collapsible title="This is open initially" :open="true">
-                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!</div>
+            <ui-collapsible title="This is open initially" open>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!
             </ui-collapsible>
 
             <ui-collapsible title="Longer body content">
@@ -32,15 +32,23 @@
                     HTML <b>supported</b> in header
                 </div>
 
-                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!</div>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!
+            </ui-collapsible>
+
+            <ui-collapsible>
+                <div slot="header">
+                    Multiline header: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id cupiditate, nihil magni accusantium. Suscipit natus provident ab vitae, ad tenetur.
+                </div>
+
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!
             </ui-collapsible>
 
             <ui-collapsible title="This collapsible is disabled" disabled>
-                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!</div>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!
             </ui-collapsible>
 
             <ui-collapsible title="The header icon can be removed" remove-icon>
-                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!</div>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!
             </ui-collapsible>
         </div>
 
@@ -65,7 +73,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether the collapsible is open or closed.</p>
+                                    <p>Whether the collapsible is open or closed.</p>
                                     <p>Changing this value will open/close the collapsible.</p>
                                 </td>
                             </tr>
@@ -74,7 +82,7 @@
                                 <td>title</td>
                                 <td>String</td>
                                 <td></td>
-                                <td>The collapsible title (text only). For HTML in the header, use the header slot.</td>
+                                <td>The collapsible title (text only). For HTML, use the header slot.</td>
                             </tr>
 
                             <tr>
@@ -82,7 +90,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the header icon is removed.</p>
+                                    <p>Whether or not the header icon is removed.</p>
                                     <p>Set to <code>true</code> to remove the icon.</p>
                                 </td>
                             </tr>
@@ -92,7 +100,8 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the ripple ink animation on the collapsible header is disabled.</p>
+                                    <p>Whether or not the ripple ink animation on the collapsible header is disabled.</p>
+                                    <p>Can be set using the <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#global-config" target="_blank" rel="noopener">global config</a>.</p>
                                     <p>Set to <code>true</code> to disable the ripple ink animation.</p>
                                 </td>
                             </tr>
@@ -102,7 +111,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the collapsible is disabled.</p>
+                                    <p>Whether or not the collapsible is disabled.</p>
                                     <p>Set to <code>true</code> to disable the collapsible.</p>
                                 </td>
                             </tr>
@@ -179,10 +188,10 @@
 
                         <tbody>
                             <tr>
-                                <td class="no-wrap"><code>refreshHeight()</code></td>
+                                <td><code>refreshHeight()</code></td>
                                 <td>
                                     <p>UiCollapsible keeps track of its content height internally to use for the open/close transition.</p>
-                                    <p>Trigger this event to update the collapsible's height when its content or width has changed since it was last opened.</p>
+                                    <p>Trigger this event to update the collapsible's height when its width or body content has changed since it was last opened.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -194,15 +203,15 @@
 </template>
 
 <script>
+import UiCollapsible from 'src/UiCollapsible.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
-import UiCollapsible from 'src/UiCollapsible.vue';
 
 export default {
     components: {
+        UiCollapsible,
         UiTab,
-        UiTabs,
-        UiCollapsible
+        UiTabs
     }
 };
 </script>

@@ -2,17 +2,17 @@
     <section class="page page--ui-datepicker">
         <h2 class="page__title">UiDatepicker</h2>
 
-        <p>UiDatepicker shows a calendar that allows the user to pick a date. It allows for a custom date formatter and filter, as well as minimum and maximum dates.</p>
+        <p>UiDatepicker shows a calendar that allows the user to pick a date. It allows for a custom date formatter and filter, as well as specifying minimum and maximum dates.</p>
 
         <p>UiDatepicker supports two colors: <code>primary</code> and <code>accent</code>, two orientations: <code>portrait</code> and <code>landscape</code> as well as two picker types: <code>popover</code> and <code>modal</code>.</p>
 
-        <p>UiDatepicker can show a label above the input, an icon, as well as help or error below the input. It is keyboard accessible and supports a disabled state.</p>
+        <p>UiDatepicker can show a label above the input, an icon, as well as help or error below the input. It is keyboard accessible and supports a disabled state. The calendar popover may drop up or down based on the available space.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiDatepicker.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiDatepicker.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
+        <div class="page__examples">
             <h4 class="page__demo-title">Basic</h4>
 
             <ui-datepicker
@@ -318,7 +318,7 @@
                                 <td>String</td>
                                 <td><code>"left"</code></td>
                                 <td>
-                                    <p>Determines the position of the icon relative to the datepicker. One of <code>left</code> or <code>right</code>.</p>
+                                    <p>The position of the icon relative to the datepicker. One of <code>left</code> or <code>right</code>.</p>
                                 </td>
                             </tr>
 
@@ -327,7 +327,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The datepicker label (text only). For HTML in the label, use the <code>default</code> slot.</p>
+                                    <p>The datepicker label (text only). For HTML, use the <code>default</code> slot.</p>
                                 </td>
                             </tr>
 
@@ -336,7 +336,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the label starts out inline and moves to float above the datepicker when it is focussed.</p>
+                                    <p>Whether or not the label starts out inline and moves to float above the datepicker when it is focused.</p>
                                     <p>Set to <code>true</code> for a floating label. This will disable the placeholder.</p>
                                 </td>
                             </tr>
@@ -346,16 +346,9 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the datepicker is invalid.</p>
+                                    <p>Whether or not the datepicker is invalid.</p>
                                     <p>When <code>invalid</code> is <code>true</code>, the datepicker label appears red and the error is shown if available.</p>
                                 </td>
-                            </tr>
-
-                            <tr>
-                                <td>touched</td>
-                                <td>Boolean</td>
-                                <td><code>false</code></td>
-                                <td>Determines whether or not the datepicker has been opened at least once.</td>
                             </tr>
 
                             <tr>
@@ -383,7 +376,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the datepicker is disabled. Set to <code>true</code> to disable the datepicker.</p>
+                                    <p>Whether or not the datepicker is disabled. Set to <code>true</code> to disable the datepicker.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -456,7 +449,7 @@
                         <tr>
                             <td>touch</td>
                             <td>
-                                <p>Emitted when the datepicker is focussed and then blurred. You should listen for this event and update the <code>touched</code> prop to <code>true</code>.</p>
+                                <p>Emitted when the datepicker is focused for the first time and then blurred.</p>
                                 <p>Listen for it using <code>@touch</code>.
                             </td>
                         </tr>
@@ -464,7 +457,7 @@
                         <tr>
                             <td>focus</td>
                             <td>
-                                <p>Emitted when the datepicker is focussed.</p>
+                                <p>Emitted when the datepicker is focused.</p>
                                 <p>Listen for it using <code>@focus</code>.
                             </td>
                         </tr>
@@ -508,10 +501,15 @@
 
                         <tbody>
                             <tr>
-                                <td class="no-wrap"><code>reset()</code></td>
+                                <td><code>reset()</code></td>
                                 <td>
-                                    <p>Call this method to reset the datepicker to its initial value. You should also reset the <code>invalid</code> and <code>touched</code> props.</p>
+                                    <p>Call this method to reset the datepicker to its initial value. You should also reset the <code>invalid</code> prop.</p>
                                 </td>
+                            </tr>
+
+                            <tr>
+                                <td class="no-wrap"><code>resetTouched()</code></td>
+                                <td>Call this method to reset the touched state of the datepicker. By default it will set the touched state to <code>false</code>, but you can pass an object with <code>{ touched: true }</code> to set the touched state to <code>true</code>.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -573,11 +571,13 @@ export default {
 };
 </script>
 
-<style lang="sass">
+<style lang="scss">
+@import '~styles/imports';
+
 .page--ui-datepicker {
     .ui-datepicker {
-        max-width: 400px;
-        margin-bottom: 32px;
+        max-width: rem-calc(400px);
+        margin-bottom: rem-calc(32px);
     }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <section class="page page-ui-progress-linear">
+    <section class="page page--ui-progress-linear">
         <h2 class="page__title">UiProgressLinear</h2>
 
         <p>UiProgressLinear shows a linear progress bar that can be either determinate or indeterminate. A determinate progress bar shows a specific percentage of completion, while an indeterminate progress bar indicates general activity.</p>
@@ -7,31 +7,37 @@
         <p>UiProgressLinear supports four colors: <code>primary</code>, <code>accent</code>, <code>black</code> or <code>white</code>.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiProgressLinear.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiProgressLinear.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
+        <div class="page__examples">
             <h4 class="page__demo-title">Type: determinate</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-progress-linear
                     color="primary"
                     type="determinate"
+
                     :progress="progress"
+
                     v-show="isLoading"
                 ></ui-progress-linear>
 
                 <ui-progress-linear
                     color="accent"
                     type="determinate"
+
                     :progress="progress"
+
                     v-show="isLoading"
                 ></ui-progress-linear>
 
                 <ui-progress-linear
                     color="black"
                     type="determinate"
+
                     :progress="progress"
+
                     v-show="isLoading"
                 ></ui-progress-linear>
 
@@ -39,7 +45,9 @@
                     <ui-progress-linear
                         color="white"
                         type="determinate"
+
                         :progress="progress"
+
                         v-show="isLoading"
                     ></ui-progress-linear>
                 </div>
@@ -47,7 +55,7 @@
 
             <h4 class="page__demo-title">Type: indeterminate</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-progress-linear color="primary" v-show="isLoading"></ui-progress-linear>
                 <ui-progress-linear color="accent" v-show="isLoading"></ui-progress-linear>
                 <ui-progress-linear color="black" v-show="isLoading"></ui-progress-linear>
@@ -57,7 +65,7 @@
                 </div>
             </div>
 
-            <ui-button @click.native="isLoading = !isLoading">Toggle Loading</ui-button>
+            <ui-button @click="isLoading = !isLoading">Toggle Loading</ui-button>
         </div>
 
         <h3 class="page__section-title">API</h3>
@@ -108,10 +116,10 @@
 </template>
 
 <script>
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
 import UiButton from 'src/UiButton.vue';
 import UiProgressLinear from 'src/UiProgressLinear.vue';
+import UiTab from 'src/UiTab.vue';
+import UiTabs from 'src/UiTabs.vue';
 
 export default {
     data() {
@@ -137,37 +145,39 @@ export default {
     },
 
     components: {
-        UiTab,
-        UiTabs,
         UiButton,
-        UiProgressLinear
+        UiProgressLinear,
+        UiTab,
+        UiTabs
     }
 };
 </script>
 
-<style lang="sass">
-.page-ui-progress-linear {
+<style lang="scss">
+@import '~styles/imports';
+
+.page--ui-progress-linear {
     .ui-button {
-        margin-top: 24px;
+        margin-top: rem-calc(24px);
     }
 
     .ui-progress-linear {
-        margin-top: 8px;
-        margin-bottom: 8px;
+        margin-top: rem-calc(8px);
+        margin-bottom: rem-calc(8px);
     }
 
-    .group {
+    .page__demo-group {
         .ui-progress-linear {
-            margin-bottom: 40px;
+            margin-bottom: rem-calc(40px);
         }
     }
 
     .has-white-progress {
         background-color: gray;
-        padding: 8px 0;
+        padding: rem-calc(8px 0);
 
         .ui-progress-linear {
-            margin-bottom: 8px;
+            margin-bottom: rem-calc(8px);
         }
     }
 }

@@ -1,19 +1,19 @@
 <template>
-    <section class="page page-ui-textbox">
+    <section class="page page--ui-textbox">
         <h2 class="page__title">UiTextbox</h2>
 
         <p>UiTextbox is a versatile text input component with support for hover, focus, active, invalid and disabled states.</p>
 
         <p>A label can be shown above the textbox as well as help or error below the textbox. UiTextbox can show an icon to the left or right of the input. It can also show a counter of the number of characters entered.</p>
 
-        <p>UiTextbox also supports multi-line text input (textarea) and the textbox will grow by default to fit its content.</p>
+        <p>UiTextbox supports multi-line text input (textarea) and the textbox will grow by default to fit its content.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiTextbox.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiTextbox.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
-            <h4 class="page__demo-title">Default</h4>
+        <div class="page__examples">
+            <h4 class="page__demo-title">Basic</h4>
 
             <ui-textbox label="Name" placeholder="Enter your name" v-model="textbox1"></ui-textbox>
 
@@ -89,7 +89,6 @@
                 required
 
                 :invalid="textbox10Touched && textbox10.length === 0"
-                :touched="textbox10Touched"
                 @touch="textbox10Touched = true"
 
                 v-model="textbox10"
@@ -98,8 +97,8 @@
             <h4 class="page__demo-title">With validation and counter (max length)</h4>
 
             <ui-textbox
-                error="The username may not be greater than 16 characters"
-                help="Pick a unique username maximum 16 characters"
+                error="The username may not be more than 16 characters"
+                help="Pick a unique username not more than 16 characters"
                 icon="person"
                 label="Username"
                 placeholder="Enter a username"
@@ -211,7 +210,7 @@
                                 <td>
                                     <p>The <code>type</code> attribute of the textbox input element.</p>
 
-                                    <p>Supported values are <code>text</code>, <code>search</code>, <code>email</code>, <code>url</code>, <code>tel</code>, and <code>number</code>.</p>
+                                    <p>Supported values are <code>text</code>, <code>password</code>, <code>search</code>, <code>email</code>, <code>url</code>, <code>tel</code>, and <code>number</code>. Other values for which the browser shows a custom UI may work, but are not supported.</p>
 
                                     <p>Only applicable when <code>multiLine</code> is <code>false</code>.</p>
                                 </td>
@@ -229,7 +228,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the textbox is a rendered as a textarea.</p>
+                                    <p>Whether or not the textbox is a rendered as a textarea.</p>
                                     <p>Set to <code>true</code> to render a textarea.</p>
                                 </td>
                             </tr>
@@ -239,16 +238,9 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the input is invalid.</p>
+                                    <p>Whether or not the input is invalid.</p>
                                     <p>When <code>invalid</code> is <code>true</code>, the textbox label appears red and the error is shown if available.</p>
                                 </td>
-                            </tr>
-
-                            <tr>
-                                <td>touched</td>
-                                <td>Boolean</td>
-                                <td><code>false</code></td>
-                                <td>Determines whether or not the textbox has been focussed or clicked, and then blurred.</td>
                             </tr>
 
                             <tr>
@@ -271,11 +263,20 @@
                             </tr>
 
                             <tr>
+                                <td>readonly</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>
+                                    <p>The <code>readonly</code> attribute of the textbox input and textarea elements.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>autofocus</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the textbox should automatically receive focus when it is rendered for the first time.</p>
+                                    <p>Whether or not the textbox should automatically receive focus when it is rendered for the first time.</p>
                                     <p>Only one input element should have this prop set to <code>true</code> in the document for the autofocus to work properly.</p>
                                 </td>
                             </tr>
@@ -285,7 +286,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>Determines the type of autocomplete suggestions the browser should offer for the input.</p>
+                                    <p>The type of autocomplete suggestions the browser should offer for the input.</p>
 
                                     <p>See the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-autocomplete" target="_blank" rel="noopener">autocomplete attribute docs</a> for more info.</p>
 
@@ -298,7 +299,7 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>
-                                    <p>Determines whether or not the textarea should automatically grow in height to fit its content.</p>
+                                    <p>Whether or not the textarea should automatically grow in height to fit its content.</p>
                                     <p>Note that when you change the textbox's value programmatically, you should call the <code>refreshSize()</code> method to update the textarea size.</p>
                                     <p>Set to <code>false</code> to disable auto sizing.</p>
                                 </td>
@@ -339,8 +340,9 @@
                                 <td>Number</td>
                                 <td></td>
                                 <td>
-                                    <p>The <code>maxlength</code> attribute of the input and textarea elements. This is only enforced when the <code>enforceMaxlength</code> prop is <code>true</code>.</p>
-                                    <p>When set, a character counter will be shown below the textbox.</p>
+                                    <p>The <code>maxlength</code> attribute of the input and textarea elements. When set, a character counter will be shown below the textbox.</p>
+
+                                    <p>The max length restriction is only enforced when the <code>enforceMaxlength</code> prop is <code>true</code>.</p>
                                 </td>
                             </tr>
 
@@ -349,7 +351,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not to enforce the <code>maxlength</code> prop as an input restriction.</p>
+                                    <p>Whether or not to enforce the <code>maxlength</code> prop as an input restriction.</p>
                                     <p>Set to <code>true</code> to ensure that the user cannot enter more characters than <code>maxlength</code>.</p>
                                 </td>
                             </tr>
@@ -369,7 +371,7 @@
                                 <td>String</td>
                                 <td><code>"left"</code></td>
                                 <td>
-                                    <p>Determines the position of the icon relative to the textbox. One of <code>left</code> or <code>right</code>.</p>
+                                    <p>The position of the icon relative to the textbox. One of <code>left</code> or <code>right</code>.</p>
                                 </td>
                             </tr>
 
@@ -378,7 +380,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The textbox label (text only). For HTML in the label, use the <code>default</code> slot.</p>
+                                    <p>The textbox label (text only). For HTML, use the <code>default</code> slot.</p>
                                 </td>
                             </tr>
 
@@ -387,7 +389,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the textbox label starts out inline and moves to float above the input when it is focussed.</p>
+                                    <p>Whether or not the textbox label starts out inline and moves to float above the input when it is focused.</p>
                                     <p>Set to <code>true</code> for a floating label. This will disable the input placeholder.</p>
                                 </td>
                             </tr>
@@ -397,7 +399,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The help text (hint) shown below the textbox.</p>
+                                    <p>The help text (hint) shown below the textbox. For HTML, use the <code>help</code> slot.</p>
                                     <p>Extra space is reserved under the textbox for the help and error, but if neither is available, this space is collapsed.</p>
                                 </td>
                             </tr>
@@ -407,7 +409,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The error text shown to the user below the textbox input when the <code>invalid</code> prop is <code>true</code>.</p>
+                                    <p>The error text shown to the user below the textbox input when the <code>invalid</code> prop is <code>true</code>. For HTML, use the <code>error</code> slot.</p>
                                     <p>Extra space is reserved under the textbox for the help and error, but if neither is available, this space is collapsed.</p>
                                 </td>
                             </tr>
@@ -417,7 +419,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the input is disabled. Set to <code>true</code> to disable the input.</p>
+                                    <p>Whether or not the input is disabled. Set to <code>true</code> to disable the input.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -447,6 +449,20 @@
                                 <td>icon</td>
                                 <td>
                                     <p>Holds the textbox icon and can contain any custom or SVG icon.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>help</td>
+                                <td>
+                                    <p>Holds the textbox help and can contain HTML.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>error</td>
+                                <td>
+                                    <p>Holds the textbox error and can contain HTML.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -486,15 +502,15 @@
                             <tr>
                                 <td>touch</td>
                                 <td>
-                                    <p>Emitted when the textbox is focussed/clicked and then blurred. You should listen for this event and update the <code>touched</code> prop to <code>true</code>.</p>
+                                    <p>Emitted when the textbox is focused for the first time and then blurred.</p>
                                     <p>Listen for it using <code>@touch</code>.
                                 </td>
                             </tr>
 
                             <tr>
-                                <td class="no-wrap">focus</td>
+                                <td>focus</td>
                                 <td>
-                                    <p>Emitted when the textbox is focussed.</p>
+                                    <p>Emitted when the textbox is focused.</p>
                                     <p>Listen for it using <code>@focus</code>.
                                 </td>
                             </tr>
@@ -541,8 +557,13 @@
                             <tr>
                                 <td><code>reset()</code></td>
                                 <td>
-                                    <p>Call this method to reset the textbox to its initial value. You should also reset the <code>invalid</code> and <code>touched</code> props.</p>
+                                    <p>Call this method to reset the textbox to its initial value. You should also reset the <code>invalid</code> prop.</p>
                                 </td>
+                            </tr>
+
+                            <tr>
+                                <td class="no-wrap"><code>resetTouched()</code></td>
+                                <td>Call this method to reset the touched state of the textbox. By default it will set the touched state to <code>false</code>, but you can pass an object with <code>{ touched: true }</code> to set the touched state to <code>true</code>.</td>
                             </tr>
 
                             <tr>
@@ -593,3 +614,13 @@ export default {
     }
 };
 </script>
+
+<style lang="scss">
+@import '~styles/imports';
+
+.page--ui-textbox {
+    .ui-textbox {
+        max-width: rem-calc(600px);
+    }
+}
+</style>

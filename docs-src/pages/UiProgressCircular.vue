@@ -1,39 +1,45 @@
 <template>
-    <section class="page page-ui-progress-circular">
+    <section class="page page--ui-progress-circular">
         <h2 class="page__title">UiProgressCircular</h2>
 
         <p>UiProgressCircular shows a circular progress indicator (a spinner).</p>
 
-        <p>UiProgressCircular supports five possible colors: <code>primary</code>, <code>accent</code>, <code>multi-color</code> (alternating primary colors), <code>black</code> and <code>white</code>. The <code>size</code> (width and height) and <code>stroke</code> can be customized.</p>
+        <p>UiProgressCircular supports five possible colors: <code>primary</code>, <code>accent</code>, <code>multi-color</code> (alternating primary colors), <code>black</code> and <code>white</code>. The size (width and height) and stroke can be customized.</p>
 
-        <p>Due to an issue with CSS transitions on SVG elements in IE and Edge, the determinate progress is not animated in those browsers.</p>
+        <p>Due to an issue with CSS transitions on SVG elements in IE and Edge, determinate progress is not animated in those browsers, and <code>multi-color</code> progress is not supported.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiProgressCircular.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiProgressCircular.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
-            <h4 class="page__demo-title">Determinate</h4>
+        <div class="page__examples">
+            <h4 class="page__demo-title">Type: determinate</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-progress-circular
                     color="primary"
                     type="determinate"
+
                     :progress="progress"
+
                     v-show="loading"
                 ></ui-progress-circular>
 
                 <ui-progress-circular
                     color="accent"
                     type="determinate"
+
                     :progress="progress"
+
                     v-show="loading"
                 ></ui-progress-circular>
 
                 <ui-progress-circular
                     color="black"
                     type="determinate"
+
                     :progress="progress"
+
                     v-show="loading"
                 ></ui-progress-circular>
 
@@ -41,15 +47,17 @@
                     <ui-progress-circular
                         color="white"
                         type="determinate"
+
                         :progress="progress"
+
                         v-show="loading"
                     ></ui-progress-circular>
                 </div>
             </div>
 
-            <h4 class="page__demo-title">Indeterminate</h4>
+            <h4 class="page__demo-title">Type: indeterminate</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-progress-circular color="multi-color" v-show="loading"></ui-progress-circular>
                 <ui-progress-circular color="primary" v-show="loading"></ui-progress-circular>
                 <ui-progress-circular color="accent" v-show="loading"></ui-progress-circular>
@@ -62,43 +70,49 @@
 
             <h4 class="page__demo-title">Custom size</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-progress-circular
                     type="determinate"
+
                     :auto-stroke="false"
                     :progress="progress"
-                    v-show="loading"
                     :size="54"
+
+                    v-show="loading"
                 ></ui-progress-circular>
 
                 <ui-progress-circular
                     :auto-stroke="false"
-                    v-show="loading"
                     :size="54"
+
+                    v-show="loading"
                 ></ui-progress-circular>
             </div>
 
             <h4 class="page__demo-title">Custom stroke width</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-progress-circular
                     type="determinate"
+
                     :progress="progress"
-                    v-show="loading"
                     :size="48"
                     :stroke="8"
+
+                    v-show="loading"
                 ></ui-progress-circular>
 
                 <ui-progress-circular
-                    v-show="loading"
                     :size="48"
                     :stroke="8"
+
+                    v-show="loading"
                 ></ui-progress-circular>
             </div>
 
             <br>
 
-            <ui-button @click.native="loading = !loading">Toggle Loading</ui-button>
+            <ui-button @click="loading = !loading">Toggle Loading</ui-button>
         </div>
 
         <h3 class="page__section-title">API</h3>
@@ -158,7 +172,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not the stroke width should be automatically calculated if it is not provided.</p>
+                                    <p>Whether or not the stroke width should be automatically calculated if it is not provided.</p>
 
                                     <p>The calculated stroke is the <code>width</code> divided by <code>8</code>.</p>
 
@@ -184,10 +198,10 @@
 </template>
 
 <script>
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
 import UiButton from 'src/UiButton.vue';
 import UiProgressCircular from 'src/UiProgressCircular.vue';
+import UiTab from 'src/UiTab.vue';
+import UiTabs from 'src/UiTabs.vue';
 
 export default {
     data() {
@@ -213,32 +227,34 @@ export default {
     },
 
     components: {
-        UiTab,
-        UiTabs,
         UiButton,
-        UiProgressCircular
+        UiProgressCircular,
+        UiTab,
+        UiTabs
     }
 };
 </script>
 
-<style lang="sass">
-.page-ui-progress-circular {
-    .group {
+<style lang="scss">
+@import '~styles/imports';
+
+.page--ui-progress-circular {
+    .page__demo-group {
         display: flex;
 
         .ui-progress-circular {
-            margin-right: 24px;
+            margin-right: rem-calc(24px);
         }
     }
 
     .ui-button {
-        margin-top: 24px;
+        margin-top: rem-calc(24px);
     }
 
     .has-white-progress {
         background-color: gray;
         display: inline-block;
-        padding: 8px;
+        padding: rem-calc(8px);
 
         .ui-progress-circular {
             margin-right: 0;

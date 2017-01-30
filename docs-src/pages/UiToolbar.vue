@@ -1,31 +1,31 @@
 <template>
-    <section class="page page-ui-toolbar">
+    <section class="page page--ui-toolbar">
         <h2 class="page__title">UiToolbar</h2>
 
         <p>UiToolbar components shows a toolbar with a navigation icon, branding, title, and actions.</p>
 
-        <p>UiToolbar has two types: <code>default</code>, <code>colored</code> and <code>clear</code>. The toolbar can be raised (with a drop shadow) or flat. The navigation icon, brand, title and actions can be customized using slots.</p>
+        <p>UiToolbar has three types: <code>default</code>, <code>colored</code> and <code>clear</code>. The toolbar can be raised (with a drop shadow) and the navigation icon, brand, title and actions can be customized using slots.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiToolbar.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiToolbar.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
-            <h4 class="page__demo-title">Type: default</h4>
+        <div class="page__examples">
+            <h4 class="page__demo-title">Basic</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-toolbar title="Inbox">
                     <div slot="actions">
                         <ui-icon-button
                             color="black"
-                            icon="arrow_back"
+                            icon="refresh"
                             size="large"
                             type="secondary"
                         ></ui-icon-button>
 
                         <ui-icon-button
                             color="black"
-                            icon="star_border"
+                            icon="search"
                             size="large"
                             type="secondary"
                         ></ui-icon-button>
@@ -50,21 +50,21 @@
                 </ui-toolbar>
             </div>
 
-            <h4 class="page__demo-title">Type: default, raised: false</h4>
+            <h4 class="page__demo-title">Raised: false</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-toolbar title="Inbox" :raised="false">
                     <div slot="actions">
                         <ui-icon-button
                             color="black"
-                            icon="arrow_back"
+                            icon="refresh"
                             size="large"
                             type="secondary"
                         ></ui-icon-button>
 
                         <ui-icon-button
                             color="black"
-                            icon="star_border"
+                            icon="search"
                             size="large"
                             type="secondary"
                         ></ui-icon-button>
@@ -89,21 +89,21 @@
                 </ui-toolbar>
             </div>
 
-            <h4 class="page__demo-title">Type: default, with brand</h4>
+            <h4 class="page__demo-title">With brand</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-toolbar brand="Mail App" title="Inbox">
                     <div slot="actions">
                         <ui-icon-button
                             color="black"
-                            icon="arrow_back"
+                            icon="refresh"
                             size="large"
                             type="secondary"
                         ></ui-icon-button>
 
                         <ui-icon-button
                             color="black"
-                            icon="star_border"
+                            icon="search"
                             size="large"
                             type="secondary"
                         ></ui-icon-button>
@@ -130,19 +130,19 @@
 
             <h4 class="page__demo-title">Type: colored</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-toolbar type="colored" text-color="white" title="Inbox">
                     <div slot="actions">
                         <ui-icon-button
                             color="white"
-                            icon="arrow_back"
+                            icon="refresh"
                             size="large"
                             type="secondary"
                         ></ui-icon-button>
 
                         <ui-icon-button
                             color="white"
-                            icon="star_border"
+                            icon="search"
                             size="large"
                             type="secondary"
                         ></ui-icon-button>
@@ -169,7 +169,7 @@
 
             <h4 class="page__demo-title">Type: colored, with brand</h4>
 
-            <div class="group">
+            <div class="page__demo-group">
                 <ui-toolbar
                     brand="Mail App"
                     text-color="white"
@@ -179,14 +179,14 @@
                     <div slot="actions">
                         <ui-icon-button
                             color="white"
-                            icon="arrow_back"
+                            icon="refresh"
                             size="large"
                             type="secondary"
                         ></ui-icon-button>
 
                         <ui-icon-button
                             color="white"
-                            icon="star_border"
+                            icon="search"
                             size="large"
                             type="secondary"
                         ></ui-icon-button>
@@ -211,21 +211,21 @@
                 </ui-toolbar>
             </div>
 
-            <h4 class="page__demo-title">Type: colored, raised: false, with linear progress</h4>
+            <h4 class="page__demo-title">Type: colored, with linear progress</h4>
 
-            <div class="group">
-                <ui-toolbar loading text-color="white" type="colored" :raised="false">
+            <div class="page__demo-group">
+                <ui-toolbar loading text-color="white" type="colored">
                     <div slot="actions">
                         <ui-icon-button
                             color="white"
-                            icon="arrow_back"
+                            icon="refresh"
                             size="large"
                             type="secondary"
                         ></ui-icon-button>
 
                         <ui-icon-button
                             color="white"
-                            icon="star_border"
+                            icon="search"
                             size="large"
                             type="secondary"
                         ></ui-icon-button>
@@ -254,7 +254,7 @@
 
             <h4 class="page__demo-title">Type: clear, text-color: white</h4>
 
-            <div class="group has-photo-cover group--photo-1">
+            <div class="page__demo-group has-photo-cover page__demo-group--photo-1">
                 <ui-toolbar
                     brand="Photo App"
                     text-color="white"
@@ -272,7 +272,7 @@
 
                         <ui-icon-button
                             color="white"
-                            icon="star_border"
+                            icon="search"
                             size="large"
                             type="secondary"
                         ></ui-icon-button>
@@ -299,7 +299,7 @@
 
             <h4 class="page__demo-title">Type: clear, text-color: black, with linear progress on top</h4>
 
-            <div class="group has-photo-cover group--photo-2">
+            <div class="page__demo-group has-photo-cover page__demo-group--photo-2">
                 <ui-toolbar
                     brand="Photo App"
                     loading
@@ -318,7 +318,7 @@
 
                         <ui-icon-button
                             color="black"
-                            icon="star_border"
+                            icon="search"
                             size="large"
                             type="secondary"
                         ></ui-icon-button>
@@ -346,7 +346,7 @@
 
         <h4 class="page__demo-title">Combined with tabs</h4>
 
-        <div class="group group--has-tabs">
+        <div class="page__demo-group page__demo-group--has-tabs">
             <ui-toolbar
                 brand="Book App"
                 remove-brand-divider
@@ -357,7 +357,7 @@
                 <div slot="actions">
                     <ui-icon-button
                         color="white"
-                        icon="view_module"
+                        icon="search"
                         size="large"
                         type="secondary"
                     ></ui-icon-button>
@@ -441,14 +441,14 @@
                                 <td>title</td>
                                 <td>String</td>
                                 <td></td>
-                                <td>The toolbar title (text only). For HTML in the title, use the <code>default</code> slot.</td>
+                                <td>The toolbar title (text only). For HTML, use the <code>default</code> slot.</td>
                             </tr>
 
                             <tr>
                                 <td>brand</td>
                                 <td>String</td>
                                 <td></td>
-                                <td>The brand (text only). For HTML in the brand, use the <code>brand</code> slot.</td>
+                                <td>The brand (text only). For HTML, use the <code>brand</code> slot.</td>
                             </tr>
 
                             <tr>
@@ -456,7 +456,7 @@
                                 <td>Boolean</td>
                                 <td></td>
                                 <td>
-                                    <p>Determines whether or not the divider between the brand and title is removed.</p>
+                                    <p>Whether or not the divider between the brand and title is removed.</p>
                                     <p>By default, if the brand is set, the divider is shown, otherwise it is removed.</p>
                                 </td>
                             </tr>
@@ -467,7 +467,7 @@
                                 <td><code>"menu"</code></td>
                                 <td>
                                     <p>The toolbar navigation icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
-                                    <p>You can set a custom or SVG icon using the <code>icon</code> slot.</p>
+                                    <p>You can set a custom or SVG icon or icon button using the <code>icon</code> slot.</p>
                                 </td>
                             </tr>
 
@@ -475,14 +475,14 @@
                                 <td>removeNavIcon</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the navigation icon is removed. Set to <code>true</code> to remove the nav icon.</td>
+                                <td>Whether or not the navigation icon is removed. Set to <code>true</code> to remove the navigation icon.</td>
                             </tr>
 
                             <tr>
                                 <td>raised</td>
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
-                                <td>Determines whether or not the toolbar has a drop shadow. Set to <code>false</code> to remove the drop shadow.</td>
+                                <td>Whether or not the toolbar has a drop shadow. Set to <code>false</code> to remove the drop shadow.</td>
                             </tr>
 
                             <tr>
@@ -496,7 +496,7 @@
                                 <td>loading</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Determines whether or not the progress is shown. Set to <code>true</code> to show the progress.</td>
+                                <td>Whether or not the progress is shown. Set to <code>true</code> to show the progress.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -522,7 +522,7 @@
                             <tr>
                                 <td>icon</td>
                                 <td>
-                                    <p>Holds the toolbar navigation icon and can contain any custom or SVG icon.</p>
+                                    <p>Holds the toolbar navigation icon and can contain any custom or SVG icon or icon button.</p>
                                 </td>
                             </tr>
 
@@ -564,11 +564,11 @@
 </template>
 
 <script>
+import UiIconButton from 'src/UiIconButton.vue';
+import UiMenu from 'src/UiMenu.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
-import UiMenu from 'src/UiMenu.vue';
 import UiToolbar from 'src/UiToolbar.vue';
-import UiIconButton from 'src/UiIconButton.vue';
 
 const menuOptions = [
     {
@@ -590,38 +590,38 @@ export default {
     },
 
     components: {
+        UiIconButton,
+        UiMenu,
         UiTab,
         UiTabs,
-        UiMenu,
-        UiToolbar,
-        UiIconButton
+        UiToolbar
     }
 };
 </script>
 
-<style lang="sass">
+<style lang="scss">
 @import '~styles/imports';
 
-.page-ui-toolbar {
-    .group {
-        margin-bottom: 48px;
+.page--ui-toolbar {
+    .page__demo-group {
+        margin-bottom: rem-calc(48px);
 
         &.has-photo-cover {
             background-position: 50%;
             background-size: cover;
-            height: 300px;
+            height: rem-calc(300px);
         }
     }
 
-    .group--photo-1 {
+    .page__demo-group--photo-1 {
         background-image: url('https://i.imgur.com/Fln32Fv.jpg');
     }
 
-    .group--photo-2 {
+    .page__demo-group--photo-2 {
         background-image: url('https://i.imgur.com/vFBagiE.jpg');
     }
 
-    .group--has-tabs {
+    .page__demo-group--has-tabs {
         .ui-tabs__header {
             box-shadow: 0 2px 2px rgba(black, 0.2);
         }

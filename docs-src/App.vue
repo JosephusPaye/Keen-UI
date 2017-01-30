@@ -17,10 +17,14 @@
         <section class="keen-docs-content">
             <div class="keen-docs-content__toolbar">
                 <div class="keen-docs-content__toolbar-content">
-                    <ui-icon
+                    <ui-icon-button
                         class="keen-docs-content__toolbar-menu-button"
-                        @click.native="showSidebar = true"
-                    >menu</ui-icon>
+                        color="white"
+                        icon="menu"
+                        type="clear"
+
+                        @click="showSidebar = true"
+                    ></ui-icon-button>
 
                     <h1 class="keen-docs-content__toolbar-title">{{ $route.meta.title }}</h1>
 
@@ -29,7 +33,7 @@
                         rel="noopener"
                         target="_blank"
 
-                        :href="'https://github.com/JosephusPaye/Keen-UI/blob/1.0/' + $route.meta.sourceUrl"
+                        :href="'https://github.com/JosephusPaye/Keen-UI/blob/master/' + $route.meta.sourceUrl"
 
                         v-if="$route.meta.sourceUrl"
                     >View Source</a>
@@ -45,7 +49,7 @@
 
 <script>
 import Sidebar from './Sidebar.vue';
-import UiIcon from 'src/UiIcon.vue';
+import UiIconButton from 'src/UiIconButton.vue';
 
 export default {
     data() {
@@ -66,11 +70,11 @@ export default {
 
     components: {
         Sidebar,
-        UiIcon
+        UiIconButton
     }
 };
 </script>
 
-<style lang="sass">
+<style lang="scss">
 @import './styles/index.scss';
 </style>

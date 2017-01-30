@@ -5,11 +5,11 @@
 
             <a
                 class="keen-docs-sidebar__header-version"
-                href="#"
+                href="https://github.com/JosephusPaye/Keen-UI/releases/tag/v1.0.0"
                 rel="noopener"
                 target="_blank"
                 title="View release notes"
-            >v1.0.0</a>
+            >v1.0</a>
 
             <a
                 class="keen-docs-sidebar__header-github-link"
@@ -39,13 +39,38 @@
             </div>
 
             <ul class="keen-docs-sidebar__menu">
+                <li class="keen-docs-sidebar__menu-section">
+                    <div class="keen-docs-sidebar__menu-section-header">Usage</div>
+
+                    <ul class="keen-docs-sidebar__menu-section-links">
+                        <li>
+                            <a
+                                class="keen-docs-sidebar__menu-item"
+                                href="https://github.com/JosephusPaye/Keen-UI/tree/master#keen-ui"
+                                rel="noopener"
+                                target="_blank"
+                            >Getting Started <ui-icon>open_in_new</ui-icon></a>
+                        </li>
+
+                        <li>
+                            <a
+                                class="keen-docs-sidebar__menu-item"
+                                href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs/Customization.md#customization"
+                                rel="noopener"
+                                target="_blank"
+                            >Customization <ui-icon>open_in_new</ui-icon></a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="keen-docs-sidebar__menu-section" v-for="section in menu">
                     <div class="keen-docs-sidebar__menu-section-header">{{ section.title }}</div>
 
                     <ul class="keen-docs-sidebar__menu-section-links">
                         <li v-for="item in section.menu">
                             <router-link
-                                :to="item.path" class="keen-docs-sidebar__menu-item" exact
+                                class="keen-docs-sidebar__menu-item" exact
+                                :to="item.path"
                             >
                                 {{ item.title }}
                             </router-link>
@@ -72,7 +97,13 @@ export default {
 
     methods: {
         onVersionSelect(version) {
-            console.log(version);
+            let root = '';
+
+            if (window.location.hostname === 'josephuspaye.github.io') {
+                root = 'https://josephuspaye.github.io/Keen-UI';
+            }
+
+            window.location = `${root}/${version}/${window.location.hash}`;
         }
     },
 

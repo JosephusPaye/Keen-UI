@@ -1,20 +1,20 @@
 <template>
-    <section class="page page-ui-icon">
+    <section class="page page--ui-icon">
         <h1 class="page__title">UiIcon</h1>
 
-        <p>UiIcon shows an icon glyph. By default it uses icons from the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a> web font, which must be loaded for icons to display properly. The simplest way to do this is by adding the Google Web font to the head of your page:</p>
+        <p>UiIcon shows an icon glyph. Icons are <code>24px</code> by <code>24px</code> (relative to a root font size of 16px), but the size can be changed by overriding the CSS <code>font-size</code> property of <code>.ui-icon</code>.</p>
+
+        <h3 class="page__section-title">Using Material Icons (default)</h3>
+
+        <p>By default UiIcon uses icons from the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a> web font, which must be loaded for icons to display properly. The simplest way to do this is by adding the Google Web font to the head of your page:</p>
 
         <pre><code class="language-html">&lt;link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"&gt;</code></pre>
 
         <p>See the <a href="http://google.github.io/material-design-icons" target="_blank" rel="noopener">Material Icons Guide</a> for more options on including the font.</p>
 
-        <p>Icons are <code>24px</code> by <code>24px</code>, but the size can be changed by overriding the CSS <code>font-size</code> property of <code>.ui-icon</code>.</p>
-
         <h3 class="page__section-title">Using another icon set</h3>
 
         <p>To use another icon set, use the <code>iconSet</code> and the <code>icon</code> props (both are applied as classes on the icon root element). Then, if the icon font doesn't support ligatures, set the <code>removeText</code> prop to <code>true</code> to remove the inner text.</p>
-
-        <p class="warning">Note that using another icon set may break other Keen UI components that use UiIcon.</p>
 
         <h3 class="page__section-title">Using SVG: inline</h3>
 
@@ -25,14 +25,14 @@
         <p>If you are using an SVG sprite, set <code>useSvg</code> to <code>true</code> and set the <code>icon</code> prop to the icon symbol's <code>id</code> in your sprite. This will render the correct <code>&lt;svg&gt;</code> and <code>&lt;use&gt;</code> tags referencing the icon.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/docs-src/pages/UiIcon.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiIcon.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
-        <div class="page__demo">
+        <div class="page__examples">
             <h4 class="page__demo-title">Default: icon font</h4>
 
-            <div class="boxed-demo">
-                <div class="group">
+            <div class="page__demo is-boxed">
+                <div class="page__demo-group">
                     <ui-icon>folder_open</ui-icon>
                     <ui-icon>home</ui-icon>
                     <ui-icon>info_outline</ui-icon>
@@ -43,7 +43,7 @@
                     <ui-icon>maps</ui-icon>
                 </div>
 
-                <div class="group icon-large">
+                <div class="page__demo-group has-large-icons">
                     <ui-icon icon="watch"></ui-icon>
                     <ui-icon icon="rss_feed"></ui-icon>
                     <ui-icon icon="account_circle"></ui-icon>
@@ -54,7 +54,7 @@
                     <ui-icon icon="event"></ui-icon>
                 </div>
 
-                <div class="group inline">
+                <div class="page__demo-group is-inline">
                     <p>Icons can also be inlined with text: <ui-icon>account_circle</ui-icon> My Account.</p>
                 </div>
             </div>
@@ -117,18 +117,18 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The icon name (when using an icon font) or the symbol id (when using SVG <code>&lt;use&gt;</code>).</p>
+                                    <p>The icon name (when using an icon font) or the symbol id (when <code>useSvg</code> is <code>true</code>).</p>
                                     <p>By default this can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
-                                    <p>Required when using an icon font or SVG <code>&lt;use&gt;</code>.</p>
+                                    <p>Required when using an icon font or <code>useSvg</code>.</p>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>iconSet</td>
                                 <td>String</td>
-                                <td><code>"material-icons"</code></td>
+                                <td class="no-wrap"><code>"material-icons"</code></td>
                                 <td>
-                                    <p>The icon set, is applied as a class on the icon root element.</p>
+                                    <p>The icon set, applied as a class on the icon root element.</p>
                                 </td>
                             </tr>
 
@@ -137,8 +137,8 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not to remove the icon element's inner text. Set to <code>true</code> to remove the inner text.</p>
-                                    <p>The <code>icon</code> prop is set as the inner text by default because Material Icons use it for rendering the ligatures.</p>
+                                    <p>Whether or not to remove the icon element's inner text. Set to <code>true</code> to remove the inner text.</p>
+                                    <p>The <code>icon</code> prop is set as the inner text by default because Material Icons use ligatures for rendering the icon glyph.</p>
                                     <p>When <code>useSvg</code> is <code>true</code>, the inner text is removed regardless of the value of <code>removeText</code>.</p>
                                 </td>
                             </tr>
@@ -148,7 +148,7 @@
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
-                                    <p>Determines whether or not to use an SVG <code>use</code> tag for rendering the icon.</p>
+                                    <p>Whether or not to use an SVG <code>use</code> tag for rendering the icon.</p>
                                     <p>See the <b>Using SVG: <code>&lt;use&gt;</code></b> section above for details.</p>
                                 </td>
                             </tr>
@@ -170,7 +170,7 @@
                         <tbody>
                             <tr>
                                 <td>(default)</td>
-                                <td>The default slot can hold the name of the icon when using an icon font, or contain SVG path pasted inline.</td>
+                                <td>Holds the name of the icon when using an icon font. Can also hold SVG for a custom icon.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -181,55 +181,53 @@
 </template>
 
 <script>
+import UiIcon from 'src/UiIcon.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
-import UiIcon from 'src/UiIcon.vue';
 
 export default {
     components: {
+        UiIcon,
         UiTab,
-        UiTabs,
-        UiIcon
+        UiTabs
     }
 };
 </script>
 
-<style lang="sass">
+<style lang="scss">
 @import '~styles/imports';
 
-.page-ui-icon {
-    .demo {
-        .ui-icon {
-            color: $secondary-text-color;
-            margin-right: 8px;
-            margin-bottom: 8px;
-        }
-
-        .icon-large {
-            .ui-icon {
-                font-size: 32px;
-            }
-        }
+.page--ui-icon {
+    .ui-icon {
+        color: $secondary-text-color;
+        margin-right: 8px;
+        margin-bottom: 8px;
     }
 
-    .boxed-demo {
+    .page__demo.is-boxed {
         border: 1px solid #DDD;
         max-width: 512px;
         padding: 24px;
     }
 
-    .group {
+    .page__demo-group {
         &:not(:last-child) {
             margin-bottom: 16px;
         }
 
-        &.inline {
+        &.is-inline {
             p {
                 margin: 0;
             }
 
             .ui-icon {
                 margin: 0;
+            }
+        }
+
+        .has-large-icons {
+            .ui-icon {
+                font-size: 32px;
             }
         }
     }
