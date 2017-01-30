@@ -21,7 +21,9 @@
         <div
             class="ui-menu__focus-redirector"
             tabindex="0"
+
             @focus="redirectFocus"
+
             v-if="containFocus"
         ></div>
     </ul>
@@ -29,6 +31,8 @@
 
 <script>
 import UiMenuOption from './UiMenuOption.vue';
+
+import config from './config';
 
 export default {
     name: 'ui-menu',
@@ -56,19 +60,12 @@ export default {
         keys: {
             type: Object,
             default() {
-                return {
-                    icon: 'icon',
-                    type: 'type',
-                    label: 'label',
-                    secondaryText: 'secondaryText',
-                    iconProps: 'iconProps',
-                    disabled: 'disabled'
-                };
+                return config.data.UiMenu.keys;
             }
         },
         disableRipple: {
             type: Boolean,
-            default: false
+            default: config.data.disableRipple
         },
         raised: {
             type: Boolean,
@@ -112,22 +109,22 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-menu {
     background-color: white;
-    border: 1px solid rgba(black, 0.08);
+    border: rem-calc(1px) solid rgba(black, 0.08);
     font-family: $font-stack;
     list-style: none;
     margin: 0;
     max-height: 100vh;
-    max-width: 272px;
-    min-width: 168px;
+    max-width: rem-calc(272px);
+    min-width: rem-calc(168px);
     outline: none;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 4px 0;
+    padding: rem-calc(4px 0);
 
     &.is-raised {
         border: none;
@@ -137,8 +134,8 @@ export default {
     }
 
     &.has-secondary-text {
-        min-width: 240px;
-        max-width: 304px;
+        min-width: rem-calc(240px);
+        max-width: rem-calc(304px);
     }
 }
 

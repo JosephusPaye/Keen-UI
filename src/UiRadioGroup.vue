@@ -27,8 +27,12 @@
         </div>
 
         <div class="ui-radio-group__feedback" v-if="hasFeedback">
-            <div class="ui-radio-group__feedback-text" v-if="showError || showHelp">
-                {{ showError ? error : help }}
+            <div class="ui-radio-group__feedback-text" v-if="showError">
+                <slot name="error">{{ error }}</slot>
+            </div>
+
+            <div class="ui-radio-group__feedback-text" v-else-if="showHelp">
+                <slot name="help">{{ help }}</slot>
             </div>
         </div>
     </div>
@@ -36,6 +40,8 @@
 
 <script>
 import UiRadio from './UiRadio.vue';
+
+import config from './config';
 
 export default {
     name: 'ui-radio-group',
@@ -57,14 +63,7 @@ export default {
         keys: {
             type: Object,
             default() {
-                return {
-                    id: 'id',
-                    class: 'class',
-                    label: 'label',
-                    value: 'value',
-                    checked: 'checked',
-                    disabled: 'disabled'
-                };
+                return config.data.UiRadioGroup.keys;
             }
         },
         color: {
@@ -102,8 +101,8 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-radio-group--color-' + this.color,
-                'ui-radio-group--button-position-' + this.buttonPosition,
+                `ui-radio-group--color-${this.color}`,
+                `ui-radio-group--button-position-${this.buttonPosition}`,
                 { 'is-vertical': this.vertical },
                 { 'is-active': this.isActive },
                 { 'is-invalid': this.invalid },
@@ -163,8 +162,8 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-radio-group {
     font-family: $font-stack;
@@ -184,11 +183,11 @@ export default {
     &.is-vertical {
         .ui-radio-group__radios {
             flex-direction: column;
-            padding-top: 8px;
+            padding-top: rem-calc(8px);
         }
 
         .ui-radio-group__radio {
-            margin-bottom: 12px;
+            margin-bottom: rem-calc(12px);
             margin-left: 0;
             width: 100%;
         }
@@ -214,6 +213,7 @@ export default {
 .ui-radio-group__label-text {
     color: $ui-input-label-color;
     font-size: $ui-input-label-font-size;
+    line-height: $ui-input-label-line-height;
     transition: color 0.1s ease;
 }
 
@@ -224,7 +224,7 @@ export default {
 }
 
 .ui-radio.ui-radio-group__radio {
-    margin-left: 24px;
+    margin-left: rem-calc(24px);
 
     &:first-child {
         margin-left: 0;
@@ -236,7 +236,7 @@ export default {
     font-size: $ui-input-feedback-font-size;
     line-height: $ui-input-feedback-line-height;
     margin: 0;
-    padding-top: $ui-input-feedback-padding-top - 4px;
+    padding-top: $ui-input-feedback-padding-top - rem-calc(4px);
     position: relative;
 }
 
@@ -247,7 +247,7 @@ export default {
 .ui-radio-group--button-position-right {
     &:not(.is-vertical) {
         .ui-radio__label-text {
-            margin-right: 8px;
+            margin-right: rem-calc(8px);
         }
     }
 }

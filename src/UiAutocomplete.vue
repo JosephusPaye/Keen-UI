@@ -19,10 +19,14 @@
                 <ui-icon
                     class="ui-autocomplete__clear-button"
                     title="Clear"
+
                     @click.native="updateValue('')"
+
                     v-show="!disabled && value.length"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18.984 6.422L13.406 12l5.578 5.578-1.406 1.406L12 13.406l-5.578 5.578-1.406-1.406L10.594 12 5.016 6.422l1.406-1.406L12 10.594l5.578-5.578z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M18.984 6.422L13.406 12l5.578 5.578-1.406 1.406L12 13.406l-5.578 5.578-1.406-1.406L10.594 12 5.016 6.422l1.406-1.406L12 10.594l5.578-5.578z"/>
+                    </svg>
                 </ui-icon>
 
                 <input
@@ -33,6 +37,7 @@
                     :disabled="disabled"
                     :name="name"
                     :placeholder="hasFloatingLabel ? null : placeholder"
+                    :readonly="readonly ? readonly : null"
                     :value="value"
 
                     @blur="onBlur"
@@ -63,6 +68,7 @@
                     >
                         <slot
                             name="suggestion"
+
                             :highlighted="highlightedIndex === index"
                             :index="index"
                             :suggestion="suggestion"
@@ -72,8 +78,12 @@
             </label>
 
             <div class="ui-autocomplete__feedback" v-if="hasFeedback">
-                <div class="ui-autocomplete__feedback-text" v-if="showError || showHelp">
-                    {{ showError ? error : help }}
+                <div class="ui-autocomplete__feedback-text" v-if="showError">
+                    <slot name="error">{{ error }}</slot>
+                </div>
+
+                <div class="ui-autocomplete__feedback-text" v-else-if="showHelp">
+                    <slot name="help">{{ help }}</slot>
                 </div>
             </div>
         </div>
@@ -81,11 +91,12 @@
 </template>
 
 <script>
-import UiIcon from './UiIcon.vue';
+import autofocus from './directives/autofocus';
 import UiAutocompleteSuggestion from './UiAutocompleteSuggestion.vue';
+import UiIcon from './UiIcon.vue';
 
+import config from './config';
 import fuzzysearch from 'fuzzysearch';
-import autofocus from 'directives/autofocus';
 
 export default {
     name: 'ui-autocomplete',
@@ -109,6 +120,10 @@ export default {
         },
         help: String,
         error: String,
+        readonly: {
+            type: Boolean,
+            default: false
+        },
         disabled: {
             type: Boolean,
             default: false
@@ -159,18 +174,10 @@ export default {
         keys: {
             type: Object,
             default() {
-                return {
-                    label: 'label',
-                    value: 'value',
-                    image: 'image'
-                };
+                return config.data.UiAutocomplete.keys;
             }
         },
         invalid: {
-            type: Boolean,
-            default: false
-        },
-        touched: {
             type: Boolean,
             default: false
         }
@@ -180,6 +187,7 @@ export default {
         return {
             initialValue: this.value,
             isActive: false,
+            isTouched: false,
             showDropdown: false,
             highlightedIndex: -1
         };
@@ -188,11 +196,11 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-autocomplete--type-' + this.type,
-                'ui-autocomplete--icon-position-' + this.iconPosition,
+                `ui-autocomplete--type-${this.type}`,
+                `ui-autocomplete--icon-position-${this.iconPosition}`,
                 { 'is-active': this.isActive },
                 { 'is-invalid': this.invalid },
-                { 'is-touched': this.touched },
+                { 'is-touched': this.isTouched },
                 { 'is-disabled': this.disabled },
                 { 'has-label': this.hasLabel },
                 { 'has-floating-label': this.hasFloatingLabel }
@@ -332,9 +340,11 @@ export default {
 
         closeDropdown() {
             if (this.showDropdown) {
-                this.showDropdown = false;
-                this.highlightedIndex = -1;
-                this.$emit('dropdown-close');
+                this.$nextTick(() => {
+                    this.showDropdown = false;
+                    this.highlightedIndex = -1;
+                    this.$emit('dropdown-close');
+                });
             }
         },
 
@@ -355,7 +365,8 @@ export default {
             this.isActive = false;
             this.$emit('blur', e);
 
-            if (!this.touched) {
+            if (!this.isTouched) {
+                this.isTouched = true;
                 this.$emit('touch');
             }
         },
@@ -375,13 +386,13 @@ export default {
 
             // Reset state
             this.$emit('input', this.initialValue);
-            this.touched = false;
+            this.isTouched = false;
         }
     },
 
     components: {
-        UiIcon,
-        UiAutocompleteSuggestion
+        UiAutocompleteSuggestion,
+        UiIcon
     },
 
     directives: {
@@ -390,8 +401,8 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-autocomplete {
     align-items: flex-start;
@@ -519,6 +530,7 @@ export default {
     border-bottom-color: $ui-input-border-color;
     border-bottom-style: solid;
     border-bottom-width: $ui-input-border-width;
+    border-radius: 0;
     color: $ui-input-text-color;
     cursor: auto;
     font-family: $font-stack;
@@ -556,7 +568,7 @@ export default {
     display: block;
     list-style-type: none;
     margin: 0;
-    margin-bottom: 8px;
+    margin-bottom: rem-calc(8px);
     min-width: 100%;
     padding: 0;
     position: absolute;
@@ -578,7 +590,7 @@ export default {
 
 .ui-autocomplete--icon-position-right {
     .ui-autocomplete__icon-wrapper {
-        margin-left: 8px;
+        margin-left: rem-calc(8px);
         margin-right: 0;
         order: 1;
     }

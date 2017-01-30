@@ -4,6 +4,7 @@
             :action-color="snackbar.actionColor"
             :action="snackbar.action"
             :message="snackbar.message"
+            :transition="transition"
 
             @action-click="onActionClick(snackbar)"
             @click="onClick(snackbar)"
@@ -40,6 +41,10 @@ export default {
         position: {
             type: String,
             default: 'left' // 'left', 'center', 'right'
+        },
+        transition: {
+            type: String,
+            default: 'slide' // 'slide' or 'fade'
         }
     },
 
@@ -53,7 +58,7 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-snackbar-container--position-' + this.position
+                `ui-snackbar-container--position-${this.position}`
             ];
         }
     },
@@ -155,29 +160,29 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-snackbar-container {
     bottom: 0;
-    left: 8px;
+    left: rem-calc(8px);
     overflow: hidden;
     position: absolute;
 
     .ui-snackbar {
-        margin: 4px 4px 12px 4px;
+        margin: rem-calc(4px 4px 12px 4px);
     }
 }
 
 .ui-snackbar-container--position-right {
     left: initial;
-    right: 8px;
+    right: rem-calc(8px);
 }
 
 .ui-snackbar-container--position-center {
     display: flex;
     justify-content: center;
-    left: 8px;
-    right: 8px;
+    left: rem-calc(8px);
+    right: rem-calc(8px);
 }
 </style>

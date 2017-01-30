@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import dateUtils from 'helpers/date';
+import dateUtils from './helpers/date';
 
 export default {
     name: 'ui-calendar-week',
@@ -102,12 +102,12 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-calendar-week {
     display: flex;
-    font-size: 14px;
+    font-size: rem-calc(14px);
     width: 100%;
 }
 

@@ -7,12 +7,16 @@
         :class="classes"
         :disabled="disabled || loading"
         :type="buttonType"
+
+        @click="onClick"
     >
         <div class="ui-icon-button__icon" v-if="icon || $slots.default">
             <slot>
                 <ui-icon :icon="icon"></ui-icon>
             </slot>
         </div>
+
+        <div class="ui-icon-button__focus-ring"></div>
 
         <ui-progress-circular
             class="ui-icon-button__progress"
@@ -54,10 +58,12 @@
 
 <script>
 import UiIcon from './UiIcon.vue';
-import UiTooltip from './UiTooltip.vue';
 import UiPopover from './UiPopover.vue';
-import UiRippleInk from './UiRippleInk.vue';
 import UiProgressCircular from './UiProgressCircular.vue';
+import UiRippleInk from './UiRippleInk.vue';
+import UiTooltip from './UiTooltip.vue';
+
+import config from './config';
 
 export default {
     name: 'ui-icon-button',
@@ -102,7 +108,7 @@ export default {
         tooltipPosition: String,
         disableRipple: {
             type: Boolean,
-            default: false
+            default: config.data.disableRipple
         },
         disabled: {
             type: Boolean,
@@ -113,9 +119,9 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-icon-button--type-' + this.type,
-                'ui-icon-button--color-' + this.color,
-                'ui-icon-button--size-' + this.size,
+                `ui-icon-button--type-${this.type}`,
+                `ui-icon-button--color-${this.color}`,
+                `ui-icon-button--size-${this.size}`,
                 { 'is-loading': this.loading },
                 { 'is-disabled': this.disabled || this.loading },
                 { 'has-dropdown': this.hasDropdown }
@@ -140,6 +146,10 @@ export default {
     },
 
     methods: {
+        onClick(e) {
+            this.$emit('click', e);
+        },
+
         onDropdownOpen() {
             this.$emit('dropdown-open');
         },
@@ -169,20 +179,20 @@ export default {
 
     components: {
         UiIcon,
-        UiTooltip,
         UiPopover,
+        UiProgressCircular,
         UiRippleInk,
-        UiProgressCircular
+        UiTooltip
     }
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
-$ui-icon-button-size            : 36px !default;
-$ui-icon-button--size-small     : 32px !default;
-$ui-icon-button--size-large     : 48px !default;
+$ui-icon-button-size            : rem-calc(36px) !default;
+$ui-icon-button--size-small     : rem-calc(32px) !default;
+$ui-icon-button--size-large     : rem-calc(48px) !default;
 
 .ui-icon-button {
     align-items: center;
@@ -191,18 +201,28 @@ $ui-icon-button--size-large     : 48px !default;
     border: none;
     cursor: pointer;
     display: inline-flex;
-    height: $ui-icon-button-size;
     justify-content: center;
     margin: 0;
     outline: none;
     overflow: hidden;
     padding: 0;
     position: relative;
-    width: $ui-icon-button-size;
 
     // Fix for border radius not clipping internal content of positioned elements (Chrome/Opera)
-    // -webkit-mask-image: -webkit-radial-gradient(circle, white, black);
-    // -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC");
+    -webkit-mask-image: -webkit-radial-gradient(circle, white, black);
+
+    &,
+    .ui-icon-button__focus-ring {
+        height: $ui-icon-button-size;
+        width: $ui-icon-button-size;
+    }
+
+    body[modality="keyboard"] &:focus {
+        .ui-icon-button__focus-ring {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
 
     // Remove the Firefox dotted outline
     &::-moz-focus-inner {
@@ -221,19 +241,34 @@ $ui-icon-button--size-large     : 48px !default;
     }
 }
 
-.ui-progress-circular.ui-icon-button__progress {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 .ui-icon-button__icon {
-    width: 100%; // Firefox: needs the width and height reset for flexbox centering
     height: initial;
     opacity: 1;
-    transition: opacity 0.2s ease;
+    position: relative;
     transition-delay: 0.1s;
+    transition: opacity 0.2s ease;
+    width: 100%; // Firefox: needs the width and height reset for flexbox centering
+    z-index: 1;
+}
+
+.ui-icon-button__focus-ring {
+    border-radius: 50%;
+    height: $ui-icon-button-size;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transform-origin: center;
+    transform: scale(0);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    width: $ui-icon-button-size;
+}
+
+.ui-progress-circular.ui-icon-button__progress {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 // ================================================
@@ -241,17 +276,23 @@ $ui-icon-button--size-large     : 48px !default;
 // ================================================
 
 .ui-icon-button--size-small {
-    height: $ui-icon-button--size-small;
-    width: $ui-icon-button--size-small;
+    &,
+    .ui-icon-button__focus-ring {
+        height: $ui-icon-button--size-small;
+        width: $ui-icon-button--size-small;
+    }
 
     .ui-icon {
-        font-size: 18px;
+        font-size: rem-calc(18px);
     }
 }
 
 .ui-icon-button--size-large {
-    height: $ui-icon-button--size-large;
-    width: $ui-icon-button--size-large;
+    &,
+    .ui-icon-button__focus-ring {
+        height: $ui-icon-button--size-large;
+        width: $ui-icon-button--size-large;
+    }
 }
 
 // ================================================
@@ -262,19 +303,18 @@ $ui-icon-button--size-large     : 48px !default;
 .ui-icon-button--color-white {
     background-color: transparent;
 
-    body[modality="keyboard"] &:focus,
     &:hover:not(.is-disabled),
     &.has-dropdown-open {
         background-color: rgba(black, 0.1);
+    }
+
+    .ui-icon-button__focus-ring {
+        background-color: rgba(black, 0.15);
     }
 }
 
 .ui-icon-button--color-black {
     color: $secondary-text-color;
-
-    body[modality="keyboard"] &:focus {
-        border: 2px solid rgba(black, 0.25);
-    }
 
     .ui-icon-button__icon {
         color: $secondary-text-color;
@@ -283,10 +323,6 @@ $ui-icon-button--size-large     : 48px !default;
 
 .ui-icon-button--color-white {
     color: $secondary-text-color;
-
-    body[modality="keyboard"] &:focus {
-        border: 2px solid rgba(white, 0.8);
-    }
 
     .ui-icon-button__icon {
         color: white;
@@ -306,7 +342,7 @@ $ui-icon-button--size-large     : 48px !default;
             background-color: darken($md-grey-200, 7.5%);
         }
 
-        body[modality="keyboard"] &:focus {
+        .ui-icon-button__focus-ring {
             background-color: darken($md-grey-200, 15%);
         }
 
@@ -339,7 +375,7 @@ $ui-icon-button--size-large     : 48px !default;
             background-color: darken($brand-primary-color, 10%);
         }
 
-        body[modality="keyboard"] &:focus {
+        .ui-icon-button__focus-ring {
             background-color: darken($brand-primary-color, 15%);
         }
     }
@@ -352,7 +388,7 @@ $ui-icon-button--size-large     : 48px !default;
             background-color: darken($brand-accent-color, 10%);
         }
 
-        body[modality="keyboard"] &:focus {
+        .ui-icon-button__focus-ring {
             background-color: darken($brand-accent-color, 15%);
         }
     }
@@ -365,7 +401,7 @@ $ui-icon-button--size-large     : 48px !default;
             background-color: darken($md-green, 10%);
         }
 
-        body[modality="keyboard"] &:focus {
+        .ui-icon-button__focus-ring {
             background-color: darken($md-green, 15%);
         }
     }
@@ -378,7 +414,7 @@ $ui-icon-button--size-large     : 48px !default;
             background-color: darken($md-orange, 10%);
         }
 
-        body[modality="keyboard"] &:focus {
+        .ui-icon-button__focus-ring {
             background-color: darken($md-orange, 15%);
         }
     }
@@ -391,7 +427,7 @@ $ui-icon-button--size-large     : 48px !default;
             background-color: darken($md-red, 10%);
         }
 
-        body[modality="keyboard"] &:focus {
+        .ui-icon-button__focus-ring {
             background-color: darken($md-red, 15%);
         }
     }
@@ -400,10 +436,6 @@ $ui-icon-button--size-large     : 48px !default;
 .ui-icon-button--type-secondary {
     &.ui-icon-button--color-default {
         color: $primary-text-color;
-
-        body[modality="keyboard"] &:focus {
-            border: 2px solid darken($md-grey-200, 25%);
-        }
 
         .ui-icon-button__icon {
             color: $primary-text-color;
@@ -418,16 +450,16 @@ $ui-icon-button--size-large     : 48px !default;
     &.ui-icon-button--color-red {
         &:hover:not(.is-disabled),
         &.has-dropdown-open {
-            background-color: darken($md-grey-200, 3%);
+            background-color: rgba(black, 0.1);
+        }
+
+        .ui-icon-button__focus-ring {
+            background-color: rgba(black, 0.15);
         }
     }
 
     &.ui-icon-button--color-primary {
         color: $brand-primary-color;
-
-        body[modality="keyboard"] &:focus {
-            border: 2px solid $brand-primary-color;
-        }
 
         .ui-icon-button__icon {
             color: $brand-primary-color;
@@ -437,10 +469,6 @@ $ui-icon-button--size-large     : 48px !default;
     &.ui-icon-button--color-accent {
         color: $brand-accent-color;
 
-        body[modality="keyboard"] &:focus {
-            border: 2px solid $brand-accent-color;
-        }
-
         .ui-icon-button__icon {
             color: $brand-accent-color;
         }
@@ -448,10 +476,6 @@ $ui-icon-button--size-large     : 48px !default;
 
     &.ui-icon-button--color-green {
         color: $md-green-600;
-
-        body[modality="keyboard"] &:focus {
-            border: 2px solid $md-green-600;
-        }
 
         .ui-icon-button__icon {
             color: $md-green-600;
@@ -461,10 +485,6 @@ $ui-icon-button--size-large     : 48px !default;
     &.ui-icon-button--color-orange {
         color: $md-orange;
 
-        body[modality="keyboard"] &:focus {
-            border: 2px solid $md-orange;
-        }
-
         .ui-icon-button__icon {
             color: $md-orange;
         }
@@ -472,10 +492,6 @@ $ui-icon-button--size-large     : 48px !default;
 
     &.ui-icon-button--color-red {
         color: $md-red;
-
-        body[modality="keyboard"] &:focus {
-            border: 2px solid $md-red;
-        }
 
         .ui-icon-button__icon {
             color: $md-red;

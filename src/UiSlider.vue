@@ -16,6 +16,16 @@
         @keydown.right.prevent="incrementValue"
         @keydown.up.prevent="incrementValue"
     >
+        <input
+            class="ui-slider__hidden-input"
+            type="hidden"
+
+            :name="name"
+            :value="value"
+
+            v-if="name"
+        >
+
         <div class="ui-slider__icon" v-if="hasIcon">
             <slot name="icon">
                 <ui-icon :icon="icon"></ui-icon>
@@ -42,7 +52,11 @@
 
             <div class="ui-slider__thumb" ref="thumb" :style="thumbStyle">
                 <div class="ui-slider__marker" v-if="showMarker">
-                    {{ markerText }}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
+                        <path d="M11 .5c-1.7.2-3.4.9-4.7 2-1.1.9-2 2-2.5 3.2-1.2 2.4-1.2 5.1-.1 7.7 1.1 2.6 2.8 5 5.3 7.5 1.2 1.2 2.8 2.7 3 2.7 0 0 .3-.2.6-.5 3.2-2.7 5.6-5.6 7.1-8.5.8-1.5 1.1-2.6 1.3-3.8.2-1.4 0-2.9-.5-4.3-1.2-3.2-4.1-5.4-7.5-5.8-.5-.2-1.5-.2-2-.2z"/>
+                    </svg>
+
+                    <span class="ui-slider__marker-text">{{ markerText }}</span>
                 </div>
             </div>
         </div>
@@ -51,13 +65,15 @@
 
 <script>
 import UiIcon from './UiIcon.vue';
-import classlist from 'helpers/classlist';
-import RespondsToWindowResize from 'mixins/RespondsToWindowResize.js';
+
+import classlist from './helpers/classlist';
+import RespondsToWindowResize from './mixins/RespondsToWindowResize.js';
 
 export default {
     name: 'ui-slider',
 
     props: {
+        name: String,
         icon: String,
         value: {
             type: Number,
@@ -330,29 +346,32 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
-$ui-slider-height                   : 18px !default;
+$ui-slider-height                   : rem-calc(18px) !default;
 
 // Track line
-$ui-slider-track-height             : 3px !default;
+$ui-slider-track-height             : rem-calc(3px) !default;
 $ui-slider-track-fill-color         : $brand-primary-color !default;
 $ui-slider-track-background-color   : rgba(black, 0.12) !default;
 
 // Drag thumb
-$ui-track-thumb-size                : 14px !default;
+$ui-track-thumb-size                : rem-calc(14px) !default;
 $ui-track-thumb-fill-color          : $brand-primary-color !default;
 
 // Focus ring
-$ui-track-focus-ring-size                   : 36px !default;
+$ui-track-focus-ring-size                   : rem-calc(36px) !default;
 $ui-track-focus-ring-transition-duration    : 0.2s !default;
 $ui-track-focus-ring-color                  : rgba($ui-track-thumb-fill-color, 0.38) !default;
 
+// Marker
+$ui-slider-marker-size                      : rem-calc(36px);
+
 .ui-slider {
-    outline: none;
-    display: flex;
     align-items: center;
+    display: flex;
+    outline: none;
 
     &:not(.is-disabled).is-active,
     &:not(.is-disabled).is-dragging {
@@ -364,8 +383,11 @@ $ui-track-focus-ring-color                  : rgba($ui-track-thumb-fill-color, 0
 
         .ui-slider__marker {
             opacity: 1;
-            color: #FFFFFF;
-            transform: scale(1) translateY(-30px);
+            transform: scale(1) translateY(rem-calc(-26px));
+        }
+
+        .ui-slider__marker-text {
+            color: white;
         }
 
         .ui-slider__snap-point {
@@ -392,17 +414,17 @@ $ui-track-focus-ring-color                  : rgba($ui-track-thumb-fill-color, 0
 
         .ui-slider__thumb {
             background-color: #DDD;
-            border: 2px solid white;
+            border: rem-calc(2px) solid white;
         }
     }
 }
 
 .ui-slider__icon {
-    margin-right: 16px;
+    margin-right: rem-calc(16px);
 
     .ui-icon {
-        transition: color $ui-track-focus-ring-transition-duration ease;
         color: $secondary-text-color;
+        transition: color $ui-track-focus-ring-transition-duration ease;
     }
 }
 
@@ -437,7 +459,7 @@ $ui-track-focus-ring-color                  : rgba($ui-track-thumb-fill-color, 0
     opacity: 0;
     position: absolute;
     transform: opacity 0.2s ease;
-    width: 2px;
+    width: rem-calc(2px);
     z-index: 1;
 }
 
@@ -449,66 +471,60 @@ $ui-track-focus-ring-color                  : rgba($ui-track-thumb-fill-color, 0
 
 .ui-slider__thumb {
     background-color: $ui-track-thumb-fill-color;
+    border-radius: 50%;
     cursor: inherit;
     display: block;
     height: $ui-track-thumb-size;
+    left: 0;
     position: relative;
     width: $ui-track-thumb-size;
     z-index: 1;
-    border-radius: 50%;
-    left: 0;
 
     // Focus ring
     &::before {
+        background-color: $ui-track-focus-ring-color;
+        border-radius: 50%;
         content: '';
         display: block;
-        position: absolute;
-        width: $ui-track-focus-ring-size;
         height: $ui-track-focus-ring-size;
         margin-left: -($ui-track-focus-ring-size - $ui-track-thumb-size) / 2;
         margin-top: -($ui-track-focus-ring-size - $ui-track-thumb-size) / 2;
-        background-color: $ui-track-focus-ring-color;
-        border-radius: 50%;
+        position: absolute;
         transform-origin: center;
         transform: scale(0);
         transition: transform $ui-track-focus-ring-transition-duration ease;
+        width: $ui-track-focus-ring-size;
     }
 }
 
 .ui-slider__marker {
-    align-items: center;
-    background-color: $ui-track-thumb-fill-color;
-    border-radius: 50%;
-    color: $ui-track-thumb-fill-color;
-    display: flex;
-    font-size: 13px;
-    font-weight: 500;
-    height: 28px;
-    justify-content: center;
-    margin-left: -(28px - $ui-track-thumb-size) / 2;
-    margin-top: -(28px - $ui-track-thumb-size) / 2;
+    height: $ui-slider-marker-size;
+    margin-left: -($ui-slider-marker-size - $ui-track-thumb-size) / 2;
+    margin-top: -($ui-slider-marker-size - $ui-track-thumb-size) / 2;
     opacity: 0;
     position: absolute;
     transform: scale(0) translateY(0) ;
     transition: all $ui-track-focus-ring-transition-duration ease;
     user-select: none;
-    width: 28px;
+    width: $ui-slider-marker-size;
 
-    // The bottom of the marker
-    &::before {
-        border-left: 14px solid transparent;
-        border-radius: 50%;
-        border-right: 14px solid transparent;
-        border-top-color: $ui-track-thumb-fill-color;
-        border-top-style: solid;
-        border-top-width: 16px;
-        content: '';
-        left: 0;
-        position: absolute;
-        top: 27px;
-        transform: translateY(-8px);
-        z-index: -1;
+    svg {
+        fill: $ui-track-thumb-fill-color;
+        height: $ui-slider-marker-size;
+        width: $ui-slider-marker-size;
     }
+}
+
+.ui-slider__marker-text {
+    color: $ui-track-thumb-fill-color;;
+    font-size: rem-calc(13px);
+    font-weight: 500;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: rem-calc(4px);
+    transition: color $ui-track-focus-ring-transition-duration ease;
+    width: $ui-slider-marker-size;
 }
 
 // Applied globally to the body tag when dragging

@@ -7,6 +7,7 @@
             :dismiss-on="dismissOn"
             :dismissible="!loading"
             :title="title"
+            :transition="transition"
 
             @close="onModalClose"
             @open="onModalOpen"
@@ -23,16 +24,16 @@
                     :icon="confirmButtonIcon"
                     :loading="loading"
 
-                    @click.native="confirm"
+                    @click="confirm"
                 >{{ confirmButtonText }}</ui-button>
 
                 <ui-button
                     ref="denyButton"
 
-                    :icon="denyButtonIcon"
                     :disabled="loading"
+                    :icon="denyButtonIcon"
 
-                    @click.native="deny"
+                    @click="deny"
                 >{{ denyButtonText }}</ui-button>
             </div>
         </ui-modal>
@@ -40,8 +41,8 @@
 </template>
 
 <script>
-import UiModal from './UiModal.vue';
 import UiButton from './UiButton.vue';
+import UiModal from './UiModal.vue';
 
 import classlist from './helpers/classlist';
 
@@ -51,7 +52,7 @@ export default {
     props: {
         title: {
             type: String,
-            default: 'UiConfirm title'
+            default: 'UiConfirm'
         },
         type: {
             type: String,
@@ -73,9 +74,10 @@ export default {
         },
         closeOnConfirm: {
             type: Boolean,
-            default: false
+            default: true
         },
         dismissOn: String,
+        transition: String,
         loading: {
             type: Boolean,
             default: false
@@ -134,7 +136,6 @@ export default {
                 button.focus();
             }
 
-            // Bubble the event up
             this.$emit('open');
         },
 
@@ -161,18 +162,18 @@ export default {
     },
 
     components: {
-        UiModal,
-        UiButton
+        UiButton,
+        UiModal
     }
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-confirm__message {
     font-family: $font-stack;
-    font-size: 15px;
+    font-size: rem-calc(15px);
 }
 
 .ui-confirm__footer {

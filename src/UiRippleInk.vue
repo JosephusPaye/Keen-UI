@@ -21,7 +21,7 @@ const startRipple = function (eventType, event) {
     }
 
     // Store the event use to generate this ripple on the holder: don't allow
-    // further events of different types until we're done. Prevents double-
+    // further events of different types until we're done. Prevents double
     // ripples from mousedown/touchstart.
     const prev = holder.getAttribute('data-ui-event');
 
@@ -83,7 +83,7 @@ const startRipple = function (eventType, event) {
             if (holder.children.length === 0) {
                 holder.removeAttribute('data-ui-event');
             }
-        }, 450);
+        }, 650);
     };
 
     document.addEventListener(releaseEvent, handleRelease);
@@ -152,40 +152,35 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-ripple-ink {
-    display: block;
-    overflow: hidden;
     border-radius: inherit;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     bottom: 0;
+    display: block;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
 
     // Forces webkit to properly contain content within border-radius
     -webkit-mask-image: -webkit-radial-gradient(circle, white, black);
 }
 
 .ui-ripple-ink__ink {
-    position: absolute;
-    width: 0;
-    height: 0;
-
-    pointer-events: none;
-    user-select: none;
-
-    border-radius: 50%;
-    background-color: currentColor;
     background-clip: padding-box;
-
+    background-color: currentColor;
+    border-radius: 50%;
+    height: 0;
     opacity: 0.2;
+    pointer-events: none;
+    position: absolute;
     transform: scale(0);
-
-    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+    user-select: none;
+    width: 0;
 
     &.is-held {
         opacity: 0.4;

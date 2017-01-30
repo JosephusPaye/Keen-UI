@@ -4,14 +4,15 @@
             class="ui-checkbox__input"
             type="checkbox"
 
+            :checked.prop="isChecked"
             :disabled="disabled"
             :name="name"
+            :value="submittedValue"
 
             @blur="onBlur"
             @change="onChange"
+            @click="onClick"
             @focus="onFocus"
-
-            v-model="isChecked"
         >
 
         <div class="ui-checkbox__checkmark">
@@ -25,7 +26,7 @@
 </template>
 
 <script>
-import { looseEqual } from 'helpers/util';
+import { looseEqual } from './helpers/util';
 
 export default {
     name: 'ui-checkbox',
@@ -41,6 +42,10 @@ export default {
         },
         falseValue: {
             default: false
+        },
+        submittedValue: {
+            type: String,
+            default: 'on' // HTML default
         },
         checked: {
             type: Boolean,
@@ -70,8 +75,8 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-checkbox--color-' + this.color,
-                'ui-checkbox--box-position-' + this.boxPosition,
+                `ui-checkbox--color-${this.color}`,
+                `ui-checkbox--box-position-${this.boxPosition}`,
                 { 'is-checked': this.isChecked },
                 { 'is-active': this.isActive },
                 { 'is-disabled': this.disabled }
@@ -80,10 +85,6 @@ export default {
     },
 
     watch: {
-        isChecked() {
-            this.$emit('input', this.isChecked ? this.trueValue : this.falseValue);
-        },
-
         value() {
             this.isChecked = looseEqual(this.value, this.trueValue);
         }
@@ -94,6 +95,11 @@ export default {
     },
 
     methods: {
+        onClick(e) {
+            this.isChecked = e.target.checked;
+            this.$emit('input', e.target.checked ? this.trueValue : this.falseValue);
+        },
+
         onChange(e) {
             this.$emit('change', this.isChecked ? this.trueValue : this.falseValue, e);
         },
@@ -111,28 +117,30 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
-$ui-checkbox-border-width           : 2px !default;
-$ui-checkbox-checkmark-width        : 2px !default;
+$ui-checkbox-border-width           : rem-calc(2px) !default;
+$ui-checkbox-checkmark-width        : rem-calc(2px) !default;
 $ui-checkbox-transition-duration    : 0.15s !default;
-$ui-checkbox-label-font-size        : 16px !default;
+$ui-checkbox-label-font-size        : rem-calc(16px) !default;
+
+$ui-checkbox-size                   : rem-calc(20px); // no !default as it shouldn't be overridden
+$ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
 
 .ui-checkbox {
     align-items: center;
-    cursor: default;
     display: flex;
     font-family: $font-stack;
     font-weight: normal;
     margin: 0;
-    margin-bottom: 8px;
+    margin-bottom: rem-calc(8px);
     position: relative;
 
     &:not(.is-disabled):not(.is-checked):hover,
     &:not(.is-disabled):not(.is-checked).is-active {
         .ui-checkbox__checkmark::before {
-            border-color: $secondary-text-color;
+            border-color: rgba(black, 0.6);
         }
     }
 
@@ -145,6 +153,7 @@ $ui-checkbox-label-font-size        : 16px !default;
     }
 
     &.is-disabled {
+        .ui-checkbox__checkmark,
         .ui-checkbox__label-text {
             color: $disabled-text-color;
             cursor: default;
@@ -166,14 +175,16 @@ $ui-checkbox-label-font-size        : 16px !default;
 .ui-checkbox__label-text {
     cursor: pointer;
     font-size: $ui-checkbox-label-font-size;
-    margin-left: 8px;
+    margin-left: rem-calc(8px);
 }
 
 .ui-checkbox__checkmark {
     background-color: white;
-    height: 20px;
+    cursor: pointer;
+    flex-shrink: 0;
+    height: $ui-checkbox-size;
     position: relative;
-    width: 20px;
+    width: $ui-checkbox-size;
 
     // Background
     &::before {
@@ -192,18 +203,18 @@ $ui-checkbox-label-font-size        : 16px !default;
 
     // Checkmark
     &::after {
-        bottom: 5px;
+        bottom: rem-calc(5px);
         box-sizing: border-box;
         content: "";
         display: block;
-        height: 13px;
-        left: 7px;
+        height: rem-calc(13px);
+        left: rem-calc(7px);
         opacity: 0;
         position: absolute;
         transform: rotate(45deg);
         transition-delay: 0.1s;
         transition: opacity 0.3s ease;
-        width: 6px;
+        width: rem-calc(6px);
     }
 }
 
@@ -220,18 +231,18 @@ $ui-checkbox-label-font-size        : 16px !default;
 }
 
 .ui-checkbox__focus-ring {
-    background-color: rgba(black, 0.12);
     border-radius: 50%;
-    height: 48px;
-    margin-left: -14px;
-    margin-top: -14px;
+    height: $ui-checkbox-focus-ring-size;
+    margin-left: -($ui-checkbox-focus-ring-size - $ui-checkbox-size) / 2;
+    margin-top: -($ui-checkbox-focus-ring-size - $ui-checkbox-size) / 2;
     opacity: 0;
     position: absolute;
     transform: scale(0);
     transition-duration: $ui-checkbox-transition-duration;
     transition-property: opacity, transform;
     transition-timing-function: ease-out;
-    width: 48px;
+    width: $ui-checkbox-focus-ring-size;
+    background-color: rgba(black, 0.12);
 }
 
 // ================================================
@@ -266,7 +277,7 @@ $ui-checkbox-label-font-size        : 16px !default;
         }
 
         .ui-checkbox__focus-ring {
-            background-color: rgba($brand-primary-color, 0.15);
+            background-color: rgba($brand-primary-color, 0.18);
         }
     }
 }
@@ -287,7 +298,7 @@ $ui-checkbox-label-font-size        : 16px !default;
         }
 
         .ui-checkbox__focus-ring {
-            background-color: rgba($brand-accent-color, 0.15);
+            background-color: rgba($brand-accent-color, 0.18);
         }
     }
 }

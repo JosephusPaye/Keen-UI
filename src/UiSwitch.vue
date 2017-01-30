@@ -5,13 +5,15 @@
                 class="ui-switch__input"
                 type="checkbox"
 
+                :checked.prop="isChecked"
                 :disabled="disabled"
                 :name="name"
+                :value="submittedValue"
 
                 @blur="onBlur"
+                @change="onChange"
+                @click="onClick"
                 @focus="onFocus"
-
-                v-model="isChecked"
             >
 
             <div class="ui-switch__thumb">
@@ -28,7 +30,7 @@
 </template>
 
 <script>
-import { looseEqual } from 'helpers/util';
+import { looseEqual } from './helpers/util';
 
 export default {
     name: 'ui-switch',
@@ -44,6 +46,10 @@ export default {
         },
         falseValue: {
             default: false
+        },
+        submittedValue: {
+            type: String,
+            default: 'on' // HTML default
         },
         checked: {
             type: Boolean,
@@ -74,8 +80,8 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-switch--color-' + this.color,
-                'ui-switch--switch-position-' + this.switchPosition,
+                `ui-switch--color-${this.color}`,
+                `ui-switch--switch-position-${this.switchPosition}`,
                 { 'is-active': this.isActive },
                 { 'is-checked': this.isChecked },
                 { 'is-disabled': this.disabled }
@@ -86,11 +92,6 @@ export default {
     watch: {
         value() {
             this.isChecked = looseEqual(this.value, this.trueValue);
-        },
-
-        isChecked() {
-            this.$emit('input', this.isChecked ? this.trueValue : this.falseValue);
-            this.$emit('change', this.isChecked ? this.trueValue : this.falseValue);
         }
     },
 
@@ -99,6 +100,15 @@ export default {
     },
 
     methods: {
+        onClick(e) {
+            this.isChecked = e.target.checked;
+            this.$emit('input', e.target.checked ? this.trueValue : this.falseValue);
+        },
+
+        onChange(e) {
+            this.$emit('change', this.isChecked ? this.trueValue : this.falseValue, e);
+        },
+
         onFocus() {
             this.isActive = true;
             this.$emit('focus');
@@ -112,18 +122,18 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
-$ui-switch-height: 32px !default;
+$ui-switch-height           : rem-calc(32px) !default;
 
-$ui-switch-thumb-size: 20px !default;
-$ui-switch-thumb-color: $md-grey-50 !default;
+$ui-switch-thumb-size       : rem-calc(20px) !default;
+$ui-switch-thumb-color      : $md-grey-50 !default;
 
-$ui-switch-track-width: 34px !default;
-$ui-switch-track-height: 14px !default;
+$ui-switch-track-width      : rem-calc(34px) !default;
+$ui-switch-track-height     : rem-calc(14px) !default;
 
-$ui-switch-focus-ring-size: 42px !default;
+$ui-switch-focus-ring-size  : $ui-switch-thumb-size * 2.1 !default;
 
 .ui-switch {
     align-items: center;
@@ -145,9 +155,10 @@ $ui-switch-focus-ring-size: 42px !default;
 
         .ui-switch__thumb {
             background-color: $md-grey-400;
-            box-shadow: none; // 0 1px 3px rgba(black, 0.2);
+            box-shadow: none;
         }
 
+        .ui-switch__input-wrapper,
         .ui-switch__label-text {
             color: $disabled-text-color;
             cursor: default;
@@ -156,6 +167,7 @@ $ui-switch-focus-ring-size: 42px !default;
 }
 
 .ui-switch__input-wrapper {
+    cursor: pointer;
     height: $ui-switch-thumb-size;
     position: relative;
     width: $ui-switch-track-width;
@@ -175,7 +187,7 @@ $ui-switch-focus-ring-size: 42px !default;
 
 .ui-switch__track {
     background-color: rgba(black, 0.26);
-    border-radius: 8px;
+    border-radius: rem-calc(8px);
     height: $ui-switch-track-height;
     position: absolute;
     top: (($ui-switch-thumb-size - $ui-switch-track-height) / 2);
@@ -212,8 +224,8 @@ $ui-switch-focus-ring-size: 42px !default;
 
 .ui-switch__label-text {
     cursor: pointer;
-    font-size: 15px;
-    margin-left: 16px;
+    font-size: rem-calc(15px);
+    margin-left: rem-calc(16px);
 }
 
 // ================================================
@@ -243,7 +255,7 @@ $ui-switch-focus-ring-size: 42px !default;
         }
 
         .ui-switch__focus-ring {
-            background-color: rgba($brand-primary-color, 0.12);
+            background-color: rgba($brand-primary-color, 0.2);
         }
     }
 }
@@ -259,7 +271,7 @@ $ui-switch-focus-ring-size: 42px !default;
         }
 
         .ui-switch__focus-ring {
-            background-color: rgba($brand-accent-color, 0.12);
+            background-color: rgba($brand-accent-color, 0.2);
         }
     }
 }

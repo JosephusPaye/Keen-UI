@@ -22,6 +22,10 @@ export default {
         openOn: {
             type: String,
             default: 'hover focus'
+        },
+        openDelay: {
+            type: Number,
+            default: 0
         }
     },
 
@@ -47,7 +51,6 @@ export default {
 
     beforeDestroy() {
         if (this.tooltip !== null) {
-            this.tooltip.remove();
             this.tooltip.destroy();
         }
     },
@@ -60,7 +63,8 @@ export default {
                     content: this.$refs.tooltip,
                     classes: 'ui-tooltip--theme-default',
                     position: this.position,
-                    openOn: this.openOn
+                    openOn: this.openOn,
+                    openDelay: this.openDelay
                 });
             }
         }
@@ -68,10 +72,10 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
-$tooltip-content-margin: 4px !default;
+$tooltip-content-margin: rem-calc(4px) !default;
 
 .ui-tooltip {
     line-height: 1;
@@ -113,15 +117,15 @@ $tooltip-content-margin: 4px !default;
     .tooltip-content {
         align-items: center;
         background: $md-grey-900;
-        border-radius: 2px;
+        border-radius: $ui-default-border-radius;
         color: white;
         display: flex;
         font-family: inherit;
-        font-size: 13px;
-        height: 26px;
+        font-size: rem-calc(13px);
+        height: rem-calc(26px);
         line-height: 1;
         opacity: 0.9;
-        padding: 0 8px;
+        padding: rem-calc(0 8px);
         position: relative;
     }
 

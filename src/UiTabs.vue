@@ -8,8 +8,8 @@
                     :active="activeTabId === tab.id"
                     :disable-ripple="disableRipple"
                     :disabled="tab.disabled"
-                    :icon="tab.icon"
                     :icon-props="tab.iconProps"
+                    :icon="tab.icon"
                     :id="tab.id"
                     :show="tab.show"
                     :title="tab.title"
@@ -19,14 +19,14 @@
                     @keydown.left.native="selectPreviousTab"
                     @keydown.right.native="selectNextTab"
 
-                    v-show="tab.show"
                     v-for="tab in tabs"
+                    v-show="tab.show"
                 >
-                    <ui-render-vnodes
+                    <render-vnodes
                         slot="icon"
                         :nodes="tab.$slots.icon"
                         v-if="tab.$slots.icon"
-                    ></ui-render-vnodes>
+                    ></render-vnodes>
                 </ui-tab-header-item>
             </ul>
 
@@ -44,8 +44,10 @@
 </template>
 
 <script>
-import UiTabHeaderItem from './UiTabHeaderItem.vue';
 import RespondsToWindowResize from './mixins/RespondsToWindowResize.js';
+import UiTabHeaderItem from './UiTabHeaderItem.vue';
+
+import config from './config';
 
 export default {
     name: 'ui-tabs',
@@ -81,7 +83,7 @@ export default {
         },
         disableRipple: {
             type: Boolean,
-            default: false
+            default: config.data.disableRipple
         }
     },
 
@@ -102,11 +104,11 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-tabs--type-' + this.type,
-                'ui-tabs--text-color-' + this.textColor,
-                'ui-tabs--text-color-active-' + this.textColorActive,
-                'ui-tabs--background-color-' + this.backgroundColor,
-                'ui-tabs--indicator-color-' + this.textColorActive,
+                `ui-tabs--type-${this.type}`,
+                `ui-tabs--text-color-${this.textColor}`,
+                `ui-tabs--text-color-active-${this.textColorActive}`,
+                `ui-tabs--background-color-${this.backgroundColor}`,
+                `ui-tabs--indicator-color-${this.textColorActive}`,
                 { 'is-raised': this.raised },
                 { 'is-fullwidth': this.fullwidth }
             ];
@@ -130,7 +132,7 @@ export default {
                 if (this.activeTabId === tab.id) {
                     tab.activate();
                     this.activeTabIndex = index;
-                } else {
+                } else if (tab.isActive) {
                     tab.deactivate();
                 }
             });
@@ -313,8 +315,8 @@ export default {
 
     components: {
         UiTabHeaderItem,
-        UiRenderVnodes: {
-            name: 'ui-render-vnodes',
+        RenderVnodes: {
+            name: 'render-vnodes',
             functional: true,
             props: ['nodes'],
             render(createElement, context) {
@@ -329,11 +331,11 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-tabs {
-    margin-bottom: 24px;
+    margin-bottom: rem-calc(24px);
     width: 100%;
 
     &.is-fullwidth {
@@ -368,7 +370,7 @@ export default {
 .ui-tabs__active-tab-indicator {
     bottom: 0;
     box-shadow: 0 -1px 2px rgba(black, 0.05);
-    height: 2px;
+    height: rem-calc(2px);
     position: absolute;
     transition: all 0.2s ease;
 }
@@ -376,10 +378,10 @@ export default {
 .ui-tabs__body {
     background-color: white;
     border-radius: 0;
-    border: 1px solid $md-grey-200;
+    border: rem-calc(1px) solid $md-grey-200;
     border-top: 0;
-    padding: 16px;
     margin: 0;
+    padding: rem-calc(16px);
 }
 
 // ================================================

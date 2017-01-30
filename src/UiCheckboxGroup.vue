@@ -15,11 +15,11 @@
                 :disabled="disabled || option[keys.disabled]"
                 :id="option[keys.id]"
                 :key="option[keys.id]"
-                :name="option[keys.name]"
+                :name="name || option[keys.name]"
 
                 @blur="onBlur"
-                @focus="onFocus"
                 @change="onChange(arguments, option)"
+                @focus="onFocus"
 
                 v-for="(option, index) in options"
                 v-model="checkboxValues[index]"
@@ -27,8 +27,12 @@
         </div>
 
         <div class="ui-checkbox-group__feedback" v-if="hasFeedback">
-            <div class="ui-checkbox-group__feedback-text" v-if="showError || showHelp">
-                {{ showError ? error : help }}
+            <div class="ui-checkbox-group__feedback-text" v-if="showError">
+                <slot name="error">{{ error }}</slot>
+            </div>
+
+            <div class="ui-checkbox-group__feedback-text" v-else-if="showHelp">
+                <slot name="help">{{ help }}</slot>
             </div>
         </div>
     </div>
@@ -36,12 +40,15 @@
 
 <script>
 import UiCheckbox from './UiCheckbox.vue';
-import { looseIndexOf } from 'helpers/util';
+
+import config from './config';
+import { looseIndexOf } from './helpers/util';
 
 export default {
     name: 'ui-checkbox-group',
 
     props: {
+        name: String,
         options: {
             type: Array,
             required: true
@@ -53,14 +60,7 @@ export default {
         keys: {
             type: Object,
             default() {
-                return {
-                    id: 'id',
-                    name: 'name',
-                    class: 'class',
-                    label: 'label',
-                    value: 'value',
-                    disabled: 'disabled'
-                };
+                return config.data.UiCheckboxGroup.keys;
             }
         },
         label: String,
@@ -100,8 +100,8 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-checkbox-group--color-' + this.color,
-                'ui-checkbox-group--box-position-' + this.boxPosition,
+                `ui-checkbox-group--color-${this.color}`,
+                `ui-checkbox-group--box-position-${this.boxPosition}`,
                 { 'is-vertical': this.vertical },
                 { 'is-active': this.isActive },
                 { 'is-invalid': this.invalid },
@@ -130,11 +130,7 @@ export default {
             });
             this.ignoreChange = false;
 
-            if (this.initialValue.length > 0) {
-                this.$emit('input', [].concat(this.initialValue));
-            } else {
-                this.$emit('input', []);
-            }
+            this.$emit('input', (this.initialValue.length > 0) ? [].concat(this.initialValue) : []);
         },
 
         isOptionCheckedByDefault(option) {
@@ -182,8 +178,8 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-checkbox-group {
     font-family: $font-stack;
@@ -204,11 +200,11 @@ export default {
     &.is-vertical {
         .ui-checkbox-group__checkboxes {
             flex-direction: column;
-            padding-top: 8px;
+            padding-top: rem-calc(8px);
         }
 
         .ui-checkbox-group__checkbox {
-            margin-bottom: 12px;
+            margin-bottom: rem-calc(12px);
             margin-left: 0;
             width: 100%;
         }
@@ -243,9 +239,9 @@ export default {
     min-height: $ui-input-height;
 }
 
-.ui-checkbox-group__checkbox {
+.ui-checkbox.ui-checkbox-group__checkbox {
     margin-bottom: 0;
-    margin-left: 24px;
+    margin-left: rem-calc(24px);
 
     &:first-child {
         margin-left: 0;
@@ -257,7 +253,7 @@ export default {
     font-size: $ui-input-feedback-font-size;
     line-height: $ui-input-feedback-line-height;
     margin: 0;
-    padding-top: $ui-input-feedback-padding-top - 4px;
+    padding-top: $ui-input-feedback-padding-top - rem-calc(4px);
     position: relative;
 }
 
@@ -268,7 +264,7 @@ export default {
 .ui-checkbox-group--box-position-right {
     &:not(.is-vertical) {
         .ui-checkbox__label-text {
-            margin-right: 8px;
+            margin-right: rem-calc(8px);
         }
     }
 }

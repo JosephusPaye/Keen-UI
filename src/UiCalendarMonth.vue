@@ -48,7 +48,7 @@
 <script>
 import UiCalendarWeek from './UiCalendarWeek.vue';
 
-import dateUtils from 'helpers/date';
+import dateUtils from './helpers/date';
 
 export default {
     name: 'ui-calendar-month',
@@ -66,7 +66,11 @@ export default {
         return {
             dateOutOfView: dateUtils.clone(this.dateInView),
             isSliding: false,
-            slideDirection: ''
+            slideDirection: '',
+
+            // Detects IE and not Edge: http://stackoverflow.com/a/22082397
+            isIE: Boolean(window.MSInputMethodContext) && Boolean(document.documentMode),
+            ieTimeout: null
         };
     },
 
@@ -112,6 +116,13 @@ export default {
             this.isSliding = true;
             this.slideDirection = options.isForward ? 'left' : 'right';
             this.dateOutOfView = dateUtils.clone(date);
+
+            // A hack for IE: sometimes when rapidly scrolling through months, the
+            // transitionend event is not fired, causing the month to not change.
+            // This ensures that onTransitionEnd() is called after 300ms.
+            if (this.isIE) {
+                this.ieTimeout = setTimeout(this.onTransitionEnd, 300);
+            }
         },
 
         onDateSelect(date) {
@@ -119,6 +130,16 @@ export default {
         },
 
         onTransitionEnd() {
+            if (this.ieTimeout) {
+                clearTimeout(this.ieTimeout);
+                this.ieTimeout = null;
+
+                // Abort if the transition has already ended
+                if (!this.isSliding) {
+                    return;
+                }
+            }
+
             this.isSliding = false;
             this.slideDirection = '';
 
@@ -133,8 +154,8 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-calendar-month {
     height: ($ui-calendar-cell-size * 6) + $ui-calendar-month-header-height;
@@ -154,7 +175,7 @@ export default {
         align-items: center;
         color: $secondary-text-color;
         display: flex;
-        font-size: 14px;
+        font-size: rem-calc(14px);
         height: $ui-calendar-cell-size;
         justify-content: center;
         text-transform: uppercase;

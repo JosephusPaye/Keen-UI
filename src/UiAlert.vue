@@ -29,7 +29,9 @@
                 <div class="ui-alert__dismiss-button">
                     <ui-close-button
                         size="small"
-                        @click.native="dismissAlert"
+
+                        @click="dismissAlert"
+
                         v-if="dismissible"
                     ></ui-close-button>
                 </div>
@@ -81,8 +83,8 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 $ui-alert-color             : rgba(black, 0.75) !default;
 $ui-alert-font-size         : rem-calc(15px) !default;

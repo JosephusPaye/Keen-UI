@@ -3,7 +3,9 @@
         class="ui-popover"
         role="dialog"
         tabindex="-1"
+
         :class="{ 'is-raised': raised }"
+
         @keydown.esc="closeDropdown"
     >
         <slot></slot>
@@ -12,8 +14,8 @@
 </template>
 
 <script>
+import classlist from './helpers/classlist';
 import Drop from 'tether-drop';
-import classlist from 'helpers/classlist';
 
 export default {
     name: 'ui-popover',
@@ -45,7 +47,7 @@ export default {
     data() {
         return {
             dropInstance: null,
-            lastFocussedElement: null
+            lastfocusedElement: null
         };
     },
 
@@ -63,7 +65,6 @@ export default {
 
     beforeDestroy() {
         if (this.dropInstance) {
-            this.dropInstance.remove();
             this.dropInstance.destroy();
         }
     },
@@ -136,7 +137,7 @@ export default {
             this.positionDrop();
             classlist.add(this.triggerEl, 'has-dropdown-open');
 
-            this.lastFocussedElement = document.activeElement;
+            this.lastfocusedElement = document.activeElement;
             this.$el.focus();
 
             this.$emit('open');
@@ -145,8 +146,8 @@ export default {
         onClose() {
             classlist.remove(this.triggerEl, 'has-dropdown-open');
 
-            if (this.lastFocussedElement) {
-                this.lastFocussedElement.focus();
+            if (this.lastfocusedElement) {
+                this.lastfocusedElement.focus();
             }
 
             this.$emit('close');
@@ -182,8 +183,8 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-popover {
     background-color: white;
@@ -201,8 +202,8 @@ export default {
 }
 
 .ui-popover__focus-redirector {
-    position: absolute;
     opacity: 0;
+    position: absolute;
 }
 
 .drop-element {

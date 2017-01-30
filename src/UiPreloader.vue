@@ -3,6 +3,7 @@
         <div
             class="ui-preloader__progressbar"
             role="progressbar"
+
             :aria-busy="show ? 'true' : false"
         ></div>
     </div>
@@ -21,11 +22,11 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 $ui-preloader-duration  : 3s !default;
-$ui-preloader-height    : 3px !default;
+$ui-preloader-height    : rem-calc(3px) !default;
 
 $ui-preloader-color-1   : #159756 !default; // green
 $ui-preloader-color-2   : #da4733 !default; // red

@@ -28,6 +28,7 @@
                     :name="name"
                     :number="type === 'number' ? true : null"
                     :placeholder="hasFloatingLabel ? null : placeholder"
+                    :readonly="readonly"
                     :required="required"
                     :step="stepValue"
                     :type="type"
@@ -53,6 +54,7 @@
                     :maxlength="enforceMaxlength ? maxlength : null"
                     :name="name"
                     :placeholder="hasFloatingLabel ? null : placeholder"
+                    :readonly="readonly"
                     :required="required"
                     :rows="rows"
                     :value="value"
@@ -70,8 +72,12 @@
             </label>
 
             <div class="ui-textbox__feedback" v-if="hasFeedback || maxlength">
-                <div class="ui-textbox__feedback-text" v-if="showError || showHelp">
-                    {{ showError ? error : help }}
+                <div class="ui-textbox__feedback-text" v-if="showError">
+                    <slot name="error">{{ error }}</slot>
+                </div>
+
+                <div class="ui-textbox__feedback-text" v-else-if="showHelp">
+                    <slot name="help">{{ help }}</slot>
                 </div>
 
                 <div class="ui-textbox__counter" v-if="maxlength">
@@ -83,8 +89,8 @@
 </template>
 
 <script>
+import autofocus from './directives/autofocus';
 import UiIcon from './UiIcon.vue';
-import autofocus from 'directives/autofocus';
 
 import autosize from 'autosize';
 
@@ -105,12 +111,6 @@ export default {
         },
         label: String,
         floatingLabel: {
-            type: Boolean,
-            default: false
-        },
-        help: String,
-        error: String,
-        disabled: {
             type: Boolean,
             default: false
         },
@@ -150,11 +150,17 @@ export default {
             type: Boolean,
             default: false
         },
+        readonly: {
+            type: Boolean,
+            default: false
+        },
+        help: String,
+        error: String,
         invalid: {
             type: Boolean,
             default: false
         },
-        touched: {
+        disabled: {
             type: Boolean,
             default: false
         }
@@ -163,6 +169,7 @@ export default {
     data() {
         return {
             isActive: false,
+            isTouched: false,
             initialValue: this.value,
             autosizeInitialized: false
         };
@@ -171,10 +178,10 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-textbox--icon-position-' + this.iconPosition,
+                `ui-textbox--icon-position-${this.iconPosition}`,
                 { 'is-active': this.isActive },
                 { 'is-invalid': this.invalid },
-                { 'is-touched': this.touched },
+                { 'is-touched': this.isTouched },
                 { 'is-multi-line': this.multiLine },
                 { 'has-counter': this.maxlength },
                 { 'is-disabled': this.disabled },
@@ -266,7 +273,8 @@ export default {
             this.isActive = false;
             this.$emit('blur', e);
 
-            if (!this.touched) {
+            if (!this.isTouched) {
+                this.isTouched = true;
                 this.$emit('touch');
             }
         },
@@ -280,7 +288,7 @@ export default {
         },
 
         reset() {
-            // Blur the input if it's focussed to prevent required errors
+            // Blur the input if it's focused to prevent required errors
             // when it's value is reset
             if (
                 document.activeElement === this.$refs.input ||
@@ -290,6 +298,11 @@ export default {
             }
 
             this.updateValue(this.initialValue);
+            this.resetTouched();
+        },
+
+        resetTouched(options = { touched: false }) {
+            this.isTouched = options.touched;
         },
 
         refreshSize() {
@@ -309,8 +322,8 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-textbox {
     align-items: flex-start;
@@ -350,7 +363,7 @@ export default {
 
     &.has-counter {
         .ui-textbox__feedback-text {
-            padding-right: 48px;
+            padding-right: rem-calc(48px);
         }
     }
 
@@ -392,9 +405,9 @@ export default {
     &.is-disabled {
         .ui-textbox__input,
         .ui-textbox__textarea {
-            color: $ui-input-text-color--disabled;
             border-bottom-style: $ui-input-border-style--disabled;
             border-bottom-width: $ui-input-border-width--active;
+            color: $ui-input-text-color--disabled;
         }
 
         .ui-textbox__icon-wrapper .ui-icon {
@@ -416,7 +429,7 @@ export default {
 
 .ui-textbox__icon-wrapper {
     flex-shrink: 0;
-    margin-right: 12px;
+    margin-right: rem-calc(12px);
     padding-top: $ui-input-icon-margin-top;
 
     .ui-icon {
@@ -444,6 +457,7 @@ export default {
     border-bottom-color: $ui-input-border-color;
     border-bottom-style: solid;
     border-bottom-width: $ui-input-border-width;
+    border-radius: 0;
     color: $ui-input-text-color;
     cursor: auto;
     display: block;
@@ -462,9 +476,10 @@ export default {
 }
 
 .ui-textbox__textarea {
-    resize: vertical;
     overflow-x: hidden;
-    padding-bottom: 6px;
+    overflow-y: auto;
+    padding-bottom: rem-calc(6px);
+    resize: vertical;
 }
 
 .ui-textbox__feedback {
@@ -488,7 +503,7 @@ export default {
 
 .ui-textbox--icon-position-right {
     .ui-textbox__icon-wrapper {
-        margin-left: 8px;
+        margin-left: rem-calc(8px);
         margin-right: 0;
         order: 1;
     }

@@ -5,12 +5,16 @@
 
         :aria-label="ariaLabel || tooltip"
         :class="classes"
+
+        @click="onClick"
     >
         <div class="ui-fab__icon" v-if="icon || $slots.default">
             <slot>
                 <ui-icon :icon="icon"></ui-icon>
             </slot>
         </div>
+
+        <span class="ui-fab__focus-ring"></span>
 
         <ui-ripple-ink trigger="button" v-if="!disableRipple"></ui-ripple-ink>
 
@@ -27,8 +31,10 @@
 
 <script>
 import UiIcon from './UiIcon.vue';
-import UiTooltip from './UiTooltip.vue';
 import UiRippleInk from './UiRippleInk.vue';
+import UiTooltip from './UiTooltip.vue';
+
+import config from './config';
 
 export default {
     name: 'ui-fab',
@@ -49,29 +55,38 @@ export default {
         tooltipPosition: String,
         disableRipple: {
             type: Boolean,
-            default: false
+            default: config.data.disableRipple
         }
     },
 
     computed: {
         classes() {
             return [
-                'ui-fab--color-' + this.color,
-                'ui-fab--size-' + this.size
+                `ui-fab--color-${this.color}`,
+                `ui-fab--size-${this.size}`
             ];
+        }
+    },
+
+    methods: {
+        onClick(e) {
+            this.$emit('click', e);
         }
     },
 
     components: {
         UiIcon,
-        UiTooltip,
-        UiRippleInk
+        UiRippleInk,
+        UiTooltip
     }
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
+
+$ui-fab-size--normal    : rem-calc(56px) !default;
+$ui-fab-size--small     : rem-calc(40px) !default;
 
 .ui-fab {
     align-items: center;
@@ -96,15 +111,35 @@ export default {
         box-shadow: 0 8px 17px 0 rgba(black, 0.25), 0 6px 20px 0 rgba(black, 0.2);
     }
 
+    body[modality="keyboard"] &:focus {
+        .ui-fab__focus-ring {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
     .ui-ripple-ink {
         border-radius: 50%;
     }
 }
 
 .ui-fab__icon {
-    margin: 0;
-    width: 100%; // Firefox: needs the width and height reset for flexbox centering
     height: initial;
+    margin: 0;
+    position: relative;
+    width: 100%; // Firefox: needs the width and height reset for flexbox centering
+    z-index: 1;
+}
+
+.ui-fab__focus-ring {
+    border-radius: 50%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transform-origin: center;
+    transform: scale(0);
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 // ================================================
@@ -112,13 +147,19 @@ export default {
 // ================================================
 
 .ui-fab--size-normal {
-    width: 56px;
-    height: 56px;
+    &,
+    .ui-fab__focus-ring {
+        height: $ui-fab-size--normal;
+        width: $ui-fab-size--normal;
+    }
 }
 
 .ui-fab--size-small {
-    width: 40px;
-    height: 40px;
+    &,
+    .ui-fab__focus-ring {
+        width: $ui-fab-size--small;
+        height: $ui-fab-size--small;
+    }
 }
 
 // ================================================
@@ -135,6 +176,10 @@ export default {
 
     .ui-ripple-ink__ink {
         opacity: 0.2;
+    }
+
+    .ui-fab__focus-ring {
+        background-color: rgba(black, 0.15);
     }
 }
 
@@ -154,7 +199,7 @@ export default {
 .ui-fab--color-primary {
     background-color: $brand-primary-color;
 
-    body[modality="keyboard"] &:focus {
+    .ui-fab__focus-ring {
         background-color: darken($brand-primary-color, 10%);
     }
 }
@@ -162,7 +207,7 @@ export default {
 .ui-fab--color-accent {
     background-color: $brand-accent-color;
 
-    body[modality="keyboard"] &:focus {
+    .ui-fab__focus-ring {
         background-color: darken($brand-accent-color, 10%);
     }
 }

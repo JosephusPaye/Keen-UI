@@ -27,7 +27,11 @@
             ></ui-ripple-ink>
         </div>
 
-        <transition name="ui-collapsible-toggle">
+        <transition
+            name="ui-collapsible--transition-toggle"
+            @after-enter="onEnter"
+            @after-leave="onLeave"
+        >
             <div
                 class="ui-collapsible__body-wrapper"
                 ref="body"
@@ -47,8 +51,9 @@
 import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
 
-import UUID from 'helpers/uuid';
-import RespondsToWindowResize from 'mixins/RespondsToWindowResize.js';
+import config from './config';
+import RespondsToWindowResize from './mixins/RespondsToWindowResize.js';
+import UUID from './helpers/uuid';
 
 export default {
     name: 'ui-collapsible',
@@ -65,7 +70,7 @@ export default {
         },
         disableRipple: {
             type: Boolean,
-            default: false
+            default: config.data.disableRipple
         },
         disabled: {
             type: Boolean,
@@ -114,6 +119,15 @@ export default {
     },
 
     methods: {
+        onEnter() {
+            this.$emit('open');
+            this.refreshHeight();
+        },
+
+        onLeave() {
+            this.$emit('close');
+        },
+
         toggleCollapsible() {
             if (this.disabled) {
                 return;
@@ -146,32 +160,19 @@ export default {
 
     mixins: [
         RespondsToWindowResize
-    ],
-
-    transitions: {
-        'ui-collapsible-toggle': {
-            afterEnter() {
-                this.$emit('open');
-                this.refreshHeight();
-            },
-
-            afterLeave() {
-                this.$emit('close');
-            }
-        }
-    }
+    ]
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 $ui-collapsible-header-background           : $md-grey-200 !default;
 $ui-collapsible-header-background-hover     : $md-grey-300 !default;
 
 .ui-collapsible {
     font-family: $font-stack;
-    margin-bottom: 8px;
+    margin-bottom: rem-calc(8px);
     width: 100%;
 
     &:not(.is-disabled) {
@@ -206,11 +207,11 @@ $ui-collapsible-header-background-hover     : $md-grey-300 !default;
     background-color: $ui-collapsible-header-background;
     cursor: pointer;
     display: flex;
-    font-size: 15px;
-    height: 0; // IE
+    font-size: rem-calc(15px);
+    line-height: 1.5;
     margin: 0;
-    min-height: 48px;
-    padding: 0 16px;
+    min-height: rem-calc(48px);
+    padding: rem-calc(12px 16px);
     position: relative;
     touch-action: manipulation; // IE
     width: 100%;
@@ -221,14 +222,14 @@ $ui-collapsible-header-background-hover     : $md-grey-300 !default;
 }
 
 .ui-collapsible__header-content {
-    @include text-truncation;
+    padding-right: rem-calc(8px);
 }
 
 .ui-collapsible__header-icon {
     color: $secondary-text-color;
     cursor: pointer;
     margin-left: auto;
-    margin-right: -4px;
+    margin-right: rem-calc(-4px);
     transition: transform 0.3s ease;
 }
 
@@ -241,17 +242,17 @@ $ui-collapsible-header-background-hover     : $md-grey-300 !default;
     border-top: 0;
     border: 1px solid $md-grey-200;
     display: block;
-    padding: 16px;
+    padding: rem-calc(16px);
     width: 100%;
 }
 
-.ui-collapsible-toggle-enter-active,
-.ui-collapsible-toggle-leave-active {
+.ui-collapsible--transition-toggle-enter-active,
+.ui-collapsible--transition-toggle-leave-active {
     transition: height 0.3s ease;
 }
 
-.ui-collapsible-toggle-enter,
-.ui-collapsible-toggle-leave-active {
+.ui-collapsible--transition-toggle-enter,
+.ui-collapsible--transition-toggle-leave-active {
     height: 0!important;
 }
 </style>

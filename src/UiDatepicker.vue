@@ -85,13 +85,13 @@
                     <ui-button
                         type="secondary"
                         :color="color"
-                        @click.native="$refs.modal.close()"
+                        @click="$refs.modal.close()"
                     >{{ okButtonText }}</ui-button>
 
                     <ui-button
                         type="secondary"
                         :color="color"
-                        @click.native="onPickerCancel"
+                        @click="onPickerCancel"
                     >{{ cancelButtonText }}</ui-button>
                 </div>
             </ui-calendar>
@@ -128,7 +128,7 @@ import UiIcon from './UiIcon.vue';
 import UiModal from './UiModal.vue';
 import UiPopover from './UiPopover.vue';
 
-import dateUtils from 'helpers/date';
+import dateUtils from './helpers/date';
 
 export default {
     name: 'ui-datepicker',
@@ -182,10 +182,6 @@ export default {
             type: Boolean,
             default: false
         },
-        touched: {
-            type: Boolean,
-            default: false
-        },
         help: String,
         error: String,
         disabled: {
@@ -197,6 +193,7 @@ export default {
     data() {
         return {
             isActive: false,
+            isTouched: false,
             valueAtModalOpen: null,
             initialValue: JSON.stringify(this.value)
         };
@@ -209,7 +206,7 @@ export default {
                 `ui-datepicker--orientation-${this.orientation}`,
                 { 'is-active': this.isActive },
                 { 'is-invalid': this.invalid },
-                { 'is-touched': this.touched },
+                { 'is-touched': this.isTouched },
                 { 'is-disabled': this.disabled },
                 { 'has-label': this.hasLabel },
                 { 'has-floating-label': this.hasFloatingLabel }
@@ -303,10 +300,6 @@ export default {
                 this.$refs.popover.close();
             }
 
-            if (!this.touched) {
-                this.$emit('touch');
-            }
-
             if (options.autoBlur) {
                 this.isActive = false;
             } else {
@@ -345,6 +338,11 @@ export default {
 
         onPickerClose() {
             this.$emit('close');
+
+            if (!this.isTouched) {
+                this.isTouched = true;
+                this.$emit('touch');
+            }
         },
 
         onPickerCancel() {
@@ -371,6 +369,10 @@ export default {
 
         reset() {
             this.$emit('input', JSON.parse(this.initialValue));
+        },
+
+        resetTouched(options = { touched: false }) {
+            this.isTouched = options.touched;
         }
     },
 
@@ -384,8 +386,8 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-datepicker {
     align-items: flex-start;
@@ -491,12 +493,12 @@ export default {
         padding: 0;
 
         .ui-calendar__body {
-            height: 348px;
+            height: rem-calc(348px);
         }
     }
 
     .ui-modal__container {
-        width: 268px;
+        width: rem-calc(268px);
     }
 }
 
@@ -534,7 +536,6 @@ export default {
 
 .ui-datepicker__display {
     align-items: center;
-    background: none;
     border: none;
     border-bottom-color: $ui-input-border-color;
     border-bottom-style: solid;
@@ -547,7 +548,6 @@ export default {
     font-weight: normal;
     height: $ui-input-height;
     line-height: 1;
-    outline: none;
     padding: 0;
     transition: border 0.1s ease;
     user-select: none;
@@ -566,7 +566,7 @@ export default {
     color: $ui-input-button-color;
     font-size: $ui-input-button-size;
     margin-left: auto;
-    margin-right: -4px;
+    margin-right: rem-calc(-4px);
 }
 
 .ui-datepicker__feedback {
@@ -583,7 +583,7 @@ export default {
     justify-content: flex-end;
 
     .ui-button {
-        min-width: 64px;
+        min-width: rem-calc(64px);
     }
 }
 
@@ -593,7 +593,7 @@ export default {
 
 .ui-datepicker--icon-position-right {
     .ui-datepicker__icon-wrapper {
-        margin-left: 8px;
+        margin-left: rem-calc(8px);
         margin-right: 0;
         order: 1;
     }
@@ -605,7 +605,7 @@ export default {
 
 .ui-datepicker--orientation-landscape {
     .ui-modal__container {
-        width: 396px;
+        width: rem-calc(396px);
     }
 }
 </style>

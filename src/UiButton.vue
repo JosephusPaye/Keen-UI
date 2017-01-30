@@ -6,6 +6,9 @@
         :class="classes"
         :disabled="disabled || loading"
         :type="buttonType"
+
+        @click="onClick"
+        @focus.once="onFocus"
     >
         <div class="ui-button__content">
             <div class="ui-button__icon" v-if="icon || $slots.icon">
@@ -20,12 +23,17 @@
                 class="ui-button__dropdown-icon"
                 v-if="hasDropdown && iconPosition !== 'right'"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6.984 9.984h10.03L12 15z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M6.984 9.984h10.03L12 15z"/>
+                </svg>
             </ui-icon>
         </div>
 
+        <div class="ui-button__focus-ring" :style="focusRingStyle"></div>
+
         <ui-progress-circular
             class="ui-button__progress"
+            disable-transition
 
             :color="progressColor"
             :size="18"
@@ -56,8 +64,10 @@
 <script>
 import UiIcon from './UiIcon.vue';
 import UiPopover from './UiPopover.vue';
-import UiRippleInk from './UiRippleInk.vue';
 import UiProgressCircular from './UiProgressCircular.vue';
+import UiRippleInk from './UiRippleInk.vue';
+
+import config from './config';
 
 export default {
     name: 'ui-button',
@@ -106,7 +116,7 @@ export default {
         },
         disableRipple: {
             type: Boolean,
-            default: false
+            default: config.data.disableRipple
         },
         disabled: {
             type: Boolean,
@@ -114,18 +124,37 @@ export default {
         }
     },
 
+    data() {
+        return {
+            focusRing: {
+                top: 0,
+                left: 0,
+                size: 0
+            }
+        };
+    },
+
     computed: {
         classes() {
             return [
-                'ui-button--type-' + this.type,
-                'ui-button--color-' + this.color,
-                'ui-button--icon-position-' + this.iconPosition,
-                'ui-button--size-' + this.size,
+                `ui-button--type-${this.type}`,
+                `ui-button--color-${this.color}`,
+                `ui-button--icon-position-${this.iconPosition}`,
+                `ui-button--size-${this.size}`,
                 { 'is-raised': this.raised },
                 { 'is-loading': this.loading },
                 { 'is-disabled': this.disabled || this.loading },
                 { 'has-dropdown': this.hasDropdown }
             ];
+        },
+
+        focusRingStyle() {
+            return {
+                height: this.focusRing.size + 'px',
+                width: this.focusRing.size + 'px',
+                top: this.focusRing.top + 'px',
+                left: this.focusRing.left + 'px'
+            };
         },
 
         progressColor() {
@@ -138,6 +167,21 @@ export default {
     },
 
     methods: {
+        onClick(e) {
+            this.$emit('click', e);
+        },
+
+        onFocus() {
+            const bounds = {
+                width: this.$el.clientWidth,
+                height: this.$el.clientHeight
+            };
+
+            this.focusRing.size = bounds.width - 16; // 8px of padding on left and right
+            this.focusRing.top = -1 * (this.focusRing.size - bounds.height) / 2;
+            this.focusRing.left = (bounds.width - this.focusRing.size) / 2;
+        },
+
         onDropdownOpen() {
             this.$emit('dropdown-open');
         },
@@ -168,21 +212,14 @@ export default {
     components: {
         UiIcon,
         UiPopover,
-        UiRippleInk,
-        UiProgressCircular
+        UiProgressCircular,
+        UiRippleInk
     }
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
-
-$ui-button-font-size            : 14px !default;
-$ui-button-font-size--small     : 14px !default;
-$ui-button-font-size--large     : 14px !default;
-$ui-button-height               : 36px !default;
-$ui-button-height--small        : 32px !default;
-$ui-button-height--large        : 48px !default;
+<style lang="scss">
+@import './styles/imports';
 
 .ui-button {
     align-items: center;
@@ -198,11 +235,12 @@ $ui-button-height--large        : 48px !default;
     justify-content: center;
     letter-spacing: 0.02em;
     line-height: 1;
-    min-width: 80px;
+    min-width: rem-calc(80px);
     outline: none;
+    overflow: hidden;
     padding: 0;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: rem-calc(16px);
+    padding-right: rem-calc(16px);
     position: relative;
     text-transform: uppercase;
     touch-action: manipulation; // IE
@@ -214,7 +252,10 @@ $ui-button-height--large        : 48px !default;
 
     &.has-focus-ring:focus,
     body[modality="keyboard"] &:focus {
-        outline-style: solid;
+        .ui-button__focus-ring {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
 
     &.is-raised {
@@ -224,7 +265,6 @@ $ui-button-height--large        : 48px !default;
         &.has-focus-ring:focus,
         body[modality="keyboard"] &:focus {
             box-shadow: 0 0 5px rgba(black, 0.22), 0 3px 6px rgba(black, 0.3);
-            outline: none;
         }
     }
 
@@ -244,19 +284,33 @@ $ui-button-height--large        : 48px !default;
     align-items: center;
     display: flex;
     justify-content: center;
+    position: relative; // IE: prevents shifting when the button is pressed
     transition: opacity 0.3s ease;
+    z-index: 1;
 }
 
 .ui-button__icon {
-    margin-left: -4px;
-    margin-right: 6px;
-    margin-top: -2px;
+    margin-left: rem-calc(-4px);
+    margin-right: rem-calc(6px);
+    margin-top: rem-calc(-2px);
 }
 
 .ui-button__dropdown-icon {
-    font-size: 18px;
-    margin-left: 2px;
-    margin-right: -6px;
+    font-size: rem-calc(18px);
+    margin-left: rem-calc(2px);
+    margin-right: rem-calc(-6px);
+}
+
+.ui-button__focus-ring {
+    background-color: rgba(black, 0.12);
+    border-radius: 50%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transform-origin: center;
+    transform: scale(0);
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .ui-progress-circular.ui-button__progress {
@@ -264,7 +318,6 @@ $ui-button-height--large        : 48px !default;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    transition: none;
 }
 
 .ui-button-group {
@@ -278,8 +331,8 @@ $ui-button-height--large        : 48px !default;
 
 .ui-button--icon-position-right {
     .ui-button__icon {
-        margin-left: 6px;
-        margin-right: -4px;
+        margin-left: rem-calc(6px);
+        margin-right: rem-calc(-4px);
         order: 1;
     }
 }
@@ -291,26 +344,25 @@ $ui-button-height--large        : 48px !default;
 .ui-button--size-small {
     font-size: $ui-button-font-size--small;
     height: $ui-button-height--small;
-    line-height: 1;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: rem-calc(12px);
+    padding-right: rem-calc(12px);
 
     .ui-button__icon {
         margin-left: 0;
         margin-top: 0;
 
         .ui-icon {
-            font-size: 18px;
+            font-size: rem-calc(18px);
         }
     }
 
     .ui-button__dropdown-icon {
-        margin-right: -4px;
+        margin-right: rem-calc(-4px);
     }
 
     &.ui-button--icon-position-right {
         .ui-button__icon {
-            margin-left: 6px;
+            margin-left: rem-calc(6px);
             margin-right: 0;
         }
     }
@@ -319,23 +371,23 @@ $ui-button-height--large        : 48px !default;
 .ui-button--size-large {
     font-size: $ui-button-font-size--large;
     height: $ui-button-height--large;
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: rem-calc(24px);
+    padding-right: rem-calc(24px);
 
     .ui-button__icon {
-        margin-left: -4px;
-        margin-right: 8px;
+        margin-left: rem-calc(-4px);
+        margin-right: rem-calc(8px);
     }
 
     .ui-button__dropdown-icon {
-        font-size: 24px;
-        margin-left: 4px;
+        font-size: rem-calc(24px);
+        margin-left: rem-calc(4px);
     }
 
     &.ui-button--icon-position-right {
         .ui-button__icon {
-            margin-left: 8px;
-            margin-right: -4px;
+            margin-left: rem-calc(8px);
+            margin-right: rem-calc(-4px);
         }
     }
 }
@@ -345,25 +397,15 @@ $ui-button-height--large        : 48px !default;
 // ================================================
 
 .ui-button--type-primary {
-    &.has-focus-ring:focus,
-    body[modality="keyboard"] &:focus {
-        outline-offset: 2px;
-        outline-width: 2px;
-    }
-
     &.ui-button--color-default {
         background-color: $md-grey-200;
         color: $primary-text-color;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open {
-            background-color: darken($md-grey-200, 7.5%);
-        }
-
+        &.has-dropdown-open,
         &.has-focus-ring:focus,
         body[modality="keyboard"] &:focus {
-            background-color: darken($md-grey-200, 15%);
-            outline-color: darken($md-grey-200, 30%);
+            background-color: darken($md-grey-200, 7.5%);
         }
 
         .ui-ripple-ink__ink {
@@ -392,14 +434,10 @@ $ui-button-height--large        : 48px !default;
         background-color: $brand-primary-color;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open {
-            background-color: darken($brand-primary-color, 10%);
-        }
-
+        &.has-dropdown-open,
         &.has-focus-ring:focus,
         body[modality="keyboard"] &:focus {
-            background-color: darken($brand-primary-color, 15%);
-            outline-color: darken($brand-primary-color, 15%);
+            background-color: darken($brand-primary-color, 10%);
         }
     }
 
@@ -407,14 +445,10 @@ $ui-button-height--large        : 48px !default;
         background-color: $brand-accent-color;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open {
-            background-color: darken($brand-accent-color, 10%);
-        }
-
+        &.has-dropdown-open,
         &.has-focus-ring:focus,
         body[modality="keyboard"] &:focus {
-            background-color: darken($brand-accent-color, 15%);
-            outline-color: darken($brand-accent-color, 15%);
+            background-color: darken($brand-accent-color, 10%);
         }
     }
 
@@ -422,14 +456,10 @@ $ui-button-height--large        : 48px !default;
         background-color: $md-green;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open {
-            background-color: darken($md-green, 10%);
-        }
-
+        &.has-dropdown-open,
         &.has-focus-ring:focus,
         body[modality="keyboard"] &:focus {
-            background-color: darken($md-green, 15%);
-            outline-color: darken($md-green, 15%);
+            background-color: darken($md-green, 10%);
         }
     }
 
@@ -437,14 +467,10 @@ $ui-button-height--large        : 48px !default;
         background-color: $md-orange;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open {
-            background-color: darken($md-orange, 10%);
-        }
-
+        &.has-dropdown-open,
         &.has-focus-ring:focus,
         body[modality="keyboard"] &:focus {
-            background-color: darken($md-orange, 15%);
-            outline-color: darken($md-orange, 15%);
+            background-color: darken($md-orange, 10%);
         }
     }
 
@@ -452,14 +478,10 @@ $ui-button-height--large        : 48px !default;
         background-color: $md-red;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open {
-            background-color: darken($md-red, 10%);
-        }
-
+        &.has-dropdown-open,
         &.has-focus-ring:focus,
         body[modality="keyboard"] &:focus {
-            background-color: darken($md-red, 15%);
-            outline-color: darken($md-red, 15%);
+            background-color: darken($md-red, 10%);
         }
     }
 }
@@ -468,7 +490,9 @@ $ui-button-height--large        : 48px !default;
     background-color: transparent;
 
     &:hover:not(.is-disabled),
-    &.has-dropdown-open {
+    &.has-dropdown-open,
+    &.has-focus-ring:focus,
+    body[modality="keyboard"] &:focus {
         background-color: darken($md-grey-200, 3%);
     }
 
@@ -477,11 +501,6 @@ $ui-button-height--large        : 48px !default;
 
         .ui-button__icon {
             color: $secondary-text-color;
-        }
-
-        &.has-focus-ring:focus,
-        body[modality="keyboard"] &:focus {
-            outline-color: darken($md-grey-200, 25%);
         }
     }
 

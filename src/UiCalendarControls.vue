@@ -7,7 +7,7 @@
 
             :disabled="previousMonthDisabled"
 
-            @click.native="goToPreviousMonth"
+            @click="goToPreviousMonth"
         >
             <ui-icon>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -25,7 +25,7 @@
 
             :disabled="nextMonthDisabled"
 
-            @click.native="goToNextMonth"
+            @click="goToNextMonth"
         >
             <ui-icon>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -40,7 +40,7 @@
 import UiIcon from './UiIcon.vue';
 import UiIconButton from './UiIconButton.vue';
 
-import dateUtils from 'helpers/date';
+import dateUtils from './helpers/date';
 
 export default {
     name: 'ui-calendar-controls',
@@ -113,13 +113,17 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-calendar-controls {
     align-items: center;
     display: flex;
     height: $ui-calendar-controls-height;
     justify-content: space-between;
+}
+
+.ui-calendar-controls__month-and-year {
+    font-size: rem-calc(15px);
 }
 </style>

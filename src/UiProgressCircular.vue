@@ -1,7 +1,8 @@
 <template>
-    <transition name="ui-progress-circular--transition-fade">
+    <transition :name="disableTransition ? null : 'ui-progress-circular--transition-fade'">
         <div
             class="ui-progress-circular"
+
             :class="classes"
             :style="{ 'width': size + 'px', 'height': size + 'px' }"
         >
@@ -91,8 +92,8 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-progress-circular--color-' + this.color,
-                'ui-progress-circular--type-' + this.type
+                `ui-progress-circular--color-${this.color}`,
+                `ui-progress-circular--type-${this.type}`
             ];
         },
 
@@ -144,8 +145,8 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 $ui-progress-indeterminate-rotation-duration    : 0.7s !default;
 $ui-progress-indeterminate-color-duration       : 6s !default;

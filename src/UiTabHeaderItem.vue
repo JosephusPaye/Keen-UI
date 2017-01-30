@@ -16,10 +16,10 @@
         >
             <slot name="icon">
                 <ui-icon
-                    :icon="icon"
                     :icon-set="iconProps.iconSet"
-                    :use-svg="iconProps.useSvg"
+                    :icon="icon"
                     :remove-text="iconProps.removeText"
+                    :use-svg="iconProps.useSvg"
                 ></ui-icon>
             </slot>
         </div>
@@ -36,6 +36,8 @@
 <script>
 import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
+
+import config from './config';
 
 export default {
     name: 'ui-tab-header-item',
@@ -62,11 +64,11 @@ export default {
             type: Boolean,
             default: true
         },
-        disabled: {
-            type: Boolean,
-            default: false
-        },
         disableRipple: {
+            type: Boolean,
+            default: config.data.disableRipple
+        },
+        disabled: {
             type: Boolean,
             default: false
         }
@@ -75,7 +77,7 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-tab-header-item--type-' + this.type,
+                `ui-tab-header-item--type-${this.type}`,
                 { 'is-active': this.active },
                 { 'is-disabled': this.disabled }
             ];
@@ -89,51 +91,52 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-tab-header-item {
     align-items: center;
     cursor: pointer;
     display: flex;
     font-family: $font-stack;
-    height: 48px;
+    height: rem-calc(48px);
     justify-content: center;
-    min-width: 80px;
-    padding: 0 12px;
+    min-width: rem-calc(80px);
+    padding: rem-calc(0 12px);
     position: relative;
     text-transform: uppercase;
 
+    &:hover {
+        background-color: rgba(black, 0.05);
+    }
+
     &.is-disabled {
+        background-color: transparent;
         cursor: default;
         opacity: 0.4;
         user-select: none;
-    }
-
-    &:hover {
-        background-color: rgba(black, 0.05);
     }
 }
 
 .ui-tab-header-item--type-icon-and-text {
     display: flex;
     flex-direction: column;
-    height: 72px;
+    height: rem-calc(72px);
 
     .ui-tab-header-item__icon {
-        margin-bottom: 4px;
-        margin-bottom: 4px;
+        margin-bottom: rem-calc(4px);
     }
 }
 
 .ui-tab-header-item__text {
     @include text-truncation;
+    font-size: rem-calc(15px);
     font-weight: 500;
 }
 
 .ui-tab-header-item__icon {
-    height: 24px;
-    width: 24px;
+    height: rem-calc(24px);
+    width: rem-calc(24px);
 
     .ui-icon {
         cursor: inherit;

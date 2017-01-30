@@ -48,8 +48,8 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-progress-linear--color-' + this.color,
-                'ui-progress-linear--type-' + this.type
+                `ui-progress-linear--color-${this.color}`,
+                `ui-progress-linear--type-${this.type}`
             ];
         },
 
@@ -68,12 +68,14 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
+
+$ui-progress-linear-height : rem-calc(4px) !default;
 
 .ui-progress-linear {
     display: block;
-    height: 4px;
+    height: $ui-progress-linear-height;
     overflow: hidden;
     position: relative;
     transition-duration: 0.3s;
@@ -84,7 +86,7 @@ export default {
 
 .ui-progress-linear__progress-bar {
     &.is-determinate {
-        height: 4px;
+        height: $ui-progress-linear-height;
         left: 0;
         position: absolute;
         top: 0;
@@ -98,18 +100,18 @@ export default {
             animation: ui-progress-linear-indeterminate 2.1s cubic-bezier(0.650, 0.815, 0.735, 0.395) infinite;
             background-color: inherit;
             content: '';
-            height: 4px;
+            height: $ui-progress-linear-height;
             left: 0;
             position: absolute;
             top: 0;
         }
 
         &::after {
-            animation: ui-progress-linear-indeterminate-short 2.1s cubic-bezier(0.165, 0.840, 0.440, 1.000) infinite;
             animation-delay: 1.15s;
+            animation: ui-progress-linear-indeterminate-short 2.1s cubic-bezier(0.165, 0.840, 0.440, 1.000) infinite;
             background-color: inherit;
             content: '';
-            height: 4px;
+            height: $ui-progress-linear-height;
             left: 0;
             position: absolute;
             top: 0;

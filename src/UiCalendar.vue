@@ -79,8 +79,8 @@
 import UiCalendarControls from './UiCalendarControls.vue';
 import UiCalendarMonth from './UiCalendarMonth.vue';
 
-import dateUtils from 'helpers/date';
-import { scrollIntoView } from 'helpers/element-scroll';
+import dateUtils from './helpers/date';
+import { scrollIntoView } from './helpers/element-scroll';
 
 export default {
     name: 'ui-calendar',
@@ -244,10 +244,10 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
-$ui-calendar-padding    : 8px !default;
+$ui-calendar-padding    : rem-calc(8px) !default;
 
 .ui-calendar {
     color: $primary-text-color;
@@ -256,7 +256,7 @@ $ui-calendar-padding    : 8px !default;
 .ui-calendar__header {
     color: white;
     line-height: 1;
-    padding: 16px;
+    padding: rem-calc(16px);
 }
 
 .ui-calendar__header-year,
@@ -278,12 +278,13 @@ $ui-calendar-padding    : 8px !default;
 }
 
 .ui-calendar__header-year {
+    font-size: rem-calc(15px);
     font-weight: 500;
-    margin-bottom: 8px;
+    margin-bottom: rem-calc(8px);
 }
 
 .ui-calendar__header-details {
-    font-size: 1.75em;
+    font-size: rem-calc(22px)
 }
 
 .ui-calendar__body {
@@ -296,26 +297,26 @@ $ui-calendar-padding    : 8px !default;
 }
 
 .ui-calendar__years {
-    height: 312px;
+    height: rem-calc(312px);
     list-style: none;
     margin: -$ui-calendar-padding;
     overflow-y: auto;
-    padding: 8px 0;
+    padding: rem-calc(8px 0);
 }
 
 .ui-calendar__year {
     align-items: center;
     cursor: pointer;
     display: flex;
-    font-size: 16px;
-    height: 36px;
+    font-size: rem-calc(16px);
+    height: rem-calc(36px);
     justify-content: center;
     outline: none;
 
     &.is-selected {
-        font-size: 24px;
+        font-size: rem-calc(24px);
         font-weight: 500;
-        height: 40px;
+        height: rem-calc(40px);
     }
 }
 
@@ -327,16 +328,16 @@ $ui-calendar-padding    : 8px !default;
     display: flex;
 
     .ui-calendar__header {
-        min-width: 128px;
+        min-width: rem-calc(128px);
     }
 
     .ui-calendar__header-date {
-        margin-bottom: 12px;
+        margin-bottom: rem-calc(12px);
     }
 
     .ui-calendar__header-date {
         display: block;
-        padding-top: 4px;
+        padding-top: rem-calc(4px);
     }
 }
 

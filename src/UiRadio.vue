@@ -10,9 +10,11 @@
                 :value="trueValue"
 
                 @blur="onBlur"
-                @focus="onFocus"
                 @change="onChange"
+                @focus="onFocus"
             >
+
+            <div class="ui-radio__focus-ring"></div>
 
             <span class="ui-radio__outer-circle"></span>
             <span class="ui-radio__inner-circle"></span>
@@ -66,8 +68,8 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-radio--color-' + this.color,
-                'ui-radio--button-position-' + this.buttonPosition,
+                `ui-radio--color-${this.color}`,
+                `ui-radio--button-position-${this.buttonPosition}`,
                 { 'is-active': this.isActive },
                 { 'is-checked': this.isChecked },
                 { 'is-disabled': this.disabled }
@@ -110,13 +112,14 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
-$ui-radio-size                  : 20px !default;
-$ui-radio-stroke                : 2px !default;
+$ui-radio-size                  : rem-calc(20px) !default;
+$ui-radio-stroke                : rem-calc(2px) !default;
+$ui-radio-focus-ring-size       : $ui-radio-size * 2.1 !default;
 $ui-radio-transition-duration   : 0.3s !default;
-$ui-radio-label-font-size       : 16px !default;
+$ui-radio-label-font-size       : rem-calc(16px) !default;
 
 .ui-radio {
     align-items: center;
@@ -143,6 +146,7 @@ $ui-radio-label-font-size       : 16px !default;
     &.is-disabled {
         opacity: 0.5;
 
+        .ui-radio__input-wrapper,
         .ui-radio__label-text {
             cursor: default;
         }
@@ -150,6 +154,7 @@ $ui-radio-label-font-size       : 16px !default;
 }
 
 .ui-radio__input-wrapper {
+    cursor: pointer;
     height: $ui-radio-size;
     position: relative;
     width: $ui-radio-size;
@@ -166,6 +171,11 @@ $ui-radio-label-font-size       : 16px !default;
     position: absolute;
     top: 0;
     width: 1px;
+
+    body[modality="keyboard"] &:focus + .ui-radio__focus-ring {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .ui-radio__outer-circle {
@@ -195,10 +205,24 @@ $ui-radio-label-font-size       : 16px !default;
     z-index: -1;
 }
 
+.ui-radio__focus-ring {
+    background-color: rgba(black, 0.1);
+    border-radius: 50%;
+    height: $ui-radio-focus-ring-size;
+    left: -(($ui-radio-focus-ring-size - $ui-radio-size) / 2);
+    opacity: 0;
+    position: absolute;
+    top: -(($ui-radio-focus-ring-size - $ui-radio-size) / 2);
+    transform: scale(0);
+    transition: background-color 0.2s ease, transform 0.15s ease, opacity 0.15s ease;
+    width: $ui-radio-focus-ring-size;
+    z-index: -1;
+}
+
 .ui-radio__label-text {
     cursor: pointer;
     font-size: $ui-radio-label-font-size;
-    margin-left: 8px;
+    margin-left: rem-calc(8px);
 }
 
 // ================================================
@@ -226,6 +250,10 @@ $ui-radio-label-font-size       : 16px !default;
         .ui-radio__inner-circle {
             background-color: $brand-primary-color;
         }
+
+        .ui-radio__focus-ring {
+            background-color: rgba($brand-primary-color, 0.2);
+        }
     }
 }
 
@@ -237,6 +265,10 @@ $ui-radio-label-font-size       : 16px !default;
 
         .ui-radio__inner-circle {
             background-color: $brand-accent-color;
+        }
+
+        .ui-radio__focus-ring {
+            background-color: rgba($brand-accent-color, 0.2);
         }
     }
 }

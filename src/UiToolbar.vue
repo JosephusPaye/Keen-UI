@@ -10,7 +10,7 @@
                         :color="textColor"
                         :icon="navIcon"
 
-                        @click.native="navIconClick"
+                        @click="navIconClick"
                     ></ui-icon-button>
                 </slot>
             </div>
@@ -22,9 +22,7 @@
             </div>
         </div>
 
-        <div class="ui-toolbar__center">
-            <div class="ui-toolbar__brand-divider" v-if="hasBrandDivider"></div>
-
+        <div class="ui-toolbar__body" :class="{ 'has-brand-divider': hasBrandDivider }">
             <slot>
                 <div class="ui-toolbar__title" v-if="title">{{ title }}</div>
             </slot>
@@ -89,9 +87,9 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-toolbar--type-' + this.type,
-                'ui-toolbar--text-color-' + this.textColor,
-                'ui-toolbar--progress-position-' + this.progressPosition,
+                `ui-toolbar--type-${this.type}`,
+                `ui-toolbar--text-color-${this.textColor}`,
+                `ui-toolbar--progress-position-${this.progressPosition}`,
                 { 'is-raised': this.raised }
             ];
         },
@@ -118,11 +116,11 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
-$ui-toolbar-height      : 56px !default;
-$ui-toolbar-font-size   : 18px !default;
+$ui-toolbar-font-size   : rem-calc(18px) !default;
+$ui-toolbar-height      : rem-calc(56px) !default;
 
 .ui-toolbar {
     align-items: center;
@@ -130,53 +128,52 @@ $ui-toolbar-font-size   : 18px !default;
     font-family: $font-stack;
     font-size: $ui-toolbar-font-size;
     height: $ui-toolbar-height;
+    padding-left: rem-calc(16px);
     position: relative;
-    padding-left: 16px;
 
     &.is-raised {
         box-shadow: 0 0 2px rgba(black, 0.12), 0 2px 2px rgba(black, 0.2);
     }
 
     &:not(.is-raised).ui-toolbar--type-default {
-        border-bottom: 1px solid $divider-color;
+        border-bottom: rem-calc(1px) solid $divider-color;
     }
 
     .ui-icon-button {
-        height: 48px;
-        width: 48px;
+        height: rem-calc(48px);
+        width: rem-calc(48px);
     }
 }
 
 .ui-toolbar__left {
-    display: flex;
     align-items: center;
+    display: flex;
     flex-shrink: 0;
 }
 
 .ui-toolbar__nav-icon {
-    margin-left: -16px;
-    margin-right: 8px;
+    margin-left: rem-calc(-16px);
+    margin-right: rem-calc(8px);
 }
 
 .ui-toolbar__brand {
-    min-width: 160px;
+    min-width: rem-calc(160px);
 }
 
 .ui-toolbar__brand-text {
-    padding-right: 8px;
     flex-grow: 1;
+    padding-right: rem-calc(8px);
 }
 
-.ui-toolbar__center {
+.ui-toolbar__body {
     display: flex;
     flex-grow: 1;
-}
 
-.ui-toolbar__brand-divider {
-    border-left-style: solid;
-    border-left-width: 1px;
-    height: 24px;
-    margin-right: 24px;
+    &.has-brand-divider {
+        border-left-style: solid;
+        border-left-width: rem-calc(1px);
+        padding-left: rem-calc(24px);
+    }
 }
 
 .ui-toolbar__right {
@@ -186,7 +183,7 @@ $ui-toolbar-font-size   : 18px !default;
 
 .ui-toolbar__progress {
     bottom: 0;
-    height: 3px;
+    height: rem-calc(3px);
     left: 0;
     position: absolute;
     right: 0;
@@ -217,7 +214,7 @@ $ui-toolbar-font-size   : 18px !default;
 .ui-toolbar--text-color-black {
     color: $primary-text-color;
 
-    .ui-toolbar__brand-divider {
+    .ui-toolbar__body {
         border-left-color: rgba(black, 0.15);
     }
 }
@@ -225,7 +222,7 @@ $ui-toolbar-font-size   : 18px !default;
 .ui-toolbar--text-color-white {
     color: white;
 
-    .ui-toolbar__brand-divider {
+    .ui-toolbar__body {
         border-color: rgba(white, 0.4);
     }
 }

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import UUID from 'helpers/uuid';
+import UUID from './helpers/uuid';
 
 export default {
     name: 'ui-tab',
@@ -87,8 +87,8 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-tab {
     outline: none;

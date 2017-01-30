@@ -39,6 +39,8 @@
 import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
 
+import config from './config';
+
 export default {
     name: 'ui-menu-option',
 
@@ -55,7 +57,7 @@ export default {
         secondaryText: String,
         disableRipple: {
             type: Boolean,
-            default: false
+            default: config.data.disableRipple
         },
         disabled: {
             type: Boolean,
@@ -83,8 +85,8 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-menu-option {
     display: block;
@@ -96,17 +98,17 @@ export default {
     &.is-divider {
         background-color: rgba(black, 0.08);
         display: block;
-        height: 1px;
-        margin: 6px 0;
+        height: rem-calc(1px);
+        margin: rem-calc(6px 0);
         padding: 0;
     }
 
     &:not(.is-divider) {
         color: $primary-text-color;
         cursor: pointer;
-        font-size: $ui-dropdown-item-font-size; // 15px;
+        font-size: $ui-dropdown-item-font-size;
         font-weight: normal;
-        min-height: 40px;
+        min-height: rem-calc(40px);
         outline: none;
 
         &:hover:not(.is-disabled),
@@ -127,16 +129,16 @@ export default {
 }
 
 .ui-menu-option__content {
-    display: flex;
     align-items: center;
-    padding: 0 16px;
-    height: 40px;
+    display: flex;
+    height: rem-calc(40px);
+    padding: rem-calc(0 16px);
 }
 
 .ui-menu-option__icon {
     color: $secondary-text-color;
-    font-size: 18px;
-    margin-right: 16px;
+    font-size: rem-calc(18px);
+    margin-right: rem-calc(16px);
 }
 
 .ui-menu-option__text {
@@ -147,7 +149,7 @@ export default {
 .ui-menu-option__secondary-text {
     color: $hint-text-color;
     flex-shrink: 0;
-    font-size: 13px;
-    margin-left: 4px;
+    font-size: rem-calc(13px);
+    margin-left: rem-calc(4px);
 }
 </style>

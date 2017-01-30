@@ -1,5 +1,15 @@
 <template>
     <div class="ui-select" :class="classes">
+        <input
+            class="ui-select__hidden-input"
+            type="hidden"
+
+            :name="name"
+            :value="submittedValue"
+
+            v-if="name"
+        >
+
         <div class="ui-select__icon-wrapper" v-if="icon || $slots.icon">
             <slot name="icon">
                 <ui-icon :icon="icon"></ui-icon>
@@ -19,7 +29,11 @@
                 @keydown.space.prevent="openDropdown"
                 @keydown.tab="onBlur"
             >
-                <div class="ui-select__label-text" :class="labelClasses" v-if="label || $slots.default">
+                <div
+                    class="ui-select__label-text"
+                    :class="labelClasses"
+                    v-if="label || $slots.default"
+                >
                     <slot>{{ label }}</slot>
                 </div>
 
@@ -70,14 +84,16 @@
                             >
 
                             <ui-icon class="ui-select__search-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9.516 14.016c2.484 0 4.5-2.016 4.5-4.5s-2.016-4.5-4.5-4.5-4.5 2.016-4.5 4.5 2.016 4.5 4.5 4.5zm6 0l4.97 4.97-1.5 1.5-4.97-4.97v-.797l-.28-.282c-1.126.984-2.626 1.547-4.22 1.547-3.61 0-6.516-2.86-6.516-6.47S5.906 3 9.516 3s6.47 2.906 6.47 6.516c0 1.594-.564 3.094-1.548 4.22l.28.28h.798z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M9.516 14.016c2.484 0 4.5-2.016 4.5-4.5s-2.016-4.5-4.5-4.5-4.5 2.016-4.5 4.5 2.016 4.5 4.5 4.5zm6 0l4.97 4.97-1.5 1.5-4.97-4.97v-.797l-.28-.282c-1.126.984-2.626 1.547-4.22 1.547-3.61 0-6.516-2.86-6.516-6.47S5.906 3 9.516 3s6.47 2.906 6.47 6.516c0 1.594-.564 3.094-1.548 4.22l.28.28h.798z"/>
+                                </svg>
                             </ui-icon>
 
                             <ui-progress-circular
                                 class="ui-select__search-progress"
-                                :show="loading"
                                 :size="20"
                                 :stroke="4"
+                                v-show="loading"
                             ></ui-progress-circular>
                         </div>
 
@@ -87,9 +103,9 @@
 
                                 :highlighted="highlightedIndex === index"
                                 :keys="keys"
+                                :multiple="multiple"
                                 :option="option"
                                 :selected="isOptionSelected(option)"
-                                :multiple="multiple"
                                 :type="type"
 
                                 @click.native.stop="selectOption(option, index)"
@@ -99,6 +115,7 @@
                             >
                                 <slot
                                     name="option"
+
                                     :highlighted="highlightedIndex === index"
                                     :index="index"
                                     :option="option"
@@ -115,8 +132,12 @@
             </div>
 
             <div class="ui-select__feedback" v-if="hasFeedback">
-                <div class="ui-select__feedback-text" v-if="showError || showHelp">
-                    {{ showError ? error : help }}
+                <div class="ui-select__feedback-text" v-if="showError">
+                    <slot name="error">{{ error }}</slot>
+                </div>
+
+                <div class="ui-select__feedback-text" v-else-if="showHelp">
+                    <slot name="help">{{ help }}</slot>
                 </div>
             </div>
         </div>
@@ -125,17 +146,19 @@
 
 <script>
 import UiIcon from './UiIcon.vue';
-import UiSelectOption from './UiSelectOption.vue';
 import UiProgressCircular from './UiProgressCircular.vue';
+import UiSelectOption from './UiSelectOption.vue';
 
+import config from './config';
 import fuzzysearch from 'fuzzysearch';
-import { looseIndexOf, looseEqual } from 'helpers/util';
-import { scrollIntoView, resetScroll } from 'helpers/element-scroll';
+import { looseIndexOf, looseEqual } from './helpers/util';
+import { scrollIntoView, resetScroll } from './helpers/element-scroll';
 
 export default {
     name: 'ui-select',
 
     props: {
+        name: String,
         value: {
             type: [String, Number, Object, Array],
             required: true
@@ -159,7 +182,7 @@ export default {
         },
         type: {
             type: String,
-            default: 'simple' // 'simple' or 'image'
+            default: 'basic' // 'basic' or 'image'
         },
         multiple: {
             type: Boolean,
@@ -193,18 +216,10 @@ export default {
         keys: {
             type: Object,
             default() {
-                return {
-                    label: 'label',
-                    value: 'value',
-                    image: 'image'
-                };
+                return config.data.UiSelect.keys;
             }
         },
         invalid: {
-            type: Boolean,
-            default: false
-        },
-        touched: {
             type: Boolean,
             default: false
         },
@@ -220,6 +235,7 @@ export default {
         return {
             query: '',
             isActive: false,
+            isTouched: false,
             selectedIndex: -1,
             highlightedIndex: -1,
             showDropdown: false,
@@ -230,11 +246,11 @@ export default {
     computed: {
         classes() {
             return [
-                'ui-select--type-' + this.type,
-                'ui-select--icon-position-' + this.iconPosition,
+                `ui-select--type-${this.type}`,
+                `ui-select--icon-position-${this.iconPosition}`,
                 { 'is-active': this.isActive },
                 { 'is-invalid': this.invalid },
-                { 'is-touched': this.touched },
+                { 'is-touched': this.isTouched },
                 { 'is-disabled': this.disabled },
                 { 'is-multiple': this.multiple },
                 { 'has-label': this.hasLabel },
@@ -288,9 +304,14 @@ export default {
         },
 
         displayText() {
-            if (this.multiple && this.value.length > 0) {
-                return this.value.map(value => value[this.keys.label] || value)
-                        .join(this.multipleDelimiter);
+            if (this.multiple) {
+                if (this.value.length > 0) {
+                    return this.value
+                            .map(value => value[this.keys.label] || value)
+                            .join(this.multipleDelimiter);
+                }
+
+                return '';
             }
 
             return this.value ? (this.value[this.keys.label] || this.value) : '';
@@ -306,6 +327,22 @@ export default {
             }
 
             return this.disableFilter ? this.noResults : this.filteredOptions.length === 0;
+        },
+
+        submittedValue() {
+            // Assuming that if there is no name, then there's no
+            // need to computed the submittedValue
+            if (!this.name || !this.value) {
+                return;
+            }
+
+            if (Array.isArray(this.value)) {
+                return this.value
+                    .map(option => option[this.keys.value] || option)
+                    .join(',');
+            }
+
+            return this.value[this.keys.value] || this.value;
         }
     },
 
@@ -381,14 +418,18 @@ export default {
         },
 
         selectOption(option, index, options = { autoClose: true }) {
+            const shouldSelect = this.multiple && !this.isOptionSelected(option);
+
             if (this.multiple) {
-                this.updateOption(option, { select: !this.isOptionSelected(option) });
+                this.updateOption(option, { select: shouldSelect });
             } else {
                 this.setValue(option);
                 this.selectedIndex = index;
             }
 
-            this.$emit('select', option);
+            this.$emit('select', option, {
+                selected: this.multiple ? shouldSelect : true
+            });
 
             this.highlightedIndex = index;
             this.clearQuery();
@@ -451,12 +492,19 @@ export default {
             }
 
             this.showDropdown = true;
+
+            // IE: clicking label doesn't focus the select element
+            // to set isActive to true
+            if (!this.isActive) {
+                this.isActive = true;
+            }
         },
 
         closeDropdown(options = { autoBlur: false }) {
             this.showDropdown = false;
 
-            if (!this.touched) {
+            if (!this.isTouched) {
+                this.isTouched = true;
                 this.$emit('touch');
             }
 
@@ -468,6 +516,10 @@ export default {
         },
 
         onFocus(e) {
+            if (this.isActive) {
+                return;
+            }
+
             this.isActive = true;
             this.$emit('focus', e);
         },
@@ -505,29 +557,34 @@ export default {
         scrollOptionIntoView(optionEl) {
             scrollIntoView(optionEl, {
                 container: this.$refs.optionsList,
-                marginTop: 48
+                marginTop: 180
             });
         },
 
         reset() {
             this.setValue(JSON.parse(this.initialValue));
             this.clearQuery();
+            this.resetTouched();
 
             this.selectedIndex = -1;
             this.highlightedIndex = -1;
+        },
+
+        resetTouched(options = { touched: false }) {
+            this.isTouched = options.touched;
         }
     },
 
     components: {
         UiIcon,
-        UiSelectOption,
-        UiProgressCircular
+        UiProgressCircular,
+        UiSelectOption
     }
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-select {
     align-items: flex-start;
@@ -570,8 +627,8 @@ export default {
             display: table;
 
             &.is-inline {
-                cursor: pointer;
                 color: $ui-input-label-color; // So the hover styles don't override it
+                cursor: pointer;
                 transform: translateY($ui-input-label-top--inline) scale(1.1);
             }
 
@@ -600,9 +657,9 @@ export default {
 
     &.is-multiple {
         .ui-select__display {
-            padding-bottom: 4px;
-            padding-top: 4px;
             line-height: 1.4;
+            padding-bottom: rem-calc(4px);
+            padding-top: rem-calc(4px);
         }
     }
 
@@ -631,8 +688,8 @@ export default {
 
         .ui-select__dropdown-button,
         .ui-select__display-value.is-placeholder {
-            opacity: $ui-input-button-opacity--disabled;
             color: $ui-input-text-color--disabled;
+            opacity: $ui-input-button-opacity--disabled;
         }
 
         .ui-select__icon-wrapper .ui-icon {
@@ -679,7 +736,6 @@ export default {
 
 .ui-select__display {
     align-items: center;
-    background: none;
     border: none;
     border-bottom-color: $ui-input-border-color;
     border-bottom-style: solid;
@@ -690,7 +746,6 @@ export default {
     font-family: $font-stack;
     font-size: $ui-input-text-font-size;
     font-weight: normal;
-    outline: none;
     padding: 0;
     transition: border 0.1s ease;
     user-select: none;
@@ -709,7 +764,7 @@ export default {
     color: $ui-input-button-color;
     font-size: $ui-input-button-size;
     margin-left: auto;
-    margin-right: -4px;
+    margin-right: rem-calc(-4px);
 }
 
 .ui-select__dropdown {
@@ -719,8 +774,8 @@ export default {
     display: block;
     list-style-type: none;
     margin: 0;
-    margin-bottom: 8px;
-    min-width: 180px;
+    margin-bottom: rem-calc(8px);
+    min-width: rem-calc(180px);
     outline: none;
     padding: 0;
     position: absolute;
@@ -734,15 +789,16 @@ export default {
     border-bottom-color: $ui-input-border-color;
     border-bottom-style: solid;
     border-bottom-width: $ui-input-border-width;
+    border-radius: 0;
     color: $ui-input-text-color;
     cursor: auto;
     font-family: $font-stack;
-    font-size: $ui-input-text-font-size - 1px;
+    font-size: $ui-input-text-font-size - rem-calc(1px);
     font-weight: normal;
-    height: $ui-input-height + 4px;
+    height: $ui-input-height + rem-calc(4px);
     outline: none;
-    padding: 0 12px;
-    padding-left: 40px;
+    padding: rem-calc(0 12px);
+    padding-left: rem-calc(40px);
     transition: border 0.1s ease;
     width: 100%;
 
@@ -759,17 +815,17 @@ export default {
 .ui-select__search-icon,
 .ui-select__search-progress {
     position: absolute;
-    top: 8px;
+    top: rem-calc(8px);
 }
 
 .ui-select__search-icon {
-    left: 12px;
-    font-size: 20px;
     color: $ui-input-icon-color;
+    font-size: rem-calc(20px);
+    left: rem-calc(12px);
 }
 
 .ui-select__search-progress {
-    right: 12px;
+    right: rem-calc(12px);
 }
 
 .ui-select__options {
@@ -778,7 +834,7 @@ export default {
     display: block;
     list-style-type: none;
     margin: 0;
-    max-height: 256px;
+    max-height: rem-calc(256px);
     min-width: 100%;
     overflow-y: auto;
     padding: 0;
@@ -786,9 +842,9 @@ export default {
 }
 
 .ui-select__no-results {
-    padding: 8px 12px;
-    font-size: 14px;
     color: $secondary-text-color;
+    font-size: rem-calc(14px);
+    padding: rem-calc(8px 12px);
     width: 100%;
 }
 
@@ -807,7 +863,7 @@ export default {
 
 .ui-select--icon-position-right {
     .ui-select__icon-wrapper {
-        margin-left: 8px;
+        margin-left: rem-calc(8px);
         margin-right: 0;
         order: 1;
     }

@@ -58,14 +58,14 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '~styles/imports';
+<style lang="scss">
+@import './styles/imports';
 
 .ui-autocomplete-suggestion {
     cursor: pointer;
     font-family: $font-stack;
     font-size: $ui-dropdown-item-font-size;
-    padding: 8px 12px;
+    padding: rem-calc(8px 12px);
 
     &:hover {
         background-color: rgba(black, 0.06);
@@ -76,22 +76,18 @@ export default {
     }
 }
 
-.ui-autocomplete-suggestion__simple,
-.ui-autocomplete-suggestion__image-text {
-    @include text-truncation;
-}
-
 .ui-autocomplete-suggestion__image {
-    display: flex;
+    @include text-truncation;
     align-items: center;
+    display: flex;
 }
 
 .ui-autocomplete-suggestion__image-object {
     background-position: 50%;
     background-size: cover;
     border-radius: 50%;
-    height: 32px;
-    margin-right: 12px;
-    width: 32px;
+    height: rem-calc(32px);
+    margin-right: rem-calc(12px);
+    width: rem-calc(32px);
 }
 </style>
