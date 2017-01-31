@@ -9,7 +9,7 @@
                 rel="noopener"
                 target="_blank"
                 title="View release notes"
-            >v1.0</a>
+            >v1.0.0</a>
 
             <a
                 class="keen-docs-sidebar__header-github-link"
@@ -97,13 +97,18 @@ export default {
 
     methods: {
         onVersionSelect(version) {
+            if (version === '1.0.0') {
+                return;
+            }
+
             let root = '';
+            const component = window.location.hash + (version === '0.8.9' ? '-docs' : '');
 
             if (window.location.hostname === 'josephuspaye.github.io') {
                 root = 'https://josephuspaye.github.io/Keen-UI';
             }
 
-            window.location = `${root}/${version}/${window.location.hash}`;
+            window.location = `${root}/${version}/${component}`;
         }
     },
 
