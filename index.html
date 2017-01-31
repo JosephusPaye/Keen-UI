@@ -47,6 +47,13 @@
 		            <a class="ui-button ui-button-normal color-default" href="https://github.com/JosephusPaye/Keen-UI/" target="_blank" rel="noopener">Github</a>
 		        </div>
 
+                <div class="version-select">
+                    <ui-select
+                        name="version" label="Version" :options="['0.8.9', '1.0.0']"
+                        default="0.8.9" @selected="onVersionSelect"
+                    ></ui-select>
+                </div>
+
 		        <ul class="menu">
 		            <div class="menu-header">Components</div>
 
@@ -80,6 +87,13 @@
                     <p class="m-b-0">Created by <a href="https://twitter.com/JosephusPaye" target="_blank" rel="noopener" title="@JosephusPaye">Josephus Paye II</a>.</p>
 
                     <a class="ui-button ui-button-normal color-default" href="https://github.com/JosephusPaye/Keen-UI/" target="_blank" rel="noopener">Github</a>
+                </div>
+
+                <div class="version-select">
+                    <ui-select
+                        name="version" label="Version" :options="['0.8.9', '1.0.0']"
+                        default="0.8.9" @selected="onVersionSelect"
+                    ></ui-select>
                 </div>
 
 		        <ul class="menu">
