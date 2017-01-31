@@ -55,7 +55,7 @@
                         <li>
                             <a
                                 class="keen-docs-sidebar__menu-item"
-                                href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs/Customization.md#customization"
+                                href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#customization"
                                 rel="noopener"
                                 target="_blank"
                             >Customization <ui-icon>open_in_new</ui-icon></a>
