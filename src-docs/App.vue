@@ -1,6 +1,7 @@
 <script>
 import UiButton from '../src/UiButton.vue';
 import UiToolbar from '../src/UiToolbar.vue';
+import UiSelect from '../src/UiSelect.vue';
 
 import UiAlertDocs from './components/UiAlertDocs.vue';
 import UiAutocompleteDocs from './components/UiAutocompleteDocs.vue';
@@ -168,12 +169,27 @@ export default {
 
         toggleSidebar() {
             this.showSidebar = !this.showSidebar;
+        },
+
+        onVersionSelect(version) {
+            if (version === '0.8.9') {
+                return;
+            }
+
+            let root = '';
+
+            if (window.location.hostname === 'josephuspaye.github.io') {
+                root = 'https://josephuspaye.github.io/Keen-UI';
+            }
+
+            window.location = `${root}/${version}/${window.location.hash}`;
         }
     },
 
     components: {
         UiToolbar,
         UiButton,
+        UiSelect,
 
         UiAlertDocs,
         UiAutocompleteDocs,

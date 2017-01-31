@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-ripple-ink">
         <h2 class="section-heading">
-            UiRippleInk <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiRippleInk.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            UiRippleInk <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src/UiRippleInk.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiRippleInk allows you to show a ripple ink on a material when it is touched or clicked. Using CSS, you can customize the ripple color and opacity.</p>
@@ -13,7 +13,7 @@
         <p>UiRippleInk is used internally by many components, including <a href="#/ui-button-docs">UiButton</a>, <a href="#/ui-collapsible-docs">UiCollapsible</a>, <a href="#/ui-icon-button-docs">UiIconButton</a>, <a href="#/ui-fab-docs">UiFab</a>, <a href="#/ui-menu-docs">UiMenu</a>, and <a href="#/ui-tabs-docs">UiTabs</a>.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiRippleInkDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src-docs/components/UiRippleInkDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

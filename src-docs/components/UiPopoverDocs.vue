@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-popover">
         <h2 class="section-heading">
-            UiPopover <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiPopover.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            UiPopover <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src/UiPopover.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiPopover is used to show arbitrary content in a dropdown. It can also be setup to contain tab focus in the popover, returning focus to the trigger element on close.</p>
@@ -13,7 +13,7 @@
         <p>UiPopover is used internally by the <a href="#/ui-button-docs">UiButton</a> and <a href="#/ui-icon-button-docs">UiIconButton</a> components.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiPopoverDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src-docs/components/UiPopoverDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

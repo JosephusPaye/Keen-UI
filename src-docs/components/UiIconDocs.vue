@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-icon">
         <h2 class="section-heading">
-            UiIcon <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiIcon.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            UiIcon <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src/UiIcon.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiIcon shows an icon glyph. By default it uses icons from the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a> web font, which must be loaded for icons to display properly. The simplest way to do this is by adding the Google Web font to the head of your page:</p>
@@ -17,7 +17,7 @@
         <p>Note that using another icon set may break other components that use UiIcon.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiIconDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src-docs/components/UiIconDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-icon-button">
         <h2 class="section-heading">
-            UiIconButton <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiIconButton.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            UiIconButton <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src/UiIconButton.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiIconButton shows an icon button which can include a dropdown (menu or popover) and can also show a loading spinner. It supports focus (mouse and keyboard separately), hover and disabled states.</p>
@@ -17,7 +17,7 @@
         <p>Supported colors for types <code>normal</code> and <code>flat</code> only are <code>default</code>, <code>primary</code>, <code>accent</code>, <code>success</code>, <code>warning</code> and <code>danger</code>. Supported colors for type <code>clear</code> are <code>black</code> and <code>white</code>.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiIconButtonDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src-docs/components/UiIconButtonDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

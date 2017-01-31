@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-textbox">
         <h2 class="section-heading">
-            UiTextbox <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiTextbox.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            UiTextbox <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src/UiTextbox.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiTextbox is a versatile text input component that can perform validation and show errors. It supports hover, focus, active and disabled states.</p>
@@ -13,7 +13,7 @@
         <p>The validation state can be set programmatically from outside the component using an event.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiTextboxDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src-docs/components/UiTextboxDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

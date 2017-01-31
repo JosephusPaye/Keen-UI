@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-collapsible">
         <h2 class="section-heading">
-            UiCollapsible <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiCollapsible.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            UiCollapsible <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src/UiCollapsible.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiCollapsible is used to show collapsible content. It includes a header and a body and can be initially opened or closed (defaults to closed).</p>
@@ -13,7 +13,7 @@
         <p>However, it doesn't support accordion sets (i.e. closing other collapsibles when one is opened). You can achieve that effect by listening for <code>@opened</code> or <code>@closed</code> on each collapsible in the set and then adjusting their <code>open</code> prop accordingly.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiCollapsibleDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src-docs/components/UiCollapsibleDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

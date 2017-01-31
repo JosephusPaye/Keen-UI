@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-fab">
         <h2 class="section-heading">
-            UiFab <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiFab.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            UiFab <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src/UiFab.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiFab is the floating action button (FAB) from Material Design. It supports focus (keyboard separately), hover and disabled states.</p>
@@ -9,7 +9,7 @@
         <p>UiFab has two types: <code>normal</code> and <code>mini</code> and are three colors: <code>default</code> (white), <code>primary</code> and <code>accent</code>.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiFabDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src-docs/components/UiFabDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-progress-circular">
         <h2 class="section-heading">
-            UiProgressCircular <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiProgressCircular.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            UiProgressCircular <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src/UiProgressCircular.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiProgressCircular shows a circular progress indicator (a spinner). Currently UiProgressCircular only works in browsers with <a href="http://caniuse.com/#feat=svg-smil" target="_blank" rel="noopener">SVG SMIL animation support</a> (e.g. all modern browsers except IE and Edge).</p>
@@ -9,7 +9,7 @@
         <p>UiProgressCircular supports five possible colors: <code>primary</code>, <code>accent</code>, <code>multi-color</code> (alternating primary colors), <code>black</code> and <code>white</code>. The <code>size</code> (width and height) and <code>stroke</code> can be customized.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiProgressCircularDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src-docs/components/UiProgressCircularDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

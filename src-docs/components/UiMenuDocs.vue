@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-menu">
         <h2 class="section-heading">
-            UiMenu <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiMenu.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            UiMenu <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src/UiMenu.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiMenu creates a menu. Menu options can show an icon, secondary text (like keyboard shortcuts), or show a divider. Individual options can also be disabled.</p>
@@ -15,7 +15,7 @@
         <p>UiMenu is used internally by the <a href="#/ui-button-docs">UiButton</a> and <a href="#/ui-icon-button-docs">UiIconButton</a> components.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiMenuDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src-docs/components/UiMenuDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

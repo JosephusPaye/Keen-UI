@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-slider">
         <h2 class="section-heading">
-            UiSlider <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiSlider.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            UiSlider <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src/UiSlider.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiSlider is a component that allows the user to select a value from a continuous range of values by moving the slider thumb, clicking on the slider, or using the arrow keys.</p>
@@ -9,7 +9,7 @@
         <p>UiSlider allows for adding a label and an icon. The slider is keyboard accessible and can be disabled.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiSliderDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src-docs/components/UiSliderDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

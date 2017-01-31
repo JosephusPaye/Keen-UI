@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-modal">
         <h2 class="section-heading">
-            UiModal <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiModal.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            UiModal <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src/UiModal.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiModal is used to show modals. It's header, body and footer can be fully customized using <code>slots</code>.</p>
@@ -15,7 +15,7 @@
         <p>UiModals have three types: <code>small</code>, <code>normal</code> (default) and <code>large</code>. These sizes can also be customized using CSS. UiModals also automatically add a vertical scrollbar when the modal content overflows the available space.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiModalDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src-docs/components/UiModalDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

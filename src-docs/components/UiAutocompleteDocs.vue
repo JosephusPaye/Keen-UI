@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-autocomplete">
         <h2 class="section-heading">
-            UiAutocomplete <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiAutocomplete.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            UiAutocomplete <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src/UiAutocomplete.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiAutocomplete shows a dropdown of suggestions below an input as the user types which they can select from to replace or append to what they have entered.</p>
@@ -11,7 +11,7 @@
         <p>UiAutocomplete supports validation, and the validation state can also be set programmatically from outside the component using an event.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiAutocompleteDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src-docs/components/UiAutocompleteDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="examples">

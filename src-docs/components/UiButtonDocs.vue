@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-button">
         <h2 class="section-heading">
-            UiButton <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiButton.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            UiButton <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src/UiButton.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiButton is a versatile button component that largely implements the Material Design spec. UiButtons can show a dropdown and a loading spinner. They also support focus (mouse and keyboard separately), hover and disabled states.</p>
@@ -20,7 +20,7 @@
         <p><b>Note:</b> If you are having alignment issues when using multiple buttons next to each other, put the buttons in a container and add a class of <code>ui-button-group</code> for a flex-based workaround.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiButtonDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src-docs/components/UiButtonDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

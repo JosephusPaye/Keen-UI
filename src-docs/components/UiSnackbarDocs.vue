@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-snackbar">
         <h2 class="section-heading">
-            UiSnackbar &amp; UiSnackbarContainer <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiSnackbar.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            UiSnackbar &amp; UiSnackbarContainer <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src/UiSnackbar.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiSnackbar provides lightweight feedback about an operation by showing a brief message at the bottom of the screen. Snackbars can contain an action.</p>
@@ -9,7 +9,7 @@
         <p>UiSnackbarContainer is a container that allows you to create snackbars using events, and it manages their visibility to ensure only one snackbar is shown at a time. It also allows you to position snackbars to the left, center or right of the container.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiSnackbarDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src-docs/components/UiSnackbarDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

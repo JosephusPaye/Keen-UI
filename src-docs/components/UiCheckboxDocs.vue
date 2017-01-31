@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-checkbox">
         <h2 class="section-heading">
-            UiCheckbox <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiCheckbox.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            UiCheckbox <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src/UiCheckbox.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiCheckbox is a checkbox component that allows the user to select one or more options. It supports keyboard focus, a disabled state and showing the label to the left of the checkbox.</p>
@@ -9,7 +9,7 @@
         <p>It also allows for connecting multiple checkboxes to the same model, to form an array.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiCheckboxDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src-docs/components/UiCheckboxDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">

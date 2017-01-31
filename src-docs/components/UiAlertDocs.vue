@@ -1,7 +1,7 @@
 <template>
     <section class="section section-ui-alert">
         <h2 class="section-heading">
-            UiAlert <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src/UiAlert.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            UiAlert <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src/UiAlert.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h2>
 
         <p>UiAlerts are used to show inline alert messages to the user. Supported types are <code>info</code>, <code>success</code>, <code>warning</code> and <code>error</code>.</p>
@@ -9,7 +9,7 @@
         <p>UiAlert supports keyboard navigation, can contain links and can be dismissible. The content can be fully customized using HTML and the icon can be changed or removed.</p>
 
         <h3>
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/gh-pages/src-docs/components/UiAlertDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/0.8.9/src-docs/components/UiAlertDocs.vue" target="_blank" rel="noopener" class="view-source-link">View Source</a>
         </h3>
 
         <div class="demo">
