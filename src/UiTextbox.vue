@@ -230,15 +230,15 @@ export default {
         },
 
         hasFeedback() {
-            return Boolean(this.help) || Boolean(this.error);
+            return Boolean(this.help) || Boolean(this.error) || Boolean(this.$slots.error);
         },
 
         showError() {
-            return this.invalid && Boolean(this.error);
+            return this.invalid && (Boolean(this.error) || Boolean(this.$slots.error));
         },
 
         showHelp() {
-            return !this.showError && Boolean(this.help);
+            return !this.showError && (Boolean(this.help) || Boolean(this.$slots.help));
         }
     },
 
