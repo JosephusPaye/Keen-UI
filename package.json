@@ -10,7 +10,8 @@
     "build:lib": "webpack --config build/webpack.lib.js",
     "build:all": "npm run build && npm run build:lib",
     "clean": "rimraf ./dist ./lib ./docs/docs.bundle.css ./docs/docs.bundle.js",
-    "lint": "eslint --format=node_modules/eslint-formatter-pretty --ext .js,.vue,.html ./"
+    "lint": "eslint --format=node_modules/eslint-formatter-pretty --ext .js,.vue,.html ./",
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",
@@ -29,7 +30,8 @@
     "src",
     "CHANGELOG.md",
     "LICENCE",
-    "README.md"
+    "README.md",
+    "yarn.lock"
   ],
   "author": {
     "name": "Josephus Paye II"
