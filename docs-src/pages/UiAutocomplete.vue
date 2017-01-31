@@ -409,7 +409,7 @@
                                     <ul>
                                         <li><code>suggestion</code>: (Object or String) - the suggestion</li>
                                         <li><code>index</code>: (Number) - the index of the suggestion in the array of matched suggestions</li>
-                                        <li><code>higlighted</code>: (Boolean) - whether or not the suggestion is currently highlighted</li>
+                                        <li><code>highlighted</code>: (Boolean) - whether or not the suggestion is currently highlighted</li>
                                     </ul>
 
                                     <p>For more information, see the <a href="https://vuejs.org/v2/guide/components.html#Scoped-Slots">Scoped Slots documentation</a>.</p>

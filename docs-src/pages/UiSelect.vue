@@ -481,7 +481,7 @@
                                     <ul>
                                         <li><code>option</code>: (Object or String) - the option</li>
                                         <li><code>index</code>: (Number) - the index of the option in the array of matched options</li>
-                                        <li><code>higlighted</code>: (Boolean) - whether or not the option is currently highlighted</li>
+                                        <li><code>highlighted</code>: (Boolean) - whether or not the option is currently highlighted</li>
                                     </ul>
 
                                     <p>For more information, see the <a href="https://vuejs.org/v2/guide/components.html#Scoped-Slots">Scoped Slots documentation</a>.</p>
