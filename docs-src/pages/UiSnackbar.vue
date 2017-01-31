@@ -1,6 +1,6 @@
 <template>
     <section class="page page--ui-snackbar">
-        <h2 class="page__title">UiSnackbar &amp; UiSnackbarContainer</h2>
+        <h2 class="page__title">UiSnackbar</h2>
 
         <p>UiSnackbar provides lightweight feedback about an operation by showing a brief message at the bottom of the screen. Snackbars can contain an action.</p>
 

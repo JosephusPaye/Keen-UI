@@ -173,7 +173,7 @@ const menu = [
             {
                 path: '/ui-snackbar',
                 component: UiSnackbar,
-                title: 'UiSnackbar & UiSnackbarContainer',
+                title: 'UiSnackbar',
                 sourceUrl: 'src/UiSnackbarContainer.vue'
             },
             {
