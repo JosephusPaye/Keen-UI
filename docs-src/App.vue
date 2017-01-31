@@ -54,17 +54,30 @@ import UiIconButton from 'src/UiIconButton.vue';
 export default {
     data() {
         return {
-            showSidebar: false
+            showSidebar: false,
+            description: 'Keen UI - A lightweight collection of essential UI components written with Vue and inspired by Material Design.'
         };
     },
 
     watch: {
         '$route'() {
+            this.updatePageTitle();
+
             this.$nextTick(() => {
                 window.Prism.highlightAll();
                 this.$refs.pageContent.scrollTop = 0;
                 this.showSidebar = false;
             });
+        }
+    },
+
+    mounted() {
+        this.updatePageTitle();
+    },
+
+    methods: {
+        updatePageTitle() {
+            document.title = this.$route.meta.title + ' | ' + this.description;
         }
     },
 
