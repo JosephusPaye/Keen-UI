@@ -443,6 +443,7 @@ export default {
 
 .ui-textbox__label-text {
     color: $ui-input-label-color;
+    cursor: default;
     font-size: $ui-input-label-font-size;
     line-height: $ui-input-label-line-height;
     margin-bottom: $ui-input-label-margin-bottom;
