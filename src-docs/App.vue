@@ -178,11 +178,14 @@ export default {
 
             let root = '';
 
+            // Versions greater than 0.8.9 do not have the -docs suffix in the url
+            let component = window.location.hash.replace('-docs', '');
+
             if (window.location.hostname === 'josephuspaye.github.io') {
                 root = 'https://josephuspaye.github.io/Keen-UI';
             }
 
-            window.location = `${root}/${version}/${window.location.hash}`;
+            window.location = `${root}/${version}/${component}`;
         }
     },
 
