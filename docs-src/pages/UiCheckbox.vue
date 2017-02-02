@@ -9,7 +9,7 @@
         <p>To connect multiple checkboxes to a single array of values, use <a href="#/ui-checkbox-group">UiCheckboxGroup</a>.</p>
 
         <h3 class="page__section-title">
-            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/components/ui-checkbox/UiCheckboxDocs.vue" target="_blank" rel="noopener">View Source</a>
+            Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiCheckbox.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
 
         <div class="page__examples">
