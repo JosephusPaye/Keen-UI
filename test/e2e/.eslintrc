@@ -1,0 +1,17 @@
+{
+  "parser": "babel-eslint",
+  "plugins": [
+    "testcafe"
+  ],
+  "extends": "plugin:testcafe/recommended",
+  "rules": {
+    "new-cap": [
+      "error",
+      {
+        "capIsNewExceptions": [
+          "Selector"
+        ]
+      }
+    ]
+  }
+}
