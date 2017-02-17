@@ -156,8 +156,8 @@ new Vue({
 * [x] Add customization guide
 * [ ] Add unit tests
 
-## Licence
-Keen UI is open source and released under the [MIT Licence](LICENCE).
+## License
+Keen UI is open source and released under the [MIT License](LICENSE).
 
 Copyright (c) 2016-2017 [Josephus Paye II](https://twitter.com/JosephusPaye).
 
