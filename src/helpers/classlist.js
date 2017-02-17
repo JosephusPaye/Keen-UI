@@ -12,7 +12,7 @@ function interpret(input) {
 
 function classes(el) {
     if (isElement(el)) {
-        return el.className.replace(trim, '').split(whitespace);
+        return (el.getAttribute('class') || '').replace(trim, '').split(whitespace);
     }
 
     return [];
@@ -20,7 +20,7 @@ function classes(el) {
 
 function set(el, input) {
     if (isElement(el)) {
-        el.className = interpret(input).join(' ');
+        el.setAttribute('class', interpret(input).join(' '));
     }
 }
 
