@@ -70,11 +70,11 @@
     "prismjs": "^1.5.1",
     "rimraf": "^2.5.4",
     "sass-loader": "^4.0.2",
-    "vue": "^2.1.7",
-    "vue-loader": "^10.0.2",
+    "vue": "2.2.1",
+    "vue-loader": "latest",
     "vue-router": "^2.1.0",
     "vue-style-loader": "^1.0.0",
-    "vue-template-compiler": "^2.1.7",
+    "vue-template-compiler": "2.2.1",
     "webpack": "^2.2.0",
     "webpack-dev-server": "^2.2.0"
   }
