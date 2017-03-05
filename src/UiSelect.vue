@@ -103,6 +103,7 @@
 
                                 :highlighted="highlightedIndex === index"
                                 :keys="keys"
+                                :key="index"
                                 :multiple="multiple"
                                 :option="option"
                                 :selected="isOptionSelected(option)"

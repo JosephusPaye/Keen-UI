@@ -3,6 +3,7 @@
         <ui-snackbar
             :action-color="snackbar.actionColor"
             :action="snackbar.action"
+            :key="index"
             :message="snackbar.message"
             :transition="transition"
 

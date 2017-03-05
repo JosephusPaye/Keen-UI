@@ -11,6 +11,7 @@
                     :icon-props="tab.iconProps"
                     :icon="tab.icon"
                     :id="tab.id"
+                    :key="tab.id"
                     :show="tab.show"
                     :title="tab.title"
                     :type="type"

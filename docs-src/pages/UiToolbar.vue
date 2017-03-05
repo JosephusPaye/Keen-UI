@@ -489,7 +489,7 @@
                                 <td>progressPosition</td>
                                 <td>String</td>
                                 <td><code>"bottom"</code></td>
-                                <td>The position of the progress bar relative to the toolbar. One of <code>top</code> or <code>bottom</code>.<td>
+                                <td>The position of the progress bar relative to the toolbar. One of <code>top</code> or <code>bottom</code>.</td>
                             </tr>
 
                             <tr>

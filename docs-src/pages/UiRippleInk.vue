@@ -20,7 +20,7 @@
             <div
                 class="page__demo-group page__demo-group--tv-shows page__demo-group--color-blue has-custom-color"
             >
-                <image-pane :image="show.image" v-for="show in tvShows"></image-pane>
+                <image-pane :image="show.image" :key="index" v-for="(show, index) in tvShows"></image-pane>
             </div>
 
             <h4 class="page__demo-title">Color: orange, Opacity: 0.95</h4>
@@ -28,7 +28,7 @@
             <div
                 class="page__demo-group page__demo-group--the-simpsons page__demo-group--color-orange has-custom-color has-custom-opacity
             ">
-                <image-pane :image="simpson.image" v-for="simpson in theSimpsons"></image-pane>
+                <image-pane :image="simpson.image" :key="index" v-for="(simpson, index) in theSimpsons"></image-pane>
             </div>
         </div>
 
