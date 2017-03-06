@@ -6,9 +6,11 @@ Please take care to observe the following when you contribute code to Keen UI:
 
 2. **Before** you put a lot of work into a pull request that could be rejected, create an issue with your proposal for discussion.
 
-3. All Javascript code must pass the ESlint check. Run `npm run lint` to check your code.
+3. Pull requests should be made against the `next` branch, which is where development happens for the next release. The `master` branch is for the current stable release only.
 
-4. For HTML, use the following formatting guide:
+4. All Javascript code must pass the ESlint check. Run `npm run lint` to check your code.
+
+5. For HTML, use the following formatting guide:
 
     For tags that cross the max line limit (100 characters), open the tag, then drop down to an indented line and place each attribute on a new line, sorted alphabetically and grouped (new line separating groups) according to the following order:
 
@@ -25,4 +27,4 @@ Please take care to observe the following when you contribute code to Keen UI:
 
     ![Example of HTML formatting](https://i.imgur.com/8v4vkRK.png)
 
-5. For CSS, all selectors must follow the [BEM naming guidelines](http://getbem.com/naming/).
+6. For CSS, all selectors must follow the [BEM naming guidelines](http://getbem.com/naming/).
