@@ -28,7 +28,10 @@
             </ui-alert>
 
             <ui-alert @dismiss="showAlert5 = false" type="warning" v-show="showAlert5">
-                <ui-icon icon="battery_alert" slot="icon"></ui-icon>
+                <ui-icon slot="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12.984 14.016V9h-1.97v5.016h1.97zm0 3.984v-2.016h-1.97V18h1.97zm2.672-14.016c.75 0 1.36.61 1.36 1.36V20.67c0 .75-.61 1.314-1.36 1.314H8.343c-.75 0-1.36-.563-1.36-1.313V5.344c0-.75.61-1.36 1.36-1.36h1.64V2.016h4.032v1.97h1.64z"/></svg>
+                </ui-icon>
+
                 This alert has a custom icon.
             </ui-alert>
 
