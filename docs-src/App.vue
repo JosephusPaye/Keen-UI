@@ -20,11 +20,14 @@
                     <ui-icon-button
                         class="keen-docs-content__toolbar-menu-button"
                         color="white"
-                        icon="menu"
                         type="clear"
 
                         @click="showSidebar = true"
-                    ></ui-icon-button>
+                    >
+                        <ui-icon>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 6h18v2.016H3V6zm0 6.984v-1.97h18v1.97H3zM3 18v-2.016h18V18H3z"/></svg>
+                        </ui-icon>
+                    </ui-icon-button>
 
                     <h1 class="keen-docs-content__toolbar-title">{{ $route.meta.title }}</h1>
 
@@ -49,6 +52,7 @@
 
 <script>
 import Sidebar from './Sidebar.vue';
+import UiIcon from 'src/UiIcon.vue';
 import UiIconButton from 'src/UiIconButton.vue';
 
 export default {
@@ -83,6 +87,7 @@ export default {
 
     components: {
         Sidebar,
+        UiIcon,
         UiIconButton
     }
 };

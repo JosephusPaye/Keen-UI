@@ -58,6 +58,7 @@
                         ref="suggestions"
 
                         :highlighted="highlightedIndex === index"
+                        :key="index"
                         :keys="keys"
                         :suggestion="suggestion"
                         :type="type"
@@ -227,15 +228,15 @@ export default {
         },
 
         hasFeedback() {
-            return Boolean(this.help) || Boolean(this.error);
+            return Boolean(this.help) || Boolean(this.error) || Boolean(this.$slots.error);
         },
 
         showError() {
-            return this.invalid && Boolean(this.error);
+            return this.invalid && (Boolean(this.error) || Boolean(this.$slots.error));
         },
 
         showHelp() {
-            return !this.showError && Boolean(this.help);
+            return !this.showError && (Boolean(this.help) || Boolean(this.$slots.help));
         },
 
         matchingSuggestions() {
@@ -517,6 +518,7 @@ export default {
 
 .ui-autocomplete__label-text {
     color: $ui-input-label-color;
+    cursor: default;
     font-size: $ui-input-label-font-size;
     line-height: $ui-input-label-line-height;
     margin-bottom: $ui-input-label-margin-bottom;

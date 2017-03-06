@@ -47,6 +47,7 @@ $ui-icon-size       : 1em !default;
     width: $ui-icon-size;
 
     svg {
+        display: block;
         fill: currentColor;
         height: $ui-icon-size;
         margin: 0;

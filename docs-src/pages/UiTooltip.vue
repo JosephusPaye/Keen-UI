@@ -16,10 +16,11 @@
                     tabindex="0"
 
                     :image="simpson.image"
+                    :key="index"
                     :name="simpson.name"
                     :tooltip-position="simpson.position"
 
-                    v-for="simpson in theSimpsons"
+                    v-for="(simpson, index) in theSimpsons"
                 ></image-pane>
             </div>
         </div>
