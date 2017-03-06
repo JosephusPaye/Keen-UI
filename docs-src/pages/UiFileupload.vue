@@ -237,7 +237,7 @@
                                 <td>focus</td>
                                 <td>
                                     <p>Emitted when the upload button is focused.</p>
-                                    <p>Listen for it using <code>@focus</code>.
+                                    <p>Listen for it using <code>@focus</code>.</p>
                                 </td>
                             </tr>
 
@@ -245,7 +245,7 @@
                                 <td>blur</td>
                                 <td>
                                     <p>Emitted when the upload button loses focus.</p>
-                                    <p>Listen for it using <code>@blur</code>.
+                                    <p>Listen for it using <code>@blur</code>.</p>
                                 </td>
                             </tr>
 
@@ -260,7 +260,7 @@
 
                                     <p>The file objects can be used to generage a client-side preview of the selected files. See the <b>With image preview</b> section above for an example.</p>
 
-                                    <p>Listen for it using <code>@change</code>.
+                                    <p>Listen for it using <code>@change</code>.</p>
                                 </td>
                             </tr>
                         </tbody>

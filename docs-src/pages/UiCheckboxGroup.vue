@@ -45,8 +45,8 @@
                 error="Choose at least 2 colours"
                 help="Choose your favourite colours"
                 :options="options.defaultGroup"
-                :invalid="group3.length < 2"
-                v-model="group3"
+                :invalid="group4.length < 2"
+                v-model="group4"
             >Favourite Colours</ui-checkbox-group>
 
             <h4 class="page__demo-title">Box position: right</h4>
@@ -54,7 +54,7 @@
             <ui-checkbox-group
                 box-position="right"
                 :options="options.defaultGroup"
-                v-model="group4"
+                v-model="group5"
             >Favourite Colours</ui-checkbox-group>
 
             <h4 class="page__demo-title">Vertical</h4>
@@ -62,14 +62,14 @@
             <ui-checkbox-group
                 vertical
                 :options="options.defaultGroup"
-                v-model="group5"
+                v-model="group6"
             >Favourite Colours</ui-checkbox-group>
 
             <h4 class="page__demo-title">Individual option disabled</h4>
 
             <ui-checkbox-group
                 :options="options.secondGroup"
-                v-model="group6"
+                v-model="group7"
             >Favourite Colours</ui-checkbox-group>
 
             <h4 class="page__demo-title">Group disabled</h4>
@@ -77,7 +77,7 @@
             <ui-checkbox-group
                 disabled
                 :options="options.defaultGroup"
-                v-model="group7"
+                v-model="group8"
             >Favourite Colours</ui-checkbox-group>
         </div>
 
@@ -299,7 +299,7 @@
                                 <td>
                                     <p>Emitted when the checkbox group value is changed. The handler is called with the new value.</p>
                                     <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>value</code> prop.</p>
-                                    <p>Listen for it using <code>@input</code>.
+                                    <p>Listen for it using <code>@input</code>.</p>
                                 </td>
                             </tr>
 
@@ -388,8 +388,9 @@ export default {
             group3: [],
             group4: [],
             group5: [],
-            group6: ['yellow'],
-            group7: [],
+            group6: [],
+            group7: ['yellow'],
+            group8: [],
             options: {
                 defaultGroup,
                 secondGroup

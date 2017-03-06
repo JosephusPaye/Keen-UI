@@ -442,7 +442,7 @@
                             <td>
                                 <p>Emitted when the datepicker value is changed. The handler is called with the new value.</p>
                                 <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>value</code> prop.</p>
-                                <p>Listen for it using <code>@input</code>.
+                                <p>Listen for it using <code>@input</code>.</p>
                             </td>
                         </tr>
 
@@ -450,7 +450,7 @@
                             <td>touch</td>
                             <td>
                                 <p>Emitted when the datepicker is focused for the first time and then blurred.</p>
-                                <p>Listen for it using <code>@touch</code>.
+                                <p>Listen for it using <code>@touch</code>.</p>
                             </td>
                         </tr>
 
@@ -458,7 +458,7 @@
                             <td>focus</td>
                             <td>
                                 <p>Emitted when the datepicker is focused.</p>
-                                <p>Listen for it using <code>@focus</code>.
+                                <p>Listen for it using <code>@focus</code>.</p>
                             </td>
                         </tr>
 
@@ -466,7 +466,7 @@
                             <td>blur</td>
                             <td>
                                 <p>Emitted when the datepicker loses focus.</p>
-                                <p>Listen for it using <code>@blur</code>.
+                                <p>Listen for it using <code>@blur</code>.</p>
                             </td>
                         </tr>
 
