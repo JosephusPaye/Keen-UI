@@ -15,6 +15,7 @@
             @focus="onFocus"
         >
 
+
         <div class="ui-checkbox__checkmark">
             <div class="ui-checkbox__focus-ring"></div>
         </div>
@@ -121,11 +122,10 @@ export default {
 @import './styles/imports';
 
 $ui-checkbox-border-width           : rem-calc(2px) !default;
-$ui-checkbox-checkmark-width        : rem-calc(2px) !default;
 $ui-checkbox-transition-duration    : 0.15s !default;
 $ui-checkbox-label-font-size        : rem-calc(16px) !default;
 
-$ui-checkbox-size                   : rem-calc(20px); // no !default as it shouldn't be overridden
+$ui-checkbox-size                   : rem-calc(20px) !default;
 $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
 
 .ui-checkbox {
@@ -141,14 +141,6 @@ $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
     &:not(.is-disabled):not(.is-checked).is-active {
         .ui-checkbox__checkmark::before {
             border-color: rgba(black, 0.6);
-        }
-    }
-
-    &.is-checked {
-        .ui-checkbox__checkmark::after {
-            border-bottom: $ui-checkbox-checkmark-width solid white;
-            border-right: $ui-checkbox-checkmark-width solid white;
-            opacity: 1;
         }
     }
 
@@ -199,22 +191,7 @@ $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
         top: 0;
         transition: all 0.3s ease;
         width: 100%;
-    }
-
-    // Checkmark
-    &::after {
-        bottom: rem-calc(5px);
-        box-sizing: border-box;
-        content: "";
-        display: block;
-        height: rem-calc(13px);
-        left: rem-calc(7px);
-        opacity: 0;
-        position: absolute;
-        transform: rotate(45deg);
-        transition-delay: 0.1s;
-        transition: opacity 0.3s ease;
-        width: rem-calc(6px);
+        background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgdmVyc2lvbj0iMS4xIgogICB2aWV3Qm94PSIwIDAgMSAxIgogICBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWluWU1pbiBtZWV0Ij4KICA8cGF0aAogICAgIGQ9Ik0gMC4wNDAzODA1OSwwLjYyNjc3NjcgMC4xNDY0NDY2MSwwLjUyMDcxMDY4IDAuNDI5Mjg5MzIsMC44MDM1NTMzOSAwLjMyMzIyMzMsMC45MDk2MTk0MSB6IE0gMC4yMTcxNTcyOSwwLjgwMzU1MzM5IDAuODUzNTUzMzksMC4xNjcxNTcyOSAwLjk1OTYxOTQxLDAuMjczMjIzMyAwLjMyMzIyMzMsMC45MDk2MTk0MSB6IgogICAgIGlkPSJyZWN0Mzc4MCIKICAgICBzdHlsZT0iZmlsbDojZmZmZmZmO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lIiAvPgo8L3N2Zz4K');
     }
 }
 
