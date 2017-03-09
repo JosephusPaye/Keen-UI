@@ -309,6 +309,11 @@ export default {
             if (this.autosizeInitialized) {
                 autosize.update(this.$refs.textarea);
             }
+        },
+
+        focus() {
+            const ele = this.$refs.input || this.$refs.textarea;
+            ele.focus();
         }
     },
 
