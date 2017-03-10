@@ -312,8 +312,7 @@ export default {
         },
 
         focus() {
-            const ele = this.$refs.input || this.$refs.textarea;
-            ele.focus();
+            (this.$refs.input || this.$refs.textarea).focus();
         }
     },
 
