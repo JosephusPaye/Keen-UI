@@ -5,7 +5,10 @@
 </template>
 
 <script>
-import Tooltip from 'tether-tooltip';
+let Tooltip;
+if (typeof window !== 'undefined') {
+    Tooltip = require('tether-tooltip');
+}
 
 export default {
     name: 'ui-tooltip',

@@ -15,7 +15,11 @@
 
 <script>
 import classlist from './helpers/classlist';
-import Drop from 'tether-drop';
+
+let Drop;
+if (typeof window !== 'undefined') {
+    Drop = require('tether-drop');
+}
 
 export default {
     name: 'ui-popover',
