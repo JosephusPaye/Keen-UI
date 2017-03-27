@@ -58,6 +58,7 @@
                         ref="suggestions"
 
                         :highlighted="highlightedIndex === index"
+                        :key="index"
                         :keys="keys"
                         :suggestion="suggestion"
                         :type="type"

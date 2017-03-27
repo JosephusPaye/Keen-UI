@@ -291,7 +291,7 @@
                                 <td class="no-wrap">snackbar-show</td>
                                 <td>
                                     <p>Emitted when a snackbar is shown in the container. The handler is called with the snackbar.</p>
-                                    <p>Listen for it using <code>@snackbar-show</code>.
+                                    <p>Listen for it using <code>@snackbar-show</code>.</p>
                                 </td>
                             </tr>
 
@@ -299,7 +299,7 @@
                                 <td class="no-wrap">snackbar-hide</td>
                                 <td>
                                     <p>Emitted when a snackbar is hidden from the container. The handler is called with the snackbar.</p>
-                                    <p>Listen for it using <code>@snackbar-hide</code>.
+                                    <p>Listen for it using <code>@snackbar-hide</code>.</p>
                                 </td>
                             </tr>
                         </tbody>

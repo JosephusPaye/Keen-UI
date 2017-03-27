@@ -535,7 +535,7 @@
                             <td>
                                 <p>Emitted when an option is selected. The handler is called with the selected option and an object which shows if the option was selected or deselected.</p>
                                 <p>This object will have <code>{ selected: true }</code> if the option was selected or <code>{ selected: false }</code> otherwise.</p>
-                                <p>Listen for it using <code>@select</code>.
+                                <p>Listen for it using <code>@select</code>.</p>
                             </td>
                         </tr>
 
@@ -553,7 +553,7 @@
                             <td>
                                 <p>Emitted when the select value is changed. The handler is called with the new value.</p>
                                 <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>value</code> prop.</p>
-                                <p>Listen for it using <code>@input</code>.
+                                <p>Listen for it using <code>@input</code>.</p>
                             </td>
                         </tr>
 
@@ -561,7 +561,7 @@
                             <td>change</td>
                             <td>
                                 <p>Emitted when the select value changes.</p>
-                                <p>Listen for it using <code>@change</code>.
+                                <p>Listen for it using <code>@change</code>.</p>
                             </td>
                         </tr>
 
@@ -569,7 +569,7 @@
                             <td>touch</td>
                             <td>
                                 <p>Emitted when the select is focused for the first time and then blurred.</p>
-                                <p>Listen for it using <code>@touch</code>.
+                                <p>Listen for it using <code>@touch</code>.</p>
                             </td>
                         </tr>
 
@@ -577,7 +577,7 @@
                             <td>focus</td>
                             <td>
                                 <p>Emitted when the select is focused.</p>
-                                <p>Listen for it using <code>@focus</code>.
+                                <p>Listen for it using <code>@focus</code>.</p>
                             </td>
                         </tr>
 
@@ -585,7 +585,7 @@
                             <td>blur</td>
                             <td>
                                 <p>Emitted when the select loses focus.</p>
-                                <p>Listen for it using <code>@blur</code>.
+                                <p>Listen for it using <code>@blur</code>.</p>
                             </td>
                         </tr>
 

@@ -31,7 +31,7 @@ module.exports = {
                     },
                     postcss: [
                         autoprefixer({
-                            browsers: ['last 2 versions', 'ie > 9', 'Firefox ESR']
+                            browsers: ['last 2 versions', 'ie > 9', 'Firefox ESR', 'android >= 4.0']
                         })
                     ]
                 }
