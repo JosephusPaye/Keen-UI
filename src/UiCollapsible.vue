@@ -29,8 +29,10 @@
 
         <transition
             name="ui-collapsible--transition-toggle"
-            @after-enter="onEnter"
-            @after-leave="onLeave"
+            @enter="onEnter"
+            @after-enter="onAfterEnter"
+            @leave="onLeave"
+            @after-leave="onAfterLeave"
         >
             <div
                 class="ui-collapsible__body-wrapper"
@@ -121,11 +123,18 @@ export default {
     methods: {
         onEnter() {
             this.$emit('open');
+        },
+        onAfterEnter() {
+            this.$emit('opened');
             this.refreshHeight();
         },
 
         onLeave() {
             this.$emit('close');
+        },
+
+        onAfterLeave() {
+            this.$emit('closed');
         },
 
         toggleCollapsible() {

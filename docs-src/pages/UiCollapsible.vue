@@ -159,16 +159,32 @@
                             <tr>
                                 <td>open</td>
                                 <td>
-                                    <p>Emitted when the collapsible is opened. You should listen for this event and update the <code>open</code> prop to <code>true</code>.</p>
+                                    <p>Emitted when the collapsible is opening.</p>
                                     <p>Listen for it using <code>@open</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>opened</td>
+                                <td>
+                                    <p>Emitted when the collapsible is opened. You should listen for this event and update the <code>open</code> prop to <code>true</code>.</p>
+                                    <p>Listen for it using <code>@opened</code>.</p>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>close</td>
                                 <td>
-                                    <p>Emitted when the collapsible is closed. You should listen for this event and update the <code>open</code> prop to <code>false</code>.</p>
+                                    <p>Emitted when the collapsible is closing.</p>
                                     <p>Listen for it using <code>@close</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>closed</td>
+                                <td>
+                                    <p>Emitted when the collapsible is closed. You should listen for this event and update the <code>open</code> prop to <code>false</code>.</p>
+                                    <p>Listen for it using <code>@closed</code>.</p>
                                 </td>
                             </tr>
                         </tbody>
