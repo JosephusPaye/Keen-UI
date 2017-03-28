@@ -163,6 +163,7 @@ export default {
             default: false
         },
         filter: Function,
+        postFilterSort: Function,
         highlightOnFirstMatch: {
             type: Boolean,
             default: true
@@ -239,15 +240,22 @@ export default {
         },
 
         matchingSuggestions() {
-            return this.suggestions
+            let filteredSuggestions = this.suggestions
                 .filter((suggestion, index) => {
                     if (this.filter) {
                         return this.filter(suggestion, this.value);
                     }
 
                     return this.defaultFilter(suggestion, index);
-                })
-                .slice(0, this.limit);
+                });
+             
+             // If client wants to perform custom sort - we let them do so
+             if (this.postFilterSort) {
+                 // we need to use `bind` to let client's comparer know who's calling it.
+                 filteredSuggestions.sort(this.postFilterSort.bind(this));
+             }
+             
+             return filteredSuggestions.slice(0, this.limit);
         }
     },
 
