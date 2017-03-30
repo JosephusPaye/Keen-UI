@@ -422,9 +422,9 @@ export default {
             color: $ui-input-label-color--active;
         }
 
-        .ui-datepicker__display {
-            border-bottom-color: $ui-input-border-color--active;
-            border-bottom-width: $ui-input-border-width--active;
+        .ui-datepicker__label:after {
+            visibility: visible;
+            width: 100%;
         }
     }
 
@@ -521,6 +521,20 @@ export default {
     padding: 0;
     position: relative;
     width: 100%;
+
+    &:after {
+        content: '';
+        visibility: hidden;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: $ui-input-border-color--active;
+        transform: translateX(-50%);
+        transition-duration: .2s;
+        transition-timing-function: cubic-bezier(.4,0,.2,1);
+    }
 }
 
 .ui-datepicker__icon-wrapper {

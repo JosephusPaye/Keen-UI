@@ -348,10 +348,9 @@ export default {
     }
 
     &.is-active:not(.is-disabled) {
-        .ui-textbox__input,
-        .ui-textbox__textarea {
-            border-bottom-color: $ui-input-border-color--active;
-            border-bottom-width: $ui-input-border-width--active;
+        .ui-textbox__label:after {
+            visibility: visible;
+            width: 100%;
         }
 
         .ui-textbox__label-text,
@@ -436,7 +435,22 @@ export default {
     display: block;
     margin: 0;
     padding: 0;
+    position: relative;
     width: 100%;
+
+    &:after {
+        content: '';
+        visibility: hidden;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: $ui-input-border-color--active;
+        transform: translateX(-50%);
+        transition-duration: .2s;
+        transition-timing-function: cubic-bezier(.4,0,.2,1);
+    }
 }
 
 .ui-textbox__icon-wrapper {
