@@ -182,6 +182,7 @@ export default {
                 { 'is-active': this.isActive },
                 { 'is-invalid': this.invalid },
                 { 'is-touched': this.isTouched },
+                { 'is-dirty': this.isDirty },
                 { 'is-multi-line': this.multiLine },
                 { 'has-counter': this.maxlength },
                 { 'is-disabled': this.disabled },
@@ -207,6 +208,10 @@ export default {
 
         isLabelInline() {
             return this.value.length === 0 && !this.isActive;
+        },
+
+        isDirty() {
+            return this.value.length > 0 || typeof(this.value) === 'number';
         },
 
         minValue() {
@@ -349,6 +354,13 @@ export default {
             border-bottom-width: $ui-input-border-width--active;
         }
 
+        .ui-textbox__label-text,
+        .ui-textbox__icon-wrapper .ui-icon {
+            color: $ui-input-label-color--active;
+        }
+    }
+
+    &.is-dirty:not(.is-disabled) {
         .ui-textbox__label-text,
         .ui-textbox__icon-wrapper .ui-icon {
             color: $ui-input-label-color--active;

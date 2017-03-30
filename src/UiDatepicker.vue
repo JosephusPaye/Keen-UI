@@ -205,6 +205,7 @@ export default {
                 `ui-datepicker--icon-position-${this.iconPosition}`,
                 `ui-datepicker--orientation-${this.orientation}`,
                 { 'is-active': this.isActive },
+                { 'is-dirty': this.isDirty },
                 { 'is-invalid': this.invalid },
                 { 'is-touched': this.isTouched },
                 { 'is-disabled': this.disabled },
@@ -230,6 +231,10 @@ export default {
 
         isLabelInline() {
             return !this.value && !this.isActive;
+        },
+
+        isDirty() {
+            return !!this.value;
         },
 
         hasFeedback() {
@@ -420,6 +425,13 @@ export default {
         .ui-datepicker__display {
             border-bottom-color: $ui-input-border-color--active;
             border-bottom-width: $ui-input-border-width--active;
+        }
+    }
+
+    &.is-dirty:not(.is-disabled) {
+        .ui-datepicker__label-text,
+        .ui-datepicker__icon-wrapper .ui-icon {
+            color: $ui-input-label-color--active;
         }
     }
 

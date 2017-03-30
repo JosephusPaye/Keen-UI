@@ -200,6 +200,7 @@ export default {
                 `ui-autocomplete--type-${this.type}`,
                 `ui-autocomplete--icon-position-${this.iconPosition}`,
                 { 'is-active': this.isActive },
+                { 'is-dirty': this.isDirty },
                 { 'is-invalid': this.invalid },
                 { 'is-touched': this.isTouched },
                 { 'is-disabled': this.disabled },
@@ -225,6 +226,10 @@ export default {
 
         isLabelInline() {
             return this.value.length === 0 && !this.isActive;
+        },
+
+        isDirty() {
+            return this.value.length > 0 || typeof(this.value) === 'number';
         },
 
         hasFeedback() {
@@ -431,6 +436,13 @@ export default {
         .ui-autocomplete__input {
             border-bottom-color: $ui-input-border-color--active;
             border-bottom-width: $ui-input-border-width--active;
+        }
+    }
+
+    &.is-dirty:not(.is-disabled) {
+        .ui-autocomplete__label-text,
+        .ui-autocomplete__icon-wrapper .ui-icon {
+            color: $ui-input-label-color--active;
         }
     }
 
