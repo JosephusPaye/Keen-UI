@@ -50,13 +50,15 @@
 
             <div class="ui-slider__track-fill" :style="fillStyle"></div>
 
-            <div class="ui-slider__thumb" ref="thumb" :style="thumbStyle">
-                <div class="ui-slider__marker" v-if="showMarker">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
-                        <path d="M11 .5c-1.7.2-3.4.9-4.7 2-1.1.9-2 2-2.5 3.2-1.2 2.4-1.2 5.1-.1 7.7 1.1 2.6 2.8 5 5.3 7.5 1.2 1.2 2.8 2.7 3 2.7 0 0 .3-.2.6-.5 3.2-2.7 5.6-5.6 7.1-8.5.8-1.5 1.1-2.6 1.3-3.8.2-1.4 0-2.9-.5-4.3-1.2-3.2-4.1-5.4-7.5-5.8-.5-.2-1.5-.2-2-.2z"/>
-                    </svg>
+            <div class="ui-slider__thumb-wrapper">
+                <div class="ui-slider__thumb" ref="thumb" :style="thumbStyle">
+                    <div class="ui-slider__marker" v-if="showMarker">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
+                            <path d="M11 .5c-1.7.2-3.4.9-4.7 2-1.1.9-2 2-2.5 3.2-1.2 2.4-1.2 5.1-.1 7.7 1.1 2.6 2.8 5 5.3 7.5 1.2 1.2 2.8 2.7 3 2.7 0 0 .3-.2.6-.5 3.2-2.7 5.6-5.6 7.1-8.5.8-1.5 1.1-2.6 1.3-3.8.2-1.4 0-2.9-.5-4.3-1.2-3.2-4.1-5.4-7.5-5.8-.5-.2-1.5-.2-2-.2z"/>
+                        </svg>
 
-                    <span class="ui-slider__marker-text">{{ markerText }}</span>
+                        <span class="ui-slider__marker-text">{{ markerText }}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -137,19 +139,8 @@ export default {
         },
 
         thumbStyle() {
-            var distance = ((this.localValue / 100) * this.trackLength);
-
-            if (this.vertical) {
-                var property = 'translateY';
-                distance = -distance;
-            } else {
-                var property = 'translateX';
-            }
-
-            distance -= (this.thumbSize / 2);
-
             return {
-                transform: property + '(' + distance + 'px)'
+                left: this.localValue + '%'
             };
         },
 
@@ -213,6 +204,7 @@ export default {
         },
 
         setValue(value) {
+            this.refreshSize()
             if (value > 100) {
                 value = 100;
             } else if (value < 0) {
@@ -309,6 +301,9 @@ export default {
         },
 
         dragUpdate(e) {
+            if (!this.trackLength || !this.trackOffset) {
+                this.refreshSize();
+            }
             if (this.vertical) {
                 var position = e.touches ? e.touches[0].pageY : e.pageY;
                 position = this.trackLength - position + this.trackOffset
@@ -530,6 +525,11 @@ $ui-slider-marker-size                      : rem-calc(36px);
 
 .ui-slider__track-fill {
     background-color: $ui-slider-track-fill-color;
+}
+
+.ui-slider__thumb-wrapper {
+    width: 100%;
+    padding-right: 0.875rem;
 }
 
 .ui-slider__thumb {
