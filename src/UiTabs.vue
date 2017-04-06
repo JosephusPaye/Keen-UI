@@ -109,7 +109,7 @@ export default {
                 `ui-tabs--text-color-${this.textColor}`,
                 `ui-tabs--text-color-active-${this.textColorActive}`,
                 `ui-tabs--background-color-${this.backgroundColor}`,
-                `ui-tabs--indicator-color-${this.textColorActive}`,
+                `ui-tabs--indicator-color-${this.indicatorColor}`,
                 { 'is-raised': this.raised },
                 { 'is-fullwidth': this.fullwidth }
             ];
