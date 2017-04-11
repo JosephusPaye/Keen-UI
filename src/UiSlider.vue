@@ -91,7 +91,7 @@ export default {
             type: Boolean,
             default: false
         },
-        markerValue: Number,
+        markerValue: [String, Number],
         disabled: {
             type: Boolean,
             default: false
@@ -138,7 +138,7 @@ export default {
         },
 
         markerText() {
-            return this.markerValue ? this.markerValue : this.value;
+            return this.markerValue === false ? this.markerValue : this.value;
         },
 
         snapPoints() {
