@@ -20,6 +20,7 @@
                     @keydown.right.native="selectNextTab"
 
                     v-for="tab in tabs"
+                    :key="tab.id"
                     v-show="tab.show"
                 >
                     <render-vnodes
