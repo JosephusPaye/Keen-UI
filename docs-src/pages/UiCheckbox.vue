@@ -203,7 +203,7 @@
                                 <td>
                                     <p>Emitted when the checkbox value is changed. The handler is called with the new value.</p>
                                     <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>value</code> prop.</p>
-                                    <p>Listen for it using <code>@input</code>.
+                                    <p>Listen for it using <code>@input</code>.</p>
                                 </td>
                             </tr>
 
@@ -212,7 +212,7 @@
                                 <td>
                                     <p>Emitted when a change in the checkbox value is committed. The handler is called with the new value.</p>
                                     <p>See the <a href="https://developer.mozilla.org/en-US/docs/Web/Events/change" target="_blank" rel="noopener">onchange event documentation</a> for more information.</p>
-                                    <p>Listen for it using <code>@change</code>.
+                                    <p>Listen for it using <code>@change</code>.</p>
                                 </td>
                             </tr>
                         </tbody>

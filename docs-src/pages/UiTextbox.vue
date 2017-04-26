@@ -486,7 +486,7 @@
                                 <td>
                                     <p>Emitted when the select value is changed. The handler is called with the new value.</p>
                                     <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>value</code> prop.</p>
-                                    <p>Listen for it using <code>@input</code>.
+                                    <p>Listen for it using <code>@input</code>.</p>
                                 </td>
                             </tr>
 
@@ -495,7 +495,7 @@
                                 <td>
                                     <p>Emitted when a change in the textbox value is committed. The handler is called with the new value.</p>
                                     <p>See the <a href="https://developer.mozilla.org/en-US/docs/Web/Events/change" target="_blank" rel="noopener">onchange event documentation</a> for more information.</p>
-                                    <p>Listen for it using <code>@change</code>.
+                                    <p>Listen for it using <code>@change</code>.</p>
                                 </td>
                             </tr>
 
@@ -503,7 +503,7 @@
                                 <td>touch</td>
                                 <td>
                                     <p>Emitted when the textbox is focused for the first time and then blurred.</p>
-                                    <p>Listen for it using <code>@touch</code>.
+                                    <p>Listen for it using <code>@touch</code>.</p>
                                 </td>
                             </tr>
 
@@ -511,7 +511,7 @@
                                 <td>focus</td>
                                 <td>
                                     <p>Emitted when the textbox is focused.</p>
-                                    <p>Listen for it using <code>@focus</code>.
+                                    <p>Listen for it using <code>@focus</code>.</p>
                                 </td>
                             </tr>
 
@@ -519,7 +519,7 @@
                                 <td>blur</td>
                                 <td>
                                     <p>Emitted when the textbox loses focus.</p>
-                                    <p>Listen for it using <code>@blur</code>.
+                                    <p>Listen for it using <code>@blur</code>.</p>
                                 </td>
                             </tr>
 
