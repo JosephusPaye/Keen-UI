@@ -309,6 +309,22 @@ export default {
             if (this.autosizeInitialized) {
                 autosize.update(this.$refs.textarea);
             }
+        },
+
+        select() {
+            if (this.multiLine) {
+                this.$refs.textarea.select()
+            } else {
+                this.$refs.input.select()
+            }
+        },
+
+        focus() {
+            if (this.multiLine) {
+                this.$refs.textarea.focus()
+            } else {
+                this.$refs.input.focus()
+            }
         }
     },
 
