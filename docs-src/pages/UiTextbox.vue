@@ -572,6 +572,20 @@
                                     <p>Call this method to refresh the size of the textarea when you change the value programmatically.</p>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td><code>select()</code></td>
+                                <td>
+                                    <p>Call this method to make a selection on input or textarea.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><code>focus()</code></td>
+                                <td>
+                                    <p>Call this method to make a focus on input or textarea.</p>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
