@@ -17,7 +17,7 @@
 
             <div class="ui-toolbar__brand" v-if="brand || $slots.brand">
                 <slot name="brand">
-                    <div class="ui-toolbar__brand-text">{{ brand }}</div>
+                    <router-link class="ui-toolbar__brand-text" :to="brandTo" tag="div">{{ brand }}</router-link>
                 </slot>
             </div>
         </div>
@@ -58,6 +58,10 @@ export default {
         },
         title: String,
         brand: String,
+        brandTo: {
+            type: String,
+            default: '/'
+        },
         removeBrandDivider: {
             type: Boolean,
             default: false
