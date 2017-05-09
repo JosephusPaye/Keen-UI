@@ -1,11 +1,12 @@
 <template>
-    <div class="ui-tooltip" ref="tooltip">
+    <div class="ui-tooltip" ref="tooltip" role="tooltip" :id="id">
         <slot></slot>
     </div>
 </template>
 
 <script>
 import Tooltip from 'tether-tooltip';
+import UUID from './helpers/uuid';
 
 export default {
     name: 'ui-tooltip',
@@ -31,7 +32,8 @@ export default {
 
     data() {
         return {
-            tooltip: null
+            tooltip: null,
+            id: UUID.short('ui-tooltip-')
         };
     },
 
@@ -66,6 +68,8 @@ export default {
                     openOn: this.openOn,
                     openDelay: this.openDelay
                 });
+
+                this.$parent.$refs[this.trigger].setAttribute('aria-describedby', this.id);
             }
         }
     }
