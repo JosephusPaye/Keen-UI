@@ -247,8 +247,8 @@ export default {
     },
 
     created() {
-        // Normalize the value to an empty string if it's null or undefined
-        if (this.value === null || this.value === undefined) {
+        // Normalize the value to an empty string if it's null
+        if (this.value === null) {
             this.initialValue = '';
             this.updateValue('');
         }

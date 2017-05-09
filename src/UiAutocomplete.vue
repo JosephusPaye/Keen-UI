@@ -267,8 +267,8 @@ export default {
     },
 
     created() {
-        // Normalize the value to an empty string if it's null or undefined
-        if (this.value === null || this.value === undefined) {
+        // Normalize the value to an empty string if it's null
+        if (this.value === null) {
             this.initialValue = '';
             this.updateValue('');
         }
@@ -285,7 +285,7 @@ export default {
     methods: {
         defaultFilter(suggestion) {
             const text = suggestion[this.keys.label] || suggestion;
-            let query = this.value === null || this.value === undefined ? '' : this.value;
+            let query = this.value === null ? '' : this.value;
 
             if (typeof query === 'string') {
                 query = query.toLowerCase();
