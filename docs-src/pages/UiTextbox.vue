@@ -588,7 +588,7 @@ import UiTextbox from 'src/UiTextbox.vue';
 export default {
     data() {
         return {
-            textbox1: '',
+            textbox1: null,
             textbox2: '',
             textbox3: '',
             textbox4: 'John Doe',

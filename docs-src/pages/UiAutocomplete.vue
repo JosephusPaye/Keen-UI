@@ -643,7 +643,7 @@ export default {
             months,
             theSimpsons,
             addedGrannies: false,
-            autocomplete1: '',
+            autocomplete1: null,
             autocomplete2: '',
             autocomplete3: '',
             autocomplete4: '',
