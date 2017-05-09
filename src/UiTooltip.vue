@@ -59,9 +59,13 @@ export default {
 
     methods: {
         initialize() {
-            if (this.trigger !== undefined) {
+            if (this.trigger !== undefined && this.$parent.$refs[this.trigger]) {
+                const triggerEl = this.$parent.$refs[this.trigger]._isVue ?
+                    this.$parent.$refs[this.trigger].$el : // Use .$el if the ref is a Vue component
+                    this.$parent.$refs[this.trigger];
+
                 this.tooltip = new Tooltip({
-                    target: this.$parent.$refs[this.trigger],
+                    target: triggerEl,
                     content: this.$refs.tooltip,
                     classes: 'ui-tooltip--theme-default',
                     position: this.position,
@@ -69,7 +73,7 @@ export default {
                     openDelay: this.openDelay
                 });
 
-                this.$parent.$refs[this.trigger].setAttribute('aria-describedby', this.id);
+                triggerEl.setAttribute('aria-describedby', this.id);
             }
         }
     }
