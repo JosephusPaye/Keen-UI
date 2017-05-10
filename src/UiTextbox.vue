@@ -102,6 +102,7 @@ export default {
         placeholder: String,
         value: {
             type: [String, Number],
+            default: '',
             required: true
         },
         icon: String,
