@@ -50,13 +50,15 @@
 
             <div class="ui-slider__track-fill" :style="fillStyle"></div>
 
-            <div class="ui-slider__thumb" ref="thumb" :style="thumbStyle">
-                <div class="ui-slider__marker" v-if="showMarker">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
-                        <path d="M11 .5c-1.7.2-3.4.9-4.7 2-1.1.9-2 2-2.5 3.2-1.2 2.4-1.2 5.1-.1 7.7 1.1 2.6 2.8 5 5.3 7.5 1.2 1.2 2.8 2.7 3 2.7 0 0 .3-.2.6-.5 3.2-2.7 5.6-5.6 7.1-8.5.8-1.5 1.1-2.6 1.3-3.8.2-1.4 0-2.9-.5-4.3-1.2-3.2-4.1-5.4-7.5-5.8-.5-.2-1.5-.2-2-.2z"/>
-                    </svg>
+            <div class="ui-slider__thumb-wrapper">
+                <div class="ui-slider__thumb" ref="thumb" :style="thumbStyle">
+                    <div class="ui-slider__marker" v-if="showMarker">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
+                            <path d="M11 .5c-1.7.2-3.4.9-4.7 2-1.1.9-2 2-2.5 3.2-1.2 2.4-1.2 5.1-.1 7.7 1.1 2.6 2.8 5 5.3 7.5 1.2 1.2 2.8 2.7 3 2.7 0 0 .3-.2.6-.5 3.2-2.7 5.6-5.6 7.1-8.5.8-1.5 1.1-2.6 1.3-3.8.2-1.4 0-2.9-.5-4.3-1.2-3.2-4.1-5.4-7.5-5.8-.5-.2-1.5-.2-2-.2z"/>
+                        </svg>
 
-                    <span class="ui-slider__marker-text">{{ markerText }}</span>
+                        <span class="ui-slider__marker-text">{{ markerText }}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -87,6 +89,10 @@ export default {
             type: Boolean,
             default: false
         },
+        vertical: {
+            type: Boolean,
+            default: false
+        },
         showMarker: {
             type: Boolean,
             default: false
@@ -113,6 +119,8 @@ export default {
     computed: {
         classes() {
             return [
+                { 'is-horizontal': !this.vertical },
+                { 'is-vertical': this.vertical },
                 { 'is-dragging': this.isDragging },
                 { 'is-disabled': this.disabled },
                 { 'is-active': this.isActive },
@@ -126,14 +134,13 @@ export default {
         },
 
         fillStyle() {
-            return { transform: 'scaleX(' + (this.localValue / 100) + ')' };
+            const property = this.vertical ? 'scaleY' : 'scaleX';
+            return { transform: property + '(' + (this.localValue / 100) + ')' };
         },
 
         thumbStyle() {
             return {
-                transform: 'translateX(' + (
-                    ((this.localValue / 100) * this.trackLength) - (this.thumbSize / 2)
-                ) + 'px)'
+                left: this.localValue + '%'
             };
         },
 
@@ -197,6 +204,7 @@ export default {
         },
 
         setValue(value) {
+            this.refreshSize()
             if (value > 100) {
                 value = 100;
             } else if (value < 0) {
@@ -221,14 +229,14 @@ export default {
         },
 
         getTrackOffset() {
+            const property = this.vertical ? 'offsetTop' : 'offsetLeft'
             let el = this.$refs.track;
-            let offset = el.offsetLeft;
+            let offset = el[property];
 
             while (el.offsetParent) {
                 el = el.offsetParent;
-                offset += el.offsetLeft;
+                offset += el[property];
             }
-
             return offset;
         },
 
@@ -239,8 +247,9 @@ export default {
         },
 
         refreshSize() {
-            this.thumbSize = this.$refs.thumb.offsetWidth;
-            this.trackLength = this.$refs.track.offsetWidth;
+            const property = this.vertical ? 'offsetHeight' : 'offsetWidth'
+            this.thumbSize = this.$refs.thumb[property];
+            this.trackLength = this.$refs.track[property];
             this.trackOffset = this.getTrackOffset(this.$refs.track);
         },
 
@@ -292,11 +301,19 @@ export default {
         },
 
         dragUpdate(e) {
-            const position = e.touches ? e.touches[0].pageX : e.pageX;
+            if (!this.trackLength || !this.trackOffset) {
+                this.refreshSize();
+            }
+            if (this.vertical) {
+                var position = e.touches ? e.touches[0].pageY : e.pageY;
+                position = this.trackLength - position + this.trackOffset
+            } else {
+                var position = e.touches ? e.touches[0].pageX : e.pageX;
+                position = position - this.trackOffset
+            }
             const value = this.getEdge(
-                ((position - this.trackOffset) / this.trackLength) * 100, 0, 100
+                (position / this.trackLength) * 100, 0, 100
             );
-
             if (this.isDragging) {
                 this.setValue(Math.round(value));
             }
@@ -349,15 +366,16 @@ export default {
 <style lang="scss">
 @import './styles/imports';
 
-$ui-slider-height                   : rem-calc(18px) !default;
+$ui-slider-size                     : rem-calc(18px) !default;
 
 // Track line
-$ui-slider-track-height             : rem-calc(3px) !default;
+$ui-slider-track-size               : rem-calc(3px) !default;
 $ui-slider-track-fill-color         : $brand-primary-color !default;
 $ui-slider-track-background-color   : rgba(black, 0.12) !default;
 
 // Drag thumb
 $ui-track-thumb-size                : rem-calc(14px) !default;
+$ui-track-thumb-half-size           : $ui-track-thumb-size / 2;
 $ui-track-thumb-fill-color          : $brand-primary-color !default;
 
 // Focus ring
@@ -369,8 +387,6 @@ $ui-track-focus-ring-color                  : rgba($ui-track-thumb-fill-color, 0
 $ui-slider-marker-size                      : rem-calc(36px);
 
 .ui-slider {
-    align-items: center;
-    display: flex;
     outline: none;
 
     &:not(.is-disabled).is-active,
@@ -417,6 +433,58 @@ $ui-slider-marker-size                      : rem-calc(36px);
             border: rem-calc(2px) solid white;
         }
     }
+
+    &.is-horizontal {
+        .ui-slider__track {
+            width: 100%;
+            height: $ui-slider-size;
+        }
+        .ui-slider__track-background,
+        .ui-slider__track-fill {
+            height: $ui-slider-track-size;
+            left: 0;
+            top: ($ui-slider-size - $ui-slider-track-size) / 2;
+        }
+        .ui-slider__track-background {
+            width: 100%;
+        }
+        .ui-slider__snap-point {
+            width: rem-calc(2px);
+            height: $ui-slider-track-size;
+        }
+        .ui-slider__track-fill {
+            transform-origin: left;
+            width: 100%;
+        }
+    }
+    &.is-vertical {
+        display: table;
+        .ui-slider__track {
+            width: $ui-slider-size;
+            height: 100%;
+        }
+        .ui-slider__track-background,
+        .ui-slider__track-fill {
+            width: $ui-slider-track-size;
+            top: 0;
+            left: ($ui-slider-size - $ui-slider-track-size) / 2;
+        }
+        .ui-slider__track-background {
+            height: 100%;
+        }
+        .ui-slider__snap-point {
+            width: $ui-slider-track-size;
+            height: rem-calc(2px);
+        }
+        .ui-slider__track-fill {
+            transform-origin: bottom;
+            height: 100%;
+        }
+        .ui-slider__thumb {
+            left: ($ui-slider-size - $ui-track-thumb-size) / 2;
+            top: calc(50% + #{$ui-track-thumb-half-size})
+        }
+    }
 }
 
 .ui-slider__icon {
@@ -432,41 +500,36 @@ $ui-slider-marker-size                      : rem-calc(36px);
     align-items: center;
     cursor: pointer;
     display: flex;
-    height: $ui-slider-height;
     margin: 0 auto;
     position: relative;
-    width: 100%;
 }
 
 .ui-slider__track-background,
 .ui-slider__track-fill {
     content: '';
     display: block;
-    height: $ui-slider-track-height;
-    left: 0;
     position: absolute;
-    top: ($ui-slider-height - $ui-slider-track-height) / 2;
 }
 
 .ui-slider__track-background {
     background-color: $ui-slider-track-background-color;
-    width: 100%;
 }
 
 .ui-slider__snap-point {
     background-color: rgba(black, 0.75);
-    height: $ui-slider-track-height;
     opacity: 0;
     position: absolute;
     transform: opacity 0.2s ease;
-    width: rem-calc(2px);
     z-index: 1;
 }
 
 .ui-slider__track-fill {
     background-color: $ui-slider-track-fill-color;
-    transform-origin: left;
+}
+
+.ui-slider__thumb-wrapper {
     width: 100%;
+    padding-right: 0.875rem;
 }
 
 .ui-slider__thumb {

@@ -1,3 +1,4 @@
+
 <template>
     <div class="ui-select" :class="classes">
         <input
@@ -250,6 +251,7 @@ export default {
                 `ui-select--type-${this.type}`,
                 `ui-select--icon-position-${this.iconPosition}`,
                 { 'is-active': this.isActive },
+                { 'is-dirty': this.isDirty },
                 { 'is-invalid': this.invalid },
                 { 'is-touched': this.isTouched },
                 { 'is-disabled': this.disabled },
@@ -276,6 +278,10 @@ export default {
 
         isLabelInline() {
             return this.value.length === 0 && !this.isActive;
+        },
+
+        isDirty() {
+            return this.value[this.keys.value] !== undefined;
         },
 
         hasFeedback() {
@@ -615,9 +621,16 @@ export default {
             color: $ui-input-label-color--active;
         }
 
-        .ui-select__display {
-            border-bottom-color: $ui-input-border-color--active;
-            border-bottom-width: $ui-input-border-width--active;
+        .ui-select__label:after {
+            visibility: visible;
+            width: 100%;
+        }
+    }
+
+    &.is-dirty:not(.is-disabled) {
+        .ui-select__label-text,
+        .ui-select__icon-wrapper .ui-icon {
+            color: $ui-input-label-color--active;
         }
     }
 
@@ -710,6 +723,20 @@ export default {
     padding: 0;
     position: relative;
     width: 100%;
+
+    &:after {
+        content: '';
+        visibility: hidden;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: $ui-input-border-color--active;
+        transform: translateX(-50%);
+        transition-duration: .2s;
+        transition-timing-function: cubic-bezier(.4,0,.2,1);
+    }
 }
 
 .ui-select__icon-wrapper {
