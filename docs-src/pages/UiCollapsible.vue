@@ -6,7 +6,7 @@
 
         <p>Both the header and body are fully customizable (using <code>slots</code>). UiCollapsible is keyboard accessible and it supports a disabled state.</p>
 
-        <p>UiCollapsible doesn't support accordion sets (i.e. closing other collapsibles when one is opened). You can achieve that effect by listening for <code>@open</code> and <code>@close</code> on each collapsible in the set and then adjusting their <code>open</code> prop accordingly.</p>
+        <p>UiCollapsible doesn't support accordion sets (i.e. closing other collapsibles when one is opened). You can achieve that effect by listening for <code>@open</code>/<code>@beforeOpen</code> and <code>@close</code> on each collapsible in the set and then adjusting their <code>open</code> prop accordingly.</p>
 
         <h3 class="page__section-title">
             Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiCollapsible.vue" target="_blank" rel="noopener">View Source</a>
@@ -50,6 +50,45 @@
             <ui-collapsible title="The header icon can be removed" remove-icon>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!
             </ui-collapsible>
+
+            <table style="width: 100%; margin-top: 20px;">
+                <tr>
+                    <td style="padding-right: 10px; vertical-align: top;">
+                        <p>Accordeon behavior &mdash; using <code>@open</code>: a previously opened tab will close <em>after</em> a new tab has opened.</p>
+                        <ui-collapsible title="Accordeon tab"
+                            :open="accordeon.active == 'a'"
+                            @open="accordeon.active = 'a'"
+                            @close="closeAccordeonCollapsible(accordeon, 'a')"
+                        >
+                            Bla bla
+                        </ui-collapsible>
+                        <ui-collapsible title="Accordeon tab"
+                            :open="accordeon.active == 'b'"
+                            @open="accordeon.active = 'b'"
+                            @close="closeAccordeonCollapsible(accordeon, 'b')"
+                        >
+                            Bla bla
+                        </ui-collapsible>
+                    </td>
+                    <td style="padding-left: 10px; vertical-align: top;">
+                        <p>Accordeon behavior &mdash; using <code>@beforeOpen</code>: a previously opened tab will close <em>simultaneously</em> with the opening of a new tab.</p>
+                        <ui-collapsible title="Accordeon tab"
+                            :open="accordeon2.active == 'a'"
+                            @beforeOpen="accordeon2.active = 'a'"
+                            @close="closeAccordeonCollapsible(accordeon2, 'a')"
+                        >
+                            Bla bla
+                        </ui-collapsible>
+                        <ui-collapsible title="Accordeon tab"
+                            :open="accordeon2.active == 'b'"
+                            @beforeOpen="accordeon2.active = 'b'"
+                            @close="closeAccordeonCollapsible(accordeon2, 'b')"
+                        >
+                            Bla bla
+                        </ui-collapsible>
+                    </td>
+                </tr>
+            </table>
         </div>
 
         <h3 class="page__section-title">API</h3>
@@ -157,6 +196,14 @@
 
                         <tbody>
                             <tr>
+                                <td>beforeOpen</td>
+                                <td>
+                                    <p>Emitted before the collapsible starts to open. Can be used for nice accordeon behavior, as demonstrated above.</p>
+                                    <p>Listen for it using <code>@beforeOpen</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>open</td>
                                 <td>
                                     <p>Emitted when the collapsible is opened. You should listen for this event and update the <code>open</code> prop to <code>true</code>.</p>
@@ -208,6 +255,23 @@ import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
 
 export default {
+    data() {
+        return {
+            accordeon: {
+                active: null
+            },
+            accordeon2: {
+                active: null
+            }
+        };
+    },
+    methods: {
+        closeAccordeonCollapsible(accordeon, id) {
+            if (accordeon.active === id) {
+                accordeon.active = null;
+            }
+        }
+    },
     components: {
         UiCollapsible,
         UiTab,

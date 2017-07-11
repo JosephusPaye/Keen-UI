@@ -29,6 +29,7 @@
 
         <transition
             name="ui-collapsible--transition-toggle"
+            @before-enter="onBeforeEnter"
             @after-enter="onEnter"
             @after-leave="onLeave"
         >
@@ -119,6 +120,10 @@ export default {
     },
 
     methods: {
+        onBeforeEnter() {
+            this.$emit('beforeOpen');
+        },
+
         onEnter() {
             this.$emit('open');
             this.refreshHeight();
