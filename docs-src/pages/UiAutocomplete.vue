@@ -146,7 +146,7 @@
                             </tr>
 
                             <tr>
-                                <td class="no-wrap">value, v-model *</td>
+                                <td class="no-wrap">value, v-model</td>
                                 <td>String</td>
                                 <td></td>
                                 <td>

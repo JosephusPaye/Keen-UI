@@ -194,7 +194,7 @@
                             </tr>
 
                             <tr>
-                                <td class="no-wrap">value, v-model *</td>
+                                <td class="no-wrap">value, v-model</td>
                                 <td>String, Number</td>
                                 <td></td>
                                 <td>
