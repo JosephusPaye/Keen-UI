@@ -9,7 +9,7 @@
 * Fix error being thrown when using UiRippleInk with SVG elements on touch devices. See [#236](https://github.com/JosephusPaye/Keen-UI/issues/236).
 * Fix minor errors and dead links in the docs
 * Remove Material Icons webfont and use inline SVG icons in the docs
-* Update [contributing guidelines](https://github.com/JosephusPaye/Keen-UI/blob/v1.0.1/CONTRIBUTING.md) with information about linting and using the `next` branch
+* Update [contributing guidelines](https://github.com/JosephusPaye/Keen-UI/blob/v1.0.1/CONTRIBUTING.md) with information about linting, BEM and using the `next` branch
 
 ## v1.0.0
 
