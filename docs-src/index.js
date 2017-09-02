@@ -11,6 +11,9 @@ import Routes from './routes.js';
 // Allow inspection, even in production mode
 Vue.config.devtools = true;
 
+// Turn off the nagging production tip
+Vue.config.productionTip = false;
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
