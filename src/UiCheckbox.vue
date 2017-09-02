@@ -101,7 +101,6 @@ export default {
         },
 
         onChange(e) {
-            this.isChecked = e.target.checked;
             this.$emit('change', this.isChecked ? this.trueValue : this.falseValue, e);
         },
 
