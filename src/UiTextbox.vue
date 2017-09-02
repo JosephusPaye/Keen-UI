@@ -163,6 +163,10 @@ export default {
         disabled: {
             type: Boolean,
             default: false
+        },
+        keepExtra: {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -230,7 +234,7 @@ export default {
         },
 
         hasFeedback() {
-            return Boolean(this.help) || Boolean(this.error);
+            return Boolean(this.help) || Boolean(this.error) || this.keepExtra;
         },
 
         showError() {
