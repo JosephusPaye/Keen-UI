@@ -239,7 +239,4 @@ routes.push({
     redirect: '/ui-alert'
 });
 
-export default {
-    menu,
-    routes
-};
+export { menu, routes };
