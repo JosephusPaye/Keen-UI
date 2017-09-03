@@ -16,10 +16,11 @@
                     tabindex="0"
 
                     :image="simpson.image"
+                    :key="index"
                     :name="simpson.name"
                     :tooltip-position="simpson.position"
 
-                    v-for="simpson in theSimpsons"
+                    v-for="(simpson, index) in theSimpsons"
                 ></image-pane>
             </div>
         </div>
@@ -186,6 +187,7 @@ export default {
     }
 
     .image-pane {
+        background-color: #EEE;
         background-position: 50%;
         background-size: cover;
         margin-bottom: rem-calc(16px);

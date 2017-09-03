@@ -458,7 +458,7 @@ $ui-slider-marker-size                      : rem-calc(36px);
     height: $ui-slider-track-height;
     opacity: 0;
     position: absolute;
-    transform: opacity 0.2s ease;
+    transition: opacity 0.2s ease;
     width: rem-calc(2px);
     z-index: 1;
 }

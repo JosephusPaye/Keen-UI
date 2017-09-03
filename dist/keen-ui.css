@@ -1,10 +1,11 @@
 /*!
- * Keen UI v1.0.0 (https://github.com/JosephusPaye/keen-ui)
+ * Keen UI v1.0.1 (https://github.com/JosephusPaye/keen-ui)
  * (c) 2017 Josephus Paye II
  * Released under the MIT License.
  */
 
 .ui-alert {
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -13,6 +14,7 @@
   margin-bottom: 1rem;
   overflow: hidden;
   position: relative;
+  -webkit-transition: margin-bottom 0.3s;
   transition: margin-bottom 0.3s;
   width: 100%;
 }
@@ -30,23 +32,29 @@
   margin-right: 0.75rem;
 }
 .ui-alert__body {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: rgba(0, 0, 0, 0.75);
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: row;
-      flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   margin-bottom: 0;
   margin-top: 0;
   min-height: 3rem;
   padding: 0.75rem 1rem;
+  -webkit-transition: opacity 0.3s, margin-top 0.4s;
   transition: opacity 0.3s, margin-top 0.4s;
   width: 100%;
 }
 .ui-alert__content {
-  -ms-flex-positive: 1;
-      flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 .ui-alert__dismiss-button {
   -ms-flex-item-align: start;
@@ -105,17 +113,20 @@
 }
 
 .ui-close-button {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: transparent;
   background: none;
   border-radius: 50%;
   border: none;
   cursor: pointer;
+  display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -ms-flex-pack: center;
-      justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin: 0;
   outline: none;
   overflow: hidden;
@@ -131,7 +142,8 @@
 }
 body[modality="keyboard"] .ui-close-button:focus .ui-close-button__focus-ring {
     opacity: 1;
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
 }
 .ui-close-button.is-disabled {
     cursor: default;
@@ -149,9 +161,14 @@ body[modality="keyboard"] .ui-close-button:focus .ui-close-button__focus-ring {
   opacity: 0;
   position: absolute;
   top: 0;
-  transform-origin: center;
-  transform: scale(0);
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition: opacity 0.2s ease, -webkit-transform 0.2s ease;
+  transition: opacity 0.2s ease, -webkit-transform 0.2s ease;
   transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, -webkit-transform 0.2s ease;
 }
 .ui-close-button--size-small,
 .ui-close-button--size-small .ui-close-button__focus-ring {
@@ -203,6 +220,7 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
   width: 1em;
 }
 .ui-icon svg {
+    display: block;
     fill: currentColor;
     height: 1em;
     margin: 0;
@@ -229,8 +247,12 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
   opacity: 0.2;
   pointer-events: none;
   position: absolute;
-  transform: scale(0);
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
+  transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
   transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+  transition: transform 0.6s ease-out, opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -239,15 +261,18 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
 }
 .ui-ripple-ink__ink.is-held {
     opacity: 0.4;
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
 }
 .ui-ripple-ink__ink.is-done {
     opacity: 0 !important;
 }
 
 .ui-autocomplete {
-  -ms-flex-align: start;
-      align-items: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -274,10 +299,12 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
 .ui-autocomplete.has-floating-label .ui-autocomplete__label-text.is-inline {
       color: rgba(0, 0, 0, 0.54);
       cursor: text;
-      transform: translateY(1.625rem) scale(1.1);
+      -webkit-transform: translateY(1.625rem) scale(1.1);
+              transform: translateY(1.625rem) scale(1.1);
 }
 .ui-autocomplete.has-floating-label .ui-autocomplete__label-text.is-floating {
-      transform: translateY(0) scale(1);
+      -webkit-transform: translateY(0) scale(1);
+              transform: translateY(0) scale(1);
 }
 .ui-autocomplete.has-label .ui-autocomplete__icon-wrapper {
     padding-top: 1.5rem;
@@ -323,16 +350,22 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
     color: rgba(0, 0, 0, 0.54);
 }
 .ui-autocomplete__content {
-  -ms-flex-positive: 1;
-      flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 .ui-autocomplete__label-text {
   color: rgba(0, 0, 0, 0.54);
+  cursor: default;
   font-size: 0.9375rem;
   line-height: normal;
   margin-bottom: 0;
-  transform-origin: left;
+  -webkit-transform-origin: left;
+          transform-origin: left;
+  -webkit-transition: color 0.1s ease, -webkit-transform 0.2s ease;
+  transition: color 0.1s ease, -webkit-transform 0.2s ease;
   transition: color 0.1s ease, transform 0.2s ease;
+  transition: color 0.1s ease, transform 0.2s ease, -webkit-transform 0.2s ease;
 }
 .ui-autocomplete__input {
   background: none;
@@ -349,6 +382,7 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
   height: 2rem;
   outline: none;
   padding: 0;
+  -webkit-transition: border 0.1s ease;
   transition: border 0.1s ease;
   width: 100%;
 }
@@ -390,8 +424,9 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
 .ui-autocomplete--icon-position-right .ui-autocomplete__icon-wrapper {
   margin-left: 0.5rem;
   margin-right: 0;
-  -ms-flex-order: 1;
-      order: 1;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
 }
 
 .ui-autocomplete-suggestion {
@@ -410,8 +445,10 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
@@ -425,20 +462,23 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
 }
 
 .ui-button {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background: none;
   border-radius: 0.125rem;
   border: none;
   cursor: pointer;
+  display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 0.875rem;
   font-weight: 500;
   height: 2.25rem;
-  -ms-flex-pack: center;
-      justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   letter-spacing: 0.02em;
   line-height: 1;
   min-width: 5rem;
@@ -458,10 +498,12 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
 .ui-button.has-focus-ring:focus .ui-button__focus-ring,
   body[modality="keyboard"] .ui-button:focus .ui-button__focus-ring {
     opacity: 1;
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
 }
 .ui-button.is-raised {
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.2);
+    -webkit-transition: box-shadow 0.1s;
     transition: box-shadow 0.1s;
 }
 .ui-button.is-raised.has-focus-ring:focus,
@@ -476,13 +518,17 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
     opacity: 0.6;
 }
 .ui-button__content {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
-      justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   position: relative;
+  -webkit-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease;
   z-index: 1;
 }
@@ -503,17 +549,24 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
   opacity: 0;
   position: absolute;
   top: 0;
-  transform-origin: center;
-  transform: scale(0);
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition: opacity 0.2s ease, -webkit-transform 0.2s ease;
+  transition: opacity 0.2s ease, -webkit-transform 0.2s ease;
   transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, -webkit-transform 0.2s ease;
 }
 .ui-progress-circular.ui-button__progress {
   left: 50%;
   position: absolute;
   top: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 .ui-button-group {
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
@@ -522,8 +575,9 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
 .ui-button--icon-position-right .ui-button__icon {
   margin-left: 0.375rem;
   margin-right: -0.25rem;
-  -ms-flex-order: 1;
-      order: 1;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
 }
 .ui-button--size-small {
   font-size: 0.875rem;
@@ -668,6 +722,7 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
   max-width: 100%;
   opacity: 0;
   position: absolute;
+  -webkit-transition: opacity 0.2s ease;
   transition: opacity 0.2s ease;
   z-index: 60;
 }
@@ -688,14 +743,17 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
   position: relative;
 }
 .ui-progress-circular__determinate {
-  transform: rotate(270deg);
+  -webkit-transform: rotate(270deg);
+          transform: rotate(270deg);
 }
 .ui-progress-circular__determinate-path {
   stroke-dashoffset: 0;
+  -webkit-transition: stroke-dashoffset 0.3s;
   transition: stroke-dashoffset 0.3s;
 }
 .ui-progress-circular__indeterminate {
-  animation: ui-progress-circular-rotate 0.7s linear infinite;
+  -webkit-animation: ui-progress-circular-rotate 0.7s linear infinite;
+          animation: ui-progress-circular-rotate 0.7s linear infinite;
   bottom: 0;
   height: 100%;
   left: 0;
@@ -703,7 +761,8 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
   position: absolute;
   right: 0;
   top: 0;
-  transform-origin: center center;
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
   width: 100%;
 }
 .ui-progress-circular__indeterminate-path {
@@ -715,7 +774,8 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
   stroke: #2196f3;
 }
 .ui-progress-circular--color-multi-color .ui-progress-circular__indeterminate-path {
-  animation: ui-progress-circular-color 6s ease-in-out infinite;
+  -webkit-animation: ui-progress-circular-color 6s ease-in-out infinite;
+          animation: ui-progress-circular-color 6s ease-in-out infinite;
 }
 .ui-progress-circular--color-primary .ui-progress-circular__determinate-path,
 .ui-progress-circular--color-primary .ui-progress-circular__indeterminate-path {
@@ -735,16 +795,43 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
 }
 .ui-progress-circular--transition-fade-enter-active,
 .ui-progress-circular--transition-fade-leave-active {
+  -webkit-transition: opacity 0.3s ease, -webkit-transform 0.3s ease;
+  transition: opacity 0.3s ease, -webkit-transform 0.3s ease;
   transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease, -webkit-transform 0.3s ease;
 }
 .ui-progress-circular--transition-fade-enter,
 .ui-progress-circular--transition-fade-leave-active {
   opacity: 0;
-  transform: scale(0);
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+@-webkit-keyframes ui-progress-circular-rotate {
+100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+}
 }
 @keyframes ui-progress-circular-rotate {
 100% {
-    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+}
+}
+@-webkit-keyframes ui-progress-circular-color {
+0%,
+  100% {
+    stroke: #f44336;
+}
+40% {
+    stroke: #2196f3;
+}
+66% {
+    stroke: #4caf50;
+}
+80%,
+  90% {
+    stroke: #ff9800;
 }
 }
 @keyframes ui-progress-circular-color {
@@ -766,6 +853,7 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
 
 .ui-calendar {
   color: rgba(0, 0, 0, 0.87);
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 .ui-calendar__header {
   color: white;
@@ -776,6 +864,7 @@ body[modality="keyboard"] .ui-close-button--color-white:focus .ui-close-button__
 .ui-calendar__header-details {
   cursor: pointer;
   opacity: 0.75;
+  -webkit-transition: opacity 0.2s ease;
   transition: opacity 0.2s ease;
 }
 .ui-calendar__header-year:hover,
@@ -814,15 +903,18 @@ body[modality="keyboard"] .ui-calendar__header-year:focus, body[modality="keyboa
   padding: 0.5rem 0;
 }
 .ui-calendar__year {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   cursor: pointer;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-size: 1rem;
   height: 2.25rem;
-  -ms-flex-pack: center;
-      justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   outline: none;
 }
 .ui-calendar__year.is-selected {
@@ -831,6 +923,7 @@ body[modality="keyboard"] .ui-calendar__header-year:focus, body[modality="keyboa
     height: 2.5rem;
 }
 .ui-calendar--orientation-landscape {
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
@@ -880,29 +973,35 @@ body[modality="keyboard"] .ui-calendar--color-accent .ui-calendar-week__date.is-
 }
 
 .ui-calendar-controls {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   height: 2.5rem;
-  -ms-flex-pack: justify;
-      justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 .ui-calendar-controls__month-and-year {
   font-size: 0.9375rem;
 }
 
 .ui-icon-button {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background: none;
   border-radius: 50%;
   border: none;
   cursor: pointer;
+  display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -ms-flex-pack: center;
-      justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin: 0;
   outline: none;
   overflow: hidden;
@@ -917,7 +1016,8 @@ body[modality="keyboard"] .ui-calendar--color-accent .ui-calendar-week__date.is-
 }
 body[modality="keyboard"] .ui-icon-button:focus .ui-icon-button__focus-ring {
     opacity: 1;
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
 }
 .ui-icon-button::-moz-focus-inner {
     border: 0;
@@ -933,7 +1033,9 @@ body[modality="keyboard"] .ui-icon-button:focus .ui-icon-button__focus-ring {
   height: initial;
   opacity: 1;
   position: relative;
-  transition-delay: 0.1s;
+  -webkit-transition-delay: 0.1s;
+          transition-delay: 0.1s;
+  -webkit-transition: opacity 0.2s ease;
   transition: opacity 0.2s ease;
   width: 100%;
   z-index: 1;
@@ -945,16 +1047,22 @@ body[modality="keyboard"] .ui-icon-button:focus .ui-icon-button__focus-ring {
   opacity: 0;
   position: absolute;
   top: 0;
-  transform-origin: center;
-  transform: scale(0);
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition: opacity 0.2s ease, -webkit-transform 0.2s ease;
+  transition: opacity 0.2s ease, -webkit-transform 0.2s ease;
   transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, -webkit-transform 0.2s ease;
   width: 2.25rem;
 }
 .ui-progress-circular.ui-icon-button__progress {
   left: 50%;
   position: absolute;
   top: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 .ui-icon-button--size-small,
 .ui-icon-button--size-small .ui-icon-button__focus-ring {
@@ -1118,6 +1226,7 @@ body[modality="keyboard"] .ui-icon-button:focus .ui-icon-button__focus-ring {
   display: none;
   opacity: 0;
   position: absolute;
+  -webkit-transition: opacity 0.2s;
   transition: opacity 0.2s;
 }
 .tooltip-element.tooltip-open {
@@ -1133,11 +1242,13 @@ body[modality="keyboard"] .ui-icon-button:focus .ui-icon-button__focus-ring {
   z-index: 70;
 }
 .tooltip-element.ui-tooltip--theme-default .tooltip-content {
-    -ms-flex-align: center;
-        align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     background: #212121;
     border-radius: 0.125rem;
     color: white;
+    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     font-family: inherit;
@@ -1192,8 +1303,10 @@ body[modality="keyboard"] .ui-icon-button:focus .ui-icon-button__focus-ring {
   width: 100%;
 }
 .ui-calendar-month__header {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   height: 2.5rem;
@@ -1202,15 +1315,18 @@ body[modality="keyboard"] .ui-icon-button:focus .ui-icon-button__focus-ring {
   width: 100%;
 }
 .ui-calendar-month__header span {
-    -ms-flex-align: center;
-        align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     color: rgba(0, 0, 0, 0.54);
+    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     font-size: 0.875rem;
     height: 2.25rem;
-    -ms-flex-pack: center;
-        justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     text-transform: uppercase;
     width: 2.25rem;
 }
@@ -1228,31 +1344,40 @@ body[modality="keyboard"] .ui-icon-button:focus .ui-icon-button__focus-ring {
       left: -15.75rem;
 }
 .ui-calendar-month__week.is-sliding {
+    -webkit-transition: -webkit-transform 250ms ease;
+    transition: -webkit-transform 250ms ease;
     transition: transform 250ms ease;
+    transition: transform 250ms ease, -webkit-transform 250ms ease;
 }
 .ui-calendar-month__week.is-sliding.ui-calendar-month--slide-left {
-      transform: translate3d(-15.75rem, 0, 0);
+      -webkit-transform: translate3d(-15.75rem, 0, 0);
+              transform: translate3d(-15.75rem, 0, 0);
 }
 .ui-calendar-month__week.is-sliding.ui-calendar-month--slide-right {
-      transform: translate3d(15.75rem, 0, 0);
+      -webkit-transform: translate3d(15.75rem, 0, 0);
+              transform: translate3d(15.75rem, 0, 0);
 }
 
 .ui-calendar-week {
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-size: 0.875rem;
   width: 100%;
 }
 .ui-calendar-week__date {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-radius: 50%;
   cursor: pointer;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   height: 2.25rem;
-  -ms-flex-pack: center;
-      justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   outline: none;
   text-align: center;
   width: 2.25rem;
@@ -1280,8 +1405,10 @@ body[modality="keyboard"] .ui-icon-button:focus .ui-icon-button__focus-ring {
 }
 
 .ui-checkbox {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -1334,6 +1461,7 @@ body[modality="keyboard"] .ui-icon-button:focus .ui-icon-button__focus-ring {
     left: 0;
     position: absolute;
     top: 0;
+    -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
     width: 100%;
 }
@@ -1346,8 +1474,11 @@ body[modality="keyboard"] .ui-icon-button:focus .ui-icon-button__focus-ring {
     left: 0.4375rem;
     opacity: 0;
     position: absolute;
-    transform: rotate(45deg);
-    transition-delay: 0.1s;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+    -webkit-transition-delay: 0.1s;
+            transition-delay: 0.1s;
+    -webkit-transition: opacity 0.3s ease;
     transition: opacity 0.3s ease;
     width: 0.375rem;
 }
@@ -1357,7 +1488,8 @@ body[modality="keyboard"] .ui-icon-button:focus .ui-icon-button__focus-ring {
 }
 body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .ui-checkbox__focus-ring {
     opacity: 1;
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
 }
 .ui-checkbox__focus-ring {
   border-radius: 50%;
@@ -1366,18 +1498,25 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
   margin-top: -0.6875rem;
   opacity: 0;
   position: absolute;
-  transform: scale(0);
-  transition-duration: 0.15s;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition-duration: 0.15s;
+          transition-duration: 0.15s;
+  -webkit-transition-property: opacity, -webkit-transform;
+  transition-property: opacity, -webkit-transform;
   transition-property: opacity, transform;
-  transition-timing-function: ease-out;
+  transition-property: opacity, transform, -webkit-transform;
+  -webkit-transition-timing-function: ease-out;
+          transition-timing-function: ease-out;
   width: 2.625rem;
   background-color: rgba(0, 0, 0, 0.12);
 }
 .ui-checkbox--box-position-right .ui-checkbox__label-text {
   margin-left: 0;
   margin-right: auto;
-  -ms-flex-order: -1;
-      order: -1;
+  -webkit-box-ordinal-group: 0;
+      -ms-flex-order: -1;
+          order: -1;
 }
 .ui-checkbox--color-primary:not(.is-disabled).is-checked:hover .ui-checkbox__checkmark::before, .ui-checkbox--color-primary:not(.is-disabled).is-checked.is-active .ui-checkbox__checkmark::before {
   background-color: #0d8aee;
@@ -1413,8 +1552,10 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
     color: #2196f3;
 }
 .ui-checkbox-group.is-vertical .ui-checkbox-group__checkboxes {
-    -ms-flex-direction: column;
-        flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     padding-top: 0.5rem;
 }
 .ui-checkbox-group.is-vertical .ui-checkbox-group__checkbox {
@@ -1434,11 +1575,14 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
 .ui-checkbox-group__label-text {
   color: rgba(0, 0, 0, 0.54);
   font-size: 0.9375rem;
+  -webkit-transition: color 0.1s ease;
   transition: color 0.1s ease;
 }
 .ui-checkbox-group__checkboxes {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   min-height: 2rem;
@@ -1472,7 +1616,8 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
     background-color: #e0e0e0;
 }
 .ui-collapsible.is-open .ui-collapsible__header-icon {
-    transform: rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+            transform: rotate(-180deg);
 }
 .ui-collapsible.is-disabled .ui-collapsible__header {
     cursor: default;
@@ -1482,10 +1627,12 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
     cursor: default;
 }
 .ui-collapsible__header {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: #eeeeee;
   cursor: pointer;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-size: 0.9375rem;
@@ -1509,7 +1656,10 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
   cursor: pointer;
   margin-left: auto;
   margin-right: -0.25rem;
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: -webkit-transform 0.3s ease;
   transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
 }
 .ui-collapsible__body-wrapper {
   height: initial;
@@ -1524,6 +1674,7 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
 }
 .ui-collapsible--transition-toggle-enter-active,
 .ui-collapsible--transition-toggle-leave-active {
+  -webkit-transition: height 0.3s ease;
   transition: height 0.3s ease;
 }
 .ui-collapsible--transition-toggle-enter,
@@ -1536,6 +1687,7 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
   font-size: 0.9375rem;
 }
 .ui-confirm__footer {
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
@@ -1560,6 +1712,7 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
   left: 0;
   position: fixed;
   top: 0;
+  -webkit-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease;
   width: 100%;
   z-index: 50;
@@ -1582,14 +1735,17 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
   outline: none;
   overflow: hidden;
   padding: 0;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   width: 33rem;
 }
 .ui-modal__header {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: #F5F5F5;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.16);
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   height: 3.5rem;
@@ -1598,12 +1754,15 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
   z-index: 1;
 }
 .ui-modal__header-text {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-positive: 1;
-      flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   font-size: 1.125rem;
   font-weight: normal;
   margin: 0;
@@ -1618,13 +1777,16 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
   padding: 1rem 1.5rem;
 }
 .ui-modal__footer {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   height: 4.375rem;
-  -ms-flex-pack: end;
-      justify-content: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   padding: 0 1.5rem;
 }
 .ui-modal__footer .ui-button {
@@ -1649,12 +1811,15 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
 }
 .ui-modal--transition-scale-enter .ui-modal__container,
   .ui-modal--transition-scale-leave-active .ui-modal__container {
-    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
 }
 
 .ui-datepicker {
-  -ms-flex-align: start;
-      align-items: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -1685,10 +1850,12 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
 .ui-datepicker.has-floating-label .ui-datepicker__label-text.is-inline {
       color: rgba(0, 0, 0, 0.54);
       cursor: pointer;
-      transform: translateY(1.625rem) scale(1.1);
+      -webkit-transform: translateY(1.625rem) scale(1.1);
+              transform: translateY(1.625rem) scale(1.1);
 }
 .ui-datepicker.has-floating-label .ui-datepicker__label-text.is-floating {
-      transform: translateY(0) scale(1);
+      -webkit-transform: translateY(0) scale(1);
+              transform: translateY(0) scale(1);
 }
 .ui-datepicker.has-label .ui-datepicker__icon-wrapper {
     padding-top: 1.5rem;
@@ -1750,26 +1917,34 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
     color: rgba(0, 0, 0, 0.54);
 }
 .ui-datepicker__content {
-  -ms-flex-positive: 1;
-      flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 .ui-datepicker__label-text {
   color: rgba(0, 0, 0, 0.54);
+  cursor: default;
   font-size: 0.9375rem;
   line-height: normal;
   margin-bottom: 0;
-  transform-origin: left;
+  -webkit-transform-origin: left;
+          transform-origin: left;
+  -webkit-transition: color 0.1s ease, -webkit-transform 0.2s ease;
+  transition: color 0.1s ease, -webkit-transform 0.2s ease;
   transition: color 0.1s ease, transform 0.2s ease;
+  transition: color 0.1s ease, transform 0.2s ease, -webkit-transform 0.2s ease;
 }
 .ui-datepicker__display {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border: none;
   border-bottom-color: rgba(0, 0, 0, 0.12);
   border-bottom-style: solid;
   border-bottom-width: 1px;
   color: rgba(0, 0, 0, 0.87);
   cursor: pointer;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -1778,6 +1953,7 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
   height: 2rem;
   line-height: 1;
   padding: 0;
+  -webkit-transition: border 0.1s ease;
   transition: border 0.1s ease;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -1786,8 +1962,9 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
   width: 100%;
 }
 .ui-datepicker__display-value {
-  -ms-flex-positive: 1;
-      flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 .ui-datepicker__display-value.is-placeholder {
     color: rgba(0, 0, 0, 0.38);
@@ -1807,10 +1984,12 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
   position: relative;
 }
 .ui-datepicker__modal-buttons {
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: end;
-      justify-content: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 .ui-datepicker__modal-buttons .ui-button {
     min-width: 4rem;
@@ -1818,26 +1997,31 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
 .ui-datepicker--icon-position-right .ui-datepicker__icon-wrapper {
   margin-left: 0.5rem;
   margin-right: 0;
-  -ms-flex-order: 1;
-      order: 1;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
 }
 .ui-datepicker--orientation-landscape .ui-modal__container {
   width: 24.75rem;
 }
 
 .ui-fab {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-radius: 50%;
   border: none;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.16);
   cursor: pointer;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
-      justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   outline: none;
   position: relative;
+  -webkit-transition: box-shadow 0.3s ease;
   transition: box-shadow 0.3s ease;
   z-index: 30;
 }
@@ -1850,7 +2034,8 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
 }
 body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
     opacity: 1;
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
 }
 .ui-fab .ui-ripple-ink {
     border-radius: 50%;
@@ -1868,9 +2053,14 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
   opacity: 0;
   position: absolute;
   top: 0;
-  transform-origin: center;
-  transform: scale(0);
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition: opacity 0.2s ease, -webkit-transform 0.2s ease;
+  transition: opacity 0.2s ease, -webkit-transform 0.2s ease;
   transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, -webkit-transform 0.2s ease;
 }
 .ui-fab--size-normal,
 .ui-fab--size-normal .ui-fab__focus-ring {
@@ -1921,18 +2111,21 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
 }
 
 .ui-fileupload {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-radius: 0.125rem;
   cursor: pointer;
+  display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 0.875rem;
   font-weight: 500;
   height: 2.25rem;
-  -ms-flex-pack: center;
-      justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   letter-spacing: 0.02em;
   line-height: 1;
   min-width: 5rem;
@@ -1946,13 +2139,15 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
 .ui-fileupload.has-focus-ring.is-active .ui-fileupload__focus-ring,
   body[modality="keyboard"] .ui-fileupload.is-active .ui-fileupload__focus-ring {
     opacity: 1;
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
 }
 .ui-fileupload:not(.is-multiple) .ui-fileupload__display-text {
     text-transform: none;
 }
 .ui-fileupload.is-raised {
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.2);
+    -webkit-transition: box-shadow 0.1s;
     transition: box-shadow 0.1s;
 }
 .ui-fileupload.is-raised.has-focus-ring.is-active,
@@ -1972,12 +2167,16 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
   width: 0.1px;
 }
 .ui-fileupload__content {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
-      justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease;
   z-index: 1;
 }
@@ -1993,15 +2192,21 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
   opacity: 0;
   position: absolute;
   top: 0;
-  transform-origin: center;
-  transform: scale(0);
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition: opacity 0.2s ease, -webkit-transform 0.2s ease;
+  transition: opacity 0.2s ease, -webkit-transform 0.2s ease;
   transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, -webkit-transform 0.2s ease;
 }
 .ui-fileupload--icon-position-right .ui-fileupload__icon {
   margin-left: 0.375rem;
   margin-right: -0.25rem;
-  -ms-flex-order: 1;
-      order: 1;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
 }
 .ui-fileupload--size-small {
   font-size: 0.875rem;
@@ -2153,8 +2358,10 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
         color: rgba(0, 0, 0, 0.54);
 }
 .ui-menu-option__content {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   height: 2.5rem;
@@ -2169,8 +2376,9 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  -ms-flex-positive: 1;
-      flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 .ui-menu-option__secondary-text {
   color: rgba(0, 0, 0, 0.38);
@@ -2189,20 +2397,25 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
     padding-top: 0.1875rem;
 }
 .ui-preloader__progressbar {
-  animation: ui-preloader-background linear 3s infinite;
+  -webkit-animation: ui-preloader-background linear 3s infinite;
+          animation: ui-preloader-background linear 3s infinite;
   background-color: #159756;
   left: 0;
   opacity: 0;
   position: absolute;
   top: 0;
-  transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  -webkit-transition-property: opacity, padding-top;
   transition-property: opacity, padding-top;
-  transition-timing-function: ease;
+  -webkit-transition-timing-function: ease;
+          transition-timing-function: ease;
   width: 100%;
   overflow: hidden;
 }
 .ui-preloader__progressbar::before, .ui-preloader__progressbar::after {
-    animation: ui-preloader-front linear 3s infinite;
+    -webkit-animation: ui-preloader-front linear 3s infinite;
+            animation: ui-preloader-front linear 3s infinite;
     content: '';
     display: block;
     height: 0.1875rem;
@@ -2213,11 +2426,31 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
 }
 .ui-preloader__progressbar::before {
     right: 50%;
-    transform-origin: right;
+    -webkit-transform-origin: right;
+            transform-origin: right;
 }
 .ui-preloader__progressbar::after {
     left: 50%;
-    transform-origin: left;
+    -webkit-transform-origin: left;
+            transform-origin: left;
+}
+@-webkit-keyframes ui-preloader-background {
+0%,
+  24.9% {
+    background-color: #159756;
+}
+25%,
+  49.9% {
+    background-color: #da4733;
+}
+50%,
+  74.9% {
+    background-color: #3b78e7;
+}
+75%,
+  100% {
+    background-color: #fdba2c;
+}
 }
 @keyframes ui-preloader-background {
 0%,
@@ -2237,37 +2470,87 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
     background-color: #fdba2c;
 }
 }
-@keyframes ui-preloader-front {
+@-webkit-keyframes ui-preloader-front {
 0% {
-    transform: scaleX(0);
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0);
     background-color: #da4733;
 }
 24.9% {
-    transform: scaleX(0.5);
+    -webkit-transform: scaleX(0.5);
+            transform: scaleX(0.5);
     background-color: #da4733;
 }
 25% {
-    transform: scaleX(0);
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0);
     background-color: #3b78e7;
 }
 49.9% {
-    transform: scaleX(0.5);
+    -webkit-transform: scaleX(0.5);
+            transform: scaleX(0.5);
     background-color: #3b78e7;
 }
 50% {
-    transform: scaleX(0);
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0);
     background-color: #fdba2c;
 }
 74.9% {
-    transform: scaleX(0.5);
+    -webkit-transform: scaleX(0.5);
+            transform: scaleX(0.5);
     background-color: #fdba2c;
 }
 75% {
-    transform: scaleX(0);
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0);
     background-color: #159756;
 }
 100% {
-    transform: scaleX(0.5);
+    -webkit-transform: scaleX(0.5);
+            transform: scaleX(0.5);
+    background-color: #159756;
+}
+}
+@keyframes ui-preloader-front {
+0% {
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0);
+    background-color: #da4733;
+}
+24.9% {
+    -webkit-transform: scaleX(0.5);
+            transform: scaleX(0.5);
+    background-color: #da4733;
+}
+25% {
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0);
+    background-color: #3b78e7;
+}
+49.9% {
+    -webkit-transform: scaleX(0.5);
+            transform: scaleX(0.5);
+    background-color: #3b78e7;
+}
+50% {
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0);
+    background-color: #fdba2c;
+}
+74.9% {
+    -webkit-transform: scaleX(0.5);
+            transform: scaleX(0.5);
+    background-color: #fdba2c;
+}
+75% {
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0);
+    background-color: #159756;
+}
+100% {
+    -webkit-transform: scaleX(0.5);
+            transform: scaleX(0.5);
     background-color: #159756;
 }
 }
@@ -2277,9 +2560,12 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
   height: 0.25rem;
   overflow: hidden;
   position: relative;
-  transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  -webkit-transition-property: height, opacity;
   transition-property: height, opacity;
-  transition-timing-function: ease;
+  -webkit-transition-timing-function: ease;
+          transition-timing-function: ease;
   width: 100%;
 }
 .ui-progress-linear__progress-bar.is-determinate {
@@ -2287,12 +2573,17 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
   left: 0;
   position: absolute;
   top: 0;
-  transform-origin: left;
+  -webkit-transform-origin: left;
+          transform-origin: left;
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
   transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
   width: 100%;
 }
 .ui-progress-linear__progress-bar.is-indeterminate::before {
-  animation: ui-progress-linear-indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+  -webkit-animation: ui-progress-linear-indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+          animation: ui-progress-linear-indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
   background-color: inherit;
   content: '';
   height: 0.25rem;
@@ -2301,14 +2592,30 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
   top: 0;
 }
 .ui-progress-linear__progress-bar.is-indeterminate::after {
-  animation-delay: 1.15s;
-  animation: ui-progress-linear-indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+  -webkit-animation-delay: 1.15s;
+          animation-delay: 1.15s;
+  -webkit-animation: ui-progress-linear-indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+          animation: ui-progress-linear-indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
   background-color: inherit;
   content: '';
   height: 0.25rem;
   left: 0;
   position: absolute;
   top: 0;
+}
+@-webkit-keyframes ui-progress-linear-indeterminate {
+0% {
+    left: -35%;
+    right: 100%;
+}
+60% {
+    left: 100%;
+    right: -90%;
+}
+100% {
+    left: 100%;
+    right: -90%;
+}
 }
 @keyframes ui-progress-linear-indeterminate {
 0% {
@@ -2322,6 +2629,20 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
 100% {
     left: 100%;
     right: -90%;
+}
+}
+@-webkit-keyframes ui-progress-linear-indeterminate-short {
+0% {
+    left: -200%;
+    right: 100%;
+}
+60% {
+    left: 107%;
+    right: -8%;
+}
+100% {
+    left: 107%;
+    right: -8%;
 }
 }
 @keyframes ui-progress-linear-indeterminate-short {
@@ -2340,6 +2661,7 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
 }
 .ui-progress-linear--transition-fade-enter-active,
 .ui-progress-linear--transition-fade-leave-active {
+  -webkit-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease;
 }
 .ui-progress-linear--transition-fade-enter,
@@ -2372,8 +2694,10 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
 }
 
 .ui-radio {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -2386,7 +2710,8 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
 }
 .ui-radio.is-checked .ui-radio__inner-circle {
     opacity: 1;
-    transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
     z-index: 0;
 }
 .ui-radio.is-disabled {
@@ -2418,7 +2743,8 @@ body[modality="keyboard"] .ui-fab:focus .ui-fab__focus-ring {
 }
 body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
     opacity: 1;
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
 }
 .ui-radio__outer-circle {
   background-color: transparent;
@@ -2428,6 +2754,7 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
   left: 0;
   position: absolute;
   top: 0;
+  -webkit-transition: border-color 0.2s;
   transition: border-color 0.2s;
   width: 1.25rem;
 }
@@ -2439,9 +2766,14 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
   opacity: 0;
   position: absolute;
   top: 0;
-  transform: scale(1.2);
-  transition-duration: 0.3s;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  -webkit-transition-property: opacity, background-color, -webkit-transform;
+  transition-property: opacity, background-color, -webkit-transform;
   transition-property: transform, opacity, background-color;
+  transition-property: transform, opacity, background-color, -webkit-transform;
   width: 1.25rem;
   z-index: -1;
 }
@@ -2453,8 +2785,12 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
   opacity: 0;
   position: absolute;
   top: -0.6875rem;
-  transform: scale(0);
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition: background-color 0.2s ease, opacity 0.15s ease, -webkit-transform 0.15s ease;
+  transition: background-color 0.2s ease, opacity 0.15s ease, -webkit-transform 0.15s ease;
   transition: background-color 0.2s ease, transform 0.15s ease, opacity 0.15s ease;
+  transition: background-color 0.2s ease, transform 0.15s ease, opacity 0.15s ease, -webkit-transform 0.15s ease;
   width: 2.625rem;
   z-index: -1;
 }
@@ -2466,8 +2802,9 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
 .ui-radio--button-position-right .ui-radio__label-text {
   margin-left: 0;
   margin-right: auto;
-  -ms-flex-order: -1;
-      order: -1;
+  -webkit-box-ordinal-group: 0;
+      -ms-flex-order: -1;
+          order: -1;
 }
 .ui-radio--color-primary.is-checked:not(.is-disabled) .ui-radio__outer-circle {
   border-color: #2196f3;
@@ -2498,8 +2835,10 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
     color: #2196f3;
 }
 .ui-radio-group.is-vertical .ui-radio-group__radios {
-    -ms-flex-direction: column;
-        flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     padding-top: 0.5rem;
 }
 .ui-radio-group.is-vertical .ui-radio-group__radio {
@@ -2520,11 +2859,14 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
   color: rgba(0, 0, 0, 0.54);
   font-size: 0.9375rem;
   line-height: normal;
+  -webkit-transition: color 0.1s ease;
   transition: color 0.1s ease;
 }
 .ui-radio-group__radios {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   min-height: 2rem;
@@ -2548,8 +2890,10 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
 }
 
 .ui-select {
-  -ms-flex-align: start;
-      align-items: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -2580,10 +2924,12 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
 .ui-select.has-floating-label .ui-select__label-text.is-inline {
       color: rgba(0, 0, 0, 0.54);
       cursor: pointer;
-      transform: translateY(1.625rem) scale(1.1);
+      -webkit-transform: translateY(1.625rem) scale(1.1);
+              transform: translateY(1.625rem) scale(1.1);
 }
 .ui-select.has-floating-label .ui-select__label-text.is-floating {
-      transform: translateY(0) scale(1);
+      -webkit-transform: translateY(0) scale(1);
+              transform: translateY(0) scale(1);
 }
 .ui-select.has-label .ui-select__icon-wrapper {
     padding-top: 1.5rem;
@@ -2645,32 +2991,41 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
     color: rgba(0, 0, 0, 0.54);
 }
 .ui-select__content {
-  -ms-flex-positive: 1;
-      flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 .ui-select__label-text {
   color: rgba(0, 0, 0, 0.54);
+  cursor: default;
   font-size: 0.9375rem;
   line-height: normal;
   margin-bottom: 0;
-  transform-origin: left;
+  -webkit-transform-origin: left;
+          transform-origin: left;
+  -webkit-transition: color 0.1s ease, -webkit-transform 0.2s ease;
+  transition: color 0.1s ease, -webkit-transform 0.2s ease;
   transition: color 0.1s ease, transform 0.2s ease;
+  transition: color 0.1s ease, transform 0.2s ease, -webkit-transform 0.2s ease;
 }
 .ui-select__display {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border: none;
   border-bottom-color: rgba(0, 0, 0, 0.12);
   border-bottom-style: solid;
   border-bottom-width: 1px;
   color: rgba(0, 0, 0, 0.87);
   cursor: pointer;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1rem;
   font-weight: normal;
   padding: 0;
+  -webkit-transition: border 0.1s ease;
   transition: border 0.1s ease;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -2679,8 +3034,9 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
   width: 100%;
 }
 .ui-select__display-value {
-  -ms-flex-positive: 1;
-      flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 .ui-select__display-value.is-placeholder {
     color: rgba(0, 0, 0, 0.38);
@@ -2722,6 +3078,7 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
   outline: none;
   padding: 0 0.75rem;
   padding-left: 2.5rem;
+  -webkit-transition: border 0.1s ease;
   transition: border 0.1s ease;
   width: 100%;
 }
@@ -2773,11 +3130,13 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
 .ui-select--icon-position-right .ui-select__icon-wrapper {
   margin-left: 0.5rem;
   margin-right: 0;
-  -ms-flex-order: 1;
-      order: 1;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
 }
 .ui-select--transition-fade-enter-active,
 .ui-select--transition-fade-leave-active {
+  -webkit-transition: opacity 0.2s ease;
   transition: opacity 0.2s ease;
 }
 .ui-select--transition-fade-enter,
@@ -2786,9 +3145,11 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
 }
 
 .ui-select-option {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   cursor: pointer;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -2816,10 +3177,12 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
   text-overflow: ellipsis;
 }
 .ui-select-option__image {
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .ui-select-option__image-object {
   background-position: 50%;
@@ -2841,18 +3204,22 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
 }
 
 .ui-slider {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   outline: none;
 }
 .ui-slider:not(.is-disabled).is-active:not(.has-marker) .ui-slider__thumb::before, .ui-slider:not(.is-disabled).is-dragging:not(.has-marker) .ui-slider__thumb::before {
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
 }
 .ui-slider:not(.is-disabled).is-active .ui-slider__marker, .ui-slider:not(.is-disabled).is-dragging .ui-slider__marker {
     opacity: 1;
-    transform: scale(1) translateY(-1.625rem);
+    -webkit-transform: scale(1) translateY(-1.625rem);
+            transform: scale(1) translateY(-1.625rem);
 }
 .ui-slider:not(.is-disabled).is-active .ui-slider__marker-text, .ui-slider:not(.is-disabled).is-dragging .ui-slider__marker-text {
     color: white;
@@ -2881,12 +3248,15 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
 }
 .ui-slider__icon .ui-icon {
     color: rgba(0, 0, 0, 0.54);
+    -webkit-transition: color 0.2s ease;
     transition: color 0.2s ease;
 }
 .ui-slider__track {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   cursor: pointer;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   height: 1.125rem;
@@ -2912,13 +3282,15 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
   height: 0.1875rem;
   opacity: 0;
   position: absolute;
-  transform: opacity 0.2s ease;
+  -webkit-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
   width: 0.125rem;
   z-index: 1;
 }
 .ui-slider__track-fill {
   background-color: #2196f3;
-  transform-origin: left;
+  -webkit-transform-origin: left;
+          transform-origin: left;
   width: 100%;
 }
 .ui-slider__thumb {
@@ -2941,9 +3313,14 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
     margin-left: -0.6875rem;
     margin-top: -0.6875rem;
     position: absolute;
-    transform-origin: center;
-    transform: scale(0);
+    -webkit-transform-origin: center;
+            transform-origin: center;
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    -webkit-transition: -webkit-transform 0.2s ease;
+    transition: -webkit-transform 0.2s ease;
     transition: transform 0.2s ease;
+    transition: transform 0.2s ease, -webkit-transform 0.2s ease;
     width: 2.25rem;
 }
 .ui-slider__marker {
@@ -2952,7 +3329,9 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
   margin-top: -0.6875rem;
   opacity: 0;
   position: absolute;
-  transform: scale(0) translateY(0);
+  -webkit-transform: scale(0) translateY(0);
+          transform: scale(0) translateY(0);
+  -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -2973,6 +3352,7 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
   position: absolute;
   text-align: center;
   top: 0.25rem;
+  -webkit-transition: color 0.2s ease;
   transition: color 0.2s ease;
   width: 2.25rem;
 }
@@ -2984,11 +3364,13 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
 }
 
 .ui-snackbar {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: #323232;
   border-radius: 0.125rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -3002,8 +3384,9 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
   cursor: default;
   font-size: 0.875rem;
   line-height: 1.5;
-  -ms-flex-positive: 1;
-      flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 .ui-snackbar__action {
   margin-left: auto;
@@ -3024,14 +3407,19 @@ body[modality="keyboard"] .ui-snackbar__action-button:focus {
 }
 .ui-snackbar--transition-slide-enter-active,
 .ui-snackbar--transition-slide-leave-active {
+  -webkit-transition: -webkit-transform 0.4s ease;
+  transition: -webkit-transform 0.4s ease;
   transition: transform 0.4s ease;
+  transition: transform 0.4s ease, -webkit-transform 0.4s ease;
 }
 .ui-snackbar--transition-slide-enter,
 .ui-snackbar--transition-slide-leave-active {
-  transform: translateY(5.25rem);
+  -webkit-transform: translateY(5.25rem);
+          transform: translateY(5.25rem);
 }
 .ui-snackbar--transition-fade-enter-active,
 .ui-snackbar--transition-fade-leave-active {
+  -webkit-transition: opacity 0.4s ease;
   transition: opacity 0.4s ease;
 }
 .ui-snackbar--transition-fade-enter,
@@ -3053,17 +3441,21 @@ body[modality="keyboard"] .ui-snackbar__action-button:focus {
   right: 0.5rem;
 }
 .ui-snackbar-container--position-center {
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
-      justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   left: 0.5rem;
   right: 0.5rem;
 }
 
 .ui-switch {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -3071,7 +3463,8 @@ body[modality="keyboard"] .ui-snackbar__action-button:focus {
   position: relative;
 }
 .ui-switch.is-checked .ui-switch__thumb {
-    transform: translateX(0.875rem);
+    -webkit-transform: translateX(0.875rem);
+            transform: translateX(0.875rem);
 }
 .ui-switch.is-disabled .ui-switch__track {
     background-color: rgba(0, 0, 0, 0.12);
@@ -3097,7 +3490,8 @@ body[modality="keyboard"] .ui-snackbar__action-button:focus {
 }
 body[modality="keyboard"] .ui-switch__input:focus + .ui-switch__thumb .ui-switch__focus-ring {
     opacity: 1;
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
 }
 .ui-switch__track {
   background-color: rgba(0, 0, 0, 0.26);
@@ -3105,6 +3499,7 @@ body[modality="keyboard"] .ui-switch__input:focus + .ui-switch__thumb .ui-switch
   height: 0.875rem;
   position: absolute;
   top: 0.1875rem;
+  -webkit-transition: background-color 0.1s linear;
   transition: background-color 0.1s linear;
   width: 2.125rem;
   z-index: -1;
@@ -3115,9 +3510,14 @@ body[modality="keyboard"] .ui-switch__input:focus + .ui-switch__thumb .ui-switch
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   height: 1.25rem;
   position: absolute;
-  transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+          transition-duration: 0.2s;
+  -webkit-transition-property: background-color, -webkit-transform;
+  transition-property: background-color, -webkit-transform;
   transition-property: background-color, transform;
-  transition-timing-function: ease;
+  transition-property: background-color, transform, -webkit-transform;
+  -webkit-transition-timing-function: ease;
+          transition-timing-function: ease;
   width: 1.25rem;
 }
 .ui-switch__focus-ring {
@@ -3128,8 +3528,12 @@ body[modality="keyboard"] .ui-switch__input:focus + .ui-switch__thumb .ui-switch
   opacity: 0;
   position: absolute;
   top: -0.6875rem;
-  transform: scale(0);
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition: background-color 0.2s ease, opacity 0.15s ease, -webkit-transform 0.15s ease;
+  transition: background-color 0.2s ease, opacity 0.15s ease, -webkit-transform 0.15s ease;
   transition: background-color 0.2s ease, transform 0.15s ease, opacity 0.15s ease;
+  transition: background-color 0.2s ease, transform 0.15s ease, opacity 0.15s ease, -webkit-transform 0.15s ease;
   width: 2.625rem;
   z-index: -1;
 }
@@ -3141,8 +3545,9 @@ body[modality="keyboard"] .ui-switch__input:focus + .ui-switch__thumb .ui-switch
 .ui-switch--switch-position-right .ui-switch__label-text {
   margin-left: 0;
   margin-right: auto;
-  -ms-flex-order: -1;
-      order: -1;
+  -webkit-box-ordinal-group: 0;
+      -ms-flex-order: -1;
+          order: -1;
 }
 .ui-switch--color-primary.is-checked:not(.is-disabled) .ui-switch__track {
   background-color: rgba(33, 150, 243, 0.5);
@@ -3172,8 +3577,9 @@ body[modality="keyboard"] .ui-switch__input:focus + .ui-switch__thumb .ui-switch
   width: 100%;
 }
 .ui-tabs.is-fullwidth .ui-tab-header-item {
-    -ms-flex-positive: 1;
-        flex-grow: 1;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
 }
 .ui-tabs.is-raised {
     border: none;
@@ -3187,6 +3593,7 @@ body[modality="keyboard"] .ui-switch__input:focus + .ui-switch__thumb .ui-switch
   width: 100%;
 }
 .ui-tabs__header-items {
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   list-style: none;
@@ -3199,6 +3606,7 @@ body[modality="keyboard"] .ui-switch__input:focus + .ui-switch__thumb .ui-switch
   box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.05);
   height: 0.125rem;
   position: absolute;
+  -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
 .ui-tabs__body {
@@ -3278,15 +3686,18 @@ body[modality="keyboard"] .ui-tabs--background-color-primary .ui-tab-header-item
 }
 
 .ui-tab-header-item {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   cursor: pointer;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   height: 3rem;
-  -ms-flex-pack: center;
-      justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   min-width: 5rem;
   padding: 0 0.75rem;
   position: relative;
@@ -3305,10 +3716,13 @@ body[modality="keyboard"] .ui-tabs--background-color-primary .ui-tab-header-item
             user-select: none;
 }
 .ui-tab-header-item--type-icon-and-text {
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
-      flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   height: 4.5rem;
 }
 .ui-tab-header-item--type-icon-and-text .ui-tab-header-item__icon {
@@ -3330,8 +3744,10 @@ body[modality="keyboard"] .ui-tabs--background-color-primary .ui-tab-header-item
 }
 
 .ui-textbox {
-  -ms-flex-align: start;
-      align-items: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -3365,10 +3781,12 @@ body[modality="keyboard"] .ui-tabs--background-color-primary .ui-tab-header-item
 .ui-textbox.has-floating-label .ui-textbox__label-text.is-inline {
       color: rgba(0, 0, 0, 0.54);
       cursor: text;
-      transform: translateY(1.625rem) scale(1.1);
+      -webkit-transform: translateY(1.625rem) scale(1.1);
+              transform: translateY(1.625rem) scale(1.1);
 }
 .ui-textbox.has-floating-label .ui-textbox__label-text.is-floating {
-      transform: translateY(0) scale(1);
+      -webkit-transform: translateY(0) scale(1);
+              transform: translateY(0) scale(1);
 }
 .ui-textbox.is-invalid:not(.is-disabled) .ui-textbox__label-text,
   .ui-textbox.is-invalid:not(.is-disabled) .ui-textbox__icon-wrapper .ui-icon,
@@ -3410,16 +3828,22 @@ body[modality="keyboard"] .ui-tabs--background-color-primary .ui-tab-header-item
     color: rgba(0, 0, 0, 0.54);
 }
 .ui-textbox__content {
-  -ms-flex-positive: 1;
-      flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 .ui-textbox__label-text {
   color: rgba(0, 0, 0, 0.54);
+  cursor: default;
   font-size: 0.9375rem;
   line-height: normal;
   margin-bottom: 0;
-  transform-origin: left;
+  -webkit-transform-origin: left;
+          transform-origin: left;
+  -webkit-transition: color 0.1s ease, -webkit-transform 0.2s ease;
+  transition: color 0.1s ease, -webkit-transform 0.2s ease;
   transition: color 0.1s ease, transform 0.2s ease;
+  transition: color 0.1s ease, transform 0.2s ease, -webkit-transform 0.2s ease;
 }
 .ui-textbox__input,
 .ui-textbox__textarea {
@@ -3438,6 +3862,7 @@ body[modality="keyboard"] .ui-tabs--background-color-primary .ui-tab-header-item
   margin: 0;
   outline: none;
   padding: 0;
+  -webkit-transition: border 0.1s ease;
   transition: border 0.1s ease;
   width: 100%;
 }
@@ -3466,13 +3891,16 @@ body[modality="keyboard"] .ui-tabs--background-color-primary .ui-tab-header-item
 .ui-textbox--icon-position-right .ui-textbox__icon-wrapper {
   margin-left: 0.5rem;
   margin-right: 0;
-  -ms-flex-order: 1;
-      order: 1;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
 }
 
 .ui-toolbar {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -3492,8 +3920,10 @@ body[modality="keyboard"] .ui-tabs--background-color-primary .ui-tab-header-item
     width: 3rem;
 }
 .ui-toolbar__left {
-  -ms-flex-align: center;
-      align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-negative: 0;
@@ -3507,15 +3937,18 @@ body[modality="keyboard"] .ui-tabs--background-color-primary .ui-tab-header-item
   min-width: 10rem;
 }
 .ui-toolbar__brand-text {
-  -ms-flex-positive: 1;
-      flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   padding-right: 0.5rem;
 }
 .ui-toolbar__body {
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-positive: 1;
-      flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 .ui-toolbar__body.has-brand-divider {
     border-left-style: solid;

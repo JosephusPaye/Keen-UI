@@ -251,6 +251,7 @@ $ui-calendar-padding    : rem-calc(8px) !default;
 
 .ui-calendar {
     color: $primary-text-color;
+    font-family: $font-stack;
 }
 
 .ui-calendar__header {

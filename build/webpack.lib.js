@@ -14,6 +14,7 @@ const config = merge(base, {
         UiCalendar: ['./src/UiCalendar.vue'],
         UiCheckbox: ['./src/UiCheckbox.vue'],
         UiCheckboxGroup: ['./src/UiCheckboxGroup.vue'],
+        UiCloseButton: ['./src/UiCloseButton.vue'],
         UiCollapsible: ['./src/UiCollapsible.vue'],
         UiConfirm: ['./src/UiConfirm.vue'],
         UiDatepicker: ['./src/UiDatepicker.vue'],

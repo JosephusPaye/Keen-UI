@@ -81,7 +81,7 @@
                 </div>
 
                 <div class="ui-textbox__counter" v-if="maxlength">
-                    {{ value.length + '/' + maxlength }}
+                    {{ valueLength + '/' + maxlength }}
                 </div>
             </div>
         </div>
@@ -102,7 +102,7 @@ export default {
         placeholder: String,
         value: {
             type: [String, Number],
-            required: true
+            default: ''
         },
         icon: String,
         iconPosition: {
@@ -206,7 +206,7 @@ export default {
         },
 
         isLabelInline() {
-            return this.value.length === 0 && !this.isActive;
+            return this.valueLength === 0 && !this.isActive;
         },
 
         minValue() {
@@ -229,16 +229,28 @@ export default {
             return this.type === 'number' ? this.step : null;
         },
 
+        valueLength() {
+            return this.value ? this.value.length : 0;
+        },
+
         hasFeedback() {
-            return Boolean(this.help) || Boolean(this.error);
+            return Boolean(this.help) || Boolean(this.error) || Boolean(this.$slots.error);
         },
 
         showError() {
-            return this.invalid && Boolean(this.error);
+            return this.invalid && (Boolean(this.error) || Boolean(this.$slots.error));
         },
 
         showHelp() {
-            return !this.showError && Boolean(this.help);
+            return !this.showError && (Boolean(this.help) || Boolean(this.$slots.help));
+        }
+    },
+
+    created() {
+        // Normalize the value to an empty string if it's null
+        if (this.value === null) {
+            this.initialValue = '';
+            this.updateValue('');
         }
     },
 
@@ -443,6 +455,7 @@ export default {
 
 .ui-textbox__label-text {
     color: $ui-input-label-color;
+    cursor: default;
     font-size: $ui-input-label-font-size;
     line-height: $ui-input-label-line-height;
     margin-bottom: $ui-input-label-margin-bottom;

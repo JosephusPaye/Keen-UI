@@ -5,6 +5,7 @@
                 class="ui-radio__input"
                 type="radio"
 
+                :checked="checked"
                 :disabled="disabled"
                 :name="name"
                 :value="trueValue"

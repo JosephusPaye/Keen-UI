@@ -295,7 +295,7 @@
                                 <td>
                                     <p>Emitted when the radio group value is changed. The handler is called with the new value.</p>
                                     <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>value</code> prop.</p>
-                                    <p>Listen for it using <code>@input</code>.
+                                    <p>Listen for it using <code>@input</code>.</p>
                                 </td>
                             </tr>
 

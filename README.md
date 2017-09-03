@@ -1,10 +1,8 @@
 # Keen UI
 
-> A lightweight collection of essential UI components written with Vue and inspired by Material Design.
+Keen UI is a lightweight [Vue.js](http://vuejs.org) UI library with a simple API. The design is inspired by Google's [Material Design](https://material.io/guidelines). However, Keen UI is not meant to be a full implementation of the Material Design spec.
 
-Keen UI is designed to be a lightweight [Vue.js](http://vuejs.org) UI library with a simple API. Though the design is inspired by Google's [Material Design](https://material.io/guidelines), Keen UI is not meant to be a full implementation of the spec.
-
-Keen UI is **not** a CSS framework, and as such you won't find a grid system or styles for typography in it. Instead, the focus is on creating reusable components that have interactivity.
+Keen UI is **not** a CSS framework. As such, it doesn't include a grid system, typography styles, etc. Instead, the focus is on interactive components that require Javascript.
 
 ## Documentation and demo
 [http://josephuspaye.github.io/Keen-UI/](http://josephuspaye.github.io/Keen-UI/)
@@ -21,20 +19,11 @@ IE 10+ (due to [Flexbox support](http://caniuse.com/#search=flexbox)).
 
 ## Installation
 
-### NPM (recommended)
-
 ```bash
 npm install keen-ui --save
 ```
 
-### Bower
-
-```bash
-bower install keen-ui --save
-```
-
 ## Usage
-> Make sure to include either the `dist/keen-ui.css` or `dist/keen-ui.min.css` file if you are not using individual components from `lib/` as the styles have been extracted into a single CSS file.
 
 ##### CSS Reset
 
@@ -52,17 +41,16 @@ html {
 }
 ```
 
-You can add it to your stylesheet manually (before other styles), or, if you are using a CSS framework, check to see if the framework already includes a reset (most CSS frameworks do). The root font size [can be customized](Customization.md#component-sizing) to globally resize the components.
+You can add the reset to your stylesheet (before other styles). If you are using a CSS framework, check to see if the framework already includes a reset (most CSS frameworks do). The root font size [can be customized](Customization.md#component-sizing) to globally resize the components.
 
 ### ES6
-
-*The following examples can also be used with CommonJS by replacing ES6-specific syntax with CommonJS equivalents.*
 
 Use as a plugin (registers all components with Vue globally):
 
 ```js
 import Vue from 'vue';
 import KeenUI from 'keen-ui';
+import 'keen-ui/dist/keen-ui.css';
 
 Vue.use(KeenUI);
 
@@ -91,49 +79,42 @@ new Vue({
 
 First, add a stylesheet link to the Keen UI CSS file in `dist/keen-ui.min.css`. Then, add a script tag pointing to `dist/keen-ui.min.js` *after* adding Vue.
 
-If Keen UI detects `Vue` globally, all the components will be registered automatically. The components will also be made available on the global `window.KeenUI` object.
+If Keen UI detects `Vue` globally, all the components will be registered automatically. The components will also be made available globally via `window.KeenUI`.
 
 Example:
 
 ```html
-<html>
-<head>
-    ...
-    <link rel="stylesheet" href="path/to/keen-ui.min.css">
-    ...
-</head>
-<body>
-    <div id="app">
-        <ui-button>Hello world!</ui-button>
-    </div>
+<!-- Place this in the <head> -->
+<link rel="stylesheet" href="path/to/keen-ui.min.css">
 
-    <script src="path/to/vue.js"></script>
-    <script src="path/to/keen-ui.min.js"></script>
-    <script>
-        new Vue({
-            el: '#app',
-            components: {
-                // all Keen UI components already registered
-            }
-        });
-    </script>
-</body>
-</html>
+<!-- Place this in the <body> -->
+<div id="app">
+    <ui-button>Hello world!</ui-button>
+</div>
+
+<script src="path/to/vue.js"></script>
+<script src="path/to/keen-ui.min.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        components: {
+            // all Keen UI components already registered
+        }
+    });
+</script>
 ```
 
-## Using *standalone* individual components
+## Using standalone components
 
-Each component has been compiled as a self-contained file which you can use without importing the rest of the library. The standalone files are located in the `lib/` folder and they contain their own CSS which will be added as `<style>` tags in `<head>`.
+Each component has been built into a standalone file with CSS included. You can use individual standalone components without importing the rest of the library. The standalone components are located in the `lib/` folder.
 
-**NOTE**: Files in the `lib/` folder contain all their own dependencies and a lot them contain overlapping dependencies. As such, using multiple files from `lib/` could significantly increase the size of your bundle due to duplicate code, and is not recommended unless you are using only a handful of components. This *may* be fixed by minification, but I haven't tested.
+**NOTE**: Standalone component files each contain their own dependencies and a lot them contain overlapping dependencies. As such, using multiple standalone files could significantly increase the size of your bundle due to duplicate code, and is not recommended unless you are using only a handful of components.
 
 ### ES6
 
-*The following examples can also be used with CommonJS by replacing ES6-specific syntax with CommonJS equivalents.*
-
 ```js
 import Vue from 'vue';
-import 'keen-ui/src/bootstrap'; // Required when using components from `lib/`, should be imported only once in your project
+import 'keen-ui/src/bootstrap'; // Required when using standlone components, should be imported only once in your project
 import UiButton from 'keen-ui/lib/UiButton';
 
 new Vue({
@@ -154,7 +135,7 @@ new Vue({
   * [x] Datepicker
   * [x] File upload
 * [x] Add customization guide
-* [ ] Add unit tests
+* [ ] Add automated tests
 
 ## Licence
 Keen UI is open source and released under the [MIT Licence](LICENCE).

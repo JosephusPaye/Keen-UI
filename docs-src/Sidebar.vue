@@ -5,11 +5,11 @@
 
             <a
                 class="keen-docs-sidebar__header-version"
-                href="https://github.com/JosephusPaye/Keen-UI/releases/tag/v1.0.0"
+                href="https://github.com/JosephusPaye/Keen-UI/releases/tag/v1.0.1"
                 rel="noopener"
                 target="_blank"
                 title="View release notes"
-            >v1.0.0</a>
+            >v1.0.1</a>
 
             <a
                 class="keen-docs-sidebar__header-github-link"
@@ -32,7 +32,7 @@
 
             <div class="keen-docs-sidebar__version-select">
                 <ui-select
-                    :options="['0.8.9', '1.0.0']"
+                    :options="['0.8.9', '1.0.0', '1.0.1']"
                     @select="onVersionSelect"
                     v-model="version"
                 >Version</ui-select>
@@ -55,7 +55,7 @@
                         <li>
                             <a
                                 class="keen-docs-sidebar__menu-item"
-                                href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs/Customization.md#customization"
+                                href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#customization"
                                 rel="noopener"
                                 target="_blank"
                             >Customization <ui-icon>open_in_new</ui-icon></a>
@@ -63,11 +63,11 @@
                     </ul>
                 </li>
 
-                <li class="keen-docs-sidebar__menu-section" v-for="section in menu">
+                <li class="keen-docs-sidebar__menu-section" v-for="section in menu" :key="section.title">
                     <div class="keen-docs-sidebar__menu-section-header">{{ section.title }}</div>
 
                     <ul class="keen-docs-sidebar__menu-section-links">
-                        <li v-for="item in section.menu">
+                        <li v-for="item in section.menu" :key="item.path">
                             <router-link
                                 class="keen-docs-sidebar__menu-item" exact
                                 :to="item.path"
@@ -83,27 +83,28 @@
 </template>
 
 <script>
-import Routes from './routes.js';
+import { menu } from './navigation.js';
 import UiIcon from 'src/UiIcon.vue';
 import UiSelect from 'src/UiSelect.vue';
 
 export default {
     data() {
         return {
-            version: '1.0.0',
-            menu: Routes.menu
+            version: '1.0.1',
+            menu
         };
     },
 
     methods: {
         onVersionSelect(version) {
-            if (version === '1.0.0') {
+            if (version === '1.0.1') {
                 return;
             }
 
             let root = '';
             const component = window.location.hash + (version === '0.8.9' ? '-docs' : '');
 
+            // This is in contrast to localhost, whose root is '/'
             if (window.location.hostname === 'josephuspaye.github.io') {
                 root = 'https://josephuspaye.github.io/Keen-UI';
             }
