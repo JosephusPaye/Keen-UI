@@ -1,7 +1,10 @@
 'use strict';
 
 const path = require('path');
-const version = require('../package.json').version;
+
+// Hardcoding here (and not reading from package.json) as the files are built
+// before the version is updated in package.json
+const version = '1.0.1';
 
 const banner =
   '/*!\n' +
