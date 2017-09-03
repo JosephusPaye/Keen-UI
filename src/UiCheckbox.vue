@@ -101,6 +101,9 @@ export default {
         },
 
         onChange(e) {
+            // Fix for mobile Safari, which triggers onClick and onChange in a different order (#325)
+            this.isChecked = e.target.checked;
+
             this.$emit('change', this.isChecked ? this.trueValue : this.falseValue, e);
         },
 
