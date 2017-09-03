@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import Routes from './routes.js';
+import { menu } from './navigation.js';
 import UiIcon from 'src/UiIcon.vue';
 import UiSelect from 'src/UiSelect.vue';
 
@@ -91,7 +91,7 @@ export default {
     data() {
         return {
             version: '1.0.0',
-            menu: Routes.menu
+            menu
         };
     },
 

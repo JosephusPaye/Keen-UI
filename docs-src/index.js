@@ -1,12 +1,10 @@
 import 'helpers/modality';
-// eslint-disable-next-line no-unused-vars
-import prism from 'prismjs';
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import App from './App.vue';
-import Routes from './routes.js';
+import { routes } from './navigation.js';
 
 // Allow inspection, even in production mode
 Vue.config.devtools = true;
@@ -17,7 +15,7 @@ Vue.config.productionTip = false;
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-    routes: Routes.routes,
+    routes,
     linkActiveClass: 'is-active'
 });
 
