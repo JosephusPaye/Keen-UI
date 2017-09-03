@@ -6,6 +6,7 @@ import UiButton from './UiButton.vue';
 import UiCalendar from './UiCalendar.vue';
 import UiCheckbox from './UiCheckbox.vue';
 import UiCheckboxGroup from './UiCheckboxGroup.vue';
+import UiCloseButton from './UiCloseButton.vue';
 import UiCollapsible from './UiCollapsible.vue';
 import UiConfirm from './UiConfirm.vue';
 import UiDatepicker from './UiDatepicker.vue';
@@ -40,6 +41,7 @@ const Keen = {
     UiCalendar,
     UiCheckbox,
     UiCheckboxGroup,
+    UiCloseButton,
     UiCollapsible,
     UiConfirm,
     UiDatepicker,
@@ -74,6 +76,7 @@ const Keen = {
         Vue.component('ui-calendar', UiCalendar);
         Vue.component('ui-checkbox', UiCheckbox);
         Vue.component('ui-checkbox-group', UiCheckboxGroup);
+        Vue.component('ui-close-button', UiCloseButton);
         Vue.component('ui-collapsible', UiCollapsible);
         Vue.component('ui-confirm', UiConfirm);
         Vue.component('ui-datepicker', UiDatepicker);
@@ -116,6 +119,7 @@ export { UiButton };
 export { UiCalendar };
 export { UiCheckbox };
 export { UiCheckboxGroup };
+export { UiCloseButton };
 export { UiCollapsible };
 export { UiConfirm };
 export { UiDatepicker };
