@@ -8,7 +8,7 @@
     "build": "webpack --config build/webpack.dist.js",
     "build:docs": "webpack --config build/webpack.docs.js",
     "build:lib": "webpack --config build/webpack.lib.js",
-    "build:all": "npm run build && npm run build:lib",
+    "build:all": "npm run build && npm run build:lib && npm run build:docs",
     "clean": "rimraf ./dist ./lib ./docs/docs.bundle.css ./docs/docs.bundle.js",
     "lint": "eslint --format=node_modules/eslint-formatter-pretty --ext .js,.vue,.html ./",
     "test": "npm run lint"
