@@ -7,13 +7,8 @@
         :id="id"
         :tabindex="isActive ? '0' : null"
 
-        v-show="show && isActive"
+        v-show="isActive"
     >
-        <!-- Icon slot is hidden, accessed programmatically in UiTabs -->
-        <div style="display: none">
-            <slot name="icon"></slot>
-        </div>
-
         <slot></slot>
     </div>
 </template>
@@ -32,17 +27,6 @@ export default {
             }
         },
         title: String,
-        icon: String,
-        iconProps: {
-            type: Object,
-            default() {
-                return {};
-            }
-        },
-        show: {
-            type: Boolean,
-            default: true
-        },
         selected: {
             type: Boolean,
             default: false
@@ -60,17 +44,17 @@ export default {
     },
 
     watch: {
-        show() {
-            this.$parent.handleTabShowChange(this);
-        },
-
         disabled() {
-            this.$parent.handleTabDisableChange(this);
+            this.$parent.onTabDisabledChange(this);
         }
     },
 
     created() {
-        this.$parent.registerTab(this);
+        this.$parent.addTab(this);
+    },
+
+    beforeDestroy() {
+        this.$parent.removeTab(this);
     },
 
     methods: {

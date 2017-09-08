@@ -10,24 +10,13 @@
         :disabled="disabled"
         :tabindex="active ? 0 : -1"
     >
-        <div
-            class="ui-tab-header-item__icon"
-            v-if="type === 'icon' || type === 'icon-and-text'"
-        >
-            <slot name="icon">
-                <ui-icon
-                    :icon-set="iconProps.iconSet"
-                    :icon="icon"
-                    :remove-text="iconProps.removeText"
-                    :use-svg="iconProps.useSvg"
-                ></ui-icon>
-            </slot>
-        </div>
+        <slot>
+            <div class="ui-tab-header-item__icon" v-if="hasIcon">
+                <slot name="icon"></slot>
+            </div>
 
-        <div
-            class="ui-tab-header-item__text"
-            v-if="type === 'text' || type === 'icon-and-text'"
-        >{{ title }}</div>
+            <div class="ui-tab-header-item__text" v-if="hasText">{{ title }}</div>
+        </slot>
 
         <ui-ripple-ink trigger="headerItem" v-if="!disableRipple && !disabled"></ui-ripple-ink>
     </li>
@@ -37,10 +26,13 @@
 import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
 
-import config from './config';
-
 export default {
     name: 'ui-tab-header-item',
+
+    components: {
+        UiIcon,
+        UiRippleInk
+    },
 
     props: {
         id: String,
@@ -49,24 +41,13 @@ export default {
             default: 'text' // 'text', 'icon', or 'icon-and-text'
         },
         title: String,
-        icon: String,
-        iconProps: {
-            type: Object,
-            default() {
-                return {};
-            }
-        },
         active: {
             type: Boolean,
             default: false
         },
-        show: {
-            type: Boolean,
-            default: true
-        },
         disableRipple: {
             type: Boolean,
-            default: config.data.disableRipple
+            default: false
         },
         disabled: {
             type: Boolean,
@@ -81,12 +62,15 @@ export default {
                 { 'is-active': this.active },
                 { 'is-disabled': this.disabled }
             ];
-        }
-    },
+        },
 
-    components: {
-        UiIcon,
-        UiRippleInk
+        hasIcon() {
+            return this.type === 'icon' || this.type === 'icon-and-text';
+        },
+
+        hasText() {
+            return this.type === 'text' || this.type === 'icon-and-text';
+        }
     }
 };
 </script>
@@ -108,6 +92,11 @@ export default {
 
     &:hover {
         background-color: rgba(black, 0.05);
+    }
+
+    &.is-active::after {
+        opacity: 1;
+        transform: scaleX(1);
     }
 
     &.is-disabled {
@@ -140,6 +129,40 @@ export default {
 
     .ui-icon {
         cursor: inherit;
+    }
+}
+
+.ui-tab-header-item::after {
+    bottom: 0;
+    content: '';
+    height: rem-calc(3px);
+    opacity: 0;
+    position: absolute;
+    transform: scaleX(0);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    width: 100%;
+}
+
+// ================================================
+// Indicator Colors
+// ================================================
+
+.ui-tabs--indicator-color-primary {
+    .ui-tab-header-item::after {
+        background-color: $brand-primary-color;
+    }
+}
+
+.ui-tabs--indicator-color-accent {
+    .ui-tab-header-item::after {
+        background-color: $brand-accent-color;
+    }
+}
+
+.ui-tabs--indicator-color-white {
+    .ui-tab-header-item::after {
+        background-color: white;
+        box-shadow: 0 1px 1px rgba(black, 0.16);
     }
 }
 </style>
