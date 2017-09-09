@@ -2,13 +2,13 @@
     <section class="page page--ui-tabs">
         <h2 class="page__title">UiTabs</h2>
 
-        <p>The UiTabs and UiTab components are used together to create a tab container with one or more tabs. UiTab should only be used as a direct child of UiTabs.</p>
+        <p>The UiTabs and UiTab components are used together to create a tab container with one or more tabs.</p>
 
-        <p>UiTabs is the tab container and its props is what you use to customize the tab headers. UiTab is a single tab on which you set tab-specific props like <code>title</code>, <code>icon</code>, etc.</p>
+        <p>UiTabs is the tab container and its props is what you use to customize the tab headers. UiTab is a single tab on which you set tab-specific props like <code>title</code>, <code>disabled</code>, etc. UiTab should only be used as a direct child of UiTabs.</p>
 
         <p>UiTabs can be one of three types: <code>text</code> (for text only), <code>icon</code> (for icon only) or <code>icon-and-text</code>. The tab headers can be fullwidth or take up only as much space as needed. The tab container can be raised to add a drop shadow.</p>
 
-        <p>UiTabs header can have any one of four possible background colors: <code>default</code> (gray), <code>primary</code>, <code>accent</code> and <code>clear</code>. The header text color, header active text color and the active tab indicator color can also be customized.</p>
+        <p>UiTabs header can have any one of four possible background colors: <code>default</code> (gray), <code>primary</code>, <code>accent</code> and <code>clear</code>. The header text colors and active tab indicator color can also be customized.</p>
 
         <p>UiTabs and UiTab include the recommended ARIA attributes for accessibility and can be navigated with the keyboard.</p>
 
@@ -18,8 +18,6 @@
 
         <div class="page__examples">
             <h3 class="page__demo-title">Demo</h3>
-
-            <p>Initial tab: Collections</p>
 
             <ui-tabs
                 :background-color="backgroundColor"
@@ -38,7 +36,7 @@
                     v-for="tab in demoTabs"
                 >
                     <ui-icon slot="icon" :icon="tab.icon"></ui-icon>
-                    <p>{{ tab.title }}: A link to <a href="https://google.com" target="_blank" rel="noopener">Google</a>.</p>
+                    <p>{{ tab.title }}: A link to <a href="https://github.com/JosephusPaye/Keen-UI" target="_blank" rel="noopener">Github</a>.</p>
                 </ui-tab>
             </ui-tabs>
 
@@ -51,7 +49,7 @@
                 >Type</ui-radio-group>
 
                 <ui-radio-group
-                    class="mb-8"
+                    class="mb-12"
                     name="color"
                     :options="['default', 'primary', 'accent']"
                     v-model="backgroundColor"
@@ -65,79 +63,36 @@
 
             <h4 class="page__demo-title">Custom header</h4>
 
-            <ui-tabs fullwidth raised>
+            <ui-tabs fullwidth>
                 <ui-tab :key="tab.title" v-for="tab in demoTabs">
                     <div slot="header" class="custom-header">
                         <ui-icon slot="icon" :icon="tab.icon"></ui-icon> {{ tab.title }}
                     </div>
 
-                    <p>{{ tab.title }}: A link to <a href="https://google.com" target="_blank" rel="noopener">Google</a>.</p>
+                    <p>{{ tab.title }}</p>
                 </ui-tab>
             </ui-tabs>
 
-            <h4 class="page__demo-title">Change active tab</h4>
+            <h4 class="page__demo-title">Control programmatically</h4>
 
-            <ui-tabs type="icon-and-text" ref="tabSet1" fullwidth>
-                <ui-tab title="Books">
-                    <ui-icon slot="icon" icon="book"></ui-icon>
-                    My books
-                </ui-tab>
-
-                <ui-tab title="Authors">
-                    <ui-icon slot="icon" icon="person"></ui-icon>
-                    Authors
-                </ui-tab>
-
-                <ui-tab title="Collections">
-                    <ui-icon slot="icon" icon="collections_bookmark"></ui-icon>
-                    Collections
-                </ui-tab>
-
-                <ui-tab title="Favourites" id="favourites">
-                    <ui-icon slot="icon" icon="favorite"></ui-icon>
-                    Favourites
-                </ui-tab>
-            </ui-tabs>
-
-            <ui-button @click="selectFavouritesTab">Select Favourites</ui-button>
-
-            <h4 class="page__demo-title">Add or remove a tab</h4>
-
-            <ui-tabs type="icon-and-text" fullwidth>
-                <ui-tab v-for="tab in tabs" :title="tab.title" :key="tab.title">
+            <ui-tabs type="icon-and-text" fullwidth ref="controlTabs">
+                <ui-tab
+                    :disabled="tab.id === 'tab2' && disableTab2"
+                    :id="tab.id"
+                    :key="tab.id"
+                    :title="tab.title"
+                    v-for="tab in controlTabs"
+                >
                     <ui-icon :icon="tab.icon" slot="icon"></ui-icon>
                     <div>{{ tab.title }}</div>
                 </ui-tab>
             </ui-tabs>
 
-            <ui-button @click="addTab">Add</ui-button>
-            <ui-button @click="removeTab" :disabled="tabs.length < 3">Remove</ui-button>
+            <ui-button @click="toggleTab2">Toggle Tab 2</ui-button>
+            <ui-button @click="selectTab3">Select Tab 3</ui-button>
 
-            <h4 class="page__demo-title">Disable a tab</h4>
-
-            <ui-tabs type="icon-and-text" fullwidth>
-                <ui-tab title="Books">
-                    <ui-icon slot="icon" icon="book"></ui-icon>
-                    My books
-                </ui-tab>
-
-                <ui-tab title="Authors" :disabled="disableAuthorsTab">
-                    <ui-icon slot="icon" icon="person"></ui-icon>
-                    Authors
-                </ui-tab>
-
-                <ui-tab title="Collections">
-                    <ui-icon slot="icon" icon="collections_bookmark"></ui-icon>
-                    Collections
-                </ui-tab>
-
-                <ui-tab title="Favourites" id="favourites">
-                    <ui-icon slot="icon" icon="favorite"></ui-icon>
-                    Favourites
-                </ui-tab>
-            </ui-tabs>
-
-            <ui-button @click="toggleAuthorsTab">Toggle Authors tab</ui-button>
+            <ui-button @click="addTab" :disabled="controlTabs.length === 6">Add Tab</ui-button>
+            <ui-button @click="removeTab" :disabled="controlTabs.length === 3">Remove Tab</ui-button>
         </div>
 
         <h3 class="page__section-title">API: UiTabs</h3>
@@ -386,7 +341,7 @@
                             <tr>
                                 <td>header</td>
                                 <td>
-                                    <p>Holds the tab header and can contain HTML. Use this slot for a custom tab header.</p>
+                                    <p>Holds the tab header and can contain HTML. Overrides the default header. Use this slot for a custom tab header.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -470,19 +425,27 @@ export default {
                     icon: 'favorite'
                 }
             ],
-            disableAuthorsTab: true,
-            tabs: [
+            disableTab2: true,
+            controlTabs: [
                 {
                     title: 'Tab 1',
-                    icon: 'favorite'
+                    icon: 'looks_one',
+                    id: 'tab1'
                 },
                 {
                     title: 'Tab 2',
-                    icon: 'person'
+                    icon: 'looks_two',
+                    id: 'tab2'
                 },
                 {
                     title: 'Tab 3',
-                    icon: 'description'
+                    icon: 'looks_3',
+                    id: 'tab3'
+                },
+                {
+                    title: 'Tab 4',
+                    icon: 'looks_4',
+                    id: 'tab4'
                 }
             ]
         };
@@ -516,22 +479,25 @@ export default {
 
     methods: {
         addTab() {
-            this.tabs.push({
-                title: 'Tab ' + (this.tabs.length + 1),
-                icon: 'description'
+            const number = this.controlTabs.length + 1;
+
+            this.controlTabs.push({
+                title: 'Tab ' + number,
+                icon: 'looks_' + number,
+                id: 'tab' + number
             });
         },
 
         removeTab() {
-            this.tabs.splice(this.tabs.length - 1, 1);
+            this.controlTabs.splice(this.controlTabs.length - 1, 1);
         },
 
-        selectFavouritesTab() {
-            this.$refs.tabSet1.setActiveTab('favourites');
+        selectTab3() {
+            this.$refs.controlTabs.setActiveTab('tab3');
         },
 
-        toggleAuthorsTab() {
-            this.disableAuthorsTab = !this.disableAuthorsTab;
+        toggleTab2() {
+            this.disableTab2 = !this.disableTab2;
         }
     }
 };
@@ -566,6 +532,10 @@ export default {
 
     .mb-8 {
         margin-bottom: 8px;
+    }
+
+    .mb-12 {
+        margin-bottom: 12px;
     }
 
     .mr-16 {

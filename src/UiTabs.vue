@@ -213,7 +213,7 @@ export default {
         },
 
         findTabById(id) {
-            for (let i = 0; i <= this.$refs.tabHeaders.length; i++) {
+            for (let i = 0; i < this.$refs.tabHeaders.length; i++) {
                 if (id === this.$refs.tabHeaders[i].id) {
                     return this.$refs.tabHeaders[i];
                 }

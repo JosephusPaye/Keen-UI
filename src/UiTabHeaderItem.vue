@@ -136,6 +136,7 @@ export default {
     bottom: 0;
     content: '';
     height: rem-calc(3px);
+    left: 0;
     opacity: 0;
     position: absolute;
     transform: scaleX(0);
