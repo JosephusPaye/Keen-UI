@@ -135,9 +135,9 @@ export default {
             if (this.progress >= 100) {
                 this.progress = 0;
             } else {
-                this.progress += 5;
+                this.progress += 25;
             }
-        }, 400);
+        }, 1000);
     },
 
     beforeDestroy() {
