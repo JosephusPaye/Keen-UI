@@ -1,10 +1,11 @@
 <template>
-    <div class="ui-tooltip" ref="tooltip">
+    <div class="ui-tooltip" ref="tooltip" role="tooltip" :id="id">
         <slot></slot>
     </div>
 </template>
 
 <script>
+import UUID from './helpers/uuid';
 let Tooltip;
 if (typeof window !== 'undefined') {
     Tooltip = require('tether-tooltip');
@@ -34,7 +35,8 @@ export default {
 
     data() {
         return {
-            tooltip: null
+            tooltip: null,
+            id: UUID.short('ui-tooltip-')
         };
     },
 
@@ -60,15 +62,21 @@ export default {
 
     methods: {
         initialize() {
-            if (this.trigger !== undefined) {
+            if (this.trigger !== undefined && this.$parent.$refs[this.trigger]) {
+                const triggerEl = this.$parent.$refs[this.trigger]._isVue ?
+                    this.$parent.$refs[this.trigger].$el : // Use .$el if the ref is a Vue component
+                    this.$parent.$refs[this.trigger];
+
                 this.tooltip = new Tooltip({
-                    target: this.$parent.$refs[this.trigger],
+                    target: triggerEl,
                     content: this.$refs.tooltip,
                     classes: 'ui-tooltip--theme-default',
                     position: this.position,
                     openOn: this.openOn,
                     openDelay: this.openDelay
                 });
+
+                triggerEl.setAttribute('aria-describedby', this.id);
             }
         }
     }

@@ -2,13 +2,13 @@
     <section class="page page--ui-tabs">
         <h2 class="page__title">UiTabs</h2>
 
-        <p>The UiTabs and UiTab components are used together to create a tab container with one or more tabs. UiTab should only be used as a direct child of UiTabs.</p>
+        <p>The UiTabs and UiTab components are used together to create a tab container with one or more tabs.</p>
 
-        <p>UiTabs is the tab container and its props is what you use to customize the tab headers. UiTab is a single tab on which you set tab-specific props like <code>title</code>, <code>icon</code>, etc.</p>
+        <p>UiTabs is the tab container and its props is what you use to customize the tab headers. UiTab is a single tab on which you set tab-specific props like <code>title</code>, <code>disabled</code>, etc. UiTab should only be used as a direct child of UiTabs.</p>
 
         <p>UiTabs can be one of three types: <code>text</code> (for text only), <code>icon</code> (for icon only) or <code>icon-and-text</code>. The tab headers can be fullwidth or take up only as much space as needed. The tab container can be raised to add a drop shadow.</p>
 
-        <p>UiTabs header can have any one of four possible background colors: <code>default</code> (gray), <code>primary</code>, <code>accent</code> and <code>clear</code>. The header text color, header active text color and the active tab indicator color can also be customized.</p>
+        <p>UiTabs header can have any one of four possible background colors: <code>default</code> (gray), <code>primary</code>, <code>accent</code> and <code>clear</code>. The header text colors and active tab indicator color can also be customized.</p>
 
         <p>UiTabs and UiTab include the recommended ARIA attributes for accessibility and can be navigated with the keyboard.</p>
 
@@ -17,329 +17,82 @@
         </h3>
 
         <div class="page__examples">
-            <h4 class="page__demo-title">Type: text</h4>
+            <h3 class="page__demo-title">Demo</h3>
 
-            <ui-tabs type="text">
-                <ui-tab title="Books">
-                    My books <a href="https://google.com" target="_blank" rel="noopener">Hey</a>
-                </ui-tab>
+            <ui-tabs
+                :background-color="backgroundColor"
+                :fullwidth="fullwidth"
+                :indicator-color="indicatorColor"
+                :raised="raised"
+                :text-color-active="textColorActive"
+                :text-color="textColor"
+                :type="type"
+            >
+                <ui-tab
+                    :key="tab.title"
+                    :selected="tab.title === 'Collections'"
+                    :title="tab.title"
 
-                <ui-tab title="Authors">
-                    Authors
-                </ui-tab>
-
-                <ui-tab title="Collections">
-                    My collections
-                </ui-tab>
-
-                <ui-tab title="Favourites">
-                    My favourites
+                    v-for="tab in demoTabs"
+                >
+                    <ui-icon slot="icon" :icon="tab.icon"></ui-icon>
+                    <p>{{ tab.title }}: A link to <a href="https://github.com/JosephusPaye/Keen-UI" target="_blank" rel="noopener">Github</a>.</p>
                 </ui-tab>
             </ui-tabs>
 
-            <h4 class="page__demo-title">Type: text, fullwidth</h4>
+            <div class="page__demo-controls">
+                <ui-radio-group
+                    class="mb-8"
+                    name="type"
+                    :options="['text', 'icon', 'icon-and-text']"
+                    v-model="type"
+                >Type</ui-radio-group>
+
+                <ui-radio-group
+                    class="mb-12"
+                    name="color"
+                    :options="['default', 'primary', 'accent']"
+                    v-model="backgroundColor"
+                >Background color</ui-radio-group>
+
+                <div class="page__demo-controls-row">
+                    <ui-checkbox v-model="fullwidth" class="mr-16">Fullwidth</ui-checkbox>
+                    <ui-checkbox v-model="raised">Raised</ui-checkbox>
+                </div>
+            </div>
+
+            <h4 class="page__demo-title">Custom header</h4>
 
             <ui-tabs fullwidth>
-                <ui-tab title="Books">
-                    My books
-                </ui-tab>
+                <ui-tab :key="tab.title" v-for="tab in demoTabs">
+                    <div slot="header" class="custom-header">
+                        <ui-icon slot="icon" :icon="tab.icon"></ui-icon> {{ tab.title }}
+                    </div>
 
-                <ui-tab title="Authors">
-                    Authors
-                </ui-tab>
-
-                <ui-tab title="Collections">
-                    My collections
-                </ui-tab>
-
-                <ui-tab title="Favourites">
-                    My favourites
+                    <p>{{ tab.title }}</p>
                 </ui-tab>
             </ui-tabs>
 
-           <h4 class="page__demo-title">Type: icon</h4>
+            <h4 class="page__demo-title">Control programmatically</h4>
 
-            <ui-tabs type="icon">
-                <ui-tab icon="book">
-                    My books
-                </ui-tab>
-
-                <ui-tab icon="person">
-                    Authors
-                </ui-tab>
-
-                <ui-tab icon="collections_bookmark">
-                    My collections
-                </ui-tab>
-
-                <ui-tab icon="favorite">
-                    <b>Favourite with longer content</b>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dolorum laudantium nulla ex asperiores, deserunt quidem perspiciatis eligendi, dolores repudiandae.</p>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis hic, aspernatur placeat eligendi delectus laudantium omnis nam consequatur aperiam numquam!</p>
+            <ui-tabs type="icon-and-text" fullwidth ref="controlTabs">
+                <ui-tab
+                    :disabled="tab.id === 'tab2' && disableTab2"
+                    :id="tab.id"
+                    :key="tab.id"
+                    :title="tab.title"
+                    v-for="tab in controlTabs"
+                >
+                    <ui-icon :icon="tab.icon" slot="icon"></ui-icon>
+                    <div>{{ tab.title }}</div>
                 </ui-tab>
             </ui-tabs>
 
-            <h4 class="page__demo-title">Type: icon, fullwidth</h4>
-
-            <ui-tabs type="icon" fullwidth>
-                <ui-tab icon="book">
-                    My books
-                </ui-tab>
-
-                <ui-tab icon="person">
-                    Authors
-                </ui-tab>
-
-                <ui-tab icon="collections_bookmark">
-                    My collections
-                </ui-tab>
-
-                <ui-tab icon="favorite">
-                    <b>Favourite with longer content</b>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dolorum laudantium nulla ex asperiores, deserunt quidem perspiciatis eligendi, dolores repudiandae.</p>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis hic, aspernatur placeat eligendi delectus laudantium omnis nam consequatur aperiam numquam!</p>
-                </ui-tab>
-            </ui-tabs>
-
-            <h4 class="page__demo-title">Type: icon-and-text</h4>
-
-            <ui-tabs type="icon-and-text">
-                <ui-tab icon="book" title="Books">
-                    My books
-                </ui-tab>
-
-                <ui-tab icon="person" title="Authors">
-                    Authors
-                </ui-tab>
-
-                <ui-tab icon="collections_bookmark" title="Collections">
-                    My collections
-                </ui-tab>
-
-                <ui-tab icon="favorite" title="Favourites">
-                    <b>Favourite with longer content</b>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dolorum laudantium nulla ex asperiores, deserunt quidem perspiciatis eligendi, dolores repudiandae.</p>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis hic, aspernatur placeat eligendi delectus laudantium omnis nam consequatur aperiam numquam!</p>
-                </ui-tab>
-            </ui-tabs>
-
-            <h4 class="page__demo-title">Type: icon-and-text, fullwidth</h4>
-
-            <ui-tabs type="icon-and-text" fullwidth>
-                <ui-tab icon="book" title="Books">
-                    My books
-                </ui-tab>
-
-                <ui-tab icon="person" title="Authors">
-                    Authors
-                </ui-tab>
-
-                <ui-tab icon="collections_bookmark" title="Collections">
-                    My collections
-                </ui-tab>
-
-                <ui-tab icon="favorite" title="Favourites">
-                    <b>Favourite with longer content</b>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dolorum laudantium nulla ex asperiores, deserunt quidem perspiciatis eligendi, dolores repudiandae.</p>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis hic, aspernatur placeat eligendi delectus laudantium omnis nam consequatur aperiam numquam!</p>
-                </ui-tab>
-            </ui-tabs>
-
-            <h4 class="page__demo-title">Raised</h4>
-
-            <ui-tabs type="icon-and-text" fullwidth raised>
-                <ui-tab icon="book" title="Books">
-                    My books
-                </ui-tab>
-
-                <ui-tab icon="person" title="Authors">
-                    Authors
-                </ui-tab>
-
-                <ui-tab icon="collections_bookmark" title="Collections">
-                    My collections
-                </ui-tab>
-
-                <ui-tab icon="favorite" title="Favourites">
-                    <b>Favourite with longer content</b>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dolorum laudantium nulla ex asperiores, deserunt quidem perspiciatis eligendi, dolores repudiandae.</p>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis hic, aspernatur placeat eligendi delectus laudantium omnis nam consequatur aperiam numquam!</p>
-                </ui-tab>
-            </ui-tabs>
-
-            <h4 class="page__demo-title">Background: primary</h4>
-
-            <ui-tabs
-                background-color="primary"
-                fullwidth
-                indicator-color="white"
-                text-color-active="white"
-                text-color="white"
-                type="icon-and-text"
-            >
-                <ui-tab icon="book" title="Books">
-                    My books
-                </ui-tab>
-
-                <ui-tab icon="person" title="Authors">
-                    Authors
-                </ui-tab>
-
-                <ui-tab icon="collections_bookmark" title="Collections">
-                    My collections
-                </ui-tab>
-
-                <ui-tab icon="favorite" title="Favourites">
-                    <b>Favourite with longer content</b>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dolorum laudantium nulla ex asperiores, deserunt quidem perspiciatis eligendi, dolores repudiandae.</p>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis hic, aspernatur placeat eligendi delectus laudantium omnis nam consequatur aperiam numquam!</p>
-                </ui-tab>
-            </ui-tabs>
-
-            <h4 class="page__demo-title">Background: accent</h4>
-
-            <ui-tabs
-                background-color="accent"
-                fullwidth
-                indicator-color="white"
-                text-color-active="white"
-                text-color="white"
-                type="icon-and-text"
-            >
-                <ui-tab icon="book" title="Books">
-                    My books
-                </ui-tab>
-
-                <ui-tab icon="person" title="Authors">
-                    Authors
-                </ui-tab>
-
-                <ui-tab icon="collections_bookmark" title="Collections">
-                    My collections
-                </ui-tab>
-
-                <ui-tab icon="favorite" title="Favourites">
-                    <b>Favourite with longer content</b>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dolorum laudantium nulla ex asperiores, deserunt quidem perspiciatis eligendi, dolores repudiandae.</p>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis hic, aspernatur placeat eligendi delectus laudantium omnis nam consequatur aperiam numquam!</p>
-                </ui-tab>
-            </ui-tabs>
-
-            <h4 class="page__demo-title">Default selected tab: Collections</h4>
-
-            <ui-tabs type="icon-and-text" fullwidth>
-                <ui-tab icon="book" title="Books">
-                    My books
-                </ui-tab>
-
-                <ui-tab icon="person" title="Authors">
-                    Authors
-                </ui-tab>
-
-                <ui-tab icon="collections_bookmark" title="Collections" selected>
-                    My collections
-                </ui-tab>
-
-                <ui-tab icon="favorite" title="Favourites">
-                    <b>Favourite with longer content</b>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dolorum laudantium nulla ex asperiores, deserunt quidem perspiciatis eligendi, dolores repudiandae.</p>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis hic, aspernatur placeat eligendi delectus laudantium omnis nam consequatur aperiam numquam!</p>
-                </ui-tab>
-            </ui-tabs>
-
-            <h4 class="page__demo-title">Change active tab</h4>
-
-            <ui-tabs type="icon-and-text" ref="tabSet1" fullwidth>
-                <ui-tab icon="book" title="Books">
-                    My books
-                </ui-tab>
-
-                <ui-tab icon="person" title="Authors">
-                    Authors
-                </ui-tab>
-
-                <ui-tab icon="collections_bookmark" title="Collections">
-                    My collections
-                </ui-tab>
-
-                <ui-tab icon="favorite" title="Favourites" id="favourites">
-                    <b>Favourite with longer content</b>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dolorum laudantium nulla ex asperiores, deserunt quidem perspiciatis eligendi, dolores repudiandae.</p>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis hic, aspernatur placeat eligendi delectus laudantium omnis nam consequatur aperiam numquam!</p>
-                </ui-tab>
-            </ui-tabs>
-
-            <ui-button @click="selectFavouritesTab">Select Favourites tab</ui-button>
-
-            <h4 class="page__demo-title">Hide/show a tab</h4>
-
-            <ui-tabs type="icon-and-text" fullwidth>
-                <ui-tab icon="book" title="Books">
-                    My books
-                </ui-tab>
-
-                <ui-tab icon="person" title="Authors">
-                    Authors
-                </ui-tab>
-
-                <ui-tab icon="collections_bookmark" title="Collections" :show="showCollectionsTab">
-                    My collections
-                </ui-tab>
-
-                <ui-tab icon="favorite" title="Favourites">
-                    <b>Favourite with longer content</b>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dolorum laudantium nulla ex asperiores, deserunt quidem perspiciatis eligendi, dolores repudiandae.</p>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis hic, aspernatur placeat eligendi delectus laudantium omnis nam consequatur aperiam numquam!</p>
-                </ui-tab>
-            </ui-tabs>
-
-            <ui-button @click="toggleCollectionsTab">Toggle Collections tab</ui-button>
-
-            <h4 class="page__demo-title">Disable individual tab</h4>
-
-            <ui-tabs type="icon-and-text" fullwidth raised>
-                <ui-tab icon="book" title="Books">
-                    My books
-                </ui-tab>
-
-                <ui-tab icon="person" title="Authors" :disabled="disableAuthorsTab">
-                    Authors
-                </ui-tab>
-
-                <ui-tab icon="collections_bookmark" title="Collections">
-                    My collections
-                </ui-tab>
-
-                <ui-tab icon="favorite" title="Favourites">
-                    <b>Favourite with longer content</b>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dolorum laudantium nulla ex asperiores, deserunt quidem perspiciatis eligendi, dolores repudiandae.</p>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis hic, aspernatur placeat eligendi delectus laudantium omnis nam consequatur aperiam numquam!</p>
-                </ui-tab>
-            </ui-tabs>
-
-            <ui-button @click="toggleAuthorsTab">Toggle Authors tab</ui-button>
+            <ui-button @click="toggleTab2">Toggle Tab 2</ui-button>
+            <ui-button @click="selectTab3">Select Tab 3</ui-button>
+
+            <ui-button @click="addTab" :disabled="controlTabs.length === 6">Add Tab</ui-button>
+            <ui-button @click="removeTab" :disabled="controlTabs.length === 3">Remove Tab</ui-button>
         </div>
 
         <h3 class="page__section-title">API: UiTabs</h3>
@@ -502,13 +255,6 @@
                                     </ul>
                                 </td>
                             </tr>
-
-                            <tr>
-                                <td><code>refreshIndicator()</code></td>
-                                <td>
-                                    <p>Call this method to refresh the position of the active tab indicator when the width of the element containing UiTabs changes. This method is called automatically when the window is resized.</p>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -545,36 +291,6 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>The tab title (text only).</td>
-                            </tr>
-
-                            <tr>
-                                <td>icon</td>
-                                <td>String</td>
-                                <td></td>
-                                <td>
-                                    <p>The tab icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
-                                    <p>You can set a custom or SVG icon using the <code>icon</code> slot.</p>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>iconProps</td>
-                                <td>String</td>
-                                <td><code>{}</code></td>
-                                <td>
-                                    <p>An object with any of the following props of <a href="#/ui-icon">UiIcon</a>: <code>iconSet</code>, <code>removeText</code> or <code>useSvg</code>. These will be passed as props to the rendered UiIcon component in the tab header.</p>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>show</td>
-                                <td>Boolean</td>
-                                <td><code>true</code></td>
-                                <td>
-                                    <p>Whether or not the tab is shown in the list of tabs.</p>
-                                    <p>Set to <code>false</code> to hide the tab from the list of tabs.</p>
-                                    <p>If a tab is selected when its <code>show</code> prop is changed to <code>false</code>, the nearest available tab is automatically selected.</p>
-                                </td>
                             </tr>
 
                             <tr>
@@ -619,7 +335,13 @@
                                 <td>icon</td>
                                 <td>
                                     <p>Holds the tab icon and can contain any custom or SVG icon.</p>
-                                    <p>There is a known issue with using a Vue component directly for this slot, so components (like UiIcon) should be wrapped in a plain element like <code>div</code> or <code>span</code> with the <code>slot="icon"</code> attribute.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>header</td>
+                                <td>
+                                    <p>Holds the tab header and can contain HTML. Overrides the default header. Use this slot for a custom tab header.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -663,37 +385,161 @@
 
 <script>
 import UiButton from 'src/UiButton.vue';
+import UiCheckbox from 'src/UiCheckbox.vue';
 import UiIcon from 'src/UiIcon.vue';
+import UiRadioGroup from 'src/UiRadioGroup.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
 
 export default {
+    components: {
+        UiButton,
+        UiCheckbox,
+        UiIcon,
+        UiRadioGroup,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
-            showCollectionsTab: true,
-            disableAuthorsTab: true
+            type: 'text',
+            raised: false,
+            fullwidth: false,
+            backgroundColor: 'default',
+            demoTabs: [
+                {
+                    title: 'Authors',
+                    icon: 'person'
+                },
+                {
+                    title: 'Books',
+                    icon: 'book'
+                },
+                {
+                    title: 'Collections',
+                    icon: 'collections_bookmark'
+                },
+                {
+                    title: 'Favourites',
+                    icon: 'favorite'
+                }
+            ],
+            disableTab2: true,
+            controlTabs: [
+                {
+                    title: 'Tab 1',
+                    icon: 'looks_one',
+                    id: 'tab1'
+                },
+                {
+                    title: 'Tab 2',
+                    icon: 'looks_two',
+                    id: 'tab2'
+                },
+                {
+                    title: 'Tab 3',
+                    icon: 'looks_3',
+                    id: 'tab3'
+                },
+                {
+                    title: 'Tab 4',
+                    icon: 'looks_4',
+                    id: 'tab4'
+                }
+            ]
         };
     },
 
-    methods: {
-        selectFavouritesTab() {
-            this.$refs.tabSet1.setActiveTab('favourites');
+    computed: {
+        textColor() {
+            if (this.backgroundColor === 'default') {
+                return 'black';
+            }
+
+            return 'white';
         },
 
-        toggleCollectionsTab() {
-            this.showCollectionsTab = !this.showCollectionsTab;
+        textColorActive() {
+            if (this.backgroundColor === 'default') {
+                return 'primary';
+            }
+
+            return 'white';
         },
 
-        toggleAuthorsTab() {
-            this.disableAuthorsTab = !this.disableAuthorsTab;
+        indicatorColor() {
+            if (this.backgroundColor === 'default') {
+                return 'primary';
+            }
+
+            return 'white';
         }
     },
 
-    components: {
-        UiButton,
-        UiIcon,
-        UiTab,
-        UiTabs
+    methods: {
+        addTab() {
+            const number = this.controlTabs.length + 1;
+
+            this.controlTabs.push({
+                title: 'Tab ' + number,
+                icon: 'looks_' + number,
+                id: 'tab' + number
+            });
+        },
+
+        removeTab() {
+            this.controlTabs.splice(this.controlTabs.length - 1, 1);
+        },
+
+        selectTab3() {
+            this.$refs.controlTabs.setActiveTab('tab3');
+        },
+
+        toggleTab2() {
+            this.disableTab2 = !this.disableTab2;
+        }
     }
 };
 </script>
+
+<style lang="scss">
+@import '~styles/imports';
+
+.page--ui-tabs {
+    .ui-tab p {
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .page__demo-controls-row {
+        display: flex;
+    }
+
+    .custom-header {
+        display: flex;
+        font-weight: 500;
+
+        .ui-icon {
+            margin-right: 8px;
+        }
+    }
+
+    .mb-8 {
+        margin-bottom: 8px;
+    }
+
+    .mb-12 {
+        margin-bottom: 12px;
+    }
+
+    .mr-16 {
+        margin-right: 16px;
+    }
+}
+</style>

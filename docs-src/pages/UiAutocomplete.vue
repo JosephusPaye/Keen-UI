@@ -146,7 +146,7 @@
                             </tr>
 
                             <tr>
-                                <td class="no-wrap">value, v-model *</td>
+                                <td class="no-wrap">value, v-model</td>
                                 <td>String</td>
                                 <td></td>
                                 <td>
@@ -643,7 +643,7 @@ export default {
             months,
             theSimpsons,
             addedGrannies: false,
-            autocomplete1: '',
+            autocomplete1: null,
             autocomplete2: '',
             autocomplete3: '',
             autocomplete4: '',

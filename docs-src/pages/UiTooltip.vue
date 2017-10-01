@@ -187,6 +187,7 @@ export default {
     }
 
     .image-pane {
+        background-color: #EEE;
         background-position: 50%;
         background-size: cover;
         margin-bottom: rem-calc(16px);

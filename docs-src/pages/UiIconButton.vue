@@ -397,7 +397,7 @@
 
                         <tbody>
                             <tr>
-                                <td>icon</td>
+                                <td>(default)</td>
                                 <td>
                                     <p>Holds the button icon and can contain any custom or SVG icon.</p>
                                 </td>

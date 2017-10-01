@@ -22,7 +22,7 @@
 
                     @click.native="updateValue('')"
 
-                    v-show="!disabled && value.length"
+                    v-show="!disabled && valueLength > 0"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path d="M18.984 6.422L13.406 12l5.578 5.578-1.406 1.406L12 13.406l-5.578 5.578-1.406-1.406L10.594 12 5.016 6.422l1.406-1.406L12 10.594l5.578-5.578z"/>
@@ -107,7 +107,7 @@ export default {
         placeholder: String,
         value: {
             type: [String, Number],
-            required: true
+            default: ''
         },
         icon: String,
         iconPosition: {
@@ -224,7 +224,11 @@ export default {
         },
 
         isLabelInline() {
-            return this.value.length === 0 && !this.isActive;
+            return this.valueLength === 0 && !this.isActive;
+        },
+
+        valueLength() {
+            return this.value ? this.value.length : 0;
         },
 
         hasFeedback() {
@@ -254,11 +258,19 @@ export default {
 
     watch: {
         value() {
-            if (this.isActive && this.value.length >= this.minChars) {
+            if (this.isActive && this.valueLength >= this.minChars) {
                 this.openDropdown();
             }
 
             this.highlightedIndex = this.highlightOnFirstMatch ? 0 : -1;
+        }
+    },
+
+    created() {
+        // Normalize the value to an empty string if it's null
+        if (this.value === null) {
+            this.initialValue = '';
+            this.updateValue('');
         }
     },
 
@@ -273,7 +285,7 @@ export default {
     methods: {
         defaultFilter(suggestion) {
             const text = suggestion[this.keys.label] || suggestion;
-            let query = this.value;
+            let query = this.value === null ? '' : this.value;
 
             if (typeof query === 'string') {
                 query = query.toLowerCase();
@@ -386,7 +398,7 @@ export default {
             }
 
             // Reset state
-            this.$emit('input', this.initialValue);
+            this.updateValue(this.initialValue);
             this.isTouched = false;
         }
     },

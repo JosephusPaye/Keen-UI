@@ -68,7 +68,6 @@ export default {
             this.updatePageTitle();
 
             this.$nextTick(() => {
-                window.Prism.highlightAll();
                 this.$refs.pageContent.scrollTop = 0;
                 this.showSidebar = false;
             });
