@@ -5,8 +5,11 @@
 </template>
 
 <script>
-import Tooltip from 'tether-tooltip';
 import UUID from './helpers/uuid';
+let Tooltip;
+if (typeof window !== 'undefined') {
+    Tooltip = require('tether-tooltip');
+}
 
 export default {
     name: 'ui-tooltip',

@@ -55,7 +55,7 @@ const config = {
 
 export class KeenUiConfig {
     constructor() {
-        this.data = merge(config, window.KeenUiConfig ? window.KeenUiConfig : {});
+        this.data = merge(config, (typeof window !== 'undefined' && window.KeenUiConfig) ? window.KeenUiConfig : {});
     }
 
     set(config = {}) {
