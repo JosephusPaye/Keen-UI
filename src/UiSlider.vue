@@ -3,8 +3,8 @@
         class="ui-slider"
         role="slider"
 
-        :aria-valuemax="maxValue"
-        :aria-valuemin="minValue"
+        :aria-valuemax="validatedMaxValue"
+        :aria-valuemin="validatedMinValue"
         :aria-valuenow="localValue"
         :class="classes"
         :tabindex="disabled ? null : 0"
@@ -151,14 +151,22 @@ export default {
 
         snapPoints() {
             const points = [];
-            let point = 0;
+            let point = this.step * Math.ceil(this.validatedMinValue / this.step);
 
-            while (point <= this.maxValue) {
+            while (point <= this.validatedMaxValue) {
                 points.push(point);
                 point += this.step;
             }
 
             return points;
+        },
+
+        validatedMinValue() {
+            return this.maxValue > this.minValue ? this.minValue : 0;
+        },
+
+        validatedMaxValue() {
+            return this.maxValue > this.minValue ? this.maxValue : 100;
         }
     },
 
@@ -307,7 +315,7 @@ export default {
             const position = e.touches ? e.touches[0].pageX : e.pageX;
             const relativeValue = (position - this.trackOffset) / this.trackLength;
             const value = this.getEdge(
-                this.minValue + (relativeValue * (this.maxValue - this.minValue))
+                this.validatedMinValue + (relativeValue * (this.validatedMaxValue - this.validatedMinValue))
             );
 
             if (this.isDragging) {
@@ -333,29 +341,29 @@ export default {
             const nextSnapPoint = previousSnapPoint + this.step;
             const midpoint = (previousSnapPoint + nextSnapPoint) / 2;
 
-            if (previousSnapPoint < this.minValue) {
-                if (nextSnapPoint > this.maxValue) {
+            if (previousSnapPoint < this.validatedMinValue) {
+                if (nextSnapPoint > this.validatedMaxValue) {
                     return value;
                 }
                 return nextSnapPoint;
             }
-            if (value >= midpoint && nextSnapPoint <= this.maxValue) {
+            if (value >= midpoint && nextSnapPoint <= this.validatedMaxValue) {
                 return nextSnapPoint;
             }
             return previousSnapPoint;
         },
 
         relativeValue(value) {
-            return (value - this.minValue) / (this.maxValue - this.minValue);
+            return (value - this.validatedMinValue) / (this.validatedMaxValue - this.validatedMinValue);
         },
 
         getEdge(a) {
-            if (a < this.minValue) {
-                return this.minValue;
+            if (a < this.validatedMinValue) {
+                return this.validatedMinValue;
             }
 
-            if (a > this.maxValue) {
-                return this.maxValue;
+            if (a > this.validatedMaxValue) {
+                return this.validatedMaxValue;
             }
 
             return a;
