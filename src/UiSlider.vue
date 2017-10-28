@@ -3,8 +3,8 @@
         class="ui-slider"
         role="slider"
 
-        :aria-valuemax="100"
-        :aria-valuemin="0"
+        :aria-valuemax="maxValue"
+        :aria-valuemin="minValue"
         :aria-valuenow="localValue"
         :class="classes"
         :tabindex="disabled ? null : 0"
@@ -41,7 +41,7 @@
             <div class="ui-slider__track-background">
                 <span
                     class="ui-slider__snap-point"
-                    :style="{ left: point + '%' }"
+                    :style="{ left: 100 * relativeValue(point) + '%' }"
 
                     v-if="snapToSteps"
                     v-for="point in snapPoints"
@@ -78,6 +78,14 @@ export default {
         value: {
             type: Number,
             required: true
+        },
+        minValue: {
+            type: Number,
+            default: 0
+        },
+        maxValue: {
+            type: Number,
+            default: 100
         },
         step: {
             type: Number,
@@ -126,13 +134,13 @@ export default {
         },
 
         fillStyle() {
-            return { transform: 'scaleX(' + (this.localValue / 100) + ')' };
+            return { transform: 'scaleX(' + (this.relativeValue(this.localValue)) + ')' };
         },
 
         thumbStyle() {
             return {
                 transform: 'translateX(' + (
-                    ((this.localValue / 100) * this.trackLength) - (this.thumbSize / 2)
+                    (this.relativeValue(this.localValue) * this.trackLength) - (this.thumbSize / 2)
                 ) + 'px)'
             };
         },
@@ -143,13 +151,11 @@ export default {
 
         snapPoints() {
             const points = [];
-            let index = 0;
-            let point = index * this.step;
+            let point = 0;
 
-            while (point <= 100) {
+            while (point <= this.maxValue) {
                 points.push(point);
-                index++;
-                point = index * this.step;
+                point += this.step;
             }
 
             return points;
@@ -196,12 +202,18 @@ export default {
             }
         },
 
-        setValue(value) {
-            if (value > 100) {
-                value = 100;
-            } else if (value < 0) {
-                value = 0;
+        setValueWithSnap(value) {
+            value = this.getEdge(value);
+
+            if (this.snapToSteps) {
+                value = this.getNearestSnapPoint(value);
             }
+
+            this.setValue(value);
+        },
+
+        setValue(value) {
+            value = this.getEdge(value);
 
             if (value === this.localValue) {
                 return;
@@ -213,11 +225,11 @@ export default {
         },
 
         incrementValue() {
-            this.setValue(this.localValue + this.step);
+            this.setValueWithSnap(this.localValue + this.step);
         },
 
         decrementValue() {
-            this.setValue(this.localValue - this.step);
+            this.setValueWithSnap(this.localValue - this.step);
         },
 
         getTrackOffset() {
@@ -265,8 +277,8 @@ export default {
         },
 
         initializeDrag() {
-            const value = this.getEdge(this.localValue ? this.localValue : 0, 0, 100);
-            this.setValue(value);
+            const value = this.getEdge(this.localValue ? this.localValue : 0);
+            this.setValueWithSnap(value);
         },
 
         onDragStart(e) {
@@ -293,8 +305,9 @@ export default {
 
         dragUpdate(e) {
             const position = e.touches ? e.touches[0].pageX : e.pageX;
+            const relativeValue = (position - this.trackOffset) / this.trackLength;
             const value = this.getEdge(
-                ((position - this.trackOffset) / this.trackLength) * 100, 0, 100
+                this.minValue + (relativeValue * (this.maxValue - this.minValue))
             );
 
             if (this.isDragging) {
@@ -306,7 +319,7 @@ export default {
             this.isDragging = false;
 
             if (this.snapToSteps && this.value % this.step !== 0) {
-                this.setValue(this.getNearestSnapPoint());
+                this.setValueWithSnap(this.value);
             }
 
             document.removeEventListener('touchmove', this.onDragMove);
@@ -315,21 +328,34 @@ export default {
             this.$emit('dragend', this.localValue, e);
         },
 
-        getNearestSnapPoint() {
-            const previousSnapPoint = Math.floor(this.value / this.step) * this.step;
+        getNearestSnapPoint(value) {
+            const previousSnapPoint = Math.floor(value / this.step) * this.step;
             const nextSnapPoint = previousSnapPoint + this.step;
             const midpoint = (previousSnapPoint + nextSnapPoint) / 2;
 
-            return this.value >= midpoint ? nextSnapPoint : previousSnapPoint;
+            if (previousSnapPoint < this.minValue) {
+                if (nextSnapPoint > this.maxValue) {
+                    return value;
+                }
+                return nextSnapPoint;
+            }
+            if (value >= midpoint && nextSnapPoint <= this.maxValue) {
+                return nextSnapPoint;
+            }
+            return previousSnapPoint;
         },
 
-        getEdge(a, b, c) {
-            if (a < b) {
-                return b;
+        relativeValue(value) {
+            return (value - this.minValue) / (this.maxValue - this.minValue);
+        },
+
+        getEdge(a) {
+            if (a < this.minValue) {
+                return this.minValue;
             }
 
-            if (a > c) {
-                return c;
+            if (a > this.maxValue) {
+                return this.maxValue;
             }
 
             return a;

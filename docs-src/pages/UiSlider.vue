@@ -18,22 +18,24 @@
             <ui-slider icon="volume_up" v-model="slider2"></ui-slider>
 
             <h4 class="page__demo-title">With marker</h4>
-            <ui-slider icon="volume_up" show-marker v-model="slider3"></ui-slider>
+            <ui-slider show-marker v-model="slider3"></ui-slider>
+
+            <h4 class="page__demo-title">With custom minimal and maximal values</h4>
+            <ui-slider show-marker :minValue="1" :maxValue="11" v-model="slider4"></ui-slider>
 
             <h4 class="page__demo-title">Snap to steps: 20</h4>
 
             <ui-slider
-                icon="volume_up"
                 show-marker
                 snap-to-steps
 
                 :step="20"
 
-                v-model="slider4"
+                v-model="slider5"
             ></ui-slider>
 
             <h4 class="page__demo-title">Disabled</h4>
-            <ui-slider icon="volume_up" v-model="slider5" disabled></ui-slider>
+            <ui-slider icon="volume_up" v-model="slider6" disabled></ui-slider>
 
             <ui-button @click="resetSliders">Reset Sliders</ui-button>
         </div>
@@ -84,9 +86,23 @@
                             </tr>
 
                             <tr>
+                                <td>minValue</td>
+                                <td>Number</td>
+                                <td><code>0</code></td>
+                                <td>The minimal slider value.</td>
+                            </tr>
+
+                            <tr>
+                                <td>maxValue</td>
+                                <td>Number</td>
+                                <td><code>100</code></td>
+                                <td>The maximal slider value.</td>
+                            </tr>
+
+                            <tr>
                                 <td>step</td>
                                 <td>Number</td>
-                                <td><code>5</code></td>
+                                <td><code>10</code></td>
                                 <td>The amount to increment or decrement the slider value by when using the keyboard arrow keys. Also determines the snap points on the slider when <code>snapToSteps</code> is <code>true</code>.</td>
                             </tr>
 
@@ -246,8 +262,9 @@ export default {
             slider1: 25,
             slider2: 50,
             slider3: 60,
-            slider4: 40,
-            slider5: 75
+            slider4: 7,
+            slider5: 40,
+            slider6: 75
         };
     },
 
@@ -256,7 +273,8 @@ export default {
             this.slider1 = 25;
             this.slider2 = 50;
             this.slider3 = 60;
-            this.slider4 = 40;
+            this.slider4 = 7;
+            this.slider5 = 40;
         }
     },
 
