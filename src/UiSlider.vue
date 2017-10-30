@@ -324,16 +324,18 @@ export default {
         },
 
         onDragStop(e) {
-            this.isDragging = false;
+            if (this.isDragging) {
+                this.isDragging = false;
 
-            if (this.snapToSteps && this.value % this.step !== 0) {
-                this.setValueWithSnap(this.value);
+                if (this.snapToSteps && this.value % this.step !== 0) {
+                    this.setValueWithSnap(this.value);
+                }
+
+                document.removeEventListener('touchmove', this.onDragMove);
+                document.removeEventListener('mousemove', this.onDragMove);
+
+                this.$emit('dragend', this.localValue, e);
             }
-
-            document.removeEventListener('touchmove', this.onDragMove);
-            document.removeEventListener('mousemove', this.onDragMove);
-
-            this.$emit('dragend', this.localValue, e);
         },
 
         getNearestSnapPoint(value) {
