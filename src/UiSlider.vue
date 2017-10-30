@@ -286,7 +286,7 @@ export default {
 
         initializeDrag() {
             const value = this.getEdge(this.localValue ? this.localValue : 0);
-            this.setValueWithSnap(value);
+            this.setValue(value);
         },
 
         onDragStart(e) {

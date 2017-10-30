@@ -110,7 +110,7 @@
                                 <td>snapToSteps</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Whether or not the slider value should be snapped to distrete steps. Setting to <code>true</code> will ensure that the value is always a multiple of the <code>step</code> prop when a drag is completed.</td>
+                                <td>Whether or not the slider value should be snapped to discrete steps. Setting to <code>true</code> will ensure that the value is always a multiple of the <code>step</code> prop when a drag is completed.</td>
                             </tr>
 
                             <tr>
