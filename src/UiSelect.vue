@@ -279,7 +279,8 @@ export default {
         },
 
         hasFeedback() {
-            return Boolean(this.help) || Boolean(this.error) || Boolean(this.$slots.error);
+            return Boolean(this.help) || Boolean(this.error) || 
+                Boolean(this.$slots.error) || Boolean(this.$slots.help);
         },
 
         showError() {
