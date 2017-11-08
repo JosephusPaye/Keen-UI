@@ -68,7 +68,7 @@
 
                     v-autofocus="autofocus"
                     v-else
-                >{{ value }}</textarea>
+                ></textarea>
             </label>
 
             <div class="ui-textbox__feedback" v-if="hasFeedback || maxlength">
