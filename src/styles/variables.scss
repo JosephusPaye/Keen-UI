@@ -1,30 +1,31 @@
 // The Material Design color palette
 @import 'md-colors';
+@import 'fonts';
 
 // The UI font stack
-$font-stack                     : Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+$font-stack             : system-ui;
 
 // Base font size
-$base-font-size                 : 100% !default; // typically 16px in most browsers
+$base-font-size         : 100% !default; // typically 16px in most browsers
 
 // Brand colors
-$brand-primary-color            : $md-blue !default;
-$brand-accent-color             : $md-purple-a400 !default;
+$brand-primary-color    : $md-blue !default;
+$brand-accent-color     : $md-purple-a400 !default;
 
 // Primary text color
-$primary-text-color             : rgba(black, 0.87) !default;
+$primary-text-color     : rgba(black, 0.87) !default;
 
 // Secondary text color
-$secondary-text-color           : rgba(black, 0.54) !default;
+$secondary-text-color   : rgba(black, 0.54) !default;
 
 // Hint text color
-$hint-text-color                : rgba(black, 0.38) !default;
+$hint-text-color        : rgba(black, 0.38) !default;
 
 // Disabled text color
-$disabled-text-color            : $hint-text-color !default;
+$disabled-text-color    : rgba(black, 0.38) !default;
 
 // Divider color
-$divider-color                  : rgba(black, 0.12) !default;
+$divider-color          : rgba(black, 0.12) !default;
 
 // ================================================
 // Input fields
