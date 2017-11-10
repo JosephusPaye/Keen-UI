@@ -237,7 +237,7 @@
                                 <td><code>"default"</code></td>
                                 <td>
                                     <p>One of <code>primary</code>, <code>accent</code>, <code>green</code>, <code>orange</code>, <code>red</code> or <code>default</code>.</p>
-                                    <p>In <code>type="primary"</code> buttons, this is the background color; in <code>type="secondary"</code> buttons, the text color.</p>
+                                    <p>For buttons of type <code>primary</code>, this is the background color; for buttons of type <code>secondary</code>, the text color.</p>
                                 </td>
                             </tr>
 

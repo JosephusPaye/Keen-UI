@@ -43,7 +43,7 @@
                     v-show="loading"
                 ></ui-progress-circular>
 
-                <div class="has-white-progress">
+                <div class="has-white-progress" v-show="loading">
                     <ui-progress-circular
                         color="white"
                         type="determinate"
@@ -63,7 +63,7 @@
                 <ui-progress-circular color="accent" v-show="loading"></ui-progress-circular>
                 <ui-progress-circular color="black" v-show="loading"></ui-progress-circular>
 
-                <div class="has-white-progress">
+                <div class="has-white-progress" v-show="loading">
                     <ui-progress-circular color="white" v-show="loading"></ui-progress-circular>
                 </div>
             </div>
@@ -241,6 +241,7 @@ export default {
 .page--ui-progress-circular {
     .page__demo-group {
         display: flex;
+        height: rem-calc(48px);
 
         .ui-progress-circular {
             margin-right: rem-calc(24px);
