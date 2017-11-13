@@ -89,10 +89,7 @@ export default {
     padding: rem-calc(0 12px);
     position: relative;
     text-transform: uppercase;
-
-    &:hover {
-        background-color: rgba(black, 0.05);
-    }
+    transition: color 0.1s;
 
     &.is-active::after {
         opacity: 1;
@@ -100,7 +97,6 @@ export default {
     }
 
     &.is-disabled {
-        background-color: transparent;
         cursor: default;
         opacity: 0.4;
         user-select: none;
@@ -126,6 +122,7 @@ export default {
 .ui-tab-header-item__icon {
     height: rem-calc(24px);
     width: rem-calc(24px);
+    color: currentColor;
 
     .ui-icon {
         cursor: inherit;
