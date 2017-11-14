@@ -2,7 +2,6 @@
     <div class="ui-collapsible" :class="classes">
         <div
             class="ui-collapsible__header"
-            ref="header"
 
             :aria-controls="id"
             :aria-expanded="isOpen ? 'true' : 'false'"
@@ -22,9 +21,7 @@
                 </svg>
             </ui-icon>
 
-            <ui-ripple-ink
-                trigger="header" v-if="!disableRipple && !disabled && isReady"
-            ></ui-ripple-ink>
+            <ui-ripple-ink v-if="!disableRipple && !disabled && isReady"></ui-ripple-ink>
         </div>
 
         <transition
@@ -37,6 +34,7 @@
                 ref="body"
 
                 :style="{ 'height': calculatedHeight }"
+
                 v-show="isOpen"
             >
                 <div class="ui-collapsible__body" :aria-hidden="isOpen ? null : 'true'" :id="id">
@@ -239,8 +237,8 @@ $ui-collapsible-header-background-hover     : $md-grey-300 !default;
 }
 
 .ui-collapsible__body {
-    border-top: 0;
     border: 1px solid $md-grey-200;
+    border-top: 0;
     display: block;
     padding: rem-calc(16px);
     width: 100%;

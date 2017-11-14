@@ -1,7 +1,6 @@
 <template>
     <li
         class="ui-tab-header-item"
-        ref="headerItem"
         role="tab"
 
         :aria-controls="id"
@@ -18,7 +17,7 @@
             <div class="ui-tab-header-item__text" v-if="hasText">{{ title }}</div>
         </slot>
 
-        <ui-ripple-ink trigger="headerItem" v-if="!disableRipple && !disabled"></ui-ripple-ink>
+        <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
     </li>
 </template>
 

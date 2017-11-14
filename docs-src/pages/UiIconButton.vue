@@ -210,7 +210,7 @@
 
             <div class="page__demo-group">
                 <ui-icon-button has-dropdown icon="more_vert" :size="size">
-                    <div class="custom-popover-content" slot="dropdown">
+                    <div class="my-custom-dropdown" slot="dropdown">
                         <p><b>Hey</b> there!</p>
                         <p>Button dropdowns can have any content, not just menus.</p>
                     </div>
@@ -563,6 +563,18 @@ export default {
 
     .ui-icon-button {
         margin-right: rem-calc(8px);
+    }
+}
+
+.my-custom-dropdown {
+    padding: 8px;
+
+    p:first-child {
+        margin-top: 0;
+    }
+
+    p:last-child {
+        margin-bottom: 0;
     }
 }
 </style>

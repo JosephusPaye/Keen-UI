@@ -2,7 +2,6 @@
     <button
         aria-label="Close"
         class="ui-close-button"
-        ref="button"
         type="button"
 
         :class="classes"
@@ -20,7 +19,7 @@
 
         <span class="ui-close-button__focus-ring"></span>
 
-        <ui-ripple-ink trigger="button" v-if="!disableRipple && !disabled"></ui-ripple-ink>
+        <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
     </button>
 </template>
 

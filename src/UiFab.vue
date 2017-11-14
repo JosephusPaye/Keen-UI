@@ -1,7 +1,6 @@
 <template>
     <button
         class="ui-fab"
-        ref="button"
 
         :aria-label="ariaLabel || tooltip"
         :class="classes"
@@ -16,7 +15,7 @@
 
         <span class="ui-fab__focus-ring"></span>
 
-        <ui-ripple-ink trigger="button" v-if="!disableRipple"></ui-ripple-ink>
+        <ui-ripple-ink v-if="!disableRipple"></ui-ripple-ink>
 
         <ui-tooltip
             :open-on="openTooltipOn"

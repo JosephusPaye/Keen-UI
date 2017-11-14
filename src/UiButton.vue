@@ -1,7 +1,6 @@
 <template>
     <button
         class="ui-button"
-        ref="button"
 
         :class="classes"
         :disabled="disabled || loading"
@@ -42,7 +41,7 @@
             v-show="loading"
         ></ui-progress-circular>
 
-        <ui-ripple-ink trigger="button" v-if="!disableRipple && !disabled"></ui-ripple-ink>
+        <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
 
         <ui-popover
             ref="dropdown"

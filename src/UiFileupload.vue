@@ -1,10 +1,5 @@
 <template>
-    <label
-        class="ui-fileupload"
-        ref="label"
-
-        :class="classes"
-    >
+    <label class="ui-fileupload" :class="classes">
         <input
             class="ui-fileupload__input"
             ref="input"
@@ -38,7 +33,7 @@
 
         <div class="ui-fileupload__focus-ring" :style="focusRingStyle"></div>
 
-        <ui-ripple-ink trigger="label" v-if="!disableRipple && !disabled"></ui-ripple-ink>
+        <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
     </label>
 </template>
 
