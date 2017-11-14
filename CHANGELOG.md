@@ -26,6 +26,11 @@
 - **Breaking**: Rename `dropdownPosition` prop to `position`, to match UiTooltip
 - Add new prop `removeOnClose`, used to remove the popover element from the DOM when it is closed
 
+### UiTooltip
+
+- **Breaking**: `trigger` prop is now a DOM Element instance or selector string. If no trigger is provided or the selector doesn't match any element, the tooltip's immediate parent element is used as the trigger.
+- Add new prop `removeOnClose`, used to remove the tooltip element from the DOM when it is closed
+
 ## v1.0.1
 
 * Upgrade Vue to `v2.4.2` and fix template warnings. See [#268](https://github.com/JosephusPaye/Keen-UI/issues/268).
