@@ -37,7 +37,7 @@ export default {
         },
         removeOnClose: {
             type: Boolean,
-            default: false
+            default: true
         }
     },
 

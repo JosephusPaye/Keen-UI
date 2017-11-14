@@ -19,8 +19,6 @@
         <ui-ripple-ink trigger="button" v-if="!disableRipple"></ui-ripple-ink>
 
         <ui-tooltip
-            trigger="button"
-
             :open-on="openTooltipOn"
             :position="tooltipPosition"
 

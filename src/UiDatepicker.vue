@@ -49,6 +49,27 @@
                         </svg>
                     </ui-icon>
                 </div>
+
+                <ui-popover
+                    contain-focus
+                    ref="popover"
+
+                    @close="onPickerClose"
+                    @open="onPickerOpen"
+
+                    v-if="usesPopover && !disabled"
+                >
+                    <ui-calendar
+                        :color="color"
+                        :date-filter="dateFilter"
+                        :lang="lang"
+                        :max-date="maxDate"
+                        :min-date="minDate"
+                        :orientation="orientation"
+                        :value="value"
+                        @date-select="onDateSelect"
+                    ></ui-calendar>
+                </ui-popover>
             </div>
 
             <div class="ui-datepicker__feedback" v-if="hasFeedback">
@@ -96,28 +117,6 @@
                 </div>
             </ui-calendar>
         </ui-modal>
-
-        <ui-popover
-            contain-focus
-            ref="popover"
-            trigger="label"
-
-            @close="onPickerClose"
-            @open="onPickerOpen"
-
-            v-if="usesPopover && !disabled"
-        >
-            <ui-calendar
-                :color="color"
-                :date-filter="dateFilter"
-                :lang="lang"
-                :max-date="maxDate"
-                :min-date="minDate"
-                :orientation="orientation"
-                :value="value"
-                @date-select="onDateSelect"
-            ></ui-calendar>
-        </ui-popover>
     </div>
 </template>
 

@@ -22,7 +22,9 @@
 
                     v-for="(simpson, index) in theSimpsons"
                 >
-                    <ui-tooltip :position="simpson.position">{{ simpson.name }}</ui-tooltip>
+                    <ui-tooltip :position="simpson.position">
+                        {{ simpson.name }}
+                    </ui-tooltip>
                 </div>
             </div>
         </div>
@@ -87,10 +89,10 @@
                             <tr>
                                 <td>removeOnClose</td>
                                 <td>Boolean</td>
-                                <td><code>false</code></td>
+                                <td><code>true</code></td>
                                 <td>
                                     <p>Whether the tooltip element should be removed from the DOM when it is closed. The element will be added back the next time the tooltip is opened.</p>
-                                    <p>Set to <code>true</code> to remove the tooltip element on close.</p>
+                                    <p>Set to <code>false</code> to keep the tooltip element on close.</p>
                                 </td>
                             </tr>
                         </tbody>

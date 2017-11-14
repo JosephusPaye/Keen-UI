@@ -37,23 +37,21 @@
 
             <h4 class="page__demo-title">In UiPopover (creates a dropdown)</h4>
 
-            <a
-                class="popover-trigger"
-                ref="dropdownTrigger"
-                tabindex="0"
-            >Click here for the menu</a>
+            <button class="popover-trigger">
+                Click here for the menu
 
-            <ui-popover trigger="dropdownTrigger" ref="dropdown">
-                <ui-menu
-                    contain-focus
-                    has-icons
-                    has-secondary-text
+                <ui-popover ref="dropdown" remove-on-close>
+                    <ui-menu
+                        contain-focus
+                        has-icons
+                        has-secondary-text
 
-                    :options="menuOptions"
+                        :options="menuOptions"
 
-                    @close="$refs.dropdown.close()"
-                ></ui-menu>
-            </ui-popover>
+                        @close="$refs.dropdown.close()"
+                    ></ui-menu>
+                </ui-popover>
+            </button>
         </div>
 
         <h3 class="page__section-title">API</h3>
@@ -305,6 +303,9 @@ export default {
         display: inline-block;
         padding: 8px 16px;
         text-decoration: none;
+        border: none;
+        font-family: $font-stack;
+        font-size: 16px;
 
         &:hover {
             background-color: $md-blue-grey-600;

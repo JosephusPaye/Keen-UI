@@ -1,7 +1,6 @@
 <template>
     <button
         class="ui-icon-button"
-        ref="button"
 
         :aria-label="ariaLabel || tooltip"
         :class="classes"
@@ -32,9 +31,9 @@
 
         <ui-popover
             ref="dropdown"
-            trigger="button"
+            remove-on-close
 
-            :dropdown-position="dropdownPosition"
+            :position="dropdownPosition"
             :open-on="openDropdownOn"
 
             @close="onDropdownClose"
@@ -46,8 +45,6 @@
         </ui-popover>
 
         <ui-tooltip
-            trigger="button"
-
             :open-on="openTooltipOn"
             :position="tooltipPosition"
 

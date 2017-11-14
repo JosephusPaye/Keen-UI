@@ -46,9 +46,9 @@
 
         <ui-popover
             ref="dropdown"
-            trigger="button"
+            remove-on-close
 
-            :dropdown-position="dropdownPosition"
+            :position="dropdownPosition"
             :open-on="openDropdownOn"
 
             @close="onDropdownClose"
