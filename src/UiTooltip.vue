@@ -1,5 +1,5 @@
 <template>
-    <div class="ui-tooltip" ref="tooltip" role="tooltip" :id="id">
+    <div class="ui-tooltip" role="tooltip" :id="id">
         <slot></slot>
     </div>
 </template>
@@ -13,8 +13,15 @@ export default {
 
     props: {
         trigger: {
-            type: String,
-            required: true
+            validator(value) {
+                const isValid = (value instanceof Element) || (value && value._isVue) || (typeof value === 'string');
+
+                if (!isValid) {
+                    console.warn('[UiTooltip]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string which matches an existing element.');
+                }
+
+                return isValid;
+            }
         },
         position: {
             type: String,
@@ -27,53 +34,81 @@ export default {
         openDelay: {
             type: Number,
             default: 0
+        },
+        removeOnClose: {
+            type: Boolean,
+            default: false
         }
     },
 
     data() {
         return {
-            tooltip: null,
             id: UUID.short('ui-tooltip-')
         };
     },
 
     watch: {
         trigger() {
-            if (this.tooltip === null) {
-                this.initialize();
-            }
+            this.destroyTooltip();
+            this.setupTooltip();
         }
+    },
+
+    created() {
+        // Additional instance data, not declared in data() as we don't want reactivity.
+        this.tooltip = null;
+        this.triggerEl = null;
     },
 
     mounted() {
-        if (this.tooltip === null) {
-            this.initialize();
-        }
+        this.setupTooltip();
     },
 
     beforeDestroy() {
-        if (this.tooltip !== null) {
-            this.tooltip.destroy();
-        }
+        this.destroyTooltip();
     },
 
     methods: {
-        initialize() {
-            if (this.trigger !== undefined && this.$parent.$refs[this.trigger]) {
-                const triggerEl = this.$parent.$refs[this.trigger]._isVue ?
-                    this.$parent.$refs[this.trigger].$el : // Use .$el if the ref is a Vue component
-                    this.$parent.$refs[this.trigger];
+        setTrigger() {
+            if (this.trigger instanceof Element) {
+                this.triggerEl = this.trigger;
+            } else if (this.trigger && this.trigger._isVue) {
+                this.triggerEl = this.trigger.$el;
+            } else if (typeof this.trigger === 'string') {
+                this.triggerEl = document.querySelector(this.trigger);
+            }
 
-                this.tooltip = new Tooltip({
-                    target: triggerEl,
-                    content: this.$refs.tooltip,
-                    classes: 'ui-tooltip--theme-default',
-                    position: this.position,
-                    openOn: this.openOn,
-                    openDelay: this.openDelay
-                });
+            // Fallback to using the parent (DOM parent, not Vue component parent)
+            // if triggerEl is invalid
+            if (!(this.triggerEl instanceof Element)) {
+                this.triggerEl = this.$el.parentElement;
+            }
+        },
 
-                triggerEl.setAttribute('aria-describedby', this.id);
+        setupTooltip() {
+            this.setTrigger();
+
+            if (!this.triggerEl) {
+                return;
+            }
+
+            this.tooltip = new Tooltip({
+                target: this.triggerEl,
+                content: this.$el,
+                classes: 'ui-tooltip--theme-default',
+                position: this.position,
+                openOn: this.openOn,
+                openDelay: this.openDelay,
+                remove: this.removeOnClose
+            });
+
+            this.triggerEl.setAttribute('aria-describedby', this.id);
+        },
+
+        destroyTooltip() {
+            if (this.tooltip) {
+                this.tooltip.destroy();
+                this.tooltip = null;
             }
         }
     }

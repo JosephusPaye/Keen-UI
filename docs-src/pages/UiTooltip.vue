@@ -12,16 +12,18 @@
 
         <div class="page__examples">
             <div class="page__demo-group page__demo-group--the-simpsons">
-                <image-pane
+                <div
+                    class="image-pane"
                     tabindex="0"
 
-                    :image="simpson.image"
                     :key="index"
-                    :name="simpson.name"
+                    :style="{ 'background-image': 'url(' + simpson.image + ')' }"
                     :tooltip-position="simpson.position"
 
                     v-for="(simpson, index) in theSimpsons"
-                ></image-pane>
+                >
+                    <ui-tooltip :position="simpson.position">{{ simpson.name }}</ui-tooltip>
+                </div>
             </div>
         </div>
 
@@ -42,13 +44,13 @@
 
                         <tbody>
                             <tr>
-                                <td>trigger *</td>
-                                <td>String</td>
-                                <td>required</td>
+                                <td>trigger</td>
+                                <td><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element" target="_blank" rel="noopener">Element</a>, String, VueComponent</td>
+                                <td>Parent element</td>
                                 <td>
-                                    <p>The string key of an element in the parent's <code>$refs</code> object.</p>
+                                    <p>An Element or VueComponent instance to use for the trigger, or a CSS selector string.</p>
                                     <p>The tooltip event listeners will be attached to this element, and when any of the <code>openOn</code> events are triggered, a tooltip will be shown next to the element.</p>
-                                    <p>By default, when the element is hovered or focused, the tooltip is shown.</p>
+                                    <p>If <code>trigger</code> is not provided or the selector doesn't match any element, the tooltip's immediate parent element is used as the trigger. Note that the parent used is the tooltip's parent in the DOM, not the Vue parent component.</p>
                                 </td>
                             </tr>
 
@@ -81,11 +83,19 @@
                                     <p>The amount of time to wait (in milliseconds) before showing the tooltip when it is triggered.</p>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td>removeOnClose</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>
+                                    <p>Whether the tooltip element should be removed from the DOM when it is closed. The element will be added back the next time the tooltip is opened.</p>
+                                    <p>Set to <code>true</code> to remove the tooltip element on close.</p>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
-
-                * Required prop
             </ui-tab>
 
             <ui-tab title="Slots">
@@ -93,7 +103,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Name</th>
+                                <th class="fixed-width">Name</th>
                                 <th>Description</th>
                             </tr>
                         </thead>
@@ -134,25 +144,6 @@ const theSimpsons = [
     }
 ];
 
-const ImagePane = {
-    name: 'image-pane',
-    template: `
-        <div class="image-pane" ref="image" :style="{ 'background-image': 'url(' + image + ')' }">
-            <ui-tooltip trigger="image" :position="tooltipPosition">{{ name }}</ui-tooltip>
-        </div>
-    `,
-
-    props: {
-        image: String,
-        name: String,
-        tooltipPosition: String
-    },
-
-    components: {
-        UiTooltip
-    }
-};
-
 export default {
     data() {
         return {
@@ -161,7 +152,6 @@ export default {
     },
 
     components: {
-        ImagePane,
         UiTab,
         UiTabs,
         UiTooltip
