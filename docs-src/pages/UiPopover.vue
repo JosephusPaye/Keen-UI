@@ -2,9 +2,9 @@
     <section class="page page--ui-popover">
         <h2 class="page__title">UiPopover</h2>
 
-        <p>UiPopover shows content in a popup/dropdown. It can be setup to contain tab focus in the popover, returning focus to the trigger element on close.</p>
+        <p>UiPopover shows content in a dropdown/popover. It can be setup to contain tab focus in the popover, returning focus to the trigger element on close.</p>
 
-        <p>The dropdown position relative to the trigger and the event that causes the dropdown to open can be customized.</p>
+        <p>The popover position relative to the trigger and the event that causes the popover to open can be customized.</p>
 
         <p>The dropdown is powered by <a href="https://github.com/HubSpot/drop" target="_blank" rel="noopener">Drop</a>, which uses <a href="https://github.com/HubSpot/tether" target="_blank" rel="noopener">Tether</a>.</p>
 
@@ -13,75 +13,81 @@
         </h3>
 
         <div class="page__examples">
-            <h4 class="page__demo-title">Basic</h4>
+            <h4 class="page__demo-title">Basic, contain focus</h4>
 
-            <a ref="trigger1" class="popover-trigger">Click here for the popover</a>
+            <button class="popover-trigger">
+                Click here for the popover
 
-            <ui-popover class="custom-popover" trigger="trigger1">
-                Hey there, some popover content here.
-                <p>Add <i>whatever</i> content you want here.</p>
-            </ui-popover>
+                <ui-popover class="my-custom-popover" contain-focus remove-on-close>
+                    <p>Hey there, some popover content here. <button>Button</button></p>
+                    <p>Add <b>whatever</b> content you want here. <button>Another Button</button></p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </ui-popover>
+            </button>
 
             <h4 class="page__demo-title">Raised: false</h4>
 
-            <a ref="trigger2" class="popover-trigger">Click here for the popover</a>
+            <button class="popover-trigger">
+                Click here for the popover
 
-            <ui-popover class="custom-popover" :raised="false" trigger="trigger2">
-                Hey there, some popover content here.
-                <p>Add <i>whatever</i> content you want here.</p>
-            </ui-popover>
+                <ui-popover class="my-custom-popover" :raised="false">
+                    <p>Hey there, some popover content here. <button>Button</button></p>
+                    <p>Add <b>whatever</b> content you want here. <button>Another Button</button></p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </ui-popover>
+            </button>
 
             <h4 class="page__demo-title">Open on hover</h4>
 
-            <a ref="trigger3" class="popover-trigger">Hover here for the popover</a>
+            <button class="popover-trigger">
+                Hover here for the popover
 
-            <ui-popover class="custom-popover" open-on="hover" trigger="trigger3">
-                Hey there, some popover content here.
-                <p>Add <i>whatever</i> content you want here.</p>
-            </ui-popover>
+                <ui-popover class="my-custom-popover" open-on="hover">
+                    <p>Hey there, some popover content here. <button>Button</button></p>
+                    <p>Add <b>whatever</b> content you want here. <button>Another Button</button></p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </ui-popover>
+            </button>
 
-            <h4 class="page__demo-title">Dropdown position (may change based on available space)</h4>
+            <h4 class="page__demo-title">Custom position (may change based on available space)</h4>
 
-            <a ref="trigger4" class="popover-trigger">Click here for a popover dropping bottom right of this trigger</a>
+            <button class="popover-trigger">
+                Click here for a popover dropping bottom right of this trigger
 
-            <ui-popover
-                class="custom-popover"
-                dropdown-position="bottom right"
-                trigger="trigger4"
-            >
-                Hey there, some popover content here.
-                <p>Add <i>whatever</i> content you want here.</p>
-            </ui-popover>
+                <ui-popover class="my-custom-popover" position="bottom right">
+                    <p>Hey there, some popover content here. <button>Button</button></p>
+                    <p>Add <b>whatever</b> content you want here. <button>Another Button</button></p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </ui-popover>
+            </button>
 
             <br><br>
 
-            <a ref="trigger5" class="popover-trigger">Click here for top left popover</a>
+            <button class="popover-trigger">
+                Click here for top left popover
 
-            <ui-popover
-                class="custom-popover"
-                dropdown-position="top left"
-                trigger="trigger5"
-            >
-                Hey there, some popover content here.
-                <p>Add <i>whatever</i> content you want here.</p>
-            </ui-popover>
+                <ui-popover class="my-custom-popover" position="top left">
+                    <p>Hey there, some popover content here. <button>Button</button></p>
+                    <p>Add <b>whatever</b> content you want here. <button>Another Button</button></p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </ui-popover>
+            </button>
 
             <h4 class="page__demo-title">Can be opened/closed programmatically</h4>
 
-            <ui-button @click="openPopover">Click to open the popover below</ui-button>
+            <a @click="openPopover" tabindex="0">Click to open the popover below</a>
 
             <br><br>
 
-            <a ref="trigger6" class="popover-trigger">Default trigger</a>
+            <button class="popover-trigger">
+                Default trigger
 
-            <ui-popover
-                class="custom-popover"
-                ref="popover6"
-                trigger="trigger6"
-            >
-                Hey there, some popover content here.
-                <p>Add <i>whatever</i> content you want here.</p>
-            </ui-popover>
+                <ui-popover class="my-custom-popover" ref="popover">
+                    <p>Hey there, some popover content here. <button>Button</button></p>
+                    <p>Add <b>whatever</b> content you want here. <button>Another Button</button></p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </ui-popover>
+            </button>
         </div>
 
         <h3 class="page__section-title">API</h3>
@@ -101,17 +107,18 @@
 
                         <tbody>
                             <tr>
-                                <td>trigger *</td>
-                                <td>String</td>
-                                <td>Required</td>
+                                <td>trigger</td>
+                                <td><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element" target="_blank" rel="noopener">Element</a>, String, VueComponent</td>
+                                <td>Parent element</td>
                                 <td>
-                                    <p>The string key of an element in the parent's <code>$refs</code> object.</p>
+                                    <p>An Element or VueComponent instance to use for the trigger, or a CSS selector string.</p>
                                     <p>The event listeners will be attached to this element, and when triggered, the popover will be shown.</p>
+                                    <p>If <code>trigger</code> is not provided or the selector doesn't match any element, the popover's immediate parent element is used as the trigger. Note that the parent used is the popover's parent in the DOM, not the Vue parent component.</p>
                                 </td>
                             </tr>
 
                             <tr>
-                                <td>dropdownPosition</td>
+                                <td>position</td>
                                 <td>String</td>
                                 <td class="no-wrap"><code>"bottom left"</code></td>
                                 <td>
@@ -131,6 +138,16 @@
                             </tr>
 
                             <tr>
+                                <td>removeOnClose</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>
+                                    <p>Whether the popover element should be removed from the DOM when it is closed. The element will be added back the next time the popover is opened.</p>
+                                    <p>Set to <code>true</code> to remove the popover element on close.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>containFocus</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
@@ -145,8 +162,13 @@
                                 <td>Function</td>
                                 <td></td>
                                 <td>
-                                    <p>A function that will be called to redirect the tab focus when it is about to leave the popover. The handler is called with the focus event.</p>
-                                    <p>If this is not provided and <code>containFocus</code> is <code>true</code>, focus is returned to the popover root element.</p>
+                                    <p>A function that will be called to redirect the tab focus when it is about to leave the popover. The handler is called with the focus event as the first argument and an object with the following properties as the second argument:</p>
+
+                                    <ul>
+                                        <li><code>isTabbingForward</code>: (Boolean) - <code>true</code> if the focus overflow was caused by a tab in the forward direction, <code>false</code> otherwise.</li>
+                                    </ul>
+
+                                    <p>If <code>focusRedirector</code> is not provided and <code>containFocus</code> is <code>true</code>, focus is held and cycled within the popover.</p>
                                 </td>
                             </tr>
 
@@ -162,16 +184,16 @@
                         </tbody>
                     </table>
                 </div>
-
-                * Required prop
             </ui-tab>
 
             <ui-tab title="Events">
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
-                            <th>Name</th>
-                            <th>Description</th>
+                            <tr>
+                                <th class="fixed-width">Name</th>
+                                <th>Description</th>
+                            </tr>
                         </thead>
 
                         <tbody>
@@ -199,8 +221,10 @@
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
-                            <th>Name</th>
-                            <th>Description</th>
+                            <tr>
+                                <th class="fixed-width">Name</th>
+                                <th>Description</th>
+                            </tr>
                         </thead>
 
                         <tbody>
@@ -220,7 +244,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Name</th>
+                                <th class="fixed-width">Name</th>
                                 <th>Description</th>
                             </tr>
                         </thead>
@@ -255,7 +279,6 @@
 </template>
 
 <script>
-import UiButton from 'src/UiButton.vue';
 import UiPopover from 'src/UiPopover.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
@@ -263,12 +286,11 @@ import UiTabs from 'src/UiTabs.vue';
 export default {
     methods: {
         openPopover() {
-            setTimeout(this.$refs.popover6.toggle, 0);
+            setTimeout(this.$refs.popover.toggle, 0);
         }
     },
 
     components: {
-        UiButton,
         UiPopover,
         UiTab,
         UiTabs
@@ -281,23 +303,21 @@ export default {
 
 .page--ui-popover {
     .popover-trigger {
-        background-color: $md-blue-grey;
-        color: white;
-        cursor: default;
         display: inline-block;
-        padding: 8px 16px;
-        text-decoration: none;
-
-        &:hover {
-            background-color: $md-blue-grey-600;
-        }
+        padding: 6px 12px;
+        font-family: $font-stack;
+        font-size: 16px;
     }
 }
 
-.ui-popover.custom-popover {
+.ui-popover.my-custom-popover {
     padding: 16px;
 
-    p {
+    p:first-child {
+        margin-top: 0;
+    }
+
+    p:last-child {
         margin-bottom: 0;
     }
 }

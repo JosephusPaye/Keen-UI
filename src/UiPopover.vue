@@ -1,37 +1,52 @@
 <template>
-    <div
+    <ui-focus-container
         class="ui-popover"
+        ref="focusContainer"
         role="dialog"
-        tabindex="-1"
 
         :class="{ 'is-raised': raised }"
+        :contain-focus="containFocus"
+        :focus-redirector="focusRedirector"
 
-        @keydown.esc="closeDropdown"
+        @focus-overflow="close"
+        @keydown.native.esc="close"
     >
         <slot></slot>
-        <div class="ui-popover__focus-redirector" tabindex="0" @focus="restrictFocus"></div>
-    </div>
+    </ui-focus-container>
 </template>
 
 <script>
 import classlist from './helpers/classlist';
 import Drop from 'tether-drop';
 
+import UiFocusContainer from './UiFocusContainer.vue';
+
 export default {
     name: 'ui-popover',
 
     props: {
         trigger: {
-            type: String,
-            required: true
+            validator(value) {
+                const isValid = (value instanceof Element) || (value && value._isVue) || (typeof value === 'string');
+
+                if (!isValid) {
+                    console.warn('[UiPopover]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string which matches an existing element.');
+                }
+
+                return isValid;
+            }
         },
-        dropdownPosition: {
+        position: {
             type: String,
             default: 'bottom left'
         },
         openOn: {
             type: String,
             default: 'click' // 'click', 'hover', 'focus', or 'always'
+        },
+        removeOnClose: {
+            type: Boolean,
+            default: false
         },
         containFocus: {
             type: Boolean,
@@ -44,69 +59,87 @@ export default {
         }
     },
 
-    data() {
-        return {
-            dropInstance: null,
-            lastfocusedElement: null
-        };
+    watch: {
+        trigger() {
+            this.destroyDrop();
+            this.setupDrop();
+        }
     },
 
-    computed: {
-        triggerEl() {
-            return this.$parent.$refs[this.trigger];
-        }
+    created() {
+        // Instance data, not declared in data() as we don't reactivity.
+        this.triggerEl = null;
+        this.dropInstance = null;
+        this.lastFocusedElement = null;
     },
 
     mounted() {
-        if (this.triggerEl) {
-            this.initializeDropdown();
-        }
+        this.setupDrop();
     },
 
     beforeDestroy() {
-        if (this.dropInstance) {
-            this.dropInstance.destroy();
-        }
+        this.destroyDrop();
     },
 
     methods: {
-        initializeDropdown() {
+        setTrigger() {
+            if (this.trigger instanceof Element) {
+                this.triggerEl = this.trigger;
+            } else if (this.trigger && this.trigger._isVue) {
+                this.triggerEl = this.trigger.$el;
+            } else if (typeof this.trigger === 'string') {
+                this.triggerEl = document.querySelector(this.trigger);
+            }
+
+            // Fallback to using the parent (DOM parent, not Vue component parent)
+            // if triggerEl is invalid
+            if (!(this.triggerEl instanceof Element)) {
+                this.triggerEl = this.$el.parentElement;
+            }
+        },
+
+        setupDrop() {
+            this.setTrigger();
+
+            if (!this.triggerEl) {
+                return;
+            }
+
             this.dropInstance = new Drop({
                 target: this.triggerEl,
                 content: this.$el,
-                position: this.dropdownPosition,
+                position: this.position,
                 constrainToWindow: true,
-                openOn: this.openOn
+                openOn: this.openOn,
+                remove: this.removeOnClose
             });
-
-            // TO FIX: Workaround for Tether not positioning
-            // correctly for positions other than 'bottom left'
-            if (this.dropdownPosition !== 'bottom left') {
-                this.dropInstance.open();
-                this.dropInstance.close();
-                this.dropInstance.open();
-                this.dropInstance.close();
-            }
 
             this.dropInstance.on('open', this.onOpen);
             this.dropInstance.on('close', this.onClose);
         },
 
-        openDropdown() {
+        destroyDrop() {
+            if (this.dropInstance) {
+                this.dropInstance.destroy();
+                this.dropInstance = null;
+            }
+        },
+
+        open() {
             if (this.dropInstance) {
                 this.dropInstance.open();
             }
         },
 
-        closeDropdown() {
+        close() {
             if (this.dropInstance) {
                 this.dropInstance.close();
             }
         },
 
-        toggleDropdown(e) {
+        toggle() {
             if (this.dropInstance) {
-                this.dropInstance.toggle(e);
+                this.dropInstance.toggle();
             }
         },
 
@@ -137,8 +170,8 @@ export default {
             this.positionDrop();
             classlist.add(this.triggerEl, 'has-dropdown-open');
 
-            this.lastfocusedElement = document.activeElement;
-            this.$el.focus();
+            this.lastFocusedElement = document.activeElement;
+            this.$refs.focusContainer.focus();
 
             this.$emit('open');
         },
@@ -146,39 +179,16 @@ export default {
         onClose() {
             classlist.remove(this.triggerEl, 'has-dropdown-open');
 
-            if (this.lastfocusedElement) {
-                this.lastfocusedElement.focus();
+            if (this.lastFocusedElement) {
+                this.lastFocusedElement.focus();
             }
 
             this.$emit('close');
-        },
-
-        restrictFocus(e) {
-            if (!this.containFocus) {
-                this.closeDropdown();
-                return;
-            }
-
-            e.stopPropagation();
-
-            if (this.focusRedirector) {
-                this.focusRedirector(e);
-            } else {
-                this.$el.focus();
-            }
-        },
-
-        open() {
-            this.openDropdown();
-        },
-
-        close() {
-            this.closeDropdown();
-        },
-
-        toggle() {
-            this.toggleDropdown();
         }
+    },
+
+    components: {
+        UiFocusContainer
     }
 };
 </script>
@@ -199,11 +209,6 @@ export default {
     .ui-menu {
         border: none;
     }
-}
-
-.ui-popover__focus-redirector {
-    opacity: 0;
-    position: absolute;
 }
 
 .drop-element {

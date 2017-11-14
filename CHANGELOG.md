@@ -1,3 +1,31 @@
+## Next (to be released)
+
+### General
+
+- Use [`system-font-css`](https://github.com/jonathantneal/system-font-css) for default font stack. Fixes issues with font weights in IE/Edge and Firefox on Windows.
+
+### UiTabs and UiTab
+
+- UiTabs
+    - Change active tab indicator animation. This fixes issues with resizing and initially hidden tabs. Fixes #328.
+    - **Breaking**: Remove `refreshIndicator` method, no longer needed
+
+- UiTab
+    - Tabs can now be created using `v-for`. Fixes #349.
+    - HTML can now be used in tab headers, using `header` slot.
+    - **Breaking**: Remove `icon` (string) and `iconProps` (object) props, use the `header` slot instead
+    - **Breaking**: Remove `show` prop, use `v-for` with a filtered array of tabs instead
+
+### UiProgressLinear
+
+- Rewrite animation to use `transform` only (GPU accelerated), remove ::before/::after pseudo elements used for previous animation
+
+### UiPopover
+
+- **Breaking**: `trigger` prop is now a DOM Element instance or selector string. If no trigger is provided or the selector doesn't match any element, the popover's immediate parent element is used as the trigger.
+- **Breaking**: Rename `dropdownPosition` prop to `position`, to match UiTooltip
+- Add new prop `removeOnClose`, used to remove the popover element from the DOM when it is closed
+
 ## v1.0.1
 
 * Upgrade Vue to `v2.4.2` and fix template warnings. See [#268](https://github.com/JosephusPaye/Keen-UI/issues/268).

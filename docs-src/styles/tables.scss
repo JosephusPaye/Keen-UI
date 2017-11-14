@@ -8,6 +8,10 @@ table {
 td,
 th {
     padding: 0;
+
+    &.fixed-width {
+        width: 144px;
+    }
 }
 
 caption {
