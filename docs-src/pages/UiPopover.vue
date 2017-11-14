@@ -112,7 +112,7 @@
                                 <td>Parent element</td>
                                 <td>
                                     <p>An Element or VueComponent instance to use for the trigger, or a CSS selector string.</p>
-                                    <p>The event listeners will be attached to this element, and when triggered, the popover will be shown.</p>
+                                    <p>The event listeners will be attached to this element, and when any of the <code>openOn</code> events are triggered, the popover will be shown.</p>
                                     <p>If <code>trigger</code> is not provided or the selector doesn't match any element, the popover's immediate parent element is used as the trigger. Note that the parent used is the popover's parent in the DOM, not the Vue parent component.</p>
                                 </td>
                             </tr>

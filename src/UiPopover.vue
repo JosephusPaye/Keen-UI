@@ -67,7 +67,7 @@ export default {
     },
 
     created() {
-        // Instance data, not declared in data() as we don't reactivity.
+        // Instance data, not declared in data() as we don't want reactivity.
         this.triggerEl = null;
         this.dropInstance = null;
         this.lastFocusedElement = null;
