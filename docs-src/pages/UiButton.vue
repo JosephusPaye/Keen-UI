@@ -188,7 +188,7 @@
 
             <div class="page__demo-group">
                 <ui-button has-dropdown :size="size">
-                    <div class="custom-popover-content" slot="dropdown">
+                    <div class="keen-docs__custom-popover-content" slot="dropdown">
                         <p><b>Hey</b> there!</p>
                         <p>Button dropdowns can have any content, not just menus.</p>
                     </div>
@@ -555,19 +555,6 @@ export default {
                 min-width: rem-calc(124px);
             }
         }
-    }
-}
-
-.custom-popover-content {
-    padding: rem-calc(16px);
-    max-width: rem-calc(360px);
-
-    p:first-child {
-        margin-top: 0;
-    }
-
-    p:last-child {
-        margin-bottom: 0;
     }
 }
 </style>

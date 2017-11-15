@@ -110,6 +110,19 @@ tbody td:first-child {
     min-width: rem-calc(88px);
 }
 
+.keen-docs__custom-popover-content {
+    padding: rem-calc(16px);
+    max-width: rem-calc(400px);
+
+    p:first-child {
+        margin-top: 0;
+    }
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+}
+
 @media screen and (max-width: $mobile-breakpoint) {
     .keen-docs-content__toolbar-content {
         padding-left: rem-calc(16px);
