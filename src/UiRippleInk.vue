@@ -31,37 +31,30 @@ const startRipple = function (eventType, event) {
 
     holder.setAttribute('data-ui-event', eventType);
 
-    // Create and position the ripple
+    // Get ripple position
     const rect = holder.getBoundingClientRect();
-    let x = event.offsetX;
-    let y;
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
 
-    if (x === undefined) {
-        x = event.clientX - rect.left;
-        y = event.clientY - rect.top;
-    } else {
-        y = event.offsetY;
-    }
-
+    // Create the ripple
     const ripple = document.createElement('div');
     let max;
 
     if (rect.width === rect.height) {
         max = rect.width * 1.412;
     } else {
-        max = Math.sqrt(
-            (rect.width * rect.width) + (rect.height * rect.height)
-        );
+        max = Math.sqrt((rect.width * rect.width) + (rect.height * rect.height));
     }
 
     const size = (max * 2) + 'px';
 
+    // Position the ripple
     ripple.style.width = size;
     ripple.style.height = size;
     ripple.style.marginLeft = -max + x + 'px';
     ripple.style.marginTop = -max + y + 'px';
 
-    // Add the element
+    // Add the ripple element
     ripple.className = 'ui-ripple-ink__ink';
     holder.appendChild(ripple);
 
