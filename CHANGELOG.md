@@ -34,6 +34,7 @@
 ### UiRippleInk
 
 - **Breaking**: `trigger` prop is now a DOM Element instance or selector string. If no trigger is provided or the selector doesn't match any element, the ripple's immediate parent element is used as the trigger.
+- Fix incorrect ripple position when clicking directly on trigger's inner elements. Fixes #220.
 
 ## v1.0.1
 
