@@ -128,6 +128,16 @@
                             </tr>
 
                             <tr>
+                                <td>constrainToScrollParent</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td>
+                                    <p>When set to <code>true</code>, the popover will flip it's position if the position will cause it to overflow the trigger's first scroll parent. The first scroll parent is the first parent that has <code>overflow: auto</code> or <code>overflow: scroll</code> set, or <code>&lt;body&gt;</code>, whichever comes first.</p>
+                                    <p>Set to <code>false</code> to disable this behavior. This is useful for popovers in modals, if you want the popover to drop outside of the boundaries of the modal.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>openOn</td>
                                 <td>String</td>
                                 <td><code>"click"</code></td>

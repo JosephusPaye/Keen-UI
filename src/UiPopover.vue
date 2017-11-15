@@ -40,6 +40,10 @@ export default {
             type: String,
             default: 'bottom left'
         },
+        constrainToScrollParent: {
+            type: Boolean,
+            default: true
+        },
         openOn: {
             type: String,
             default: 'click' // 'click', 'hover', 'focus', or 'always'
@@ -111,7 +115,8 @@ export default {
                 position: this.position,
                 constrainToWindow: true,
                 openOn: this.openOn,
-                remove: this.removeOnClose
+                remove: this.removeOnClose,
+                constrainToScrollParent: this.constrainToScrollParent
             });
 
             this.dropInstance.on('open', this.onOpen);
