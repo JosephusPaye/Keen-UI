@@ -351,6 +351,16 @@
                             </tr>
 
                             <tr>
+                                <td>constrainDropdownToScrollParent</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td>
+                                    <p>When set to <code>true</code>, the button's dropdown will flip it's position if the position will cause it to overflow the button's first scroll parent. The scroll parent is the parent that has <code>overflow: auto</code> or <code>overflow: scroll</code> set, or <code>&lt;body&gt;</code>, whichever comes first.</p>
+                                    <p>Set to <code>false</code> to disable the flipping behavior. This is useful for buttons in modals, if you want the button's dropdown to drop outside of the boundaries of the modal.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>openDropdownOn</td>
                                 <td>String</td>
                                 <td><code>"click"</code></td>

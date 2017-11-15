@@ -44,9 +44,11 @@
         <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
 
         <ui-popover
+            contain-focus
             ref="dropdown"
             remove-on-close
 
+            :constrain-to-scroll-parent="constrainDropdownToScrollParent"
             :position="dropdownPosition"
             :open-on="openDropdownOn"
 
@@ -108,6 +110,10 @@ export default {
         dropdownPosition: {
             type: String,
             default: 'bottom left'
+        },
+        constrainDropdownToScrollParent: {
+            type: Boolean,
+            default: true
         },
         openDropdownOn: {
             type: String,
