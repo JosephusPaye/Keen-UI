@@ -1,6 +1,6 @@
 'use strict';
 
-const merge = require('deep-assign');
+const merge = require('deepmerge');
 
 const options = require('./options');
 const base = require('./webpack.base.js');
