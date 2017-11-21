@@ -27,8 +27,6 @@
 import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
 
-import config from './config';
-
 export default {
     name: 'ui-close-button',
 
@@ -43,7 +41,7 @@ export default {
         },
         disableRipple: {
             type: Boolean,
-            default: config.data.disableRipple
+            default: false
         },
         disabled: {
             type: Boolean,

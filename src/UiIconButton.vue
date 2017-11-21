@@ -62,8 +62,6 @@ import UiProgressCircular from './UiProgressCircular.vue';
 import UiRippleInk from './UiRippleInk.vue';
 import UiTooltip from './UiTooltip.vue';
 
-import config from './config';
-
 export default {
     name: 'ui-icon-button',
 
@@ -111,7 +109,7 @@ export default {
         tooltipPosition: String,
         disableRipple: {
             type: Boolean,
-            default: config.data.disableRipple
+            default: false
         },
         disabled: {
             type: Boolean,

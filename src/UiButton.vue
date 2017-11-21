@@ -68,8 +68,6 @@ import UiPopover from './UiPopover.vue';
 import UiProgressCircular from './UiProgressCircular.vue';
 import UiRippleInk from './UiRippleInk.vue';
 
-import config from './config';
-
 export default {
     name: 'ui-button',
 
@@ -121,7 +119,7 @@ export default {
         },
         disableRipple: {
             type: Boolean,
-            default: config.data.disableRipple
+            default: false
         },
         disabled: {
             type: Boolean,

@@ -150,7 +150,6 @@ import UiIcon from './UiIcon.vue';
 import UiProgressCircular from './UiProgressCircular.vue';
 import UiSelectOption from './UiSelectOption.vue';
 
-import config from './config';
 import fuzzysearch from 'fuzzysearch';
 import { looseIndexOf, looseEqual } from './helpers/util';
 import { scrollIntoView, resetScroll } from './helpers/element-scroll';
@@ -217,7 +216,11 @@ export default {
         keys: {
             type: Object,
             default() {
-                return config.data.UiSelect.keys;
+                return {
+                    label: 'label',
+                    value: 'value',
+                    image: 'image'
+                };
             }
         },
         invalid: {

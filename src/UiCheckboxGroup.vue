@@ -41,7 +41,6 @@
 <script>
 import UiCheckbox from './UiCheckbox.vue';
 
-import config from './config';
 import { looseIndexOf } from './helpers/util';
 
 export default {
@@ -60,7 +59,14 @@ export default {
         keys: {
             type: Object,
             default() {
-                return config.data.UiCheckboxGroup.keys;
+                return {
+                    id: 'id',
+                    name: 'name',
+                    class: 'class',
+                    label: 'label',
+                    value: 'value',
+                    disabled: 'disabled'
+                };
             }
         },
         label: String,

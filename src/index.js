@@ -1,4 +1,5 @@
 import './bootstrap';
+import configure from './configure';
 
 import UiAlert from './UiAlert.vue';
 import UiAutocomplete from './UiAutocomplete.vue';
@@ -34,7 +35,7 @@ import UiTextbox from './UiTextbox.vue';
 import UiToolbar from './UiToolbar.vue';
 import UiTooltip from './UiTooltip.vue';
 
-const Keen = {
+const KeenUI = {
     UiAlert,
     UiAutocomplete,
     UiButton,
@@ -67,51 +68,35 @@ const Keen = {
     UiTabs,
     UiTextbox,
     UiToolbar,
-    UiTooltip,
+    UiTooltip
+};
 
-    install(Vue) {
-        Vue.component('ui-alert', UiAlert);
-        Vue.component('ui-autocomplete', UiAutocomplete);
-        Vue.component('ui-button', UiButton);
-        Vue.component('ui-calendar', UiCalendar);
-        Vue.component('ui-checkbox', UiCheckbox);
-        Vue.component('ui-checkbox-group', UiCheckboxGroup);
-        Vue.component('ui-close-button', UiCloseButton);
-        Vue.component('ui-collapsible', UiCollapsible);
-        Vue.component('ui-confirm', UiConfirm);
-        Vue.component('ui-datepicker', UiDatepicker);
-        Vue.component('ui-fab', UiFab);
-        Vue.component('ui-fileupload', UiFileupload);
-        Vue.component('ui-icon', UiIcon);
-        Vue.component('ui-icon-button', UiIconButton);
-        Vue.component('ui-menu', UiMenu);
-        Vue.component('ui-modal', UiModal);
-        Vue.component('ui-popover', UiPopover);
-        Vue.component('ui-preloader', UiPreloader);
-        Vue.component('ui-progress-circular', UiProgressCircular);
-        Vue.component('ui-progress-linear', UiProgressLinear);
-        Vue.component('ui-radio', UiRadio);
-        Vue.component('ui-radio-group', UiRadioGroup);
-        Vue.component('ui-ripple-ink', UiRippleInk);
-        Vue.component('ui-select', UiSelect);
-        Vue.component('ui-slider', UiSlider);
-        Vue.component('ui-snackbar', UiSnackbar);
-        Vue.component('ui-snackbar-container', UiSnackbarContainer);
-        Vue.component('ui-switch', UiSwitch);
-        Vue.component('ui-tab', UiTab);
-        Vue.component('ui-tabs', UiTabs);
-        Vue.component('ui-textbox', UiTextbox);
-        Vue.component('ui-toolbar', UiToolbar);
-        Vue.component('ui-tooltip', UiTooltip);
-    }
+KeenUI.install = function (Vue, config = {}) {
+    // Configure the component props
+    Object.keys(config).forEach(componentName => {
+        if (KeenUI[componentName] === undefined) {
+            return;
+        }
+
+        const Component = KeenUI[componentName];
+        const props = config[componentName];
+
+        configure(Component, props);
+    });
+
+    // Install the components
+    Object.keys(KeenUI).forEach(key => {
+        const Component = KeenUI[key];
+        Vue.component(Component.name, Component);
+    });
 };
 
 // Automatically install Keen UI if Vue is available globally
 if (typeof window !== 'undefined' && window.Vue) {
-    window.Vue.use(Keen);
+    window.Vue.use(KeenUI, window.KeenUiConfig);
 }
 
-export default Keen;
+export default KeenUI;
 
 export { UiAlert };
 export { UiAutocomplete };

@@ -43,7 +43,7 @@
   "homepage": "https://github.com/JosephusPaye/Keen-UI/",
   "dependencies": {
     "autosize": "^3.0.20",
-    "deep-assign": "^2.0.0",
+    "deepmerge": "^2.0.1",
     "fuzzysearch": "^1.0.3",
     "lodash.debounce": "^4.0.8",
     "tether-drop": "^1.4.2",

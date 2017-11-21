@@ -49,7 +49,6 @@
 import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
 
-import config from './config';
 import RespondsToWindowResize from './mixins/RespondsToWindowResize.js';
 import UUID from './helpers/uuid';
 
@@ -68,7 +67,7 @@ export default {
         },
         disableRipple: {
             type: Boolean,
-            default: config.data.disableRipple
+            default: false
         },
         disabled: {
             type: Boolean,

@@ -41,8 +41,6 @@
 <script>
 import UiRadio from './UiRadio.vue';
 
-import config from './config';
-
 export default {
     name: 'ui-radio-group',
 
@@ -63,7 +61,14 @@ export default {
         keys: {
             type: Object,
             default() {
-                return config.data.UiRadioGroup.keys;
+                return {
+                    id: 'id',
+                    class: 'class',
+                    label: 'label',
+                    value: 'value',
+                    checked: 'checked',
+                    disabled: 'disabled'
+                };
             }
         },
         color: {

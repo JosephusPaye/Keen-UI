@@ -33,8 +33,6 @@
 <script>
 import UiMenuOption from './UiMenuOption.vue';
 
-import config from './config';
-
 export default {
     name: 'ui-menu',
 
@@ -61,12 +59,19 @@ export default {
         keys: {
             type: Object,
             default() {
-                return config.data.UiMenu.keys;
+                return {
+                    icon: 'icon',
+                    type: 'type',
+                    label: 'label',
+                    secondaryText: 'secondaryText',
+                    iconProps: 'iconProps',
+                    disabled: 'disabled'
+                };
             }
         },
         disableRipple: {
             type: Boolean,
-            default: config.data.disableRipple
+            default: false
         },
         raised: {
             type: Boolean,

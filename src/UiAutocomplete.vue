@@ -96,7 +96,6 @@ import autofocus from './directives/autofocus';
 import UiAutocompleteSuggestion from './UiAutocompleteSuggestion.vue';
 import UiIcon from './UiIcon.vue';
 
-import config from './config';
 import fuzzysearch from 'fuzzysearch';
 
 export default {
@@ -175,7 +174,11 @@ export default {
         keys: {
             type: Object,
             default() {
-                return config.data.UiAutocomplete.keys;
+                return {
+                    label: 'label',
+                    value: 'value',
+                    image: 'image'
+                };
             }
         },
         invalid: {

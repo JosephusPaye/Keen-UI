@@ -2,96 +2,76 @@
 
 ## Sass customization
 
-If you use Sass and a build system with [`vue-loader`](https://github.com/vuejs/vue-loader) or [`vueify`](https://github.com/vuejs/vueify) in your project, you can customize the components by overriding Sass variables and then importing the `.vue` source files.
+If you use Sass with [`webpack`](https://webpack.js.org) and [`vue-loader`](https://github.com/vuejs/vue-loader) in your project, you can customize the components by overriding Sass variables and then importing the `.vue` source files. This is done using [`sass-resources-loader`](https://github.com/shakacode/sass-resources-loader).
 
-The variables can be overridden using the `data` and `includePaths` options of `node-sass`, which can be set in your Webpack config if using Webpack or `vue.config.js` file if using Browserify.
+### Setup
 
-In the `data` option we import our overriding variables file, which will be prepended to every Sass file processed by `node-sass`. The `includePaths` option allows us to specify where to look for files imported in `data`.
+1. Install [`sass-resources-loader`](https://github.com/shakacode/sass-resources-loader).
 
-### Theming
+    ```
+    npm install sass-resources-loader --save-dev
+    ```
 
-You can customize the `primary` and `accent` theme colors using the `$brand-primary-color` and `$brand-accent-color` variables.
+2. Create a `variables.scss` file somewhere in your project, for example, at `src/styles/variables.scss`.
 
-The following examples assume these files in your project:
+    **Note**: since this file will be imported into every Sass file, make sure it doesn't contain any CSS rules, only Sass variables.
 
-`src/styles/variables.scss`:
+3. Add the following rule to your webpack config file. If you're using a Vue CLI template, [see here](https://vue-loader.vuejs.org/en/configurations/pre-processors.html#loading-a-global-settings-file) for details.
 
-```scss
-$brand-primary-color: #673AB7;
-$brand-accent-color: #FF4081;
-```
-
-`src/App.vue`:
-
-```html
-<template>
-    <div>
-        <ui-button color="primary">Primary button</ui-button>
-        <ui-button color="accent">Accent button</ui-button>
-    </div>
-</template>
-
-<script>
-import 'keen-ui/src/bootstrap'; // Required to setup Keen UI, should be imported only once in your project
-import UiButton from 'keen-ui/src/UiButton.vue';
-
-export default {
-    components: {
-        UiButton
-    }
-}
-</script>
-```
-
-#### Webpack 2.x example
-
-Add the following to your Webpack config, at the top level:
-
-```js
-plugins: [
-    new webpack.LoaderOptionsPlugin({
+    ```js
+    {
+        loader: 'sass-resources-loader',
         options: {
-            sassLoader: {
-                data: '@import "src/styles/variables.scss";',
-                includePaths: 'src/styles'
-            },
-            context: path.resolve(__dirname) // your project root
+            resources: path.resolve(__dirname, './src/styles/variables.scss')
         }
-    })
-]
-```
+    }
+    ```
 
-#### Webpack 1.x example
+4. Now you can customize the component styles by overriding Keen UI variables in the `variables.scss` file you created.
 
-Add the following to your Webpack config, at the top level:
+### Brand colors
 
-```js
-sassLoader: {
-    data: '@import "src/styles/variables.scss";',
-    includePaths: 'src/styles'
-}
-```
+The `primary` and `accent` theme colors can be customized using the `$brand-primary-color` and `$brand-accent-color` variables.
 
-#### Browserify example
+1. Add the following to your `variables.scss` file:
 
-Add the following to your [`vue.config.js`](https://github.com/vuejs/vueify#configuring-options) file, at the top level:
+    ```scss
+    $brand-primary-color: #673AB7;
+    $brand-accent-color: #FF4081;
+    ```
 
-```js
-sass: {
-    data: '@import "src/styles/variables.scss";',
-    includePaths: 'src/styles'
-}
-```
+2. Import and use the components from `keen-ui/src`. Example:
+
+    ```html
+    <!-- App.vue -->
+    <template>
+        <div>
+            <ui-button color="primary">Primary button</ui-button>
+            <ui-button color="accent">Accent button</ui-button>
+        </div>
+    </template>
+
+    <script>
+    import 'keen-ui/src/bootstrap'; // Required to setup Keen UI, should be imported only once in your project
+    import UiButton from 'keen-ui/src/UiButton.vue';
+
+    export default {
+        components: {
+            UiButton
+        }
+    }
+    </script>
+    ```
 
 ### Other variables
 
-All other variables in [`keen-ui/src/styles/variables.scss`](.../src/styles/variables.scss) can be overridden to customize other aspects of the components in the same manner as the examples above.
+All other variables in [`keen-ui/src/styles/variables.scss`](.../src/styles/variables.scss) can be overridden to customize other aspects of the components in the same manner as the example above.
 
 Some components also have component-specific variables that can be found in their source files. Those can be overridden as well.
 
 ## Component sizing
 
-Keen UI components use the `rem` CSS unit for properties with length values (e.g. `font-size`, `margin`, `padding`, `width`, `height`, etc). This allows you to customize the size of all components by setting `font-size` on the root (`<html>`) element.
+All components use the `rem` CSS unit for properties with length values (e.g. `font-size`, `margin`, `padding`, `width`, `height`, etc). This allows you to customize the size of all components by setting `font-size` on the root (`<html>`) element.
 
 The default root font size is `100%`, which uses the browser's font size setting, typically `16px`.
 
@@ -111,72 +91,35 @@ html {
 }
 ```
 
-## Global config
+## Global prop configuration
 
-Some components have props that can be configured globally. The format of the config object and available options can be seen in [src/config.js](.../src/config.js).
+Component props which have default values can be set globally when installing Keen UI as a Vue plugin, or when using individual components.
 
-### Using `window.KeenUiConfig`
-
-Set your global config options on `window.KeenUiConfig` *before* importing Keen UI.
+### Using Keen UI as a plugin
 
 ```js
 import Vue from 'vue';
+import KeenUI from 'keen-ui';
 
-// Globally configure Keen UI
-window.KeenUiConfig = {
-    disableRipple: true,
-    UiAutocomplete: {
-    	keys: {
-    		label: 'name',
-    		value: 'id',
-    		image: 'picture'
-    	}
+Vue.use(KeenUI, {
+    UiButton: {
+        disableRipple: true
+    },
+    UiTooltip: {
+        position: 'top center'
     }
-};
-
-// Using `require()` and not `import` because `import` statements are hoisted
-require('keen-ui/dist/keen-ui.min.css');
-const KeenUI = require('keen-ui').default;
-const App = require('path/to/App.vue'); // the root Vue instance
-
-Vue.use(KeenUI);
-
-new Vue({
-	el: '#app',
-	render: h => h(App)
 });
 ```
 
-### Using `src/config.js`
-
-> Note: this usage method only works if you are using [`vue-loader`](https://github.com/vuejs/vue-loader) or [`vueify`](https://github.com/vuejs/vueify) in your project and importing Keen UI from source (i.e. importing from `keen-ui/src`).
-
-Import `KeenUiConfig` from `keen-ui/src/config` and call `.set()` with your options *before* importing Keen UI.
+### Using individual components
 
 ```js
-import Vue from 'vue';
+import UiButton from 'keen-ui';
+import configure from 'keen-ui/src/configure'
 
-// Using `require()` and not `import` because `import` statements are hoisted
-const KeenUiConfig = require('keen-ui/src/config').default;
-
-KeenUiConfig.set({
-    disableRipple: true,
-    UiAutocomplete: {
-    	keys: {
-    		label: 'name',
-    		value: 'id',
-    		image: 'picture'
-    	}
-    }
+configure(UiButton, {
+    disableRipple: true
 });
 
-const KeenUI = require('keen-ui/src').default;
-const App = require('./App.vue'); // the root Vue instance
-
-Vue.use(KeenUI);
-
-new Vue({
-	el: '#app',
-	render: h => h(App)
-});
+// UiButton's disableRipple prop is now true by default
 ```

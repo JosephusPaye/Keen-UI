@@ -31,8 +31,6 @@ import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
 import UiTooltip from './UiTooltip.vue';
 
-import config from './config';
-
 export default {
     name: 'ui-fab',
 
@@ -52,7 +50,7 @@ export default {
         tooltipPosition: String,
         disableRipple: {
             type: Boolean,
-            default: config.data.disableRipple
+            default: false
         }
     },
 

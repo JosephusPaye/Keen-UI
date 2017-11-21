@@ -2,23 +2,25 @@
 
 ### General
 
-- Use [`system-font-css`](https://github.com/jonathantneal/system-font-css) for default font stack. Fixes issues with font weights in IE/Edge and Firefox on Windows.
+- **Breaking**: Change global prop configuration system to be simpler and more reliable. See updated [Customization guide](#global-prop-configuration) for details.
+- Rewrote [Sass customization guide](#sass-customization) for clarity.
+- Use [`system-font-css`](https://github.com/jonathantneal/system-font-css) for default font stack. This fixes issues with font weights in IE, Edge and Firefox on Windows.
 
 ### UiTabs and UiTab
 
 - UiTabs
-    - Change active tab indicator animation. This fixes issues with resizing and initially hidden tabs. Fixes #328.
-    - **Breaking**: Remove `refreshIndicator` method, no longer needed
+    - Change active tab indicator animation, to fix issues related to window resizing and initially hidden tabs. Fixes #328.
+    - **Breaking**: Remove `refreshIndicator` method, no longer needed.
 
 - UiTab
     - Tabs can now be created using `v-for`. Fixes #349.
-    - HTML can now be used in tab headers, using `header` slot.
-    - **Breaking**: Remove `icon` (string) and `iconProps` (object) props, use the `header` slot instead
-    - **Breaking**: Remove `show` prop, use `v-for` with a filtered array of tabs instead
+    - **Breaking**: Remove `show` prop, use `v-for` with a filtered array of tabs instead.
+    - HTML can now be used in tab headers, using the `header` slot.
+    - **Breaking**: Remove `icon` (string) and `iconProps` (object) props, use the `header` slot instead.
 
 ### UiProgressLinear
 
-- Rewrite animation to use `transform` only (GPU accelerated), remove ::before/::after pseudo elements used for previous animation
+- Rewrite animation to use `transform` only (GPU accelerated), remove ::before/::after pseudo elements used for previous animation.
 
 ### UiPopover
 
