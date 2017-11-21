@@ -8,7 +8,18 @@
 
 ## UiButton
 
+- Fix ripple position starting off when directly clicking an inner element. Fixes #220.
 - Add `tooltip`, `tooltipPosition` and `openTooltipOn` props
+- Make focus ring transition to fill the button. Previously, it stopped halfway. Fixes #205.
+- Remove UiProgressCircular from the DOM when `loading` is false. Previously, it was hidden with `display: none`.
+- Remove pointer cursor, to match default HTML buttons.
+- For secondary buttons, use button color as background for hover and focus.
+
+## UiIconButton
+
+- Remove UiProgressCircular from the DOM when `loading` is false. Previously, it was hidden with `display: none`.
+- Remove pointer cursor, to match default HTML buttons.
+- For secondary icon buttons, use button color as background for hover and focus.
 
 ### UiTabs and UiTab
 

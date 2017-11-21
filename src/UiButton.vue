@@ -7,7 +7,6 @@
         :type="buttonType"
 
         @click="onClick"
-        @focus.once="onFocus"
     >
         <div class="ui-button__content">
             <div class="ui-button__icon" v-if="icon || $slots.icon">
@@ -28,7 +27,7 @@
             </ui-icon>
         </div>
 
-        <div class="ui-button__focus-ring" :style="focusRingStyle"></div>
+        <div class="ui-button__focus-ring"></div>
 
         <ui-progress-circular
             class="ui-button__progress"
@@ -38,7 +37,7 @@
             :size="18"
             :stroke="4.5"
 
-            v-show="loading"
+            v-if="loading"
         ></ui-progress-circular>
 
         <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
@@ -138,16 +137,6 @@ export default {
         }
     },
 
-    data() {
-        return {
-            focusRing: {
-                top: 0,
-                left: 0,
-                size: 0
-            }
-        };
-    },
-
     computed: {
         classes() {
             return [
@@ -162,15 +151,6 @@ export default {
             ];
         },
 
-        focusRingStyle() {
-            return {
-                height: this.focusRing.size + 'px',
-                width: this.focusRing.size + 'px',
-                top: this.focusRing.top + 'px',
-                left: this.focusRing.left + 'px'
-            };
-        },
-
         progressColor() {
             if (this.color === 'default' || this.type === 'secondary') {
                 return 'black';
@@ -183,17 +163,6 @@ export default {
     methods: {
         onClick(e) {
             this.$emit('click', e);
-        },
-
-        onFocus() {
-            const bounds = {
-                width: this.$el.clientWidth,
-                height: this.$el.clientHeight
-            };
-
-            this.focusRing.size = bounds.width - 16; // 8px of padding on left and right
-            this.focusRing.top = -1 * (this.focusRing.size - bounds.height) / 2;
-            this.focusRing.left = (bounds.width - this.focusRing.size) / 2;
         },
 
         onDropdownOpen() {
@@ -241,7 +210,6 @@ export default {
     background: none;
     border-radius: $ui-default-border-radius;
     border: none;
-    cursor: pointer;
     display: inline-flex;
     font-family: $font-stack;
     font-size: $ui-button-font-size;
@@ -267,15 +235,15 @@ export default {
 
     &.has-focus-ring:focus,
     body[modality="keyboard"] &:focus {
-        .ui-button__focus-ring {
+        .ui-button__focus-ring::before {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1.1);
         }
     }
 
     &.is-raised {
         box-shadow: 0 0 2px rgba(black, 0.12), 0 2px 2px rgba(black, 0.2);
-        transition: box-shadow 0.1s;
+        transition: box-shadow 0.3s ease;
 
         &.has-focus-ring:focus,
         body[modality="keyboard"] &:focus {
@@ -290,7 +258,6 @@ export default {
     }
 
     &.is-disabled {
-        cursor: default;
         opacity: 0.6;
     }
 }
@@ -317,15 +284,24 @@ export default {
 }
 
 .ui-button__focus-ring {
-    background-color: rgba(black, 0.12);
-    border-radius: 50%;
     left: 0;
-    opacity: 0;
     position: absolute;
     top: 0;
-    transform-origin: center;
-    transform: scale(0);
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    width: 100%;
+
+    &::before {
+        border-radius: 50%;
+        content: "";
+        display: block;
+        left: 0;
+        margin-top: calc(-1 * (50% - #{$ui-button-height / 2}));
+        padding-top: 100%; // 1:1 aspect ratio - makes height the same as button width
+        position: relative;
+        top: 0;
+        opacity: 0;
+        transform: scale(0);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
 }
 
 .ui-progress-circular.ui-button__progress {
@@ -412,14 +388,16 @@ export default {
 // ================================================
 
 .ui-button--type-primary {
+    .ui-button__focus-ring::before {
+        background-color: rgba(black, 0.12);
+    }
+
     &.ui-button--color-default {
         background-color: $md-grey-200;
         color: $primary-text-color;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open,
-        &.has-focus-ring:focus,
-        body[modality="keyboard"] &:focus {
+        &.has-dropdown-open {
             background-color: darken($md-grey-200, 7.5%);
         }
 
@@ -449,9 +427,7 @@ export default {
         background-color: $brand-primary-color;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open,
-        &.has-focus-ring:focus,
-        body[modality="keyboard"] &:focus {
+        &.has-dropdown-open {
             background-color: darken($brand-primary-color, 10%);
         }
     }
@@ -460,9 +436,7 @@ export default {
         background-color: $brand-accent-color;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open,
-        &.has-focus-ring:focus,
-        body[modality="keyboard"] &:focus {
+        &.has-dropdown-open {
             background-color: darken($brand-accent-color, 10%);
         }
     }
@@ -471,9 +445,7 @@ export default {
         background-color: $md-green;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open,
-        &.has-focus-ring:focus,
-        body[modality="keyboard"] &:focus {
+        &.has-dropdown-open {
             background-color: darken($md-green, 10%);
         }
     }
@@ -482,9 +454,7 @@ export default {
         background-color: $md-orange;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open,
-        &.has-focus-ring:focus,
-        body[modality="keyboard"] &:focus {
+        &.has-dropdown-open {
             background-color: darken($md-orange, 10%);
         }
     }
@@ -493,9 +463,7 @@ export default {
         background-color: $md-red;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open,
-        &.has-focus-ring:focus,
-        body[modality="keyboard"] &:focus {
+        &.has-dropdown-open {
             background-color: darken($md-red, 10%);
         }
     }
@@ -504,15 +472,17 @@ export default {
 .ui-button--type-secondary {
     background-color: transparent;
 
-    &:hover:not(.is-disabled),
-    &.has-dropdown-open,
-    &.has-focus-ring:focus,
-    body[modality="keyboard"] &:focus {
-        background-color: darken($md-grey-200, 3%);
-    }
-
     &.ui-button--color-default {
         color: $primary-text-color;
+
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: $md-grey-200;
+        }
+
+        .ui-button__focus-ring::before {
+            background-color: rgba(black, 0.12);
+        }
 
         .ui-button__icon {
             color: $secondary-text-color;
@@ -521,22 +491,67 @@ export default {
 
     &.ui-button--color-primary {
         color: $brand-primary-color;
+
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($brand-primary-color, 0.12);
+        }
+
+        .ui-button__focus-ring::before {
+            background-color: rgba($brand-primary-color, 0.26);
+        }
     }
 
     &.ui-button--color-accent {
         color: $brand-accent-color;
+
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($brand-accent-color, 0.12);
+        }
+
+        .ui-button__focus-ring::before {
+            background-color: rgba($brand-accent-color, 0.26);
+        }
     }
 
     &.ui-button--color-green {
         color: $md-green-600;
+
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($md-green-600, 0.12);
+        }
+
+        .ui-button__focus-ring::before {
+            background-color: rgba($md-green-600, 0.26);
+        }
     }
 
     &.ui-button--color-orange {
         color: $md-orange;
+
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($md-orange, 0.12);
+        }
+
+        .ui-button__focus-ring::before {
+            background-color: rgba($md-orange, 0.26);
+        }
     }
 
     &.ui-button--color-red {
         color: $md-red;
+
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($md-red, 0.12);
+        }
+
+        .ui-button__focus-ring::before {
+            background-color: rgba($md-red, 0.26);
+        }
     }
 }
 </style>

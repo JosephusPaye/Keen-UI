@@ -24,7 +24,7 @@
             :size="size === 'large' ? 24 : 18"
             :stroke="4.5"
 
-            v-show="loading"
+            v-if="loading"
         ></ui-progress-circular>
 
         <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
@@ -200,7 +200,6 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
     background: none;
     border-radius: 50%;
     border: none;
-    cursor: pointer;
     display: inline-flex;
     justify-content: center;
     margin: 0;
@@ -237,7 +236,6 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
     }
 
     &.is-disabled {
-        cursor: default;
         opacity: 0.6;
     }
 }
@@ -261,7 +259,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
     top: 0;
     transform-origin: center;
     transform: scale(0);
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
     width: $ui-icon-button-size;
 }
 
@@ -310,7 +308,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
     }
 
     .ui-icon-button__focus-ring {
-        background-color: rgba(black, 0.15);
+        background-color: rgba(black, 0.12);
     }
 }
 
@@ -344,7 +342,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
         }
 
         .ui-icon-button__focus-ring {
-            background-color: darken($md-grey-200, 15%);
+            background-color: darken($md-grey-200, 12%);
         }
 
         .ui-ripple-ink__ink {
@@ -377,7 +375,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
         }
 
         .ui-icon-button__focus-ring {
-            background-color: darken($brand-primary-color, 15%);
+            background-color: darken($brand-primary-color, 12%);
         }
     }
 
@@ -390,7 +388,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
         }
 
         .ui-icon-button__focus-ring {
-            background-color: darken($brand-accent-color, 15%);
+            background-color: darken($brand-accent-color, 12%);
         }
     }
 
@@ -403,7 +401,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
         }
 
         .ui-icon-button__focus-ring {
-            background-color: darken($md-green, 15%);
+            background-color: darken($md-green, 12%);
         }
     }
 
@@ -416,7 +414,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
         }
 
         .ui-icon-button__focus-ring {
-            background-color: darken($md-orange, 15%);
+            background-color: darken($md-orange, 12%);
         }
     }
 
@@ -429,7 +427,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
         }
 
         .ui-icon-button__focus-ring {
-            background-color: darken($md-red, 15%);
+            background-color: darken($md-red, 12%);
         }
     }
 }
@@ -438,64 +436,102 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
     &.ui-icon-button--color-default {
         color: $primary-text-color;
 
-        .ui-icon-button__icon {
-            color: $primary-text-color;
-        }
-    }
-
-    &.ui-icon-button--color-default,
-    &.ui-icon-button--color-primary,
-    &.ui-icon-button--color-accent,
-    &.ui-icon-button--color-green,
-    &.ui-icon-button--color-orange,
-    &.ui-icon-button--color-red {
         &:hover:not(.is-disabled),
         &.has-dropdown-open {
             background-color: rgba(black, 0.1);
         }
 
+        .ui-icon-button__icon {
+            color: $primary-text-color;
+        }
+
         .ui-icon-button__focus-ring {
-            background-color: rgba(black, 0.15);
+            background-color: rgba(black, 0.26);
         }
     }
 
     &.ui-icon-button--color-primary {
         color: $brand-primary-color;
 
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($brand-primary-color, 0.12);
+        }
+
         .ui-icon-button__icon {
             color: $brand-primary-color;
+        }
+
+        .ui-icon-button__focus-ring {
+            background-color: rgba($brand-primary-color, 0.26);
         }
     }
 
     &.ui-icon-button--color-accent {
         color: $brand-accent-color;
 
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($brand-accent-color, 0.12);
+        }
+
         .ui-icon-button__icon {
             color: $brand-accent-color;
+        }
+
+        .ui-icon-button__focus-ring {
+            background-color: rgba($brand-accent-color, 0.26);
         }
     }
 
     &.ui-icon-button--color-green {
         color: $md-green-600;
 
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($md-green-600, 0.12);
+        }
+
         .ui-icon-button__icon {
             color: $md-green-600;
+        }
+
+        .ui-icon-button__focus-ring {
+            background-color: rgba($md-green-600, 0.26);
         }
     }
 
     &.ui-icon-button--color-orange {
         color: $md-orange;
 
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($md-orange, 0.12);
+        }
+
         .ui-icon-button__icon {
             color: $md-orange;
+        }
+
+        .ui-icon-button__focus-ring {
+            background-color: rgba($md-orange, 0.26);
         }
     }
 
     &.ui-icon-button--color-red {
         color: $md-red;
 
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($md-red, 0.12);
+        }
+
         .ui-icon-button__icon {
             color: $md-red;
+        }
+
+        .ui-icon-button__focus-ring {
+            background-color: rgba($md-red, 0.26);
         }
     }
 }
