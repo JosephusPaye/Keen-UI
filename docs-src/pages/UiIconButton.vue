@@ -23,7 +23,7 @@
         <div class="page__examples">
             <ui-radio-group
                 name="size"
-                :options="['small', 'normal', 'large']"
+                :options="['mini', 'small', 'normal', 'large']"
                 v-model="size"
             >Button Size</ui-radio-group>
 
@@ -267,7 +267,7 @@
                                 <td>String</td>
                                 <td><code>"normal"</code></td>
                                 <td>
-                                    <p>The size of the icon button. One of <code>small</code>, <code>normal</code>, or <code>large</code>.</p>
+                                    <p>The size of the icon button. One of <code>mini</code>, <code>small</code>, <code>normal</code>, or <code>large</code>.</p>
                                 </td>
                             </tr>
 

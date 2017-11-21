@@ -20,6 +20,7 @@
 - Remove UiProgressCircular from the DOM when `loading` is false. Previously, it was hidden with `display: none`.
 - Remove pointer cursor, to match default HTML buttons.
 - For secondary icon buttons, use button color as background for hover and focus.
+- Add new size: `mini`
 
 ### UiTabs and UiTab
 

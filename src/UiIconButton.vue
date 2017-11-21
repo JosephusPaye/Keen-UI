@@ -80,7 +80,7 @@ export default {
         },
         size: {
             type: String,
-            default: 'normal' // 'small', normal', or 'large'
+            default: 'normal' // 'mini', 'small', normal', or 'large'
         },
         icon: String,
         ariaLabel: String,
@@ -192,6 +192,7 @@ export default {
 @import './styles/imports';
 
 $ui-icon-button-size            : rem-calc(36px) !default;
+$ui-icon-button--size-mini      : rem-calc(24px) !default;
 $ui-icon-button--size-small     : rem-calc(32px) !default;
 $ui-icon-button--size-large     : rem-calc(48px) !default;
 
@@ -241,13 +242,21 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
 }
 
 .ui-icon-button__icon {
+    align-items: center;
+    color: currentColor;
+    display: flex;
     height: initial;
+    justify-content: center;
     opacity: 1;
     position: relative;
     transition-delay: 0.1s;
     transition: opacity 0.2s ease;
     width: 100%; // Firefox: needs the width and height reset for flexbox centering
     z-index: 1;
+
+    .ui-icon {
+        display: block;
+    }
 }
 
 .ui-icon-button__focus-ring {
@@ -273,6 +282,18 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
 // ================================================
 // Sizes
 // ================================================
+
+.ui-icon-button--size-mini {
+    &,
+    .ui-icon-button__focus-ring {
+        height: $ui-icon-button--size-mini;
+        width: $ui-icon-button--size-mini;
+    }
+
+    .ui-icon {
+        font-size: rem-calc(18px);
+    }
+}
 
 .ui-icon-button--size-small {
     &,
@@ -314,18 +335,10 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
 
 .ui-icon-button--color-black {
     color: $secondary-text-color;
-
-    .ui-icon-button__icon {
-        color: $secondary-text-color;
-    }
 }
 
 .ui-icon-button--color-white {
-    color: $secondary-text-color;
-
-    .ui-icon-button__icon {
-        color: white;
-    }
+    color: white;
 }
 
 // ================================================
@@ -334,6 +347,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
 
 .ui-icon-button--type-primary {
     &.ui-icon-button--color-default {
+        color: $primary-text-color;
         background-color: $md-grey-200;
 
         &:hover:not(.is-disabled),
@@ -347,10 +361,6 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
 
         .ui-ripple-ink__ink {
             opacity: 0.2;
-        }
-
-        .ui-icon-button__icon  {
-            color: $primary-text-color;
         }
     }
 
@@ -434,15 +444,18 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
 
 .ui-icon-button--type-secondary {
     &.ui-icon-button--color-default {
-        color: $primary-text-color;
+        color: $secondary-text-color;
+
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open,
+        &.has-focus-ring:focus,
+        body[modality="keyboard"] &:focus {
+            color: $primary-text-color;
+        }
 
         &:hover:not(.is-disabled),
         &.has-dropdown-open {
             background-color: rgba(black, 0.1);
-        }
-
-        .ui-icon-button__icon {
-            color: $primary-text-color;
         }
 
         .ui-icon-button__focus-ring {
@@ -458,10 +471,6 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
             background-color: rgba($brand-primary-color, 0.12);
         }
 
-        .ui-icon-button__icon {
-            color: $brand-primary-color;
-        }
-
         .ui-icon-button__focus-ring {
             background-color: rgba($brand-primary-color, 0.26);
         }
@@ -473,10 +482,6 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
         &:hover:not(.is-disabled),
         &.has-dropdown-open {
             background-color: rgba($brand-accent-color, 0.12);
-        }
-
-        .ui-icon-button__icon {
-            color: $brand-accent-color;
         }
 
         .ui-icon-button__focus-ring {
@@ -492,10 +497,6 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
             background-color: rgba($md-green-600, 0.12);
         }
 
-        .ui-icon-button__icon {
-            color: $md-green-600;
-        }
-
         .ui-icon-button__focus-ring {
             background-color: rgba($md-green-600, 0.26);
         }
@@ -509,10 +510,6 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
             background-color: rgba($md-orange, 0.12);
         }
 
-        .ui-icon-button__icon {
-            color: $md-orange;
-        }
-
         .ui-icon-button__focus-ring {
             background-color: rgba($md-orange, 0.26);
         }
@@ -524,10 +521,6 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
         &:hover:not(.is-disabled),
         &.has-dropdown-open {
             background-color: rgba($md-red, 0.12);
-        }
-
-        .ui-icon-button__icon {
-            color: $md-red;
         }
 
         .ui-icon-button__focus-ring {
