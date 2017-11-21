@@ -6,6 +6,10 @@
 - Rewrote [Sass customization guide](#sass-customization) for clarity.
 - Use [`system-font-css`](https://github.com/jonathantneal/system-font-css) for default font stack. This fixes issues with font weights in IE, Edge and Firefox on Windows.
 
+## UiButton
+
+- Add `tooltip`, `tooltipPosition` and `openTooltipOn` props
+
 ### UiTabs and UiTab
 
 - UiTabs

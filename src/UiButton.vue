@@ -59,6 +59,13 @@
         >
             <slot name="dropdown"></slot>
         </ui-popover>
+
+        <ui-tooltip
+            :open-on="openTooltipOn"
+            :position="tooltipPosition"
+
+            v-if="tooltip"
+        >{{ tooltip }}</ui-tooltip>
     </button>
 </template>
 
@@ -67,6 +74,7 @@ import UiIcon from './UiIcon.vue';
 import UiPopover from './UiPopover.vue';
 import UiProgressCircular from './UiProgressCircular.vue';
 import UiRippleInk from './UiRippleInk.vue';
+import UiTooltip from './UiTooltip.vue';
 
 export default {
     name: 'ui-button',
@@ -117,6 +125,9 @@ export default {
             type: String,
             default: 'click' // 'click', 'hover', 'focus', or 'always'
         },
+        tooltip: String,
+        openTooltipOn: String,
+        tooltipPosition: String,
         disableRipple: {
             type: Boolean,
             default: false
@@ -216,7 +227,8 @@ export default {
         UiIcon,
         UiPopover,
         UiProgressCircular,
-        UiRippleInk
+        UiRippleInk,
+        UiTooltip
     }
 };
 </script>

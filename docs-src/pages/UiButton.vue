@@ -166,6 +166,19 @@
         </div>
 
         <div class="page__demo">
+            <h4 class="page__demo-title">With tooltip</h4>
+
+            <div class="page__demo-group">
+                <ui-button
+                    color="primary"
+                    icon="add"
+                    tooltip-position="top center"
+                    tooltip="Add a new resource to this project"
+
+                    :size="size"
+                >Add</ui-button>
+            </div>
+
             <h4 class="page__demo-title">Has dropdown, with menu</h4>
 
             <div class="page__demo-group">
@@ -290,13 +303,31 @@
                             </tr>
 
                             <tr>
-                                <td>disableRipple</td>
-                                <td>Boolean</td>
-                                <td><code>false</code></td>
+                                <td>tooltip</td>
+                                <td>String</td>
+                                <td></td>
                                 <td>
-                                    <p>Whether or not the ripple ink animation is shown when the button is clicked.</p>
-                                    <p>Can be set using the <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#global-config" target="_blank" rel="noopener">global config</a>.</p>
-                                    <p>Set to <code>true</code> to disable the ripple ink animation.</p>
+                                    <p>The button tooltip (text only).</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>tooltipPosition</td>
+                                <td>String</td>
+                                <td class="no-wrap"><code>"bottom left"</code></td>
+                                <td>
+                                    <p>The position of the tooltip relative to the button.</p>
+                                    <p>One of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, or <code>top center</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>openTooltipOn</td>
+                                <td>String</td>
+                                <td><code>"hover focus"</code></td>
+                                <td>
+                                    <p>The type of event or events that will cause the tooltip to open.</p>
+                                    <p>One or more of <code>click</code>, <code>hover</code>, or <code>focus</code>. Separate multiple events with a space.</p>
                                 </td>
                             </tr>
 
@@ -337,6 +368,17 @@
                                 <td>
                                     <p>The type of event that will cause the dropdown to open. One of <code>click</code>, <code>hover</code>, <code>focus</code>, or <code>always</code>.</p>
                                     <p>For <code>always</code>, the dropdown is opened when rendered and it remains open.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>disableRipple</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>
+                                    <p>Whether or not the ripple ink animation is shown when the button is clicked.</p>
+                                    <p>Can be set using the <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#global-config" target="_blank" rel="noopener">global config</a>.</p>
+                                    <p>Set to <code>true</code> to disable the ripple ink animation.</p>
                                 </td>
                             </tr>
 
