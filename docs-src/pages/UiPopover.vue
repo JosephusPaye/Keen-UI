@@ -280,6 +280,13 @@
                                     <p>Call this method to toggle the popover.</p>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td><code>isOpen()</code></td>
+                                <td>
+                                    <p>Call this method to determine if the popover is open.</p>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

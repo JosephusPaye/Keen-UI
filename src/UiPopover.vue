@@ -119,6 +119,15 @@ export default {
                 constrainToScrollParent: this.constrainToScrollParent
             });
 
+            // TO FIX: Workaround for Tether not positioning
+            // correctly for positions other than 'bottom left'
+            if (!this.removeOnClose && this.dropdownPosition !== 'bottom left') {
+                this.dropInstance.open();
+                this.dropInstance.close();
+                this.dropInstance.open();
+                this.dropInstance.close();
+            }
+
             this.dropInstance.on('open', this.onOpen);
             this.dropInstance.on('close', this.onClose);
         },
@@ -146,6 +155,10 @@ export default {
             if (this.dropInstance) {
                 this.dropInstance.toggle();
             }
+        },
+
+        isOpen() {
+            return Boolean(this.dropInstance) && this.dropInstance.isOpened();
         },
 
         /**

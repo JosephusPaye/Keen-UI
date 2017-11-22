@@ -45,6 +45,7 @@
 - **Breaking**: `trigger` prop is now a DOM Element instance or selector string. If no trigger is provided or the selector doesn't match any element, the popover's immediate parent element is used as the trigger.
 - **Breaking**: Rename `dropdownPosition` prop to `position`, to match UiTooltip
 - Add new prop `removeOnClose`, used to remove the popover element from the DOM when it is closed
+- Add new method `isOpen()`, used to determine if the popover is open.
 
 ### UiTooltip
 
