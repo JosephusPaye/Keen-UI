@@ -163,9 +163,28 @@
                     </tbody>
                 </table>
             </div>
-        </div>
 
-        <div class="page__demo">
+            <h4 class="page__demo-title">With href (linked button)</h4>
+
+            <div class="page__demo-group">
+                <ui-button
+                    color="primary"
+                    href="https://github.com/JosephusPaye/Keen-UI"
+                    rel="noopener"
+                    target="_blank"
+
+                    :size="size"
+                >Github</ui-button>
+
+                <ui-button
+                    color="primary"
+                    disabled
+                    href="https://github.com/JosephusPaye/Keen-UI"
+
+                    :size="size"
+                >Disabled link</ui-button>
+            </div>
+
             <h4 class="page__demo-title">With tooltip</h4>
 
             <div class="page__demo-group">
@@ -242,6 +261,13 @@
                                 <td>String</td>
                                 <td><code>"submit"</code></td>
                                 <td>The <code>type</code> attribute of the button element.</td>
+                            </tr>
+
+                            <tr>
+                                <td>href</td>
+                                <td>String</td>
+                                <td></td>
+                                <td>The button's <code>href</code> attribute. Setting this attribute will render an anchor tag (<code>&lt;a&gt;</code>).</td>
                             </tr>
 
                             <tr>

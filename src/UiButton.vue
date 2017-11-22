@@ -1,10 +1,12 @@
 <template>
-    <button
+    <component
         class="ui-button"
 
         :class="classes"
         :disabled="disabled || loading"
-        :type="buttonType"
+        :href="isAnchor ? (disabled ? null : href) : null"
+        :is="isAnchor ? 'a' : 'button'"
+        :type="isAnchor ? null : buttonType"
 
         @click="onClick"
     >
@@ -65,7 +67,7 @@
 
             v-if="tooltip"
         >{{ tooltip }}</ui-tooltip>
-    </button>
+    </component>
 </template>
 
 <script>
@@ -87,6 +89,7 @@ export default {
             type: String,
             default: 'submit' // HTML default
         },
+        href: String,
         color: {
             type: String,
             default: 'default' // 'default', 'primary', 'accent', 'green', 'orange', or 'red'
@@ -144,11 +147,16 @@ export default {
                 `ui-button--color-${this.color}`,
                 `ui-button--icon-position-${this.iconPosition}`,
                 `ui-button--size-${this.size}`,
+                { 'is-anchor': this.isAnchor },
                 { 'is-raised': this.raised },
                 { 'is-loading': this.loading },
                 { 'is-disabled': this.disabled || this.loading },
                 { 'has-dropdown': this.hasDropdown }
             ];
+        },
+
+        isAnchor() {
+            return this.href !== undefined;
         },
 
         progressColor() {
@@ -239,6 +247,15 @@ export default {
         .ui-button__focus-ring::before {
             opacity: 1;
             transform: scale(1.1);
+        }
+    }
+
+    &.is-anchor {
+        cursor: pointer;
+        text-decoration: none;
+
+        &.is-disabled {
+            cursor: default;
         }
     }
 

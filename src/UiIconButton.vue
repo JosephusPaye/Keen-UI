@@ -1,11 +1,13 @@
 <template>
-    <button
+    <component
         class="ui-icon-button"
 
         :aria-label="ariaLabel || tooltip"
         :class="classes"
         :disabled="disabled || loading"
-        :type="buttonType"
+        :href="isAnchor ? (disabled ? null : href) : null"
+        :is="isAnchor ? 'a' : 'button'"
+        :type="isAnchor ? null : buttonType"
 
         @click="onClick"
     >
@@ -52,7 +54,7 @@
 
             v-if="tooltip"
         >{{ tooltip }}</ui-tooltip>
-    </button>
+    </component>
 </template>
 
 <script>
@@ -74,6 +76,7 @@ export default {
             type: String,
             default: 'button'
         },
+        href: String,
         color: {
             type: String,
             default: 'default' // 'default', 'primary', 'accent', 'green', 'orange', or 'red'
@@ -123,10 +126,15 @@ export default {
                 `ui-icon-button--type-${this.type}`,
                 `ui-icon-button--color-${this.color}`,
                 `ui-icon-button--size-${this.size}`,
+                { 'is-anchor': this.isAnchor },
                 { 'is-loading': this.loading },
                 { 'is-disabled': this.disabled || this.loading },
                 { 'has-dropdown': this.hasDropdown }
             ];
+        },
+
+        isAnchor() {
+            return this.href !== undefined;
         },
 
         progressColor() {
@@ -229,6 +237,15 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
     // Remove the Firefox dotted outline
     &::-moz-focus-inner {
         border: 0;
+    }
+
+    &.is-anchor {
+        cursor: pointer;
+        text-decoration: none;
+
+        &.is-disabled {
+            cursor: default;
+        }
     }
 
     &.is-loading {
