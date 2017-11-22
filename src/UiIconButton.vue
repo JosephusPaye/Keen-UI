@@ -201,6 +201,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
     background: none;
     border-radius: 50%;
     border: none;
+    cursor: default;
     display: inline-flex;
     justify-content: center;
     margin: 0;

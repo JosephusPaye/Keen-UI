@@ -210,6 +210,7 @@ export default {
     background: none;
     border-radius: $ui-default-border-radius;
     border: none;
+    cursor: default;
     display: inline-flex;
     font-family: $font-stack;
     font-size: $ui-button-font-size;
