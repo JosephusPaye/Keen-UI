@@ -72,10 +72,7 @@ export default {
             type: String,
             default: 'primary' // 'primary' or 'secondary'
         },
-        buttonType: {
-            type: String,
-            default: 'button'
-        },
+        buttonType: String,
         href: String,
         color: {
             type: String,

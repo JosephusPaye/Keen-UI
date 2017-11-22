@@ -85,10 +85,7 @@ export default {
             type: String,
             default: 'primary' // 'primary' or 'secondary'
         },
-        buttonType: {
-            type: String,
-            default: 'submit' // HTML default
-        },
+        buttonType: String,
         href: String,
         color: {
             type: String,

@@ -259,8 +259,8 @@
                             <tr>
                                 <td>buttonType</td>
                                 <td>String</td>
-                                <td><code>"submit"</code></td>
-                                <td>The <code>type</code> attribute of the button element.</td>
+                                <td></td>
+                                <td>The <code>type</code> attribute of the button element. The <a href="https://stackoverflow.com/a/31644856" target="_blank" rel="noopener">HTML default</a> is <code>submit</code>.</td>
                             </tr>
 
                             <tr>
