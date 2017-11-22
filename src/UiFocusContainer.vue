@@ -5,6 +5,8 @@
             tabindex="0"
 
             @focus="redirectFocus($event, { isTabbingForward: false })"
+
+            v-if="!disabled"
         ></span>
 
         <div class="ui-focus-container__content" ref="content" tabindex="-1">
@@ -16,7 +18,7 @@
             ref="lastFocusable"
             tabindex="-1"
 
-            v-if="containFocus"
+            v-if="!disabled && containFocus"
         ></span>
 
         <span
@@ -24,6 +26,8 @@
             tabindex="0"
 
             @focus="redirectFocus($event, { isTabbingForward: true })"
+
+            v-if="!disabled"
         ></span>
     </div>
 </template>
@@ -37,7 +41,11 @@ export default {
             type: Boolean,
             default: true
         },
-        focusRedirector: Function
+        focusRedirector: Function,
+        disabled: {
+            type: Boolean,
+            default: false
+        }
     },
 
     methods: {
