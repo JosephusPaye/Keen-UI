@@ -23,7 +23,6 @@
 
                 :tabindex="disabled ? null : '0'"
 
-                @click="toggleDropdown"
                 @focus="onFocus"
                 @keydown.enter.prevent="openDropdown"
                 @keydown.space.prevent="openDropdown"
@@ -31,7 +30,9 @@
             >
                 <div
                     class="ui-select__label-text"
+
                     :class="labelClasses"
+
                     v-if="label || $slots.default"
                 >
                     <slot>{{ label }}</slot>
@@ -50,10 +51,19 @@
                     </ui-icon>
                 </div>
 
-                <transition name="ui-select--transition-fade">
+                <ui-popover
+                    class="ui-select__dropdown"
+                    ref="dropdown"
+                    remove-on-close
+
+                    :constrain-to-scroll-parent="false"
+
+                    @close="onClose"
+                    @open="onOpen"
+                >
                     <div
-                        class="ui-select__dropdown"
-                        ref="dropdown"
+                        class="ui-select__dropdown-content"
+                        ref="dropdownContent"
                         tabindex="-1"
 
                         @keydown.down.prevent="highlightOption(highlightedIndex + 1)"
@@ -61,8 +71,6 @@
                         @keydown.esc.prevent="closeDropdown()"
                         @keydown.tab="onBlur"
                         @keydown.up.prevent="highlightOption(highlightedIndex - 1)"
-
-                        v-show="showDropdown"
                     >
                         <div
                             class="ui-select__search"
@@ -91,9 +99,11 @@
 
                             <ui-progress-circular
                                 class="ui-select__search-progress"
+
                                 :size="20"
                                 :stroke="4"
-                                v-show="loading"
+
+                                v-if="loading"
                             ></ui-progress-circular>
                         </div>
 
@@ -129,7 +139,7 @@
                             </div>
                         </ul>
                     </div>
-                </transition>
+                </ui-popover>
             </div>
 
             <div class="ui-select__feedback" v-if="hasFeedback">
@@ -147,12 +157,15 @@
 
 <script>
 import UiIcon from './UiIcon.vue';
+import UiPopover from './UiPopover.vue';
 import UiProgressCircular from './UiProgressCircular.vue';
 import UiSelectOption from './UiSelectOption.vue';
 
-import fuzzysearch from 'fuzzysearch';
+import RespondsToExternalClick from './mixins/RespondsToExternalClick';
 import { looseIndexOf, looseEqual } from './helpers/util';
 import { scrollIntoView, resetScroll } from './helpers/element-scroll';
+
+import fuzzysearch from 'fuzzysearch';
 
 export default {
     name: 'ui-select',
@@ -242,7 +255,6 @@ export default {
             isTouched: false,
             selectedIndex: -1,
             highlightedIndex: -1,
-            showDropdown: false,
             initialValue: JSON.stringify(this.value)
         };
     },
@@ -356,16 +368,6 @@ export default {
             resetScroll(this.$refs.optionsList);
         },
 
-        showDropdown() {
-            if (this.showDropdown) {
-                this.onOpen();
-                this.$emit('dropdown-open');
-            } else {
-                this.onClose();
-                this.$emit('dropdown-close');
-            }
-        },
-
         query() {
             this.$emit('query-change', this.query);
         }
@@ -378,11 +380,11 @@ export default {
     },
 
     mounted() {
-        document.addEventListener('click', this.onExternalClick);
+        this.addExternalClickListener(this.$el, this.onExternalClick);
     },
 
     beforeDestroy() {
-        document.removeEventListener('click', this.onExternalClick);
+        this.removeExternalClickListener();
     },
 
     methods: {
@@ -487,7 +489,7 @@ export default {
         },
 
         toggleDropdown() {
-            this[this.showDropdown ? 'closeDropdown' : 'openDropdown']();
+            this.$refs.dropdown.toggle();
         },
 
         openDropdown() {
@@ -495,7 +497,7 @@ export default {
                 return;
             }
 
-            this.showDropdown = true;
+            this.$refs.dropdown.open();
 
             // IE: clicking label doesn't focus the select element
             // to set isActive to true
@@ -505,7 +507,7 @@ export default {
         },
 
         closeDropdown(options = { autoBlur: false }) {
-            this.showDropdown = false;
+            this.$refs.dropdown.close();
 
             if (!this.isTouched) {
                 this.isTouched = true;
@@ -532,29 +534,42 @@ export default {
             this.isActive = false;
             this.$emit('blur', e);
 
-            if (this.showDropdown) {
+            if (this.$refs.dropdown.isOpen()) {
                 this.closeDropdown({ autoBlur: true });
             }
         },
 
         onOpen() {
+            document.addEventListener('scroll', this.onExternalScroll, true);
+
+            this.$refs.dropdown.$el.style.width = this.$refs.label.getBoundingClientRect().width + 'px';
+
             this.$nextTick(() => {
-                this.$refs[this.hasSearch ? 'searchInput' : 'dropdown'].focus();
+                this.$refs[this.hasSearch ? 'searchInput' : 'dropdownContent'].focus();
                 this.scrollOptionIntoView(this.$refs.optionsList.querySelector('.is-selected'));
             });
+
+            this.$emit('dropdown-open');
         },
 
         onClose() {
+            document.removeEventListener('scroll', this.onExternalScroll, true);
+
             this.highlightedIndex = this.multiple ? -1 : this.selectedIndex;
+            this.$emit('dropdown-close');
         },
 
-        onExternalClick(e) {
-            if (!this.$el.contains(e.target)) {
-                if (this.showDropdown) {
-                    this.closeDropdown({ autoBlur: true });
-                } else if (this.isActive) {
-                    this.isActive = false;
-                }
+        onExternalClick() {
+            if (this.$refs.dropdown.isOpen()) {
+                this.closeDropdown({ autoBlur: true });
+            } else if (this.isActive) {
+                this.isActive = false;
+            }
+        },
+
+        onExternalScroll(e) {
+            if (e.target !== this.$refs.optionsList) {
+                this.closeDropdown();
             }
         },
 
@@ -581,9 +596,14 @@ export default {
 
     components: {
         UiIcon,
+        UiPopover,
         UiProgressCircular,
         UiSelectOption
-    }
+    },
+
+    mixins: [
+        RespondsToExternalClick
+    ]
 };
 </script>
 
@@ -711,7 +731,6 @@ export default {
     margin: 0;
     outline: none;
     padding: 0;
-    position: relative;
     width: 100%;
 }
 
@@ -773,9 +792,6 @@ export default {
 }
 
 .ui-select__dropdown {
-    background-color: white;
-    box-shadow: 1px 2px 8px $md-grey-600;
-    color: $primary-text-color;
     display: block;
     list-style-type: none;
     margin: 0;
@@ -783,9 +799,11 @@ export default {
     min-width: rem-calc(180px);
     outline: none;
     padding: 0;
-    position: absolute;
     width: 100%;
-    z-index: $z-index-dropdown;
+}
+
+.ui-select__dropdown-content {
+    outline: none;
 }
 
 .ui-select__search-input {
@@ -815,12 +833,15 @@ export default {
     &:focus + .ui-select__search-icon {
         color: $ui-input-label-color--active;
     }
+
 }
 
-.ui-select__search-icon,
-.ui-select__search-progress {
-    position: absolute;
-    top: rem-calc(8px);
+.ui-select__search {
+    .ui-select__search-icon,
+    .ui-select__search-progress {
+        position: absolute;
+        top: rem-calc(8px);
+    }
 }
 
 .ui-select__search-icon {
@@ -872,19 +893,5 @@ export default {
         margin-right: 0;
         order: 1;
     }
-}
-
-// ================================================
-// Transitions
-// ================================================
-
-.ui-select--transition-fade-enter-active,
-.ui-select--transition-fade-leave-active {
-    transition: opacity 0.2s ease;
-}
-
-.ui-select--transition-fade-enter,
-.ui-select--transition-fade-leave-active {
-    opacity: 0;
 }
 </style>
