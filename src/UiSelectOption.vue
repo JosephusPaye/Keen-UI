@@ -61,6 +61,7 @@ export default {
             type: Object,
             default() {
                 return {
+                    class: 'class',
                     label: 'label',
                     image: 'image'
                 };
@@ -72,6 +73,7 @@ export default {
         classes() {
             return [
                 `ui-select-option--type-${this.type}`,
+                this.option[this.keys.class],
                 { 'is-highlighted': this.highlighted },
                 { 'is-selected': this.selected }
             ];

@@ -230,6 +230,7 @@ export default {
             type: Object,
             default() {
                 return {
+                    class: 'class',
                     label: 'label',
                     value: 'value',
                     image: 'image'
