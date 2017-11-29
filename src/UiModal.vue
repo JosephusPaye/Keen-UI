@@ -191,6 +191,7 @@ export default {
             this.$refs.focusContainer.focus();
 
             classlist.add(document.body, 'ui-modal--is-open');
+            this.incrementOpenModalCount();
 
             this.$emit('open');
         },
@@ -206,7 +207,36 @@ export default {
 
         onLeave() {
             this.$emit('hide');
-            classlist.remove(document.body, 'ui-modal--is-open');
+            const newCount = this.decrementOpenModalCount();
+
+            if (newCount === 0) {
+                classlist.remove(document.body, 'ui-modal--is-open');
+            }
+        },
+
+        getOpenModalCount() {
+            const count = document.body.getAttribute('data-ui-open-modals');
+            return count === undefined ? 0 : Number(count);
+        },
+
+        setOpenModalCount(count) {
+            const normalizedCount = Math.max(0, count);
+
+            if (normalizedCount === 0) {
+                document.body.removeAttribute('data-ui-open-modals');
+            } else {
+                document.body.setAttribute('data-ui-open-modals', normalizedCount);
+            }
+
+            return normalizedCount;
+        },
+
+        incrementOpenModalCount() {
+            return this.setOpenModalCount(this.getOpenModalCount() + 1);
+        },
+
+        decrementOpenModalCount() {
+            return this.setOpenModalCount(this.getOpenModalCount() - 1);
         }
     },
 
