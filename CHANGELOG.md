@@ -4,7 +4,6 @@
 
 - **Breaking**: Change global prop configuration system to be simpler and more reliable. See updated [Customization guide](#global-prop-configuration) for details.
 - Rewrote [Sass customization guide](#sass-customization) for clarity.
-- Use [`system-font-css`](https://github.com/jonathantneal/system-font-css) for default font stack. This fixes issues with font weights in IE, Edge and Firefox on Windows.
 
 ## UiButton
 
