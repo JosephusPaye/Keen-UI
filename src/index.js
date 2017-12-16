@@ -86,6 +86,10 @@ KeenUI.install = function (Vue, config = {}) {
 
     // Install the components
     Object.keys(KeenUI).forEach(key => {
+        if (key === 'install') {
+            return;
+        }
+
         const Component = KeenUI[key];
         Vue.component(Component.name, Component);
     });
