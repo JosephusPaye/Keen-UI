@@ -295,6 +295,45 @@
                             </tr>
 
                             <tr>
+                                <td>autocorrect</td>
+                                <td>String</td>
+                                <td></td>
+                                <td>
+                                    <p>Enable or disable browser autocorrect for this input.</p>
+
+                                    <p>See the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-autocorrect" target="_blank" rel="noopener">autocorrect attribute docs</a> for more info.</p>
+
+                                    <p>Set to <code>"off"</code> to disable the browser autocorrect.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>autocapitalize</td>
+                                <td>String</td>
+                                <td></td>
+                                <td>
+                                    <p>Enable or disable browser autocapitalize for this input.</p>
+
+                                    <p>See the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-autocapitalize" target="_blank" rel="noopener">autocapitalize attribute docs</a> for more info.</p>
+
+                                    <p>Set to <code>"off"</code> to disable the browser autocapitalize.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>spellcheck</td>
+                                <td>Boolean</td>
+                                <td></td>
+                                <td>
+                                    <p>Enable or disable browser spellcheck for this input.</p>
+
+                                    <p>See the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-spellcheck" target="_blank" rel="noopener">spellcheck attribute docs</a> for more info.</p>
+
+                                    <p>Set to <code>false</code> to disable the browser autocapitalize.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>autosize</td>
                                 <td>Boolean</td>
                                 <td><code>true</code></td>

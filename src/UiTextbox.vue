@@ -21,6 +21,9 @@
                     ref="input"
 
                     :autocomplete="autocomplete ? autocomplete : null"
+                    :autocorrect="autocorrect ? autocorrect : null"
+                    :autocapitalize="autocapitalize ? autocapitalize : null"
+                    :spellcheck="spellcheck !== null ? spellcheck : null"
                     :disabled="disabled"
                     :max="maxValue"
                     :maxlength="enforceMaxlength ? maxlength : null"
@@ -48,8 +51,10 @@
                 <textarea
                     class="ui-textbox__textarea"
                     ref="textarea"
-
                     :autocomplete="autocomplete ? autocomplete : null"
+                    :autocorrect="autocorrect ? autocorrect : null"
+                    :autocapitalize="autocapitalize ? autocapitalize : null"
+                    :spellcheck="spellcheck !== null ? spellcheck : null"
                     :disabled="disabled"
                     :maxlength="enforceMaxlength ? maxlength : null"
                     :name="name"
@@ -127,6 +132,9 @@ export default {
             default: 2
         },
         autocomplete: String,
+        autocorrect: String,
+        autocapitalize: String,
+        spellcheck: Boolean,
         autofocus: {
             type: Boolean,
             default: false
