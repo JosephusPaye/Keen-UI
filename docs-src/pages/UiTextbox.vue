@@ -323,7 +323,7 @@
                             <tr>
                                 <td>spellcheck</td>
                                 <td>Boolean</td>
-                                <td></td>
+                                <td><code>true</code></td>
                                 <td>
                                     <p>Enable or disable browser spellcheck for this input.</p>
 

@@ -134,7 +134,10 @@ export default {
         autocomplete: String,
         autocorrect: String,
         autocapitalize: String,
-        spellcheck: Boolean,
+        spellcheck: {
+            type: Boolean,
+            default: true,
+        },
         autofocus: {
             type: Boolean,
             default: false
