@@ -92,6 +92,10 @@ export default {
             default: false
         },
         markerValue: Number,
+        fixeMarker: {
+            type: Boolean,
+            default: false
+        },
         disabled: {
             type: Boolean,
             default: false
@@ -117,7 +121,8 @@ export default {
                 { 'is-disabled': this.disabled },
                 { 'is-active': this.isActive },
                 { 'has-icon': this.hasIcon },
-                { 'has-marker': this.showMarker }
+                { 'has-marker': this.showMarker },
+                { 'fixed-marker': this.fixeMarker }
             ];
         },
 
@@ -416,6 +421,16 @@ $ui-slider-marker-size                      : rem-calc(36px);
             background-color: #DDD;
             border: rem-calc(2px) solid white;
         }
+    }
+}
+
+.ui-slider.fixed-marker {
+        .ui-slider__marker {
+        opacity: 1;
+        transform: scale(1) translateY(rem-calc(-26px)) !important; 
+    }
+    .ui-slider__marker-text {
+        color: white !important;
     }
 }
 
