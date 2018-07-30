@@ -48,8 +48,21 @@
 
 ### UiTooltip
 
-- **Breaking**: `trigger` prop is now a DOM Element instance or selector string. If no trigger is provided or the selector doesn't match any element, the tooltip's immediate parent element is used as the trigger.
-- Add new prop `removeOnClose`, used to remove the tooltip element from the DOM when it is closed
+- **Breaking**: Switch positioning library to Tippy.js, which uses Popper.js.
+- **Breaking**: `trigger` prop is now a DOM Element, VueComponent instance,  or selector string. If no trigger is provided or the selector doesn't match any element, the tooltip's immediate parent element is used as the trigger.
+    ```html
+    <!-- Instead of: ref + trigger -->
+    <button ref="button">My Button</button>
+    <ui-tooltip trigger="button">My Tooltip</ui-tooltip>
+
+    <!-- Use: nested <ui-tooltip> in target element -->
+    <button>
+        My Button <ui-tooltip>My Tooltip</ui-tooltip>
+    </button>
+    ```
+- **Breaking**: `position` prop accepted values have changed to match Tippy.js. See docs for new values.
+- Add new prop `animation` to choose animation style
+- Add new prop `appendToBody`, to choose between appending tooltip to `document.body` or the local parent element
 
 ### UiRippleInk
 

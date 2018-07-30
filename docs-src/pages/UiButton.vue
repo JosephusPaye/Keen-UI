@@ -191,7 +191,7 @@
                 <ui-button
                     color="primary"
                     icon="add"
-                    tooltip-position="top center"
+                    tooltip-position="top"
                     tooltip="Add a new resource to this project"
 
                     :size="size"
@@ -340,20 +340,20 @@
                             <tr>
                                 <td>tooltipPosition</td>
                                 <td>String</td>
-                                <td class="no-wrap"><code>"bottom left"</code></td>
+                                <td class="no-wrap"><code>"bottom"</code></td>
                                 <td>
                                     <p>The position of the tooltip relative to the button.</p>
-                                    <p>One of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, or <code>top center</code>.</p>
+                                    <p>One of <code>top</code>, <code>top-start</code>, <code>top-end</code>, <code>right</code>, <code>right-start</code>, <code>right-end</code>, <code>bottom</code>, <code>bottom-start</code>, <code>bottom-end</code>, <code>left</code>, <code>left-start</code>, <code>left-end</code>.</p>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>openTooltipOn</td>
                                 <td>String</td>
-                                <td><code>"hover focus"</code></td>
+                                <td><code>"mouseenter focus"</code></td>
                                 <td>
                                     <p>The type of event or events that will cause the tooltip to open.</p>
-                                    <p>One or more of <code>click</code>, <code>hover</code>, or <code>focus</code>. Separate multiple events with a space.</p>
+                                    <p>One or more of <code>click</code>, <code>hover</code>/<code>mouseenter</code>, or <code>focus</code>. Separate multiple events with a space.</p>
                                 </td>
                             </tr>
 
