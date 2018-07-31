@@ -321,7 +321,7 @@ export default {
             this.isActive = false;
             this.$emit('blur', e);
 
-            if (this.usesPopover && this.$refs.popover.dropInstance.isOpened()) {
+            if (this.usesPopover && this.$refs.popover.isOpen()) {
                 this.closePicker({ autoBlur: true });
             }
         },

@@ -386,8 +386,8 @@
                                 <td>String</td>
                                 <td><code>"click"</code></td>
                                 <td>
-                                    <p>The type of event that will cause the dropdown to open. One of <code>click</code>, <code>hover</code>, <code>focus</code>, or <code>always</code>.</p>
-                                    <p>For <code>always</code>, the dropdown is opened when rendered and it remains open.</p>
+                                    <p>The type of event that will cause the dropdown to open. One of <code>click</code>, <code>mouseenter</code>/<code>hover</code>, <code>focus</code>, or <code>manual</code>.</p>
+                                    <p>For <code>manual</code>, the dropdown is closed by default, until manually opened.</p>
                                 </td>
                             </tr>
 

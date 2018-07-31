@@ -40,7 +40,7 @@
             <button class="popover-trigger">
                 Click here for the menu
 
-                <ui-popover ref="dropdown" remove-on-close>
+                <ui-popover ref="dropdown">
                     <ui-menu
                         contain-focus
                         has-icons
@@ -297,19 +297,10 @@ export default {
 
 .page--ui-menu {
     .popover-trigger {
-        background-color: $md-blue-grey;
-        color: white;
-        cursor: default;
         display: inline-block;
-        padding: 8px 16px;
-        text-decoration: none;
-        border: none;
+        padding: 6px 12px;
         font-family: $font-stack;
         font-size: 16px;
-
-        &:hover {
-            background-color: $md-blue-grey-600;
-        }
     }
 }
 </style>

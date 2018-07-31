@@ -370,10 +370,10 @@
                             <tr>
                                 <td>dropdownPosition</td>
                                 <td>String</td>
-                                <td class="no-wrap"><code>"bottom left"</code></td>
+                                <td class="no-wrap"><code>"bottom-start"</code></td>
                                 <td>
                                     <p>The position of the dropdown relative to the button.</p>
-                                    <p>One of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, or <code>top center</code>.</p>
+                                    <p>One of <code>top</code>, <code>top-start</code>, <code>top-end</code>, <code>right</code>, <code>right-start</code>, <code>right-end</code>, <code>bottom</code>, <code>bottom-start</code>, <code>bottom-end</code>, <code>left</code>, <code>left-start</code>, <code>left-end</code>.</p>
                                 </td>
                             </tr>
 
@@ -382,7 +382,7 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>
-                                    <p>When set to <code>true</code>, the button's dropdown will flip it's position if the position will cause it to overflow the button's first scroll parent. The scroll parent is the parent that has <code>overflow: auto</code> or <code>overflow: scroll</code> set, or <code>&lt;body&gt;</code>, whichever comes first.</p>
+                                    <p>When set to <code>true</code>, the button's dropdown will flip it's position if the position will cause it to overflow the button's scroll parent. The scroll parent is the first parent that has <code>overflow: auto</code> or <code>overflow: scroll</code> set, or <code>&lt;body&gt;</code>, whichever comes first.</p>
                                     <p>Set to <code>false</code> to disable the flipping behavior. This is useful for buttons in modals, if you want the button's dropdown to drop outside of the boundaries of the modal.</p>
                                 </td>
                             </tr>
@@ -392,8 +392,8 @@
                                 <td>String</td>
                                 <td><code>"click"</code></td>
                                 <td>
-                                    <p>The type of event that will cause the dropdown to open. One of <code>click</code>, <code>hover</code>, <code>focus</code>, or <code>always</code>.</p>
-                                    <p>For <code>always</code>, the dropdown is opened when rendered and it remains open.</p>
+                                    <p>The type of event that will cause the dropdown to open. One of <code>click</code>, <code>mouseenter</code>/<code>hover</code>, <code>focus</code>, or <code>manual</code>.</p>
+                                    <p>For <code>manual</code>, the dropdown is closed by default, until manually opened.</p>
                                 </td>
                             </tr>
 

@@ -47,7 +47,6 @@
         <ui-popover
             contain-focus
             ref="dropdown"
-            remove-on-close
 
             :constrain-to-scroll-parent="constrainDropdownToScrollParent"
             :position="dropdownPosition"
@@ -114,7 +113,7 @@ export default {
         },
         dropdownPosition: {
             type: String,
-            default: 'bottom left'
+            default: 'bottom-start'
         },
         constrainDropdownToScrollParent: {
             type: Boolean,

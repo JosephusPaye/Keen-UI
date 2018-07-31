@@ -7,6 +7,7 @@
 
 ## UiButton
 
+- **Breaking**: Accepted values for prop `dropdownPosition` have changed to match Tippy.js. See docs for new values.
 - Fix ripple position starting off when directly clicking an inner element. Fixes #220.
 - Add `tooltip`, `tooltipPosition` and `openTooltipOn` props
 - Make focus ring transition to fill the button. Previously, it stopped halfway. Fixes #205.
@@ -17,6 +18,7 @@
 
 ## UiIconButton
 
+- **Breaking**: Accepted values for prop `dropdownPosition` have changed to match Tippy.js. See docs for new values.
 - Remove UiProgressCircular from the DOM when `loading` is false. Previously, it was hidden with `display: none`.
 - Remove pointer cursor, to match default HTML buttons.
 - For secondary icon buttons, use button color as background for hover and focus.
@@ -41,10 +43,25 @@
 
 ### UiPopover
 
-- **Breaking**: `trigger` prop is now a DOM Element instance or selector string. If no trigger is provided or the selector doesn't match any element, the popover's immediate parent element is used as the trigger.
-- **Breaking**: Rename `dropdownPosition` prop to `position`, to match UiTooltip
-- Add new prop `removeOnClose`, used to remove the popover element from the DOM when it is closed
+- **Breaking**: Switch positioning library to Tippy.js, which uses Popper.js.
+- **Breaking**: `trigger` prop is now a DOM Element, VueComponent instance,  or selector string. If no trigger is provided or the selector doesn't match any element, the popover's immediate parent element is used as the trigger.
+    ```html
+    <!-- Instead of: ref + trigger -->
+    <button ref="button">My Button</button>
+    <ui-popover trigger="button">My Popover</ui-popover>
+
+    <!-- Use: nested <ui-popover> in target element -->
+    <button>
+        My Button <ui-popover>My Popover</ui-popover>
+    </button>
+    ```
+- **Breaking**: Rename `dropdownPosition` prop to `position`, to match UiTooltip. Accepted values have changed to match Tippy.js. See docs for new values.
+- Remove prop `removeOnClose`, no longer needed. All popovers are now removed from the DOM on close.
+- Add new prop `animation` to choose animation style.
+- Add new prop `closeOnScroll` to close an open popover on external scroll.
+- Add new prop `appendToBody`, to choose between appending popover to `document.body` or the local parent element.
 - Add new method `isOpen()`, used to determine if the popover is open.
+- Add new events `reveal` and `hide`.
 
 ### UiTooltip
 

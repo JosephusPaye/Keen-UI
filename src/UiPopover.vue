@@ -16,192 +16,187 @@
 </template>
 
 <script>
-import classlist from './helpers/classlist';
-import Drop from 'tether-drop';
+import tippy from 'tippy.js/dist/tippy.js';
 
+import classlist from './helpers/classlist';
+import elementRef from './helpers/element-ref';
 import UiFocusContainer from './UiFocusContainer.vue';
 
 export default {
     name: 'ui-popover',
 
     props: {
-        trigger: {
-            validator(value) {
-                const isValid = (value instanceof Element) || (value && value._isVue) || (typeof value === 'string');
-
-                if (!isValid) {
-                    console.warn('[UiPopover]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string which matches an existing element.');
-                }
-
-                return isValid;
-            }
-        },
-        position: {
+        animation: {
             type: String,
-            default: 'bottom left'
+            default: 'fade', // 'fade', 'shift-away', or 'none'
+        },
+        appendToBody: {
+            type: Boolean,
+            default: true
+        },
+        closeOnScroll: {
+            type: Boolean,
+            default: true
         },
         constrainToScrollParent: {
             type: Boolean,
             default: true
-        },
-        openOn: {
-            type: String,
-            default: 'click' // 'click', 'hover', 'focus', or 'always'
-        },
-        removeOnClose: {
-            type: Boolean,
-            default: false
         },
         containFocus: {
             type: Boolean,
             default: false
         },
         focusRedirector: Function,
+        openOn: {
+            type: String,
+            default: 'click' // 'click', 'mouseenter', 'focus', or 'always'
+        },
+        position: {
+            type: String,
+            default: 'bottom-start'
+        },
         raised: {
             type: Boolean,
             default: true
+        },
+        trigger: {
+            validator(value) {
+                const warning = '[UiPopover]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string which matches an existing element.';
+                return elementRef.validate(value, warning);
+            }
         }
-    },
-
-    watch: {
-        trigger() {
-            this.destroyDrop();
-            this.setupDrop();
-        }
-    },
-
-    created() {
-        // Instance data, not declared in data() as we don't want reactivity.
-        this.triggerEl = null;
-        this.dropInstance = null;
-        this.lastFocusedElement = null;
     },
 
     mounted() {
-        this.setupDrop();
+        this.tippy = null;
+        this.lastFocusedElement = null;
+        this.setupPopover();
     },
 
     beforeDestroy() {
-        this.destroyDrop();
+        this.destroyPopover();
     },
 
     methods: {
-        setTrigger() {
-            if (this.trigger instanceof Element) {
-                this.triggerEl = this.trigger;
-            } else if (this.trigger && this.trigger._isVue) {
-                this.triggerEl = this.trigger.$el;
-            } else if (typeof this.trigger === 'string') {
-                this.triggerEl = document.querySelector(this.trigger);
-            }
-
-            // Fallback to using the parent (DOM parent, not Vue component parent)
-            // if triggerEl is invalid
-            if (!(this.triggerEl instanceof Element)) {
-                this.triggerEl = this.$el.parentElement;
-            }
-        },
-
-        setupDrop() {
-            this.setTrigger();
+        setupPopover() {
+            this.triggerEl = elementRef.resolve(this.trigger, this.$el.parentElement);
 
             if (!this.triggerEl) {
+                console.error('[UiPopover]: Trigger element not found.');
                 return;
             }
 
-            this.dropInstance = new Drop({
-                target: this.triggerEl,
-                content: this.$el,
-                position: this.position,
-                constrainToWindow: true,
-                openOn: this.openOn,
-                remove: this.removeOnClose,
-                constrainToScrollParent: this.constrainToScrollParent
-            });
+            const options = {
+                animateFill: false,
+                // Default 'none' to 'fade', as it's not a valid Tippy.js option. The effect of no transition is achieved by `duration: 0` below.
+                animation: this.animation === 'none' ? 'fade' : this.animation,
+                delay: [this.openDelay, 0],
+                distance: 0,
+                duration: this.animation === 'none' ? 0 : 250,
+                html: this.$el,
+                interactive: true,
+                performance: true,
+                placement: this.position,
+                theme: 'ui-popover',
+                trigger: this.openOn.indexOf('hover') === -1
+                    ? this.openOn
+                    : this.openOn.replace('hover', 'mouseenter'), // COMPAT: Support 'hover' for `openOn` prop,
+                onShow: this.onOpen,
+                onShown: this.onShown,
+                onHide: this.onClose,
+                onHidden: this.onHidden
+            };
 
-            // TO FIX: Workaround for Tether not positioning
-            // correctly for positions other than 'bottom left'
-            if (!this.removeOnClose && this.dropdownPosition !== 'bottom left') {
-                this.dropInstance.open();
-                this.dropInstance.close();
-                this.dropInstance.open();
-                this.dropInstance.close();
+            if (!this.constrainToScrollParent) {
+                options.popperOptions = {
+                    modifiers: {
+                        preventOverflow: {
+                            enabled: false
+                        },
+                        hide: {
+                            enabled: false
+                        }
+                    }
+                };
             }
 
-            this.dropInstance.on('open', this.onOpen);
-            this.dropInstance.on('close', this.onClose);
+            if (!this.appendToBody) {
+                options.appendTo = this.triggerEl.parentNode;
+            }
+
+            this.tippy = tippy.one(this.triggerEl, options);
         },
 
-        destroyDrop() {
-            if (this.dropInstance) {
-                this.dropInstance.destroy();
-                this.dropInstance = null;
+        destroyPopover() {
+            if (this.tippy) {
+                window.removeEventListener('scroll', this.onScroll);
+                this.tippy.destroy();
+                this.tippy = null;
             }
         },
 
         open() {
-            if (this.dropInstance) {
-                this.dropInstance.open();
+            if (this.tippy) {
+                this.tippy.show();
             }
         },
 
         close() {
-            if (this.dropInstance) {
-                this.dropInstance.close();
+            if (this.tippy) {
+                this.tippy.hide();
             }
         },
 
         toggle() {
-            if (this.dropInstance) {
-                this.dropInstance.toggle();
+            if (this.tippy) {
+                this.tippy[this.tippy.state.visible ? 'hide' : 'show']();
             }
         },
 
         isOpen() {
-            return Boolean(this.dropInstance) && this.dropInstance.isOpened();
-        },
-
-        /**
-         * Ensures drop is horizontally within viewport (vertical is already solved by drop.js).
-         * https://github.com/HubSpot/drop/issues/16
-         */
-        positionDrop() {
-            const drop = this.dropInstance;
-            const windowWidth = window.innerWidth || document.documentElement.clientWidth ||
-                document.body.clientWidth;
-
-            const width = drop.drop.getBoundingClientRect().width;
-            const left = drop.target.getBoundingClientRect().left;
-            const availableSpace = windowWidth - left;
-
-            if (width > availableSpace) {
-                const direction = width > availableSpace ? 'right' : 'left';
-
-                drop.tether.attachment.left = direction;
-                drop.tether.targetAttachment.left = direction;
-
-                drop.position();
-            }
+            return this.tippy !== null && this.tippy.state.visible;
         },
 
         onOpen() {
-            this.positionDrop();
-            classlist.add(this.triggerEl, 'has-dropdown-open');
+            if (this.closeOnScroll) {
+                document.addEventListener('scroll', this.onScroll, true);
+            }
 
-            this.lastFocusedElement = document.activeElement;
-            this.$refs.focusContainer.focus();
+            classlist.add(this.triggerEl, 'has-dropdown-open');
 
             this.$emit('open');
         },
 
+        onShown() {
+            this.lastFocusedElement = document.activeElement;
+            this.$refs.focusContainer.focus();
+
+            this.$emit('reveal');
+        },
+
         onClose() {
+            if (this.closeOnScroll) {
+                document.removeEventListener('scroll', this.onScroll, true);
+            }
+
             classlist.remove(this.triggerEl, 'has-dropdown-open');
 
+            this.$emit('close');
+        },
+
+        onHidden() {
             if (this.lastFocusedElement) {
                 this.lastFocusedElement.focus();
             }
 
-            this.$emit('close');
+            this.$emit('hide');
+        },
+
+        onScroll(e) {
+            if (this.isOpen() && !this.$el.contains(e.target)) {
+                this.tippy.popperInstance.disableEventListeners();
+                this.close();
+            }
         }
     },
 
@@ -213,11 +208,9 @@ export default {
 
 <style lang="scss">
 @import './styles/imports';
+@import './styles/tippy/tippy';
 
 .ui-popover {
-    background-color: white;
-    outline: none;
-
     &.is-raised {
         box-shadow: 0 2px 4px -1px rgba(black, 0.2),
                     0 4px 5px 0 rgba(black, 0.14),
@@ -229,30 +222,7 @@ export default {
     }
 }
 
-.drop-element {
-    display: none;
-    max-height: 100%;
-    max-width: 100%;
-    opacity: 0;
-    position: absolute;
-    transition: opacity 0.2s ease;
-    z-index: $z-index-dropdown;
-
-    &,
-    &:after,
-    &:before,
-    & *,
-    & *:after,
-    & *:before {
-        box-sizing: border-box;
-    }
-
-    &.drop-open {
-        display: block;
-    }
-
-    &.drop-after-open {
-        opacity: 1;
-    }
+.ui-popover-theme {
+    background-color: white;
 }
 </style>

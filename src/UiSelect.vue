@@ -54,12 +54,12 @@
                 <ui-popover
                     class="ui-select__dropdown"
                     ref="dropdown"
-                    remove-on-close
 
                     :constrain-to-scroll-parent="false"
 
                     @close="onClose"
                     @open="onOpen"
+                    @reveal="onReveal"
                 >
                     <div
                         class="ui-select__dropdown-content"
@@ -541,21 +541,20 @@ export default {
         },
 
         onOpen() {
-            document.addEventListener('scroll', this.onExternalScroll, true);
-
             this.$refs.dropdown.$el.style.width = this.$refs.label.getBoundingClientRect().width + 'px';
 
             this.$nextTick(() => {
-                this.$refs[this.hasSearch ? 'searchInput' : 'dropdownContent'].focus();
                 this.scrollOptionIntoView(this.$refs.optionsList.querySelector('.is-selected'));
             });
 
             this.$emit('dropdown-open');
         },
 
-        onClose() {
-            document.removeEventListener('scroll', this.onExternalScroll, true);
+        onReveal() {
+            this.$refs[this.hasSearch ? 'searchInput' : 'dropdownContent'].focus();
+        },
 
+        onClose() {
             this.highlightedIndex = this.multiple ? -1 : this.selectedIndex;
             this.$emit('dropdown-close');
         },
@@ -565,12 +564,6 @@ export default {
                 this.closeDropdown({ autoBlur: true });
             } else if (this.isActive) {
                 this.isActive = false;
-            }
-        },
-
-        onExternalScroll(e) {
-            if (e.target !== this.$refs.optionsList) {
-                this.closeDropdown();
             }
         },
 
