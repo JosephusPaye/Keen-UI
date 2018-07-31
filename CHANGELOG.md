@@ -20,9 +20,14 @@
 - For secondary buttons, use button color as background for hover and focus.
 - Add new prop `href`. Setting this prop will render an anchor tag.
 
+## UiFab
+
+- **Breaking**: `tooltipPosition` prop accepted values have changed to match Tippy.js. See docs for new values.
+
 ## UiIconButton
 
 - **Breaking**: Accepted values for prop `dropdownPosition` have changed to match Tippy.js. See docs for new values.
+- **Breaking**: `tooltipPosition` prop accepted values have changed to match Tippy.js. See docs for new values.
 - Remove UiProgressCircular from the DOM when `loading` is false. Previously, it was hidden with `display: none`.
 - Remove pointer cursor, to match default HTML buttons.
 - For secondary icon buttons, use button color as background for hover and focus.
