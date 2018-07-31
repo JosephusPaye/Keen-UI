@@ -1,10 +1,13 @@
 <template>
-    <li
+    <component
         class="ui-menu-option"
         role="menu-item"
 
         :class="classes"
-        :tabindex="(isDivider || disabled) ? null : '0'"
+        :href="isAnchor ? (disabled ? null : href) : null"
+        :is="isAnchor ? 'a' : 'li'"
+        :tabindex="(isDivider || isAnchor || disabled) ? null : '0'"
+        :target="isAnchor ? (disabled ? null : target) : null"
     >
         <slot v-if="!isDivider">
             <div class="ui-menu-option__content">
@@ -28,7 +31,7 @@
         </slot>
 
         <ui-ripple-ink v-if="!disabled && !isDivider && !disableRipple"></ui-ripple-ink>
-    </li>
+    </component>
 </template>
 
 <script>
@@ -41,6 +44,8 @@ export default {
     props: {
         type: String,
         label: String,
+        href: String,
+        target: String,
         icon: String,
         iconProps: {
             type: Object,
@@ -63,12 +68,17 @@ export default {
         classes() {
             return {
                 'is-divider': this.isDivider,
-                'is-disabled': this.disabled
+                'is-disabled': this.disabled,
+                'is-anchor': this.isAnchor
             };
         },
 
         isDivider() {
             return this.type === 'divider';
+        },
+
+        isAnchor() {
+            return !this.isDivider && this.href !== undefined;
         }
     },
 
@@ -104,6 +114,7 @@ export default {
         font-weight: normal;
         min-height: rem-calc(40px);
         outline: none;
+        text-decoration: none;
 
         &:hover:not(.is-disabled),
         body[modality="keyboard"] &:focus {

@@ -34,6 +34,10 @@
 - Add new size: `mini`
 - Add `href` prop. Setting this prop will render an anchor tag.
 
+## UiMenu and UiMenuOption
+
+- Add new props `href` and `target` for menu options. Setting the `href` prop will render the menu option as an anchor tag.
+
 ### UiTabs and UiTab
 
 - UiTabs

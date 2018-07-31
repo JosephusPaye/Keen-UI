@@ -16,6 +16,9 @@
             <h4 class="page__demo-title">Basic</h4>
             <ui-menu :options="menuOptions"></ui-menu>
 
+            <h4 class="page__demo-title">With links (<code>href</code>)</h4>
+            <ui-menu :options="menuOptionsWithHref"></ui-menu>
+
             <h4 class="page__demo-title">Raised</h4>
             <ui-menu :options="menuOptions" raised></ui-menu>
 
@@ -81,6 +84,8 @@
                                     <ul>
                                         <li><code>type</code>: (String) - the type of option. Can be set to <code>"divider"</code> for a divider.</li>
                                         <li><code>label</code>: (String) - the option label text</li>
+                                        <li><code>href</code>: (String) - the option URL. When set, the option is rendered with an anchor <code>&lt;a&gt;</code> tag.</li>
+                                        <li><code>target</code>: (String) - the option <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-target" target="_blank" rel="noopener">URL target</a>. The <code>href</code> prop is required when using this prop.</li>
                                         <li><code>secondaryText</code>: (String) - text to show to the right of the option in the dropdown. Can be used to show keyboard shortcuts.</li>
                                         <li><code>icon</code>: (String) - an icon to show with the option. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</li>
                                         <li><code>iconProps</code>: (String) - an object with any of the following props of <a href="#/ui-icon">UiIcon</a>: <code>iconSet</code>, <code>removeText</code> or <code>useSvg</code>. These will be passed as props to the rendered UiIcon component.</li>
@@ -276,10 +281,37 @@ const menuOptions = [
     }
 ];
 
+const menuOptionsWithHref = [
+    {
+        label: 'UiAlert',
+        href: '#ui-alert'
+    },
+    {
+        label: 'UiAutocomplete',
+        href: '#ui-autocomplete'
+    },
+    {
+        type: 'divider'
+    },
+    {
+        label: 'UiButton',
+        href: '#ui-button'
+    },
+    {
+        type: 'divider'
+    },
+    {
+        label: 'UiCheckbox (external)',
+        href: '#ui-checkbox',
+        target: '_blank'
+    }
+];
+
 export default {
     data() {
         return {
-            menuOptions
+            menuOptions,
+            menuOptionsWithHref
         };
     },
 

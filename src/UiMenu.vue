@@ -3,15 +3,17 @@
         <ui-menu-option
             :disable-ripple="disableRipple"
             :disabled="option[keys.disabled]"
+            :href="option[keys.href]"
             :icon-props="iconProps || option[keys.iconProps]"
             :icon="hasIcons ? option[keys.icon] : null"
             :key="index"
             :label="option[keys.type] === 'divider' ? null : option[keys.label] || option"
             :secondary-text="hasSecondaryText ? option[keys.secondaryText] : null"
+            :target="option[keys.target]"
             :type="option[keys.type]"
 
             @click.native="selectOption(option)"
-            @keydown.enter.native.prevent="selectOption(option)"
+            @keydown.enter.native="selectOption(option)"
             @keydown.esc.native.esc="closeMenu"
 
             v-for="(option, index) in options"
@@ -65,7 +67,9 @@ export default {
                     label: 'label',
                     secondaryText: 'secondaryText',
                     iconProps: 'iconProps',
-                    disabled: 'disabled'
+                    disabled: 'disabled',
+                    href: 'href',
+                    target: 'target'
                 };
             }
         },
