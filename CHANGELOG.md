@@ -5,6 +5,10 @@
 - **Breaking**: Change global prop configuration system to be simpler and more reliable. See updated [Customization guide](#global-prop-configuration) for details.
 - Rewrote [Sass customization guide](#sass-customization) for clarity.
 
+## UiAlert
+
+- Add new prop `disableAnimation` to disable the show/hide animation.
+
 ## UiButton
 
 - **Breaking**: Accepted values for prop `dropdownPosition` have changed to match Tippy.js. See docs for new values.
@@ -14,7 +18,7 @@
 - Remove UiProgressCircular from the DOM when `loading` is false. Previously, it was hidden with `display: none`.
 - Remove pointer cursor, to match default HTML buttons.
 - For secondary buttons, use button color as background for hover and focus.
-- Add `href` prop. Setting this prop will render an anchor tag.
+- Add new prop `href`. Setting this prop will render an anchor tag.
 
 ## UiIconButton
 

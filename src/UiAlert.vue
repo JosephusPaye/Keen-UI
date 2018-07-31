@@ -1,5 +1,5 @@
 <template>
-    <transition name="ui-alert--transition-toggle">
+    <transition :name="disableAnimation ? null : 'ui-alert--transition-toggle'">
         <div class="ui-alert" :class="classes" role="alert">
             <div class="ui-alert__body">
                 <div class="ui-alert__icon" v-if="!removeIcon">
@@ -56,6 +56,10 @@ export default {
             type: Boolean,
             default: false
         },
+        disableAnimation: {
+            type: Boolean,
+            default: false
+        },
         dismissible: {
             type: Boolean,
             default: true
@@ -65,7 +69,8 @@ export default {
     computed: {
         classes() {
             return [
-                `ui-alert--type-${this.type}`
+                `ui-alert--type-${this.type}`,
+                { 'has-no-transition': this.disableAnimation }
             ];
         }
     },
@@ -100,6 +105,13 @@ $ui-alert-margin-bottom     : rem-calc(16px) !default;
     position: relative;
     transition: margin-bottom 0.3s;
     width: 100%;
+
+    &.has-no-transition {
+        &,
+        .ui-alert__body {
+            transition: none;
+        }
+    }
 
     a {
         text-decoration: none;
