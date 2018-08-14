@@ -259,7 +259,7 @@ export default {
 
         submittedValue() {
             return this.value ?
-                `${this.value.getFullYear()}-${this.value.getMonth()}-${this.value.getDate()}` :
+                `${this.value.getFullYear()}-${1 + this.value.getMonth()}-${this.value.getDate()}` :
                 '';
         },
 
