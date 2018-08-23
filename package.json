@@ -4,7 +4,7 @@
   "description": "A lightweight collection of essential UI components written with Vue and inspired by Material Design.",
   "main": "dist/keen-ui.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.js --open --inline --hot",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.js --inline --hot",
     "build": "webpack --config build/webpack.dist.js",
     "build:docs": "webpack --config build/webpack.docs.js",
     "build:lib": "webpack --config build/webpack.lib.js",
