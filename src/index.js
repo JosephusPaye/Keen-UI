@@ -1,5 +1,6 @@
 import './bootstrap';
 import configure from './configure';
+import { startsWith } from 'helpers/util';
 
 import UiAlert from './UiAlert.vue';
 import UiAutocomplete from './UiAutocomplete.vue';
@@ -73,25 +74,25 @@ const KeenUI = {
 
 KeenUI.install = function (Vue, config = {}) {
     // Configure the component props
-    Object.keys(config).forEach(componentName => {
-        if (KeenUI[componentName] === undefined) {
-            return;
+    Object.keys(config).forEach(key => {
+        if (startsWith(key, 'Ui')) {
+            if (KeenUI[key] === undefined) {
+                return;
+            }
+
+            const Component = KeenUI[key];
+            const props = config[key];
+
+            configure(Component, props);
         }
-
-        const Component = KeenUI[componentName];
-        const props = config[componentName];
-
-        configure(Component, props);
     });
 
     // Install the components
     Object.keys(KeenUI).forEach(key => {
-        if (key === 'install') {
-            return;
+        if (startsWith(key, 'Ui')) {
+            const Component = KeenUI[key];
+            Vue.component(Component.name, Component);
         }
-
-        const Component = KeenUI[key];
-        Vue.component(Component.name, Component);
     });
 };
 
@@ -102,36 +103,38 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default KeenUI;
 
-export { UiAlert };
-export { UiAutocomplete };
-export { UiButton };
-export { UiCalendar };
-export { UiCheckbox };
-export { UiCheckboxGroup };
-export { UiCloseButton };
-export { UiCollapsible };
-export { UiConfirm };
-export { UiDatepicker };
-export { UiFab };
-export { UiFileupload };
-export { UiIcon };
-export { UiIconButton };
-export { UiMenu };
-export { UiModal };
-export { UiPopover };
-export { UiPreloader };
-export { UiProgressCircular };
-export { UiProgressLinear };
-export { UiRadio };
-export { UiRadioGroup };
-export { UiRippleInk };
-export { UiSelect };
-export { UiSlider };
-export { UiSnackbar };
-export { UiSnackbarContainer };
-export { UiSwitch };
-export { UiTab };
-export { UiTabs };
-export { UiTextbox };
-export { UiToolbar };
-export { UiTooltip };
+export {
+    UiAlert,
+    UiAutocomplete,
+    UiButton,
+    UiCalendar,
+    UiCheckbox,
+    UiCheckboxGroup,
+    UiCloseButton,
+    UiCollapsible,
+    UiConfirm,
+    UiDatepicker,
+    UiFab,
+    UiFileupload,
+    UiIcon,
+    UiIconButton,
+    UiMenu,
+    UiModal,
+    UiPopover,
+    UiPreloader,
+    UiProgressCircular,
+    UiProgressLinear,
+    UiRadio,
+    UiRadioGroup,
+    UiRippleInk,
+    UiSelect,
+    UiSlider,
+    UiSnackbar,
+    UiSnackbarContainer,
+    UiSwitch,
+    UiTab,
+    UiTabs,
+    UiTextbox,
+    UiToolbar,
+    UiTooltip
+};
