@@ -187,7 +187,7 @@ export default {
             showAlert5: true,
             showAlert6: true,
             showAlert7: true,
-            showAlert8: true,
+            showAlert8: true
         };
     },
 

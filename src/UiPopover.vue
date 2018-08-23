@@ -28,7 +28,7 @@ export default {
     props: {
         animation: {
             type: String,
-            default: 'fade', // 'fade', 'shift-away', or 'none'
+            default: 'fade' // 'fade', 'shift-away', or 'none'
         },
         appendToBody: {
             type: Boolean,
@@ -98,9 +98,9 @@ export default {
                 performance: true,
                 placement: this.position,
                 theme: 'ui-popover',
-                trigger: this.openOn.indexOf('hover') === -1
-                    ? this.openOn
-                    : this.openOn.replace('hover', 'mouseenter'), // COMPAT: Support 'hover' for `openOn` prop,
+                trigger: this.openOn.indexOf('hover') === -1 ?
+                    this.openOn :
+                    this.openOn.replace('hover', 'mouseenter'), // COMPAT: Support 'hover' for `openOn` prop,
                 onShow: this.onOpen,
                 onShown: this.onShown,
                 onHide: this.onClose,
