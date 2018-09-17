@@ -16,7 +16,12 @@
 - Add `tooltip`, `tooltipPosition` and `openTooltipOn` props
 - Make focus ring transition to fill the button. Previously, it stopped halfway. Fixes #205.
 - Remove UiProgressCircular from the DOM when `loading` is false. Previously, it was hidden with `display: none`.
-- Remove pointer cursor, to match default HTML buttons.
+- Remove pointer cursor, to match default HTML buttons. If you want the hand pointer on buttons by default, add:
+    ```css
+    .ui-button {
+        cursor: pointer;
+    }
+    ```
 - For secondary buttons, use button color as background for hover and focus.
 - Add new prop `href`. Setting this prop will render an anchor tag.
 
