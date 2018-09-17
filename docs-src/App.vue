@@ -1,47 +1,27 @@
 <template>
     <div id="app" class="keen-docs">
-        <sidebar class="is-desktop"></sidebar>
+        <navbar
+            :repoUrl="repoUrl"
+            :sourceUrl="pageSourceUrl"
+            :title="pageTitle"
+            :version="version"
+            :versionUrl="versionUrl"
+
+            @toggle-sidebar="sidebarOpen = !sidebarOpen"
+        ></navbar>
 
         <transition name="transition-fade">
             <div
                 class="keen-docs-mobile-sidebar__backdrop"
-                @click="showSidebar = false"
+                @click="sidebarOpen = false"
                 v-show="showSidebar"
             ></div>
         </transition>
 
-        <transition name="transition-slide">
-            <sidebar class="is-mobile" v-show="showSidebar"></sidebar>
-        </transition>
-
         <section class="keen-docs-content">
-            <div class="keen-docs-content__toolbar">
-                <div class="keen-docs-content__toolbar-content">
-                    <ui-icon-button
-                        class="keen-docs-content__toolbar-menu-button"
-                        color="white"
-                        type="clear"
-
-                        @click="showSidebar = true"
-                    >
-                        <ui-icon>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 6h18v2.016H3V6zm0 6.984v-1.97h18v1.97H3zM3 18v-2.016h18V18H3z"/></svg>
-                        </ui-icon>
-                    </ui-icon-button>
-
-                    <h1 class="keen-docs-content__toolbar-title">{{ $route.meta.title }}</h1>
-
-                    <a
-                        class="keen-docs-content__toolbar-action"
-                        rel="noopener"
-                        target="_blank"
-
-                        :href="'https://github.com/JosephusPaye/Keen-UI/blob/master/' + $route.meta.sourceUrl"
-
-                        v-if="$route.meta.sourceUrl"
-                    >View Source</a>
-                </div>
-            </div>
+            <transition name="transition-slide">
+                <sidebar :version="version" :versionUrl="versionUrl" :repoUrl="repoUrl" v-show="showSidebar"></sidebar>
+            </transition>
 
             <div class="keen-docs-content__page-content" ref="pageContent">
                 <router-view></router-view>
@@ -51,43 +31,81 @@
 </template>
 
 <script>
+import Navbar from './Navbar.vue';
 import Sidebar from './Sidebar.vue';
 import UiIcon from 'src/UiIcon.vue';
 import UiIconButton from 'src/UiIconButton.vue';
 
 export default {
+    components: {
+        Navbar,
+        Sidebar,
+        UiIcon,
+        UiIconButton
+    },
+
     data() {
         return {
-            showSidebar: false,
-            description: 'Keen UI - A lightweight collection of essential UI components written with Vue and inspired by Material Design.'
+            isMobile: false,
+            sidebarOpen: false,
+            version: '1.0.1',
+            repoUrl: 'https://github.com/JosephusPaye/Keen-UI',
+            versionUrl: 'https://github.com/JosephusPaye/Keen-UI/releases/tag/v1.0.1',
+            description: 'Keen UI - A lightweight collection of essential UI components written with Vue and inspired by Material Design.',
+            mobileMediaQuery: null
         };
+    },
+
+    computed: {
+        pageTitle() {
+            return this.$route.meta.title;
+        },
+
+        pageSourceUrl() {
+            return this.$route.meta.sourceUrl ?
+                'https://github.com/JosephusPaye/Keen-UI/blob/master/' + this.$route.meta.sourceUrl :
+                undefined;
+        },
+
+        documentTitle() {
+            return this.$route.meta.title + ' | ' + this.description;
+        },
+
+        showSidebar() {
+            return this.isMobile ? this.sidebarOpen : true;
+        }
     },
 
     watch: {
         '$route'() {
-            this.updatePageTitle();
+            document.title = this.documentTitle;
 
             this.$nextTick(() => {
-                this.$refs.pageContent.scrollTop = 0;
-                this.showSidebar = false;
+                window.scrollTo(0, 0);
+                this.sidebarOpen = false;
             });
         }
     },
 
     mounted() {
-        this.updatePageTitle();
+        document.title = this.documentTitle;
+
+        this.mobileMediaQuery = window.matchMedia('screen and (max-width: 768px)');
+        this.mobileMediaQuery.addListener(this.onResize);
+
+        this.onResize(this.mobileMediaQuery);
     },
 
-    methods: {
-        updatePageTitle() {
-            document.title = this.$route.meta.title + ' | ' + this.description;
+    beforeDestroy() {
+        if (this.mobileMediaQuery) {
+            this.mobileMediaQuery.removeListener(this.onResize);
         }
     },
 
-    components: {
-        Sidebar,
-        UiIcon,
-        UiIconButton
+    methods: {
+        onResize(mediaQuery) {
+            this.isMobile = mediaQuery.matches;
+        }
     }
 };
 </script>

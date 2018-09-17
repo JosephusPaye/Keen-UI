@@ -1,14 +1,7 @@
-@import '../src/styles/imports';
+@import './imports';
 
-$link-color: $md-blue-700;
-$toolbar-color: $md-teal;
-$mobile-sidebar-z-index: 10;
-$mobile-breakpoint: 720px;
-
-@import 'system-font';
 @import 'code';
 @import 'tables';
 @import 'helpers';
 @import 'globals';
-@import 'sidebar';
 @import 'content';
