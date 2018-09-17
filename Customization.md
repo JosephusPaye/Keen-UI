@@ -2,27 +2,41 @@
 
 ## Sass customization
 
-If you use Sass with [`webpack`](https://webpack.js.org) and [`vue-loader`](https://github.com/vuejs/vue-loader) in your project, you can customize the components by overriding Sass variables and then importing the `.vue` source files. This is done using [`sass-resources-loader`](https://github.com/shakacode/sass-resources-loader).
+If you use Sass with [`webpack`](https://webpack.js.org) and [`vue-loader`](https://github.com/vuejs/vue-loader) in your project, you can customize the components by overriding Sass variables and then importing the `.vue` source files.
 
 ### Setup
 
-1. Install [`sass-resources-loader`](https://github.com/shakacode/sass-resources-loader).
+1. Create a `variables.scss` file somewhere in your project, for example, at `src/styles/variables.scss`.
 
-    ```
-    npm install sass-resources-loader --save-dev
-    ```
+    **Note**: since this file will be imported into every Sass file, make sure it doesn't contain any CSS rules. It should contain only Sass variables, functions or mixins.
 
-2. Create a `variables.scss` file somewhere in your project, for example, at `src/styles/variables.scss`.
+2. If you are **not** using Vue CLI:
+    - Install [`sass-resources-loader`](https://github.com/shakacode/sass-resources-loader).
 
-    **Note**: since this file will be imported into every Sass file, make sure it doesn't contain any CSS rules, only Sass variables.
+        ```
+        npm install sass-resources-loader --save-dev
+        ```
 
-3. Add the following rule to your webpack config file. If you're using a Vue CLI template, [see here](https://vue-loader.vuejs.org/en/configurations/pre-processors.html#loading-a-global-settings-file) for details.
+    - Add the following rule to your webpack config file:
+
+        ```js
+        {
+            loader: 'sass-resources-loader',
+            options: {
+                resources: path.resolve(__dirname, './src/styles/variables.scss')
+            }
+        }
+        ```
+3. If you are using Vue CLI, add the following to `vue.config.js` ([details](https://cli.vuejs.org/guide/css.html#passing-options-to-pre-processor-loaders)):
 
     ```js
-    {
-        loader: 'sass-resources-loader',
-        options: {
-            resources: path.resolve(__dirname, './src/styles/variables.scss')
+    module.exports = {
+        css: {
+            loaderOptions: {
+                sass: {
+                    data: `@import "@/styles/variables.scss";`
+                }
+            }
         }
     }
     ```
@@ -91,11 +105,11 @@ html {
 }
 ```
 
-## Global prop configuration
+## Changing default prop values
 
-Component props which have default values can be set globally when installing Keen UI as a Vue plugin, or when using individual components.
+Component props which have default values can be changed globally when installing Keen UI as a Vue plugin, or when using individual components.
 
-### Using Keen UI as a plugin
+### Configure all components
 
 ```js
 import Vue from 'vue';
@@ -106,15 +120,15 @@ Vue.use(KeenUI, {
         disableRipple: true
     },
     UiTooltip: {
-        position: 'top center'
+        position: 'top'
     }
 });
 ```
 
-### Using individual components
+### Configure individual components
 
 ```js
-import UiButton from 'keen-ui';
+import { UiButton } from 'keen-ui';
 import configure from 'keen-ui/src/configure'
 
 configure(UiButton, {
@@ -122,4 +136,5 @@ configure(UiButton, {
 });
 
 // UiButton's disableRipple prop is now true by default
+// Now you can register and use UiButton
 ```
