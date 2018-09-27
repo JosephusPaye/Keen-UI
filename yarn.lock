@@ -3409,9 +3409,9 @@ pluralize@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-1.2.1.tgz#d1a21483fd22bb41e58a12fa3421823140897c45"
 
-popper.js@^1.14.3:
-  version "1.14.3"
-  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.3.tgz#1438f98d046acf7b4d78cd502bf418ac64d4f095"
+popper.js@^1.14.4:
+  version "1.14.4"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.4.tgz#8eec1d8ff02a5a3a152dd43414a15c7b79fd69b6"
 
 portfinder@^1.0.9:
   version "1.0.10"
@@ -4482,11 +4482,11 @@ timers-browserify@^2.0.2:
   dependencies:
     setimmediate "^1.0.4"
 
-tippy.js@^2.5.3:
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-2.5.3.tgz#a75b0b6d18633cea8ec79658a85d07599c77c9a4"
+tippy.js@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-3.0.1.tgz#b39b5dfec0a8ec4b500a3ca5279ac9c3d359e9ed"
   dependencies:
-    popper.js "^1.14.3"
+    popper.js "^1.14.4"
 
 to-arraybuffer@^1.0.0:
   version "1.0.1"

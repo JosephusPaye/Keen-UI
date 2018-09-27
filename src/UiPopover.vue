@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import tippy from 'tippy.js/dist/tippy.js';
+import tippy from 'tippy.js/dist/esm/tippy.js';
 
 import classlist from './helpers/classlist';
 import elementRef from './helpers/element-ref';
@@ -68,7 +68,7 @@ export default {
     },
 
     mounted() {
-        this.tippy = null;
+        this.tip = null;
         this.lastFocusedElement = null;
         this.setupPopover();
     },
@@ -90,21 +90,26 @@ export default {
                 animateFill: false,
                 // Default 'none' to 'fade', as it's not a valid Tippy.js option. The effect of no transition is achieved by `duration: 0` below.
                 animation: this.animation === 'none' ? 'fade' : this.animation,
+                arrow: false,
+                content: this.$el,
                 delay: [this.openDelay, 0],
                 distance: 0,
                 duration: this.animation === 'none' ? 0 : 250,
-                html: this.$el,
+                hideOnClick: true,
                 interactive: true,
+                // lazy: false,
+                multiple: true,
+                onHidden: this.onHidden,
+                onHide: this.onClose,
+                onShow: this.onOpen,
+                onShown: this.onShown,
                 performance: true,
                 placement: this.position,
+                shouldPopperHideOnBlur: () => false,
                 theme: 'ui-popover',
                 trigger: this.openOn.indexOf('hover') === -1 ?
                     this.openOn :
                     this.openOn.replace('hover', 'mouseenter'), // COMPAT: Support 'hover' for `openOn` prop,
-                onShow: this.onOpen,
-                onShown: this.onShown,
-                onHide: this.onClose,
-                onHidden: this.onHidden
             };
 
             if (!this.constrainToScrollParent) {
@@ -124,37 +129,37 @@ export default {
                 options.appendTo = this.triggerEl.parentNode;
             }
 
-            this.tippy = tippy.one(this.triggerEl, options);
+            this.tip = tippy.one(this.triggerEl, options);
         },
 
         destroyPopover() {
-            if (this.tippy) {
+            if (this.tip) {
                 window.removeEventListener('scroll', this.onScroll);
-                this.tippy.destroy();
-                this.tippy = null;
+                this.tip.destroy();
+                this.tip = null;
             }
         },
 
         open() {
-            if (this.tippy) {
-                this.tippy.show();
+            if (this.tip) {
+                this.tip.show();
             }
         },
 
         close() {
-            if (this.tippy) {
-                this.tippy.hide();
+            if (this.tip) {
+                this.tip.hide();
             }
         },
 
         toggle() {
-            if (this.tippy) {
-                this.tippy[this.tippy.state.visible ? 'hide' : 'show']();
+            if (this.tip) {
+                this.tip[this.tip.state.isVisible ? 'hide' : 'show']();
             }
         },
 
         isOpen() {
-            return this.tippy !== null && this.tippy.state.visible;
+            return this.tip !== null && this.tip.state.isVisible;
         },
 
         onOpen() {
@@ -194,7 +199,6 @@ export default {
 
         onScroll(e) {
             if (this.isOpen() && !this.$el.contains(e.target)) {
-                this.tippy.popperInstance.disableEventListeners();
                 this.close();
             }
         }

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import tippy from 'tippy.js/dist/tippy.js';
+import tippy from 'tippy.js/dist/esm/tippy.js';
 import elementRef from './helpers/element-ref';
 
 export default {
@@ -53,10 +53,12 @@ export default {
             animateFill: this.animation !== 'fade',
             // Default 'none' to 'fade', as it's not a valid Tippy.js option. The effect of no transition is achieved by `duration: 0` below.
             animation: this.animation === 'none' ? 'fade' : this.animation,
+            arrow: false,
+            content: this.$el,
             delay: [this.openDelay, 0],
             distance: 4,
             duration: this.animation === 'none' ? 0 : 250,
-            html: this.$el,
+            multiple: true,
             performance: true,
             placement: this.position,
             theme: 'ui-tooltip',
@@ -69,13 +71,13 @@ export default {
             options.appendTo = this.triggerEl.parentNode;
         }
 
-        this.tippy = tippy.one(this.triggerEl, options);
+        this.tip = tippy.one(this.triggerEl, options);
     },
 
     beforeDestroy() {
-        if (this.tippy) {
-            this.tippy.destroy();
-            this.tippy = null;
+        if (this.tip) {
+            this.tip.destroy();
+            this.tip = null;
         }
     }
 };
