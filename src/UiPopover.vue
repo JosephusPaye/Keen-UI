@@ -67,6 +67,12 @@ export default {
         }
     },
 
+    data() {
+        return {
+            returnFocus: true,
+        };
+    },
+
     mounted() {
         this.tip = null;
         this.lastFocusedElement = null;
@@ -146,14 +152,16 @@ export default {
             }
         },
 
-        close() {
+        close(options = { returnFocus: true }) {
             if (this.tip) {
+                this.returnFocus = options.returnFocus;
                 this.tip.hide();
             }
         },
 
-        toggle() {
+        toggle(options = { returnFocus: true }) {
             if (this.tip) {
+                this.returnFocus = options.returnFocus;
                 this.tip[this.tip.state.isVisible ? 'hide' : 'show']();
             }
         },
@@ -190,11 +198,12 @@ export default {
         },
 
         onHidden() {
-            if (this.lastFocusedElement) {
+            if (this.lastFocusedElement && this.returnFocus) {
                 this.lastFocusedElement.focus();
             }
 
             this.$emit('hide');
+            this.returnFocus = true;
         },
 
         onScroll(e) {
