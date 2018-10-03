@@ -12,6 +12,7 @@
             :required="required"
 
             @blur="onBlur"
+            @input="onInput"
             @change="onChange"
             @focus="onFocus"
         >
@@ -151,7 +152,16 @@ export default {
             this.$emit('blur', e);
         },
 
+        onInput(e) {
+            this.updateDisplayText(e);
+            this.$emit('input', this.$refs.input.files, e);
+        },
+
         onChange(e) {
+            this.$emit('change', this.$refs.input.files, e);
+        },
+
+        updateDisplayText(e) {
             let displayText;
             const input = this.$refs.input;
 
@@ -168,8 +178,6 @@ export default {
 
                 this.$nextTick(() => this.refreshFocusRing());
             }
-
-            this.$emit('change', input.files, e);
         },
 
         initializeFocusRing() {
