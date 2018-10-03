@@ -153,11 +153,11 @@ export default {
         },
 
         onInput(e) {
-            this.updateDisplayText(e);
             this.$emit('input', this.$refs.input.files, e);
         },
 
         onChange(e) {
+            this.updateDisplayText(e);
             this.$emit('change', this.$refs.input.files, e);
         },
 
