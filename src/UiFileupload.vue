@@ -32,7 +32,7 @@
             <slot v-else>{{ placeholder }}</slot>
         </div>
 
-        <div class="ui-fileupload__focus-ring" :style="focusRingStyle"></div>
+        <div class="ui-fileupload__focus-ring"></div>
 
         <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
     </label>
@@ -95,13 +95,7 @@ export default {
             isActive: false,
             hasSelection: false,
             hasMultiple: false,
-            displayText: '',
-            focusRing: {
-                top: 0,
-                left: 0,
-                size: 0,
-                initialized: false
-            }
+            displayText: ''
         };
     },
 
@@ -125,15 +119,6 @@ export default {
             }
 
             return this.multiple ? 'Choose files' : 'Choose a file';
-        },
-
-        focusRingStyle() {
-            return {
-                height: this.focusRing.size + 'px',
-                width: this.focusRing.size + 'px',
-                top: this.focusRing.top + 'px',
-                left: this.focusRing.left + 'px'
-            };
         }
     },
 
@@ -141,10 +126,6 @@ export default {
         onFocus(e) {
             this.isActive = true;
             this.$emit('focus', e);
-
-            if (!this.focusRing.initialized) {
-                this.initializeFocusRing();
-            }
         },
 
         onBlur(e) {
@@ -175,25 +156,7 @@ export default {
                 this.hasSelection = true;
                 this.displayText = displayText;
                 this.hasMultiple = input.files.length > 1;
-
-                this.$nextTick(() => this.refreshFocusRing());
             }
-        },
-
-        initializeFocusRing() {
-            this.refreshFocusRing();
-            this.focusRing.initialized = true;
-        },
-
-        refreshFocusRing() {
-            const bounds = {
-                width: this.$el.clientWidth,
-                height: this.$el.clientHeight
-            };
-
-            this.focusRing.size = bounds.width - 16; // 8px of padding on left and right
-            this.focusRing.top = -1 * (this.focusRing.size - bounds.height) / 2;
-            this.focusRing.left = (bounds.width - this.focusRing.size) / 2;
         }
     },
 
@@ -229,9 +192,9 @@ export default {
 
     &.has-focus-ring.is-active,
     body[modality="keyboard"] &.is-active {
-        .ui-fileupload__focus-ring {
+        .ui-fileupload__focus-ring::before {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1.1);
         }
     }
 
@@ -281,15 +244,24 @@ export default {
 }
 
 .ui-fileupload__focus-ring {
-    background-color: rgba(black, 0.12);
-    border-radius: 50%;
     left: 0;
-    opacity: 0;
     position: absolute;
     top: 0;
-    transform-origin: center;
-    transform: scale(0);
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    width: 100%;
+
+    &::before {
+        border-radius: 50%;
+        content: "";
+        display: block;
+        left: 0;
+        margin-top: calc(-1 * (50% - #{$ui-button-height / 2}));
+        padding-top: 100%; // 1:1 aspect ratio - makes height the same as button width
+        position: relative;
+        top: 0;
+        opacity: 0;
+        transform: scale(0);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
 }
 
 // ================================================
@@ -355,13 +327,15 @@ export default {
 // ================================================
 
 .ui-fileupload--type-primary {
+    .ui-fileupload__focus-ring::before {
+        background-color: rgba(black, 0.12);
+    }
+
     &.ui-fileupload--color-default {
         background-color: $md-grey-200;
         color: $primary-text-color;
 
-        &:hover:not(.is-disabled),
-        &.has-focus-ring.is-active,
-        body[modality="keyboard"] &.is-active {
+        &:hover:not(.is-disabled) {
             background-color: darken($md-grey-200, 7.5%);
         }
 
@@ -386,9 +360,7 @@ export default {
     &.ui-fileupload--color-primary {
         background-color: $brand-primary-color;
 
-        &:hover:not(.is-disabled),
-        &.has-focus-ring.is-active,
-        body[modality="keyboard"] &.is-active {
+        &:hover:not(.is-disabled) {
             background-color: darken($brand-primary-color, 10%);
         }
     }
@@ -396,9 +368,7 @@ export default {
     &.ui-fileupload--color-accent {
         background-color: $brand-accent-color;
 
-        &:hover:not(.is-disabled),
-        &.has-focus-ring.is-active,
-        body[modality="keyboard"] &.is-active {
+        &:hover:not(.is-disabled) {
             background-color: darken($brand-accent-color, 10%);
         }
     }
@@ -407,14 +377,16 @@ export default {
 .ui-fileupload--type-secondary {
     background-color: transparent;
 
-    &:hover:not(.is-disabled),
-    &.has-focus-ring.is-active,
-    body[modality="keyboard"] &.is-active {
-        background-color: darken($md-grey-200, 3%);
-    }
-
     &.ui-fileupload--color-default {
         color: $primary-text-color;
+
+        &:hover:not(.is-disabled) {
+            background-color: $md-grey-200;
+        }
+
+        .ui-fileupload__focus-ring::before {
+            background-color: rgba(black, 0.12);
+        }
 
         .ui-fileupload__icon {
             color: $secondary-text-color;
@@ -423,10 +395,26 @@ export default {
 
     &.ui-fileupload--color-primary {
         color: $brand-primary-color;
+
+        &:hover:not(.is-disabled) {
+            background-color: rgba($brand-primary-color, 0.12);
+        }
+
+        .ui-fileupload__focus-ring::before {
+            background-color: rgba($brand-primary-color, 0.26);
+        }
     }
 
     &.ui-fileupload--color-accent {
         color: $brand-accent-color;
+
+        &:hover:not(.is-disabled) {
+            background-color: rgba($brand-accent-color, 0.12);
+        }
+
+        .ui-fileupload__focus-ring::before {
+            background-color: rgba($brand-accent-color, 0.26);
+        }
     }
 }
 </style>
