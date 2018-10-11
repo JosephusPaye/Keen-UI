@@ -118,7 +118,7 @@ export default {
 
         &:hover:not(.is-disabled),
         body[modality="keyboard"] &:focus {
-            background-color: #EEEEEE; // rgba(black, 0.1);
+            background-color: $ui-menu-item-hover-color;
         }
 
         &.is-disabled {
