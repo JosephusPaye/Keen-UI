@@ -35,6 +35,7 @@
             constain-focus
             ref="dropdown"
 
+            :append-to-body="appendDropdownToBody"
             :constrain-to-scroll-parent="constrainDropdownToScrollParent"
             :position="dropdownPosition"
             :open-on="openDropdownOn"
@@ -94,6 +95,10 @@ export default {
         dropdownPosition: {
             type: String,
             default: 'bottom-start'
+        },
+        appendDropdownToBody: {
+            type: Boolean,
+            default: true
         },
         constrainDropdownToScrollParent: {
             type: Boolean,
