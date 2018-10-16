@@ -142,7 +142,7 @@ export default {
         },
 
         onModalReveal() {
-            this.$emit('reveal'):
+            this.$emit('reveal');
         },
 
         onModalClose() {
