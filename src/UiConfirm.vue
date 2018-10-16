@@ -10,7 +10,9 @@
             :transition="transition"
 
             @close="onModalClose"
+            @hide="onModalHide"
             @open="onModalOpen"
+            @reveal="onModalReveal"
         >
             <div class="ui-confirm__message">
                 <slot></slot>
@@ -139,8 +141,16 @@ export default {
             this.$emit('open');
         },
 
+        onModalReveal() {
+            this.$emit('reveal'):
+        },
+
         onModalClose() {
             this.$emit('close');
+        },
+
+        onModalHide() {
+            this.$emit('hide');
         },
 
         removeAutoFocus() {
