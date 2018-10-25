@@ -433,7 +433,7 @@ export default {
             });
 
             this.highlightedIndex = index;
-            this.clearQuery();
+            if (!this.multiple) this.clearQuery();
 
             if (!this.multiple && options.autoClose) {
                 this.closeDropdown();
