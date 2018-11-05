@@ -148,7 +148,9 @@ export default {
 
         open() {
             if (this.tip) {
-                this.tip.show();
+                this.$nextTick(() => {
+                    this.tip.show();
+                });
             }
         },
 
