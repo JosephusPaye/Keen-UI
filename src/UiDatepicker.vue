@@ -66,7 +66,7 @@
                         :max-date="maxDate"
                         :min-date="minDate"
                         :orientation="orientation"
-                        :value="value"
+                        :value="dateObject"
                         @date-select="onDateSelect"
                     ></ui-calendar>
                 </ui-popover>
@@ -134,7 +134,7 @@ export default {
 
     props: {
         name: String,
-        value: Date,
+        value: [Date, String],
         minDate: Date,
         maxDate: Date,
         yearRange: Array,
@@ -199,6 +199,16 @@ export default {
     },
 
     computed: {
+        dateObject() {
+            let value = this.value
+
+            if (typeof value === 'string') {
+                value = new Date(value)
+            }
+
+            return value && !isNaN(value) ? dateUtils.clone(value) : null
+        },
+
         classes() {
             return [
                 `ui-datepicker--icon-position-${this.iconPosition}`,
@@ -228,7 +238,7 @@ export default {
         },
 
         isLabelInline() {
-            return !this.value && !this.isActive;
+            return !this.dateObject && !this.isActive;
         },
 
         hasFeedback() {
@@ -244,13 +254,13 @@ export default {
         },
 
         displayText() {
-            if (!this.value) {
+            if (!this.dateObject) {
                 return '';
             }
 
             return this.customFormatter ?
-                this.customFormatter(this.value, this.lang) :
-                dateUtils.humanize(this.value, this.lang);
+                this.customFormatter(this.dateObject, this.lang) :
+                dateUtils.humanize(this.dateObject, this.lang);
         },
 
         hasDisplayText() {
@@ -258,8 +268,8 @@ export default {
         },
 
         submittedValue() {
-            return this.value ?
-                `${this.value.getFullYear()}-${1 + this.value.getMonth()}-${this.value.getDate()}` :
+            return this.dateObject ?
+                `${this.dateObject.getFullYear()}-${1 + this.dateObject.getMonth()}-${this.dateObject.getDate()}` :
                 '';
         },
 
@@ -328,7 +338,7 @@ export default {
 
         onPickerOpen() {
             if (this.usesModal) {
-                this.valueAtModalOpen = this.value ? dateUtils.clone(this.value) : null;
+                this.valueAtModalOpen = this.dateObject ? this.dateObject : null;
             }
 
             this.isActive = true;
