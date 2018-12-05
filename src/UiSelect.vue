@@ -56,6 +56,7 @@
                     ref="dropdown"
 
                     :constrain-to-scroll-parent="false"
+                    :disabled="disabled"
 
                     @close="onClose"
                     @open="onOpen"
