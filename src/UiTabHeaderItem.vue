@@ -81,7 +81,7 @@ export default {
     align-items: center;
     cursor: pointer;
     display: flex;
-    font-family: $font-stack;
+    font-family: inherit;
     height: rem(48px);
     justify-content: center;
     min-width: rem(80px);

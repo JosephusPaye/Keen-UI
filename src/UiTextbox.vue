@@ -474,7 +474,7 @@ export default {
     color: $ui-input-text-color;
     cursor: auto;
     display: block;
-    font-family: $font-stack;
+    font-family: inherit;
     font-size: $ui-input-text-font-size;
     font-weight: normal;
     margin: 0;

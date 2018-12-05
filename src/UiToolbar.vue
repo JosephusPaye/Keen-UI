@@ -125,7 +125,7 @@ $ui-toolbar-height      : rem(56px) !default;
 .ui-toolbar {
     align-items: center;
     display: flex;
-    font-family: $font-stack;
+    font-family: inherit;
     font-size: $ui-toolbar-font-size;
     height: $ui-toolbar-height;
     padding-left: rem(16px);

@@ -182,7 +182,6 @@ export default {
 @import './styles/imports';
 
 .ui-confirm__message {
-    font-family: $font-stack;
     font-size: rem(15px);
 }
 

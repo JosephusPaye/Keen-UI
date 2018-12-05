@@ -761,7 +761,7 @@ export default {
     color: $ui-input-text-color;
     cursor: pointer;
     display: flex;
-    font-family: $font-stack;
+    font-family: inherit;
     font-size: $ui-input-text-font-size;
     font-weight: normal;
     padding: 0;
@@ -809,7 +809,7 @@ export default {
     border-radius: 0;
     color: $ui-input-text-color;
     cursor: auto;
-    font-family: $font-stack;
+    font-family: inherit;
     font-size: $ui-input-text-font-size - rem(1px);
     font-weight: normal;
     height: $ui-input-height + rem(4px);

@@ -94,7 +94,7 @@ export default {
 
 .ui-menu-option {
     display: block;
-    font-family: $font-stack;
+    font-family: inherit;
     position: relative;
     user-select: none;
     width: 100%;

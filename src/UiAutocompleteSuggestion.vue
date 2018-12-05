@@ -63,7 +63,7 @@ export default {
 
 .ui-autocomplete-suggestion {
     cursor: pointer;
-    font-family: $font-stack;
+    font-family: inherit;
     font-size: $ui-dropdown-item-font-size;
     padding: rem(8px 12px);
 

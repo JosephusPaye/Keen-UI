@@ -543,7 +543,7 @@ export default {
     color: $ui-input-text-color;
     cursor: pointer;
     display: flex;
-    font-family: $font-stack;
+    font-family: inherit;
     font-size: $ui-input-text-font-size;
     font-weight: normal;
     height: $ui-input-height;
