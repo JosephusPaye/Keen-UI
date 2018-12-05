@@ -175,7 +175,7 @@ export default {
         align-items: center;
         color: $secondary-text-color;
         display: flex;
-        font-size: rem-calc(14px);
+        font-size: rem(14px);
         height: $ui-calendar-cell-size;
         justify-content: center;
         text-transform: uppercase;

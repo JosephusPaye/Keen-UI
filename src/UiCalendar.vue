@@ -247,7 +247,7 @@ export default {
 <style lang="scss">
 @import './styles/imports';
 
-$ui-calendar-padding    : rem-calc(8px) !default;
+$ui-calendar-padding    : rem(8px) !default;
 
 .ui-calendar {
     color: $primary-text-color;
@@ -257,7 +257,7 @@ $ui-calendar-padding    : rem-calc(8px) !default;
 .ui-calendar__header {
     color: white;
     line-height: 1;
-    padding: rem-calc(16px);
+    padding: rem(16px);
 }
 
 .ui-calendar__header-year,
@@ -279,13 +279,13 @@ $ui-calendar-padding    : rem-calc(8px) !default;
 }
 
 .ui-calendar__header-year {
-    font-size: rem-calc(15px);
+    font-size: rem(15px);
     font-weight: 600;
-    margin-bottom: rem-calc(8px);
+    margin-bottom: rem(8px);
 }
 
 .ui-calendar__header-details {
-    font-size: rem-calc(22px)
+    font-size: rem(22px)
 }
 
 .ui-calendar__body {
@@ -298,26 +298,26 @@ $ui-calendar-padding    : rem-calc(8px) !default;
 }
 
 .ui-calendar__years {
-    height: rem-calc(312px);
+    height: rem(312px);
     list-style: none;
     margin: -$ui-calendar-padding;
     overflow-y: auto;
-    padding: rem-calc(8px 0);
+    padding: rem(8px 0);
 }
 
 .ui-calendar__year {
     align-items: center;
     cursor: pointer;
     display: flex;
-    font-size: rem-calc(16px);
-    height: rem-calc(36px);
+    font-size: rem(16px);
+    height: rem(36px);
     justify-content: center;
     outline: none;
 
     &.is-selected {
-        font-size: rem-calc(24px);
+        font-size: rem(24px);
         font-weight: 600;
-        height: rem-calc(40px);
+        height: rem(40px);
     }
 }
 
@@ -329,16 +329,16 @@ $ui-calendar-padding    : rem-calc(8px) !default;
     display: flex;
 
     .ui-calendar__header {
-        min-width: rem-calc(128px);
+        min-width: rem(128px);
     }
 
     .ui-calendar__header-date {
-        margin-bottom: rem-calc(12px);
+        margin-bottom: rem(12px);
     }
 
     .ui-calendar__header-date {
         display: block;
-        padding-top: rem-calc(4px);
+        padding-top: rem(4px);
     }
 }
 

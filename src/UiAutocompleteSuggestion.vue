@@ -65,7 +65,7 @@ export default {
     cursor: pointer;
     font-family: $font-stack;
     font-size: $ui-dropdown-item-font-size;
-    padding: rem-calc(8px 12px);
+    padding: rem(8px 12px);
 
     &:hover {
         background-color: rgba(black, 0.06);
@@ -86,8 +86,8 @@ export default {
     background-position: 50%;
     background-size: cover;
     border-radius: 50%;
-    height: rem-calc(32px);
-    margin-right: rem-calc(12px);
-    width: rem-calc(32px);
+    height: rem(32px);
+    margin-right: rem(12px);
+    width: rem(32px);
 }
 </style>

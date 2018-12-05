@@ -675,7 +675,7 @@ export default {
 
 .page--ui-autocomplete {
     .page__examples {
-        max-width: rem-calc(512px);
+        max-width: rem(512px);
     }
 }
 </style>

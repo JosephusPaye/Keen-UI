@@ -169,7 +169,7 @@ $ui-collapsible-header-background-hover     : $md-grey-300 !default;
 
 .ui-collapsible {
     font-family: $font-stack;
-    margin-bottom: rem-calc(8px);
+    margin-bottom: rem(8px);
     width: 100%;
 
     &:not(.is-disabled) {
@@ -204,11 +204,11 @@ $ui-collapsible-header-background-hover     : $md-grey-300 !default;
     background-color: $ui-collapsible-header-background;
     cursor: pointer;
     display: flex;
-    font-size: rem-calc(15px);
+    font-size: rem(15px);
     line-height: 1.5;
     margin: 0;
-    min-height: rem-calc(48px);
-    padding: rem-calc(12px 16px);
+    min-height: rem(48px);
+    padding: rem(12px 16px);
     position: relative;
     touch-action: manipulation; // IE
     width: 100%;
@@ -219,14 +219,14 @@ $ui-collapsible-header-background-hover     : $md-grey-300 !default;
 }
 
 .ui-collapsible__header-content {
-    padding-right: rem-calc(8px);
+    padding-right: rem(8px);
 }
 
 .ui-collapsible__header-icon {
     color: $secondary-text-color;
     cursor: pointer;
     margin-left: auto;
-    margin-right: rem-calc(-4px);
+    margin-right: rem(-4px);
     transition: transform 0.3s ease;
 }
 
@@ -239,7 +239,7 @@ $ui-collapsible-header-background-hover     : $md-grey-300 !default;
     border: 1px solid $md-grey-200;
     border-top: 0;
     display: block;
-    padding: rem-calc(16px);
+    padding: rem(16px);
     width: 100%;
 }
 

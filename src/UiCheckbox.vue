@@ -123,12 +123,12 @@ export default {
 <style lang="scss">
 @import './styles/imports';
 
-$ui-checkbox-border-width           : rem-calc(2px) !default;
-$ui-checkbox-checkmark-width        : rem-calc(2px) !default;
+$ui-checkbox-border-width           : rem(2px) !default;
+$ui-checkbox-checkmark-width        : rem(2px) !default;
 $ui-checkbox-transition-duration    : 0.15s !default;
-$ui-checkbox-label-font-size        : rem-calc(16px) !default;
+$ui-checkbox-label-font-size        : rem(16px) !default;
 
-$ui-checkbox-size                   : rem-calc(20px); // no !default as it shouldn't be overridden
+$ui-checkbox-size                   : rem(20px); // no !default as it shouldn't be overridden
 $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
 
 .ui-checkbox {
@@ -137,7 +137,7 @@ $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
     font-family: $font-stack;
     font-weight: normal;
     margin: 0;
-    margin-bottom: rem-calc(8px);
+    margin-bottom: rem(8px);
     position: relative;
 
     &:not(.is-disabled):not(.is-checked):hover,
@@ -178,7 +178,7 @@ $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
 .ui-checkbox__label-text {
     cursor: pointer;
     font-size: $ui-checkbox-label-font-size;
-    margin-left: rem-calc(8px);
+    margin-left: rem(8px);
 }
 
 .ui-checkbox__checkmark {
@@ -206,18 +206,18 @@ $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
 
     // Checkmark
     &::after {
-        bottom: rem-calc(5px);
+        bottom: rem(5px);
         box-sizing: border-box;
         content: "";
         display: block;
-        height: rem-calc(13px);
-        left: rem-calc(7px);
+        height: rem(13px);
+        left: rem(7px);
         opacity: 0;
         position: absolute;
         transform: rotate(45deg);
         transition-delay: 0.1s;
         transition: opacity 0.3s ease;
-        width: rem-calc(6px);
+        width: rem(6px);
     }
 }
 

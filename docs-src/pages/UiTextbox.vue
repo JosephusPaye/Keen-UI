@@ -620,7 +620,7 @@ export default {
 
 .page--ui-textbox {
     .ui-textbox {
-        max-width: rem-calc(600px);
+        max-width: rem(600px);
     }
 }
 </style>

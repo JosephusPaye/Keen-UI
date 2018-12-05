@@ -50,8 +50,8 @@ export default {
 .keen-docs-brand {
     background-color: $toolbar-color;
     font-size: 1.5rem;
-    height: rem-calc(62px);
-    padding: rem-calc(16px);
+    height: rem(62px);
+    padding: rem(16px);
     width: 100%;
     color: white;
 }

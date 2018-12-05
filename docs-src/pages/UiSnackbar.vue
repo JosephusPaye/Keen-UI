@@ -393,19 +393,19 @@ export default {
 
 .page--ui-snackbar {
     .preview-controls {
-        margin-bottom: rem-calc(18px);
-        max-width: rem-calc(400px);
+        margin-bottom: rem(18px);
+        max-width: rem(400px);
 
         .ui-textbox,
         .ui-radio-group,
         .ui-switch {
-            margin-bottom: rem-calc(18px);
+            margin-bottom: rem(18px);
         }
     }
 
     .preview-pane {
         border: 2px solid #777;
-        height: rem-calc(148px);
+        height: rem(148px);
         position: relative;
     }
 }

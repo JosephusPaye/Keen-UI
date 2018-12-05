@@ -307,7 +307,7 @@ export default {
 
 .page--ui-fileupload {
     .ui-radio-group {
-        margin-bottom: rem-calc(16px);
+        margin-bottom: rem(16px);
     }
 
     .page__demo-group {

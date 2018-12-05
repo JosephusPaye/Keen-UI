@@ -183,7 +183,7 @@ export default {
 
 .ui-confirm__message {
     font-family: $font-stack;
-    font-size: rem-calc(15px);
+    font-size: rem(15px);
 }
 
 .ui-confirm__footer {

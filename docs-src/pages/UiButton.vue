@@ -593,7 +593,7 @@ export default {
 .page--ui-button {
     .ui-radio-group,
     .ui-switch {
-        margin-bottom: rem-calc(16px);
+        margin-bottom: rem(16px);
     }
 
     .ui-switch {
@@ -601,26 +601,26 @@ export default {
     }
 
     .ui-button {
-        margin-bottom: rem-calc(12px);
-        margin-right: rem-calc(8px);
+        margin-bottom: rem(12px);
+        margin-right: rem(8px);
     }
 
     .page__demo-group {
-        margin-bottom: rem-calc(18px);
+        margin-bottom: rem(18px);
     }
 
     .page__demo-table {
-        max-width: rem-calc(600px);
+        max-width: rem(600px);
 
         .ui-button {
             display: flex;
 
             &.ui-button--size-normal {
-                min-width: rem-calc(100px);
+                min-width: rem(100px);
             }
 
             &.ui-button--size-large {
-                min-width: rem-calc(124px);
+                min-width: rem(124px);
             }
         }
     }

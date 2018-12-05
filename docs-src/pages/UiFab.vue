@@ -206,17 +206,17 @@ export default {
 
 .page--ui-fab {
     .ui-radio-group {
-        margin-bottom: rem-calc(16px);
+        margin-bottom: rem(16px);
     }
 
     .page__demo-group {
         align-items: flex-end;
         display: flex;
         flex-wrap: wrap;
-        margin-bottom: rem-calc(16px);
+        margin-bottom: rem(16px);
 
         .ui-fab {
-            margin-right: rem-calc(18px);
+            margin-right: rem(18px);
         }
     }
 }

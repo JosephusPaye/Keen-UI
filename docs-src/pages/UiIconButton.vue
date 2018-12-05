@@ -571,7 +571,7 @@ export default {
 
 .page--ui-icon-button {
     .page__demo-table {
-        max-width: rem-calc(600px);
+        max-width: rem(600px);
     }
 
     .page__demo-group {
@@ -579,13 +579,13 @@ export default {
 
         &.has-white-icon-buttons {
             background-color: $md-blue;
-            padding: rem-calc(4px 8px);
+            padding: rem(4px 8px);
         }
     }
 
     .ui-radio-group,
     .ui-switch {
-        margin-bottom: rem-calc(16px);
+        margin-bottom: rem(16px);
     }
 
     .ui-switch {
@@ -593,7 +593,7 @@ export default {
     }
 
     .ui-icon-button {
-        margin-right: rem-calc(8px);
+        margin-right: rem(8px);
     }
 }
 

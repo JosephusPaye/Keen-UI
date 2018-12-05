@@ -241,21 +241,21 @@ export default {
 .page--ui-progress-circular {
     .page__demo-group {
         display: flex;
-        height: rem-calc(48px);
+        height: rem(48px);
 
         .ui-progress-circular {
-            margin-right: rem-calc(24px);
+            margin-right: rem(24px);
         }
     }
 
     .ui-button {
-        margin-top: rem-calc(24px);
+        margin-top: rem(24px);
     }
 
     .has-white-progress {
         background-color: gray;
         display: inline-block;
-        padding: rem-calc(8px);
+        padding: rem(8px);
 
         .ui-progress-circular {
             margin-right: 0;

@@ -492,12 +492,12 @@ export default {
         padding: 0;
 
         .ui-calendar__body {
-            height: rem-calc(348px);
+            height: rem(348px);
         }
     }
 
     .ui-modal__container {
-        width: rem-calc(268px);
+        width: rem(268px);
     }
 }
 
@@ -566,7 +566,7 @@ export default {
     color: $ui-input-button-color;
     font-size: $ui-input-button-size;
     margin-left: auto;
-    margin-right: rem-calc(-4px);
+    margin-right: rem(-4px);
 }
 
 .ui-datepicker__feedback {
@@ -583,7 +583,7 @@ export default {
     justify-content: flex-end;
 
     .ui-button {
-        min-width: rem-calc(64px);
+        min-width: rem(64px);
     }
 }
 
@@ -593,7 +593,7 @@ export default {
 
 .ui-datepicker--icon-position-right {
     .ui-datepicker__icon-wrapper {
-        margin-left: rem-calc(8px);
+        margin-left: rem(8px);
         margin-right: 0;
         order: 1;
     }
@@ -605,7 +605,7 @@ export default {
 
 .ui-datepicker--orientation-landscape {
     .ui-modal__container {
-        width: rem-calc(396px);
+        width: rem(396px);
     }
 }
 </style>

@@ -246,14 +246,14 @@ export default {
 
 .page--ui-switch {
     .ui-switch {
-        margin-bottom: rem-calc(8px);
+        margin-bottom: rem(8px);
     }
 
     .page__demo-group {
-        margin-bottom: rem-calc(32px);
+        margin-bottom: rem(32px);
 
         &.has-switch-right {
-            max-width: rem-calc(208px);
+            max-width: rem(208px);
         }
     }
 }
