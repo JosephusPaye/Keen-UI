@@ -115,7 +115,7 @@ export default {
 .ui-tab-header-item__text {
     @include text-truncation;
     font-size: rem-calc(15px);
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .ui-tab-header-item__icon {

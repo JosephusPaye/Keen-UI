@@ -189,7 +189,7 @@ export default {
 
     &.is-active {
         color: $link-color;
-        font-weight: 500;
+        font-weight: 600;
         background-color: rgba(black, 0.05);
     }
 

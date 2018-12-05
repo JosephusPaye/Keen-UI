@@ -523,7 +523,7 @@ export default {
 
     .my-custom-tab-header {
         display: flex;
-        font-weight: 500;
+        font-weight: 600;
 
         .ui-icon {
             margin-right: 8px;

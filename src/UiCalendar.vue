@@ -280,7 +280,7 @@ $ui-calendar-padding    : rem-calc(8px) !default;
 
 .ui-calendar__header-year {
     font-size: rem-calc(15px);
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: rem-calc(8px);
 }
 
@@ -316,7 +316,7 @@ $ui-calendar-padding    : rem-calc(8px) !default;
 
     &.is-selected {
         font-size: rem-calc(24px);
-        font-weight: 500;
+        font-weight: 600;
         height: rem-calc(40px);
     }
 }
