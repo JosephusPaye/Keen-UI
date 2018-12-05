@@ -46,6 +46,10 @@ export default {
             type: Boolean,
             default: false
         },
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
         focusRedirector: Function,
         openOn: {
             type: String,
@@ -71,6 +75,16 @@ export default {
         return {
             returnFocus: true,
         };
+    },
+
+    watch: {
+        disabled(n) {
+            if (this.tip && true === n) {
+                this.tip.disable();
+            } else {
+                this.tip.enable();
+            }
+        }
     },
 
     mounted() {
