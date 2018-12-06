@@ -10,7 +10,6 @@
             :value="submittedValue"
 
             @blur="onBlur"
-            @change="onChange"
             @click="onClick"
             @focus="onFocus"
         >
@@ -96,15 +95,14 @@ export default {
 
     methods: {
         onClick(e) {
-            this.isChecked = e.target.checked;
-            this.$emit('input', e.target.checked ? this.trueValue : this.falseValue);
-        },
+            const isCheckedPrevious = this.isChecked;
+            const isChecked = e.target.checked;
 
-        onChange(e) {
-            // Fix for mobile Safari, which triggers onClick and onChange in a different order (#325)
-            this.isChecked = e.target.checked;
+            this.$emit('input', isChecked ? this.trueValue : this.falseValue, e);
 
-            this.$emit('change', this.isChecked ? this.trueValue : this.falseValue, e);
+            if (isCheckedPrevious !== isChecked) {
+                this.$emit('change', isChecked ? this.trueValue : this.falseValue, e);
+            }
         },
 
         onFocus(e) {

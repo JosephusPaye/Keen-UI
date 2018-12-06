@@ -11,7 +11,6 @@
                 :value="submittedValue"
 
                 @blur="onBlur"
-                @change="onChange"
                 @click="onClick"
                 @focus="onFocus"
             >
@@ -101,22 +100,24 @@ export default {
 
     methods: {
         onClick(e) {
-            this.isChecked = e.target.checked;
-            this.$emit('input', e.target.checked ? this.trueValue : this.falseValue);
+            const isCheckedPrevious = this.isChecked;
+            const isChecked = e.target.checked;
+
+            this.$emit('input', isChecked ? this.trueValue : this.falseValue, e);
+
+            if (isCheckedPrevious !== isChecked) {
+                this.$emit('change', isChecked ? this.trueValue : this.falseValue, e);
+            }
         },
 
-        onChange(e) {
-            this.$emit('change', this.isChecked ? this.trueValue : this.falseValue, e);
-        },
-
-        onFocus() {
+        onFocus(e) {
             this.isActive = true;
-            this.$emit('focus');
+            this.$emit('focus', e);
         },
 
-        onBlur() {
+        onBlur(e) {
             this.isActive = false;
-            this.$emit('blur');
+            this.$emit('blur', e);
         }
     }
 };
