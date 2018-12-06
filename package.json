@@ -46,7 +46,7 @@
     "deepmerge": "^2.0.1",
     "fuzzysearch": "^1.0.3",
     "lodash.debounce": "^4.0.8",
-    "tippy.js": "^3.0.1"
+    "tippy.js": "^3.3.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.5.4",
