@@ -177,6 +177,15 @@
                             </tr>
 
                             <tr>
+                                <td>disabled</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>
+                                    <p>Whether or not the popover is disabled. Set to <code>true</code> to disable the popover.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>focusRedirector</td>
                                 <td>Function</td>
                                 <td></td>

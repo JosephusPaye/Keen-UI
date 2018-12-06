@@ -48,7 +48,7 @@ export default {
         },
         disabled: {
             type: Boolean,
-            default: false,
+            default: false
         },
         focusRedirector: Function,
         openOn: {
@@ -78,11 +78,13 @@ export default {
     },
 
     watch: {
-        disabled(n) {
-            if (this.tip && true === n) {
-                this.tip.disable();
-            } else {
-                this.tip.enable();
+        disabled(value) {
+            if (this.tip) {
+                if (value === true) {
+                    this.tip.disable();
+                } else {
+                    this.tip.enable();
+                }
             }
         }
     },
@@ -150,6 +152,10 @@ export default {
             }
 
             this.tip = tippy.one(this.triggerEl, options);
+
+            if (this.disabled) {
+                this.tip.disable();
+            }
         },
 
         destroyPopover() {

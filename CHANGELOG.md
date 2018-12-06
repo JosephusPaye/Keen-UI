@@ -84,6 +84,7 @@
 - Add new prop `appendToBody`, to choose between appending popover to `document.body` or the local parent element.
 - Add new method `isOpen()`, used to determine if the popover is open.
 - Add new events `reveal` and `hide`.
+- Add new prop `disabled`, to disable the popover
 
 ### UiTooltip
 
