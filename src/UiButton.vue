@@ -48,6 +48,7 @@
             contain-focus
             ref="dropdown"
 
+            :append-to-body="appendDropdownToBody"
             :constrain-to-scroll-parent="constrainDropdownToScrollParent"
             :position="dropdownPosition"
             :open-on="openDropdownOn"
@@ -114,6 +115,10 @@ export default {
         dropdownPosition: {
             type: String,
             default: 'bottom-start'
+        },
+        appendDropdownToBody: {
+            type: Boolean,
+            default: true
         },
         constrainDropdownToScrollParent: {
             type: Boolean,
@@ -218,17 +223,17 @@ export default {
     display: inline-flex;
     font-family: $font-stack;
     font-size: $ui-button-font-size;
-    font-weight: 500;
+    font-weight: 600;
     height: $ui-button-height;
     justify-content: center;
     letter-spacing: 0.02em;
     line-height: 1;
-    min-width: rem-calc(80px);
+    min-width: rem(80px);
     outline: none;
     overflow: hidden;
     padding: 0;
-    padding-left: rem-calc(16px);
-    padding-right: rem-calc(16px);
+    padding-left: rem(16px);
+    padding-right: rem(16px);
     position: relative;
     text-transform: uppercase;
     touch-action: manipulation; // IE
@@ -286,15 +291,15 @@ export default {
 }
 
 .ui-button__icon {
-    margin-left: rem-calc(-4px);
-    margin-right: rem-calc(6px);
-    margin-top: rem-calc(-2px);
+    margin-left: rem(-4px);
+    margin-right: rem(6px);
+    margin-top: rem(-2px);
 }
 
 .ui-button__dropdown-icon {
-    font-size: rem-calc(18px);
-    margin-left: rem-calc(2px);
-    margin-right: rem-calc(-6px);
+    font-size: rem(18px);
+    margin-left: rem(2px);
+    margin-right: rem(-6px);
 }
 
 .ui-button__focus-ring {
@@ -336,8 +341,8 @@ export default {
 
 .ui-button--icon-position-right {
     .ui-button__icon {
-        margin-left: rem-calc(6px);
-        margin-right: rem-calc(-4px);
+        margin-left: rem(6px);
+        margin-right: rem(-4px);
         order: 1;
     }
 }
@@ -349,25 +354,25 @@ export default {
 .ui-button--size-small {
     font-size: $ui-button-font-size--small;
     height: $ui-button-height--small;
-    padding-left: rem-calc(12px);
-    padding-right: rem-calc(12px);
+    padding-left: rem(12px);
+    padding-right: rem(12px);
 
     .ui-button__icon {
         margin-left: 0;
         margin-top: 0;
 
         .ui-icon {
-            font-size: rem-calc(18px);
+            font-size: rem(18px);
         }
     }
 
     .ui-button__dropdown-icon {
-        margin-right: rem-calc(-4px);
+        margin-right: rem(-4px);
     }
 
     &.ui-button--icon-position-right {
         .ui-button__icon {
-            margin-left: rem-calc(6px);
+            margin-left: rem(6px);
             margin-right: 0;
         }
     }
@@ -376,23 +381,23 @@ export default {
 .ui-button--size-large {
     font-size: $ui-button-font-size--large;
     height: $ui-button-height--large;
-    padding-left: rem-calc(24px);
-    padding-right: rem-calc(24px);
+    padding-left: rem(24px);
+    padding-right: rem(24px);
 
     .ui-button__icon {
-        margin-left: rem-calc(-4px);
-        margin-right: rem-calc(8px);
+        margin-left: rem(-4px);
+        margin-right: rem(8px);
     }
 
     .ui-button__dropdown-icon {
-        font-size: rem-calc(24px);
-        margin-left: rem-calc(4px);
+        font-size: rem(24px);
+        margin-left: rem(4px);
     }
 
     &.ui-button--icon-position-right {
         .ui-button__icon {
-            margin-left: rem-calc(8px);
-            margin-right: rem-calc(-4px);
+            margin-left: rem(8px);
+            margin-right: rem(-4px);
         }
     }
 }

@@ -576,8 +576,8 @@ export default {
 
 .page--ui-datepicker {
     .ui-datepicker {
-        max-width: rem-calc(400px);
-        margin-bottom: rem-calc(32px);
+        max-width: rem(400px);
+        margin-bottom: rem(32px);
     }
 }
 </style>

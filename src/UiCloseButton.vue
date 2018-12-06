@@ -75,10 +75,10 @@ export default {
 <style lang="scss">
 @import './styles/imports';
 
-$ui-close-button-size            : rem-calc(36px) !default;
-$ui-close-button--size-mini      : rem-calc(24px) !default;
-$ui-close-button--size-small     : rem-calc(32px) !default;
-$ui-close-button--size-large     : rem-calc(48px) !default;
+$ui-close-button-size            : rem(36px) !default;
+$ui-close-button--size-mini      : rem(24px) !default;
+$ui-close-button--size-small     : rem(32px) !default;
+$ui-close-button--size-large     : rem(48px) !default;
 
 .ui-close-button {
     align-items: center;
@@ -153,7 +153,7 @@ $ui-close-button--size-large     : rem-calc(48px) !default;
     }
 
     .ui-icon {
-        font-size: rem-calc(18px);
+        font-size: rem(18px);
     }
 }
 
@@ -165,7 +165,7 @@ $ui-close-button--size-large     : rem-calc(48px) !default;
     }
 
     .ui-icon {
-        font-size: rem-calc(18px);
+        font-size: rem(18px);
     }
 }
 
@@ -177,7 +177,7 @@ $ui-close-button--size-large     : rem-calc(48px) !default;
     }
 
     .ui-icon {
-        font-size: rem-calc(20px);
+        font-size: rem(20px);
     }
 }
 
@@ -189,7 +189,7 @@ $ui-close-button--size-large     : rem-calc(48px) !default;
     }
 
     .ui-icon {
-        font-size: rem-calc(24px);
+        font-size: rem(24px);
     }
 }
 

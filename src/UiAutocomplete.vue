@@ -550,7 +550,7 @@ export default {
     border-radius: 0;
     color: $ui-input-text-color;
     cursor: auto;
-    font-family: $font-stack;
+    font-family: inherit;
     font-size: $ui-input-text-font-size;
     font-weight: normal;
     height: $ui-input-height;
@@ -585,7 +585,7 @@ export default {
     display: block;
     list-style-type: none;
     margin: 0;
-    margin-bottom: rem-calc(8px);
+    margin-bottom: rem(8px);
     min-width: 100%;
     padding: 0;
     position: absolute;
@@ -607,7 +607,7 @@ export default {
 
 .ui-autocomplete--icon-position-right {
     .ui-autocomplete__icon-wrapper {
-        margin-left: rem-calc(8px);
+        margin-left: rem(8px);
         margin-right: 0;
         order: 1;
     }

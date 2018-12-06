@@ -64,7 +64,7 @@ export default {
 @import './styles/imports.scss';
 
 .keen-docs-navbar {
-    height: rem-calc(62px);
+    height: rem(62px);
     background-color: $toolbar-color;
     color: white;
     width: 100%;
@@ -77,7 +77,7 @@ export default {
 
 .keen-docs-navbar__left {
     flex-shrink: 0;
-    width: rem-calc($sidebar-width)!important;
+    width: rem($sidebar-width)!important;
 
     @media screen and (max-width: $mobile-breakpoint) {
         display: none;
@@ -93,20 +93,20 @@ export default {
 .keen-docs-navbar__right-container {
     margin: 0 auto;
     width: 100%;
-    max-width: rem-calc(1092px);
-    padding-left: rem-calc(32px);
-    padding-right: rem-calc(32px);
+    max-width: rem(1092px);
+    padding-left: rem(32px);
+    padding-right: rem(32px);
     display: flex;
     align-items: center;
 
     @media screen and (max-width: $mobile-breakpoint) {
-        padding-left: rem-calc(24px);
-        padding-right: rem-calc(24px);
+        padding-left: rem(24px);
+        padding-right: rem(24px);
     }
 }
 
 .ui-icon-button.keen-docs-navbar__menu-button {
-    margin-right: rem-calc(16px);
+    margin-right: rem(16px);
     cursor: pointer;
     display: none;
 

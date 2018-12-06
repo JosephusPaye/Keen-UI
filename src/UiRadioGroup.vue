@@ -188,11 +188,11 @@ export default {
     &.is-vertical {
         .ui-radio-group__radios {
             flex-direction: column;
-            padding-top: rem-calc(8px);
+            padding-top: rem(8px);
         }
 
         .ui-radio-group__radio {
-            margin-bottom: rem-calc(12px);
+            margin-bottom: rem(12px);
             margin-left: 0;
             width: 100%;
         }
@@ -229,7 +229,7 @@ export default {
 }
 
 .ui-radio.ui-radio-group__radio {
-    margin-left: rem-calc(24px);
+    margin-left: rem(24px);
 
     &:first-child {
         margin-left: 0;
@@ -241,7 +241,7 @@ export default {
     font-size: $ui-input-feedback-font-size;
     line-height: $ui-input-feedback-line-height;
     margin: 0;
-    padding-top: $ui-input-feedback-padding-top - rem-calc(4px);
+    padding-top: $ui-input-feedback-padding-top - rem(4px);
     position: relative;
 }
 
@@ -252,7 +252,7 @@ export default {
 .ui-radio-group--button-position-right {
     &:not(.is-vertical) {
         .ui-radio__label-text {
-            margin-right: rem-calc(8px);
+            margin-right: rem(8px);
         }
     }
 }

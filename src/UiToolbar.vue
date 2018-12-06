@@ -119,16 +119,16 @@ export default {
 <style lang="scss">
 @import './styles/imports';
 
-$ui-toolbar-font-size   : rem-calc(18px) !default;
-$ui-toolbar-height      : rem-calc(56px) !default;
+$ui-toolbar-font-size   : rem(18px) !default;
+$ui-toolbar-height      : rem(56px) !default;
 
 .ui-toolbar {
     align-items: center;
     display: flex;
-    font-family: $font-stack;
+    font-family: inherit;
     font-size: $ui-toolbar-font-size;
     height: $ui-toolbar-height;
-    padding-left: rem-calc(16px);
+    padding-left: rem(16px);
     position: relative;
 
     &.is-raised {
@@ -136,12 +136,12 @@ $ui-toolbar-height      : rem-calc(56px) !default;
     }
 
     &:not(.is-raised).ui-toolbar--type-default {
-        border-bottom: rem-calc(1px) solid $divider-color;
+        border-bottom: rem(1px) solid $divider-color;
     }
 
     .ui-icon-button {
-        height: rem-calc(48px);
-        width: rem-calc(48px);
+        height: rem(48px);
+        width: rem(48px);
     }
 }
 
@@ -152,17 +152,17 @@ $ui-toolbar-height      : rem-calc(56px) !default;
 }
 
 .ui-toolbar__nav-icon {
-    margin-left: rem-calc(-16px);
-    margin-right: rem-calc(8px);
+    margin-left: rem(-16px);
+    margin-right: rem(8px);
 }
 
 .ui-toolbar__brand {
-    min-width: rem-calc(160px);
+    min-width: rem(160px);
 }
 
 .ui-toolbar__brand-text {
     flex-grow: 1;
-    padding-right: rem-calc(8px);
+    padding-right: rem(8px);
 }
 
 .ui-toolbar__body {
@@ -171,8 +171,8 @@ $ui-toolbar-height      : rem-calc(56px) !default;
 
     &.has-brand-divider {
         border-left-style: solid;
-        border-left-width: rem-calc(1px);
-        padding-left: rem-calc(24px);
+        border-left-width: rem(1px);
+        padding-left: rem(24px);
     }
 }
 
@@ -183,7 +183,7 @@ $ui-toolbar-height      : rem-calc(56px) !default;
 
 .ui-toolbar__progress {
     bottom: 0;
-    height: rem-calc(3px);
+    height: rem(3px);
     left: 0;
     position: absolute;
     right: 0;

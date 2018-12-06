@@ -177,6 +177,15 @@
                             </tr>
 
                             <tr>
+                                <td>disabled</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>
+                                    <p>Whether or not the popover is disabled. Set to <code>true</code> to disable the popover.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>focusRedirector</td>
                                 <td>Function</td>
                                 <td></td>
@@ -192,6 +201,15 @@
                                     </ul>
 
                                     <p>If <code>focusRedirector</code> is not provided and <code>containFocus</code> is <code>true</code>, focus is contained and cycled within the popover.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>offset</td>
+                                <td>Number, String</td>
+                                <td><code>0</code></td>
+                                <td>
+                                    <p>The popover's offset from the trigger element. See <a href="https://atomiks.github.io/tippyjs/#offset-option"><code>offset</code> option</a> in Tippy.js docs.</p>
                                 </td>
                             </tr>
 

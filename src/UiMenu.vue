@@ -124,17 +124,17 @@ export default {
 
 .ui-menu {
     background-color: white;
-    border: rem-calc(1px) solid rgba(black, 0.08);
+    border: rem(1px) solid rgba(black, 0.08);
     font-family: $font-stack;
     list-style: none;
     margin: 0;
     max-height: 100vh;
-    max-width: rem-calc(272px);
-    min-width: rem-calc(168px);
+    max-width: rem(272px);
+    min-width: rem(168px);
     outline: none;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: rem-calc(4px 0);
+    padding: rem(4px 0);
 
     &.is-raised {
         border: none;
@@ -144,8 +144,8 @@ export default {
     }
 
     &.has-secondary-text {
-        min-width: rem-calc(240px);
-        max-width: rem-calc(304px);
+        min-width: rem(240px);
+        max-width: rem(304px);
     }
 }
 

@@ -180,9 +180,9 @@ export default {
 
     .page__demo-group--the-simpsons {
         .image-pane {
-            border-radius: rem-calc(8px);
-            height: rem-calc(120px);
-            width: rem-calc(120px);
+            border-radius: rem(8px);
+            height: rem(120px);
+            width: rem(120px);
         }
     }
 
@@ -190,8 +190,8 @@ export default {
         background-color: #EEE;
         background-position: 50%;
         background-size: cover;
-        margin-bottom: rem-calc(16px);
-        margin-right: rem-calc(16px);
+        margin-bottom: rem(16px);
+        margin-right: rem(16px);
         position: relative;
     }
 }

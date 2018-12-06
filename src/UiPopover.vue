@@ -46,7 +46,15 @@ export default {
             type: Boolean,
             default: false
         },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
         focusRedirector: Function,
+        offset: {
+            type: [Number, String],
+            default: 0
+        },
         openOn: {
             type: String,
             default: 'click' // 'click', 'mouseenter', 'focus', or 'always'
@@ -71,6 +79,18 @@ export default {
         return {
             returnFocus: true,
         };
+    },
+
+    watch: {
+        disabled(value) {
+            if (this.tip) {
+                if (value === true) {
+                    this.tip.disable();
+                } else {
+                    this.tip.enable();
+                }
+            }
+        }
     },
 
     mounted() {
@@ -105,6 +125,7 @@ export default {
                 interactive: true,
                 // lazy: false,
                 multiple: true,
+                offset: this.offset,
                 onHidden: this.onHidden,
                 onHide: this.onClose,
                 onShow: this.onOpen,
@@ -136,6 +157,10 @@ export default {
             }
 
             this.tip = tippy.one(this.triggerEl, options);
+
+            if (this.disabled) {
+                this.tip.disable();
+            }
         },
 
         destroyPopover() {

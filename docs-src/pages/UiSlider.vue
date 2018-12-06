@@ -274,15 +274,15 @@ export default {
 
 .page--ui-slider {
     .page__examples {
-        max-width: rem-calc(500px);
+        max-width: rem(500px);
     }
 
     .ui-slider {
-        margin-bottom: rem-calc(8px);
+        margin-bottom: rem(8px);
     }
 
     .ui-button {
-        margin-top: rem-calc(24px);
+        margin-top: rem(24px);
     }
 }
 </style>

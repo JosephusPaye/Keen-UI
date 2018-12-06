@@ -125,11 +125,11 @@ export default {
     left: 0;
     position: fixed;
     top: 0;
-    width: rem-calc($sidebar-width);
+    width: rem($sidebar-width);
     z-index: 1;
 
     @media screen and (max-width: $mobile-breakpoint) {
-        max-width: rem-calc($sidebar-width-mobile);
+        max-width: rem($sidebar-width-mobile);
         z-index: $z-index-nav-drawer;
     }
 }
@@ -142,27 +142,27 @@ export default {
 
 .keen-docs-sidebar__description {
     color: rgba(black, 0.54);
-    padding: rem-calc(16px);
+    padding: rem(16px);
 
     p {
         margin: 0;
 
         & + p {
-            margin-top: rem-calc(12px);
+            margin-top: rem(12px);
         }
     }
 }
 
 .keen-docs-sidebar__version-select {
-    padding: rem-calc(16px);
-    padding-top: rem-calc(8px);
+    padding: rem(16px);
+    padding-top: rem(8px);
 
     .ui-select {
         margin: 0;
     }
 
     .ui-select-option {
-        min-height: rem-calc(40px);
+        min-height: rem(40px);
     }
 }
 
@@ -177,19 +177,19 @@ export default {
     color: rgba(black, 0.7);
     font-size: 1.1em;
     font-weight: bold;
-    padding: rem-calc(16px);
+    padding: rem(16px);
 }
 
 .keen-docs-sidebar__menu-item {
     align-items: center;
     color: rgba(black, 0.87);
     display: flex;
-    padding: rem-calc(12px);
-    padding-left: rem-calc(40px);
+    padding: rem(12px);
+    padding-left: rem(40px);
 
     &.is-active {
         color: $link-color;
-        font-weight: 500;
+        font-weight: 600;
         background-color: rgba(black, 0.05);
     }
 
@@ -200,8 +200,8 @@ export default {
     }
 
     .ui-icon {
-        font-size: rem-calc(18px);
-        margin-left: rem-calc(12px);
+        font-size: rem(18px);
+        margin-left: rem(12px);
         color: #868686;
     }
 }

@@ -91,9 +91,9 @@ export default {
     background-color: rgba($md-grey-900, 0.9);
     border-radius: $ui-default-border-radius;
     color: white;
-    font-size: rem-calc(13px);
+    font-size: rem(13px);
     line-height: 1.4;
-    padding: 0.3rem rem-calc(8px);
+    padding: 0.3rem rem(8px);
     text-align: center;
 
     .tippy-backdrop {

@@ -252,11 +252,11 @@ export default {
 
 $ui-modal-transition-duration   : 0.3s !default;
 $ui-modal-mask-background       : rgba(black, 0.5) !default;
-$ui-modal-header-height         : rem-calc(56px);
-$ui-modal-footer-height         : rem-calc(70px);
+$ui-modal-header-height         : rem(56px);
+$ui-modal-footer-height         : rem(70px);
 
-$ui-modal-font-size             : rem-calc(14px);
-$ui-modal-header-font-size      : rem-calc(18px);
+$ui-modal-font-size             : rem(14px);
+$ui-modal-header-font-size      : rem(18px);
 
 .ui-modal {
     font-family: $font-stack;
@@ -270,7 +270,7 @@ $ui-modal-header-font-size      : rem-calc(18px);
 
     &:not(.has-footer) {
         .ui-modal__body {
-            padding: rem-calc(16px 24px 24px);
+            padding: rem(16px 24px 24px);
         }
     }
 }
@@ -312,7 +312,7 @@ $ui-modal-header-font-size      : rem-calc(18px);
     overflow: hidden;
     padding: 0;
     transition: all $ui-modal-transition-duration ease;
-    width: rem-calc(528px);
+    width: rem(528px);
 }
 
 .ui-modal__header {
@@ -321,7 +321,7 @@ $ui-modal-header-font-size      : rem-calc(18px);
     box-shadow: 0 1px 1px rgba(black, 0.16);
     display: flex;
     height: $ui-modal-header-height;
-    padding: rem-calc(0 24px);
+    padding: rem(0 24px);
     position: relative;
     z-index: 1;
 }
@@ -337,13 +337,13 @@ $ui-modal-header-font-size      : rem-calc(18px);
 
 .ui-modal__close-button {
     margin-left: auto;
-    margin-right: rem-calc(-8px);
+    margin-right: rem(-8px);
 }
 
 .ui-modal__body {
     max-height: calc(100vh - #{$ui-modal-header-height});
     overflow-y: auto;
-    padding: rem-calc(16px 24px);
+    padding: rem(16px 24px);
 }
 
 .ui-modal__footer {
@@ -351,10 +351,10 @@ $ui-modal-header-font-size      : rem-calc(18px);
     display: flex;
     height: $ui-modal-footer-height;
     justify-content: flex-end;
-    padding: rem-calc(0 24px);
+    padding: rem(0 24px);
 
     .ui-button {
-        margin-left: rem-calc(8px);
+        margin-left: rem(8px);
 
         &:first-child {
             margin-left: 0;
@@ -368,13 +368,13 @@ $ui-modal-header-font-size      : rem-calc(18px);
 
 .ui-modal--size-large {
     .ui-modal__container {
-        width: rem-calc(848px);
+        width: rem(848px);
     }
 }
 
 .ui-modal--size-small {
     .ui-modal__container {
-        width: rem-calc(320px);
+        width: rem(320px);
     }
 }
 

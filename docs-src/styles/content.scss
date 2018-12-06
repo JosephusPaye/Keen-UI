@@ -1,6 +1,6 @@
 .keen-docs-content {
     width: 100%;
-    padding-left: rem-calc($sidebar-width);
+    padding-left: rem($sidebar-width);
 
     @media screen and (max-width: $mobile-breakpoint) {
         padding-left: 0;
@@ -9,15 +9,15 @@
 
 .page {
     margin: 0 auto;
-    max-width: rem-calc(1092px);
-    padding-top: rem-calc(48px + 60px);
-    padding-bottom: rem-calc(32px);
-    padding-left: rem-calc(32px);
-    padding-right: rem-calc(32px);
+    max-width: rem(1092px);
+    padding-top: rem(48px + 60px);
+    padding-bottom: rem(32px);
+    padding-left: rem(32px);
+    padding-right: rem(32px);
     line-height: 1.6;
 
     @media screen and (max-width: $mobile-breakpoint) {
-        padding-top: rem-calc(96px);
+        padding-top: rem(96px);
     }
 
     & > p:first-child,
@@ -29,19 +29,19 @@
     }
 
     .page__section-title {
-        margin-top: rem-calc(32px);
-        font-weight: 400;
-        font-size: rem-calc(24px);
+        margin-top: rem(32px);
+        font-weight: normal;
+        font-size: rem(24px);
         line-height: 1.33em;
 
         a {
             font-size: 0.6em;
-            padding-left: rem-calc(4px);
+            padding-left: rem(4px);
         }
     }
 
     .page__demo-title {
-        font-size: rem-calc(18px);
+        font-size: rem(18px);
     }
 
     .table {
@@ -50,8 +50,8 @@
 }
 
 .page__title {
-    font-size: rem-calc(34px);
-    font-weight: 400;
+    font-size: rem(34px);
+    font-weight: normal;
     line-height: 1.176em;
 }
 
@@ -67,12 +67,12 @@ th {
 }
 
 tbody td:first-child {
-    min-width: rem-calc(88px);
+    min-width: rem(88px);
 }
 
 .keen-docs__custom-popover-content {
-    padding: rem-calc(16px);
-    max-width: rem-calc(400px);
+    padding: rem(16px);
+    max-width: rem(400px);
 
     p:first-child {
         margin-top: 0;

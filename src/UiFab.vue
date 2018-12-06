@@ -80,8 +80,8 @@ export default {
 <style lang="scss">
 @import './styles/imports';
 
-$ui-fab-size--normal    : rem-calc(56px) !default;
-$ui-fab-size--small     : rem-calc(40px) !default;
+$ui-fab-size--normal    : rem(56px) !default;
+$ui-fab-size--small     : rem(40px) !default;
 
 .ui-fab {
     align-items: center;
