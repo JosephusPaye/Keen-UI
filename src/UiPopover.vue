@@ -51,6 +51,10 @@ export default {
             default: false
         },
         focusRedirector: Function,
+        offset: {
+            type: String,
+            default: '0',
+        },
         openOn: {
             type: String,
             default: 'click' // 'click', 'mouseenter', 'focus', or 'always'
@@ -121,6 +125,7 @@ export default {
                 interactive: true,
                 // lazy: false,
                 multiple: true,
+                offset: this.offset,
                 onHidden: this.onHidden,
                 onHide: this.onClose,
                 onShow: this.onOpen,
