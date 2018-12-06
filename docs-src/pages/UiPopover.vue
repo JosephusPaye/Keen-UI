@@ -205,6 +205,15 @@
                             </tr>
 
                             <tr>
+                                <td>offset</td>
+                                <td>Number, String</td>
+                                <td><code>0</code></td>
+                                <td>
+                                    <p>The popover's offset from the trigger element. See <a href="https://atomiks.github.io/tippyjs/#offset-option"><code>offset</code> option</a> in Tippy.js docs.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>openOn</td>
                                 <td>String</td>
                                 <td><code>"click"</code></td>

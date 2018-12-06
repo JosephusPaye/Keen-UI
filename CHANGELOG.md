@@ -2,8 +2,8 @@
 
 ### General
 
-- **Breaking**: Change global prop configuration system to be simpler and more reliable. See updated [Customization guide](#global-prop-configuration) for details.
-- Rewrote [Sass customization guide](#sass-customization) for clarity.
+- **Breaking**: Change global prop configuration system to be simpler and more reliable. See updated [Customization guide](Customization.md#global-prop-configuration) for details.
+- Rewrote [Sass customization guide](Customization.md#sass-customization) for clarity.
 
 ## UiAlert
 
@@ -85,6 +85,7 @@
 - Add new method `isOpen()`, used to determine if the popover is open.
 - Add new events `reveal` and `hide`.
 - Add new prop `disabled`, to disable the popover
+- Add new prop `offset`, to change the popover's offset from the trigger element
 
 ### UiTooltip
 

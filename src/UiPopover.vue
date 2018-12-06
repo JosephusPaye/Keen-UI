@@ -52,8 +52,8 @@ export default {
         },
         focusRedirector: Function,
         offset: {
-            type: String,
-            default: '0',
+            type: [Number, String],
+            default: 0
         },
         openOn: {
             type: String,
