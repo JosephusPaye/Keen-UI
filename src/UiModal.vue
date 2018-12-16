@@ -366,16 +366,12 @@ $ui-modal-header-font-size      : rem(18px);
 // Sizes
 // ================================================
 
-.ui-modal--size-large {
-    .ui-modal__container {
-        width: rem(848px);
-    }
+.ui-modal--size-large > .ui-modal__wrapper > .ui-modal__container {
+    width: rem-calc(848px);
 }
 
-.ui-modal--size-small {
-    .ui-modal__container {
-        width: rem(320px);
-    }
+.ui-modal--size-small  > .ui-modal__wrapper > .ui-modal__container {
+    width: rem-calc(320px);
 }
 
 // ================================================
