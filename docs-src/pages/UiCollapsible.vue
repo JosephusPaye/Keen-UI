@@ -6,8 +6,6 @@
 
         <p>Both the header and body are fully customizable (using <code>slots</code>). UiCollapsible is keyboard accessible and it supports a disabled state.</p>
 
-        <p>UiCollapsible doesn't support accordion sets (i.e. closing other collapsibles when one is opened). You can achieve that effect by listening for <code>@open</code> and <code>@close</code> on each collapsible in the set and then adjusting their <code>open</code> prop accordingly.</p>
-
         <h3 class="page__section-title">
             Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiCollapsible.vue" target="_blank" rel="noopener">View Source</a>
         </h3>
@@ -48,6 +46,22 @@
             </ui-collapsible>
 
             <ui-collapsible title="The header icon can be removed" remove-icon>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!
+            </ui-collapsible>
+
+            <h4 class="page__demo-title">Accordion set</h4>
+
+            <p>By listening for the <code>open</code> and <code>close</code> events on each collapsible and controlling the <code>open</code> prop, you can create an accordion set.</p>
+
+            <ui-collapsible title="Collapsible 1" :open="accordions[0]" @open="onAccordionOpen(0)" @close="onAccordionClose(0)">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!
+            </ui-collapsible>
+
+            <ui-collapsible title="Collapsible 2" :open="accordions[1]" @open="onAccordionOpen(1)" @close="onAccordionClose(1)">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!
+            </ui-collapsible>
+
+            <ui-collapsible title="Collapsible 3" :open="accordions[2]" @open="onAccordionOpen(2)" @close="onAccordionClose(2)">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!
             </ui-collapsible>
         </div>
@@ -208,6 +222,28 @@ import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
 
 export default {
+    data() {
+        return {
+            accordions: {
+                0: true,
+                1: false,
+                2: false
+            }
+        };
+    },
+
+    methods: {
+        onAccordionOpen(id) {
+            Object.keys(this.accordions).forEach((key) => {
+                this.accordions[key] = key == id;
+            });
+        },
+
+        onAccordionClose(key) {
+            this.accordions[key] = false;
+        }
+    },
+
     components: {
         UiCollapsible,
         UiTab,

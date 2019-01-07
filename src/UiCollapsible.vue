@@ -116,8 +116,8 @@ export default {
         },
 
         onEnter(el) {
-            el.style.maxHeight = el.scrollHeight + 'px';
             this.$emit('open');
+            el.style.maxHeight = el.scrollHeight + 'px';
         },
 
         afterEnter(el) {
