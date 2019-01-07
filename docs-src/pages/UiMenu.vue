@@ -33,7 +33,7 @@
 
             <h4 class="page__demo-title">Custom template</h4>
             <ui-menu has-icons has-secondary-text :options="menuOptions" raised>
-                <template scope="props" slot="option">
+                <template slot-scope="props" slot="option">
                     <code>Label: {{ props.option.label }}, Icon: {{ props.option.icon }}</code>
                 </template>
             </ui-menu>

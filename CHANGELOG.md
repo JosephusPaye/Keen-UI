@@ -2,6 +2,7 @@
 
 ### General
 
+- **Breaking**: Required Vue version bumped to `v2.5` or later, due to [this scoped slot change](https://gist.github.com/yyx990803/9bdff05e5468a60ced06c29c39114c6b#simplified-scoped-slots-usage).
 - **Breaking**: Change global prop configuration system to be simpler and more reliable. See updated [Customization guide](Customization.md#global-prop-configuration) for details.
 - Rewrote [Sass customization guide](Customization.md#sass-customization) for clarity.
 

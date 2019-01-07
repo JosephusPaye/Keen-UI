@@ -104,7 +104,7 @@
                 :suggestions="months"
                 v-model="autocomplete6"
             >
-                <template scope="props" slot="suggestion">
+                <template slot-scope="props" slot="suggestion">
                     <code>{{ props }}</code>
                 </template>
             </ui-autocomplete>
