@@ -31,6 +31,10 @@
 - For secondary buttons, use button color as background for hover and focus.
 - Add new prop `href`. Setting this prop will render an anchor tag.
 
+### UiCollapsible
+
+- Refactor toggle transition to be smoother and less janky
+
 ### UiDatepicker
 
 - **Breaking**: The month of the submitted value now starts at `1`, instead of JavaScript's default which starts at `0`. So, January is now `1` instead of `0`, February is `2`, etc.
