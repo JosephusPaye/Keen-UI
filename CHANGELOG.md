@@ -124,9 +124,10 @@
 - Add new method `clearSelection()` to clear the current selection.
 - Add new method `focus()` to focus programmatically.
 
-## UiSlider
+### UiSlider
 
 - Add new method `focus()` to focus programmatically.
+- Add new props `min` and `max` to specify a custom slider range. See [#368](https://github.com/JosephusPaye/Keen-UI/pull/368)
 
 ### UiTextbox
 

@@ -20,8 +20,9 @@
             <h4 class="page__demo-title">With marker</h4>
             <ui-slider show-marker v-model="slider3"></ui-slider>
 
-            <h4 class="page__demo-title">With custom minimal and maximal values</h4>
-            <ui-slider show-marker :minValue="1" :maxValue="11" v-model="slider4"></ui-slider>
+            <h4 class="page__demo-title">With custom min and max: [1, 15]</h4>
+
+            <ui-slider show-marker :min="1" :max="15" v-model="slider4"></ui-slider>
 
             <h4 class="page__demo-title">Snap to steps: 20</h4>
 
@@ -86,17 +87,17 @@
                             </tr>
 
                             <tr>
-                                <td>minValue</td>
+                                <td>min</td>
                                 <td>Number</td>
                                 <td><code>0</code></td>
-                                <td>The minimal slider value.</td>
+                                <td>The minimum slider value.</td>
                             </tr>
 
                             <tr>
-                                <td>maxValue</td>
+                                <td>max</td>
                                 <td>Number</td>
                                 <td><code>100</code></td>
-                                <td>The maximal slider value.</td>
+                                <td>The maximum slider value.</td>
                             </tr>
 
                             <tr>
