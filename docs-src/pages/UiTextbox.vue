@@ -555,6 +555,13 @@
 
                         <tbody>
                             <tr>
+                                <td><code>focus()</code></td>
+                                <td>
+                                    <p>Call this method to programmatically focus the textbox.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td><code>reset()</code></td>
                                 <td>
                                     <p>Call this method to reset the textbox to its initial value. You should also reset the <code>invalid</code> prop.</p>

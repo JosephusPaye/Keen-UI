@@ -176,6 +176,10 @@ export default {
     },
 
     methods: {
+        focus() {
+            this.$el.focus();
+        },
+
         reset() {
             this.setValue(this.initialValue);
         },

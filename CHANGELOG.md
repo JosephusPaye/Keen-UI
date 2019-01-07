@@ -6,11 +6,15 @@
 - **Breaking**: Change global prop configuration system to be simpler and more reliable. See updated [Customization guide](Customization.md#global-prop-configuration) for details.
 - Rewrote [Sass customization guide](Customization.md#sass-customization) for clarity.
 
-## UiAlert
+### UiAlert
 
 - Add new prop `disableAnimation` to disable the show/hide animation.
 
-## UiButton
+### UiAutocomplete
+
+- Add new method `focus()` to focus programmatically.
+
+### UiButton
 
 - **Breaking**: Accepted values for prop `dropdownPosition` have changed to match Tippy.js. See docs for new values.
 - Fix ripple position starting off when directly clicking an inner element. Fixes #220.
@@ -26,15 +30,19 @@
 - For secondary buttons, use button color as background for hover and focus.
 - Add new prop `href`. Setting this prop will render an anchor tag.
 
-## UiDatepicker
+### UiDatepicker
 
 - **Breaking**: The month of the submitted value now starts at `1`, instead of JavaScript's default which starts at `0`. So, January is now `1` instead of `0`, February is `2`, etc.
 
-## UiFab
+### UiFab
 
 - **Breaking**: `tooltipPosition` prop accepted values have changed to match Tippy.js. See docs for new values.
 
-## UiIconButton
+### UiFileupload
+
+- Add new method `openPicker()` to open the file picker programmatically.
+
+### UiIconButton
 
 - **Breaking**: Accepted values for prop `dropdownPosition` have changed to match Tippy.js. See docs for new values.
 - **Breaking**: `tooltipPosition` prop accepted values have changed to match Tippy.js. See docs for new values.
@@ -44,7 +52,7 @@
 - Add new size: `mini`
 - Add `href` prop. Setting this prop will render an anchor tag.
 
-## UiMenu and UiMenuOption
+### UiMenu and UiMenuOption
 
 - Add new props `href` and `target` for menu options. Setting the `href` prop will render the menu option as an anchor tag.
 
@@ -111,10 +119,18 @@
 - **Breaking**: `trigger` prop is now a DOM Element instance or selector string. If no trigger is provided or the selector doesn't match any element, the ripple's immediate parent element is used as the trigger.
 - Fix incorrect ripple position when clicking directly on trigger's inner elements. Fixes #220.
 
-
 ### UiSelect
 
 - Add new method `clearSelection()` to clear the current selection.
+- Add new method `focus()` to focus programmatically.
+
+## UiSlider
+
+- Add new method `focus()` to focus programmatically.
+
+### UiTextbox
+
+- Add new method `focus()` to focus programmatically.
 
 ## v1.0.1
 

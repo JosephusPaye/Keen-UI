@@ -223,6 +223,13 @@
 
                         <tbody>
                             <tr>
+                                <td><code>focus()</code></td>
+                                <td>
+                                    <p>Call this method to programmatically focus the slider.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td><code>reset()</code></td>
                                 <td>Call this method to reset the slider's value to its initial value.</td>
                             </tr>

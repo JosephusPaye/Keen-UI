@@ -347,6 +347,10 @@ export default {
             }
         },
 
+        focus() {
+            this.$refs.input.focus();
+        },
+
         openDropdown() {
             if (!this.showDropdown) {
                 this.showDropdown = true;

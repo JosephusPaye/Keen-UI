@@ -497,6 +497,10 @@ export default {
             this.query = '';
         },
 
+        focus() {
+            this.$refs.label.focus();
+        },
+
         toggleDropdown() {
             this.$refs.dropdown.toggle();
         },

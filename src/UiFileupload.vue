@@ -157,6 +157,10 @@ export default {
                 this.displayText = displayText;
                 this.hasMultiple = input.files.length > 1;
             }
+        },
+
+        openPicker() {
+            this.$refs.input.click();
         }
     },
 

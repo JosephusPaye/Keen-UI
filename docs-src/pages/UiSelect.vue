@@ -621,6 +621,13 @@
 
                         <tbody>
                             <tr>
+                                <td><code>focus()</code></td>
+                                <td>
+                                    <p>Call this method to programmatically focus the select.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td class="no-wrap"><code>clearSelection()</code></td>
                                 <td>
                                     <p>Call this method to clear the current selection.</p>
