@@ -2,7 +2,7 @@
 
 Keen UI is a [Vue.js](http://vuejs.org) UI library with a simple API, inspired by Google's [Material Design](https://material.io/guidelines).
 
-<small>_Keen UI is **not** a CSS framework. Therefore, it doesn't include styles for a grid system, typography, etc. Instead, the focus is on interactive components that require Javascript. You should be able to use Keen UI with any page layout, structure, or CSS framework._</small>
+<sub>_Keen UI is **not** a CSS framework. Therefore, it doesn't include styles for a grid system, typography, etc. Instead, the focus is on interactive components that require Javascript. You should be able to use Keen UI with any page layout, structure, or CSS framework._</sub>
 
 ## Documentation and demo
 
