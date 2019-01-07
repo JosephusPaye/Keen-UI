@@ -174,7 +174,7 @@
                 :options="colourStrings"
                 v-model="select12o5"
             >
-                <template scope="props" slot="option">
+                <template slot-scope="props" slot="option">
                     <code>{{ props }}</code>
                 </template>
             </ui-select>
