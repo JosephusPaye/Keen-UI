@@ -262,6 +262,17 @@
                             </tr>
 
                             <tr>
+                                <td>sort</td>
+                                <td>Function</td>
+                                <td></td>
+                                <td>
+                                    <p>Defines a custom sort function that is used for sorting the suggestions after they are filtered.</p>
+
+                                    <p>The function should implement the standard <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Syntax" target="_blank" rel="noopener"><code>Array.prototype.sort()</code> compare callback</a>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>keys</td>
                                 <td>Object</td>
                                 <td class="no-wrap"><pre class="language-javascript is-compact">{

@@ -312,13 +312,19 @@ export default {
                 return this.options;
             }
 
-            return this.options.filter((option, index) => {
+            let options = this.options.filter((option, index) => {
                 if (this.filter) {
                     return this.filter(option, this.query);
                 }
 
                 return this.defaultFilter(option, index);
             });
+
+            if (this.sort) {
+                options.sort(this.sort.bind(this));
+            }
+
+            return options;
         },
 
         displayText() {

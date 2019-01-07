@@ -13,6 +13,7 @@
 ### UiAutocomplete
 
 - Add new method `focus()` to focus programmatically.
+- Add new prop `sort` for a custom sort function.
 
 ### UiButton
 
@@ -123,6 +124,7 @@
 
 - Add new method `clearSelection()` to clear the current selection.
 - Add new method `focus()` to focus programmatically.
+- Add new prop `sort` for a custom sort function.
 
 ### UiSlider
 
