@@ -115,6 +115,8 @@ export default {
         },
 
         onHide(snackbar, index) {
+            this.resetTimeout();
+
             if (this.queueSnackbars || this.queue.length === 1) {
                 // Remove the snackbar from the queue
                 this.queue.splice(index, 1);
@@ -130,7 +132,6 @@ export default {
             this.$emit('snackbar-hide', snackbar);
             this.callHook('onHide', snackbar);
 
-            this.resetTimeout();
             this.showNextSnackbar();
         },
 
@@ -166,24 +167,26 @@ export default {
 
 .ui-snackbar-container {
     bottom: 0;
-    left: rem-calc(8px);
+    left: rem(8px);
     overflow: hidden;
+    pointer-events: none;
     position: absolute;
 
     .ui-snackbar {
-        margin: rem-calc(4px 4px 12px 4px);
+        margin: rem(4px 4px 12px 4px);
+        pointer-events: auto;
     }
 }
 
 .ui-snackbar-container--position-right {
     left: initial;
-    right: rem-calc(8px);
+    right: rem(8px);
 }
 
 .ui-snackbar-container--position-center {
     display: flex;
     justify-content: center;
-    left: rem-calc(8px);
-    right: rem-calc(8px);
+    left: rem(8px);
+    right: rem(8px);
 }
 </style>

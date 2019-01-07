@@ -6,6 +6,6 @@ export default {
     props: ['nodes'],
 
     render(createElement, context) {
-        return createElement('div', context.props.nodes);
+        return createElement('div', { class: 'ui-render' }, context.props.nodes);
     }
 };

@@ -112,6 +112,36 @@
 
                 <ui-button @click="openModal('modal10')">Fade in Modal</ui-button>
             </div>
+
+            <div class="page__demo-group">
+                <ui-modal ref="modal11" title="Level 1">
+                    Level 1 modal contents here
+
+                    <ui-modal ref="modal12" title="Level 2">
+                        Level 2 modal contents here
+
+                        <ui-modal ref="modal13" title="Level 3">
+                            Level 3 modal contents here
+
+                            <ui-button color="primary" has-dropdown :constrain-dropdown-to-scroll-parent="false">
+                                <div class="keen-docs__custom-popover-content" slot="dropdown">
+                                    <p><b>Hey</b> there!</p>
+                                    <p>Button dropdowns can have any content, not just menus. <button>A button</button></p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit dolor eos, earum repudiandae magnam sunt vitae officiis. Quae recusandae ut quisquam saepe odit consequuntur dolore, inventore quia. Mollitia, in, culpa. <button>Another button</button></p>
+                                </div>
+
+                                Dropdown
+                            </ui-button>
+                        </ui-modal>
+
+                        <ui-button @click="openModal('modal13')">Level 3</ui-button>
+                    </ui-modal>
+
+                    <ui-button @click="openModal('modal12')">Level 2</ui-button>
+                </ui-modal>
+
+                <ui-button @click="openModal('modal11')">Nested Modal</ui-button>
+            </div>
         </div>
 
         <h3 class="page__section-title">API</h3>

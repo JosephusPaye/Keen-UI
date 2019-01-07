@@ -48,21 +48,19 @@
 
                         <tbody>
                             <tr>
-                                <td>trigger *</td>
-                                <td>String</td>
+                                <td>trigger</td>
+                                <td><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element" target="_blank" rel="noopener">Element</a>, String, VueComponent</td>
+                                <td>Parent element</td>
                                 <td>
-                                    <p>The string key of an element in the parent's <code>$refs</code> object.</p>
-
-                                    <p>The click/touch event listeners will be attached to this element, and when it is clicked or touched, a ripple ink animation will be shown on the it.</p>
-
+                                    <p>An Element or VueComponent instance to use for the trigger, or a CSS selector string.</p>
                                     <p>Make sure this element is "positioned" (i.e. its CSS <code>position</code> property is set to either <code>relative</code> or <code>absolute</code>).</p>
+                                    <p>The ripple event listeners will be attached to this element, and when it's clicked or touched, a ripple ink animation will be shown on the element.</p>
+                                    <p>If <code>trigger</code> is not provided or the selector doesn't match any element, the ripple's immediate parent element is used as the trigger. Note that the parent used is the ripple's parent in the DOM, not the Vue parent component.</p>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-
-                * Required prop
             </ui-tab>
         </ui-tabs>
     </section>
@@ -113,8 +111,8 @@ const theSimpsons = [
 const ImagePane = {
     name: 'image-pane',
     template: `
-        <div class="image-pane" ref="image" :style="{ 'background-image': 'url(' + image + ')' }">
-            <ui-ripple-ink trigger="image"></ui-ripple-ink>
+        <div class="image-pane" :style="{ 'background-image': 'url(' + image + ')' }">
+            <ui-ripple-ink></ui-ripple-ink>
         </div>
     `,
 
@@ -179,24 +177,24 @@ export default {
 
     .page__demo-group--tv-shows {
         .image-pane {
-            height: rem-calc(180px);
-            width: rem-calc(120px);
+            height: rem(180px);
+            width: rem(120px);
         }
     }
 
     .page__demo-group--the-simpsons {
         .image-pane {
-            border-radius: rem-calc(8px);
-            height: rem-calc(120px);
-            width: rem-calc(120px);
+            border-radius: rem(8px);
+            height: rem(120px);
+            width: rem(120px);
         }
     }
 
     .image-pane {
         background-position: 50%;
         background-size: cover;
-        margin-bottom: rem-calc(16px);
-        margin-right: rem-calc(16px);
+        margin-bottom: rem(16px);
+        margin-right: rem(16px);
         position: relative;
     }
 }

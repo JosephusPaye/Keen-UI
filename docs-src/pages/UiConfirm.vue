@@ -385,8 +385,11 @@ export default {
 
             setTimeout(() => {
                 this.publishRequestInProgress = false;
-                this.hideConfirm('publishConfirm');
                 this.confirmResult = 'The post was published.';
+
+                this.$nextTick(() => {
+                    this.hideConfirm('publishConfirm');
+                });
             }, 5000);
         },
 

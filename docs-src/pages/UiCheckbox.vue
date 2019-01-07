@@ -252,10 +252,10 @@ export default {
 
 .page--ui-checckbox {
     .page__demo-group {
-        margin-bottom: rem-calc(32px);
+        margin-bottom: rem(32px);
 
         &.has-box-right {
-            max-width: rem-calc(200px);
+            max-width: rem(200px);
         }
     }
 }

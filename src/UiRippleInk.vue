@@ -5,7 +5,7 @@
 <script>
 /**
  * Adapted from rippleJS (https://github.com/samthor/rippleJS, version 1.0.3)
- * removed jQuery, convert to ES6
+ * removed jQuery, converted to ES6
  */
 import classlist from './helpers/classlist';
 
@@ -31,37 +31,30 @@ const startRipple = function (eventType, event) {
 
     holder.setAttribute('data-ui-event', eventType);
 
-    // Create and position the ripple
+    // Get ripple position
     const rect = holder.getBoundingClientRect();
-    let x = event.offsetX;
-    let y;
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
 
-    if (x === undefined) {
-        x = event.clientX - rect.left;
-        y = event.clientY - rect.top;
-    } else {
-        y = event.offsetY;
-    }
-
+    // Create the ripple
     const ripple = document.createElement('div');
     let max;
 
     if (rect.width === rect.height) {
         max = rect.width * 1.412;
     } else {
-        max = Math.sqrt(
-            (rect.width * rect.width) + (rect.height * rect.height)
-        );
+        max = Math.sqrt((rect.width * rect.width) + (rect.height * rect.height));
     }
 
-    const dim = (max * 2) + 'px';
+    const size = (max * 2) + 'px';
 
-    ripple.style.width = dim;
-    ripple.style.height = dim;
+    // Position the ripple
+    ripple.style.width = size;
+    ripple.style.height = size;
     ripple.style.marginLeft = -max + x + 'px';
     ripple.style.marginTop = -max + y + 'px';
 
-    // Activate/add the element
+    // Add the ripple element
     ripple.className = 'ui-ripple-ink__ink';
     holder.appendChild(ripple);
 
@@ -77,13 +70,15 @@ const startRipple = function (eventType, event) {
         classlist.add(ripple, 'is-done');
 
         // Larger than the animation duration in CSS
+        const timeout = 650;
+
         setTimeout(() => {
             holder.removeChild(ripple);
 
             if (holder.children.length === 0) {
                 holder.removeAttribute('data-ui-event');
             }
-        }, 650);
+        }, timeout);
     };
 
     document.addEventListener(releaseEvent, handleRelease);
@@ -109,44 +104,72 @@ export default {
 
     props: {
         trigger: {
-            type: String,
-            required: true
+            validator(value) {
+                const isValid = (value instanceof Element) || (value && value._isVue) || (typeof value === 'string');
+
+                if (!isValid) {
+                    console.warn('[UiRippleInk]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string which matches an existing element.');
+                }
+
+                return isValid;
+            }
         }
     },
 
     watch: {
         trigger() {
-            this.initialize();
+            this.setupRipple();
         }
+    },
+
+    created() {
+        // Instance data, not declared in data() as we don't want reactivity.
+        this.triggerEl = null;
     },
 
     mounted() {
-        this.$nextTick(() => {
-            this.initialize();
-        });
+        this.setupRipple();
     },
 
     beforeDestroy() {
-        const triggerEl = this.trigger ? this.$parent.$refs[this.trigger] : null;
-
-        if (!triggerEl) {
-            return;
-        }
-
-        triggerEl.removeEventListener('mousedown', handleMouseDown);
-        triggerEl.removeEventListener('touchstart', handleTouchStart);
+        this.destroyRipple();
     },
 
     methods: {
-        initialize() {
-            const triggerEl = this.trigger ? this.$parent.$refs[this.trigger] : null;
+        setTrigger() {
+            if (this.trigger instanceof Element) {
+                this.triggerEl = this.trigger;
+            } else if (this.trigger && this.trigger._isVue) {
+                this.triggerEl = this.trigger.$el;
+            } else if (typeof this.trigger === 'string') {
+                this.triggerEl = document.querySelector(this.trigger);
+            }
 
-            if (!triggerEl) {
+            // Fallback to using the parent (DOM parent, not Vue component parent)
+            // if triggerEl is invalid
+            if (!(this.triggerEl instanceof Element)) {
+                this.triggerEl = this.$el.parentElement;
+            }
+        },
+
+        setupRipple() {
+            this.setTrigger();
+
+            if (!this.triggerEl) {
                 return;
             }
 
-            triggerEl.addEventListener('touchstart', handleTouchStart);
-            triggerEl.addEventListener('mousedown', handleMouseDown);
+            this.triggerEl.addEventListener('touchstart', handleTouchStart);
+            this.triggerEl.addEventListener('mousedown', handleMouseDown);
+        },
+
+        destroyRipple() {
+            if (!this.triggerEl) {
+                return;
+            }
+
+            this.triggerEl.removeEventListener('mousedown', handleMouseDown);
+            this.triggerEl.removeEventListener('touchstart', handleTouchStart);
         }
     }
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-const merge = require('deep-assign');
+const merge = require('deepmerge');
 const webpack = require('webpack');
 
 const options = require('./options');
@@ -57,7 +57,7 @@ const config = merge(base, {
             entryOnly: true
         })
     ]
-});
+}, { clone: false });
 
 // First item in module.rules array is Vue
 config.module.rules[0].options.loaders = {

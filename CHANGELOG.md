@@ -1,3 +1,121 @@
+## Next (to be released)
+
+### General
+
+- **Breaking**: Required Vue version bumped to `v2.5` or later, due to [this scoped slot change](https://gist.github.com/yyx990803/9bdff05e5468a60ced06c29c39114c6b#simplified-scoped-slots-usage).
+- **Breaking**: Change global prop configuration system to be simpler and more reliable. See updated [Customization guide](Customization.md#global-prop-configuration) for details.
+- Rewrote [Sass customization guide](Customization.md#sass-customization) for clarity.
+
+## UiAlert
+
+- Add new prop `disableAnimation` to disable the show/hide animation.
+
+## UiButton
+
+- **Breaking**: Accepted values for prop `dropdownPosition` have changed to match Tippy.js. See docs for new values.
+- Fix ripple position starting off when directly clicking an inner element. Fixes #220.
+- Add `tooltip`, `tooltipPosition` and `openTooltipOn` props
+- Make focus ring transition to fill the button. Previously, it stopped halfway. Fixes #205.
+- Remove UiProgressCircular from the DOM when `loading` is false. Previously, it was hidden with `display: none`.
+- Remove pointer cursor, to match default HTML buttons. If you want the hand pointer on buttons by default, add:
+    ```css
+    .ui-button {
+        cursor: pointer;
+    }
+    ```
+- For secondary buttons, use button color as background for hover and focus.
+- Add new prop `href`. Setting this prop will render an anchor tag.
+
+## UiDatepicker
+
+- **Breaking**: The month of the submitted value now starts at `1`, instead of JavaScript's default which starts at `0`. So, January is now `1` instead of `0`, February is `2`, etc.
+
+## UiFab
+
+- **Breaking**: `tooltipPosition` prop accepted values have changed to match Tippy.js. See docs for new values.
+
+## UiIconButton
+
+- **Breaking**: Accepted values for prop `dropdownPosition` have changed to match Tippy.js. See docs for new values.
+- **Breaking**: `tooltipPosition` prop accepted values have changed to match Tippy.js. See docs for new values.
+- Remove UiProgressCircular from the DOM when `loading` is false. Previously, it was hidden with `display: none`.
+- Remove pointer cursor, to match default HTML buttons.
+- For secondary icon buttons, use button color as background for hover and focus.
+- Add new size: `mini`
+- Add `href` prop. Setting this prop will render an anchor tag.
+
+## UiMenu and UiMenuOption
+
+- Add new props `href` and `target` for menu options. Setting the `href` prop will render the menu option as an anchor tag.
+
+### UiTabs and UiTab
+
+- UiTabs
+    - Change active tab indicator animation, to fix issues related to window resizing and initially hidden tabs. Fixes #328.
+    - **Breaking**: Remove `refreshIndicator` method, no longer needed.
+
+- UiTab
+    - Tabs can now be created using `v-for`. Fixes #349.
+    - **Breaking**: Remove `show` prop, use `v-for` with a filtered array of tabs instead.
+    - HTML can now be used in tab headers, using the `header` slot.
+    - **Breaking**: Remove `icon` (string) and `iconProps` (object) props, use the `header` slot instead.
+
+### UiProgressLinear
+
+- Rewrite animation to use `transform` only (GPU accelerated), remove ::before/::after pseudo elements used for previous animation.
+
+### UiPopover
+
+- **Breaking**: Switch positioning library to Tippy.js, which uses Popper.js.
+- **Breaking**: `trigger` prop is now a DOM Element, VueComponent instance,  or selector string. If no trigger is provided or the selector doesn't match any element, the popover's immediate parent element is used as the trigger.
+    ```html
+    <!-- Instead of: ref + trigger -->
+    <button ref="button">My Button</button>
+    <ui-popover trigger="button">My Popover</ui-popover>
+
+    <!-- Use: nested <ui-popover> in target element -->
+    <button>
+        My Button <ui-popover>My Popover</ui-popover>
+    </button>
+    ```
+- **Breaking**: Rename `dropdownPosition` prop to `position`, to match UiTooltip. Accepted values have changed to match Tippy.js. See docs for new values.
+- Remove prop `removeOnClose`, no longer needed. All popovers are now removed from the DOM on close.
+- Add new prop `animation` to choose animation style.
+- Add new prop `closeOnScroll` to close an open popover on external scroll.
+- Add new prop `appendToBody`, to choose between appending popover to `document.body` or the local parent element.
+- Add new method `isOpen()`, used to determine if the popover is open.
+- Add new events `reveal` and `hide`.
+- Add new prop `disabled`, to disable the popover
+- Add new prop `offset`, to change the popover's offset from the trigger element
+
+### UiTooltip
+
+- **Breaking**: Switch positioning library to Tippy.js, which uses Popper.js.
+- **Breaking**: `trigger` prop is now a DOM Element, VueComponent instance,  or selector string. If no trigger is provided or the selector doesn't match any element, the tooltip's immediate parent element is used as the trigger.
+    ```html
+    <!-- Instead of: ref + trigger -->
+    <button ref="button">My Button</button>
+    <ui-tooltip trigger="button">My Tooltip</ui-tooltip>
+
+    <!-- Use: nested <ui-tooltip> in target element -->
+    <button>
+        My Button <ui-tooltip>My Tooltip</ui-tooltip>
+    </button>
+    ```
+- **Breaking**: `position` prop accepted values have changed to match Tippy.js. See docs for new values.
+- Add new prop `animation` to choose animation style
+- Add new prop `appendToBody`, to choose between appending tooltip to `document.body` or the local parent element
+
+### UiRippleInk
+
+- **Breaking**: `trigger` prop is now a DOM Element instance or selector string. If no trigger is provided or the selector doesn't match any element, the ripple's immediate parent element is used as the trigger.
+- Fix incorrect ripple position when clicking directly on trigger's inner elements. Fixes #220.
+
+
+### UiSelect
+
+- Add new method `clearSelection()` to clear the current selection.
+
 ## v1.0.1
 
 * Upgrade Vue to `v2.4.2` and fix template warnings. See [#268](https://github.com/JosephusPaye/Keen-UI/issues/268).

@@ -234,7 +234,7 @@ export default {
 
 .page--ui-radio {
     .page__demo-group.has-button-right {
-        max-width: rem-calc(200px);
+        max-width: rem(200px);
     }
 }
 </style>

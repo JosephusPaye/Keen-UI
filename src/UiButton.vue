@@ -1,14 +1,14 @@
 <template>
-    <button
+    <component
         class="ui-button"
-        ref="button"
 
         :class="classes"
         :disabled="disabled || loading"
-        :type="buttonType"
+        :href="isAnchor ? (disabled ? null : href) : null"
+        :is="isAnchor ? 'a' : 'button'"
+        :type="isAnchor ? null : buttonType"
 
         @click="onClick"
-        @focus.once="onFocus"
     >
         <div class="ui-button__content">
             <div class="ui-button__icon" v-if="icon || $slots.icon">
@@ -29,7 +29,7 @@
             </ui-icon>
         </div>
 
-        <div class="ui-button__focus-ring" :style="focusRingStyle"></div>
+        <div class="ui-button__focus-ring"></div>
 
         <ui-progress-circular
             class="ui-button__progress"
@@ -39,16 +39,18 @@
             :size="18"
             :stroke="4.5"
 
-            v-show="loading"
+            v-if="loading"
         ></ui-progress-circular>
 
-        <ui-ripple-ink trigger="button" v-if="!disableRipple && !disabled"></ui-ripple-ink>
+        <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
 
         <ui-popover
+            contain-focus
             ref="dropdown"
-            trigger="button"
 
-            :dropdown-position="dropdownPosition"
+            :append-to-body="appendDropdownToBody"
+            :constrain-to-scroll-parent="constrainDropdownToScrollParent"
+            :position="dropdownPosition"
             :open-on="openDropdownOn"
 
             @close="onDropdownClose"
@@ -58,7 +60,14 @@
         >
             <slot name="dropdown"></slot>
         </ui-popover>
-    </button>
+
+        <ui-tooltip
+            :open-on="openTooltipOn"
+            :position="tooltipPosition"
+
+            v-if="tooltip"
+        >{{ tooltip }}</ui-tooltip>
+    </component>
 </template>
 
 <script>
@@ -66,8 +75,7 @@ import UiIcon from './UiIcon.vue';
 import UiPopover from './UiPopover.vue';
 import UiProgressCircular from './UiProgressCircular.vue';
 import UiRippleInk from './UiRippleInk.vue';
-
-import config from './config';
+import UiTooltip from './UiTooltip.vue';
 
 export default {
     name: 'ui-button',
@@ -77,10 +85,8 @@ export default {
             type: String,
             default: 'primary' // 'primary' or 'secondary'
         },
-        buttonType: {
-            type: String,
-            default: 'submit' // HTML default
-        },
+        buttonType: String,
+        href: String,
         color: {
             type: String,
             default: 'default' // 'default', 'primary', 'accent', 'green', 'orange', or 'red'
@@ -108,30 +114,31 @@ export default {
         },
         dropdownPosition: {
             type: String,
-            default: 'bottom left'
+            default: 'bottom-start'
+        },
+        appendDropdownToBody: {
+            type: Boolean,
+            default: true
+        },
+        constrainDropdownToScrollParent: {
+            type: Boolean,
+            default: true
         },
         openDropdownOn: {
             type: String,
             default: 'click' // 'click', 'hover', 'focus', or 'always'
         },
+        tooltip: String,
+        openTooltipOn: String,
+        tooltipPosition: String,
         disableRipple: {
             type: Boolean,
-            default: config.data.disableRipple
+            default: false
         },
         disabled: {
             type: Boolean,
             default: false
         }
-    },
-
-    data() {
-        return {
-            focusRing: {
-                top: 0,
-                left: 0,
-                size: 0
-            }
-        };
     },
 
     computed: {
@@ -141,6 +148,7 @@ export default {
                 `ui-button--color-${this.color}`,
                 `ui-button--icon-position-${this.iconPosition}`,
                 `ui-button--size-${this.size}`,
+                { 'is-anchor': this.isAnchor },
                 { 'is-raised': this.raised },
                 { 'is-loading': this.loading },
                 { 'is-disabled': this.disabled || this.loading },
@@ -148,13 +156,8 @@ export default {
             ];
         },
 
-        focusRingStyle() {
-            return {
-                height: this.focusRing.size + 'px',
-                width: this.focusRing.size + 'px',
-                top: this.focusRing.top + 'px',
-                left: this.focusRing.left + 'px'
-            };
+        isAnchor() {
+            return this.href !== undefined;
         },
 
         progressColor() {
@@ -169,17 +172,6 @@ export default {
     methods: {
         onClick(e) {
             this.$emit('click', e);
-        },
-
-        onFocus() {
-            const bounds = {
-                width: this.$el.clientWidth,
-                height: this.$el.clientHeight
-            };
-
-            this.focusRing.size = bounds.width - 16; // 8px of padding on left and right
-            this.focusRing.top = -1 * (this.focusRing.size - bounds.height) / 2;
-            this.focusRing.left = (bounds.width - this.focusRing.size) / 2;
         },
 
         onDropdownOpen() {
@@ -213,7 +205,8 @@ export default {
         UiIcon,
         UiPopover,
         UiProgressCircular,
-        UiRippleInk
+        UiRippleInk,
+        UiTooltip
     }
 };
 </script>
@@ -226,21 +219,21 @@ export default {
     background: none;
     border-radius: $ui-default-border-radius;
     border: none;
-    cursor: pointer;
+    cursor: default;
     display: inline-flex;
     font-family: $font-stack;
     font-size: $ui-button-font-size;
-    font-weight: 500;
+    font-weight: 600;
     height: $ui-button-height;
     justify-content: center;
     letter-spacing: 0.02em;
     line-height: 1;
-    min-width: rem-calc(80px);
+    min-width: rem(80px);
     outline: none;
     overflow: hidden;
     padding: 0;
-    padding-left: rem-calc(16px);
-    padding-right: rem-calc(16px);
+    padding-left: rem(16px);
+    padding-right: rem(16px);
     position: relative;
     text-transform: uppercase;
     touch-action: manipulation; // IE
@@ -252,15 +245,24 @@ export default {
 
     &.has-focus-ring:focus,
     body[modality="keyboard"] &:focus {
-        .ui-button__focus-ring {
+        .ui-button__focus-ring::before {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1.1);
+        }
+    }
+
+    &.is-anchor {
+        cursor: pointer;
+        text-decoration: none;
+
+        &.is-disabled {
+            cursor: default;
         }
     }
 
     &.is-raised {
         box-shadow: 0 0 2px rgba(black, 0.12), 0 2px 2px rgba(black, 0.2);
-        transition: box-shadow 0.1s;
+        transition: box-shadow 0.3s ease;
 
         &.has-focus-ring:focus,
         body[modality="keyboard"] &:focus {
@@ -275,7 +277,6 @@ export default {
     }
 
     &.is-disabled {
-        cursor: default;
         opacity: 0.6;
     }
 }
@@ -290,27 +291,36 @@ export default {
 }
 
 .ui-button__icon {
-    margin-left: rem-calc(-4px);
-    margin-right: rem-calc(6px);
-    margin-top: rem-calc(-2px);
+    margin-left: rem(-4px);
+    margin-right: rem(6px);
+    margin-top: rem(-2px);
 }
 
 .ui-button__dropdown-icon {
-    font-size: rem-calc(18px);
-    margin-left: rem-calc(2px);
-    margin-right: rem-calc(-6px);
+    font-size: rem(18px);
+    margin-left: rem(2px);
+    margin-right: rem(-6px);
 }
 
 .ui-button__focus-ring {
-    background-color: rgba(black, 0.12);
-    border-radius: 50%;
     left: 0;
-    opacity: 0;
     position: absolute;
     top: 0;
-    transform-origin: center;
-    transform: scale(0);
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    width: 100%;
+
+    &::before {
+        border-radius: 50%;
+        content: "";
+        display: block;
+        left: 0;
+        margin-top: calc(-1 * (50% - #{$ui-button-height / 2}));
+        padding-top: 100%; // 1:1 aspect ratio - makes height the same as button width
+        position: relative;
+        top: 0;
+        opacity: 0;
+        transform: scale(0);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
 }
 
 .ui-progress-circular.ui-button__progress {
@@ -331,8 +341,8 @@ export default {
 
 .ui-button--icon-position-right {
     .ui-button__icon {
-        margin-left: rem-calc(6px);
-        margin-right: rem-calc(-4px);
+        margin-left: rem(6px);
+        margin-right: rem(-4px);
         order: 1;
     }
 }
@@ -344,25 +354,25 @@ export default {
 .ui-button--size-small {
     font-size: $ui-button-font-size--small;
     height: $ui-button-height--small;
-    padding-left: rem-calc(12px);
-    padding-right: rem-calc(12px);
+    padding-left: rem(12px);
+    padding-right: rem(12px);
 
     .ui-button__icon {
         margin-left: 0;
         margin-top: 0;
 
         .ui-icon {
-            font-size: rem-calc(18px);
+            font-size: rem(18px);
         }
     }
 
     .ui-button__dropdown-icon {
-        margin-right: rem-calc(-4px);
+        margin-right: rem(-4px);
     }
 
     &.ui-button--icon-position-right {
         .ui-button__icon {
-            margin-left: rem-calc(6px);
+            margin-left: rem(6px);
             margin-right: 0;
         }
     }
@@ -371,23 +381,23 @@ export default {
 .ui-button--size-large {
     font-size: $ui-button-font-size--large;
     height: $ui-button-height--large;
-    padding-left: rem-calc(24px);
-    padding-right: rem-calc(24px);
+    padding-left: rem(24px);
+    padding-right: rem(24px);
 
     .ui-button__icon {
-        margin-left: rem-calc(-4px);
-        margin-right: rem-calc(8px);
+        margin-left: rem(-4px);
+        margin-right: rem(8px);
     }
 
     .ui-button__dropdown-icon {
-        font-size: rem-calc(24px);
-        margin-left: rem-calc(4px);
+        font-size: rem(24px);
+        margin-left: rem(4px);
     }
 
     &.ui-button--icon-position-right {
         .ui-button__icon {
-            margin-left: rem-calc(8px);
-            margin-right: rem-calc(-4px);
+            margin-left: rem(8px);
+            margin-right: rem(-4px);
         }
     }
 }
@@ -397,14 +407,16 @@ export default {
 // ================================================
 
 .ui-button--type-primary {
+    .ui-button__focus-ring::before {
+        background-color: rgba(black, 0.12);
+    }
+
     &.ui-button--color-default {
         background-color: $md-grey-200;
         color: $primary-text-color;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open,
-        &.has-focus-ring:focus,
-        body[modality="keyboard"] &:focus {
+        &.has-dropdown-open {
             background-color: darken($md-grey-200, 7.5%);
         }
 
@@ -434,9 +446,7 @@ export default {
         background-color: $brand-primary-color;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open,
-        &.has-focus-ring:focus,
-        body[modality="keyboard"] &:focus {
+        &.has-dropdown-open {
             background-color: darken($brand-primary-color, 10%);
         }
     }
@@ -445,9 +455,7 @@ export default {
         background-color: $brand-accent-color;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open,
-        &.has-focus-ring:focus,
-        body[modality="keyboard"] &:focus {
+        &.has-dropdown-open {
             background-color: darken($brand-accent-color, 10%);
         }
     }
@@ -456,9 +464,7 @@ export default {
         background-color: $md-green;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open,
-        &.has-focus-ring:focus,
-        body[modality="keyboard"] &:focus {
+        &.has-dropdown-open {
             background-color: darken($md-green, 10%);
         }
     }
@@ -467,9 +473,7 @@ export default {
         background-color: $md-orange;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open,
-        &.has-focus-ring:focus,
-        body[modality="keyboard"] &:focus {
+        &.has-dropdown-open {
             background-color: darken($md-orange, 10%);
         }
     }
@@ -478,9 +482,7 @@ export default {
         background-color: $md-red;
 
         &:hover:not(.is-disabled),
-        &.has-dropdown-open,
-        &.has-focus-ring:focus,
-        body[modality="keyboard"] &:focus {
+        &.has-dropdown-open {
             background-color: darken($md-red, 10%);
         }
     }
@@ -489,15 +491,17 @@ export default {
 .ui-button--type-secondary {
     background-color: transparent;
 
-    &:hover:not(.is-disabled),
-    &.has-dropdown-open,
-    &.has-focus-ring:focus,
-    body[modality="keyboard"] &:focus {
-        background-color: darken($md-grey-200, 3%);
-    }
-
     &.ui-button--color-default {
         color: $primary-text-color;
+
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: $md-grey-200;
+        }
+
+        .ui-button__focus-ring::before {
+            background-color: rgba(black, 0.12);
+        }
 
         .ui-button__icon {
             color: $secondary-text-color;
@@ -506,22 +510,67 @@ export default {
 
     &.ui-button--color-primary {
         color: $brand-primary-color;
+
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($brand-primary-color, 0.12);
+        }
+
+        .ui-button__focus-ring::before {
+            background-color: rgba($brand-primary-color, 0.26);
+        }
     }
 
     &.ui-button--color-accent {
         color: $brand-accent-color;
+
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($brand-accent-color, 0.12);
+        }
+
+        .ui-button__focus-ring::before {
+            background-color: rgba($brand-accent-color, 0.26);
+        }
     }
 
     &.ui-button--color-green {
         color: $md-green-600;
+
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($md-green-600, 0.12);
+        }
+
+        .ui-button__focus-ring::before {
+            background-color: rgba($md-green-600, 0.26);
+        }
     }
 
     &.ui-button--color-orange {
         color: $md-orange;
+
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($md-orange, 0.12);
+        }
+
+        .ui-button__focus-ring::before {
+            background-color: rgba($md-orange, 0.26);
+        }
     }
 
     &.ui-button--color-red {
         color: $md-red;
+
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($md-red, 0.12);
+        }
+
+        .ui-button__focus-ring::before {
+            background-color: rgba($md-red, 0.26);
+        }
     }
 }
 </style>

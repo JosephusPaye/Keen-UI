@@ -6,22 +6,23 @@
             :class="classes"
             :role="role"
 
+            @click.self="onBackdropClick"
+
             v-show="isOpen"
         >
             <div
                 class="ui-modal__wrapper"
-                ref="backdrop"
 
                 :class="{ 'has-dummy-scrollbar': preventShift }"
 
-                @click="dismissOnBackdrop && closeModal($event)"
+                @click.self="onBackdropClick"
             >
-                <div
+                <ui-focus-container
                     class="ui-modal__container"
-                    ref="container"
+                    ref="focusContainer"
                     tabindex="-1"
 
-                    @keydown.esc="dismissOnEsc && closeModal($event)"
+                    @keydown.native.stop.esc="onEsc"
                 >
                     <div class="ui-modal__header" v-if="!removeHeader">
                         <slot name="header">
@@ -30,7 +31,7 @@
 
                         <div class="ui-modal__close-button">
                             <ui-close-button
-                                @click="closeModal"
+                                @click="close"
                                 v-if="dismissOnCloseButton && !removeCloseButton && dismissible"
                             ></ui-close-button>
                         </div>
@@ -43,14 +44,7 @@
                     <div class="ui-modal__footer" v-if="hasFooter">
                         <slot name="footer"></slot>
                     </div>
-
-                    <div
-                        class="ui-modal__focus-redirect"
-                        tabindex="0"
-
-                        @focus.stop="redirectFocus"
-                    ></div>
-                </div>
+                </ui-focus-container>
             </div>
         </div>
     </transition>
@@ -58,6 +52,7 @@
 
 <script>
 import UiCloseButton from './UiCloseButton.vue';
+import UiFocusContainer from './UiFocusContainer.vue';
 
 import classlist from './helpers/classlist';
 
@@ -106,7 +101,7 @@ export default {
     data() {
         return {
             isOpen: false,
-            lastfocusedElement: null
+            lastFocusedElement: null
         };
     },
 
@@ -119,12 +114,12 @@ export default {
             ];
         },
 
-        hasFooter() {
-            return Boolean(this.$slots.footer);
-        },
-
         toggleTransition() {
             return `ui-modal--transition-${this.transition}`;
+        },
+
+        hasFooter() {
+            return Boolean(this.$slots.footer);
         },
 
         dismissOnBackdrop() {
@@ -150,7 +145,7 @@ export default {
 
     beforeDestroy() {
         if (this.isOpen) {
-            this.teardownModal();
+            this.returnFocus();
         }
     },
 
@@ -160,56 +155,50 @@ export default {
         },
 
         close() {
-            this.isOpen = false;
-        },
-
-        closeModal(e) {
             if (!this.dismissible) {
                 return;
             }
 
-            // Make sure the element clicked was the backdrop and not a child whose click
-            // event has bubbled up
-            if (e.currentTarget === this.$refs.backdrop && e.target !== e.currentTarget) {
-                return;
-            }
-
             this.isOpen = false;
         },
 
+        redirectFocus() {
+            this.$refs.focusContainer.focus();
+        },
+
+        returnFocus() {
+            if (this.lastFocusedElement) {
+                this.lastFocusedElement.focus();
+            }
+        },
+
+        onBackdropClick() {
+            if (this.dismissOnBackdrop) {
+                this.close();
+            } else {
+                this.redirectFocus();
+            }
+        },
+
+        onEsc() {
+            if (this.dismissOnEsc) {
+                this.close();
+            }
+        },
+
         onOpen() {
-            this.lastfocusedElement = document.activeElement;
-            this.$refs.container.focus();
+            this.lastFocusedElement = document.activeElement;
+            this.$refs.focusContainer.focus();
 
             classlist.add(document.body, 'ui-modal--is-open');
-            document.addEventListener('focus', this.restrictFocus, true);
+            this.incrementOpenModalCount();
 
             this.$emit('open');
         },
 
         onClose() {
-            this.teardownModal();
+            this.returnFocus();
             this.$emit('close');
-        },
-
-        redirectFocus() {
-            this.$refs.container.focus();
-        },
-
-        restrictFocus(e) {
-            if (!this.$refs.container.contains(e.target)) {
-                e.stopPropagation();
-                this.$refs.container.focus();
-            }
-        },
-
-        teardownModal() {
-            // classlist.remove(document.body, 'ui-modal--is-open');
-            document.removeEventListener('focus', this.restrictFocus, true);
-
-            if (this.lastfocusedElement) {
-                this.lastfocusedElement.focus();
-            }
         },
 
         onEnter() {
@@ -218,13 +207,42 @@ export default {
 
         onLeave() {
             this.$emit('hide');
+            const newCount = this.decrementOpenModalCount();
 
-            classlist.remove(document.body, 'ui-modal--is-open');
+            if (newCount === 0) {
+                classlist.remove(document.body, 'ui-modal--is-open');
+            }
+        },
+
+        getOpenModalCount() {
+            const count = document.body.getAttribute('data-ui-open-modals');
+            return count === undefined ? 0 : Number(count);
+        },
+
+        setOpenModalCount(count) {
+            const normalizedCount = Math.max(0, count);
+
+            if (normalizedCount === 0) {
+                document.body.removeAttribute('data-ui-open-modals');
+            } else {
+                document.body.setAttribute('data-ui-open-modals', normalizedCount);
+            }
+
+            return normalizedCount;
+        },
+
+        incrementOpenModalCount() {
+            return this.setOpenModalCount(this.getOpenModalCount() + 1);
+        },
+
+        decrementOpenModalCount() {
+            return this.setOpenModalCount(this.getOpenModalCount() - 1);
         }
     },
 
     components: {
-        UiCloseButton
+        UiCloseButton,
+        UiFocusContainer
     }
 };
 </script>
@@ -234,11 +252,11 @@ export default {
 
 $ui-modal-transition-duration   : 0.3s !default;
 $ui-modal-mask-background       : rgba(black, 0.5) !default;
-$ui-modal-header-height         : rem-calc(56px);
-$ui-modal-footer-height         : rem-calc(70px);
+$ui-modal-header-height         : rem(56px);
+$ui-modal-footer-height         : rem(70px);
 
-$ui-modal-font-size             : rem-calc(14px);
-$ui-modal-header-font-size      : rem-calc(18px);
+$ui-modal-font-size             : rem(14px);
+$ui-modal-header-font-size      : rem(18px);
 
 .ui-modal {
     font-family: $font-stack;
@@ -252,7 +270,7 @@ $ui-modal-header-font-size      : rem-calc(18px);
 
     &:not(.has-footer) {
         .ui-modal__body {
-            padding: rem-calc(16px 24px 24px);
+            padding: rem(16px 24px 24px);
         }
     }
 }
@@ -294,7 +312,7 @@ $ui-modal-header-font-size      : rem-calc(18px);
     overflow: hidden;
     padding: 0;
     transition: all $ui-modal-transition-duration ease;
-    width: rem-calc(528px);
+    width: rem(528px);
 }
 
 .ui-modal__header {
@@ -303,7 +321,7 @@ $ui-modal-header-font-size      : rem-calc(18px);
     box-shadow: 0 1px 1px rgba(black, 0.16);
     display: flex;
     height: $ui-modal-header-height;
-    padding: rem-calc(0 24px);
+    padding: rem(0 24px);
     position: relative;
     z-index: 1;
 }
@@ -319,13 +337,13 @@ $ui-modal-header-font-size      : rem-calc(18px);
 
 .ui-modal__close-button {
     margin-left: auto;
-    margin-right: rem-calc(-8px);
+    margin-right: rem(-8px);
 }
 
 .ui-modal__body {
     max-height: calc(100vh - #{$ui-modal-header-height});
     overflow-y: auto;
-    padding: rem-calc(16px 24px);
+    padding: rem(16px 24px);
 }
 
 .ui-modal__footer {
@@ -333,10 +351,10 @@ $ui-modal-header-font-size      : rem-calc(18px);
     display: flex;
     height: $ui-modal-footer-height;
     justify-content: flex-end;
-    padding: rem-calc(0 24px);
+    padding: rem(0 24px);
 
     .ui-button {
-        margin-left: rem-calc(8px);
+        margin-left: rem(8px);
 
         &:first-child {
             margin-left: 0;
@@ -349,13 +367,15 @@ $ui-modal-header-font-size      : rem-calc(18px);
 // ================================================
 
 .ui-modal--size-large {
-    .ui-modal__container {
+    // Using immediate child selector so size doesn't affect a nested modal
+    & > .ui-modal__wrapper > .ui-modal__container {
         width: rem-calc(848px);
     }
 }
 
-.ui-modal--size-small {
-    .ui-modal__container {
+.ui-modal--size-small  {
+    // Using immediate child selector so size doesn't affect a nested modal
+    & > .ui-modal__wrapper > .ui-modal__container {
         width: rem-calc(320px);
     }
 }

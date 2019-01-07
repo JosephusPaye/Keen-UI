@@ -1,6 +1,6 @@
 'use strict';
 
-const merge = require('deep-assign');
+const merge = require('deepmerge');
 
 const options = require('./options');
 const base = require('./webpack.base.js');
@@ -19,11 +19,7 @@ const config = merge(base, {
 
     devServer: {
         contentBase: options.paths.output.docs,
-
-        // This is used to allow access for external devices, temporarily disabled here as
-        // it incorrectly opens http://0.0.0.0:9090 instead of http://localhost:9090 on startup
-        // host: '0.0.0.0',
-
+        host: '0.0.0.0', // Bind to 0.0.0.0 for external access for external devices (mobile testing)
         port: 9000,
         historyApiFallback: true,
         noInfo: true,

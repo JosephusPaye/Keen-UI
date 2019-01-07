@@ -1,7 +1,6 @@
 <template>
     <li
         class="ui-tab-header-item"
-        ref="headerItem"
         role="tab"
 
         :aria-controls="id"
@@ -18,7 +17,7 @@
             <div class="ui-tab-header-item__text" v-if="hasText">{{ title }}</div>
         </slot>
 
-        <ui-ripple-ink trigger="headerItem" v-if="!disableRipple && !disabled"></ui-ripple-ink>
+        <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
     </li>
 </template>
 
@@ -82,17 +81,14 @@ export default {
     align-items: center;
     cursor: pointer;
     display: flex;
-    font-family: $font-stack;
-    height: rem-calc(48px);
+    font-family: inherit;
+    height: rem(48px);
     justify-content: center;
-    min-width: rem-calc(80px);
-    padding: rem-calc(0 12px);
+    min-width: rem(80px);
+    padding: rem(0 12px);
     position: relative;
     text-transform: uppercase;
-
-    &:hover {
-        background-color: rgba(black, 0.05);
-    }
+    transition: color 0.1s;
 
     &.is-active::after {
         opacity: 1;
@@ -100,7 +96,6 @@ export default {
     }
 
     &.is-disabled {
-        background-color: transparent;
         cursor: default;
         opacity: 0.4;
         user-select: none;
@@ -110,22 +105,23 @@ export default {
 .ui-tab-header-item--type-icon-and-text {
     display: flex;
     flex-direction: column;
-    height: rem-calc(72px);
+    height: rem(72px);
 
     .ui-tab-header-item__icon {
-        margin-bottom: rem-calc(4px);
+        margin-bottom: rem(4px);
     }
 }
 
 .ui-tab-header-item__text {
     @include text-truncation;
-    font-size: rem-calc(15px);
-    font-weight: 500;
+    font-size: rem(15px);
+    font-weight: 600;
 }
 
 .ui-tab-header-item__icon {
-    height: rem-calc(24px);
-    width: rem-calc(24px);
+    height: rem(24px);
+    width: rem(24px);
+    color: currentColor;
 
     .ui-icon {
         cursor: inherit;
@@ -135,7 +131,7 @@ export default {
 .ui-tab-header-item::after {
     bottom: 0;
     content: '';
-    height: rem-calc(3px);
+    height: rem(3px);
     left: 0;
     opacity: 0;
     position: absolute;

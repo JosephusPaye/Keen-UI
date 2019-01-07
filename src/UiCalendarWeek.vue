@@ -107,7 +107,7 @@ export default {
 
 .ui-calendar-week {
     display: flex;
-    font-size: rem-calc(14px);
+    font-size: rem(14px);
     width: 100%;
 }
 

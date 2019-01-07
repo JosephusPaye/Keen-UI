@@ -8,11 +8,15 @@ table {
 td,
 th {
     padding: 0;
+
+    &.fixed-width {
+        width: 144px;
+    }
 }
 
 caption {
-    padding-top: rem-calc(8px);
-    padding-bottom: rem-calc(8px);
+    padding-top: rem(8px);
+    padding-bottom: rem(8px);
     color: #777777;
     text-align: left;
 }
@@ -24,7 +28,7 @@ th {
 .table {
     width: 100%;
     max-width: 100%;
-    margin-bottom: rem-calc(20px);
+    margin-bottom: rem(20px);
 }
 
 .table > thead > tr > th,
@@ -33,7 +37,7 @@ th {
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-    padding: rem-calc(8px);
+    padding: rem(8px);
     line-height: 1.42857143;
     vertical-align: top;
     border-top: 1px solid #dddddd;
@@ -41,7 +45,7 @@ th {
 
 .table > thead > tr > th {
     vertical-align: bottom;
-    border-bottom: rem-calc(2px )solid #dddddd;
+    border-bottom: rem(2px )solid #dddddd;
 }
 
 .table > caption + thead > tr:first-child > th,
@@ -54,7 +58,7 @@ th {
 }
 
 .table > tbody + tbody {
-    border-top: rem-calc(2px )solid #dddddd;
+    border-top: rem(2px )solid #dddddd;
 }
 
 .table .table {
@@ -67,7 +71,7 @@ th {
 .table-condensed > thead > tr > td,
 .table-condensed > tbody > tr > td,
 .table-condensed > tfoot > tr > td {
-    padding: rem-calc(5px);
+    padding: rem(5px);
 }
 
 .table-bordered {
@@ -232,7 +236,7 @@ table th[class*="col-"] {
 @media screen and (max-width: 767px) {
     .table-responsive {
         width: 100%;
-        margin-bottom: rem-calc(15px);
+        margin-bottom: rem(15px);
         overflow-y: hidden;
         -ms-overflow-style: -ms-autohiding-scrollbar;
         border: 1px solid #dddddd;

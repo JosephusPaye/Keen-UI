@@ -1,7 +1,6 @@
 <template>
     <button
         class="ui-fab"
-        ref="button"
 
         :aria-label="ariaLabel || tooltip"
         :class="classes"
@@ -16,11 +15,9 @@
 
         <span class="ui-fab__focus-ring"></span>
 
-        <ui-ripple-ink trigger="button" v-if="!disableRipple"></ui-ripple-ink>
+        <ui-ripple-ink v-if="!disableRipple"></ui-ripple-ink>
 
         <ui-tooltip
-            trigger="button"
-
             :open-on="openTooltipOn"
             :position="tooltipPosition"
 
@@ -33,8 +30,6 @@
 import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
 import UiTooltip from './UiTooltip.vue';
-
-import config from './config';
 
 export default {
     name: 'ui-fab',
@@ -55,7 +50,7 @@ export default {
         tooltipPosition: String,
         disableRipple: {
             type: Boolean,
-            default: config.data.disableRipple
+            default: false
         }
     },
 
@@ -85,8 +80,8 @@ export default {
 <style lang="scss">
 @import './styles/imports';
 
-$ui-fab-size--normal    : rem-calc(56px) !default;
-$ui-fab-size--small     : rem-calc(40px) !default;
+$ui-fab-size--normal    : rem(56px) !default;
+$ui-fab-size--small     : rem(40px) !default;
 
 .ui-fab {
     align-items: center;

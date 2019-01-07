@@ -65,7 +65,7 @@
 
             <ui-tabs fullwidth>
                 <ui-tab :key="tab.title" v-for="tab in demoTabs">
-                    <div slot="header" class="custom-header">
+                    <div slot="header" class="my-custom-tab-header">
                         <ui-icon slot="icon" :icon="tab.icon"></ui-icon> {{ tab.title }}
                     </div>
 
@@ -521,9 +521,9 @@ export default {
         display: flex;
     }
 
-    .custom-header {
+    .my-custom-tab-header {
         display: flex;
-        font-weight: 500;
+        font-weight: 600;
 
         .ui-icon {
             margin-right: 8px;

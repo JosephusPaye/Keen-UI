@@ -174,7 +174,7 @@
                 :options="colourStrings"
                 v-model="select12o5"
             >
-                <template scope="props" slot="option">
+                <template slot-scope="props" slot="option">
                     <code>{{ props }}</code>
                 </template>
             </ui-select>
@@ -243,7 +243,7 @@
                                     <p>Can be a plain array, e.g. <code>['Red', 'Blue', 'Green']</code> as well as an array of objects.</p>
                                     <p>For a plain array, the option is shown to the user and it is used for filtering.</p>
 
-                                    <p>For an array of objects, the <code>label</code> is shown to the user and is used for filtering, and the <code>value</code> is submitted to the server. You can redefine these keys to fit your data using the <code>keys</code> prop.</p>
+                                    <p>For an array of objects, the <code>label</code> is shown to the user and is used for filtering, and the <code>value</code> is submitted to the server. If provided, <code>class</code>, will be applied to the option element's <code>class</code> attribute. You can redefine these keys to fit your data using the <code>keys</code> prop.</p>
 
                                     <p>The entire option is written to the model when the user makes a selection.</p>
                                 </td>
@@ -363,6 +363,7 @@
                                 <td>keys</td>
                                 <td>Object</td>
                                 <td class="no-wrap"><pre class="language-javascript is-compact">{
+  class: 'class',
   label: 'label',
   image: 'image'
 }</pre></td>
@@ -620,6 +621,13 @@
 
                         <tbody>
                             <tr>
+                                <td class="no-wrap"><code>clearSelection()</code></td>
+                                <td>
+                                    <p>Call this method to clear the current selection.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td><code>reset()</code></td>
                                 <td>
                                     <p>Call this method to reset the select to its initial value. You should also reset the <code>invalid</code> prop.</p>
@@ -747,8 +755,8 @@ export default {
 
 .page--ui-select {
     .ui-select {
-        margin-bottom: rem-calc(32px);
-        max-width: rem-calc(400px);
+        margin-bottom: rem(32px);
+        max-width: rem(400px);
     }
 }
 </style>

@@ -1,12 +1,13 @@
 <template>
-    <button
+    <component
         class="ui-icon-button"
-        ref="button"
 
         :aria-label="ariaLabel || tooltip"
         :class="classes"
         :disabled="disabled || loading"
-        :type="buttonType"
+        :href="isAnchor ? (disabled ? null : href) : null"
+        :is="isAnchor ? 'a' : 'button'"
+        :type="isAnchor ? null : buttonType"
 
         @click="onClick"
     >
@@ -25,16 +26,18 @@
             :size="size === 'large' ? 24 : 18"
             :stroke="4.5"
 
-            v-show="loading"
+            v-if="loading"
         ></ui-progress-circular>
 
-        <ui-ripple-ink trigger="button" v-if="!disableRipple && !disabled"></ui-ripple-ink>
+        <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
 
         <ui-popover
+            constain-focus
             ref="dropdown"
-            trigger="button"
 
-            :dropdown-position="dropdownPosition"
+            :append-to-body="appendDropdownToBody"
+            :constrain-to-scroll-parent="constrainDropdownToScrollParent"
+            :position="dropdownPosition"
             :open-on="openDropdownOn"
 
             @close="onDropdownClose"
@@ -46,14 +49,12 @@
         </ui-popover>
 
         <ui-tooltip
-            trigger="button"
-
             :open-on="openTooltipOn"
             :position="tooltipPosition"
 
             v-if="tooltip"
         >{{ tooltip }}</ui-tooltip>
-    </button>
+    </component>
 </template>
 
 <script>
@@ -63,8 +64,6 @@ import UiProgressCircular from './UiProgressCircular.vue';
 import UiRippleInk from './UiRippleInk.vue';
 import UiTooltip from './UiTooltip.vue';
 
-import config from './config';
-
 export default {
     name: 'ui-icon-button',
 
@@ -73,17 +72,15 @@ export default {
             type: String,
             default: 'primary' // 'primary' or 'secondary'
         },
-        buttonType: {
-            type: String,
-            default: 'button'
-        },
+        buttonType: String,
+        href: String,
         color: {
             type: String,
             default: 'default' // 'default', 'primary', 'accent', 'green', 'orange', or 'red'
         },
         size: {
             type: String,
-            default: 'normal' // 'small', normal', or 'large'
+            default: 'normal' // 'mini', 'small', normal', or 'large'
         },
         icon: String,
         ariaLabel: String,
@@ -97,7 +94,15 @@ export default {
         },
         dropdownPosition: {
             type: String,
-            default: 'bottom left'
+            default: 'bottom-start'
+        },
+        appendDropdownToBody: {
+            type: Boolean,
+            default: true
+        },
+        constrainDropdownToScrollParent: {
+            type: Boolean,
+            default: true
         },
         openDropdownOn: {
             type: String,
@@ -108,7 +113,7 @@ export default {
         tooltipPosition: String,
         disableRipple: {
             type: Boolean,
-            default: config.data.disableRipple
+            default: false
         },
         disabled: {
             type: Boolean,
@@ -122,10 +127,15 @@ export default {
                 `ui-icon-button--type-${this.type}`,
                 `ui-icon-button--color-${this.color}`,
                 `ui-icon-button--size-${this.size}`,
+                { 'is-anchor': this.isAnchor },
                 { 'is-loading': this.loading },
                 { 'is-disabled': this.disabled || this.loading },
                 { 'has-dropdown': this.hasDropdown }
             ];
+        },
+
+        isAnchor() {
+            return this.href !== undefined;
         },
 
         progressColor() {
@@ -190,16 +200,17 @@ export default {
 <style lang="scss">
 @import './styles/imports';
 
-$ui-icon-button-size            : rem-calc(36px) !default;
-$ui-icon-button--size-small     : rem-calc(32px) !default;
-$ui-icon-button--size-large     : rem-calc(48px) !default;
+$ui-icon-button-size            : rem(36px) !default;
+$ui-icon-button--size-mini      : rem(24px) !default;
+$ui-icon-button--size-small     : rem(32px) !default;
+$ui-icon-button--size-large     : rem(48px) !default;
 
 .ui-icon-button {
     align-items: center;
     background: none;
     border-radius: 50%;
     border: none;
-    cursor: pointer;
+    cursor: default;
     display: inline-flex;
     justify-content: center;
     margin: 0;
@@ -229,6 +240,15 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
         border: 0;
     }
 
+    &.is-anchor {
+        cursor: pointer;
+        text-decoration: none;
+
+        &.is-disabled {
+            cursor: default;
+        }
+    }
+
     &.is-loading {
         .ui-icon-button__icon {
             opacity: 0;
@@ -236,19 +256,26 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
     }
 
     &.is-disabled {
-        cursor: default;
         opacity: 0.6;
     }
 }
 
 .ui-icon-button__icon {
+    align-items: center;
+    color: currentColor;
+    display: flex;
     height: initial;
+    justify-content: center;
     opacity: 1;
     position: relative;
     transition-delay: 0.1s;
     transition: opacity 0.2s ease;
     width: 100%; // Firefox: needs the width and height reset for flexbox centering
     z-index: 1;
+
+    .ui-icon {
+        display: block;
+    }
 }
 
 .ui-icon-button__focus-ring {
@@ -260,7 +287,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
     top: 0;
     transform-origin: center;
     transform: scale(0);
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
     width: $ui-icon-button-size;
 }
 
@@ -275,6 +302,18 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
 // Sizes
 // ================================================
 
+.ui-icon-button--size-mini {
+    &,
+    .ui-icon-button__focus-ring {
+        height: $ui-icon-button--size-mini;
+        width: $ui-icon-button--size-mini;
+    }
+
+    .ui-icon {
+        font-size: rem(18px);
+    }
+}
+
 .ui-icon-button--size-small {
     &,
     .ui-icon-button__focus-ring {
@@ -283,7 +322,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
     }
 
     .ui-icon {
-        font-size: rem-calc(18px);
+        font-size: rem(18px);
     }
 }
 
@@ -309,24 +348,16 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
     }
 
     .ui-icon-button__focus-ring {
-        background-color: rgba(black, 0.15);
+        background-color: rgba(black, 0.12);
     }
 }
 
 .ui-icon-button--color-black {
     color: $secondary-text-color;
-
-    .ui-icon-button__icon {
-        color: $secondary-text-color;
-    }
 }
 
 .ui-icon-button--color-white {
-    color: $secondary-text-color;
-
-    .ui-icon-button__icon {
-        color: white;
-    }
+    color: white;
 }
 
 // ================================================
@@ -335,6 +366,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
 
 .ui-icon-button--type-primary {
     &.ui-icon-button--color-default {
+        color: $primary-text-color;
         background-color: $md-grey-200;
 
         &:hover:not(.is-disabled),
@@ -343,15 +375,11 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
         }
 
         .ui-icon-button__focus-ring {
-            background-color: darken($md-grey-200, 15%);
+            background-color: darken($md-grey-200, 12%);
         }
 
         .ui-ripple-ink__ink {
             opacity: 0.2;
-        }
-
-        .ui-icon-button__icon  {
-            color: $primary-text-color;
         }
     }
 
@@ -376,7 +404,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
         }
 
         .ui-icon-button__focus-ring {
-            background-color: darken($brand-primary-color, 15%);
+            background-color: darken($brand-primary-color, 12%);
         }
     }
 
@@ -389,7 +417,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
         }
 
         .ui-icon-button__focus-ring {
-            background-color: darken($brand-accent-color, 15%);
+            background-color: darken($brand-accent-color, 12%);
         }
     }
 
@@ -402,7 +430,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
         }
 
         .ui-icon-button__focus-ring {
-            background-color: darken($md-green, 15%);
+            background-color: darken($md-green, 12%);
         }
     }
 
@@ -415,7 +443,7 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
         }
 
         .ui-icon-button__focus-ring {
-            background-color: darken($md-orange, 15%);
+            background-color: darken($md-orange, 12%);
         }
     }
 
@@ -428,73 +456,94 @@ $ui-icon-button--size-large     : rem-calc(48px) !default;
         }
 
         .ui-icon-button__focus-ring {
-            background-color: darken($md-red, 15%);
+            background-color: darken($md-red, 12%);
         }
     }
 }
 
 .ui-icon-button--type-secondary {
     &.ui-icon-button--color-default {
-        color: $primary-text-color;
+        color: $secondary-text-color;
 
-        .ui-icon-button__icon {
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open,
+        &.has-focus-ring:focus,
+        body[modality="keyboard"] &:focus {
             color: $primary-text-color;
         }
-    }
 
-    &.ui-icon-button--color-default,
-    &.ui-icon-button--color-primary,
-    &.ui-icon-button--color-accent,
-    &.ui-icon-button--color-green,
-    &.ui-icon-button--color-orange,
-    &.ui-icon-button--color-red {
         &:hover:not(.is-disabled),
         &.has-dropdown-open {
             background-color: rgba(black, 0.1);
         }
 
         .ui-icon-button__focus-ring {
-            background-color: rgba(black, 0.15);
+            background-color: rgba(black, 0.26);
         }
     }
 
     &.ui-icon-button--color-primary {
         color: $brand-primary-color;
 
-        .ui-icon-button__icon {
-            color: $brand-primary-color;
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($brand-primary-color, 0.12);
+        }
+
+        .ui-icon-button__focus-ring {
+            background-color: rgba($brand-primary-color, 0.26);
         }
     }
 
     &.ui-icon-button--color-accent {
         color: $brand-accent-color;
 
-        .ui-icon-button__icon {
-            color: $brand-accent-color;
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($brand-accent-color, 0.12);
+        }
+
+        .ui-icon-button__focus-ring {
+            background-color: rgba($brand-accent-color, 0.26);
         }
     }
 
     &.ui-icon-button--color-green {
         color: $md-green-600;
 
-        .ui-icon-button__icon {
-            color: $md-green-600;
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($md-green-600, 0.12);
+        }
+
+        .ui-icon-button__focus-ring {
+            background-color: rgba($md-green-600, 0.26);
         }
     }
 
     &.ui-icon-button--color-orange {
         color: $md-orange;
 
-        .ui-icon-button__icon {
-            color: $md-orange;
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($md-orange, 0.12);
+        }
+
+        .ui-icon-button__focus-ring {
+            background-color: rgba($md-orange, 0.26);
         }
     }
 
     &.ui-icon-button--color-red {
         color: $md-red;
 
-        .ui-icon-button__icon {
-            color: $md-red;
+        &:hover:not(.is-disabled),
+        &.has-dropdown-open {
+            background-color: rgba($md-red, 0.12);
+        }
+
+        .ui-icon-button__focus-ring {
+            background-color: rgba($md-red, 0.26);
         }
     }
 }

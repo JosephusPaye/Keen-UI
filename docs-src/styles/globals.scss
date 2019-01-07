@@ -15,7 +15,7 @@ html {
 body {
     color: rgba(black, 0.87);
     font-family: $font-stack;
-    font-size: rem-calc(15px);
+    font-size: rem(15px);
 }
 
 a {
@@ -27,11 +27,4 @@ a {
 	&:focus {
 		text-decoration: underline;
 	}
-}
-
-.keen-docs {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    position: relative;
 }

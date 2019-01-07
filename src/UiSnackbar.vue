@@ -74,7 +74,7 @@ export default {
 @import './styles/imports';
 
 $ui-snackbar-background-color   : #323232 !default;
-$ui-snackbar-font-size          : rem-calc(14px) !default;
+$ui-snackbar-font-size          : rem(14px) !default;
 
 .ui-snackbar {
     align-items: center;
@@ -83,10 +83,10 @@ $ui-snackbar-font-size          : rem-calc(14px) !default;
     box-shadow: 0 1px 3px rgba(black, 0.12), 0 1px 2px rgba(black, 0.24);
     display: inline-flex;
     font-family: $font-stack;
-    max-width: rem-calc(568px);
-    min-height: rem-calc(48px);
-    min-width: rem-calc(288px);
-    padding: rem-calc(14px 24px);
+    max-width: rem(568px);
+    min-height: rem(48px);
+    min-width: rem(288px);
+    padding: rem(14px 24px);
 }
 
 .ui-snackbar__message {
@@ -99,15 +99,15 @@ $ui-snackbar-font-size          : rem-calc(14px) !default;
 
 .ui-snackbar__action {
     margin-left: auto;
-    margin: rem-calc(-9px -12px);
-    padding-left: rem-calc(48px);
+    margin: rem(-9px -12px);
+    padding-left: rem(48px);
 }
 
 .ui-snackbar__action-button {
     margin: 0;
     min-height: initial;
     min-width: initial;
-    padding: rem-calc(12px);
+    padding: rem(12px);
 
     &:hover:not(.is-disabled) {
         background-color: rgba(white, 0.05);
@@ -125,7 +125,7 @@ $ui-snackbar-font-size          : rem-calc(14px) !default;
 
 .ui-snackbar--transition-slide-enter,
 .ui-snackbar--transition-slide-leave-active {
-    transform: translateY(rem-calc(84px));
+    transform: translateY(rem(84px));
 }
 
 .ui-snackbar--transition-fade-enter-active,
