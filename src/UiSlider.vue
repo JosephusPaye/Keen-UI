@@ -146,7 +146,7 @@ export default {
         },
 
         markerText() {
-            return this.markerValue === false ? this.markerValue : this.value;
+            return this.markerValue !== undefined ? this.markerValue : this.value;
         },
 
         snapPoints() {
