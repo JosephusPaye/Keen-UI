@@ -321,6 +321,10 @@ export default {
             if (this.autosizeInitialized) {
                 autosize.update(this.$refs.textarea);
             }
+        },
+
+        focus() {
+            (this.$refs.input || this.$refs.textarea).focus();
         }
     },
 
