@@ -366,12 +366,18 @@ $ui-modal-header-font-size      : rem(18px);
 // Sizes
 // ================================================
 
-.ui-modal--size-large > .ui-modal__wrapper > .ui-modal__container {
-    width: rem-calc(848px);
+.ui-modal--size-large {
+    // Using immediate child selector so size doesn't affect a nested modal
+    & > .ui-modal__wrapper > .ui-modal__container {
+        width: rem-calc(848px);
+    }
 }
 
-.ui-modal--size-small  > .ui-modal__wrapper > .ui-modal__container {
-    width: rem-calc(320px);
+.ui-modal--size-small  {
+    // Using immediate child selector so size doesn't affect a nested modal
+    & > .ui-modal__wrapper > .ui-modal__container {
+        width: rem-calc(320px);
+    }
 }
 
 // ================================================
