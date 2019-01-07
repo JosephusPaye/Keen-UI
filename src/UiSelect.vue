@@ -489,6 +489,10 @@ export default {
             return fuzzysearch(query, text);
         },
 
+        clearSelection() {
+            this.setValue(null);
+        },
+
         clearQuery() {
             this.query = '';
         },

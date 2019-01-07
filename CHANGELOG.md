@@ -110,6 +110,11 @@
 - **Breaking**: `trigger` prop is now a DOM Element instance or selector string. If no trigger is provided or the selector doesn't match any element, the ripple's immediate parent element is used as the trigger.
 - Fix incorrect ripple position when clicking directly on trigger's inner elements. Fixes #220.
 
+
+### UiSelect
+
+- Add new method `clearSelection()` to clear the current selection.
+
 ## v1.0.1
 
 * Upgrade Vue to `v2.4.2` and fix template warnings. See [#268](https://github.com/JosephusPaye/Keen-UI/issues/268).

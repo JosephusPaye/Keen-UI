@@ -621,6 +621,13 @@
 
                         <tbody>
                             <tr>
+                                <td class="no-wrap"><code>clearSelection()</code></td>
+                                <td>
+                                    <p>Call this method to clear the current selection.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td><code>reset()</code></td>
                                 <td>
                                     <p>Call this method to reset the select to its initial value. You should also reset the <code>invalid</code> prop.</p>
