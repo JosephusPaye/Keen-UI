@@ -44,6 +44,14 @@
                 v-model="picker4"
             >Christmas Day</ui-datepicker>
 
+            <h4 class="page__demo-title">With ISO 8601 string as value</h4>
+
+            <ui-datepicker
+                icon="events"
+                placeholder="Select a date"
+                v-model="picker401"
+            >Your Birthday</ui-datepicker>
+
             <h4 class="page__demo-title">Color: accent</h4>
 
             <ui-datepicker
@@ -180,7 +188,7 @@
                         <tbody>
                             <tr>
                                 <td class="no-wrap">value, v-model *</td>
-                                <td>Date</td>
+                                <td>Date, String</td>
                                 <td></td>
                                 <td>
                                     <p>The model the selected date syncs to. Can be set initially for a default value.</p>
@@ -536,6 +544,7 @@ export default {
             picker2: null,
             picker3: null,
             picker4: new Date((new Date()).getFullYear(), 11, 25),
+            picker401: '2019-01-08',
             picker5: null,
             picker6: null,
             picker7: null,

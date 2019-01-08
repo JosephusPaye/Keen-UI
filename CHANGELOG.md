@@ -38,6 +38,7 @@
 ### UiDatepicker
 
 - **Breaking**: The month of the submitted value now starts at `1`, instead of JavaScript's default which starts at `0`. So, January is now `1` instead of `0`, February is `2`, etc.
+- Allow a string for `value` prop. See [#45](https://github.com/JosephusPaye/Keen-UI/issues/202).
 
 ### UiFab
 
