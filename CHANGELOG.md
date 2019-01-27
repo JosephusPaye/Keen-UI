@@ -139,6 +139,7 @@
 ### UiSelect
 
 - Add new method `clearSelection()` to clear the current selection.
+- Add new method `clearQuery()` to clear the current search query.
 - Add new method `focus()` to focus programmatically.
 - Add new prop `sort` for a custom sort function.
 - Pass default filter function as third parameter to `filter` prop.

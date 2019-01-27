@@ -654,6 +654,13 @@
                             </tr>
 
                             <tr>
+                                <td class="no-wrap"><code>clearQuery()</code></td>
+                                <td>
+                                    <p>Call this method to clear the search query.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td><code>reset()</code></td>
                                 <td>
                                     <p>Call this method to reset the select to its initial value. You should also reset the <code>invalid</code> prop.</p>
