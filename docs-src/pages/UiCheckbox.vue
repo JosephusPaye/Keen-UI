@@ -226,6 +226,29 @@
                     </table>
                 </div>
             </ui-tab>
+
+            <ui-tab title="Methods">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td><code>focus()</code></td>
+                                <td>
+                                    <p>Call this method to programmatically focus the checkbox.</p>
+                                    <p>Note that the focus ring will not be shown if the user's current <a href="https://github.com/alice/modality" rel="noopener" target="_blank">input modality</a> is not keyboard.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ui-tab>
         </ui-tabs>
     </section>
 </template>

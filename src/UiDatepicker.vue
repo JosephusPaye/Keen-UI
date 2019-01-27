@@ -377,6 +377,10 @@ export default {
             }
         },
 
+        focus() {
+            this.$refs.label.focus();
+        },
+
         reset() {
             this.$emit('input', JSON.parse(this.initialValue));
         },

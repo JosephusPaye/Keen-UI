@@ -3,6 +3,7 @@
         <div class="ui-radio__input-wrapper">
             <input
                 class="ui-radio__input"
+                ref="input"
                 type="radio"
 
                 :checked="checked"
@@ -92,6 +93,10 @@ export default {
     },
 
     methods: {
+        focus() {
+            this.$refs.input.focus();
+        },
+
         toggleCheck() {
             if (!this.disabled) {
                 this.$emit('input', this.trueValue);

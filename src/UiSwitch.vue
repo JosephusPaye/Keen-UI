@@ -3,6 +3,7 @@
         <div class="ui-switch__input-wrapper">
             <input
                 class="ui-switch__input"
+                ref="input"
                 type="checkbox"
 
                 :checked.prop="isChecked"
@@ -101,6 +102,10 @@ export default {
     },
 
     methods: {
+        focus() {
+            this.$refs.input.focus();
+        },
+
         onClick(e) {
             const isCheckedPrevious = this.isChecked;
             const isChecked = e.target.checked;

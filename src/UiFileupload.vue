@@ -161,6 +161,10 @@ export default {
             }
         },
 
+        focus() {
+            this.$refs.input.focus();
+        },
+
         openPicker() {
             this.$refs.input.click();
         }

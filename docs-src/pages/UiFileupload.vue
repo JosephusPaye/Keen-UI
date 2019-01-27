@@ -287,6 +287,14 @@
 
                         <tbody>
                             <tr>
+                                <td><code>focus()</code></td>
+                                <td>
+                                    <p>Call this method to programmatically focus the upload button.</p>
+                                    <p>Note that the focus ring will not be shown if the user's current <a href="https://github.com/alice/modality" rel="noopener" target="_blank">input modality</a> is not keyboard.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td><code>openPicker()</code></td>
                                 <td>
                                     <p>Call this method to programmatically open the file picker.</p>
