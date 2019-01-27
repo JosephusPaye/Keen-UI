@@ -61,12 +61,12 @@
                 </div>
             </div>
 
-            <h4 class="page__demo-title">Custom header</h4>
+            <h4 class="page__demo-title">Custom header with HTML</h4>
 
             <ui-tabs fullwidth>
                 <ui-tab :key="tab.title" v-for="tab in demoTabs">
                     <div slot="header" class="my-custom-tab-header">
-                        <ui-icon slot="icon" :icon="tab.icon"></ui-icon> {{ tab.title }}
+                        <ui-icon slot="icon" :icon="tab.icon"></ui-icon> <span>{{ tab.title }}: <i>HTML</i></span>
                     </div>
 
                     <p>{{ tab.title }}</p>
