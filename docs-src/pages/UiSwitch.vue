@@ -131,6 +131,13 @@
                             </tr>
 
                             <tr>
+                                <td>tabindex</td>
+                                <td>Number, String</td>
+                                <td></td>
+                                <td>The switch input <code>tabindex</code>.</td>
+                            </tr>
+
+                            <tr>
                                 <td>disabled</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>

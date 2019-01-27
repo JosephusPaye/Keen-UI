@@ -16,6 +16,7 @@
                 :id="option[keys.id]"
                 :key="option[keys.id]"
                 :name="name"
+                :tabindex="tabindex"
                 :true-value="option[keys.value] || option"
 
                 @blur="onBlur"
@@ -49,6 +50,7 @@ export default {
             type: String,
             required: true
         },
+        tabindex: [String, Number],
         label: String,
         options: {
             type: Array,

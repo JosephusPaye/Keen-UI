@@ -365,6 +365,13 @@
                             </tr>
 
                             <tr>
+                                <td>tabindex</td>
+                                <td>Number, String</td>
+                                <td></td>
+                                <td>The datepicker <code>tabindex</code>.</td>
+                            </tr>
+
+                            <tr>
                                 <td>invalid</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>

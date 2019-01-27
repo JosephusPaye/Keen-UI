@@ -8,6 +8,7 @@
                 :checked="checked"
                 :disabled="disabled"
                 :name="name"
+                :tabindex="tabindex"
                 :value="trueValue"
 
                 @blur="onBlur"
@@ -34,6 +35,7 @@ export default {
     props: {
         name: String,
         label: String,
+        tabindex: [String, Number],
         value: {
             type: [Number, String],
             required: true

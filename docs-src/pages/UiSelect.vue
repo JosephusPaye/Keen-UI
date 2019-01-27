@@ -436,6 +436,13 @@
                             </tr>
 
                             <tr>
+                                <td>tabindex</td>
+                                <td>Number, String</td>
+                                <td></td>
+                                <td>The select <code>tabindex</code>.</td>
+                            </tr>
+
+                            <tr>
                                 <td>help</td>
                                 <td>String</td>
                                 <td></td>

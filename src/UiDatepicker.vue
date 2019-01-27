@@ -19,7 +19,7 @@
                 class="ui-datepicker__label"
                 ref="label"
 
-                :tabindex="disabled ? null : '0'"
+                :tabindex="disabled ? null : (tabindex || '0')"
 
                 @click="onClick"
                 @focus="onFocus"
@@ -137,6 +137,7 @@ export default {
     props: {
         name: String,
         value: [Date, String],
+        tabindex: [String, Number],
         startOfWeek: {
             type: Number,
             default: 0

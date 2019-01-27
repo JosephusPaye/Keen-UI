@@ -171,6 +171,13 @@
                             </tr>
 
                             <tr>
+                                <td>tabindex</td>
+                                <td>Number, String</td>
+                                <td></td>
+                                <td>The upload button <code>tabindex</code>.</td>
+                            </tr>
+
+                            <tr>
                                 <td>disableRipple</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>

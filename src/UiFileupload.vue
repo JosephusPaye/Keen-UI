@@ -10,6 +10,7 @@
             :multiple="multiple"
             :name="name"
             :required="required"
+            :tabindex="tabindex"
 
             @blur="onBlur"
             @input="onInput"
@@ -51,6 +52,7 @@ export default {
             required: true
         },
         label: String,
+        tabindex: [String, Number],
         accept: String,
         multiple: {
             type: Boolean,

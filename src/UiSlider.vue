@@ -7,7 +7,7 @@
         :aria-valuemin="moderatedMin"
         :aria-valuenow="localValue"
         :class="classes"
-        :tabindex="disabled ? null : 0"
+        :tabindex="disabled ? null : (tabindex || '0')"
 
         @blur="onBlur"
         @focus="onFocus"
@@ -74,6 +74,7 @@ export default {
 
     props: {
         name: String,
+        tabindex: [String, Number],
         icon: String,
         value: {
             type: Number,

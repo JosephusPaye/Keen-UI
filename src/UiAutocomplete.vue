@@ -38,6 +38,7 @@
                     :name="name"
                     :placeholder="hasFloatingLabel ? null : placeholder"
                     :readonly="readonly ? readonly : null"
+                    :tabindex="tabindex"
                     :value="value"
 
                     @blur="onBlur"
@@ -104,6 +105,7 @@ export default {
     props: {
         name: String,
         placeholder: String,
+        tabindex: [String, Number],
         value: {
             type: [String, Number],
             default: ''

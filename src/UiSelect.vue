@@ -21,7 +21,7 @@
                 class="ui-select__label"
                 ref="label"
 
-                :tabindex="disabled ? null : '0'"
+                :tabindex="disabled ? null : (tabindex || '0')"
 
                 @focus="onFocus"
                 @keydown.enter.prevent="openDropdown"
@@ -173,6 +173,7 @@ export default {
 
     props: {
         name: String,
+        tabindex: [String, Number],
         value: {
             type: [String, Number, Object, Array],
             required: true

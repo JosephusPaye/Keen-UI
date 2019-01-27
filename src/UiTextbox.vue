@@ -23,6 +23,7 @@
                     :readonly="readonly"
                     :required="required"
                     :step="stepValue"
+                    :tabindex="tabindex"
                     :type="type"
                     :value="value"
 
@@ -49,6 +50,7 @@
                     :readonly="readonly"
                     :required="required"
                     :rows="rows"
+                    :tabindex="tabindex"
                     :value="value"
 
                     @blur="onBlur"
@@ -100,6 +102,7 @@ export default {
     props: {
         name: String,
         placeholder: String,
+        tabindex: [String, Number],
         value: {
             type: [String, Number],
             default: ''
