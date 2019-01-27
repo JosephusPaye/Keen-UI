@@ -315,6 +315,7 @@
                                     <ul>
                                         <li><code>option</code>: (Number, String or Object) - the current option</li>
                                         <li><code>query</code>: (String) - the current value of the search input (what the user has typed)</li>
+                                        <li><code>defaultFilter</code>: (Function) - Keen UI's default filter function. You can call this with the option and query to defer to the default fuzzy filter behavior. Remember to return its result from your custom filter function if you're using it.</li>
                                     </ul>
 
                                     <p>The function should return <code>true</code> if the option matches the query or <code>false</code> otherwise.</p>

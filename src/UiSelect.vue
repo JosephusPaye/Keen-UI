@@ -314,10 +314,10 @@ export default {
 
             let options = this.options.filter((option, index) => {
                 if (this.filter) {
-                    return this.filter(option, this.query);
+                    return this.filter(option, this.query, this.defaultFilter);
                 }
 
-                return this.defaultFilter(option, index);
+                return this.defaultFilter(option, this.query);
             });
 
             if (this.sort) {
@@ -484,15 +484,14 @@ export default {
             }
         },
 
-        defaultFilter(option) {
-            const query = this.query.toLowerCase();
+        defaultFilter(option, query) {
             let text = option[this.keys.label] || option;
 
             if (typeof text === 'string') {
                 text = text.toLowerCase();
             }
 
-            return fuzzysearch(query, text);
+            return fuzzysearch(query.toLowerCase(), text);
         },
 
         clearSelection() {

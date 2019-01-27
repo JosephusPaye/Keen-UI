@@ -251,10 +251,12 @@ export default {
             let suggestions = this.suggestions
                 .filter((suggestion, index) => {
                     if (this.filter) {
-                        return this.filter(suggestion, this.value);
+                        return this.filter(suggestion, this.value, this.defaultFilter);
                     }
 
-                    return this.defaultFilter(suggestion, index);
+                    const query = this.value === null ? '' : this.value;
+
+                    return this.defaultFilter(suggestion, query);
                 });
 
             if (this.sort) {
@@ -292,9 +294,8 @@ export default {
     },
 
     methods: {
-        defaultFilter(suggestion) {
+        defaultFilter(suggestion, query) {
             const text = suggestion[this.keys.label] || suggestion;
-            let query = this.value === null ? '' : this.value;
 
             if (typeof query === 'string') {
                 query = query.toLowerCase();
