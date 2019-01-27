@@ -302,6 +302,14 @@
                                     <p>Listen for it using <code>@snackbar-hide</code>.</p>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td class="no-wrap">queue-end</td>
+                                <td>
+                                    <p>Emitted when the last snackbar in a queue is hidden.</p>
+                                    <p>Listen for it using <code>@queue-end</code>.</p>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

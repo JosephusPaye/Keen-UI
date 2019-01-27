@@ -88,6 +88,7 @@ export default {
 
         showNextSnackbar() {
             if (this.queue.length === 0) {
+                this.$emit('queue-end');
                 return;
             }
 

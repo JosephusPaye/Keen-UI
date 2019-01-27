@@ -65,6 +65,10 @@
 - Add new props `href` and `target` for menu options. Setting the `href` prop will render the menu option as an anchor tag.
 - Fix focus containment when tabbing backwards.
 
+### UiSnackbarContainer
+
+- Add new event `queue-end`, emitted when the last snackbar in a queue is hidden.
+
 ### UiTabs and UiTab
 
 - UiTabs
