@@ -243,7 +243,7 @@ export default {
         },
 
         hasFeedback() {
-            return Boolean(this.help) || Boolean(this.error) || Boolean(this.$slots.error);
+            return this.showError || this.showHelp;
         },
 
         showError() {
@@ -251,7 +251,7 @@ export default {
         },
 
         showHelp() {
-            return !this.showError && (Boolean(this.help) || Boolean(this.$slots.help));
+            return Boolean(this.help) || Boolean(this.$slots.help);
         },
 
         displayText() {
