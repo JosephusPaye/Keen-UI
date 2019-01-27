@@ -782,6 +782,7 @@ export default {
     font-family: inherit;
     font-size: $ui-input-text-font-size;
     font-weight: normal;
+    min-height: $ui-input-height;
     padding: 0;
     transition: border 0.1s ease;
     user-select: none;
