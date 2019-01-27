@@ -67,6 +67,7 @@
                         :min-date="minDate"
                         :orientation="orientation"
                         :value="date"
+                        :start-of-week="startOfWeek"
                         @date-select="onDateSelect"
                     ></ui-calendar>
                 </ui-popover>
@@ -100,6 +101,7 @@
                 :min-date="minDate"
                 :orientation="orientation"
                 :value="date"
+                :start-of-week="startOfWeek"
                 @date-select="onDateSelect"
             >
                 <div class="ui-datepicker__modal-buttons" slot="footer">
@@ -135,6 +137,10 @@ export default {
     props: {
         name: String,
         value: [Date, String],
+        startOfWeek: {
+            type: Number,
+            default: 0
+        },
         minDate: Date,
         maxDate: Date,
         yearRange: Array,

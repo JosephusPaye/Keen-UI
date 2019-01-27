@@ -89,6 +89,14 @@
                 v-model="picker8"
             >Your Birthday</ui-datepicker>
 
+            <h4 class="page__demo-title">With different start of week: Monday</h4>
+
+            <ui-datepicker
+                placeholder="Select a date"
+                :start-of-week="1"
+                v-model="picker801"
+            >Your Birthday</ui-datepicker>
+
             <h4 class="page__demo-title">With custom formatter</h4>
 
             <ui-datepicker
@@ -194,6 +202,13 @@
                                     <p>The model the selected date syncs to. Can be set initially for a default value.</p>
                                     <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>value</code>.</p>
                                 </td>
+                            </tr>
+
+                            <tr>
+                                <td>startOfWeek</td>
+                                <td>Number</td>
+                                <td><code>0</code></td>
+                                <td>A number corresponding to the start day of the week. <code>0</code> is Sunday, <code>1</code> is Monday, and so on.</td>
                             </tr>
 
                             <tr>
@@ -549,6 +564,7 @@ export default {
             picker6: null,
             picker7: null,
             picker8: null,
+            picker801: null,
             picker9: null,
             picker10: null,
             picker10Min: new Date(),

@@ -62,6 +62,7 @@
                     :max-date="maxDate"
                     :min-date="minDate"
                     :selected="value"
+                    :start-of-week="startOfWeek"
 
                     @change="onMonthChange"
                     @date-select="onDateSelect"
@@ -89,6 +90,10 @@ export default {
         value: Date,
         minDate: Date,
         maxDate: Date,
+        startOfWeek: {
+            type: Number,
+            default: 0
+        },
         lang: {
             type: Object,
             default() {

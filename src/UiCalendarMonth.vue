@@ -1,7 +1,7 @@
 <template>
     <div class="ui-calendar-month">
         <div class="ui-calendar-month__header">
-            <span v-for="day in lang.days.initials">{{ day }}</span>
+            <span v-for="day in daysOfWeek">{{ day }}</span>
         </div>
 
         <div
@@ -59,7 +59,11 @@ export default {
         dateInView: Date,
         selected: Date,
         maxDate: Date,
-        minDate: Date
+        minDate: Date,
+        startOfWeek: {
+            type: Number,
+            default: 0
+        }
     },
 
     data() {
@@ -75,6 +79,18 @@ export default {
     },
 
     computed: {
+        daysOfWeek() {
+            // Get the days from the start day to the end of the array
+            const days = this.lang.days.initials.slice(this.startOfWeek);
+
+            if (days.length === 7) {
+                return days;
+            } else {
+                // Add the remaining days from the start of the array
+                return days.concat(this.lang.days.initials.slice(0, this.startOfWeek))
+            }
+        },
+
         weekClasses() {
             return [
                 { [`ui-calendar-month--slide-${this.slideDirection}`]: this.isSliding },
@@ -96,7 +112,7 @@ export default {
             let date = dateUtils.clone(dateInWeek);
 
             date.setDate(1); // Jump to the start of the month
-            date = dateUtils.moveToDayOfWeek(date, 0); // Jump to the start of the week
+            date = dateUtils.moveToDayOfWeek(date, this.startOfWeek); // Jump to the start of the week
 
             const current = dateUtils.clone(date);
             current.setDate(current.getDate() + 7);
