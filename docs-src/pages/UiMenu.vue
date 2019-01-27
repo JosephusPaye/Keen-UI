@@ -31,6 +31,9 @@
             <h4 class="page__demo-title">With icons and secondary text</h4>
             <ui-menu has-icons has-secondary-text :options="menuOptions" raised></ui-menu>
 
+            <h4 class="page__demo-title">Contain focus</h4>
+            <ui-menu :options="menuOptions" contain-focus raised></ui-menu>
+
             <h4 class="page__demo-title">Custom template</h4>
             <ui-menu has-icons has-secondary-text :options="menuOptions" raised>
                 <template slot-scope="props" slot="option">

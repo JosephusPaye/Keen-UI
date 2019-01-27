@@ -63,6 +63,7 @@
 ### UiMenu and UiMenuOption
 
 - Add new props `href` and `target` for menu options. Setting the `href` prop will render the menu option as an anchor tag.
+- Fix focus containment when tabbing backwards.
 
 ### UiTabs and UiTab
 

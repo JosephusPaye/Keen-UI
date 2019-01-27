@@ -1,5 +1,14 @@
 <template>
-    <ul class="ui-menu" role="menu" :class="classes">
+    <ui-focus-container
+        class="ui-menu"
+        ref="focusContainer"
+        role="menu"
+        tag="ul"
+        lazy
+
+        :class="classes"
+        :contain-focus="containFocus"
+    >
         <ui-menu-option
             :disable-ripple="disableRipple"
             :disabled="option[keys.disabled]"
@@ -20,19 +29,11 @@
         >
             <slot name="option" :option="option"></slot>
         </ui-menu-option>
-
-        <div
-            class="ui-menu__focus-redirector"
-            tabindex="0"
-
-            @focus="redirectFocus"
-
-            v-if="containFocus"
-        ></div>
-    </ul>
+    </ui-focus-container>
 </template>
 
 <script>
+import UiFocusContainer from './UiFocusContainer.vue';
 import UiMenuOption from './UiMenuOption.vue';
 
 export default {
@@ -105,15 +106,11 @@ export default {
 
         closeMenu() {
             this.$emit('close');
-        },
-
-        redirectFocus(e) {
-            e.stopPropagation();
-            this.$el.querySelector('.ui-menu-option').focus();
         }
     },
 
     components: {
+        UiFocusContainer,
         UiMenuOption
     }
 };
@@ -147,10 +144,5 @@ export default {
         min-width: rem(240px);
         max-width: rem(304px);
     }
-}
-
-.ui-menu__focus-redirector {
-    position: absolute;
-    opacity: 0;
 }
 </style>

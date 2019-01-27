@@ -1,12 +1,12 @@
 <template>
-    <div class="ui-focus-container">
+    <component class="ui-focus-container" :is="tag">
         <span
             class="ui-focus-container__focus-redirector"
             tabindex="0"
 
             @focus="redirectFocus($event, { isTabbingForward: false })"
 
-            v-if="!disabled"
+            v-if="renderRedirector"
         ></span>
 
         <div class="ui-focus-container__content" ref="content" tabindex="-1">
@@ -27,9 +27,9 @@
 
             @focus="redirectFocus($event, { isTabbingForward: true })"
 
-            v-if="!disabled"
+            v-if="renderRedirector"
         ></span>
-    </div>
+    </component>
 </template>
 
 <script>
@@ -45,6 +45,24 @@ export default {
         disabled: {
             type: Boolean,
             default: false
+        },
+        tag: {
+            type: String,
+            default: 'div'
+        },
+        lazy: {
+            type: Boolean,
+            defualt: false // When true, the focus redirectors are not rendered until containFocus is true
+        }
+    },
+
+    computed: {
+        renderRedirector() {
+            if (this.disabled) {
+                return false;
+            }
+
+            return this.lazy ? this.containFocus : true;
         }
     },
 
