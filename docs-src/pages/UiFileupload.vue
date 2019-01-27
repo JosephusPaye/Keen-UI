@@ -301,6 +301,13 @@
                                     <p>This method should only be called in response to a <a href="https://github.com/WICG/interventions/issues/12" target="_blank" rel="noopener">user gesture</a> like a click or focus or the action may fail.</p>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td><code>clear()</code></td>
+                                <td>
+                                    <p>Call this method to clear the selected file, if any.</p>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

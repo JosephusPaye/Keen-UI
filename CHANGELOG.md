@@ -49,6 +49,7 @@
 ### UiFileupload
 
 - Add new method `openPicker()` to open the file picker programmatically.
+- Add new method `clear()` to clear the selected file, if any.
 
 ### UiIconButton
 

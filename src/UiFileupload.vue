@@ -16,6 +16,8 @@
             @input="onInput"
             @change="onChange"
             @focus="onFocus"
+
+            v-if="renderInput"
         >
 
         <div class="ui-fileupload__content">
@@ -95,6 +97,7 @@ export default {
     data() {
         return {
             isActive: false,
+            renderInput: true,
             hasSelection: false,
             hasMultiple: false,
             displayText: ''
@@ -167,6 +170,15 @@ export default {
 
         openPicker() {
             this.$refs.input.click();
+        },
+
+        clear() {
+            // Clear the file input by removing the element and re-rendering (via v-if)
+            this.renderInput = false;
+
+            this.$nextTick(() => {
+                this.renderInput = true;
+            });
         }
     },
 
