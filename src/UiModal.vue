@@ -14,6 +14,7 @@
                 class="ui-modal__wrapper"
 
                 :class="{ 'has-dummy-scrollbar': preventShift }"
+                :style="alignTopStyle"
 
                 @click.self="onBackdropClick"
             >
@@ -64,6 +65,14 @@ export default {
             type: String,
             default: 'UiModal title'
         },
+        alignTop: {
+            type: Boolean,
+            default: false
+        },
+        alignTopMargin: {
+            type: Number,
+            default: 60
+        },
         size: {
             type: String,
             default: 'normal' // 'small', 'normal', or 'large'
@@ -110,8 +119,17 @@ export default {
             return [
                 `ui-modal--size-${this.size}`,
                 { 'has-footer': this.hasFooter },
-                { 'is-open': this.isOpen }
+                { 'is-open': this.isOpen },
+                { 'is-aligned-top': this.alignTop }
             ];
+        },
+
+        alignTopStyle() {
+            if (this.alignTop) {
+                return { 'padding-top': this.alignTopMargin + 'px' };
+            }
+
+            return null;
         },
 
         toggleTransition() {
@@ -261,6 +279,16 @@ $ui-modal-header-font-size      : rem(18px);
 .ui-modal {
     font-family: $font-stack;
     font-size: $ui-modal-font-size;
+
+    &.is-aligned-top {
+        .ui-modal__wrapper {
+            vertical-align: initial;
+        }
+
+        &.has-footer .ui-modal__body {
+            max-height: calc(100vh - #{$ui-modal-header-height + $ui-modal-footer-height});
+        }
+    }
 
     &.has-footer {
         .ui-modal__body {

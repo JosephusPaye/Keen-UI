@@ -77,6 +77,29 @@
             </div>
 
             <div class="page__demo-group">
+                <ui-modal ref="modal601" title="Aligned top" align-top>
+                    Hi there, World. What's happening?
+
+                    <div slot="footer">
+                        <ui-button color="primary">Say Hi</ui-button>
+                        <ui-button @click="closeModal('modal601')">Close</ui-button>
+                    </div>
+                </ui-modal>
+
+                <ui-modal ref="modal602" title="Aligned top" align-top :align-top-margin="200">
+                    This is aligned top, with a custom top margin of 200px.
+
+                    <div slot="footer">
+                        <ui-button color="primary">Say Hi</ui-button>
+                        <ui-button @click="closeModal('modal602')">Close</ui-button>
+                    </div>
+                </ui-modal>
+
+                <ui-button @click="openModal('modal601')">Aligned top</ui-button>
+                <ui-button @click="openModal('modal602')">Aligned top, custom margin</ui-button>
+            </div>
+
+            <div class="page__demo-group">
                 <ui-modal ref="modal7" size="small" title="Small modal">
                     Hi there, World. What's happening?
                 </ui-modal>
@@ -176,6 +199,27 @@
                                 <td>
                                     <p>The size of the modal. One of <code>small</code>, <code>normal</code>, or <code>large</code>.</p>
                                     <p>You can customize the modal size by overriding the <code>width</code> property of <code>.ui-modal__container</code> using CSS.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>alignTop</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>
+                                    <p>Whether or not the modal should be vertically aligned to the top of the viewport.</p>
+                                    <p>When <code>true</code>, the modal will be top aligned, instead of vertically centered.</p>
+                                    <p>You can customize the distance from the top of the viewport using the <code>alignTopMargin</code> prop.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>alignTopMargin</td>
+                                <td>Number</td>
+                                <td><code>60</code></td>
+                                <td>
+                                    <p>The modal's distance from the top of the viewport, in pixels.</p>
+                                    <p>Applies only when the <code>alignTop</code> prop is <code>true</code>.</p>
                                 </td>
                             </tr>
 
