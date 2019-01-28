@@ -183,7 +183,7 @@
                                 <td><code>false</code></td>
                                 <td>
                                     <p>Whether or not the ripple ink animation is shown when the upload button is clicked.</p>
-                                    <p>Can be set using the <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#global-config" target="_blank" rel="noopener">global config</a>.</p>
+                                    <p>Default value can be <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#changing-default-prop-values" target="_blank" rel="noopener">changed globally</a>.</p>
                                     <p>Set to <code>true</code> to disable the ripple ink animation.</p>
                                 </td>
                             </tr>

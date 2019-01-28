@@ -125,7 +125,7 @@
                                 <td><code>false</code></td>
                                 <td>
                                     <p>Whether or not the ripple ink animation on the collapsible header is disabled.</p>
-                                    <p>Can be set using the <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#global-config" target="_blank" rel="noopener">global config</a>.</p>
+                                    <p>Default value can be <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#changing-default-prop-values" target="_blank" rel="noopener">changed globally</a>.</p>
                                     <p>Set to <code>true</code> to disable the ripple ink animation.</p>
                                 </td>
                             </tr>
