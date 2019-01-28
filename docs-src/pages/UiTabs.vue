@@ -93,6 +93,14 @@
 
             <ui-button @click="addTab" :disabled="controlTabs.length === 6">Add Tab</ui-button>
             <ui-button @click="removeTab" :disabled="controlTabs.length === 3">Remove Tab</ui-button>
+
+            <h4 class="page__demo-title">Confirm tab change</h4>
+
+            <ui-tabs fullwidth :confirm-tab-change="confirmTabChange">
+                <ui-tab title="Tab 1">Tab 1 content</ui-tab>
+                <ui-tab title="Tab 2">Tab 2 content</ui-tab>
+                <ui-tab title="Tab 3">Tab 3 content</ui-tab>
+            </ui-tabs>
         </div>
 
         <h3 class="page__section-title">API: UiTabs</h3>
@@ -116,6 +124,17 @@
                                 <td>String</td>
                                 <td><code>"text"</code></td>
                                 <td>The type of tabs. One of <code>text</code>, <code>icon</code> or <code>icon-and-text</code>.</td>
+                            </tr>
+
+                            <tr>
+                                <td>confirmTabChange</td>
+                                <td>Function</td>
+                                <td></td>
+                                <td>
+                                    <p>A function that will be called for confirmation when the user attempts to change tabs.</p>
+                                    <p>The function is called with the current tab (source) and the new tab (destination), and should return <code>true</code> to allow the change, and <code>false</code> to deny it.</p>
+                                    <p>Note that this function should be synchronous.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -225,9 +244,17 @@
 
                         <tbody>
                             <tr>
+                                <td class="no-wrap">tab-click</td>
+                                <td>
+                                    <p>Emitted when a tab's header is clicked, whether or not the tab is selected. The handler is called with the tab and the click event.</p>
+                                    <p>Listen for it using <code>@tab-click</code>.</p>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td class="no-wrap">tab-change</td>
                                 <td>
-                                    <p>Emitted when the active tab is changed. Listen for it using <code>@tab-change</code>.</p>
+                                    <p>Emitted when the active tab is changed. The handler is called with the new tab.</p>
+                                    <p>Listen for it using <code>@tab-change</code>.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -498,6 +525,10 @@ export default {
 
         toggleTab2() {
             this.disableTab2 = !this.disableTab2;
+        },
+
+        confirmTabChange(currentTab, newTab) {
+            return confirm('Are you sure you want to switch from ' + currentTab.title + ' to ' + newTab.title + '?');
         }
     }
 };

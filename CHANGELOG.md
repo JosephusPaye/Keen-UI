@@ -87,14 +87,17 @@
 ### UiTabs and UiTab
 
 - UiTabs
-    - Change active tab indicator animation, to fix issues related to window resizing and initially hidden tabs. Fixes #328.
+    - **Breaking**: argument passed to `tab-change` event handler is now the tab instance, not the id. To get the id, use `tab.id`.
     - **Breaking**: Remove `refreshIndicator` method, no longer needed.
+    - Change active tab indicator animation, to fix issues related to window resizing and initially hidden tabs. Fixes #328.
+    - Add new event `tab-click`, emitted when a tab is clicked, whether or not the tab is selected.
+    - Add new prop `confirmTabChange`, A function that will be called for confirmation when the user attempts to change tabs.
 
 - UiTab
-    - Tabs can now be created using `v-for`. Fixes #349.
     - **Breaking**: Remove `show` prop, use `v-for` with a filtered array of tabs instead.
-    - HTML can now be used in tab headers, using the `header` slot.
     - **Breaking**: Remove `icon` (string) and `iconProps` (object) props, use the `header` slot instead.
+    - Tabs can now be created using `v-for`. Fixes #349.
+    - HTML can now be used in tab headers, using the `header` slot.
 
 ### UiProgressLinear
 

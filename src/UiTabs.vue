@@ -13,7 +13,7 @@
                     :title="tab.title"
                     :type="type"
 
-                    @click.native="selectTab(tab)"
+                    @click.native="onTabClick(tab, $event)"
                     @keydown.left.native="selectPreviousTab"
                     @keydown.right.native="selectNextTab"
 
@@ -53,6 +53,7 @@ export default {
             type: String,
             default: 'text' // 'icon', text', or 'icon-and-text'
         },
+        confirmTabChange: Function,
         backgroundColor: {
             type: String,
             default: 'default' // 'default', 'primary', 'accent', or 'clear'
@@ -154,14 +155,23 @@ export default {
             }
         },
 
+        onTabClick(tab, event) {
+            this.$emit('tab-click', tab, event);
+            this.selectTab(tab);
+        },
+
         selectTab(tab) {
             // Abort if the tab is disabled or already selected
             if (tab === null || tab.disabled || tab.id === this.activeTabId) {
                 return;
             }
 
+            if (this.confirmTabChange && !this.confirmTabChange(this.tabs[this.activeTabIndex], tab)) {
+                return;
+            }
+
             this.activeTabId = tab.id;
-            this.$emit('tab-change', tab.id);
+            this.$emit('tab-change', tab);
         },
 
         selectNextTab() {
