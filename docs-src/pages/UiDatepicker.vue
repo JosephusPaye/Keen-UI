@@ -538,6 +538,13 @@
                             </tr>
 
                             <tr>
+                                <td><code>clear()</code></td>
+                                <td>
+                                    <p>Call this method to clear the selected date.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td><code>reset()</code></td>
                                 <td>
                                     <p>Call this method to reset the datepicker to its initial value. You should also reset the <code>invalid</code> prop.</p>
