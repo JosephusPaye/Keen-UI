@@ -69,7 +69,10 @@
 
 ### UiModal
 
+- **Breaking**: Default transition `scale` is now `scale-down`.
 - Add new props `alignTop` and `alignTopMargin`, for creating modals that are vertically aligned to the top of the viewport.
+- Add new size `fullscreen`.
+- Add new transition `scale-up`.
 
 ### UiSnackbarContainer
 

@@ -75,7 +75,7 @@ export default {
         },
         size: {
             type: String,
-            default: 'normal' // 'small', 'normal', or 'large'
+            default: 'normal' // 'small', 'normal', 'large', or 'fullscreen'
         },
         role: {
             type: String,
@@ -83,7 +83,7 @@ export default {
         },
         transition: {
             type: String,
-            default: 'scale' // 'scale', or 'fade'
+            default: 'scale-down' // 'scale-up', 'scale-down', or 'fade'
         },
         removeHeader: {
             type: Boolean,
@@ -394,6 +394,13 @@ $ui-modal-header-font-size      : rem(18px);
 // Sizes
 // ================================================
 
+.ui-modal--size-small  {
+    // Using immediate child selector so size doesn't affect a nested modal
+    & > .ui-modal__wrapper > .ui-modal__container {
+        width: rem-calc(320px);
+    }
+}
+
 .ui-modal--size-large {
     // Using immediate child selector so size doesn't affect a nested modal
     & > .ui-modal__wrapper > .ui-modal__container {
@@ -401,10 +408,14 @@ $ui-modal-header-font-size      : rem(18px);
     }
 }
 
-.ui-modal--size-small  {
+.ui-modal--size-fullscreen {
     // Using immediate child selector so size doesn't affect a nested modal
     & > .ui-modal__wrapper > .ui-modal__container {
-        width: rem-calc(320px);
+        width: 100vw;
+
+        .ui-modal__body {
+            height: calc(100vh - #{$ui-modal-header-height});
+        }
     }
 }
 
@@ -417,12 +428,21 @@ $ui-modal-header-font-size      : rem(18px);
     opacity: 0;
 }
 
-.ui-modal--transition-scale-enter,
-.ui-modal--transition-scale-leave-active {
+.ui-modal--transition-scale-down-enter,
+.ui-modal--transition-scale-down-leave-active {
     opacity: 0;
 
     .ui-modal__container {
         transform: scale(1.1);
+    }
+}
+
+.ui-modal--transition-scale-up-enter,
+.ui-modal--transition-scale-up-leave-active {
+    opacity: 0;
+
+    .ui-modal__container {
+        transform: scale(0.8);
     }
 }
 </style>

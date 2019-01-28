@@ -8,7 +8,7 @@
 
         <p>UiModal can be dismissed by one or more of these three events: on ESC key press, clicking the backdrop, or clicking the close button. These events can be customized. Dismissing can be disabled to prevent the user from closing the modal.</p>
 
-        <p>UiModal has two transition types: a simple fade in, and scale in from above. It also has three sizes: <code>small</code>, <code>normal</code> (default) and <code>large</code>. The modal size can also be customized using CSS.</p>
+        <p>UiModal has three transition types (scale up, scale down, fade) and four sizes (small, normal, large and fullscreen). Custom sizes can be achieved using CSS.</p>
 
         <p>The modal will automatically add a vertical scrollbar to its body when the content overflows the available space.</p>
 
@@ -18,12 +18,16 @@
 
         <div class="page__demo">
             <div class="page__demo-group">
+                <h4 class="page__demo-title">Basic</h4>
+
+                <ui-button @click="openModal('modal1')">Basic Modal</ui-button>
                 <ui-modal ref="modal1" title="Basic Modal">
                     Hello World! What's happening?
                 </ui-modal>
 
-                <ui-button @click="openModal('modal1')">Basic Modal</ui-button>
+                <h4 class="page__demo-title">Close methods</h4>
 
+                <ui-button @click="openModal('modal2')">Can't close by clicking backdrop</ui-button>
                 <ui-modal
                     dismiss-on="close-button esc"
                     ref="modal2"
@@ -32,26 +36,23 @@
                     Hello World! What's happening?
                 </ui-modal>
 
-                <ui-button @click="openModal('modal2')">
-                    Can't close by clicking backdrop
-                </ui-button>
-
+                <ui-button @click="openModal('modal3')">Can't close at all</ui-button>
                 <ui-modal ref="modal3" title="Stuck with me!" :dismissible="false">
                     Can't close at all. Refresh the page to continue.
                 </ui-modal>
-
-                <ui-button @click="openModal('modal3')">Can't close at all</ui-button>
             </div>
 
             <div class="page__demo-group">
+                <h4 class="page__demo-title">Custom header and footer</h4>
+
+                <ui-button @click="openModal('modal4')">No header close button</ui-button>
                 <ui-modal
                     ref="modal4"
                     remove-close-button
                     title="Header × button is removed"
                 >Hello World! What's happening?</ui-modal>
 
-                <ui-button @click="openModal('modal4')">No header close button</ui-button>
-
+                <ui-button @click="openModal('modal5')">Custom header</ui-button>
                 <ui-modal ref="modal5">
                     <div slot="header">
                         <b>Custom</b> header has <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener">HTML</a>
@@ -60,25 +61,23 @@
                     Hey, some <b>nice</b> text here.
                 </ui-modal>
 
-                <ui-button @click="openModal('modal5')">Custom header</ui-button>
-            </div>
-
-            <div class="page__demo-group">
+                <ui-button @click="openModal('modal6')">With footer</ui-button>
                 <ui-modal ref="modal6" title="With footer">
-                    Hi there, World. What's happening?
+                    Hello, World. What's happening?
 
                     <div slot="footer">
                         <ui-button color="primary">Say Hi</ui-button>
                         <ui-button @click="closeModal('modal6')">Close</ui-button>
                     </div>
                 </ui-modal>
-
-                <ui-button @click="openModal('modal6')">With footer</ui-button>
             </div>
 
             <div class="page__demo-group">
+                <h4 class="page__demo-title">Top alignment</h4>
+
+                <ui-button @click="openModal('modal601')">Aligned top</ui-button>
                 <ui-modal ref="modal601" title="Aligned top" align-top>
-                    Hi there, World. What's happening?
+                    Hello, World. What's happening?
 
                     <div slot="footer">
                         <ui-button color="primary">Say Hi</ui-button>
@@ -86,6 +85,7 @@
                     </div>
                 </ui-modal>
 
+                <ui-button @click="openModal('modal602')">Aligned top, custom margin</ui-button>
                 <ui-modal ref="modal602" title="Aligned top" align-top :align-top-margin="200">
                     This is aligned top, with a custom top margin of 200px.
 
@@ -94,25 +94,34 @@
                         <ui-button @click="closeModal('modal602')">Close</ui-button>
                     </div>
                 </ui-modal>
-
-                <ui-button @click="openModal('modal601')">Aligned top</ui-button>
-                <ui-button @click="openModal('modal602')">Aligned top, custom margin</ui-button>
             </div>
 
             <div class="page__demo-group">
+                <h4 class="page__demo-title">Sizes</h4>
+
+                <ui-button @click="openModal('modal7')">Small</ui-button>
                 <ui-modal ref="modal7" size="small" title="Small modal">
-                    Hi there, World. What's happening?
+                    Hello, World. What's happening?
                 </ui-modal>
 
-                <ui-button @click="openModal('modal7')">Small Modal</ui-button>
+                <ui-button @click="openModal('modal701')">Normal (default)</ui-button>
+                <ui-modal ref="modal701" size="normal" title="Normal modal">
+                    Hello, World. What's happening?
+                </ui-modal>
 
+                <ui-button @click="openModal('modal8')">Large</ui-button>
                 <ui-modal ref="modal8" size="large" title="Large modal">
-                    Hi there, World. What's happening?
+                    Hello, World. What's happening?
                 </ui-modal>
 
-                <ui-button @click="openModal('modal8')">Large Modal</ui-button>
+                <ui-button @click="openModal('modal801')">Fullscreen</ui-button>
+                <ui-modal ref="modal801" size="fullscreen" title="Fullscreen modal" transition="scale-up">
+                    This is a fullscreen modal with a <code>scale-up</code> transition.
+                </ui-modal>
 
-                <ui-modal ref="modal9" title="Scrolling Modal">
+                <ui-button @click="openModal('modal9')">Scrolling Modal</ui-button>
+                <ui-modal ref="modal9" title="Scrolling Modal" transition="scale-up">
+                    <p>This is a scrolling modal with a <code>scale-up</code> transition.</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit maiores perspiciatis suscipit sit nemo. Similique dignissimos, quas nisi aperiam dolorum omnis tenetur impedit, cum eaque harum officia? Rerum ullam ratione non perferendis, vel harum quam.</p>
                     <p>Provident iste, iusto adipisci, tenetur harum porro omnis sequi eveniet, accusantium facilis non ipsum. Excepturi deleniti tempore error atque aperiam quia dolorum perferendis. Libero accusamus dolor ipsam soluta impedit laboriosam optio veritatis obcaecati atque, asperiores!</p>
                     <p>Quidem reprehenderit dolorem ducimus, expedita repellendus amet eaque voluptas molestiae debitis, adipisci obcaecati in nulla dolor eos ex illum. Quas molestiae dolores voluptatibus ullam et, quisquam nisi, consequuntur quod unde earum corporis nam harum repellat.</p>
@@ -124,25 +133,39 @@
                     <p>Non quam et earum soluta quasi animi numquam perferendis magni explicabo impedit tempore ducimus aperiam natus veniam, eum esse, unde delectus velit nihil laudantium dolorum rem. Soluta dignissimos libero, laboriosam cupiditate, sint ipsum ab maiores.</p>
                     <p>Totam quas nobis iste iure voluptatem. Dolores tempore voluptates omnis inventore, laborum eaque aperiam eligendi, maxime beatae, exercitationem fugit. Quae non, eum dignissimos consequuntur voluptate vel ipsam quos minima sequi. Illum eius natus maxime reiciendis.</p>
                 </ui-modal>
-
-                <ui-button @click="openModal('modal9')">Scrolling Modal</ui-button>
             </div>
 
             <div class="page__demo-group">
-                <ui-modal ref="modal10" title="Fade In Modal" transition="fade">
+                <h4 class="page__demo-title">Transitions</h4>
+
+                <ui-button @click="openModal('modal10')">Scale up</ui-button>
+                <ui-modal ref="modal10" title="Scale Up Transition" transition="scale-up">
                     Hello, World. What's happening?
                 </ui-modal>
 
-                <ui-button @click="openModal('modal10')">Fade in Modal</ui-button>
+                <ui-button @click="openModal('modal101')">Scale down (default)</ui-button>
+                <ui-modal ref="modal101" title="Scale Down Transition (default)" transition="scale-down">
+                    Hello, World. What's happening?
+                </ui-modal>
+
+                <ui-button @click="openModal('modal102')">Fade in</ui-button>
+                <ui-modal ref="modal102" title="Fade In Transition" transition="fade">
+                    Hello, World. What's happening?
+                </ui-modal>
             </div>
 
             <div class="page__demo-group">
+                <h4 class="page__demo-title">Nesting</h4>
+
+                <ui-button @click="openModal('modal11')">Nested Modal</ui-button>
                 <ui-modal ref="modal11" title="Level 1">
                     Level 1 modal contents here
 
+                    <ui-button @click="openModal('modal12')">Level 2</ui-button>
                     <ui-modal ref="modal12" title="Level 2">
                         Level 2 modal contents here
 
+                        <ui-button @click="openModal('modal13')">Level 3</ui-button>
                         <ui-modal ref="modal13" title="Level 3">
                             Level 3 modal contents here
 
@@ -156,14 +179,8 @@
                                 Dropdown
                             </ui-button>
                         </ui-modal>
-
-                        <ui-button @click="openModal('modal13')">Level 3</ui-button>
                     </ui-modal>
-
-                    <ui-button @click="openModal('modal12')">Level 2</ui-button>
                 </ui-modal>
-
-                <ui-button @click="openModal('modal11')">Nested Modal</ui-button>
             </div>
         </div>
 
@@ -197,8 +214,8 @@
                                 <td>String</td>
                                 <td><code>"normal"</code></td>
                                 <td>
-                                    <p>The size of the modal. One of <code>small</code>, <code>normal</code>, or <code>large</code>.</p>
-                                    <p>You can customize the modal size by overriding the <code>width</code> property of <code>.ui-modal__container</code> using CSS.</p>
+                                    <p>The size of the modal. One of <code>small</code>, <code>normal</code>, <code>large</code>, or <code>fullscreen</code>.</p>
+                                    <p>For more custom sizes, override the <code>width</code> property of <code>.ui-modal__container</code> using CSS.</p>
                                 </td>
                             </tr>
 
@@ -236,9 +253,9 @@
                             <tr>
                                 <td>transition</td>
                                 <td>String</td>
-                                <td><code>"scale"</code></td>
+                                <td><code>"scale-down"</code></td>
                                 <td>
-                                    <p>The modal enter/leave transition. One of <code>scale</code> or <code>fade</code>.</p>
+                                    <p>The modal enter/leave transition. One of <code>scale-up</code>, <code>scale-down</code> or <code>fade</code>.</p>
                                 </td>
                             </tr>
 
@@ -340,7 +357,7 @@
                             <tr>
                                 <td>open</td>
                                 <td>
-                                    <p>Emitted when the modal is opened.</p>
+                                    <p>Emitted when the modal starts to open.</p>
                                     <p>Listen for it using <code>@open</code>.</p>
                                 </td>
                             </tr>
@@ -356,7 +373,7 @@
                             <tr>
                                 <td>close</td>
                                 <td>
-                                    <p>Emitted when the modal is hidden (i.e. when the close transition completes).</p>
+                                    <p>Emitted when the modal starts to close.</p>
                                     <p>Listen for it using <code>@close</code>.</p>
                                 </td>
                             </tr>
