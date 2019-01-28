@@ -201,7 +201,6 @@ $ui-switch-focus-ring-size  : $ui-switch-thumb-size * 2.1 !default;
     top: (($ui-switch-thumb-size - $ui-switch-track-height) / 2);
     transition: background-color 0.1s linear;
     width: $ui-switch-track-width;
-    z-index: -1;
 }
 
 .ui-switch__thumb {
@@ -214,6 +213,7 @@ $ui-switch-focus-ring-size  : $ui-switch-thumb-size * 2.1 !default;
     transition-property: background-color, transform;
     transition-timing-function: ease;
     width: $ui-switch-thumb-size;
+    z-index: 1;
 }
 
 .ui-switch__focus-ring {
