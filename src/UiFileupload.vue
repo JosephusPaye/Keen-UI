@@ -1,10 +1,5 @@
 <template>
-    <label
-        class="ui-fileupload"
-        ref="label"
-
-        :class="classes"
-    >
+    <label class="ui-fileupload" :class="classes">
         <input
             class="ui-fileupload__input"
             ref="input"
@@ -15,10 +10,14 @@
             :multiple="multiple"
             :name="name"
             :required="required"
+            :tabindex="tabindex"
 
             @blur="onBlur"
+            @input="onInput"
             @change="onChange"
             @focus="onFocus"
+
+            v-if="renderInput"
         >
 
         <div class="ui-fileupload__content">
@@ -36,17 +35,15 @@
             <slot v-else>{{ placeholder }}</slot>
         </div>
 
-        <div class="ui-fileupload__focus-ring" :style="focusRingStyle"></div>
+        <div class="ui-fileupload__focus-ring"></div>
 
-        <ui-ripple-ink trigger="label" v-if="!disableRipple && !disabled"></ui-ripple-ink>
+        <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
     </label>
 </template>
 
 <script>
 import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
-
-import config from './config';
 
 export default {
     name: 'ui-fileupload',
@@ -57,6 +54,7 @@ export default {
             required: true
         },
         label: String,
+        tabindex: [String, Number],
         accept: String,
         multiple: {
             type: Boolean,
@@ -88,7 +86,7 @@ export default {
         },
         disableRipple: {
             type: Boolean,
-            default: config.data.disableRipple
+            default: false
         },
         disabled: {
             type: Boolean,
@@ -99,15 +97,10 @@ export default {
     data() {
         return {
             isActive: false,
+            renderInput: true,
             hasSelection: false,
             hasMultiple: false,
-            displayText: '',
-            focusRing: {
-                top: 0,
-                left: 0,
-                size: 0,
-                initialized: false
-            }
+            displayText: ''
         };
     },
 
@@ -131,15 +124,6 @@ export default {
             }
 
             return this.multiple ? 'Choose files' : 'Choose a file';
-        },
-
-        focusRingStyle() {
-            return {
-                height: this.focusRing.size + 'px',
-                width: this.focusRing.size + 'px',
-                top: this.focusRing.top + 'px',
-                left: this.focusRing.left + 'px'
-            };
         }
     },
 
@@ -147,10 +131,6 @@ export default {
         onFocus(e) {
             this.isActive = true;
             this.$emit('focus', e);
-
-            if (!this.focusRing.initialized) {
-                this.initializeFocusRing();
-            }
         },
 
         onBlur(e) {
@@ -158,7 +138,16 @@ export default {
             this.$emit('blur', e);
         },
 
+        onInput(e) {
+            this.$emit('input', this.$refs.input.files, e);
+        },
+
         onChange(e) {
+            this.updateDisplayText(e);
+            this.$emit('change', this.$refs.input.files, e);
+        },
+
+        updateDisplayText(e) {
             let displayText;
             const input = this.$refs.input;
 
@@ -172,27 +161,24 @@ export default {
                 this.hasSelection = true;
                 this.displayText = displayText;
                 this.hasMultiple = input.files.length > 1;
-
-                this.$nextTick(() => this.refreshFocusRing());
             }
-
-            this.$emit('change', input.files, e);
         },
 
-        initializeFocusRing() {
-            this.refreshFocusRing();
-            this.focusRing.initialized = true;
+        focus() {
+            this.$refs.input.focus();
         },
 
-        refreshFocusRing() {
-            const bounds = {
-                width: this.$el.clientWidth,
-                height: this.$el.clientHeight
-            };
+        openPicker() {
+            this.$refs.input.click();
+        },
 
-            this.focusRing.size = bounds.width - 16; // 8px of padding on left and right
-            this.focusRing.top = -1 * (this.focusRing.size - bounds.height) / 2;
-            this.focusRing.left = (bounds.width - this.focusRing.size) / 2;
+        clear() {
+            // Clear the file input by removing the element and re-rendering (via v-if)
+            this.renderInput = false;
+
+            this.$nextTick(() => {
+                this.renderInput = true;
+            });
         }
     },
 
@@ -213,24 +199,24 @@ export default {
     display: inline-flex;
     font-family: $font-stack;
     font-size: $ui-button-font-size;
-    font-weight: 500;
+    font-weight: 600;
     height: $ui-button-height;
     justify-content: center;
     letter-spacing: 0.02em;
     line-height: 1;
-    min-width: rem-calc(80px);
+    min-width: rem(80px);
     overflow: hidden;
     padding: 0;
-    padding-left: rem-calc(16px);
-    padding-right: rem-calc(16px);
+    padding-left: rem(16px);
+    padding-right: rem(16px);
     position: relative;
     text-transform: uppercase;
 
     &.has-focus-ring.is-active,
     body[modality="keyboard"] &.is-active {
-        .ui-fileupload__focus-ring {
+        .ui-fileupload__focus-ring::before {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1.1);
         }
     }
 
@@ -274,21 +260,30 @@ export default {
 }
 
 .ui-fileupload__icon {
-    margin-left: rem-calc(-4px);
-    margin-right: rem-calc(6px);
-    margin-top: rem-calc(-2px);
+    margin-left: rem(-4px);
+    margin-right: rem(6px);
+    margin-top: rem(-2px);
 }
 
 .ui-fileupload__focus-ring {
-    background-color: rgba(black, 0.12);
-    border-radius: 50%;
     left: 0;
-    opacity: 0;
     position: absolute;
     top: 0;
-    transform-origin: center;
-    transform: scale(0);
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    width: 100%;
+
+    &::before {
+        border-radius: 50%;
+        content: "";
+        display: block;
+        left: 0;
+        margin-top: calc(-1 * (50% - #{$ui-button-height / 2}));
+        padding-top: 100%; // 1:1 aspect ratio - makes height the same as button width
+        position: relative;
+        top: 0;
+        opacity: 0;
+        transform: scale(0);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
 }
 
 // ================================================
@@ -297,8 +292,8 @@ export default {
 
 .ui-fileupload--icon-position-right {
     .ui-fileupload__icon {
-        margin-left: rem-calc(6px);
-        margin-right: rem-calc(-4px);
+        margin-left: rem(6px);
+        margin-right: rem(-4px);
         order: 1;
     }
 }
@@ -310,21 +305,21 @@ export default {
 .ui-fileupload--size-small {
     font-size: $ui-button-font-size--small;
     height: $ui-button-height--small;
-    padding-left: rem-calc(12px);
-    padding-right: rem-calc(12px);
+    padding-left: rem(12px);
+    padding-right: rem(12px);
 
     .ui-fileupload__icon {
         margin-left: 0;
         margin-top: 0;
 
         .ui-icon {
-            font-size: rem-calc(18px);
+            font-size: rem(18px);
         }
     }
 
     &.ui-fileupload--icon-position-right {
         .ui-fileupload__icon {
-            margin-left: rem-calc(6px);
+            margin-left: rem(6px);
             margin-right: 0;
         }
     }
@@ -333,18 +328,18 @@ export default {
 .ui-fileupload--size-large {
     font-size: $ui-button-font-size--large;
     height: $ui-button-height--large;
-    padding-left: rem-calc(24px);
-    padding-right: rem-calc(24px);
+    padding-left: rem(24px);
+    padding-right: rem(24px);
 
     .ui-fileupload__icon {
-        margin-left: rem-calc(-4px);
-        margin-right: rem-calc(8px);
+        margin-left: rem(-4px);
+        margin-right: rem(8px);
     }
 
     &.ui-fileupload--icon-position-right {
         .ui-fileupload__icon {
-            margin-left: rem-calc(8px);
-            margin-right: rem-calc(-4px);
+            margin-left: rem(8px);
+            margin-right: rem(-4px);
         }
     }
 }
@@ -354,13 +349,15 @@ export default {
 // ================================================
 
 .ui-fileupload--type-primary {
+    .ui-fileupload__focus-ring::before {
+        background-color: rgba(black, 0.12);
+    }
+
     &.ui-fileupload--color-default {
         background-color: $md-grey-200;
         color: $primary-text-color;
 
-        &:hover:not(.is-disabled),
-        &.has-focus-ring.is-active,
-        body[modality="keyboard"] &.is-active {
+        &:hover:not(.is-disabled) {
             background-color: darken($md-grey-200, 7.5%);
         }
 
@@ -385,9 +382,7 @@ export default {
     &.ui-fileupload--color-primary {
         background-color: $brand-primary-color;
 
-        &:hover:not(.is-disabled),
-        &.has-focus-ring.is-active,
-        body[modality="keyboard"] &.is-active {
+        &:hover:not(.is-disabled) {
             background-color: darken($brand-primary-color, 10%);
         }
     }
@@ -395,9 +390,7 @@ export default {
     &.ui-fileupload--color-accent {
         background-color: $brand-accent-color;
 
-        &:hover:not(.is-disabled),
-        &.has-focus-ring.is-active,
-        body[modality="keyboard"] &.is-active {
+        &:hover:not(.is-disabled) {
             background-color: darken($brand-accent-color, 10%);
         }
     }
@@ -406,14 +399,16 @@ export default {
 .ui-fileupload--type-secondary {
     background-color: transparent;
 
-    &:hover:not(.is-disabled),
-    &.has-focus-ring.is-active,
-    body[modality="keyboard"] &.is-active {
-        background-color: darken($md-grey-200, 3%);
-    }
-
     &.ui-fileupload--color-default {
         color: $primary-text-color;
+
+        &:hover:not(.is-disabled) {
+            background-color: $md-grey-200;
+        }
+
+        .ui-fileupload__focus-ring::before {
+            background-color: rgba(black, 0.12);
+        }
 
         .ui-fileupload__icon {
             color: $secondary-text-color;
@@ -422,10 +417,26 @@ export default {
 
     &.ui-fileupload--color-primary {
         color: $brand-primary-color;
+
+        &:hover:not(.is-disabled) {
+            background-color: rgba($brand-primary-color, 0.12);
+        }
+
+        .ui-fileupload__focus-ring::before {
+            background-color: rgba($brand-primary-color, 0.26);
+        }
     }
 
     &.ui-fileupload--color-accent {
         color: $brand-accent-color;
+
+        &:hover:not(.is-disabled) {
+            background-color: rgba($brand-accent-color, 0.12);
+        }
+
+        .ui-fileupload__focus-ring::before {
+            background-color: rgba($brand-accent-color, 0.26);
+        }
     }
 }
 </style>

@@ -2,7 +2,6 @@
     <div class="ui-collapsible" :class="classes">
         <div
             class="ui-collapsible__header"
-            ref="header"
 
             :aria-controls="id"
             :aria-expanded="isOpen ? 'true' : 'false'"
@@ -22,24 +21,25 @@
                 </svg>
             </ui-icon>
 
-            <ui-ripple-ink
-                trigger="header" v-if="!disableRipple && !disabled && isReady"
-            ></ui-ripple-ink>
+            <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
         </div>
 
         <transition
-            name="ui-collapsible--transition-toggle"
-            @after-enter="onEnter"
-            @after-leave="onLeave"
+            @enter="onEnter"
+            @after-enter="afterEnter"
+            @before-leave="beforeLeave"
+            @leave="onLeave"
         >
             <div
                 class="ui-collapsible__body-wrapper"
-                ref="body"
+                ref="bodyWrapper"
 
-                :style="{ 'height': calculatedHeight }"
+                :aria-hidden="isOpen ? null : 'true'"
+                :id="id"
+
                 v-show="isOpen"
             >
-                <div class="ui-collapsible__body" :aria-hidden="isOpen ? null : 'true'" :id="id">
+                <div class="ui-collapsible__body">
                     <slot></slot>
                 </div>
             </div>
@@ -50,9 +50,6 @@
 <script>
 import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
-
-import config from './config';
-import RespondsToWindowResize from './mixins/RespondsToWindowResize.js';
 import UUID from './helpers/uuid';
 
 export default {
@@ -70,7 +67,7 @@ export default {
         },
         disableRipple: {
             type: Boolean,
-            default: config.data.disableRipple
+            default: false
         },
         disabled: {
             type: Boolean,
@@ -80,10 +77,7 @@ export default {
 
     data() {
         return {
-            height: 0,
-            isReady: false,
             isOpen: this.open,
-            useInitialHeight: false,
             id: UUID.short('ui-collapsible-')
         };
     },
@@ -94,10 +88,6 @@ export default {
                 { 'is-open': this.isOpen },
                 { 'is-disabled': this.disabled }
             ];
-        },
-
-        calculatedHeight() {
-            return (this.height === 0 || this.useInitialHeight) ? 'initial' : this.height + 'px';
         }
     },
 
@@ -110,24 +100,13 @@ export default {
     },
 
     mounted() {
-        this.isReady = true;
-        this.refreshHeight();
-
-        this.$on('window-resize', () => {
-            this.refreshHeight();
-        });
+        // Remove the max-height to allow the element to grow if it's open initially
+        if (this.isOpen) {
+            this.$refs.bodyWrapper.style.maxHeight = 'none';
+        }
     },
 
     methods: {
-        onEnter() {
-            this.$emit('open');
-            this.refreshHeight();
-        },
-
-        onLeave() {
-            this.$emit('close');
-        },
-
         toggleCollapsible() {
             if (this.disabled) {
                 return;
@@ -136,31 +115,34 @@ export default {
             this.isOpen = !this.isOpen;
         },
 
-        refreshHeight() {
-            const body = this.$refs.body;
+        onEnter(el) {
+            this.$emit('open');
+            el.style.maxHeight = el.scrollHeight + 'px';
+        },
 
-            this.useInitialHeight = true;
-            body.style.display = 'block';
+        afterEnter(el) {
+            // Remove the max-height to allow the element to grow
+            el.style.maxHeight = 'none';
+        },
 
-            this.$nextTick(() => {
-                this.height = body.scrollHeight + 1;
-                this.useInitialHeight = false;
+        beforeLeave(el) {
+            // Restore max-height for the leave transition
+            el.style.maxHeight = el.scrollHeight + 'px';
 
-                if (!this.isOpen) {
-                    body.style.display = 'none';
-                }
-            });
+            // Force repaint
+            el.offsetHeight; // eslint-disable-line no-unused-expressions
+        },
+
+        onLeave(el) {
+            el.style.maxHeight = 0;
+            this.$emit('close');
         }
     },
 
     components: {
         UiIcon,
         UiRippleInk
-    },
-
-    mixins: [
-        RespondsToWindowResize
-    ]
+    }
 };
 </script>
 
@@ -172,7 +154,7 @@ $ui-collapsible-header-background-hover     : $md-grey-300 !default;
 
 .ui-collapsible {
     font-family: $font-stack;
-    margin-bottom: rem-calc(8px);
+    margin-bottom: rem(8px);
     width: 100%;
 
     &:not(.is-disabled) {
@@ -207,11 +189,11 @@ $ui-collapsible-header-background-hover     : $md-grey-300 !default;
     background-color: $ui-collapsible-header-background;
     cursor: pointer;
     display: flex;
-    font-size: rem-calc(15px);
+    font-size: rem(15px);
     line-height: 1.5;
     margin: 0;
-    min-height: rem-calc(48px);
-    padding: rem-calc(12px 16px);
+    min-height: rem(48px);
+    padding: rem(12px 16px);
     position: relative;
     touch-action: manipulation; // IE
     width: 100%;
@@ -222,37 +204,28 @@ $ui-collapsible-header-background-hover     : $md-grey-300 !default;
 }
 
 .ui-collapsible__header-content {
-    padding-right: rem-calc(8px);
+    padding-right: rem(8px);
 }
 
 .ui-collapsible__header-icon {
     color: $secondary-text-color;
     cursor: pointer;
     margin-left: auto;
-    margin-right: rem-calc(-4px);
+    margin-right: rem(-4px);
     transition: transform 0.3s ease;
 }
 
 .ui-collapsible__body-wrapper {
-    height: initial;
+    max-height: 0;
     overflow: hidden;
+    transition: max-height 0.3s ease;
 }
 
 .ui-collapsible__body {
-    border-top: 0;
     border: 1px solid $md-grey-200;
+    border-top: 0;
     display: block;
-    padding: rem-calc(16px);
+    padding: rem(16px);
     width: 100%;
-}
-
-.ui-collapsible--transition-toggle-enter-active,
-.ui-collapsible--transition-toggle-leave-active {
-    transition: height 0.3s ease;
-}
-
-.ui-collapsible--transition-toggle-enter,
-.ui-collapsible--transition-toggle-leave-active {
-    height: 0!important;
 }
 </style>

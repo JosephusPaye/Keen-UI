@@ -136,6 +136,13 @@
                             </tr>
 
                             <tr>
+                                <td>tabindex</td>
+                                <td>Number, String</td>
+                                <td></td>
+                                <td>The checkbox input <code>tabindex</code>.</td>
+                            </tr>
+
+                            <tr>
                                 <td>disabled</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
@@ -219,6 +226,29 @@
                     </table>
                 </div>
             </ui-tab>
+
+            <ui-tab title="Methods">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td><code>focus()</code></td>
+                                <td>
+                                    <p>Call this method to programmatically focus the checkbox.</p>
+                                    <p>Note that the focus ring will not be shown if the user's current <a href="https://github.com/alice/modality" rel="noopener" target="_blank">input modality</a> is not keyboard.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ui-tab>
         </ui-tabs>
     </section>
 </template>
@@ -252,10 +282,10 @@ export default {
 
 .page--ui-checckbox {
     .page__demo-group {
-        margin-bottom: rem-calc(32px);
+        margin-bottom: rem(32px);
 
         &.has-box-right {
-            max-width: rem-calc(200px);
+            max-width: rem(200px);
         }
     }
 }

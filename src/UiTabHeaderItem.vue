@@ -1,7 +1,6 @@
 <template>
     <li
         class="ui-tab-header-item"
-        ref="headerItem"
         role="tab"
 
         :aria-controls="id"
@@ -10,26 +9,15 @@
         :disabled="disabled"
         :tabindex="active ? 0 : -1"
     >
-        <div
-            class="ui-tab-header-item__icon"
-            v-if="type === 'icon' || type === 'icon-and-text'"
-        >
-            <slot name="icon">
-                <ui-icon
-                    :icon-set="iconProps.iconSet"
-                    :icon="icon"
-                    :remove-text="iconProps.removeText"
-                    :use-svg="iconProps.useSvg"
-                ></ui-icon>
-            </slot>
-        </div>
+        <slot>
+            <div class="ui-tab-header-item__icon" v-if="hasIcon">
+                <slot name="icon"></slot>
+            </div>
 
-        <div
-            class="ui-tab-header-item__text"
-            v-if="type === 'text' || type === 'icon-and-text'"
-        >{{ title }}</div>
+            <div class="ui-tab-header-item__text" v-if="hasText">{{ title }}</div>
+        </slot>
 
-        <ui-ripple-ink trigger="headerItem" v-if="!disableRipple && !disabled"></ui-ripple-ink>
+        <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
     </li>
 </template>
 
@@ -37,10 +25,13 @@
 import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
 
-import config from './config';
-
 export default {
     name: 'ui-tab-header-item',
+
+    components: {
+        UiIcon,
+        UiRippleInk
+    },
 
     props: {
         id: String,
@@ -49,24 +40,13 @@ export default {
             default: 'text' // 'text', 'icon', or 'icon-and-text'
         },
         title: String,
-        icon: String,
-        iconProps: {
-            type: Object,
-            default() {
-                return {};
-            }
-        },
         active: {
             type: Boolean,
             default: false
         },
-        show: {
-            type: Boolean,
-            default: true
-        },
         disableRipple: {
             type: Boolean,
-            default: config.data.disableRipple
+            default: false
         },
         disabled: {
             type: Boolean,
@@ -81,12 +61,15 @@ export default {
                 { 'is-active': this.active },
                 { 'is-disabled': this.disabled }
             ];
-        }
-    },
+        },
 
-    components: {
-        UiIcon,
-        UiRippleInk
+        hasIcon() {
+            return this.type === 'icon' || this.type === 'icon-and-text';
+        },
+
+        hasText() {
+            return this.type === 'text' || this.type === 'icon-and-text';
+        }
     }
 };
 </script>
@@ -98,20 +81,21 @@ export default {
     align-items: center;
     cursor: pointer;
     display: flex;
-    font-family: $font-stack;
-    height: rem-calc(48px);
+    font-family: inherit;
+    height: rem(48px);
     justify-content: center;
-    min-width: rem-calc(80px);
-    padding: rem-calc(0 12px);
+    min-width: rem(80px);
+    padding: rem(0 12px);
     position: relative;
     text-transform: uppercase;
+    transition: color 0.1s;
 
-    &:hover {
-        background-color: rgba(black, 0.05);
+    &.is-active::after {
+        opacity: 1;
+        transform: scaleX(1);
     }
 
     &.is-disabled {
-        background-color: transparent;
         cursor: default;
         opacity: 0.4;
         user-select: none;
@@ -121,25 +105,61 @@ export default {
 .ui-tab-header-item--type-icon-and-text {
     display: flex;
     flex-direction: column;
-    height: rem-calc(72px);
+    height: rem(72px);
 
     .ui-tab-header-item__icon {
-        margin-bottom: rem-calc(4px);
+        margin-bottom: rem(4px);
     }
 }
 
 .ui-tab-header-item__text {
     @include text-truncation;
-    font-size: rem-calc(15px);
-    font-weight: 500;
+    font-size: rem(15px);
+    font-weight: 600;
 }
 
 .ui-tab-header-item__icon {
-    height: rem-calc(24px);
-    width: rem-calc(24px);
+    height: rem(24px);
+    width: rem(24px);
+    color: currentColor;
 
     .ui-icon {
         cursor: inherit;
+    }
+}
+
+.ui-tab-header-item::after {
+    bottom: 0;
+    content: '';
+    height: rem(3px);
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    transform: scaleX(0);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    width: 100%;
+}
+
+// ================================================
+// Indicator Colors
+// ================================================
+
+.ui-tabs--indicator-color-primary {
+    .ui-tab-header-item::after {
+        background-color: $brand-primary-color;
+    }
+}
+
+.ui-tabs--indicator-color-accent {
+    .ui-tab-header-item::after {
+        background-color: $brand-accent-color;
+    }
+}
+
+.ui-tabs--indicator-color-white {
+    .ui-tab-header-item::after {
+        background-color: white;
+        box-shadow: 0 1px 1px rgba(black, 0.16);
     }
 }
 </style>

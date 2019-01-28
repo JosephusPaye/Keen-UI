@@ -1,39 +1,40 @@
 <template>
-    <ul class="ui-menu" role="menu" :class="classes">
+    <ui-focus-container
+        class="ui-menu"
+        ref="focusContainer"
+        role="menu"
+        tag="ul"
+        lazy
+
+        :class="classes"
+        :contain-focus="containFocus"
+    >
         <ui-menu-option
             :disable-ripple="disableRipple"
             :disabled="option[keys.disabled]"
+            :href="option[keys.href]"
             :icon-props="iconProps || option[keys.iconProps]"
             :icon="hasIcons ? option[keys.icon] : null"
             :key="index"
             :label="option[keys.type] === 'divider' ? null : option[keys.label] || option"
             :secondary-text="hasSecondaryText ? option[keys.secondaryText] : null"
+            :target="option[keys.target]"
             :type="option[keys.type]"
 
             @click.native="selectOption(option)"
-            @keydown.enter.native.prevent="selectOption(option)"
+            @keydown.enter.native="selectOption(option)"
             @keydown.esc.native.esc="closeMenu"
 
             v-for="(option, index) in options"
         >
             <slot name="option" :option="option"></slot>
         </ui-menu-option>
-
-        <div
-            class="ui-menu__focus-redirector"
-            tabindex="0"
-
-            @focus="redirectFocus"
-
-            v-if="containFocus"
-        ></div>
-    </ul>
+    </ui-focus-container>
 </template>
 
 <script>
+import UiFocusContainer from './UiFocusContainer.vue';
 import UiMenuOption from './UiMenuOption.vue';
-
-import config from './config';
 
 export default {
     name: 'ui-menu',
@@ -61,12 +62,21 @@ export default {
         keys: {
             type: Object,
             default() {
-                return config.data.UiMenu.keys;
+                return {
+                    icon: 'icon',
+                    type: 'type',
+                    label: 'label',
+                    secondaryText: 'secondaryText',
+                    iconProps: 'iconProps',
+                    disabled: 'disabled',
+                    href: 'href',
+                    target: 'target'
+                };
             }
         },
         disableRipple: {
             type: Boolean,
-            default: config.data.disableRipple
+            default: false
         },
         raised: {
             type: Boolean,
@@ -96,15 +106,11 @@ export default {
 
         closeMenu() {
             this.$emit('close');
-        },
-
-        redirectFocus(e) {
-            e.stopPropagation();
-            this.$el.querySelector('.ui-menu-option').focus();
         }
     },
 
     components: {
+        UiFocusContainer,
         UiMenuOption
     }
 };
@@ -115,17 +121,17 @@ export default {
 
 .ui-menu {
     background-color: white;
-    border: rem-calc(1px) solid rgba(black, 0.08);
+    border: rem(1px) solid rgba(black, 0.08);
     font-family: $font-stack;
     list-style: none;
     margin: 0;
     max-height: 100vh;
-    max-width: rem-calc(272px);
-    min-width: rem-calc(168px);
+    max-width: rem(272px);
+    min-width: rem(168px);
     outline: none;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: rem-calc(4px 0);
+    padding: rem(4px 0);
 
     &.is-raised {
         border: none;
@@ -135,13 +141,8 @@ export default {
     }
 
     &.has-secondary-text {
-        min-width: rem-calc(240px);
-        max-width: rem-calc(304px);
+        min-width: rem(240px);
+        max-width: rem(304px);
     }
-}
-
-.ui-menu__focus-redirector {
-    position: absolute;
-    opacity: 0;
 }
 </style>

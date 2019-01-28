@@ -1,43 +1,45 @@
 <template>
-    <div class="ui-confirm">
-        <ui-modal
-            ref="modal"
-            role="alertdialog"
+    <ui-modal
+        class="ui-confirm"
+        ref="modal"
+        role="alertdialog"
 
-            :dismiss-on="dismissOn"
-            :dismissible="!loading"
-            :title="title"
-            :transition="transition"
+        :dismiss-on="dismissOn"
+        :dismissible="!loading"
+        :title="title"
+        :transition="transition"
+        :size="size"
 
-            @close="onModalClose"
-            @open="onModalOpen"
-        >
-            <div class="ui-confirm__message">
-                <slot></slot>
-            </div>
+        @close="onModalClose"
+        @hide="onModalHide"
+        @open="onModalOpen"
+        @reveal="onModalReveal"
+    >
+        <div class="ui-confirm__message">
+            <slot></slot>
+        </div>
 
-            <div class="ui-confirm__footer" slot="footer">
-                <ui-button
-                    ref="confirmButton"
+        <div class="ui-confirm__footer" slot="footer">
+            <ui-button
+                ref="confirmButton"
 
-                    :color="confirmButtonColor"
-                    :icon="confirmButtonIcon"
-                    :loading="loading"
+                :color="confirmButtonColor"
+                :icon="confirmButtonIcon"
+                :loading="loading"
 
-                    @click="confirm"
-                >{{ confirmButtonText }}</ui-button>
+                @click="confirm"
+            >{{ confirmButtonText }}</ui-button>
 
-                <ui-button
-                    ref="denyButton"
+            <ui-button
+                ref="denyButton"
 
-                    :disabled="loading"
-                    :icon="denyButtonIcon"
+                :disabled="loading"
+                :icon="denyButtonIcon"
 
-                    @click="deny"
-                >{{ denyButtonText }}</ui-button>
-            </div>
-        </ui-modal>
-    </div>
+                @click="deny"
+            >{{ denyButtonText }}</ui-button>
+        </div>
+    </ui-modal>
 </template>
 
 <script>
@@ -58,6 +60,7 @@ export default {
             type: String,
             default: 'primary' // any of the color prop values of UiButton
         },
+        size: String,
         confirmButtonText: {
             type: String,
             default: 'OK'
@@ -139,8 +142,16 @@ export default {
             this.$emit('open');
         },
 
+        onModalReveal() {
+            this.$emit('reveal');
+        },
+
         onModalClose() {
             this.$emit('close');
+        },
+
+        onModalHide() {
+            this.$emit('hide');
         },
 
         removeAutoFocus() {
@@ -172,8 +183,7 @@ export default {
 @import './styles/imports';
 
 .ui-confirm__message {
-    font-family: $font-stack;
-    font-size: rem-calc(15px);
+    font-size: rem(15px);
 }
 
 .ui-confirm__footer {

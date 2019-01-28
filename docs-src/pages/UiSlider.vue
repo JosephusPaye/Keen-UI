@@ -18,22 +18,25 @@
             <ui-slider icon="volume_up" v-model="slider2"></ui-slider>
 
             <h4 class="page__demo-title">With marker</h4>
-            <ui-slider icon="volume_up" show-marker v-model="slider3"></ui-slider>
+            <ui-slider show-marker v-model="slider3"></ui-slider>
+
+            <h4 class="page__demo-title">With custom min and max: [1, 15]</h4>
+
+            <ui-slider show-marker :min="1" :max="15" v-model="slider4"></ui-slider>
 
             <h4 class="page__demo-title">Snap to steps: 20</h4>
 
             <ui-slider
-                icon="volume_up"
                 show-marker
                 snap-to-steps
 
                 :step="20"
 
-                v-model="slider4"
+                v-model="slider5"
             ></ui-slider>
 
             <h4 class="page__demo-title">Disabled</h4>
-            <ui-slider icon="volume_up" v-model="slider5" disabled></ui-slider>
+            <ui-slider icon="volume_up" v-model="slider6" disabled></ui-slider>
 
             <ui-button @click="resetSliders">Reset Sliders</ui-button>
         </div>
@@ -84,9 +87,23 @@
                             </tr>
 
                             <tr>
+                                <td>min</td>
+                                <td>Number</td>
+                                <td><code>0</code></td>
+                                <td>The minimum slider value.</td>
+                            </tr>
+
+                            <tr>
+                                <td>max</td>
+                                <td>Number</td>
+                                <td><code>100</code></td>
+                                <td>The maximum slider value.</td>
+                            </tr>
+
+                            <tr>
                                 <td>step</td>
                                 <td>Number</td>
-                                <td><code>5</code></td>
+                                <td><code>10</code></td>
                                 <td>The amount to increment or decrement the slider value by when using the keyboard arrow keys. Also determines the snap points on the slider when <code>snapToSteps</code> is <code>true</code>.</td>
                             </tr>
 
@@ -94,7 +111,7 @@
                                 <td>snapToSteps</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
-                                <td>Whether or not the slider value should be snapped to distrete steps. Setting to <code>true</code> will ensure that the value is always a multiple of the <code>step</code> prop when a drag is completed.</td>
+                                <td>Whether or not the slider value should be snapped to discrete steps. Setting to <code>true</code> will ensure that the value is always a multiple of the <code>step</code> prop when a drag is completed.</td>
                             </tr>
 
                             <tr>
@@ -109,6 +126,13 @@
                                 <td>Number, String</td>
                                 <td></td>
                                 <td>The value shown in the marker when <code>showMarker</code> is <code>true</code>. If not provided and <code>showMarker</code> is <code>true</code>, the slider's value is shown in the marker.</td>
+                            </tr>
+
+                            <tr>
+                                <td>tabindex</td>
+                                <td>Number, String</td>
+                                <td></td>
+                                <td>The slider input <code>tabindex</code>.</td>
                             </tr>
 
                             <tr>
@@ -223,6 +247,13 @@
 
                         <tbody>
                             <tr>
+                                <td><code>focus()</code></td>
+                                <td>
+                                    <p>Call this method to programmatically focus the slider.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td><code>reset()</code></td>
                                 <td>Call this method to reset the slider's value to its initial value.</td>
                             </tr>
@@ -246,8 +277,9 @@ export default {
             slider1: 25,
             slider2: 50,
             slider3: 60,
-            slider4: 40,
-            slider5: 75
+            slider4: 7,
+            slider5: 40,
+            slider6: 75
         };
     },
 
@@ -256,7 +288,8 @@ export default {
             this.slider1 = 25;
             this.slider2 = 50;
             this.slider3 = 60;
-            this.slider4 = 40;
+            this.slider4 = 7;
+            this.slider5 = 40;
         }
     },
 
@@ -274,15 +307,15 @@ export default {
 
 .page--ui-slider {
     .page__examples {
-        max-width: rem-calc(500px);
+        max-width: rem(500px);
     }
 
     .ui-slider {
-        margin-bottom: rem-calc(8px);
+        margin-bottom: rem(8px);
     }
 
     .ui-button {
-        margin-top: rem-calc(24px);
+        margin-top: rem(24px);
     }
 }
 </style>

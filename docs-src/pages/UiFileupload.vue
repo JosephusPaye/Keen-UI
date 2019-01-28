@@ -171,12 +171,19 @@
                             </tr>
 
                             <tr>
+                                <td>tabindex</td>
+                                <td>Number, String</td>
+                                <td></td>
+                                <td>The upload button <code>tabindex</code>.</td>
+                            </tr>
+
+                            <tr>
                                 <td>disableRipple</td>
                                 <td>Boolean</td>
                                 <td><code>false</code></td>
                                 <td>
                                     <p>Whether or not the ripple ink animation is shown when the upload button is clicked.</p>
-                                    <p>Can be set using the <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#global-config" target="_blank" rel="noopener">global config</a>.</p>
+                                    <p>Default value can be <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#changing-default-prop-values" target="_blank" rel="noopener">changed globally</a>.</p>
                                     <p>Set to <code>true</code> to disable the ripple ink animation.</p>
                                 </td>
                             </tr>
@@ -267,6 +274,44 @@
                     </table>
                 </div>
             </ui-tab>
+
+            <ui-tab title="Methods">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td><code>focus()</code></td>
+                                <td>
+                                    <p>Call this method to programmatically focus the upload button.</p>
+                                    <p>Note that the focus ring will not be shown if the user's current <a href="https://github.com/alice/modality" rel="noopener" target="_blank">input modality</a> is not keyboard.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><code>openPicker()</code></td>
+                                <td>
+                                    <p>Call this method to programmatically open the file picker.</p>
+                                    <p>This method should only be called in response to a <a href="https://github.com/WICG/interventions/issues/12" target="_blank" rel="noopener">user gesture</a> like a click or focus or the action may fail.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><code>clear()</code></td>
+                                <td>
+                                    <p>Call this method to clear the selected file, if any.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ui-tab>
         </ui-tabs>
     </section>
 </template>
@@ -307,7 +352,7 @@ export default {
 
 .page--ui-fileupload {
     .ui-radio-group {
-        margin-bottom: rem-calc(16px);
+        margin-bottom: rem(16px);
     }
 
     .page__demo-group {

@@ -31,24 +31,30 @@
                 <ui-fab
                     color="primary"
                     icon="edit"
-                    tooltip-position="top center"
-                    tooltip="Top center"
-                    :size="size"
-                ></ui-fab>
-
-                <ui-fab color="accent" icon="edit" tooltip="Bottom center" :size="size"></ui-fab>
-
-                <ui-fab
-                    icon="edit"
-                    tooltip-position="left middle"
-                    tooltip="Left middle"
+                    tooltip-position="top"
+                    tooltip="Position top"
                     :size="size"
                 ></ui-fab>
 
                 <ui-fab
+                    color="accent"
                     icon="edit"
-                    tooltip-position="right middle"
-                    tooltip="Right middle"
+                    tooltip-position="bottom"
+                    tooltip="Position bottom"
+                    :size="size"
+                ></ui-fab>
+
+                <ui-fab
+                    icon="edit"
+                    tooltip-position="left"
+                    tooltip="Position left"
+                    :size="size"
+                ></ui-fab>
+
+                <ui-fab
+                    icon="edit"
+                    tooltip-position="right"
+                    tooltip="Position right"
                     :size="size"
                 ></ui-fab>
             </div>
@@ -116,20 +122,20 @@
                             <tr>
                                 <td>tooltipPosition</td>
                                 <td>String</td>
-                                <td class="no-wrap"><code>"bottom left"</code></td>
+                                <td class="no-wrap"><code>"bottom"</code></td>
                                 <td>
                                     <p>The position of the tooltip relative to the FAB.</p>
-                                    <p>One of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, or <code>top center</code>.</p>
+                                    <p>One of <code>top</code>, <code>top-start</code>, <code>top-end</code>, <code>right</code>, <code>right-start</code>, <code>right-end</code>, <code>bottom</code>, <code>bottom-start</code>, <code>bottom-end</code>, <code>left</code>, <code>left-start</code>, <code>left-end</code>.</p>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>openTooltipOn</td>
                                 <td>String</td>
-                                <td><code>"hover focus"</code></td>
+                                <td><code>"mouseenter focus"</code></td>
                                 <td>
                                     <p>The type of event or events that will cause the tooltip to open.</p>
-                                    <p>One or more of <code>click</code>, <code>hover</code>, or <code>focus</code>. Separate multiple events with a space.</p>
+                                    <p>One or more of <code>click</code>, <code>hover</code>/<code>mouseenter</code>, or <code>focus</code>. Separate multiple events with a space.</p>
                                 </td>
                             </tr>
 
@@ -139,7 +145,7 @@
                                 <td><code>false</code></td>
                                 <td>
                                     <p>Whether or not the ripple ink animation is shown when the FAB is clicked.</p>
-                                    <p>Can be set using the <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#global-config" target="_blank" rel="noopener">global config</a>.</p>
+                                    <p>Default value can be <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#changing-default-prop-values" target="_blank" rel="noopener">changed globally</a>.</p>
                                     <p>Set to <code>true</code> to disable the ripple ink animation.</p>
                                 </td>
                             </tr>
@@ -200,17 +206,17 @@ export default {
 
 .page--ui-fab {
     .ui-radio-group {
-        margin-bottom: rem-calc(16px);
+        margin-bottom: rem(16px);
     }
 
     .page__demo-group {
         align-items: flex-end;
         display: flex;
         flex-wrap: wrap;
-        margin-bottom: rem-calc(16px);
+        margin-bottom: rem(16px);
 
         .ui-fab {
-            margin-right: rem-calc(18px);
+            margin-right: rem(18px);
         }
     }
 }

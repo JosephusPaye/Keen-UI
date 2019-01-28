@@ -8,14 +8,6 @@
 
         <div class="ui-textbox__content">
             <label class="ui-textbox__label">
-                <div
-                    class="ui-textbox__label-text"
-                    :class="labelClasses"
-                    v-if="label || $slots.default"
-                >
-                    <slot>{{ label }}</slot>
-                </div>
-
                 <input
                     class="ui-textbox__input"
                     ref="input"
@@ -31,6 +23,7 @@
                     :readonly="readonly"
                     :required="required"
                     :step="stepValue"
+                    :tabindex="tabindex"
                     :type="type"
                     :value="value"
 
@@ -57,6 +50,7 @@
                     :readonly="readonly"
                     :required="required"
                     :rows="rows"
+                    :tabindex="tabindex"
                     :value="value"
 
                     @blur="onBlur"
@@ -68,7 +62,15 @@
 
                     v-autofocus="autofocus"
                     v-else
-                >{{ value }}</textarea>
+                ></textarea>
+
+                <div
+                    class="ui-textbox__label-text"
+                    :class="labelClasses"
+                    v-if="label || $slots.default"
+                >
+                    <slot>{{ label }}</slot>
+                </div>
             </label>
 
             <div class="ui-textbox__feedback" v-if="hasFeedback || maxlength">
@@ -100,6 +102,7 @@ export default {
     props: {
         name: String,
         placeholder: String,
+        tabindex: [String, Number],
         value: {
             type: [String, Number],
             default: ''
@@ -234,7 +237,7 @@ export default {
         },
 
         hasFeedback() {
-            return Boolean(this.help) || Boolean(this.error) || Boolean(this.$slots.error);
+            return this.showError || this.showHelp;
         },
 
         showError() {
@@ -242,7 +245,7 @@ export default {
         },
 
         showHelp() {
-            return !this.showError && (Boolean(this.help) || Boolean(this.$slots.help));
+            return Boolean(this.help) || Boolean(this.$slots.help);
         }
     },
 
@@ -321,6 +324,10 @@ export default {
             if (this.autosizeInitialized) {
                 autosize.update(this.$refs.textarea);
             }
+        },
+
+        focus() {
+            (this.$refs.input || this.$refs.textarea).focus();
         }
     },
 
@@ -375,7 +382,7 @@ export default {
 
     &.has-counter {
         .ui-textbox__feedback-text {
-            padding-right: rem-calc(48px);
+            padding-right: rem(48px);
         }
     }
 
@@ -394,6 +401,15 @@ export default {
             &.is-floating {
                 transform: translateY(0) scale(1);
             }
+        }
+
+        // Fixes glitch in chrome where label and input value overlap each other
+        // when webkit-autofill value has not been propagated yet (e.g. https://github.com/vuejs/vue/issues/1331)
+        // The webkit-autofill value will only be propagated on first click into the viewport.
+        // Before that .is-inline will be wrongly set and cause the auto filled input value and the label to overlap.
+        // This fix will style the wrong .is-inline like an .is-floating in case :-webkit-autofill is set.
+        .ui-textbox__label > input:-webkit-autofill + .ui-textbox__label-text.is-inline {
+            transform: translateY(0) scale(1);
         }
     }
 
@@ -433,7 +449,8 @@ export default {
 }
 
 .ui-textbox__label {
-    display: block;
+    display: flex;
+    flex-direction: column-reverse;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -441,7 +458,7 @@ export default {
 
 .ui-textbox__icon-wrapper {
     flex-shrink: 0;
-    margin-right: rem-calc(12px);
+    margin-right: rem(12px);
     padding-top: $ui-input-icon-margin-top;
 
     .ui-icon {
@@ -474,7 +491,7 @@ export default {
     color: $ui-input-text-color;
     cursor: auto;
     display: block;
-    font-family: $font-stack;
+    font-family: inherit;
     font-size: $ui-input-text-font-size;
     font-weight: normal;
     margin: 0;
@@ -491,7 +508,7 @@ export default {
 .ui-textbox__textarea {
     overflow-x: hidden;
     overflow-y: auto;
-    padding-bottom: rem-calc(6px);
+    padding-bottom: rem(6px);
     resize: vertical;
 }
 
@@ -516,7 +533,7 @@ export default {
 
 .ui-textbox--icon-position-right {
     .ui-textbox__icon-wrapper {
-        margin-left: rem-calc(8px);
+        margin-left: rem(8px);
         margin-right: 0;
         order: 1;
     }

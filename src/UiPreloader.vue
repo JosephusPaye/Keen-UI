@@ -26,7 +26,7 @@ export default {
 @import './styles/imports';
 
 $ui-preloader-duration  : 3s !default;
-$ui-preloader-height    : rem-calc(3px) !default;
+$ui-preloader-height    : rem(3px) !default;
 
 $ui-preloader-color-1   : #159756 !default; // green
 $ui-preloader-color-2   : #da4733 !default; // red

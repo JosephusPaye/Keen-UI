@@ -604,12 +604,12 @@ export default {
 
 .page--ui-toolbar {
     .page__demo-group {
-        margin-bottom: rem-calc(48px);
+        margin-bottom: rem(48px);
 
         &.has-photo-cover {
             background-position: 50%;
             background-size: cover;
-            height: rem-calc(300px);
+            height: rem(300px);
         }
     }
 

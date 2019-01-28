@@ -38,6 +38,7 @@
                     :name="name"
                     :placeholder="hasFloatingLabel ? null : placeholder"
                     :readonly="readonly ? readonly : null"
+                    :tabindex="tabindex"
                     :value="value"
 
                     @blur="onBlur"
@@ -96,7 +97,6 @@ import autofocus from './directives/autofocus';
 import UiAutocompleteSuggestion from './UiAutocompleteSuggestion.vue';
 import UiIcon from './UiIcon.vue';
 
-import config from './config';
 import fuzzysearch from 'fuzzysearch';
 
 export default {
@@ -105,6 +105,7 @@ export default {
     props: {
         name: String,
         placeholder: String,
+        tabindex: [String, Number],
         value: {
             type: [String, Number],
             default: ''
@@ -164,6 +165,7 @@ export default {
             default: false
         },
         filter: Function,
+        sort: Function,
         highlightOnFirstMatch: {
             type: Boolean,
             default: true
@@ -175,7 +177,11 @@ export default {
         keys: {
             type: Object,
             default() {
-                return config.data.UiAutocomplete.keys;
+                return {
+                    label: 'label',
+                    value: 'value',
+                    image: 'image'
+                };
             }
         },
         invalid: {
@@ -232,7 +238,7 @@ export default {
         },
 
         hasFeedback() {
-            return Boolean(this.help) || Boolean(this.error) || Boolean(this.$slots.error);
+            return this.showError || this.showHelp;
         },
 
         showError() {
@@ -240,19 +246,26 @@ export default {
         },
 
         showHelp() {
-            return !this.showError && (Boolean(this.help) || Boolean(this.$slots.help));
+            return Boolean(this.help) || Boolean(this.$slots.help);
         },
 
         matchingSuggestions() {
-            return this.suggestions
+            let suggestions = this.suggestions
                 .filter((suggestion, index) => {
                     if (this.filter) {
-                        return this.filter(suggestion, this.value);
+                        return this.filter(suggestion, this.value, this.defaultFilter);
                     }
 
-                    return this.defaultFilter(suggestion, index);
-                })
-                .slice(0, this.limit);
+                    const query = this.value === null ? '' : this.value;
+
+                    return this.defaultFilter(suggestion, query);
+                });
+
+            if (this.sort) {
+                suggestions.sort(this.sort.bind(this));
+            }
+
+            return suggestions.slice(0, this.limit);
         }
     },
 
@@ -283,9 +296,8 @@ export default {
     },
 
     methods: {
-        defaultFilter(suggestion) {
+        defaultFilter(suggestion, query) {
             const text = suggestion[this.keys.label] || suggestion;
-            let query = this.value === null ? '' : this.value;
 
             if (typeof query === 'string') {
                 query = query.toLowerCase();
@@ -342,6 +354,10 @@ export default {
                 e.preventDefault();
                 this.selectSuggestion(this.$refs.suggestions[index].suggestion);
             }
+        },
+
+        focus() {
+            this.$refs.input.focus();
         },
 
         openDropdown() {
@@ -547,7 +563,7 @@ export default {
     border-radius: 0;
     color: $ui-input-text-color;
     cursor: auto;
-    font-family: $font-stack;
+    font-family: inherit;
     font-size: $ui-input-text-font-size;
     font-weight: normal;
     height: $ui-input-height;
@@ -582,7 +598,7 @@ export default {
     display: block;
     list-style-type: none;
     margin: 0;
-    margin-bottom: rem-calc(8px);
+    margin-bottom: rem(8px);
     min-width: 100%;
     padding: 0;
     position: absolute;
@@ -604,7 +620,7 @@ export default {
 
 .ui-autocomplete--icon-position-right {
     .ui-autocomplete__icon-wrapper {
-        margin-left: rem-calc(8px);
+        margin-left: rem(8px);
         margin-right: 0;
         order: 1;
     }

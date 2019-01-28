@@ -2,7 +2,6 @@
     <button
         aria-label="Close"
         class="ui-close-button"
-        ref="button"
         type="button"
 
         :class="classes"
@@ -20,7 +19,7 @@
 
         <span class="ui-close-button__focus-ring"></span>
 
-        <ui-ripple-ink trigger="button" v-if="!disableRipple && !disabled"></ui-ripple-ink>
+        <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
     </button>
 </template>
 
@@ -28,15 +27,13 @@
 import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
 
-import config from './config';
-
 export default {
     name: 'ui-close-button',
 
     props: {
         size: {
             type: String,
-            default: 'normal' // 'small', 'normal', or 'large'
+            default: 'normal' // 'mini', small', 'normal', or 'large'
         },
         color: {
             type: String,
@@ -44,7 +41,7 @@ export default {
         },
         disableRipple: {
             type: Boolean,
-            default: config.data.disableRipple
+            default: false
         },
         disabled: {
             type: Boolean,
@@ -78,13 +75,18 @@ export default {
 <style lang="scss">
 @import './styles/imports';
 
+$ui-close-button-size            : rem(36px) !default;
+$ui-close-button--size-mini      : rem(24px) !default;
+$ui-close-button--size-small     : rem(32px) !default;
+$ui-close-button--size-large     : rem(48px) !default;
+
 .ui-close-button {
     align-items: center;
     background-color: transparent;
     background: none;
     border-radius: 50%;
     border: none;
-    cursor: pointer;
+    cursor: default;
     display: inline-flex;
     justify-content: center;
     margin: 0;
@@ -113,12 +115,15 @@ export default {
     }
 
     &.is-disabled {
-        cursor: default;
         opacity: 0.6;
     }
 }
 
 .ui-close-button__icon {
+    color: currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative; // IE: prevents shifting when the button is pressed
     width: 100%; // Firefox: needs the width reset for Flexbox centering
     z-index: 1;
@@ -133,46 +138,58 @@ export default {
     top: 0;
     transform-origin: center;
     transform: scale(0);
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 // ================================================
 // Sizes
 // ================================================
 
-.ui-close-button--size-small {
+.ui-close-button--size-mini {
     &,
     .ui-close-button__focus-ring {
-        height: rem-calc(32px);
-        width: rem-calc(32px);
+        height: $ui-close-button--size-mini;
+        width: $ui-close-button--size-mini;
     }
 
     .ui-icon {
-        font-size: rem-calc(18px);
+        font-size: rem(18px);
+    }
+}
+
+.ui-close-button--size-small {
+    &,
+    .ui-close-button__focus-ring {
+        height: $ui-close-button--size-small;
+        width: $ui-close-button--size-small;
+    }
+
+    .ui-icon {
+        font-size: rem(18px);
     }
 }
 
 .ui-close-button--size-normal {
     &,
     .ui-close-button__focus-ring {
-        height: rem-calc(36px);
-        width: rem-calc(36px);
+        height:$ui-close-button-size;
+        width:$ui-close-button-size;
     }
 
     .ui-icon {
-        font-size: rem-calc(20px);
+        font-size: rem(20px);
     }
 }
 
 .ui-close-button--size-large {
     &,
     .ui-close-button__focus-ring {
-        height: rem-calc(48px);
-        width: rem-calc(48px);
+        height: $ui-close-button--size-large;
+        width: $ui-close-button--size-large;
     }
 
     .ui-icon {
-        font-size: rem-calc(24px);
+        font-size: rem(24px);
     }
 }
 
@@ -181,28 +198,17 @@ export default {
 // ================================================
 
 .ui-close-button--color-black {
+    color: rgba(black, 0.38);
+
     body[modality="keyboard"] &:focus,
     &:hover:not(.is-disabled) {
         .ui-close-button__icon {
             color: $primary-text-color;
         }
     }
-
-    .ui-close-button__icon {
-        color: rgba(black, 0.38);
-    }
 }
 
 .ui-close-button--color-white {
-    body[modality="keyboard"] &:focus,
-    &:hover:not(.is-disabled) {
-        .ui-close-button__icon {
-            color: white;
-        }
-    }
-
-    .ui-close-button__icon {
-        color: $secondary-text-color;
-    }
+    color: white;
 }
 </style>

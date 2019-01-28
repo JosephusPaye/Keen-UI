@@ -104,7 +104,7 @@
                 :suggestions="months"
                 v-model="autocomplete6"
             >
-                <template scope="props" slot="suggestion">
+                <template slot-scope="props" slot="suggestion">
                     <code>{{ props }}</code>
                 </template>
             </ui-autocomplete>
@@ -255,9 +255,21 @@
                                     <ul>
                                         <li><code>suggestion</code>: (Object or String) - the current suggestion</li>
                                         <li><code>query</code>: (String) - the current value of the autocomplete input (what the user has typed)</li>
+                                        <li><code>defaultFilter</code>: (Function) - Keen UI's default filter function. You can call this with the suggestion and query to defer to the default fuzzy filter behavior. Remember to return its result from your custom filter function if you're using it.</li>
                                     </ul>
 
                                     <p>The function should return <code>true</code> if the suggestion matches the query or <code>false</code> otherwise.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>sort</td>
+                                <td>Function</td>
+                                <td></td>
+                                <td>
+                                    <p>Defines a custom sort function that is used for sorting the suggestions after they are filtered.</p>
+
+                                    <p>The function should implement the standard <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Syntax" target="_blank" rel="noopener"><code>Array.prototype.sort()</code> compare callback</a>.</p>
                                 </td>
                             </tr>
 
@@ -273,7 +285,7 @@
                                     <p>Allows for redefining each suggestion object's keys.</p>
                                     <p>Pass an object with custom keys if your data does not match the default keys.</p>
                                     <p>Note that if you redefine one key, you have to define all the others as well.</p>
-                                    <p>Can be set using the <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#global-config" target="_blank" rel="noopener">global config</a>.</p>
+                                    <p>Default value can be <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#changing-default-prop-values" target="_blank" rel="noopener">changed globally</a>.</p>
                                 </td>
                             </tr>
 
@@ -343,6 +355,13 @@
                                     <p>Whether or not the autocomplete label starts out inline and moves to float above the input when it is focused.</p>
                                     <p>Set to <code>true</code> for a floating label. This will disable the input placeholder.</p>
                                 </td>
+                            </tr>
+
+                            <tr>
+                                <td>tabindex</td>
+                                <td>Number, String</td>
+                                <td></td>
+                                <td>The autocomplete input <code>tabindex</code>.</td>
                             </tr>
 
                             <tr>
@@ -557,6 +576,13 @@
 
                         <tbody>
                             <tr>
+                                <td><code>focus()</code></td>
+                                <td>
+                                    <p>Call this method to programmatically focus the autocomplete.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td><code>reset()</code></td>
                                 <td>
                                     <p>Call this method to reset the autocomplete to its initial value. You should also reset the <code>invalid</code> and <code>touched</code> props.</p>
@@ -675,7 +701,7 @@ export default {
 
 .page--ui-autocomplete {
     .page__examples {
-        max-width: rem-calc(512px);
+        max-width: rem(512px);
     }
 }
 </style>

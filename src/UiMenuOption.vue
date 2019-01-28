@@ -1,11 +1,13 @@
 <template>
-    <li
+    <component
         class="ui-menu-option"
-        ref="menuOption"
         role="menu-item"
 
         :class="classes"
-        :tabindex="(isDivider || disabled) ? null : '0'"
+        :href="isAnchor ? (disabled ? null : href) : null"
+        :is="isAnchor ? 'a' : 'li'"
+        :tabindex="(isDivider || isAnchor || disabled) ? null : '0'"
+        :target="isAnchor ? (disabled ? null : target) : null"
     >
         <slot v-if="!isDivider">
             <div class="ui-menu-option__content">
@@ -28,18 +30,13 @@
             </div>
         </slot>
 
-        <ui-ripple-ink
-            trigger="menuOption"
-            v-if="!disabled && !isDivider && !disableRipple"
-        ></ui-ripple-ink>
-    </li>
+        <ui-ripple-ink v-if="!disabled && !isDivider && !disableRipple"></ui-ripple-ink>
+    </component>
 </template>
 
 <script>
 import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
-
-import config from './config';
 
 export default {
     name: 'ui-menu-option',
@@ -47,6 +44,8 @@ export default {
     props: {
         type: String,
         label: String,
+        href: String,
+        target: String,
         icon: String,
         iconProps: {
             type: Object,
@@ -57,7 +56,7 @@ export default {
         secondaryText: String,
         disableRipple: {
             type: Boolean,
-            default: config.data.disableRipple
+            default: false
         },
         disabled: {
             type: Boolean,
@@ -69,12 +68,17 @@ export default {
         classes() {
             return {
                 'is-divider': this.isDivider,
-                'is-disabled': this.disabled
+                'is-disabled': this.disabled,
+                'is-anchor': this.isAnchor
             };
         },
 
         isDivider() {
             return this.type === 'divider';
+        },
+
+        isAnchor() {
+            return !this.isDivider && this.href !== undefined;
         }
     },
 
@@ -90,7 +94,7 @@ export default {
 
 .ui-menu-option {
     display: block;
-    font-family: $font-stack;
+    font-family: inherit;
     position: relative;
     user-select: none;
     width: 100%;
@@ -98,8 +102,8 @@ export default {
     &.is-divider {
         background-color: rgba(black, 0.08);
         display: block;
-        height: rem-calc(1px);
-        margin: rem-calc(6px 0);
+        height: rem(1px);
+        margin: rem(6px 0);
         padding: 0;
     }
 
@@ -108,12 +112,13 @@ export default {
         cursor: pointer;
         font-size: $ui-dropdown-item-font-size;
         font-weight: normal;
-        min-height: rem-calc(40px);
+        min-height: rem(40px);
         outline: none;
+        text-decoration: none;
 
         &:hover:not(.is-disabled),
         body[modality="keyboard"] &:focus {
-            background-color: #EEEEEE; // rgba(black, 0.1);
+            background-color: $ui-menu-item-hover-color;
         }
 
         &.is-disabled {
@@ -131,14 +136,14 @@ export default {
 .ui-menu-option__content {
     align-items: center;
     display: flex;
-    height: rem-calc(40px);
-    padding: rem-calc(0 16px);
+    height: rem(40px);
+    padding: rem(0 16px);
 }
 
 .ui-menu-option__icon {
     color: $secondary-text-color;
-    font-size: rem-calc(18px);
-    margin-right: rem-calc(16px);
+    font-size: rem(18px);
+    margin-right: rem(16px);
 }
 
 .ui-menu-option__text {
@@ -149,7 +154,7 @@ export default {
 .ui-menu-option__secondary-text {
     color: $hint-text-color;
     flex-shrink: 0;
-    font-size: rem-calc(13px);
-    margin-left: rem-calc(4px);
+    font-size: rem(13px);
+    margin-left: rem(4px);
 }
 </style>

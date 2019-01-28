@@ -108,12 +108,34 @@
                 >Delete Post</ui-button>
             </div>
 
-            <h4 class="page__demo-title">Transition: fade</h4>
+            <h4 class="page__demo-title">Transitions</h4>
 
             <div class="page__demo-group">
                 <ui-confirm
+                    ref="scaleUpConfirm"
+                    title="Scale Up Transition"
+                    transition="scale-up"
+
+                    @confirm="onConfirm"
+                    @deny="onDeny"
+                >
+                    Do you want to confirm this?
+                </ui-confirm>
+
+                <ui-confirm
+                    ref="scaleDownConfirm"
+                    title="Scale Down Transition"
+                    transition="scale-down"
+
+                    @confirm="onConfirm"
+                    @deny="onDeny"
+                >
+                    Do you want to confirm this?
+                </ui-confirm>
+
+                <ui-confirm
                     ref="fadeConfirm"
-                    title="Fading Confirm"
+                    title="Fade Transition"
                     transition="fade"
 
                     @confirm="onConfirm"
@@ -122,7 +144,9 @@
                     Do you want to confirm this?
                 </ui-confirm>
 
-                <ui-button @click="showConfirm('fadeConfirm')">Fading Confirm</ui-button>
+                <ui-button @click="showConfirm('scaleUpConfirm')">Scale Up</ui-button>
+                <ui-button @click="showConfirm('scaleUpConfirm')">Scale Down (default)</ui-button>
+                <ui-button @click="showConfirm('fadeConfirm')">Fade</ui-button>
             </div>
 
             <pre v-if="confirmResult.length" class="language-html"><code>{{ confirmResult }}</code></pre>
@@ -161,6 +185,15 @@
                                 <td>
                                     <p>The type of confirm dialog (determines the color of the primary confirm button).</p>
                                     <p>Can be one of <code>default</code>, <code>primary</code>, <code>accent</code>, <code>success</code>, <code>warning</code> or <code>danger</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>size</td>
+                                <td>String</td>
+                                <td><code>"normal"</code></td>
+                                <td>
+                                    <p>The size of the confirm modal. One of <code>small</code>, <code>normal</code>, <code>large</code>, or <code>fullscreen</code>.</p>
                                 </td>
                             </tr>
 
@@ -239,9 +272,9 @@
                             <tr>
                                 <td>transition</td>
                                 <td>String</td>
-                                <td></td>
+                                <td><code>scale-down</code></td>
                                 <td>
-                                    <p>The dialog enter/leave transition. One of <code>scale</code> or <code>fade</code>. Default is <a href="#/ui-modal">UiModal</a>'s default transition.</p>
+                                    <p>The dialog enter/leave transition. One of <code>scale-up</code>, <code>scale-down</code> or <code>fade</code>.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -305,10 +338,26 @@
                             </tr>
 
                             <tr>
+                                <td>reveal</td>
+                                <td>
+                                    <p>Emitted when the confirm dialog is revealed (i.e. when the open transition completes).</p>
+                                    <p>Listen for it using <code>@reveal</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>close</td>
                                 <td>
                                     <p>Emitted when the confirm dialog is closed.</p>
                                     <p>Listen for it using <code>@close</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>hide</td>
+                                <td>
+                                    <p>Emitted when the confirm dialog transition completes.</p>
+                                    <p>Listen for it using <code>@hide</code>.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -385,8 +434,11 @@ export default {
 
             setTimeout(() => {
                 this.publishRequestInProgress = false;
-                this.hideConfirm('publishConfirm');
                 this.confirmResult = 'The post was published.';
+
+                this.$nextTick(() => {
+                    this.hideConfirm('publishConfirm');
+                });
             }, 5000);
         },
 

@@ -3,11 +3,11 @@
         class="ui-slider"
         role="slider"
 
-        :aria-valuemax="100"
-        :aria-valuemin="0"
+        :aria-valuemax="moderatedMax"
+        :aria-valuemin="moderatedMin"
         :aria-valuenow="localValue"
         :class="classes"
-        :tabindex="disabled ? null : 0"
+        :tabindex="disabled ? null : (tabindex || '0')"
 
         @blur="onBlur"
         @focus="onFocus"
@@ -41,7 +41,7 @@
             <div class="ui-slider__track-background">
                 <span
                     class="ui-slider__snap-point"
-                    :style="{ left: point + '%' }"
+                    :style="{ left: 100 * relativeValue(point) + '%' }"
 
                     v-if="snapToSteps"
                     v-for="point in snapPoints"
@@ -74,10 +74,19 @@ export default {
 
     props: {
         name: String,
+        tabindex: [String, Number],
         icon: String,
         value: {
             type: Number,
             required: true
+        },
+        min: {
+            type: Number,
+            default: 0
+        },
+        max: {
+            type: Number,
+            default: 100
         },
         step: {
             type: Number,
@@ -91,7 +100,7 @@ export default {
             type: Boolean,
             default: false
         },
-        markerValue: Number,
+        markerValue: [String, Number],
         disabled: {
             type: Boolean,
             default: false
@@ -126,33 +135,39 @@ export default {
         },
 
         fillStyle() {
-            return { transform: 'scaleX(' + (this.localValue / 100) + ')' };
+            return { transform: 'scaleX(' + (this.relativeValue(this.localValue)) + ')' };
         },
 
         thumbStyle() {
             return {
                 transform: 'translateX(' + (
-                    ((this.localValue / 100) * this.trackLength) - (this.thumbSize / 2)
+                    (this.relativeValue(this.localValue) * this.trackLength) - (this.thumbSize / 2)
                 ) + 'px)'
             };
         },
 
         markerText() {
-            return this.markerValue ? this.markerValue : this.value;
+            return this.markerValue !== undefined ? this.markerValue : this.value;
         },
 
         snapPoints() {
             const points = [];
-            let index = 0;
-            let point = index * this.step;
+            let point = this.step * Math.ceil(this.moderatedMin / this.step);
 
-            while (point <= 100) {
+            while (point <= this.moderatedMax) {
                 points.push(point);
-                index++;
-                point = index * this.step;
+                point += this.step;
             }
 
             return points;
+        },
+
+        moderatedMin() {
+            return this.max > this.min ? this.min : 0;
+        },
+
+        moderatedMax() {
+            return this.max > this.min ? this.max : 100;
         }
     },
 
@@ -176,6 +191,10 @@ export default {
     },
 
     methods: {
+        focus() {
+            this.$el.focus();
+        },
+
         reset() {
             this.setValue(this.initialValue);
         },
@@ -196,12 +215,18 @@ export default {
             }
         },
 
-        setValue(value) {
-            if (value > 100) {
-                value = 100;
-            } else if (value < 0) {
-                value = 0;
+        setValueWithSnap(value) {
+            value = this.getEdge(value);
+
+            if (this.snapToSteps) {
+                value = this.getNearestSnapPoint(value);
             }
+
+            this.setValue(value);
+        },
+
+        setValue(value) {
+            value = this.getEdge(value);
 
             if (value === this.localValue) {
                 return;
@@ -213,11 +238,11 @@ export default {
         },
 
         incrementValue() {
-            this.setValue(this.localValue + this.step);
+            this.setValueWithSnap(this.localValue + this.step);
         },
 
         decrementValue() {
-            this.setValue(this.localValue - this.step);
+            this.setValueWithSnap(this.localValue - this.step);
         },
 
         getTrackOffset() {
@@ -265,7 +290,7 @@ export default {
         },
 
         initializeDrag() {
-            const value = this.getEdge(this.localValue ? this.localValue : 0, 0, 100);
+            const value = this.getEdge(this.localValue ? this.localValue : 0);
             this.setValue(value);
         },
 
@@ -293,8 +318,9 @@ export default {
 
         dragUpdate(e) {
             const position = e.touches ? e.touches[0].pageX : e.pageX;
+            const relativeValue = (position - this.trackOffset) / this.trackLength;
             const value = this.getEdge(
-                ((position - this.trackOffset) / this.trackLength) * 100, 0, 100
+                this.moderatedMin + (relativeValue * (this.moderatedMax - this.moderatedMin))
             );
 
             if (this.isDragging) {
@@ -303,33 +329,48 @@ export default {
         },
 
         onDragStop(e) {
-            this.isDragging = false;
+            if (this.isDragging) {
+                this.isDragging = false;
 
-            if (this.snapToSteps && this.value % this.step !== 0) {
-                this.setValue(this.getNearestSnapPoint());
+                if (this.snapToSteps && this.value % this.step !== 0) {
+                    this.setValueWithSnap(this.value);
+                }
+
+                document.removeEventListener('touchmove', this.onDragMove);
+                document.removeEventListener('mousemove', this.onDragMove);
+
+                this.$emit('dragend', this.localValue, e);
             }
-
-            document.removeEventListener('touchmove', this.onDragMove);
-            document.removeEventListener('mousemove', this.onDragMove);
-
-            this.$emit('dragend', this.localValue, e);
         },
 
-        getNearestSnapPoint() {
-            const previousSnapPoint = Math.floor(this.value / this.step) * this.step;
+        getNearestSnapPoint(value) {
+            const previousSnapPoint = Math.floor(value / this.step) * this.step;
             const nextSnapPoint = previousSnapPoint + this.step;
             const midpoint = (previousSnapPoint + nextSnapPoint) / 2;
 
-            return this.value >= midpoint ? nextSnapPoint : previousSnapPoint;
+            if (previousSnapPoint < this.moderatedMin) {
+                if (nextSnapPoint > this.moderatedMax) {
+                    return value;
+                }
+                return nextSnapPoint;
+            }
+            if (value >= midpoint && nextSnapPoint <= this.moderatedMax) {
+                return nextSnapPoint;
+            }
+            return previousSnapPoint;
         },
 
-        getEdge(a, b, c) {
-            if (a < b) {
-                return b;
+        relativeValue(value) {
+            return (value - this.moderatedMin) / (this.moderatedMax - this.moderatedMin);
+        },
+
+        getEdge(a) {
+            if (a < this.moderatedMin) {
+                return this.moderatedMin;
             }
 
-            if (a > c) {
-                return c;
+            if (a > this.moderatedMax) {
+                return this.moderatedMax;
             }
 
             return a;
@@ -349,24 +390,24 @@ export default {
 <style lang="scss">
 @import './styles/imports';
 
-$ui-slider-height                   : rem-calc(18px) !default;
+$ui-slider-height                   : rem(18px) !default;
 
 // Track line
-$ui-slider-track-height             : rem-calc(3px) !default;
+$ui-slider-track-height             : rem(3px) !default;
 $ui-slider-track-fill-color         : $brand-primary-color !default;
 $ui-slider-track-background-color   : rgba(black, 0.12) !default;
 
 // Drag thumb
-$ui-track-thumb-size                : rem-calc(14px) !default;
+$ui-track-thumb-size                : rem(14px) !default;
 $ui-track-thumb-fill-color          : $brand-primary-color !default;
 
 // Focus ring
-$ui-track-focus-ring-size                   : rem-calc(36px) !default;
+$ui-track-focus-ring-size                   : rem(36px) !default;
 $ui-track-focus-ring-transition-duration    : 0.2s !default;
 $ui-track-focus-ring-color                  : rgba($ui-track-thumb-fill-color, 0.38) !default;
 
 // Marker
-$ui-slider-marker-size                      : rem-calc(36px);
+$ui-slider-marker-size                      : rem(36px);
 
 .ui-slider {
     align-items: center;
@@ -383,7 +424,7 @@ $ui-slider-marker-size                      : rem-calc(36px);
 
         .ui-slider__marker {
             opacity: 1;
-            transform: scale(1) translateY(rem-calc(-26px));
+            transform: scale(1) translateY(rem(-26px));
         }
 
         .ui-slider__marker-text {
@@ -414,13 +455,13 @@ $ui-slider-marker-size                      : rem-calc(36px);
 
         .ui-slider__thumb {
             background-color: #DDD;
-            border: rem-calc(2px) solid white;
+            border: rem(2px) solid white;
         }
     }
 }
 
 .ui-slider__icon {
-    margin-right: rem-calc(16px);
+    margin-right: rem(16px);
 
     .ui-icon {
         color: $secondary-text-color;
@@ -459,7 +500,7 @@ $ui-slider-marker-size                      : rem-calc(36px);
     opacity: 0;
     position: absolute;
     transition: opacity 0.2s ease;
-    width: rem-calc(2px);
+    width: rem(2px);
     z-index: 1;
 }
 
@@ -517,12 +558,12 @@ $ui-slider-marker-size                      : rem-calc(36px);
 
 .ui-slider__marker-text {
     color: $ui-track-thumb-fill-color;;
-    font-size: rem-calc(13px);
-    font-weight: 500;
+    font-size: rem(13px);
+    font-weight: 600;
     left: 0;
     position: absolute;
     text-align: center;
-    top: rem-calc(4px);
+    top: rem(4px);
     transition: color $ui-track-focus-ring-transition-duration ease;
     width: $ui-slider-marker-size;
 }

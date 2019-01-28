@@ -135,9 +135,9 @@ export default {
             if (this.progress >= 100) {
                 this.progress = 0;
             } else {
-                this.progress += 5;
+                this.progress += 25;
             }
-        }, 400);
+        }, 1000);
     },
 
     beforeDestroy() {
@@ -158,26 +158,26 @@ export default {
 
 .page--ui-progress-linear {
     .ui-button {
-        margin-top: rem-calc(24px);
+        margin-top: rem(24px);
     }
 
     .ui-progress-linear {
-        margin-top: rem-calc(8px);
-        margin-bottom: rem-calc(8px);
+        margin-top: rem(8px);
+        margin-bottom: rem(8px);
     }
 
     .page__demo-group {
         .ui-progress-linear {
-            margin-bottom: rem-calc(40px);
+            margin-bottom: rem(40px);
         }
     }
 
     .has-white-progress {
         background-color: gray;
-        padding: rem-calc(8px 0);
+        padding: rem(8px 0);
 
         .ui-progress-linear {
-            margin-bottom: rem-calc(8px);
+            margin-bottom: rem(8px);
         }
     }
 }

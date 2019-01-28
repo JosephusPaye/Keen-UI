@@ -124,6 +124,6 @@ export default {
 }
 
 .ui-calendar-controls__month-and-year {
-    font-size: rem-calc(15px);
+    font-size: rem(15px);
 }
 </style>

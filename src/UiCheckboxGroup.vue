@@ -41,7 +41,6 @@
 <script>
 import UiCheckbox from './UiCheckbox.vue';
 
-import config from './config';
 import { looseIndexOf } from './helpers/util';
 
 export default {
@@ -60,7 +59,14 @@ export default {
         keys: {
             type: Object,
             default() {
-                return config.data.UiCheckboxGroup.keys;
+                return {
+                    id: 'id',
+                    name: 'name',
+                    class: 'class',
+                    label: 'label',
+                    value: 'value',
+                    disabled: 'disabled'
+                };
             }
         },
         label: String,
@@ -110,7 +116,7 @@ export default {
         },
 
         hasFeedback() {
-            return Boolean(this.help) || Boolean(this.error) || Boolean(this.$slots.error);
+            return this.showError || this.showHelp;
         },
 
         showError() {
@@ -118,7 +124,7 @@ export default {
         },
 
         showHelp() {
-            return !this.showError && (Boolean(this.help) || Boolean(this.$slots.help));
+            return Boolean(this.help) || Boolean(this.$slots.help);
         }
     },
 
@@ -200,11 +206,11 @@ export default {
     &.is-vertical {
         .ui-checkbox-group__checkboxes {
             flex-direction: column;
-            padding-top: rem-calc(8px);
+            padding-top: rem(8px);
         }
 
         .ui-checkbox-group__checkbox {
-            margin-bottom: rem-calc(12px);
+            margin-bottom: rem(12px);
             margin-left: 0;
             width: 100%;
         }
@@ -241,7 +247,7 @@ export default {
 
 .ui-checkbox.ui-checkbox-group__checkbox {
     margin-bottom: 0;
-    margin-left: rem-calc(24px);
+    margin-left: rem(24px);
 
     &:first-child {
         margin-left: 0;
@@ -253,7 +259,7 @@ export default {
     font-size: $ui-input-feedback-font-size;
     line-height: $ui-input-feedback-line-height;
     margin: 0;
-    padding-top: $ui-input-feedback-padding-top - rem-calc(4px);
+    padding-top: $ui-input-feedback-padding-top - rem(4px);
     position: relative;
 }
 
@@ -264,7 +270,7 @@ export default {
 .ui-checkbox-group--box-position-right {
     &:not(.is-vertical) {
         .ui-checkbox__label-text {
-            margin-right: rem-calc(8px);
+            margin-right: rem(8px);
         }
     }
 }

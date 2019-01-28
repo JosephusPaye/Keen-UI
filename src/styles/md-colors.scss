@@ -292,3 +292,24 @@ $md-blue-grey-900       : #263238;
 
 $md-black               : #000000;
 $md-white               : #ffffff;
+
+$md-dark-text-primary       : rgba($md-black, 0.87);
+$md-dark-text-secondary     : rgba($md-black, 0.54);
+$md-dark-text-disabled      : rgba($md-black, 0.38);
+$md-dark-text-hint          : rgba($md-black, 0.38);
+$md-dark-divider            : rgba($md-black, 0.12);
+
+$md-light-text-primary      : rgba($md-white, 1);
+$md-light-text-secondary    : rgba($md-white, 0.7);
+$md-light-text-disabled     : rgba($md-white, 0.5);
+$md-light-text-hint         : rgba($md-white, 0.5);
+$md-light-divider           : rgba($md-white, 0.12);
+
+$md-dark-icon               : rgba($md-black, 0.54);
+$md-dark-icon-disabled      : rgba($md-black, 0.38);
+
+$md-light-icon               : rgba($md-white, 1);
+$md-light-icon-disabled      : rgba($md-white, 0.5);
+
+$md-tooltip-background       : #212121;
+$md-tooltip-text             : $md-white;

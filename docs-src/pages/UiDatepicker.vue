@@ -44,6 +44,14 @@
                 v-model="picker4"
             >Christmas Day</ui-datepicker>
 
+            <h4 class="page__demo-title">With ISO 8601 string as value</h4>
+
+            <ui-datepicker
+                icon="events"
+                placeholder="Select a date"
+                v-model="picker401"
+            >Your Birthday</ui-datepicker>
+
             <h4 class="page__demo-title">Color: accent</h4>
 
             <ui-datepicker
@@ -79,6 +87,14 @@
                 picker-type="modal"
                 placeholder="Select a date"
                 v-model="picker8"
+            >Your Birthday</ui-datepicker>
+
+            <h4 class="page__demo-title">With different start of week: Monday</h4>
+
+            <ui-datepicker
+                placeholder="Select a date"
+                :start-of-week="1"
+                v-model="picker801"
             >Your Birthday</ui-datepicker>
 
             <h4 class="page__demo-title">With custom formatter</h4>
@@ -180,12 +196,19 @@
                         <tbody>
                             <tr>
                                 <td class="no-wrap">value, v-model *</td>
-                                <td>Date</td>
+                                <td>Date, String</td>
                                 <td></td>
                                 <td>
                                     <p>The model the selected date syncs to. Can be set initially for a default value.</p>
                                     <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>value</code>.</p>
                                 </td>
+                            </tr>
+
+                            <tr>
+                                <td>startOfWeek</td>
+                                <td>Number</td>
+                                <td><code>0</code></td>
+                                <td>A number corresponding to the start day of the week. <code>0</code> is Sunday, <code>1</code> is Monday, and so on.</td>
                             </tr>
 
                             <tr>
@@ -339,6 +362,13 @@
                                     <p>Whether or not the label starts out inline and moves to float above the datepicker when it is focused.</p>
                                     <p>Set to <code>true</code> for a floating label. This will disable the placeholder.</p>
                                 </td>
+                            </tr>
+
+                            <tr>
+                                <td>tabindex</td>
+                                <td>Number, String</td>
+                                <td></td>
+                                <td>The datepicker <code>tabindex</code>.</td>
                             </tr>
 
                             <tr>
@@ -501,6 +531,20 @@
 
                         <tbody>
                             <tr>
+                                <td><code>focus()</code></td>
+                                <td>
+                                    <p>Call this method to programmatically focus the datepicker.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><code>clear()</code></td>
+                                <td>
+                                    <p>Call this method to clear the selected date.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td><code>reset()</code></td>
                                 <td>
                                     <p>Call this method to reset the datepicker to its initial value. You should also reset the <code>invalid</code> prop.</p>
@@ -536,10 +580,12 @@ export default {
             picker2: null,
             picker3: null,
             picker4: new Date((new Date()).getFullYear(), 11, 25),
+            picker401: '2019-01-08',
             picker5: null,
             picker6: null,
             picker7: null,
             picker8: null,
+            picker801: null,
             picker9: null,
             picker10: null,
             picker10Min: new Date(),
@@ -576,8 +622,8 @@ export default {
 
 .page--ui-datepicker {
     .ui-datepicker {
-        max-width: rem-calc(400px);
-        margin-bottom: rem-calc(32px);
+        max-width: rem(400px);
+        margin-bottom: rem(32px);
     }
 }
 </style>

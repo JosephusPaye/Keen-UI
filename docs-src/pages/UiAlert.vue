@@ -43,6 +43,10 @@
                 The icon for this alert has been removed.
             </ui-alert>
 
+            <ui-alert @dismiss="showAlert8 = false" type="warning" disable-animation v-show="showAlert8">
+                Animations for this alert are disabled.
+            </ui-alert>
+
             <ui-alert :dismissible="false">This alert is not dismissible.</ui-alert>
 
             <ui-alert :dismissible="false" remove-icon>
@@ -85,6 +89,16 @@
                                 <td>
                                     <p>Whether or not the alert icon is removed.</p>
                                     <p>Set to <code>true</code> to remove the icon.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>disableAnimation</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>
+                                    <p>Whether or not the alert should be animated when showing and hiding.</p>
+                                    <p>Set to <code>true</code> to disable the animation.</p>
                                 </td>
                             </tr>
 
@@ -172,7 +186,8 @@ export default {
             showAlert4: true,
             showAlert5: true,
             showAlert6: true,
-            showAlert7: true
+            showAlert7: true,
+            showAlert8: true
         };
     },
 
@@ -185,6 +200,7 @@ export default {
             this.showAlert5 = true;
             this.showAlert6 = true;
             this.showAlert7 = true;
+            this.showAlert8 = true;
         }
     },
 

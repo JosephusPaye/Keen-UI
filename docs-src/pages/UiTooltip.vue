@@ -4,6 +4,8 @@
 
         <p>UiTooltip shows a tooltip on an element. The tooltip position relative to the associated element and the event that causes the tooltip to open can be customized.</p>
 
+        <p>UiTooltip uses a custom version of <a href="https://atomiks.github.io/tippyjs/" target="_blank" rel="noopener">Tippy.js</a>, which uses <a href="https://popper.js.org" target="_blank" rel="noopener">Popper.js</a> for dynamic positioning.</p>
+
         <p>UiTooltip is used internally by <a href="#/ui-icon-button-docs">UiIconButton</a> and <a href="#/ui-fab-docs">UiFab</a>.</p>
 
         <h3 class="page__section-title">
@@ -12,16 +14,17 @@
 
         <div class="page__examples">
             <div class="page__demo-group page__demo-group--the-simpsons">
-                <image-pane
+                <div
+                    class="image-pane"
                     tabindex="0"
 
-                    :image="simpson.image"
                     :key="index"
-                    :name="simpson.name"
-                    :tooltip-position="simpson.position"
+                    :style="{ 'background-image': 'url(' + simpson.image + ')' }"
 
                     v-for="(simpson, index) in theSimpsons"
-                ></image-pane>
+                >
+                    <ui-tooltip :position="simpson.position">{{ simpson.name }}</ui-tooltip>
+                </div>
             </div>
         </div>
 
@@ -42,34 +45,22 @@
 
                         <tbody>
                             <tr>
-                                <td>trigger *</td>
+                                <td>animation</td>
                                 <td>String</td>
-                                <td>required</td>
+                                <td class="no-wrap"><code>"fade"</code></td>
                                 <td>
-                                    <p>The string key of an element in the parent's <code>$refs</code> object.</p>
-                                    <p>The tooltip event listeners will be attached to this element, and when any of the <code>openOn</code> events are triggered, a tooltip will be shown next to the element.</p>
-                                    <p>By default, when the element is hovered or focused, the tooltip is shown.</p>
+                                    <p>The type of animation to use when showing or hiding the tooltip.</p>
+                                    <p>One of: <code>fade</code>, <code>shift-away</code>, or <code>none</code>.</p>
                                 </td>
                             </tr>
 
                             <tr>
-                                <td>position</td>
-                                <td>String</td>
-                                <td class="no-wrap"><code>"bottom center"</code></td>
+                                <td>appendToBody</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
                                 <td>
-                                    <p>The position of the tooltip relative to the trigger.</p>
-
-                                    <p>One of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, or <code>top center</code>.</p>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>openOn</td>
-                                <td>String</td>
-                                <td><code>"hover focus"</code></td>
-                                <td>
-                                    <p>The type of event or events that will cause the tooltip to open.</p>
-                                    <p>One or more of <code>click</code>, <code>hover</code>, or <code>focus</code>. Separate multiple events with a space.</p>
+                                    <p>Whether or not the tooltip is appended to <code>document.body</code>.</p>
+                                    <p>Set to <code>false</code> to append the tooltip to the trigger's parent element.</p>
                                 </td>
                             </tr>
 
@@ -81,11 +72,42 @@
                                     <p>The amount of time to wait (in milliseconds) before showing the tooltip when it is triggered.</p>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td>openOn</td>
+                                <td>String</td>
+                                <td class="no-wrap"><code>"mouseenter focus"</code></td>
+                                <td>
+                                    <p>The type of event or events that will cause the tooltip to open.</p>
+                                    <p>One or more of <code>click</code>, <code>hover</code>/<code>mouseenter</code>, or <code>focus</code>. Separate multiple events with a space.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>position</td>
+                                <td>String</td>
+                                <td><code>"bottom"</code></td>
+                                <td>
+                                    <p>The position of the tooltip relative to the trigger.</p>
+
+                                    <p>One of <code>top</code>, <code>top-start</code>, <code>top-end</code>, <code>right</code>, <code>right-start</code>, <code>right-end</code>, <code>bottom</code>, <code>bottom-start</code>, <code>bottom-end</code>, <code>left</code>, <code>left-start</code>, <code>left-end</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>trigger</td>
+                                <td><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element" target="_blank" rel="noopener">Element</a>,<br>VueComponent,<br>String</td>
+                                <td>Parent element</td>
+                                <td>
+                                    <p>An Element, VueComponent instance, or CSS selector for an element to use as the trigger.</p>
+                                    <p>It's recommended to leave <code>trigger</code> unspecified so that the component's immediate parent can be used as the trigger.</p>
+                                    <p>The tooltip event listeners will be attached to this element, and when any of the <code>openOn</code> events are triggered, a tooltip will be shown next to the element.</p>
+                                    <p>If <code>trigger</code> is not provided or the selector doesn't match any element, the tooltip's immediate parent element is used as the trigger. Note that the parent used is the tooltip's parent in the DOM, not the Vue parent component.</p>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
-
-                * Required prop
             </ui-tab>
 
             <ui-tab title="Slots">
@@ -93,7 +115,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Name</th>
+                                <th class="fixed-width">Name</th>
                                 <th>Description</th>
                             </tr>
                         </thead>
@@ -116,52 +138,30 @@ import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
 import UiTooltip from 'src/UiTooltip.vue';
 
-const theSimpsons = [
-    {
-        position: 'top center',
-        name: 'Maggie Simpson',
-        image: 'https://i.imgur.com/eK26qtK.jpg'
-    },
-    {
-        position: 'bottom center',
-        name: 'Lisa Simpson',
-        image: 'https://i.imgur.com/wIb44g9.jpg'
-    },
-    {
-        position: 'right middle',
-        name: 'Bart Simpson',
-        image: 'https://i.imgur.com/XkEz9zg.jpg'
-    }
-];
-
-const ImagePane = {
-    name: 'image-pane',
-    template: `
-        <div class="image-pane" ref="image" :style="{ 'background-image': 'url(' + image + ')' }">
-            <ui-tooltip trigger="image" :position="tooltipPosition">{{ name }}</ui-tooltip>
-        </div>
-    `,
-
-    props: {
-        image: String,
-        name: String,
-        tooltipPosition: String
-    },
-
-    components: {
-        UiTooltip
-    }
-};
-
 export default {
     data() {
         return {
-            theSimpsons
+            theSimpsons: [
+                {
+                    position: 'top',
+                    name: 'Maggie Simpson',
+                    image: 'https://i.imgur.com/eK26qtK.jpg'
+                },
+                {
+                    position: 'bottom',
+                    name: 'Lisa Simpson',
+                    image: 'https://i.imgur.com/wIb44g9.jpg'
+                },
+                {
+                    position: 'right',
+                    name: 'Bart Simpson',
+                    image: 'https://i.imgur.com/XkEz9zg.jpg'
+                }
+            ]
         };
     },
 
     components: {
-        ImagePane,
         UiTab,
         UiTabs,
         UiTooltip
@@ -180,9 +180,9 @@ export default {
 
     .page__demo-group--the-simpsons {
         .image-pane {
-            border-radius: rem-calc(8px);
-            height: rem-calc(120px);
-            width: rem-calc(120px);
+            border-radius: rem(8px);
+            height: rem(120px);
+            width: rem(120px);
         }
     }
 
@@ -190,8 +190,8 @@ export default {
         background-color: #EEE;
         background-position: 50%;
         background-size: cover;
-        margin-bottom: rem-calc(16px);
-        margin-right: rem-calc(16px);
+        margin-bottom: rem(16px);
+        margin-right: rem(16px);
         position: relative;
     }
 }

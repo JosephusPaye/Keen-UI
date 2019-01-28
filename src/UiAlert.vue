@@ -1,5 +1,5 @@
 <template>
-    <transition name="ui-alert--transition-toggle">
+    <transition :name="disableAnimation ? null : 'ui-alert--transition-toggle'">
         <div class="ui-alert" :class="classes" role="alert">
             <div class="ui-alert__body">
                 <div class="ui-alert__icon" v-if="!removeIcon">
@@ -56,6 +56,10 @@ export default {
             type: Boolean,
             default: false
         },
+        disableAnimation: {
+            type: Boolean,
+            default: false
+        },
         dismissible: {
             type: Boolean,
             default: true
@@ -65,7 +69,8 @@ export default {
     computed: {
         classes() {
             return [
-                `ui-alert--type-${this.type}`
+                `ui-alert--type-${this.type}`,
+                { 'has-no-transition': this.disableAnimation }
             ];
         }
     },
@@ -87,8 +92,8 @@ export default {
 @import './styles/imports';
 
 $ui-alert-color             : rgba(black, 0.75) !default;
-$ui-alert-font-size         : rem-calc(15px) !default;
-$ui-alert-margin-bottom     : rem-calc(16px) !default;
+$ui-alert-font-size         : rem(15px) !default;
+$ui-alert-margin-bottom     : rem(16px) !default;
 
 .ui-alert {
     display: flex;
@@ -100,6 +105,13 @@ $ui-alert-margin-bottom     : rem-calc(16px) !default;
     position: relative;
     transition: margin-bottom 0.3s;
     width: 100%;
+
+    &.has-no-transition {
+        &,
+        .ui-alert__body {
+            transition: none;
+        }
+    }
 
     a {
         text-decoration: none;
@@ -114,7 +126,7 @@ $ui-alert-margin-bottom     : rem-calc(16px) !default;
 .ui-alert__icon {
     align-self: flex-start;
     flex-shrink: 0;
-    margin-right: rem-calc(12px);
+    margin-right: rem(12px);
 }
 
 .ui-alert__body {
@@ -124,8 +136,8 @@ $ui-alert-margin-bottom     : rem-calc(16px) !default;
     flex-direction: row;
     margin-bottom: 0;
     margin-top: 0;
-    min-height: rem-calc(48px);
-    padding: rem-calc(12px 16px);
+    min-height: rem(48px);
+    padding: rem(12px 16px);
     transition: opacity 0.3s, margin-top 0.4s;
     width: 100%;
 }
@@ -137,10 +149,10 @@ $ui-alert-margin-bottom     : rem-calc(16px) !default;
 .ui-alert__dismiss-button {
     align-self: flex-start;
     flex-shrink: 0;
-    margin-bottom: rem-calc(-4px);
-    margin-left: rem-calc(8px);
-    margin-right: rem-calc(-8px);
-    margin-top: rem-calc(-4px);
+    margin-bottom: rem(-4px);
+    margin-left: rem(8px);
+    margin-right: rem(-8px);
+    margin-top: rem(-4px);
 }
 
 // ================================================
@@ -212,7 +224,7 @@ $ui-alert-margin-bottom     : rem-calc(16px) !default;
     margin-bottom: 0;
 
     .ui-alert__body {
-        margin-top: rem-calc(-56px);
+        margin-top: rem(-56px);
         opacity: 0;
     }
 }

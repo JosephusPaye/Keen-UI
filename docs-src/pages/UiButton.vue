@@ -163,9 +163,41 @@
                     </tbody>
                 </table>
             </div>
-        </div>
 
-        <div class="page__demo">
+            <h4 class="page__demo-title">With href (linked button)</h4>
+
+            <div class="page__demo-group">
+                <ui-button
+                    color="primary"
+                    href="https://github.com/JosephusPaye/Keen-UI"
+                    rel="noopener"
+                    target="_blank"
+
+                    :size="size"
+                >Github</ui-button>
+
+                <ui-button
+                    color="primary"
+                    disabled
+                    href="https://github.com/JosephusPaye/Keen-UI"
+
+                    :size="size"
+                >Disabled link</ui-button>
+            </div>
+
+            <h4 class="page__demo-title">With tooltip</h4>
+
+            <div class="page__demo-group">
+                <ui-button
+                    color="primary"
+                    icon="add"
+                    tooltip-position="top"
+                    tooltip="Add a new resource to this project"
+
+                    :size="size"
+                >Add</ui-button>
+            </div>
+
             <h4 class="page__demo-title">Has dropdown, with menu</h4>
 
             <div class="page__demo-group">
@@ -188,7 +220,7 @@
 
             <div class="page__demo-group">
                 <ui-button has-dropdown :size="size">
-                    <div class="custom-popover-content" slot="dropdown">
+                    <div class="keen-docs__custom-popover-content" slot="dropdown">
                         <p><b>Hey</b> there!</p>
                         <p>Button dropdowns can have any content, not just menus.</p>
                     </div>
@@ -227,8 +259,15 @@
                             <tr>
                                 <td>buttonType</td>
                                 <td>String</td>
-                                <td><code>"submit"</code></td>
-                                <td>The <code>type</code> attribute of the button element.</td>
+                                <td></td>
+                                <td>The <code>type</code> attribute of the button element. The <a href="https://stackoverflow.com/a/31644856" target="_blank" rel="noopener">HTML default</a> is <code>submit</code>.</td>
+                            </tr>
+
+                            <tr>
+                                <td>href</td>
+                                <td>String</td>
+                                <td></td>
+                                <td>The button's <code>href</code> attribute. Setting this attribute will render an anchor tag (<code>&lt;a&gt;</code>).</td>
                             </tr>
 
                             <tr>
@@ -237,7 +276,7 @@
                                 <td><code>"default"</code></td>
                                 <td>
                                     <p>One of <code>primary</code>, <code>accent</code>, <code>green</code>, <code>orange</code>, <code>red</code> or <code>default</code>.</p>
-                                    <p>In <code>type="primary"</code> buttons, this is the background color; in <code>type="secondary"</code> buttons, the text color.</p>
+                                    <p>For buttons of type <code>primary</code>, this is the background color; for buttons of type <code>secondary</code>, the text color.</p>
                                 </td>
                             </tr>
 
@@ -290,13 +329,31 @@
                             </tr>
 
                             <tr>
-                                <td>disableRipple</td>
-                                <td>Boolean</td>
-                                <td><code>false</code></td>
+                                <td>tooltip</td>
+                                <td>String</td>
+                                <td></td>
                                 <td>
-                                    <p>Whether or not the ripple ink animation is shown when the button is clicked.</p>
-                                    <p>Can be set using the <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#global-config" target="_blank" rel="noopener">global config</a>.</p>
-                                    <p>Set to <code>true</code> to disable the ripple ink animation.</p>
+                                    <p>The button tooltip (text only).</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>tooltipPosition</td>
+                                <td>String</td>
+                                <td class="no-wrap"><code>"bottom"</code></td>
+                                <td>
+                                    <p>The position of the tooltip relative to the button.</p>
+                                    <p>One of <code>top</code>, <code>top-start</code>, <code>top-end</code>, <code>right</code>, <code>right-start</code>, <code>right-end</code>, <code>bottom</code>, <code>bottom-start</code>, <code>bottom-end</code>, <code>left</code>, <code>left-start</code>, <code>left-end</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>openTooltipOn</td>
+                                <td>String</td>
+                                <td><code>"mouseenter focus"</code></td>
+                                <td>
+                                    <p>The type of event or events that will cause the tooltip to open.</p>
+                                    <p>One or more of <code>click</code>, <code>hover</code>/<code>mouseenter</code>, or <code>focus</code>. Separate multiple events with a space.</p>
                                 </td>
                             </tr>
 
@@ -313,10 +370,20 @@
                             <tr>
                                 <td>dropdownPosition</td>
                                 <td>String</td>
-                                <td class="no-wrap"><code>"bottom left"</code></td>
+                                <td class="no-wrap"><code>"bottom-start"</code></td>
                                 <td>
                                     <p>The position of the dropdown relative to the button.</p>
-                                    <p>One of <code>top left</code>, <code>left top</code>, <code>left middle</code>, <code>left bottom</code>, <code>bottom left</code>, <code>bottom center</code>, <code>bottom right</code>, <code>right bottom</code>, <code>right middle</code>, <code>right top</code>, <code>top right</code>, or <code>top center</code>.</p>
+                                    <p>One of <code>top</code>, <code>top-start</code>, <code>top-end</code>, <code>right</code>, <code>right-start</code>, <code>right-end</code>, <code>bottom</code>, <code>bottom-start</code>, <code>bottom-end</code>, <code>left</code>, <code>left-start</code>, <code>left-end</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>constrainDropdownToScrollParent</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td>
+                                    <p>When set to <code>true</code>, the button's dropdown will flip it's position if the position will cause it to overflow the button's scroll parent. The scroll parent is the first parent that has <code>overflow: auto</code> or <code>overflow: scroll</code> set, or <code>&lt;body&gt;</code>, whichever comes first.</p>
+                                    <p>Set to <code>false</code> to disable the flipping behavior. This is useful for buttons in modals, if you want the button's dropdown to drop outside of the boundaries of the modal.</p>
                                 </td>
                             </tr>
 
@@ -325,8 +392,19 @@
                                 <td>String</td>
                                 <td><code>"click"</code></td>
                                 <td>
-                                    <p>The type of event that will cause the dropdown to open. One of <code>click</code>, <code>hover</code>, <code>focus</code>, or <code>always</code>.</p>
-                                    <p>For <code>always</code>, the dropdown is opened when rendered and it remains open.</p>
+                                    <p>The type of event that will cause the dropdown to open. One of <code>click</code>, <code>mouseenter</code>/<code>hover</code>, <code>focus</code>, or <code>manual</code>.</p>
+                                    <p>For <code>manual</code>, the dropdown is closed by default, until manually opened.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>disableRipple</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>
+                                    <p>Whether or not the ripple ink animation is shown when the button is clicked.</p>
+                                    <p>Default value can be <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#changing-default-prop-values" target="_blank" rel="noopener">changed globally</a>.</p>
+                                    <p>Set to <code>true</code> to disable the ripple ink animation.</p>
                                 </td>
                             </tr>
 
@@ -515,7 +593,7 @@ export default {
 .page--ui-button {
     .ui-radio-group,
     .ui-switch {
-        margin-bottom: rem-calc(16px);
+        margin-bottom: rem(16px);
     }
 
     .ui-switch {
@@ -523,41 +601,28 @@ export default {
     }
 
     .ui-button {
-        margin-bottom: rem-calc(12px);
-        margin-right: rem-calc(8px);
+        margin-bottom: rem(12px);
+        margin-right: rem(8px);
     }
 
     .page__demo-group {
-        margin-bottom: rem-calc(18px);
+        margin-bottom: rem(18px);
     }
 
     .page__demo-table {
-        max-width: rem-calc(600px);
+        max-width: rem(600px);
 
         .ui-button {
             display: flex;
 
             &.ui-button--size-normal {
-                min-width: rem-calc(100px);
+                min-width: rem(100px);
             }
 
             &.ui-button--size-large {
-                min-width: rem-calc(124px);
+                min-width: rem(124px);
             }
         }
-    }
-}
-
-.custom-popover-content {
-    padding: rem-calc(16px);
-    max-width: rem-calc(360px);
-
-    p:first-child {
-        margin-top: 0;
-    }
-
-    p:last-child {
-        margin-bottom: 0;
     }
 }
 </style>

@@ -3,11 +3,13 @@
         <div class="ui-radio__input-wrapper">
             <input
                 class="ui-radio__input"
+                ref="input"
                 type="radio"
 
                 :checked="checked"
                 :disabled="disabled"
                 :name="name"
+                :tabindex="tabindex"
                 :value="trueValue"
 
                 @blur="onBlur"
@@ -34,6 +36,7 @@ export default {
     props: {
         name: String,
         label: String,
+        tabindex: [String, Number],
         value: {
             type: [Number, String],
             required: true
@@ -90,6 +93,10 @@ export default {
     },
 
     methods: {
+        focus() {
+            this.$refs.input.focus();
+        },
+
         toggleCheck() {
             if (!this.disabled) {
                 this.$emit('input', this.trueValue);
@@ -116,11 +123,11 @@ export default {
 <style lang="scss">
 @import './styles/imports';
 
-$ui-radio-size                  : rem-calc(20px) !default;
-$ui-radio-stroke                : rem-calc(2px) !default;
+$ui-radio-size                  : rem(20px) !default;
+$ui-radio-stroke                : rem(2px) !default;
 $ui-radio-focus-ring-size       : $ui-radio-size * 2.1 !default;
 $ui-radio-transition-duration   : 0.3s !default;
-$ui-radio-label-font-size       : rem-calc(16px) !default;
+$ui-radio-label-font-size       : rem(16px) !default;
 
 .ui-radio {
     align-items: center;
@@ -223,7 +230,7 @@ $ui-radio-label-font-size       : rem-calc(16px) !default;
 .ui-radio__label-text {
     cursor: pointer;
     font-size: $ui-radio-label-font-size;
-    margin-left: rem-calc(8px);
+    margin-left: rem(8px);
 }
 
 // ================================================

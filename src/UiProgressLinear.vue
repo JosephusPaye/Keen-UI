@@ -71,7 +71,7 @@ export default {
 <style lang="scss">
 @import './styles/imports';
 
-$ui-progress-linear-height : rem-calc(4px) !default;
+$ui-progress-linear-height : rem(4px) !default;
 
 .ui-progress-linear {
     display: block;
@@ -85,37 +85,21 @@ $ui-progress-linear-height : rem-calc(4px) !default;
 }
 
 .ui-progress-linear__progress-bar {
+    height: $ui-progress-linear-height;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform-origin: left;
+    width: 100%;
+
     &.is-determinate {
-        height: $ui-progress-linear-height;
-        left: 0;
-        position: absolute;
-        top: 0;
-        transform-origin: left;
-        transition: transform 0.2s linear;
-        width: 100%;
+        transition: transform 0.2s ease;
     }
 
     &.is-indeterminate {
-        &::before {
-            animation: ui-progress-linear-indeterminate 2.1s cubic-bezier(0.650, 0.815, 0.735, 0.395) infinite;
-            background-color: inherit;
-            content: '';
-            height: $ui-progress-linear-height;
-            left: 0;
-            position: absolute;
-            top: 0;
-        }
-
-        &::after {
-            animation-delay: 1.15s;
-            animation: ui-progress-linear-indeterminate-short 2.1s cubic-bezier(0.165, 0.840, 0.440, 1.000) infinite;
-            background-color: inherit;
-            content: '';
-            height: $ui-progress-linear-height;
-            left: 0;
-            position: absolute;
-            top: 0;
-        }
+        animation: ui-progress-linear-indeterminate 2.1s linear infinite;
+        transform: translateX(0) scaleX(0);
+        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 }
 
@@ -124,36 +108,30 @@ $ui-progress-linear-height : rem-calc(4px) !default;
 // ================================================
 
 @keyframes ui-progress-linear-indeterminate {
+    // First half: short in, long out
     0% {
-        left: -35%;
-        right: 100%;
+        transform: translateX(0) scaleX(0);
     }
 
-    60% {
-        left: 100%;
-        right: -90%;
+    25% {
+        transform: translateX(50%) scaleX(0.6);
+    }
+
+    49% {
+        transform: translateX(110%) scaleX(0);
+    }
+
+    // Second half: long in, short out
+    50% {
+        transform: translateX(0) scaleX(0);
+    }
+
+    75% {
+        transform: translateX(0) scaleX(0.6);
     }
 
     100% {
-        left: 100%;
-        right: -90%;
-    }
-}
-
-@keyframes ui-progress-linear-indeterminate-short {
-    0% {
-        left: -200%;
-        right: 100%;
-    }
-
-    60% {
-        left: 107%;
-        right: -8%;
-    }
-
-    100% {
-        left: 107%;
-        right: -8%;
+        transform: translateX(110%) scaleX(0);
     }
 }
 

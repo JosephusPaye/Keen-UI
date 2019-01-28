@@ -155,7 +155,7 @@
                                     <p>Allows for redefining the option keys. The <code>id</code>, <code>class</code>, <code>checked</code>, and <code>disabled</code> keys are optional.</p>
                                     <p>Pass an object with custom keys if your data does not match the default keys.</p>
                                     <p>Note that if you redefine one key, you have to define all the others as well.</p>
-                                    <p>Can be set using the <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#global-config" target="_blank" rel="noopener">global config</a>.</p>
+                                    <p>Default value can be <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#changing-default-prop-values" target="_blank" rel="noopener">changed globally</a>.</p>
                                 </td>
                             </tr>
 
@@ -181,6 +181,13 @@
                                     <p>Whether or not the radio group options are rendered vertically, one over the other.</p>
                                     <p>Set to <code>true</code> for a vertical radio group.</p>
                                 </td>
+                            </tr>
+
+                            <tr>
+                                <td>tabindex</td>
+                                <td>Number, String</td>
+                                <td></td>
+                                <td>The radio group <code>tabindex</code>.</td>
                             </tr>
 
                             <tr>
