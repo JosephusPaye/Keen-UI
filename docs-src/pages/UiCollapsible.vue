@@ -199,29 +199,6 @@
                     </table>
                 </div>
             </ui-tab>
-
-            <ui-tab title="Methods">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td><code>refreshHeight()</code></td>
-                                <td>
-                                    <p>UiCollapsible keeps track of its content height internally to use for the open/close transition.</p>
-                                    <p>Trigger this event to update the collapsible's height when its width or body content has changed since it was last opened.</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </ui-tab>
         </ui-tabs>
     </section>
 </template>
