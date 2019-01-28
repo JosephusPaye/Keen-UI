@@ -7389,7 +7389,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         matchingSuggestions: function matchingSuggestions() {
             var _this = this;
 
-            var suggestions = this.suggestions.filter(function (suggestion, index) {
+            var suggestions = this.suggestions.filter(function (suggestion) {
                 if (_this.filter) {
                     return _this.filter(suggestion, _this.value, _this.defaultFilter);
                 }
@@ -8015,9 +8015,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             if (days.length === 7) {
                 return days;
-            } else {
-                return days.concat(this.lang.days.initials.slice(0, this.startOfWeek));
             }
+
+            return days.concat(this.lang.days.initials.slice(0, this.startOfWeek));
         },
         weekClasses: function weekClasses() {
             return [_defineProperty({}, 'ui-calendar-month--slide-' + this.slideDirection, this.isSliding), { 'is-sliding': this.isSliding }];
@@ -10574,7 +10574,7 @@ var handleTouchStart = function handleTouchStart(e) {
                 return this.options;
             }
 
-            var options = this.options.filter(function (option, index) {
+            var options = this.options.filter(function (option) {
                 if (_this.filter) {
                     return _this.filter(option, _this.query, _this.defaultFilter);
                 }
@@ -11003,7 +11003,7 @@ var handleTouchStart = function handleTouchStart(e) {
             };
         },
         markerText: function markerText() {
-            return this.markerValue !== undefined ? this.markerValue : this.value;
+            return this.markerValue === undefined ? this.value : this.markerValue;
         },
         snapPoints: function snapPoints() {
             var points = [];
