@@ -250,8 +250,8 @@ export default {
         },
 
         matchingSuggestions() {
-            let suggestions = this.suggestions
-                .filter((suggestion, index) => {
+            const suggestions = this.suggestions
+                .filter(suggestion => {
                     if (this.filter) {
                         return this.filter(suggestion, this.value, this.defaultFilter);
                     }

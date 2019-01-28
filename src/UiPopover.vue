@@ -79,7 +79,7 @@ export default {
 
     data() {
         return {
-            returnFocus: true,
+            returnFocus: true
         };
     },
 
@@ -138,7 +138,7 @@ export default {
                 theme: 'ui-popover',
                 trigger: this.openOn.indexOf('hover') === -1 ?
                     this.openOn :
-                    this.openOn.replace('hover', 'mouseenter'), // COMPAT: Support 'hover' for `openOn` prop,
+                    this.openOn.replace('hover', 'mouseenter') // COMPAT: Support 'hover' for `openOn` prop,
             };
 
             if (!this.constrainToScrollParent) {

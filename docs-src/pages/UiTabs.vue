@@ -528,7 +528,7 @@ export default {
         },
 
         confirmTabChange(currentTab, newTab) {
-            return confirm('Are you sure you want to switch from ' + currentTab.title + ' to ' + newTab.title + '?');
+            return confirm('Are you sure you want to switch from ' + currentTab.title + ' to ' + newTab.title + '?'); // eslint-disable-line no-alert
         }
     }
 };

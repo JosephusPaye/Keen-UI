@@ -85,10 +85,10 @@ export default {
 
             if (days.length === 7) {
                 return days;
-            } else {
-                // Add the remaining days from the start of the array
-                return days.concat(this.lang.days.initials.slice(0, this.startOfWeek))
             }
+
+            // Add the remaining days from the start of the array
+            return days.concat(this.lang.days.initials.slice(0, this.startOfWeek));
         },
 
         weekClasses() {

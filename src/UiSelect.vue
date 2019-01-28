@@ -313,7 +313,7 @@ export default {
                 return this.options;
             }
 
-            let options = this.options.filter((option, index) => {
+            const options = this.options.filter(option => {
                 if (this.filter) {
                     return this.filter(option, this.query, this.defaultFilter);
                 }

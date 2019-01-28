@@ -22,7 +22,7 @@
 
             <h4 class="page__demo-title">With custom min and max: [1, 15]</h4>
 
-            <ui-slider show-marker :min="1" :max="15" v-model="slider4"></ui-slider>
+            <ui-slider show-marker :min="1" :max="15" :step="1" v-model="slider4"></ui-slider>
 
             <h4 class="page__demo-title">Snap to steps: 20</h4>
 
@@ -277,7 +277,7 @@ export default {
             slider1: 25,
             slider2: 50,
             slider3: 60,
-            slider4: 7,
+            slider4: 8,
             slider5: 40,
             slider6: 75
         };

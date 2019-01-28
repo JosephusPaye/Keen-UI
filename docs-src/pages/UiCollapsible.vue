@@ -219,7 +219,7 @@ export default {
                 'Blue',
                 'Cyan',
                 'Magenta',
-                'Yellow',
+                'Yellow'
             ],
             accordions: {
                 0: true,
@@ -231,8 +231,8 @@ export default {
 
     methods: {
         onAccordionOpen(id) {
-            Object.keys(this.accordions).forEach((key) => {
-                this.accordions[key] = key == id;
+            Object.keys(this.accordions).forEach(key => {
+                this.accordions[key] = key == id; // eslint-disable-line eqeqeq
             });
         },
 
