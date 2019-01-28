@@ -8,6 +8,7 @@
  * removed jQuery, converted to ES6
  */
 import classlist from './helpers/classlist';
+import elementRef from './helpers/element-ref';
 
 const startRipple = function (eventType, event) {
     let holder = event.currentTarget || event.target;
@@ -105,13 +106,10 @@ export default {
     props: {
         trigger: {
             validator(value) {
-                const isValid = (value instanceof Element) || (value && value._isVue) || (typeof value === 'string');
-
-                if (!isValid) {
-                    console.warn('[UiRippleInk]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string which matches an existing element.');
-                }
-
-                return isValid;
+                return elementRef.validate(
+                    value,
+                    '[UiRippleInk]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string.'
+                );
             }
         }
     },
@@ -136,26 +134,11 @@ export default {
     },
 
     methods: {
-        setTrigger() {
-            if (this.trigger instanceof Element) {
-                this.triggerEl = this.trigger;
-            } else if (this.trigger && this.trigger._isVue) {
-                this.triggerEl = this.trigger.$el;
-            } else if (typeof this.trigger === 'string') {
-                this.triggerEl = document.querySelector(this.trigger);
-            }
-
-            // Fallback to using the parent (DOM parent, not Vue component parent)
-            // if triggerEl is invalid
-            if (!(this.triggerEl instanceof Element)) {
-                this.triggerEl = this.$el.parentElement;
-            }
-        },
-
         setupRipple() {
-            this.setTrigger();
+            this.triggerEl = elementRef.resolve(this.trigger, this.$el.parentElement);
 
             if (!this.triggerEl) {
+                console.error('[UiRippleInk]: Trigger element not found.');
                 return;
             }
 

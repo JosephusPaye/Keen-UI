@@ -69,8 +69,10 @@ export default {
         },
         trigger: {
             validator(value) {
-                const warning = '[UiPopover]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string which matches an existing element.';
-                return elementRef.validate(value, warning);
+                return elementRef.validate(
+                    value,
+                    '[UiPopover]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string which matches an existing element.'
+                );
             }
         }
     },
