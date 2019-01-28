@@ -10,13 +10,13 @@
 
         <div class="keen-docs-sidebar__scrollable">
             <div class="keen-docs-sidebar__description">
-                <p>A lightweight collection of essential UI components written with Vue.js and inspired by Material Design.</p>
+                <p>Keen UI is a Vue.js UI library with a simple API, inspired by Google's Material Design.</p>
                 <p>Created by <a rel="noopener" target="_blank" href="https://twitter.com/JosephusPaye">Josephus Paye II</a>.</p>
             </div>
 
             <div class="keen-docs-sidebar__version-select">
                 <ui-select
-                    :options="['0.8.9', '1.0.0', '1.0.1']"
+                    :options="['0.8.9', '1.0.0', '1.0.1', '1.1.0']"
                     @select="onVersionSelect"
                     v-model="version"
                 >Version</ui-select>
@@ -93,7 +93,7 @@ export default {
 
     methods: {
         onVersionSelect(version) {
-            if (version === '1.0.1') {
+            if (version === '1.1.0') {
                 return;
             }
 
