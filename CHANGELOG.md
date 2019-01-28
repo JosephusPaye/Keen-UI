@@ -36,6 +36,12 @@
 
 - Refactor toggle transition to be smoother and less janky
 
+### UiConfirm
+
+- **Breaking**: Default transition `scale` is now `scale-down`.
+- Add new prop `size`.
+- Document `reveal` and `hide` events.
+
 ### UiDatepicker
 
 - **Breaking**: The month of the submitted value now starts at `1`, instead of JavaScript's default which starts at `0`. So, January is now `1` instead of `0`, February is `2`, etc.

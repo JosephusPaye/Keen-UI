@@ -363,7 +363,7 @@
                             </tr>
 
                             <tr>
-                                <td class="new-prop">reveal</td>
+                                <td>reveal</td>
                                 <td>
                                     <p>Emitted when the modal is revealed (i.e. when the open transition completes).</p>
                                     <p>Listen for it using <code>@reveal</code>.</p>
@@ -379,7 +379,7 @@
                             </tr>
 
                             <tr>
-                                <td class="new-prop">hide</td>
+                                <td>hide</td>
                                 <td>
                                     <p>Emitted when the modal close transition completes.</p>
                                     <p>Listen for it using <code>@hide</code>.</p>
