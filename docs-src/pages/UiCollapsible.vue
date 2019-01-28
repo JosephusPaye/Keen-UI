@@ -49,6 +49,16 @@
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!
             </ui-collapsible>
 
+            <ui-collapsible title="With content popping out">
+                <ui-select
+                    class="mb-0"
+                    label="Favourite colour"
+                    placeholder="Select a colour"
+                    :options="colors"
+                    v-model="select"
+                ></ui-select>
+            </ui-collapsible>
+
             <h4 class="page__demo-title">Accordion set</h4>
 
             <p>By listening for the <code>open</code> and <code>close</code> events on each collapsible and controlling the <code>open</code> prop, you can create an accordion set.</p>
@@ -218,12 +228,22 @@
 
 <script>
 import UiCollapsible from 'src/UiCollapsible.vue';
+import UiSelect from 'src/UiSelect.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
 
 export default {
     data() {
         return {
+            select: '',
+            colors: [
+                'Red',
+                'Green',
+                'Blue',
+                'Cyan',
+                'Magenta',
+                'Yellow',
+            ],
             accordions: {
                 0: true,
                 1: false,
@@ -246,6 +266,7 @@ export default {
 
     components: {
         UiCollapsible,
+        UiSelect,
         UiTab,
         UiTabs
     }
