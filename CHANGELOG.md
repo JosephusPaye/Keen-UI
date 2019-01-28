@@ -1,8 +1,10 @@
 # v1.1.0
 
-There's a number of breaking changes in this release. Please read through and update your usage where required. The upgrade should take less than 30 minutes. If you find any changes not documented here, please file a new issue.
+There are breaking changes in this release. Please read through and update your usage where required. The upgrade should take less than an hour. If you find any changes not documented here, please file a new issue.
 
-To avoid breaking changes in minor versions, we will be switching to semver for `v2.0`. For now, use the `~` version constraint to lock to a specific minor version, and restrict updates to patch releases only. Example:
+To avoid breaking changes in minor versions, we will be switching to semver for `v2.0` with more regular releases. Haven't been able to do that unfortunately due to time constraints.
+
+For now, use the `~` version constraint to lock to a specific minor version, and restrict updates to patch releases only. Example, in `package.json`:
 
 ```diff
 -"keen-ui": "^1.1.0",
