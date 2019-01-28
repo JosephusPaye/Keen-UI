@@ -9,6 +9,7 @@
     "build:docs": "webpack --config build/webpack.docs.js",
     "build:lib": "webpack --config build/webpack.lib.js",
     "build:all": "npm run build && npm run build:lib && npm run build:docs",
+    "prod": "cross-env NODE_ENV=production npm run build && cross-env NODE_ENV=production npm run build:lib && cross-env NODE_ENV=production npm run build:docs",
     "clean": "rimraf ./dist ./lib ./docs/docs.bundle.css ./docs/docs.bundle.js",
     "lint": "eslint --format=node_modules/eslint-formatter-pretty --ext .js,.vue,.html ./",
     "test": "npm run lint"
