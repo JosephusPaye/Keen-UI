@@ -89,6 +89,9 @@ export default {
     methods: {
         goToPreviousMonth() {
             const date = dateUtils.clone(this.dateInView);
+
+            // Set to first of the month, since the current date may not be available in the previous month. See #434.
+            date.setDate(1);
             date.setMonth(date.getMonth() - 1);
 
             this.goToDate(date, { isForward: false });
@@ -96,6 +99,9 @@ export default {
 
         goToNextMonth() {
             const date = dateUtils.clone(this.dateInView);
+
+            // Set to first of the month, since the current date may not be available in the next month. See #434.
+            date.setDate(1);
             date.setMonth(date.getMonth() + 1);
 
             this.goToDate(date, { isForward: true });
