@@ -1,3 +1,9 @@
+# v1.1.1
+
+### UiDatepicker
+
+- Fix month transition when current date is not in target month. See [#434](https://github.com/JosephusPaye/Keen-UI/issues/434).
+
 # v1.1.0
 
 There are breaking changes in this release. Read through and update your usage where required. The upgrade should take less than an hour. If you find any changes not documented here, please file a new issue.
