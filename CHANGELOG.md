@@ -1,3 +1,9 @@
+# v1.0.2
+
+### UiDatepicker
+
+- Fix month transition when current date is not in target month. See [#434](https://github.com/JosephusPaye/Keen-UI/issues/434).
+
 ## v1.0.1
 
 * Upgrade Vue to `v2.4.2` and fix template warnings. See [#268](https://github.com/JosephusPaye/Keen-UI/issues/268).
