@@ -1,5 +1,5 @@
 /*!
- * Keen UI v1.1.0 (https://github.com/JosephusPaye/keen-ui)
+ * Keen UI v1.1.1 (https://github.com/JosephusPaye/keen-ui)
  * (c) 2019 Josephus Paye II
  * Released under the MIT License.
  */
@@ -7945,12 +7945,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     methods: {
         goToPreviousMonth: function goToPreviousMonth() {
             var date = __WEBPACK_IMPORTED_MODULE_2__helpers_date__["a" /* default */].clone(this.dateInView);
+
+            date.setDate(1);
             date.setMonth(date.getMonth() - 1);
 
             this.goToDate(date, { isForward: false });
         },
         goToNextMonth: function goToNextMonth() {
             var date = __WEBPACK_IMPORTED_MODULE_2__helpers_date__["a" /* default */].clone(this.dateInView);
+
+            date.setDate(1);
             date.setMonth(date.getMonth() + 1);
 
             this.goToDate(date, { isForward: true });
