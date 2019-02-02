@@ -5,11 +5,11 @@
 
             <a
                 class="keen-docs-sidebar__header-version"
-                href="https://github.com/JosephusPaye/Keen-UI/releases/tag/v1.0.1"
+                href="https://github.com/JosephusPaye/Keen-UI/releases/tag/v1.0.2"
                 rel="noopener"
                 target="_blank"
                 title="View release notes"
-            >v1.0.1</a>
+            >v1.0.2</a>
 
             <a
                 class="keen-docs-sidebar__header-github-link"
@@ -32,7 +32,7 @@
 
             <div class="keen-docs-sidebar__version-select">
                 <ui-select
-                    :options="['0.8.9', '1.0.0', '1.0.1']"
+                    :options="['0.8.9', '1.0.0', '1.0.2']"
                     @select="onVersionSelect"
                     v-model="version"
                 >Version</ui-select>
@@ -90,14 +90,14 @@ import UiSelect from 'src/UiSelect.vue';
 export default {
     data() {
         return {
-            version: '1.0.1',
+            version: '1.0.2',
             menu
         };
     },
 
     methods: {
         onVersionSelect(version) {
-            if (version === '1.0.1') {
+            if (version === '1.0.2') {
                 return;
             }
 
