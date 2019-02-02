@@ -1,6 +1,6 @@
 /*!
- * Keen UI v1.0.1 (https://github.com/JosephusPaye/keen-ui)
- * (c) 2017 Josephus Paye II
+ * Keen UI v1.0.2 (https://github.com/JosephusPaye/keen-ui)
+ * (c) 2019 Josephus Paye II
  * Released under the MIT License.
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -6647,12 +6647,16 @@ exports.default = {
     methods: {
         goToPreviousMonth: function goToPreviousMonth() {
             var date = _date2.default.clone(this.dateInView);
+
+            date.setDate(1);
             date.setMonth(date.getMonth() - 1);
 
             this.goToDate(date, { isForward: false });
         },
         goToNextMonth: function goToNextMonth() {
             var date = _date2.default.clone(this.dateInView);
+
+            date.setDate(1);
             date.setMonth(date.getMonth() + 1);
 
             this.goToDate(date, { isForward: true });
