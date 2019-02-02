@@ -16,7 +16,7 @@
 
             <div class="keen-docs-sidebar__version-select">
                 <ui-select
-                    :options="['0.8.9', '1.0.0', '1.0.1', '1.1.0']"
+                    :options="['0.8.9', '1.0.0', '1.0.1', '1.1.1']"
                     @select="onVersionSelect"
                     v-model="version"
                 >Version</ui-select>
@@ -93,7 +93,7 @@ export default {
 
     methods: {
         onVersionSelect(version) {
-            if (version === '1.1.0') {
+            if (version === '1.1.1') {
                 return;
             }
 

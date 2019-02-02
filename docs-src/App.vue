@@ -48,9 +48,9 @@ export default {
         return {
             isMobile: false,
             sidebarOpen: false,
-            version: '1.1.0',
+            version: '1.1.1',
             repoUrl: 'https://github.com/JosephusPaye/Keen-UI',
-            versionUrl: 'https://github.com/JosephusPaye/Keen-UI/releases/tag/v1.1.0',
+            versionUrl: 'https://github.com/JosephusPaye/Keen-UI/releases/tag/v1.1.1',
             description: 'Keen UI - A lightweight collection of essential UI components written with Vue and inspired by Material Design.',
             mobileMediaQuery: null
         };
