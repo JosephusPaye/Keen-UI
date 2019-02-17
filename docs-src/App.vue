@@ -1,11 +1,11 @@
 <template>
     <div id="app" class="keen-docs">
         <navbar
-            :repoUrl="repoUrl"
-            :sourceUrl="pageSourceUrl"
+            :repo-url="repoUrl"
+            :source-url="pageSourceUrl"
             :title="pageTitle"
             :version="version"
-            :versionUrl="versionUrl"
+            :version-url="versionUrl"
 
             @toggle-sidebar="sidebarOpen = !sidebarOpen"
         ></navbar>
@@ -20,7 +20,13 @@
 
         <section class="keen-docs-content">
             <transition name="transition-slide">
-                <sidebar :version="version" :versionUrl="versionUrl" :repoUrl="repoUrl" v-show="showSidebar"></sidebar>
+                <sidebar
+                    :version="version"
+                    :version-url="versionUrl"
+                    :repo-url="repoUrl"
+
+                    v-show="showSidebar"
+                ></sidebar>
             </transition>
 
             <div class="keen-docs-content__page-content" ref="pageContent">
@@ -48,10 +54,9 @@ export default {
         return {
             isMobile: false,
             sidebarOpen: false,
-            version: '1.1.1',
+            version: '1.1.2',
             repoUrl: 'https://github.com/JosephusPaye/Keen-UI',
-            versionUrl: 'https://github.com/JosephusPaye/Keen-UI/releases/tag/v1.1.1',
-            description: 'Keen UI - A lightweight collection of essential UI components written with Vue and inspired by Material Design.',
+            description: 'Keen UI is a Vue.js UI library with a simple API, inspired by Google\'s Material Design.',
             mobileMediaQuery: null
         };
     },
@@ -73,6 +78,10 @@ export default {
 
         showSidebar() {
             return this.isMobile ? this.sidebarOpen : true;
+        },
+
+        versionUrl() {
+            return `https://github.com/JosephusPaye/Keen-UI/releases/tag/v${this.version}`;
         }
     },
 

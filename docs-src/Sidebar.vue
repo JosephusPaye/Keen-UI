@@ -16,9 +16,9 @@
 
             <div class="keen-docs-sidebar__version-select">
                 <ui-select
-                    :options="['0.8.9', '1.0.0', '1.0.1', '1.1.1']"
+                    :options="versions"
                     @select="onVersionSelect"
-                    v-model="version"
+                    v-model="selectedVersion"
                 >Version</ui-select>
             </div>
 
@@ -87,25 +87,34 @@ export default {
 
     data() {
         return {
+            versions: [
+                { label: '0.8.x', value: '0.8.9' },
+                { label: '1.0.x', value: '1.0.1' },
+                { label: '1.1.x', value: '1.1.2' },
+            ],
+            selectedVersion: {
+                label: '1.1.x',
+                value: '1.1.2'
+            },
             menu
         };
     },
 
     methods: {
         onVersionSelect(version) {
-            if (version === '1.1.1') {
+            if (version.value === this.version) {
                 return;
             }
 
             let root = '';
-            const component = window.location.hash + (version === '0.8.9' ? '-docs' : '');
+            const component = window.location.hash + (version.value === '0.8.9' ? '-docs' : '');
 
             // This is in contrast to localhost, whose root is '/'
             if (window.location.hostname === 'josephuspaye.github.io') {
                 root = 'https://josephuspaye.github.io/Keen-UI';
             }
 
-            window.location = `${root}/${version}/${component}`;
+            window.location = `${root}/${version.value}/${component}`;
         }
     }
 };
