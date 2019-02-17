@@ -57,8 +57,8 @@
                     @close="onPickerClose"
                     @open="onPickerOpen"
 
-                    v-show="!disabled"
                     v-if="usesPopover"
+                    v-show="!disabled"
                 >
                     <ui-calendar
                         :color="color"
