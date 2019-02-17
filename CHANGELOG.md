@@ -1,3 +1,9 @@
+# v1.1.2
+
+### UiDatepicker
+
+- Fix loss of popover reference when disabled and re-enabled. See [#435](https://github.com/JosephusPaye/Keen-UI/issues/435).
+
 # v1.1.1
 
 ### UiDatepicker
