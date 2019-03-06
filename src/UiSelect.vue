@@ -113,7 +113,7 @@
                                 ref="options"
 
                                 :highlighted="highlightedIndex === index"
-                                :keys="keys"
+                                :keys="keysMapping"
                                 :key="index"
                                 :multiple="multiple"
                                 :option="option"
@@ -258,7 +258,8 @@ export default {
             isTouched: false,
             selectedIndex: -1,
             highlightedIndex: -1,
-            initialValue: JSON.stringify(this.value)
+            initialValue: JSON.stringify(this.value),
+            keysMapping: this.keys
         };
     },
 
@@ -332,14 +333,14 @@ export default {
             if (this.multiple) {
                 if (this.value.length > 0) {
                     return this.value
-                            .map(value => value[this.keys.label] || value)
+                            .map(value => value[this.keysMapping.label] || value)
                             .join(this.multipleDelimiter);
                 }
 
                 return '';
             }
 
-            return this.value ? (this.value[this.keys.label] || this.value) : '';
+            return this.value ? (this.value[this.keysMapping.label] || this.value) : '';
         },
 
         hasDisplayText() {
@@ -363,11 +364,11 @@ export default {
 
             if (Array.isArray(this.value)) {
                 return this.value
-                    .map(option => option[this.keys.value] || option)
+                    .map(option => option[this.keysMapping.value] || option)
                     .join(',');
             }
 
-            return this.value[this.keys.value] || this.value;
+            return this.value[this.keysMapping.value] || this.value;
         }
     },
 
@@ -379,6 +380,14 @@ export default {
 
         query() {
             this.$emit('query-change', this.query);
+        },
+
+        keys(newValue, oldValue) {
+            // Protects agains re-renders if keys value didn't change (but reference did)
+            // Occures when keys are provided directly in the template and prop upates on each model change
+            if (!looseEqual(newValue, oldValue)) {
+                this.keysMapping = newValue; 
+            }
         }
     },
 
@@ -486,7 +495,7 @@ export default {
         },
 
         defaultFilter(option, query) {
-            let text = option[this.keys.label] || option;
+            let text = option[this.keysMapping.label] || option;
 
             if (typeof text === 'string') {
                 text = text.toLowerCase();
