@@ -1,4 +1,4 @@
-f<template>
+<template>
     <section class="page page--ui-radio">
         <h2 class="page__title">UiRadio</h2>
 
