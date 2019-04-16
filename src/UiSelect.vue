@@ -379,6 +379,14 @@ export default {
 
         query() {
             this.$emit('query-change', this.query);
+        },
+
+        isActive(value) {
+            if (value) {
+                this.addExternalClickListener(this.$el, this.onExternalClick);
+            } else {
+                this.removeExternalClickListener();
+            }
         }
     },
 
@@ -386,14 +394,6 @@ export default {
         if (!this.value || this.value === '') {
             this.setValue(null);
         }
-    },
-
-    mounted() {
-        this.addExternalClickListener(this.$el, this.onExternalClick);
-    },
-
-    beforeDestroy() {
-        this.removeExternalClickListener();
     },
 
     methods: {
@@ -517,15 +517,9 @@ export default {
             }
 
             this.$refs.dropdown.open();
-
-            // IE: clicking label doesn't focus the select element
-            // to set isActive to true
-            if (!this.isActive) {
-                this.isActive = true;
-            }
         },
 
-        closeDropdown(options = { autoBlur: false }) {
+        closeDropdown(options = { blurAfterClose: false }) {
             this.$refs.dropdown.close();
 
             if (!this.isTouched) {
@@ -533,7 +527,7 @@ export default {
                 this.$emit('touch');
             }
 
-            if (options.autoBlur) {
+            if (options.blurAfterClose) {
                 this.isActive = false;
             } else {
                 this.$refs.label.focus();
@@ -554,11 +548,13 @@ export default {
             this.$emit('blur', e);
 
             if (this.$refs.dropdown.isOpen()) {
-                this.closeDropdown({ autoBlur: true });
+                this.closeDropdown({ blurAfterClose: true });
             }
         },
 
         onOpen() {
+            this.isActive = true;
+
             this.$refs.dropdown.$el.style.width = this.$refs.label.getBoundingClientRect().width + 'px';
 
             this.$nextTick(() => {
@@ -579,7 +575,7 @@ export default {
 
         onExternalClick() {
             if (this.$refs.dropdown.isOpen()) {
-                this.closeDropdown({ autoBlur: true });
+                this.closeDropdown({ blurAfterClose: true });
             } else if (this.isActive) {
                 this.isActive = false;
             }

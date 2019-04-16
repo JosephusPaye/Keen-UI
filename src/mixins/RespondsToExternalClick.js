@@ -1,28 +1,43 @@
+import events from '../helpers/events';
+
 export default {
     beforeDestroy() {
-        if (typeof this.externalClickListener === 'function') {
+        if (typeof this.destroyExternalClickListener === 'function') {
             this.removeExternalClickListener();
         }
     },
 
     methods: {
-        addExternalClickListener(element = this.$el, callback = null) {
-            this.externalClickListener = e => {
-                if (!element.contains(e.target)) {
-                    if (typeof callback === 'function') {
-                        callback(e);
-                    } else {
-                        this.$emit('external-click', e);
+        addExternalClickListener(elements = [this.$el], callback = null, options = { passive: true }) {
+            elements = Array.isArray(elements) ? elements : [elements];
+
+            this.destroyExternalClickListener = events.on('click', document, e => {
+                let clickWasInternal = false;
+
+                for (let i = 0; i < elements.length; i++) {
+                    if (elements[i].contains(e.target)) {
+                        clickWasInternal = true;
+                        break;
                     }
                 }
-            };
 
-            document.addEventListener('click', this.externalClickListener);
+                if (clickWasInternal) {
+                    return;
+                }
+
+                if (typeof callback === 'function') {
+                    callback(e);
+                } else {
+                    this.$emit('external-click', e);
+                }
+            }, options);
         },
 
         removeExternalClickListener() {
-            document.removeEventListener('click', this.externalClickListener);
-            this.externalClickListener = null;
+            if (this.destroyExternalClickListener) {
+                this.destroyExternalClickListener();
+                this.destroyExternalClickListener = null;
+            }
         }
     }
 };
