@@ -1,21 +1,18 @@
 @import './_mixins.scss';
 @import './_vars.scss';
 
-.tippy-touch {
+.tippy-iOS {
     cursor: pointer !important;
-}
-
-.tippy-notransition {
-    transition: none !important;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .tippy-popper {
-    max-width: 100%;
     max-height: 100%;
-    z-index: $z-index-dropdown;
+    max-width: 100%;
     outline: 0;
-    transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
     pointer-events: none;
+    transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: $z-index-dropdown;
 
     @each $placement in $placements {
         &[x-placement^='#{$placement}'] {
@@ -34,7 +31,6 @@
 
                 &[data-state='visible'] {
                     @include backdrop-transform-enter($placement);
-                    opacity: 1;
                 }
 
                 &[data-state='hidden'] {
@@ -45,7 +41,6 @@
 
             [data-animation='fade'] {
                 &[data-state='visible'] {
-                    opacity: 1;
                     @include enter-transform($placement, 'fade');
                 }
 
@@ -57,7 +52,6 @@
 
             [data-animation='shift-away'] {
                 &[data-state='visible'] {
-                    opacity: 1;
                     @include enter-transform($placement, 'fade');
                 }
 
@@ -66,23 +60,31 @@
                     @include leave-transform($placement, 'shift-away');
                 }
             }
+
+            [data-animation='scale'] {
+                transform-origin: nth($origins, index($placements, $placement));
+
+                &[data-state='visible'] {
+                    @include enter-transform($placement, 'scale');
+                }
+
+                &[data-state='hidden'] {
+                    opacity: 0;
+                    @include leave-transform($placement, 'scale');
+                }
+            }
         }
     }
 }
 
 .tippy-tooltip {
     position: relative;
-    will-change: transform;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
     &[data-animatefill] {
         overflow: hidden;
         background-color: transparent;
-
-        .tippy-content {
-            transition: clip-path cubic-bezier(0.46, 0.1, 0.52, 0.98);
-        }
     }
 
     &[data-interactive] {
@@ -96,9 +98,8 @@
 
 .tippy-backdrop {
     position: absolute;
-    will-change: transform;
     border-radius: 50%;
-    width: 26%;
+    width: calc(110% + 2rem);
     left: 50%;
     top: 50%;
     z-index: -1;
@@ -112,50 +113,15 @@
     }
 }
 
-/* iOS Safari does not like clip path transition */
-body:not(.tippy-touch) {
-    .tippy-tooltip[data-animatefill] {
-        &[data-state='visible'] {
-            .tippy-content {
-                clip-path: ellipse(100% 100% at 50% 50%);
-            }
-        }
+.tippy-backdrop + .tippy-content {
+    transition-property: opacity;
+    will-change: opacity;
 
-        &[data-state='hidden'] {
-            .tippy-content {
-                clip-path: ellipse(5% 50% at 50% 50%);
-            }
-        }
+    &[data-state='visible'] {
+        opacity: 1;
     }
 
-    .tippy-popper[x-placement='right'] {
-        .tippy-tooltip[data-animatefill] {
-            &[data-state='visible'] {
-                .tippy-content {
-                    clip-path: ellipse(135% 100% at 0% 50%);
-                }
-            }
-
-            &[data-state='hidden'] {
-                .tippy-content {
-                    clip-path: ellipse(40% 100% at 0% 50%);
-                }
-            }
-        }
-    }
-    .tippy-popper[x-placement='left'] {
-        .tippy-tooltip[data-animatefill] {
-            &[data-state='visible'] {
-                .tippy-content {
-                    clip-path: ellipse(135% 100% at 100% 50%);
-                }
-            }
-
-            &[data-state='hidden'] {
-                .tippy-content {
-                    clip-path: ellipse(40% 100% at 100% 50%);
-                }
-            }
-        }
+    &[data-state='hidden'] {
+        opacity: 0;
     }
 }

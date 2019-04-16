@@ -1,3 +1,16 @@
+# v1.2.0 (To be released)
+
+### UiPopover
+
+- Upgrade to Tippy.js 4
+- **Breaking**: Remove `offset` prop, as it's not recommended for interactive poppers (which is what UiPopover is)
+- Add new animation: `scale`
+
+### UiTooltip
+
+- Upgrade to Tippy.js 4
+- Add new animation: `scale`
+
 # v1.1.2
 
 ### UiDatepicker

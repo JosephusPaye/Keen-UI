@@ -6,7 +6,7 @@
 
         <p>UiTooltip uses a custom version of <a href="https://atomiks.github.io/tippyjs/" target="_blank" rel="noopener">Tippy.js</a>, which uses <a href="https://popper.js.org" target="_blank" rel="noopener">Popper.js</a> for dynamic positioning.</p>
 
-        <p>UiTooltip is used internally by <a href="#/ui-icon-button-docs">UiIconButton</a> and <a href="#/ui-fab-docs">UiFab</a>.</p>
+        <p>UiTooltip is used internally by <a href="#/ui-icon-button">UiIconButton</a> and <a href="#/ui-fab">UiFab</a>.</p>
 
         <h3 class="page__section-title">
             Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiTooltip.vue" target="_blank" rel="noopener">View Source</a>
@@ -23,7 +23,7 @@
 
                     v-for="(simpson, index) in theSimpsons"
                 >
-                    <ui-tooltip :position="simpson.position">{{ simpson.name }}</ui-tooltip>
+                    <ui-tooltip :position="simpson.position" :animation="simpson.animation">{{ simpson.name }}</ui-tooltip>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                                 <td class="no-wrap"><code>"fade"</code></td>
                                 <td>
                                     <p>The type of animation to use when showing or hiding the tooltip.</p>
-                                    <p>One of: <code>fade</code>, <code>shift-away</code>, or <code>none</code>.</p>
+                                    <p>One of: <code>fade</code>, <code>shift-away</code>, <code>scale</code>, or <code>none</code>.</p>
                                 </td>
                             </tr>
 
@@ -144,17 +144,20 @@ export default {
             theSimpsons: [
                 {
                     position: 'top',
-                    name: 'Maggie Simpson',
+                    animation: 'fade',
+                    name: 'Maggie Simpson: Fade',
                     image: 'https://i.imgur.com/eK26qtK.jpg'
                 },
                 {
                     position: 'bottom',
-                    name: 'Lisa Simpson',
+                    animation: 'shift-away',
+                    name: 'Lisa Simpson: Shift-Away',
                     image: 'https://i.imgur.com/wIb44g9.jpg'
                 },
                 {
                     position: 'right',
-                    name: 'Bart Simpson',
+                    animation: 'scale',
+                    name: 'Bart Simpson: Scale',
                     image: 'https://i.imgur.com/XkEz9zg.jpg'
                 }
             ]

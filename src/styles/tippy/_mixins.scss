@@ -9,6 +9,16 @@
         } @else if ($placement == 'right') {
             transform: translateX(10px);
         }
+    } @else if ($animation == 'scale') {
+        @if ($placement == 'top') {
+            transform: translateY(-10px) scale(1);
+        } @else if ($placement == 'bottom') {
+            transform: translateY(10px) scale(1);
+        } @else if ($placement == 'left') {
+            transform: translateX(-10px) scale(1);
+        } @else if ($placement == 'right') {
+            transform: translateX(10px) scale(1);
+        }
     }
 }
 
@@ -23,30 +33,41 @@
         } @else if ($placement == 'right') {
             transform: translateX(0);
         }
+    } @else if ($animation == 'scale') {
+        @if ($placement == 'top') {
+            transform: translateY(-10px) scale(0.5);
+        } @else if ($placement == 'bottom') {
+            transform: translateY(10px) scale(0.5);
+        } @else if ($placement == 'left') {
+            transform: translateX(-10px) scale(0.5);
+        } @else if ($placement == 'right') {
+            transform: translateX(10px) scale(0.5);
+        }
     }
 }
 
 @mixin backdrop-transform-enter($placement) {
-    $scale: 6;
+    $scale: 1;
     @if ($placement == 'top') {
-        transform: scale($scale) translate(-50%, 25%);
+        transform: scale($scale) translate(-50%, -55%);
     } @else if ($placement == 'bottom') {
-        transform: scale($scale) translate(-50%, -125%);
+        transform: scale($scale) translate(-50%, -45%);
     } @else if ($placement == 'left') {
-        transform: scale($scale) translate(40%, -50%);
+        transform: scale($scale) translate(-50%, -50%);
     } @else if ($placement == 'right') {
-        transform: scale($scale) translate(-140%, -50%);
+        transform: scale($scale) translate(-50%, -50%);
     }
 }
 
 @mixin backdrop-transform-leave($placement) {
+    $scale: 0.2;
     @if ($placement == 'top') {
-        transform: scale(1) translate(-50%, 25%);
+        transform: scale($scale) translate(-50%, -45%);
     } @else if ($placement == 'bottom') {
-        transform: scale(1) translate(-50%, -125%);
+        transform: scale($scale) translate(-50%, 0);
     } @else if ($placement == 'left') {
-        transform: scale(1.5) translate(40%, -50%);
+        transform: scale($scale) translate(-75%, -50%);
     } @else if ($placement == 'right') {
-        transform: scale(1.5) translate(-140%, -50%);
+        transform: scale($scale) translate(-25%, -50%);
     }
 }

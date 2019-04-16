@@ -19,9 +19,9 @@
                 Click here for the popover
 
                 <ui-popover class="my-popover-style" contain-focus>
-                    <p>Try tabbing forward and backward and notice that<br> focus is contained in the popover.</p>
+                    <p>Try tabbing forward and backward and notice that focus is contained in the popover.</p>
                     <p><input type="text" placeholder="What's your name?" v-model="name"> {{ name ? 'Name: ' + name : '' }}</p>
-                    <button>A Button</button></p>
+                    <p><button>A Button</button></p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                 </ui-popover>
             </button>
@@ -33,7 +33,8 @@
 
                 <ui-popover class="my-popover-style" :raised="false">
                     <p>Hey there, some popover content here. <button>Button</button></p>
-                    <p>Add <b>whatever</b> content you want here. <button>Another Button</button></p>
+                    <p>Add <b>whatever</b> content you want here.</p>
+                    <p><button>A Button</button></p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                 </ui-popover>
             </button>
@@ -45,7 +46,8 @@
 
                 <ui-popover class="my-popover-style" open-on="mouseenter">
                     <p>Hey there, some popover content here. <button>Button</button></p>
-                    <p>Add <b>whatever</b> content you want here. <button>Another Button</button></p>
+                    <p>Add <b>whatever</b> content you want here.</p>
+                    <p><button>A Button</button></p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                 </ui-popover>
             </button>
@@ -68,6 +70,48 @@
                 Click here for top left popover
 
                 <ui-popover class="my-popover-style" position="top-start">
+                    <p>Hey there, some popover content here. <button>Button</button></p>
+                    <p>Add <b>whatever</b> content you want here. <button>Another Button</button></p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </ui-popover>
+            </button>
+
+            <h4 class="page__demo-title">Animations</h4>
+
+            <button class="popover-trigger">
+                Fade (default)
+
+                <ui-popover class="my-popover-style" animation="fade">
+                    <p>Hey there, some popover content here. <button>Button</button></p>
+                    <p>Add <b>whatever</b> content you want here. <button>Another Button</button></p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </ui-popover>
+            </button>
+
+            <button class="popover-trigger">
+                Shift away
+
+                <ui-popover class="my-popover-style" animation="shift-away">
+                    <p>Hey there, some popover content here. <button>Button</button></p>
+                    <p>Add <b>whatever</b> content you want here. <button>Another Button</button></p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </ui-popover>
+            </button>
+
+            <button class="popover-trigger">
+                Scale
+
+                <ui-popover class="my-popover-style" animation="scale">
+                    <p>Hey there, some popover content here. <button>Button</button></p>
+                    <p>Add <b>whatever</b> content you want here. <button>Another Button</button></p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </ui-popover>
+            </button>
+
+            <button class="popover-trigger">
+                None
+
+                <ui-popover class="my-popover-style" animation="none">
                     <p>Hey there, some popover content here. <button>Button</button></p>
                     <p>Add <b>whatever</b> content you want here. <button>Another Button</button></p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
@@ -131,7 +175,7 @@
                                 <td><code>"fade"</code></td>
                                 <td>
                                     <p>The type of animation to use when showing or hiding the popover.</p>
-                                    <p>One of: <code>fade</code>, <code>shift-away</code>, or <code>none</code>.</p>
+                                    <p>One of: <code>fade</code>, <code>shift-away</code>, <code>scale</code>, or <code>none</code>.</p>
                                 </td>
                             </tr>
 
@@ -201,15 +245,6 @@
                                     </ul>
 
                                     <p>If <code>focusRedirector</code> is not provided and <code>containFocus</code> is <code>true</code>, focus is contained and cycled within the popover.</p>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>offset</td>
-                                <td>Number, String</td>
-                                <td><code>0</code></td>
-                                <td>
-                                    <p>The popover's offset from the trigger element. See <a href="https://atomiks.github.io/tippyjs/#offset-option"><code>offset</code> option</a> in Tippy.js docs.</p>
                                 </td>
                             </tr>
 

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import tippy from 'tippy.js/dist/esm/tippy.js';
+import tippy from 'tippy.js/esm';
 import elementRef from './helpers/element-ref';
 
 export default {
@@ -26,7 +26,7 @@ export default {
         },
         openOn: {
             type: String,
-            default: 'mouseenter focus' // 'mouseenter', 'focus', 'click', or 'manual'
+            default: 'mouseenter focus' // 'mouseenter', 'focus', 'click', or 'manual', plus 'hover' (compat)
         },
         position: {
             type: String,
@@ -53,27 +53,36 @@ export default {
         const options = {
             // `animateFill: true` makes the backdrop animate, making the fade look like a shift-away
             animateFill: this.animation !== 'fade',
-            // Default 'none' to 'fade', as it's not a valid Tippy.js option. The effect of no transition is achieved by `duration: 0` below.
+            // Use 'fade' when animation is 'none', as 'none' it's not a valid Tippy.js option.
+            // The effect of no transition is achieved by `duration: 0` below.
             animation: this.animation === 'none' ? 'fade' : this.animation,
             arrow: false,
             content: this.$el,
             delay: [this.openDelay, 0],
             distance: 4,
-            duration: this.animation === 'none' ? 0 : 250,
+            duration: this.animation === 'none' ? 0 : [250, 200],
+            ignoreAttributes: true,
+            lazy: true,
             multiple: true,
-            performance: true,
             placement: this.position,
             theme: 'ui-tooltip',
-            trigger: this.openOn.indexOf('hover') === -1 ?
-                this.openOn :
-                this.openOn.replace('hover', 'mouseenter') // COMPAT: Support 'hover' for `openOn` prop
+            trigger: this.openOn.replace('hover', 'mouseenter'),
+            popperOptions: {
+                modifiers: {
+                    computeStyle: {
+                        // Disable GPU acceleration to fix blurry text in popover on Windows (Chrome)
+                        // https://github.com/twbs/bootstrap/issues/23590
+                        gpuAcceleration: !(window.devicePixelRatio < 1.5 && /Win/.test(navigator.platform))
+                    }
+                }
+            }
         };
 
         if (!this.appendToBody) {
-            options.appendTo = this.triggerEl.parentNode;
+            options.appendTo = this.triggerEl.parentElement;
         }
 
-        this.tip = tippy.one(this.triggerEl, options);
+        this.tip = tippy(this.triggerEl, options);
     },
 
     beforeDestroy() {
