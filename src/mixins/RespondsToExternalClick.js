@@ -12,17 +12,10 @@ export default {
             elements = Array.isArray(elements) ? elements : [elements];
 
             this.destroyExternalClickListener = events.on('click', document, e => {
-                let clickWasInternal = false;
-
                 for (let i = 0; i < elements.length; i++) {
                     if (elements[i].contains(e.target)) {
-                        clickWasInternal = true;
-                        break;
+                        return; // End early, click was internal
                     }
-                }
-
-                if (clickWasInternal) {
-                    return;
                 }
 
                 if (typeof callback === 'function') {
