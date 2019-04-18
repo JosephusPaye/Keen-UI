@@ -127,6 +127,7 @@ export default {
                 ignoreAttributes: true,
                 interactive: true,
                 lazy: true,
+                maxWidth: '100%',
                 multiple: true,
                 onHidden: this.onHidden,
                 onHide: this.onClose,
