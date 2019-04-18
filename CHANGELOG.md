@@ -1,5 +1,9 @@
 # v1.2.0 (To be released)
 
+### UiCalendar (new)
+
+- Added a new calendar component for showing calendars. Using a scoped slot, you can specify a custom template that will be used to render each date in the calendar. This could be used to add things like events to the calendar.
+
 ### UiDatepicker
 
 - **Breaking** Remove `OK` and `Cancel` button in modal picker. Now, like the popover picker, dismissing the picker without a selection is "Cancel" and selecting a date is "OK".

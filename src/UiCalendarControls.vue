@@ -1,10 +1,11 @@
 <template>
-    <div class="ui-calendar-controls">
+    <div class="ui-calendar-controls" :class="classes">
         <ui-icon-button
             class="ui-calendar-controls__nav-button"
             icon="keyboard_arrow_left"
             type="secondary"
 
+            :color="color === 'default' ? 'default' : 'white'"
             :disabled="previousMonthDisabled"
 
             @click="goToPreviousMonth"
@@ -23,6 +24,7 @@
             icon="keyboard_arrow_right"
             type="secondary"
 
+            :color="color === 'default' ? 'default' : 'white'"
             :disabled="nextMonthDisabled"
 
             @click="goToNextMonth"
@@ -46,6 +48,10 @@ export default {
     name: 'ui-calendar-controls',
 
     props: {
+        color: {
+            type: String,
+            default: 'default' // 'default', 'primary' or 'accent'
+        },
         lang: Object,
         dateInView: Date,
         minDate: Date,
@@ -53,6 +59,12 @@ export default {
     },
 
     computed: {
+        classes() {
+            return [
+                `ui-calendar-controls--color-${this.color}`
+            ];
+        },
+
         monthAndYear() {
             return dateUtils.getMonthFull(this.dateInView, this.lang) + ' ' +
                 this.dateInView.getFullYear();
@@ -132,5 +144,23 @@ export default {
 .ui-calendar-controls__month-and-year {
     font-size: rem(15px);
     font-weight: 600;
+}
+
+// ================================================
+// Colors
+// ================================================
+
+.ui-calendar-controls--color-default {
+    background-color: #EEE;
+}
+
+.ui-calendar-controls--color-primary {
+    background-color: $brand-primary-color;
+    color: white;
+}
+
+.ui-calendar-controls--color-accent {
+    background-color: $brand-accent-color;
+    color: white;
 }
 </style>

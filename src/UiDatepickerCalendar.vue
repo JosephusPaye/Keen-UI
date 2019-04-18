@@ -54,6 +54,7 @@
 
             <ui-calendar-month
                 ref="month"
+                square-cells
 
                 :color="color"
                 :date-filter="dateFilter"
@@ -286,6 +287,12 @@ $ui-datepicker-calendar-padding : rem(8px) !default;
 
 .ui-datepicker-calendar__header-date {
     font-size: rem(22px);
+}
+
+.ui-datepicker-calendar__body {
+    .ui-calendar-controls {
+        background-color: transparent;
+    }
 }
 
 .ui-datepicker-calendar__body,

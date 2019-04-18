@@ -17,12 +17,17 @@
                 :min-date="minDate"
                 :month="currentWeekStartDates[1].getMonth()"
                 :selected="selected"
+                :square-cells="squareCells"
                 :week-start="date"
 
                 @date-select="onDateSelect"
 
                 v-for="date in currentWeekStartDates"
-            ></tr>
+            >
+                <template slot-scope="props" v-if="$scopedSlots.date">
+                    <slot name="date" :date="props.date"></slot>
+                </template>
+            </tr>
         </tbody>
     </table>
 </template>
@@ -49,6 +54,10 @@ export default {
         color: {
             type: String,
             default: 'primary' // 'primary' or 'accent'
+        },
+        squareCells: {
+            type: Boolean,
+            default: false
         }
     },
 

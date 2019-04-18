@@ -8,7 +8,9 @@
                 :disabled="isDateDisabled(date)"
 
                 @click="selectDate(date)"
-            >{{ getDayOfMonth(date) }}</button>
+            >
+                <slot :date="date">{{ date.getDate() }}</slot>
+            </button>
         </td>
     </tr>
 </template>
@@ -87,10 +89,6 @@ export default {
             this.$emit('date-select', date);
         },
 
-        getDayOfMonth(date) {
-            return dateUtils.getDayOfMonth(date);
-        },
-
         isDateInOtherMonth(date) {
             return this.month !== date.getMonth();
         },
@@ -140,12 +138,13 @@ export default {
         left: 0;
         top: 0;
         height: 100%;
+        border-radius: 50%;
     }
 }
 
 .ui-calendar-week__date {
     align-items: center;
-    border-radius: 50%;
+    border-radius: 2px;
     cursor: pointer;
     display: flex;
     justify-content: center;
