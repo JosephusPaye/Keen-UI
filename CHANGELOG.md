@@ -1,5 +1,11 @@
 # v1.2.0 (To be released)
 
+### UiDatepicker
+
+- **Breaking** Remove `OK` and `Cancel` button in modal picker. Now, like the popover picker, dismissing the picker without a selection is "Cancel" and selecting a date is "OK".
+- Rewrite internal calendar for better semantics and accessibility.
+- Removed month switch animation. This unnecessarily slows down the user when switching through many months.
+
 ### UiModal
 
 - Add new `size`: `auto`, to make the modal's width grow to fit its content.

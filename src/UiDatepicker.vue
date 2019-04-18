@@ -21,11 +21,11 @@
 
                 :tabindex="disabled ? null : (tabindex || '0')"
 
-                @click="onClick"
                 @focus="onFocus"
-                @keydown.enter.prevent="openPicker"
-                @keydown.space.prevent="openPicker"
-                @keydown.tab="onBlur"
+                @click="togglePicker({ returnFocus: false })"
+                @keydown.enter.prevent="togglePicker({ returnFocus: false })"
+                @keydown.space.prevent="togglePicker({ returnFocus: false })"
+                @keydown.tab="onTabAway"
             >
                 <div
                     class="ui-datepicker__label-text"
@@ -52,6 +52,7 @@
 
                 <ui-popover
                     contain-focus
+                    open-on="manual"
                     ref="popover"
 
                     @close="onPickerClose"
@@ -60,7 +61,7 @@
                     v-if="usesPopover"
                     v-show="!disabled"
                 >
-                    <ui-calendar
+                    <ui-datepicker-calendar
                         :color="color"
                         :date-filter="dateFilter"
                         :lang="lang"
@@ -70,7 +71,7 @@
                         :value="date"
                         :start-of-week="startOfWeek"
                         @date-select="onDateSelect"
-                    ></ui-calendar>
+                    ></ui-datepicker-calendar>
                 </ui-popover>
             </div>
 
@@ -88,13 +89,14 @@
         <ui-modal
             ref="modal"
             remove-header
+            size="auto"
 
-            @close="onPickerClose"
+            @hidden="onPickerClose"
             @open="onPickerOpen"
 
             v-if="usesModal && !disabled"
         >
-            <ui-calendar
+            <ui-datepicker-calendar
                 :color="color"
                 :date-filter="dateFilter"
                 :lang="lang"
@@ -104,32 +106,19 @@
                 :value="date"
                 :start-of-week="startOfWeek"
                 @date-select="onDateSelect"
-            >
-                <div class="ui-datepicker__modal-buttons" slot="footer">
-                    <ui-button
-                        type="secondary"
-                        :color="color"
-                        @click="$refs.modal.close()"
-                    >{{ okButtonText }}</ui-button>
-
-                    <ui-button
-                        type="secondary"
-                        :color="color"
-                        @click="onPickerCancel"
-                    >{{ cancelButtonText }}</ui-button>
-                </div>
-            </ui-calendar>
+            ></ui-datepicker-calendar>
         </ui-modal>
     </div>
 </template>
 
 <script>
 import UiButton from './UiButton.vue';
-import UiCalendar from './UiCalendar.vue';
+import UiDatepickerCalendar from './UiDatepickerCalendar.vue';
 import UiIcon from './UiIcon.vue';
 import UiModal from './UiModal.vue';
 import UiPopover from './UiPopover.vue';
 
+import RespondsToExternalClick from './mixins/RespondsToExternalClick';
 import dateUtils from './helpers/date';
 
 export default {
@@ -166,14 +155,6 @@ export default {
             type: String,
             default: 'popover' // 'popover' or 'modal'
         },
-        okButtonText: {
-            type: String,
-            default: 'OK'
-        },
-        cancelButtonText: {
-            type: String,
-            default: 'Cancel'
-        },
         placeholder: String,
         icon: String,
         iconPosition: {
@@ -201,7 +182,6 @@ export default {
         return {
             isActive: false,
             isTouched: false,
-            valueAtModalOpen: null,
             initialValue: JSON.stringify(this.value)
         };
     },
@@ -284,12 +264,14 @@ export default {
         }
     },
 
-    mounted() {
-        document.addEventListener('click', this.onExternalClick);
-    },
-
-    beforeDestroy() {
-        document.removeEventListener('click', this.onExternalClick);
+    watch: {
+        isActive(value) {
+            if (value) {
+                this.addExternalClickListener([this.$el, this.getPicker().$el], this.onExternalClick);
+            } else {
+                this.removeExternalClickListener();
+            }
+        }
     },
 
     methods: {
@@ -298,29 +280,35 @@ export default {
             this.closePicker();
         },
 
+        isPickerOpen() {
+            return this.usesModal ? this.$refs.modal.isOpen : this.$refs.popover.isOpen();
+        },
+
+        getPicker() {
+            return this.$refs[this.usesModal ? 'modal' : 'popover'];
+        },
+
         openPicker() {
             if (this.disabled) {
                 return;
             }
 
-            this.$refs[this.usesModal ? 'modal' : 'popover'].open();
+            this.getPicker().open();
         },
 
-        closePicker(options = { autoBlur: false }) {
-            if (this.usesPopover) {
-                this.$refs.popover.close();
-            }
+        closePicker(options = { returnFocus: true }) {
+            this.getPicker().close();
 
-            if (options.autoBlur) {
-                this.isActive = false;
-            } else {
+            if (options.returnFocus) {
                 this.$refs.label.focus();
             }
         },
 
-        onClick() {
-            if (this.usesModal && !this.disabled) {
-                this.$refs.modal.open();
+        togglePicker(options = { returnFocus: true }) {
+            if (this.isPickerOpen()) {
+                this.closePicker(options);
+            } else {
+                this.openPicker();
             }
         },
 
@@ -329,21 +317,16 @@ export default {
             this.$emit('focus', e);
         },
 
-        onBlur(e) {
+        onTabAway(e) {
             this.isActive = false;
             this.$emit('blur', e);
 
-            if (this.usesPopover && this.$refs.popover.isOpen()) {
-                this.closePicker({ autoBlur: true });
+            if (this.isPickerOpen()) {
+                this.closePicker({ returnFocus: false });
             }
         },
 
         onPickerOpen() {
-            if (this.usesModal) {
-                this.valueAtModalOpen = this.date ? dateUtils.clone(this.date) : null;
-            }
-
-            this.isActive = true;
             this.$emit('open');
         },
 
@@ -356,26 +339,8 @@ export default {
             }
         },
 
-        onPickerCancel() {
-            this.$emit('input', this.valueAtModalOpen);
-            this.$refs.modal.close();
-        },
-
-        onExternalClick(e) {
-            if (this.disabled) {
-                return;
-            }
-
-            const clickWasInternal = this.$el.contains(e.target) ||
-                this.$refs[this.usesPopover ? 'popover' : 'modal'].$el.contains(e.target);
-
-            if (clickWasInternal) {
-                return;
-            }
-
-            if (this.isActive) {
-                this.isActive = false;
-            }
+        onExternalClick() {
+            this.isActive = false;
         },
 
         focus() {
@@ -397,11 +362,15 @@ export default {
 
     components: {
         UiButton,
-        UiCalendar,
+        UiDatepickerCalendar,
         UiIcon,
         UiModal,
         UiPopover
-    }
+    },
+
+    mixins: [
+        RespondsToExternalClick
+    ]
 };
 </script>
 
@@ -510,14 +479,6 @@ export default {
 
     .ui-modal:not(.has-footer) .ui-modal__body {
         padding: 0;
-
-        .ui-calendar__body {
-            height: rem(348px);
-        }
-    }
-
-    .ui-modal__container {
-        width: rem(268px);
     }
 }
 
@@ -598,15 +559,6 @@ export default {
     position: relative;
 }
 
-.ui-datepicker__modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-
-    .ui-button {
-        min-width: rem(64px);
-    }
-}
-
 // ================================================
 // Icon Positions
 // ================================================
@@ -616,16 +568,6 @@ export default {
         margin-left: rem(8px);
         margin-right: 0;
         order: 1;
-    }
-}
-
-// ================================================
-// Orientations
-// ================================================
-
-.ui-datepicker--orientation-landscape {
-    .ui-modal__container {
-        width: rem(396px);
     }
 }
 </style>

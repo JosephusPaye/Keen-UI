@@ -12,6 +12,7 @@ import UiCloseButton from './UiCloseButton.vue';
 import UiCollapsible from './UiCollapsible.vue';
 import UiConfirm from './UiConfirm.vue';
 import UiDatepicker from './UiDatepicker.vue';
+import UiDatepickerCalendar from './UiDatepickerCalendar.vue';
 import UiFab from './UiFab.vue';
 import UiFileupload from './UiFileupload.vue';
 import UiIcon from './UiIcon.vue';
@@ -47,6 +48,7 @@ const KeenUI = {
     UiCollapsible,
     UiConfirm,
     UiDatepicker,
+    UiDatepickerCalendar,
     UiFab,
     UiFileupload,
     UiIcon,
@@ -114,6 +116,7 @@ export {
     UiCollapsible,
     UiConfirm,
     UiDatepicker,
+    UiDatepickerCalendar,
     UiFab,
     UiFileupload,
     UiIcon,

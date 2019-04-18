@@ -94,7 +94,7 @@ export default {
             date.setDate(1);
             date.setMonth(date.getMonth() - 1);
 
-            this.goToDate(date, { isForward: false });
+            this.goToDate(date);
         },
 
         goToNextMonth() {
@@ -104,11 +104,11 @@ export default {
             date.setDate(1);
             date.setMonth(date.getMonth() + 1);
 
-            this.goToDate(date, { isForward: true });
+            this.goToDate(date);
         },
 
-        goToDate(date, options = { isForward: true }) {
-            this.$emit('go-to-date', date, options);
+        goToDate(date) {
+            this.$emit('go-to-date', date);
         }
     },
 
@@ -131,5 +131,6 @@ export default {
 
 .ui-calendar-controls__month-and-year {
     font-size: rem(15px);
+    font-weight: 600;
 }
 </style>

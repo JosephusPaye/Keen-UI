@@ -18,6 +18,7 @@ const config = merge(base, {
         UiCollapsible: ['./src/UiCollapsible.vue'],
         UiConfirm: ['./src/UiConfirm.vue'],
         UiDatepicker: ['./src/UiDatepicker.vue'],
+        UiDatepickerCalendar: ['./src/UiDatepickerCalendar.vue'],
         UiFab: ['./src/UiFab.vue'],
         UiFileupload: ['./src/UiFileupload.vue'],
         UiIcon: ['./src/UiIcon.vue'],
