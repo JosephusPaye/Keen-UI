@@ -75,7 +75,7 @@ export default {
         },
         size: {
             type: String,
-            default: 'normal' // 'small', 'normal', 'large', or 'fullscreen'
+            default: 'normal' // 'small', 'normal', 'large', 'fullscreen', or 'auto'
         },
         role: {
             type: String,
@@ -323,6 +323,7 @@ $ui-modal-header-font-size      : rem(18px);
     display: table-cell;
     vertical-align: middle;
     overflow-x: hidden;
+    text-align: center;
 
     &.has-dummy-scrollbar {
         overflow-y: scroll;
@@ -333,12 +334,14 @@ $ui-modal-header-font-size      : rem(18px);
     background-color: white;
     border-radius: $ui-default-border-radius;
     box-shadow: 0 2px 8px rgba(black, 0.33);
+    display: inline-block;
     margin: 0 auto;
     max-height: 100vh;
     max-width: 100vw;
     outline: none;
     overflow: hidden;
     padding: 0;
+    text-align: initial;
     transition: all $ui-modal-transition-duration ease;
     width: rem(528px);
 }
@@ -416,6 +419,12 @@ $ui-modal-header-font-size      : rem(18px);
         .ui-modal__body {
             height: calc(100vh - #{$ui-modal-header-height});
         }
+    }
+}
+
+.ui-modal--size-auto {
+    & > .ui-modal__wrapper > .ui-modal__container {
+        width: initial; // Allow the modal to grow to fit the content
     }
 }
 

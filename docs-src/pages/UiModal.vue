@@ -119,6 +119,13 @@
                     This is a fullscreen modal with a <code>scale-up</code> transition.
                 </ui-modal>
 
+                <ui-button @click="openModal('modal802')">Auto width</ui-button>
+                <ui-modal ref="modal802" size="auto" title="Auto width modal">
+                    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. {{ modal802Content }}</div>
+                    <br>
+                    <input type="text" v-model="modal802Content" placeholder="Type here to make the modal bigger">
+                </ui-modal>
+
                 <ui-button @click="openModal('modal9')">Scrolling Modal</ui-button>
                 <ui-modal ref="modal9" title="Scrolling Modal" transition="scale-up">
                     <p>This is a scrolling modal with a <code>scale-up</code> transition.</p>
@@ -214,7 +221,8 @@
                                 <td>String</td>
                                 <td><code>"normal"</code></td>
                                 <td>
-                                    <p>The size of the modal. One of <code>small</code>, <code>normal</code>, <code>large</code>, or <code>fullscreen</code>.</p>
+                                    <p>The size of the modal. One of <code>small</code>, <code>normal</code>, <code>large</code>, <code>fullscreen</code>, or <code>auto</code>.</p>
+                                    <p>Setting the size to <code>auto</code> will make the modal's width grow to fit its content.</p>
                                     <p>For more custom sizes, override the <code>width</code> property of <code>.ui-modal__container</code> using CSS.</p>
                                 </td>
                             </tr>
@@ -429,6 +437,12 @@ import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
 
 export default {
+    data() {
+        return {
+            modal802Content: ''
+        };
+    },
+
     methods: {
         openModal(ref) {
             this.$refs[ref].open();
@@ -452,6 +466,10 @@ export default {
 .page--ui-modal {
     .page__demo-group {
         margin-bottom: 16px;
+
+        input {
+            width: 100%;
+        }
     }
 
     .ui-button {

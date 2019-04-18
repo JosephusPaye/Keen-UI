@@ -1,5 +1,9 @@
 # v1.2.0 (To be released)
 
+### UiModal
+
+- Add new `size`: `auto`, to make the modal's width grow to fit its content.
+
 ### UiPopover
 
 - Upgrade to Tippy.js 4
