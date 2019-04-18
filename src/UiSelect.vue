@@ -355,8 +355,8 @@ export default {
         },
 
         submittedValue() {
-            // Assuming that if there is no name, then there's no
-            // need to computed the submittedValue
+            // Assuming that if there is no name or no value,
+            // then there's no need to compute the submittedValue
             if (!this.name || !this.value) {
                 return;
             }
