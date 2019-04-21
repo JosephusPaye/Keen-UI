@@ -16,6 +16,7 @@
                     :disabled="disabled"
                     :max="maxValue"
                     :maxlength="enforceMaxlength ? maxlength : null"
+                    :minLength="minLength"
                     :min="minValue"
                     :name="name"
                     :number="type === 'number' ? true : null"
@@ -45,6 +46,7 @@
                     :autocomplete="autocomplete ? autocomplete : null"
                     :disabled="disabled"
                     :maxlength="enforceMaxlength ? maxlength : null"
+                    :minLength="minLength"
                     :name="name"
                     :placeholder="hasFloatingLabel ? null : placeholder"
                     :readonly="readonly"
@@ -145,6 +147,7 @@ export default {
             default: 'any'
         },
         maxlength: Number,
+        minlength: Number,
         enforceMaxlength: {
             type: Boolean,
             default: false
