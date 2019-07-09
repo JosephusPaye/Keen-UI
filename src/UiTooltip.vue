@@ -39,7 +39,8 @@ export default {
                     '[UiTooltip]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string.'
                 );
             }
-        }
+        },
+        zIndex: Number
     },
 
     mounted() {
@@ -67,6 +68,7 @@ export default {
             placement: this.position,
             theme: 'ui-tooltip',
             trigger: this.openOn.replace('hover', 'mouseenter'),
+            zIndex: this.zIndex,
             popperOptions: {
                 modifiers: {
                     computeStyle: {

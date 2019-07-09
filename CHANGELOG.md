@@ -10,6 +10,7 @@
 - Rewrite internal calendar for better semantics and accessibility.
 - Removed month switch animation. This unnecessarily slows down the user when switching through many months.
 - Add new prop `appendDropdownToBody` to append the dropdown to the document body.
+- Add new prop `dropdownZIndex` to customize the dropdown z-index.
 
 ### UiModal
 
@@ -17,14 +18,16 @@
 
 ### UiPopover
 
-- Upgrade to Tippy.js 4
-- **Breaking**: Remove `offset` prop, as it's not recommended for interactive poppers (which is what UiPopover is)
-- Add new animation: `scale`
+- Upgrade to Tippy.js 4.
+- **Breaking**: Remove `offset` prop, as it's not recommended for interactive poppers (which is what UiPopover is).
+- Add new animation: `scale`.
+- Add new prop `zIndex` to customize the z-index of the popover.
 
 ### UiTooltip
 
-- Upgrade to Tippy.js 4
-- Add new animation: `scale`
+- Upgrade to Tippy.js 4.
+- Add new animation: `scale`.
+- Add new prop `zIndex` to customize the z-index of the tooltip.
 
 # v1.1.2
 

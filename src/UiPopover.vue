@@ -70,7 +70,8 @@ export default {
                     '[UiPopover]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string which matches an existing element.'
                 );
             }
-        }
+        },
+        zIndex: Number
     },
 
     data() {
@@ -137,6 +138,7 @@ export default {
                 role: 'dialog',
                 theme: 'ui-popover',
                 trigger: this.openOn.replace('hover', 'mouseenter'),
+                zIndex: this.zIndex,
                 popperOptions: {
                     modifiers: {
                         computeStyle: {

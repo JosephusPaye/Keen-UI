@@ -54,7 +54,9 @@
                     contain-focus
                     open-on="manual"
                     ref="popover"
+
                     :append-to-body="appendDropdownToBody"
+                    :z-index="dropdownZIndex"
 
                     @close="onPickerClose"
                     @open="onPickerOpen"
@@ -157,6 +159,7 @@ export default {
             default: 'popover' // 'popover' or 'modal'
         },
         appendDropdownToBody: Boolean,
+        dropdownZIndex: Number,
         placeholder: String,
         icon: String,
         iconPosition: {

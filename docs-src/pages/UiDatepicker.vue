@@ -321,6 +321,15 @@
                             </tr>
 
                             <tr>
+                                <td>dropdownZIndex</td>
+                                <td>Number</td>
+                                <td></td>
+                                <td>
+                                    <p>The datepicker's dropdown <code>z-index</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>name</td>
                                 <td>String</td>
                                 <td></td>

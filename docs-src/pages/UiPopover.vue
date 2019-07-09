@@ -289,6 +289,15 @@
                                     <p>If <code>trigger</code> is not provided or the selector doesn't match any element, the popover's immediate parent element is used as the trigger. Note that the parent used is the popover's parent in the DOM, not the Vue parent component.</p>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td>zIndex</td>
+                                <td>Number</td>
+                                <td></td>
+                                <td>
+                                    <p>The popover z-index. Passed to Tippy.js.</p>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
