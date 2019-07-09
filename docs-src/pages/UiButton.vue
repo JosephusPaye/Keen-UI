@@ -388,6 +388,15 @@
                             </tr>
 
                             <tr>
+                                <td>appendDropdownToBody</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td>
+                                    <p>Set to <code>true</code> to append the button's dropdown to the document body, instead of the parent element.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>openDropdownOn</td>
                                 <td>String</td>
                                 <td><code>"click"</code></td>
