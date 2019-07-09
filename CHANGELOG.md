@@ -1,4 +1,4 @@
-# v1.2.0 (To be released)
+# v1.2.0
 
 ### UiCalendar (new)
 
