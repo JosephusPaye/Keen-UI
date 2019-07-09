@@ -290,6 +290,8 @@ $ui-datepicker-calendar-padding : rem(8px) !default;
 }
 
 .ui-datepicker-calendar__body {
+    box-sizing: border-box;
+
     .ui-calendar-controls {
         background-color: transparent;
     }

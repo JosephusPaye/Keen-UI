@@ -55,19 +55,21 @@
     line-height: 1.176em;
 }
 
-td,
-th {
-    p:first-child {
-        margin-top: 0;
+.ui-tab {
+    td,
+    th {
+        p:first-child {
+            margin-top: 0;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
     }
 
-    p:last-child {
-        margin-bottom: 0;
+    tbody td:first-child {
+        min-width: rem(88px);
     }
-}
-
-tbody td:first-child {
-    min-width: rem(88px);
 }
 
 .keen-docs__custom-popover-content {

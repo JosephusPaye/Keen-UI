@@ -54,6 +54,7 @@
                     contain-focus
                     open-on="manual"
                     ref="popover"
+                    :append-to-body="appendDropdownToBody"
 
                     @close="onPickerClose"
                     @open="onPickerOpen"
@@ -155,6 +156,7 @@ export default {
             type: String,
             default: 'popover' // 'popover' or 'modal'
         },
+        appendDropdownToBody: Boolean,
         placeholder: String,
         icon: String,
         iconPosition: {

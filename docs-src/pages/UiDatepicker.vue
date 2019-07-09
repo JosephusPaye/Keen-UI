@@ -160,6 +160,19 @@
                 v-model="picker13"
             >A Special Day</ui-datepicker>
 
+            <h4 class="page__demo-title">In a modal, appending to <code>&lt;body&gt;</code></h4>
+
+            <ui-button @click="openModal">Open Modal</ui-button>
+            <ui-modal ref="modal" title="Modal with datepicker">
+                <div>Modal content: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus et id, provident culpa vel accusantium possimus fugiat libero tenetur labore!</div>
+                <br>
+                <ui-datepicker
+                    placeholder="Select a date"
+                    append-dropdown-to-body
+                    v-model="picker1301"
+                >Your Birthday</ui-datepicker>
+            </ui-modal>
+
             <h4 class="page__demo-title">Disabled</h4>
 
             <ui-datepicker
@@ -299,17 +312,12 @@
                             </tr>
 
                             <tr>
-                                <td>okButtonText</td>
-                                <td>String</td>
-                                <td><code>"OK"</code></td>
-                                <td>The text of the OK button when the picker type is modal.</td>
-                            </tr>
-
-                            <tr>
-                                <td>cancelButtonText</td>
-                                <td>String</td>
-                                <td><code>"Cancel"</code></td>
-                                <td>The text of the Cancel button when the picker type is modal.</td>
+                                <td>appendDropdownToBody</td>
+                                <td>Boolean</td>
+                                <td><code>false</code></td>
+                                <td>
+                                    <p>Set to <code>true</code> to append the datepicker's dropdown to the document body, instead of the parent element.</p>
+                                </td>
                             </tr>
 
                             <tr>
@@ -564,7 +572,9 @@
 </template>
 
 <script>
+import UiButton from 'src/UiButton.vue';
 import UiDatepicker from 'src/UiDatepicker.vue';
+import UiModal from 'src/UiModal.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
 
@@ -594,6 +604,7 @@ export default {
             picker12: null,
             picker12Lang: languageFr,
             picker13: null,
+            picker1301: null,
             picker14: null,
             picker15: new Date()
         };
@@ -606,11 +617,17 @@ export default {
 
         picker11Filter(date) {
             return date.getDay() !== 0 && date.getDay() !== 6;
+        },
+
+        openModal() {
+            this.$refs.modal.open();
         }
     },
 
     components: {
+        UiButton,
         UiDatepicker,
+        UiModal,
         UiTab,
         UiTabs
     }
@@ -624,6 +641,11 @@ export default {
     .ui-datepicker {
         max-width: rem(400px);
         margin-bottom: rem(32px);
+    }
+
+    .ui-modal .ui-datepicker {
+        max-width: none;
+        margin-bottom: 0;
     }
 }
 </style>

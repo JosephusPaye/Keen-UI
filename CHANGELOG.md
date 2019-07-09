@@ -9,6 +9,7 @@
 - **Breaking** Remove `OK` and `Cancel` button in modal picker. Now, like the popover picker, dismissing the picker without a selection is "Cancel" and selecting a date is "OK".
 - Rewrite internal calendar for better semantics and accessibility.
 - Removed month switch animation. This unnecessarily slows down the user when switching through many months.
+- Add new prop `appendDropdownToBody` to append the dropdown to the document body.
 
 ### UiModal
 
