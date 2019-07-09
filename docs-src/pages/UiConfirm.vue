@@ -145,7 +145,7 @@
                 </ui-confirm>
 
                 <ui-button @click="showConfirm('scaleUpConfirm')">Scale Up</ui-button>
-                <ui-button @click="showConfirm('scaleUpConfirm')">Scale Down (default)</ui-button>
+                <ui-button @click="showConfirm('scaleDownConfirm')">Scale Down (default)</ui-button>
                 <ui-button @click="showConfirm('fadeConfirm')">Fade</ui-button>
             </div>
 
