@@ -7,6 +7,9 @@
             :color="color"
             :date-in-view="dateInView"
             :lang="lang"
+            :max-date="maxDate"
+            :min-date="minDate"
+            :year-range="yearRange"
 
             @go-to-date="goToDate"
         ></ui-calendar-controls>

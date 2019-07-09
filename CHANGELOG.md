@@ -11,6 +11,7 @@
 - Removed month switch animation. This unnecessarily slows down the user when switching through many months.
 - Add new prop `appendDropdownToBody` to append the dropdown to the document body.
 - Add new prop `dropdownZIndex` to customize the dropdown z-index.
+- Fix implementation to respect `yearRange` prop. See [#449](https://github.com/JosephusPaye/Keen-UI/issues/449).
 
 ### UiModal
 

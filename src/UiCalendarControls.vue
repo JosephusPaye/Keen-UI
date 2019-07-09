@@ -55,7 +55,11 @@ export default {
         lang: Object,
         dateInView: Date,
         minDate: Date,
-        maxDate: Date
+        maxDate: Date,
+        yearRange: {
+            type: Array,
+            required: true
+        }
     },
 
     computed: {
@@ -71,30 +75,34 @@ export default {
         },
 
         previousMonthDisabled() {
-            if (!this.minDate) {
-                return false;
-            }
-
             const lastDayOfPreviousMonth = dateUtils.clone(this.dateInView);
 
             // Setting the date to zero goes to the last day in previous month
             lastDayOfPreviousMonth.setDate(0);
 
-            return this.minDate.getTime() > lastDayOfPreviousMonth.getTime();
+            const outsideYearRange = lastDayOfPreviousMonth.getFullYear() < this.yearRange[0];
+
+            if (this.minDate) {
+                return outsideYearRange || lastDayOfPreviousMonth.getTime() < this.minDate.getTime();
+            }
+
+            return outsideYearRange;
         },
 
         nextMonthDisabled() {
-            if (!this.maxDate) {
-                return false;
-            }
-
             const firstDayOfNextMonth = dateUtils.clone(this.dateInView);
 
-            // Set the month ot next month, and the day to the first day
+            // Set the month to next month, and the day to the first day
             // If the month overflows, it increments the year
             firstDayOfNextMonth.setMonth(this.dateInView.getMonth() + 1, 1);
 
-            return this.maxDate.getTime() < firstDayOfNextMonth.getTime();
+            const outsideYearRange = firstDayOfNextMonth.getFullYear() > this.yearRange[this.yearRange.length - 1];
+
+            if (this.maxDate) {
+                return outsideYearRange || firstDayOfNextMonth.getTime() > this.maxDate.getTime();
+            }
+
+            return outsideYearRange;
         }
     },
 

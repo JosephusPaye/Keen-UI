@@ -48,6 +48,7 @@
                 :lang="lang"
                 :max-date="maxDate"
                 :min-date="minDate"
+                :year-range="yearRange"
 
                 @go-to-date="onGoToDate"
             ></ui-calendar-controls>
@@ -217,6 +218,14 @@ export default {
             }
 
             if (this.maxDate && year > this.maxDate.getFullYear()) {
+                return true;
+            }
+
+            if (this.year < this.yearRange[0]) {
+                return true;
+            }
+
+            if (this.year > this.yearRange[this.yearRange.length - 1]) {
                 return true;
             }
 

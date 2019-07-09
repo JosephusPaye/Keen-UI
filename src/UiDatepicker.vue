@@ -73,6 +73,7 @@
                         :orientation="orientation"
                         :value="date"
                         :start-of-week="startOfWeek"
+                        :year-range="yearRange"
                         @date-select="onDateSelect"
                     ></ui-datepicker-calendar>
                 </ui-popover>
@@ -108,6 +109,7 @@
                 :orientation="orientation"
                 :value="date"
                 :start-of-week="startOfWeek"
+                :year-range="yearRange"
                 @date-select="onDateSelect"
             ></ui-datepicker-calendar>
         </ui-modal>

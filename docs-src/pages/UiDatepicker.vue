@@ -147,6 +147,16 @@
                 v-model="picker12"
             >A Special Day</ui-datepicker>
 
+            <h4 class="page__demo-title">With custom year range</h4>
+
+            <ui-datepicker
+                icon="events"
+                orientation="landscape"
+                placeholder="Select a date from this year"
+                :yearRange="[(new Date).getFullYear()]"
+                v-model="picker1201"
+            >A Special Day</ui-datepicker>
+
             <h4 class="page__demo-title">With validation: required</h4>
 
             <ui-datepicker
@@ -612,6 +622,7 @@ export default {
             picker11: null,
             picker12: null,
             picker12Lang: languageFr,
+            picker1201: null,
             picker13: null,
             picker1301: null,
             picker14: null,
