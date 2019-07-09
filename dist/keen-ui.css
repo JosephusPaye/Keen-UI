@@ -1,5 +1,5 @@
 /*!
- * Keen UI v1.1.2 (https://github.com/JosephusPaye/keen-ui)
+ * Keen UI v1.2.0 (https://github.com/JosephusPaye/keen-ui)
  * (c) 2019 Josephus Paye II
  * Released under the MIT License.
  */
@@ -763,41 +763,36 @@ body[modality="keyboard"] .ui-close-button--color-black:focus .ui-close-button__
       background-color: rgba(244, 67, 54, 0.26);
 }
 
-.tippy-touch {
+.tippy-iOS {
   cursor: pointer !important;
-}
-.tippy-notransition {
-  -webkit-transition: none !important;
-  transition: none !important;
+  -webkit-tap-highlight-color: transparent;
 }
 .tippy-popper {
-  max-width: 100%;
   max-height: 100%;
-  z-index: 60;
+  max-width: 100%;
   outline: 0;
+  pointer-events: none;
   -webkit-transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
           transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-  pointer-events: none;
+  z-index: 60;
 }
 .tippy-popper[x-placement^='top'] .tippy-backdrop {
     border-radius: 40% 40% 0 0;
 }
 .tippy-popper[x-placement^='top'] .tippy-backdrop {
-    -webkit-transform-origin: 0% 90%;
-            transform-origin: 0% 90%;
+    -webkit-transform-origin: 0% 25%;
+            transform-origin: 0% 25%;
 }
 .tippy-popper[x-placement^='top'] .tippy-backdrop[data-state='visible'] {
-      -webkit-transform: scale(6) translate(-50%, 25%);
-              transform: scale(6) translate(-50%, 25%);
-      opacity: 1;
+      -webkit-transform: scale(1) translate(-50%, -55%);
+              transform: scale(1) translate(-50%, -55%);
 }
 .tippy-popper[x-placement^='top'] .tippy-backdrop[data-state='hidden'] {
-      -webkit-transform: scale(1) translate(-50%, 25%);
-              transform: scale(1) translate(-50%, 25%);
+      -webkit-transform: scale(0.2) translate(-50%, -45%);
+              transform: scale(0.2) translate(-50%, -45%);
       opacity: 0;
 }
 .tippy-popper[x-placement^='top'] [data-animation='fade'][data-state='visible'] {
-    opacity: 1;
     -webkit-transform: translateY(-10px);
             transform: translateY(-10px);
 }
@@ -807,7 +802,6 @@ body[modality="keyboard"] .ui-close-button--color-black:focus .ui-close-button__
             transform: translateY(-10px);
 }
 .tippy-popper[x-placement^='top'] [data-animation='shift-away'][data-state='visible'] {
-    opacity: 1;
     -webkit-transform: translateY(-10px);
             transform: translateY(-10px);
 }
@@ -816,25 +810,36 @@ body[modality="keyboard"] .ui-close-button--color-black:focus .ui-close-button__
     -webkit-transform: translateY(0);
             transform: translateY(0);
 }
+.tippy-popper[x-placement^='top'] [data-animation='scale'] {
+    -webkit-transform-origin: bottom;
+            transform-origin: bottom;
+}
+.tippy-popper[x-placement^='top'] [data-animation='scale'][data-state='visible'] {
+      -webkit-transform: translateY(-10px) scale(1);
+              transform: translateY(-10px) scale(1);
+}
+.tippy-popper[x-placement^='top'] [data-animation='scale'][data-state='hidden'] {
+      opacity: 0;
+      -webkit-transform: translateY(-10px) scale(0.5);
+              transform: translateY(-10px) scale(0.5);
+}
 .tippy-popper[x-placement^='bottom'] .tippy-backdrop {
     border-radius: 0 0 30% 30%;
 }
 .tippy-popper[x-placement^='bottom'] .tippy-backdrop {
-    -webkit-transform-origin: 0 -90%;
-            transform-origin: 0 -90%;
+    -webkit-transform-origin: 0% -50%;
+            transform-origin: 0% -50%;
 }
 .tippy-popper[x-placement^='bottom'] .tippy-backdrop[data-state='visible'] {
-      -webkit-transform: scale(6) translate(-50%, -125%);
-              transform: scale(6) translate(-50%, -125%);
-      opacity: 1;
+      -webkit-transform: scale(1) translate(-50%, -45%);
+              transform: scale(1) translate(-50%, -45%);
 }
 .tippy-popper[x-placement^='bottom'] .tippy-backdrop[data-state='hidden'] {
-      -webkit-transform: scale(1) translate(-50%, -125%);
-              transform: scale(1) translate(-50%, -125%);
+      -webkit-transform: scale(0.2) translate(-50%, 0);
+              transform: scale(0.2) translate(-50%, 0);
       opacity: 0;
 }
 .tippy-popper[x-placement^='bottom'] [data-animation='fade'][data-state='visible'] {
-    opacity: 1;
     -webkit-transform: translateY(10px);
             transform: translateY(10px);
 }
@@ -844,7 +849,6 @@ body[modality="keyboard"] .ui-close-button--color-black:focus .ui-close-button__
             transform: translateY(10px);
 }
 .tippy-popper[x-placement^='bottom'] [data-animation='shift-away'][data-state='visible'] {
-    opacity: 1;
     -webkit-transform: translateY(10px);
             transform: translateY(10px);
 }
@@ -853,25 +857,36 @@ body[modality="keyboard"] .ui-close-button--color-black:focus .ui-close-button__
     -webkit-transform: translateY(0);
             transform: translateY(0);
 }
+.tippy-popper[x-placement^='bottom'] [data-animation='scale'] {
+    -webkit-transform-origin: top;
+            transform-origin: top;
+}
+.tippy-popper[x-placement^='bottom'] [data-animation='scale'][data-state='visible'] {
+      -webkit-transform: translateY(10px) scale(1);
+              transform: translateY(10px) scale(1);
+}
+.tippy-popper[x-placement^='bottom'] [data-animation='scale'][data-state='hidden'] {
+      opacity: 0;
+      -webkit-transform: translateY(10px) scale(0.5);
+              transform: translateY(10px) scale(0.5);
+}
 .tippy-popper[x-placement^='left'] .tippy-backdrop {
     border-radius: 50% 0 0 50%;
 }
 .tippy-popper[x-placement^='left'] .tippy-backdrop {
-    -webkit-transform-origin: 100% 0%;
-            transform-origin: 100% 0%;
+    -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
 }
 .tippy-popper[x-placement^='left'] .tippy-backdrop[data-state='visible'] {
-      -webkit-transform: scale(6) translate(40%, -50%);
-              transform: scale(6) translate(40%, -50%);
-      opacity: 1;
+      -webkit-transform: scale(1) translate(-50%, -50%);
+              transform: scale(1) translate(-50%, -50%);
 }
 .tippy-popper[x-placement^='left'] .tippy-backdrop[data-state='hidden'] {
-      -webkit-transform: scale(1.5) translate(40%, -50%);
-              transform: scale(1.5) translate(40%, -50%);
+      -webkit-transform: scale(0.2) translate(-75%, -50%);
+              transform: scale(0.2) translate(-75%, -50%);
       opacity: 0;
 }
 .tippy-popper[x-placement^='left'] [data-animation='fade'][data-state='visible'] {
-    opacity: 1;
     -webkit-transform: translateX(-10px);
             transform: translateX(-10px);
 }
@@ -881,7 +896,6 @@ body[modality="keyboard"] .ui-close-button--color-black:focus .ui-close-button__
             transform: translateX(-10px);
 }
 .tippy-popper[x-placement^='left'] [data-animation='shift-away'][data-state='visible'] {
-    opacity: 1;
     -webkit-transform: translateX(-10px);
             transform: translateX(-10px);
 }
@@ -890,25 +904,36 @@ body[modality="keyboard"] .ui-close-button--color-black:focus .ui-close-button__
     -webkit-transform: translateX(0);
             transform: translateX(0);
 }
+.tippy-popper[x-placement^='left'] [data-animation='scale'] {
+    -webkit-transform-origin: right;
+            transform-origin: right;
+}
+.tippy-popper[x-placement^='left'] [data-animation='scale'][data-state='visible'] {
+      -webkit-transform: translateX(-10px) scale(1);
+              transform: translateX(-10px) scale(1);
+}
+.tippy-popper[x-placement^='left'] [data-animation='scale'][data-state='hidden'] {
+      opacity: 0;
+      -webkit-transform: translateX(-10px) scale(0.5);
+              transform: translateX(-10px) scale(0.5);
+}
 .tippy-popper[x-placement^='right'] .tippy-backdrop {
     border-radius: 0 50% 50% 0;
 }
 .tippy-popper[x-placement^='right'] .tippy-backdrop {
-    -webkit-transform-origin: -100% 0%;
-            transform-origin: -100% 0%;
+    -webkit-transform-origin: -50% 0%;
+            transform-origin: -50% 0%;
 }
 .tippy-popper[x-placement^='right'] .tippy-backdrop[data-state='visible'] {
-      -webkit-transform: scale(6) translate(-140%, -50%);
-              transform: scale(6) translate(-140%, -50%);
-      opacity: 1;
+      -webkit-transform: scale(1) translate(-50%, -50%);
+              transform: scale(1) translate(-50%, -50%);
 }
 .tippy-popper[x-placement^='right'] .tippy-backdrop[data-state='hidden'] {
-      -webkit-transform: scale(1.5) translate(-140%, -50%);
-              transform: scale(1.5) translate(-140%, -50%);
+      -webkit-transform: scale(0.2) translate(-25%, -50%);
+              transform: scale(0.2) translate(-25%, -50%);
       opacity: 0;
 }
 .tippy-popper[x-placement^='right'] [data-animation='fade'][data-state='visible'] {
-    opacity: 1;
     -webkit-transform: translateX(10px);
             transform: translateX(10px);
 }
@@ -918,7 +943,6 @@ body[modality="keyboard"] .ui-close-button--color-black:focus .ui-close-button__
             transform: translateX(10px);
 }
 .tippy-popper[x-placement^='right'] [data-animation='shift-away'][data-state='visible'] {
-    opacity: 1;
     -webkit-transform: translateX(10px);
             transform: translateX(10px);
 }
@@ -927,21 +951,27 @@ body[modality="keyboard"] .ui-close-button--color-black:focus .ui-close-button__
     -webkit-transform: translateX(0);
             transform: translateX(0);
 }
+.tippy-popper[x-placement^='right'] [data-animation='scale'] {
+    -webkit-transform-origin: left;
+            transform-origin: left;
+}
+.tippy-popper[x-placement^='right'] [data-animation='scale'][data-state='visible'] {
+      -webkit-transform: translateX(10px) scale(1);
+              transform: translateX(10px) scale(1);
+}
+.tippy-popper[x-placement^='right'] [data-animation='scale'][data-state='hidden'] {
+      opacity: 0;
+      -webkit-transform: translateX(10px) scale(0.5);
+              transform: translateX(10px) scale(0.5);
+}
 .tippy-tooltip {
   position: relative;
-  will-change: transform;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 .tippy-tooltip[data-animatefill] {
     overflow: hidden;
     background-color: transparent;
-}
-.tippy-tooltip[data-animatefill] .tippy-content {
-      -webkit-transition: -webkit-clip-path cubic-bezier(0.46, 0.1, 0.52, 0.98);
-      transition: -webkit-clip-path cubic-bezier(0.46, 0.1, 0.52, 0.98);
-      transition: clip-path cubic-bezier(0.46, 0.1, 0.52, 0.98);
-      transition: clip-path cubic-bezier(0.46, 0.1, 0.52, 0.98), -webkit-clip-path cubic-bezier(0.46, 0.1, 0.52, 0.98);
 }
 .tippy-tooltip[data-interactive] {
     pointer-events: auto;
@@ -951,9 +981,8 @@ body[modality="keyboard"] .ui-close-button--color-black:focus .ui-close-button__
 }
 .tippy-backdrop {
   position: absolute;
-  will-change: transform;
   border-radius: 50%;
-  width: 26%;
+  width: calc(110% + 2rem);
   left: 50%;
   top: 50%;
   z-index: -1;
@@ -967,31 +996,16 @@ body[modality="keyboard"] .ui-close-button--color-black:focus .ui-close-button__
     float: left;
     padding-top: 100%;
 }
-
-/* iOS Safari does not like clip path transition */
-body:not(.tippy-touch) .tippy-tooltip[data-animatefill][data-state='visible'] .tippy-content {
-  -webkit-clip-path: ellipse(100% 100% at 50% 50%);
-          clip-path: ellipse(100% 100% at 50% 50%);
+.tippy-backdrop + .tippy-content {
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+  will-change: opacity;
 }
-body:not(.tippy-touch) .tippy-tooltip[data-animatefill][data-state='hidden'] .tippy-content {
-  -webkit-clip-path: ellipse(5% 50% at 50% 50%);
-          clip-path: ellipse(5% 50% at 50% 50%);
+.tippy-backdrop + .tippy-content[data-state='visible'] {
+    opacity: 1;
 }
-body:not(.tippy-touch) .tippy-popper[x-placement='right'] .tippy-tooltip[data-animatefill][data-state='visible'] .tippy-content {
-  -webkit-clip-path: ellipse(135% 100% at 0% 50%);
-          clip-path: ellipse(135% 100% at 0% 50%);
-}
-body:not(.tippy-touch) .tippy-popper[x-placement='right'] .tippy-tooltip[data-animatefill][data-state='hidden'] .tippy-content {
-  -webkit-clip-path: ellipse(40% 100% at 0% 50%);
-          clip-path: ellipse(40% 100% at 0% 50%);
-}
-body:not(.tippy-touch) .tippy-popper[x-placement='left'] .tippy-tooltip[data-animatefill][data-state='visible'] .tippy-content {
-  -webkit-clip-path: ellipse(135% 100% at 100% 50%);
-          clip-path: ellipse(135% 100% at 100% 50%);
-}
-body:not(.tippy-touch) .tippy-popper[x-placement='left'] .tippy-tooltip[data-animatefill][data-state='hidden'] .tippy-content {
-  -webkit-clip-path: ellipse(40% 100% at 100% 50%);
-          clip-path: ellipse(40% 100% at 100% 50%);
+.tippy-backdrop + .tippy-content[data-state='hidden'] {
+    opacity: 0;
 }
 .ui-popover.is-raised {
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
@@ -1124,41 +1138,36 @@ body:not(.tippy-touch) .tippy-popper[x-placement='left'] .tippy-tooltip[data-ani
 }
 }
 
-.tippy-touch {
+.tippy-iOS {
   cursor: pointer !important;
-}
-.tippy-notransition {
-  -webkit-transition: none !important;
-  transition: none !important;
+  -webkit-tap-highlight-color: transparent;
 }
 .tippy-popper {
-  max-width: 100%;
   max-height: 100%;
-  z-index: 60;
+  max-width: 100%;
   outline: 0;
+  pointer-events: none;
   -webkit-transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
           transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-  pointer-events: none;
+  z-index: 60;
 }
 .tippy-popper[x-placement^='top'] .tippy-backdrop {
     border-radius: 40% 40% 0 0;
 }
 .tippy-popper[x-placement^='top'] .tippy-backdrop {
-    -webkit-transform-origin: 0% 90%;
-            transform-origin: 0% 90%;
+    -webkit-transform-origin: 0% 25%;
+            transform-origin: 0% 25%;
 }
 .tippy-popper[x-placement^='top'] .tippy-backdrop[data-state='visible'] {
-      -webkit-transform: scale(6) translate(-50%, 25%);
-              transform: scale(6) translate(-50%, 25%);
-      opacity: 1;
+      -webkit-transform: scale(1) translate(-50%, -55%);
+              transform: scale(1) translate(-50%, -55%);
 }
 .tippy-popper[x-placement^='top'] .tippy-backdrop[data-state='hidden'] {
-      -webkit-transform: scale(1) translate(-50%, 25%);
-              transform: scale(1) translate(-50%, 25%);
+      -webkit-transform: scale(0.2) translate(-50%, -45%);
+              transform: scale(0.2) translate(-50%, -45%);
       opacity: 0;
 }
 .tippy-popper[x-placement^='top'] [data-animation='fade'][data-state='visible'] {
-    opacity: 1;
     -webkit-transform: translateY(-10px);
             transform: translateY(-10px);
 }
@@ -1168,7 +1177,6 @@ body:not(.tippy-touch) .tippy-popper[x-placement='left'] .tippy-tooltip[data-ani
             transform: translateY(-10px);
 }
 .tippy-popper[x-placement^='top'] [data-animation='shift-away'][data-state='visible'] {
-    opacity: 1;
     -webkit-transform: translateY(-10px);
             transform: translateY(-10px);
 }
@@ -1177,25 +1185,36 @@ body:not(.tippy-touch) .tippy-popper[x-placement='left'] .tippy-tooltip[data-ani
     -webkit-transform: translateY(0);
             transform: translateY(0);
 }
+.tippy-popper[x-placement^='top'] [data-animation='scale'] {
+    -webkit-transform-origin: bottom;
+            transform-origin: bottom;
+}
+.tippy-popper[x-placement^='top'] [data-animation='scale'][data-state='visible'] {
+      -webkit-transform: translateY(-10px) scale(1);
+              transform: translateY(-10px) scale(1);
+}
+.tippy-popper[x-placement^='top'] [data-animation='scale'][data-state='hidden'] {
+      opacity: 0;
+      -webkit-transform: translateY(-10px) scale(0.5);
+              transform: translateY(-10px) scale(0.5);
+}
 .tippy-popper[x-placement^='bottom'] .tippy-backdrop {
     border-radius: 0 0 30% 30%;
 }
 .tippy-popper[x-placement^='bottom'] .tippy-backdrop {
-    -webkit-transform-origin: 0 -90%;
-            transform-origin: 0 -90%;
+    -webkit-transform-origin: 0% -50%;
+            transform-origin: 0% -50%;
 }
 .tippy-popper[x-placement^='bottom'] .tippy-backdrop[data-state='visible'] {
-      -webkit-transform: scale(6) translate(-50%, -125%);
-              transform: scale(6) translate(-50%, -125%);
-      opacity: 1;
+      -webkit-transform: scale(1) translate(-50%, -45%);
+              transform: scale(1) translate(-50%, -45%);
 }
 .tippy-popper[x-placement^='bottom'] .tippy-backdrop[data-state='hidden'] {
-      -webkit-transform: scale(1) translate(-50%, -125%);
-              transform: scale(1) translate(-50%, -125%);
+      -webkit-transform: scale(0.2) translate(-50%, 0);
+              transform: scale(0.2) translate(-50%, 0);
       opacity: 0;
 }
 .tippy-popper[x-placement^='bottom'] [data-animation='fade'][data-state='visible'] {
-    opacity: 1;
     -webkit-transform: translateY(10px);
             transform: translateY(10px);
 }
@@ -1205,7 +1224,6 @@ body:not(.tippy-touch) .tippy-popper[x-placement='left'] .tippy-tooltip[data-ani
             transform: translateY(10px);
 }
 .tippy-popper[x-placement^='bottom'] [data-animation='shift-away'][data-state='visible'] {
-    opacity: 1;
     -webkit-transform: translateY(10px);
             transform: translateY(10px);
 }
@@ -1214,25 +1232,36 @@ body:not(.tippy-touch) .tippy-popper[x-placement='left'] .tippy-tooltip[data-ani
     -webkit-transform: translateY(0);
             transform: translateY(0);
 }
+.tippy-popper[x-placement^='bottom'] [data-animation='scale'] {
+    -webkit-transform-origin: top;
+            transform-origin: top;
+}
+.tippy-popper[x-placement^='bottom'] [data-animation='scale'][data-state='visible'] {
+      -webkit-transform: translateY(10px) scale(1);
+              transform: translateY(10px) scale(1);
+}
+.tippy-popper[x-placement^='bottom'] [data-animation='scale'][data-state='hidden'] {
+      opacity: 0;
+      -webkit-transform: translateY(10px) scale(0.5);
+              transform: translateY(10px) scale(0.5);
+}
 .tippy-popper[x-placement^='left'] .tippy-backdrop {
     border-radius: 50% 0 0 50%;
 }
 .tippy-popper[x-placement^='left'] .tippy-backdrop {
-    -webkit-transform-origin: 100% 0%;
-            transform-origin: 100% 0%;
+    -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
 }
 .tippy-popper[x-placement^='left'] .tippy-backdrop[data-state='visible'] {
-      -webkit-transform: scale(6) translate(40%, -50%);
-              transform: scale(6) translate(40%, -50%);
-      opacity: 1;
+      -webkit-transform: scale(1) translate(-50%, -50%);
+              transform: scale(1) translate(-50%, -50%);
 }
 .tippy-popper[x-placement^='left'] .tippy-backdrop[data-state='hidden'] {
-      -webkit-transform: scale(1.5) translate(40%, -50%);
-              transform: scale(1.5) translate(40%, -50%);
+      -webkit-transform: scale(0.2) translate(-75%, -50%);
+              transform: scale(0.2) translate(-75%, -50%);
       opacity: 0;
 }
 .tippy-popper[x-placement^='left'] [data-animation='fade'][data-state='visible'] {
-    opacity: 1;
     -webkit-transform: translateX(-10px);
             transform: translateX(-10px);
 }
@@ -1242,7 +1271,6 @@ body:not(.tippy-touch) .tippy-popper[x-placement='left'] .tippy-tooltip[data-ani
             transform: translateX(-10px);
 }
 .tippy-popper[x-placement^='left'] [data-animation='shift-away'][data-state='visible'] {
-    opacity: 1;
     -webkit-transform: translateX(-10px);
             transform: translateX(-10px);
 }
@@ -1251,25 +1279,36 @@ body:not(.tippy-touch) .tippy-popper[x-placement='left'] .tippy-tooltip[data-ani
     -webkit-transform: translateX(0);
             transform: translateX(0);
 }
+.tippy-popper[x-placement^='left'] [data-animation='scale'] {
+    -webkit-transform-origin: right;
+            transform-origin: right;
+}
+.tippy-popper[x-placement^='left'] [data-animation='scale'][data-state='visible'] {
+      -webkit-transform: translateX(-10px) scale(1);
+              transform: translateX(-10px) scale(1);
+}
+.tippy-popper[x-placement^='left'] [data-animation='scale'][data-state='hidden'] {
+      opacity: 0;
+      -webkit-transform: translateX(-10px) scale(0.5);
+              transform: translateX(-10px) scale(0.5);
+}
 .tippy-popper[x-placement^='right'] .tippy-backdrop {
     border-radius: 0 50% 50% 0;
 }
 .tippy-popper[x-placement^='right'] .tippy-backdrop {
-    -webkit-transform-origin: -100% 0%;
-            transform-origin: -100% 0%;
+    -webkit-transform-origin: -50% 0%;
+            transform-origin: -50% 0%;
 }
 .tippy-popper[x-placement^='right'] .tippy-backdrop[data-state='visible'] {
-      -webkit-transform: scale(6) translate(-140%, -50%);
-              transform: scale(6) translate(-140%, -50%);
-      opacity: 1;
+      -webkit-transform: scale(1) translate(-50%, -50%);
+              transform: scale(1) translate(-50%, -50%);
 }
 .tippy-popper[x-placement^='right'] .tippy-backdrop[data-state='hidden'] {
-      -webkit-transform: scale(1.5) translate(-140%, -50%);
-              transform: scale(1.5) translate(-140%, -50%);
+      -webkit-transform: scale(0.2) translate(-25%, -50%);
+              transform: scale(0.2) translate(-25%, -50%);
       opacity: 0;
 }
 .tippy-popper[x-placement^='right'] [data-animation='fade'][data-state='visible'] {
-    opacity: 1;
     -webkit-transform: translateX(10px);
             transform: translateX(10px);
 }
@@ -1279,7 +1318,6 @@ body:not(.tippy-touch) .tippy-popper[x-placement='left'] .tippy-tooltip[data-ani
             transform: translateX(10px);
 }
 .tippy-popper[x-placement^='right'] [data-animation='shift-away'][data-state='visible'] {
-    opacity: 1;
     -webkit-transform: translateX(10px);
             transform: translateX(10px);
 }
@@ -1288,21 +1326,27 @@ body:not(.tippy-touch) .tippy-popper[x-placement='left'] .tippy-tooltip[data-ani
     -webkit-transform: translateX(0);
             transform: translateX(0);
 }
+.tippy-popper[x-placement^='right'] [data-animation='scale'] {
+    -webkit-transform-origin: left;
+            transform-origin: left;
+}
+.tippy-popper[x-placement^='right'] [data-animation='scale'][data-state='visible'] {
+      -webkit-transform: translateX(10px) scale(1);
+              transform: translateX(10px) scale(1);
+}
+.tippy-popper[x-placement^='right'] [data-animation='scale'][data-state='hidden'] {
+      opacity: 0;
+      -webkit-transform: translateX(10px) scale(0.5);
+              transform: translateX(10px) scale(0.5);
+}
 .tippy-tooltip {
   position: relative;
-  will-change: transform;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 .tippy-tooltip[data-animatefill] {
     overflow: hidden;
     background-color: transparent;
-}
-.tippy-tooltip[data-animatefill] .tippy-content {
-      -webkit-transition: -webkit-clip-path cubic-bezier(0.46, 0.1, 0.52, 0.98);
-      transition: -webkit-clip-path cubic-bezier(0.46, 0.1, 0.52, 0.98);
-      transition: clip-path cubic-bezier(0.46, 0.1, 0.52, 0.98);
-      transition: clip-path cubic-bezier(0.46, 0.1, 0.52, 0.98), -webkit-clip-path cubic-bezier(0.46, 0.1, 0.52, 0.98);
 }
 .tippy-tooltip[data-interactive] {
     pointer-events: auto;
@@ -1312,9 +1356,8 @@ body:not(.tippy-touch) .tippy-popper[x-placement='left'] .tippy-tooltip[data-ani
 }
 .tippy-backdrop {
   position: absolute;
-  will-change: transform;
   border-radius: 50%;
-  width: 26%;
+  width: calc(110% + 2rem);
   left: 50%;
   top: 50%;
   z-index: -1;
@@ -1328,31 +1371,16 @@ body:not(.tippy-touch) .tippy-popper[x-placement='left'] .tippy-tooltip[data-ani
     float: left;
     padding-top: 100%;
 }
-
-/* iOS Safari does not like clip path transition */
-body:not(.tippy-touch) .tippy-tooltip[data-animatefill][data-state='visible'] .tippy-content {
-  -webkit-clip-path: ellipse(100% 100% at 50% 50%);
-          clip-path: ellipse(100% 100% at 50% 50%);
+.tippy-backdrop + .tippy-content {
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+  will-change: opacity;
 }
-body:not(.tippy-touch) .tippy-tooltip[data-animatefill][data-state='hidden'] .tippy-content {
-  -webkit-clip-path: ellipse(5% 50% at 50% 50%);
-          clip-path: ellipse(5% 50% at 50% 50%);
+.tippy-backdrop + .tippy-content[data-state='visible'] {
+    opacity: 1;
 }
-body:not(.tippy-touch) .tippy-popper[x-placement='right'] .tippy-tooltip[data-animatefill][data-state='visible'] .tippy-content {
-  -webkit-clip-path: ellipse(135% 100% at 0% 50%);
-          clip-path: ellipse(135% 100% at 0% 50%);
-}
-body:not(.tippy-touch) .tippy-popper[x-placement='right'] .tippy-tooltip[data-animatefill][data-state='hidden'] .tippy-content {
-  -webkit-clip-path: ellipse(40% 100% at 0% 50%);
-          clip-path: ellipse(40% 100% at 0% 50%);
-}
-body:not(.tippy-touch) .tippy-popper[x-placement='left'] .tippy-tooltip[data-animatefill][data-state='visible'] .tippy-content {
-  -webkit-clip-path: ellipse(135% 100% at 100% 50%);
-          clip-path: ellipse(135% 100% at 100% 50%);
-}
-body:not(.tippy-touch) .tippy-popper[x-placement='left'] .tippy-tooltip[data-animatefill][data-state='hidden'] .tippy-content {
-  -webkit-clip-path: ellipse(40% 100% at 100% 50%);
-          clip-path: ellipse(40% 100% at 100% 50%);
+.tippy-backdrop + .tippy-content[data-state='hidden'] {
+    opacity: 0;
 }
 .ui-tooltip-theme {
   background-color: rgba(33, 33, 33, 0.9);
@@ -1368,124 +1396,31 @@ body:not(.tippy-touch) .tippy-popper[x-placement='left'] .tippy-tooltip[data-ani
 }
 
 .ui-calendar {
+  border-radius: 3px;
   color: rgba(0, 0, 0, 0.87);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  overflow: hidden;
 }
-.ui-calendar__header {
-  color: white;
-  line-height: 1;
-  padding: 1rem;
+.ui-calendar.is-raised {
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.2);
 }
-.ui-calendar__header-year,
-.ui-calendar__header-details {
-  cursor: pointer;
-  opacity: 0.75;
-  -webkit-transition: opacity 0.2s ease;
-  transition: opacity 0.2s ease;
+.ui-calendar.is-raised .ui-calendar__body {
+      border: none;
 }
-.ui-calendar__header-year:hover,
-  body[modality="keyboard"] .ui-calendar__header-year:focus, .ui-calendar__header-year.is-active,
-  .ui-calendar__header-details:hover,
-  body[modality="keyboard"]
-  .ui-calendar__header-details:focus,
-  .ui-calendar__header-details.is-active {
-    opacity: 1;
-}
-body[modality="keyboard"] .ui-calendar__header-year:focus, body[modality="keyboard"]
-  .ui-calendar__header-details:focus {
-    outline: 1px dotted white;
-    outline-offset: 1px;
-}
-.ui-calendar__header-year {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-.ui-calendar__header-details {
-  font-size: 1.375rem;
+.ui-calendar .ui-calendar__header {
+    height: 3rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 .ui-calendar__body {
-  height: 19.5rem;
+  border-radius: 0 0 3px 3px;
   overflow: hidden;
-  padding: 0.5rem;
   position: relative;
-  width: 16.75rem;
-}
-.ui-calendar__years {
-  height: 19.5rem;
-  list-style: none;
-  margin: -0.5rem;
-  overflow-y: auto;
-  padding: 0.5rem 0;
-}
-.ui-calendar__year {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  cursor: pointer;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  font-size: 1rem;
-  height: 2.25rem;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  outline: none;
-}
-.ui-calendar__year.is-selected {
-    font-size: 1.5rem;
-    font-weight: 600;
-    height: 2.5rem;
-}
-.ui-calendar--orientation-landscape {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-.ui-calendar--orientation-landscape .ui-calendar__header {
-    min-width: 8rem;
-}
-.ui-calendar--orientation-landscape .ui-calendar__header-date {
-    margin-bottom: 0.75rem;
-}
-.ui-calendar--orientation-landscape .ui-calendar__header-date {
-    display: block;
-    padding-top: 0.25rem;
-}
-.ui-calendar--color-primary .ui-calendar__header {
-  background-color: #2196f3;
-}
-.ui-calendar--color-primary .ui-calendar__year:hover,
-body[modality="keyboard"] .ui-calendar--color-primary .ui-calendar__year:focus {
-  color: #2196f3;
-}
-.ui-calendar--color-primary .ui-calendar__year.is-selected {
-  color: #2196f3;
-}
-.ui-calendar--color-primary .ui-calendar-week__date.is-today {
-  color: #2196f3;
-}
-.ui-calendar--color-primary .ui-calendar-week__date.is-selected,
-body[modality="keyboard"] .ui-calendar--color-primary .ui-calendar-week__date.is-selected {
-  background-color: #2196f3;
-}
-.ui-calendar--color-accent .ui-calendar__header {
-  background-color: #d500f9;
-}
-.ui-calendar--color-accent .ui-calendar__year:hover,
-body[modality="keyboard"] .ui-calendar--color-accent .ui-calendar__year:focus {
-  color: #d500f9;
-}
-.ui-calendar--color-accent .ui-calendar__year.is-selected {
-  color: #d500f9;
-}
-.ui-calendar--color-accent .ui-calendar-week__date.is-today {
-  color: #d500f9;
-}
-.ui-calendar--color-accent .ui-calendar-week__date.is-selected,
-body[modality="keyboard"] .ui-calendar--color-accent .ui-calendar-week__date.is-selected {
-  background-color: #d500f9;
+  width: 100%;
+  padding: 0.5rem;
+  padding-top: 0.25rem;
+  border: 1px solid #EEE;
+  border-top: 0;
 }
 
 .ui-calendar-controls {
@@ -1502,6 +1437,18 @@ body[modality="keyboard"] .ui-calendar--color-accent .ui-calendar-week__date.is-
 }
 .ui-calendar-controls__month-and-year {
   font-size: 0.9375rem;
+  font-weight: 600;
+}
+.ui-calendar-controls--color-default {
+  background-color: #EEE;
+}
+.ui-calendar-controls--color-primary {
+  background-color: #2196f3;
+  color: white;
+}
+.ui-calendar-controls--color-accent {
+  background-color: #d500f9;
+  color: white;
 }
 
 .ui-icon-button {
@@ -1763,90 +1710,75 @@ body[modality="keyboard"] .ui-icon-button:focus .ui-icon-button__focus-ring {
 }
 
 .ui-calendar-month {
-  height: 16rem;
-  overflow: hidden;
-  position: relative;
+  table-layout: fixed;
   width: 100%;
 }
 .ui-calendar-month__header {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  height: 2.5rem;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
   width: 100%;
 }
-.ui-calendar-month__header span {
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+.ui-calendar-month__header th {
     color: rgba(0, 0, 0, 0.54);
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
     font-size: 0.875rem;
-    height: 2.25rem;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    font-weight: 600;
+    height: 2.5rem;
+    text-align: center;
     text-transform: uppercase;
-    width: 2.25rem;
+    vertical-align: middle;
+    width: 14.28571%;
 }
-.ui-calendar-month__week {
-  position: absolute;
-  width: 15.75rem;
-}
-.ui-calendar-month__week.is-current {
-    left: 0;
-}
-.ui-calendar-month__week.is-other {
-    left: 15.75rem;
-}
-.ui-calendar-month__week.is-other.ui-calendar-month--slide-right {
-      left: -15.75rem;
-}
-.ui-calendar-month__week.is-sliding {
-    -webkit-transition: -webkit-transform 250ms ease;
-    transition: -webkit-transform 250ms ease;
-    transition: transform 250ms ease;
-    transition: transform 250ms ease, -webkit-transform 250ms ease;
-}
-.ui-calendar-month__week.is-sliding.ui-calendar-month--slide-left {
-      -webkit-transform: translate3d(-15.75rem, 0, 0);
-              transform: translate3d(-15.75rem, 0, 0);
-}
-.ui-calendar-month__week.is-sliding.ui-calendar-month--slide-right {
-      -webkit-transform: translate3d(15.75rem, 0, 0);
-              transform: translate3d(15.75rem, 0, 0);
+.ui-calendar-month__body {
+  width: 100%;
 }
 
 .ui-calendar-week {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   font-size: 0.875rem;
   width: 100%;
+}
+.ui-calendar-week td {
+    width: 14.28571%;
+    min-width: 2.25rem;
+    position: relative;
+}
+.ui-calendar-week--has-square-cells td::before {
+  box-sizing: border-box;
+  content: '';
+  display: block;
+  padding-top: 100%;
+  min-height: 2.25rem;
+}
+.ui-calendar-week--has-square-cells .ui-calendar-week__date {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 50%;
 }
 .ui-calendar-week__date {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-radius: 50%;
+  border-radius: 2px;
   cursor: pointer;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 2.25rem;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   outline: none;
   text-align: center;
-  width: 2.25rem;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1;
+  margin: 0;
+  min-height: 2.25rem;
+  padding: 0;
 }
 .ui-calendar-week__date:hover,
   body[modality="keyboard"] .ui-calendar-week__date:focus {
@@ -1858,16 +1790,32 @@ body[modality="keyboard"] .ui-icon-button:focus .ui-icon-button__focus-ring {
 .ui-calendar-week__date.is-today {
     font-weight: bold;
 }
-.ui-calendar-week__date.is-today.is-selected {
-      color: white;
-}
-.ui-calendar-week__date.is-selected {
-    color: white;
-}
 .ui-calendar-week__date.is-disabled {
     background-color: transparent;
     cursor: default;
     opacity: 0.4;
+}
+.ui-calendar-week--color-primary .ui-calendar-week__date.is-today {
+  color: #2196f3;
+}
+.ui-calendar-week--color-primary .ui-calendar-week__date.is-today.is-selected {
+    color: white;
+}
+.ui-calendar-week--color-primary .ui-calendar-week__date.is-selected,
+body[modality="keyboard"] .ui-calendar-week--color-primary .ui-calendar-week__date.is-selected {
+  background-color: #2196f3;
+  color: white;
+}
+.ui-calendar-week--color-accent .ui-calendar-week__date.is-today {
+  color: #d500f9;
+}
+.ui-calendar-week--color-accent .ui-calendar-week__date.is-today.is-selected {
+    color: white;
+}
+.ui-calendar-week--color-accent .ui-calendar-week__date.is-selected,
+body[modality="keyboard"] .ui-calendar-week--color-accent .ui-calendar-week__date.is-selected {
+  background-color: #d500f9;
+  color: white;
 }
 
 .ui-checkbox {
@@ -2185,6 +2133,7 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
   display: table-cell;
   vertical-align: middle;
   overflow-x: hidden;
+  text-align: center;
 }
 .ui-modal__wrapper.has-dummy-scrollbar {
     overflow-y: scroll;
@@ -2193,12 +2142,14 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
   background-color: white;
   border-radius: 0.125rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  display: inline-block;
   margin: 0 auto;
   max-height: 100vh;
   max-width: 100vw;
   outline: none;
   overflow: hidden;
   padding: 0;
+  text-align: initial;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   width: 33rem;
@@ -2270,6 +2221,9 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
 }
 .ui-modal--size-fullscreen > .ui-modal__wrapper > .ui-modal__container .ui-modal__body {
     height: calc(100vh - 3.5rem);
+}
+.ui-modal--size-auto > .ui-modal__wrapper > .ui-modal__container {
+  width: initial;
 }
 .ui-modal--transition-fade-enter,
 .ui-modal--transition-fade-leave-active {
@@ -2372,12 +2326,6 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
 .ui-datepicker .ui-modal:not(.has-footer) .ui-modal__body {
     padding: 0;
 }
-.ui-datepicker .ui-modal:not(.has-footer) .ui-modal__body .ui-calendar__body {
-      height: 21.75rem;
-}
-.ui-datepicker .ui-modal__container {
-    width: 16.75rem;
-}
 .ui-datepicker__label {
   display: block;
   margin: 0;
@@ -2462,17 +2410,6 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
   padding-top: 0.25rem;
   position: relative;
 }
-.ui-datepicker__modal-buttons {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-}
-.ui-datepicker__modal-buttons .ui-button {
-    min-width: 4rem;
-}
 .ui-datepicker--icon-position-right .ui-datepicker__icon-wrapper {
   margin-left: 0.5rem;
   margin-right: 0;
@@ -2480,8 +2417,127 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
       -ms-flex-order: 1;
           order: 1;
 }
-.ui-datepicker--orientation-landscape .ui-modal__container {
-  width: 24.75rem;
+
+.ui-datepicker-calendar {
+  color: rgba(0, 0, 0, 0.87);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+.ui-datepicker-calendar__header {
+  color: white;
+  line-height: 1;
+  padding: 1rem;
+}
+.ui-datepicker-calendar__header-year,
+.ui-datepicker-calendar__header-date {
+  cursor: pointer;
+  opacity: 0.75;
+  -webkit-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+}
+.ui-datepicker-calendar__header-year:hover,
+  body[modality="keyboard"] .ui-datepicker-calendar__header-year:focus, .ui-datepicker-calendar__header-year.is-active,
+  .ui-datepicker-calendar__header-date:hover,
+  body[modality="keyboard"]
+  .ui-datepicker-calendar__header-date:focus,
+  .ui-datepicker-calendar__header-date.is-active {
+    opacity: 1;
+}
+body[modality="keyboard"] .ui-datepicker-calendar__header-year:focus, body[modality="keyboard"]
+  .ui-datepicker-calendar__header-date:focus {
+    outline: 1px dotted white;
+    outline-offset: 1px;
+}
+.ui-datepicker-calendar__header-year {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.ui-datepicker-calendar__header-date {
+  font-size: 1.375rem;
+}
+.ui-datepicker-calendar__body {
+  box-sizing: border-box;
+}
+.ui-datepicker-calendar__body .ui-calendar-controls {
+    background-color: transparent;
+}
+.ui-datepicker-calendar__body,
+.ui-datepicker-calendar__years {
+  height: 19.5rem;
+  padding: 0.5rem;
+  width: 16.75rem;
+}
+.ui-datepicker-calendar__years {
+  list-style: none;
+  overflow-y: auto;
+  margin: 0;
+}
+.ui-datepicker-calendar__year {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 1rem;
+  height: 2.25rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  outline: none;
+}
+.ui-datepicker-calendar__year.is-selected {
+    font-size: 1.5rem;
+    font-weight: 600;
+    height: 2.5rem;
+}
+.ui-datepicker-calendar--orientation-landscape {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.ui-datepicker-calendar--orientation-landscape .ui-datepicker-calendar__header {
+    min-width: 8rem;
+}
+.ui-datepicker-calendar--orientation-landscape .ui-datepicker-calendar__header-day {
+    margin-bottom: 0.75rem;
+    display: block;
+    padding-top: 0.25rem;
+}
+.ui-datepicker-calendar--color-primary .ui-datepicker-calendar__header {
+  background-color: #2196f3;
+}
+.ui-datepicker-calendar--color-primary .ui-datepicker-calendar__year:hover,
+body[modality="keyboard"] .ui-datepicker-calendar--color-primary .ui-datepicker-calendar__year:focus {
+  color: #2196f3;
+}
+.ui-datepicker-calendar--color-primary .ui-datepicker-calendar__year.is-selected {
+  color: #2196f3;
+}
+.ui-datepicker-calendar--color-primary .ui-datepicker-calendar-week__date.is-today {
+  color: #2196f3;
+}
+.ui-datepicker-calendar--color-primary .ui-datepicker-calendar-week__date.is-selected,
+body[modality="keyboard"] .ui-datepicker-calendar--color-primary .ui-datepicker-calendar-week__date.is-selected {
+  background-color: #2196f3;
+}
+.ui-datepicker-calendar--color-accent .ui-datepicker-calendar__header {
+  background-color: #d500f9;
+}
+.ui-datepicker-calendar--color-accent .ui-datepicker-calendar__year:hover,
+body[modality="keyboard"] .ui-datepicker-calendar--color-accent .ui-datepicker-calendar__year:focus {
+  color: #d500f9;
+}
+.ui-datepicker-calendar--color-accent .ui-datepicker-calendar__year.is-selected {
+  color: #d500f9;
+}
+.ui-datepicker-calendar--color-accent .ui-datepicker-calendar-week__date.is-today {
+  color: #d500f9;
+}
+.ui-datepicker-calendar--color-accent .ui-datepicker-calendar-week__date.is-selected,
+body[modality="keyboard"] .ui-datepicker-calendar--color-accent .ui-datepicker-calendar-week__date.is-selected {
+  background-color: #d500f9;
 }
 
 .ui-fab {
