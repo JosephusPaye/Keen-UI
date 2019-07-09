@@ -12,6 +12,7 @@
 - Add new prop `appendDropdownToBody` to append the dropdown to the document body.
 - Add new prop `dropdownZIndex` to customize the dropdown z-index.
 - Fix implementation to respect `yearRange` prop. See [#449](https://github.com/JosephusPaye/Keen-UI/issues/449).
+- Keep dropdown open on scroll
 
 ### UiModal
 
@@ -23,6 +24,10 @@
 - **Breaking**: Remove `offset` prop, as it's not recommended for interactive poppers (which is what UiPopover is).
 - Add new animation: `scale`.
 - Add new prop `zIndex` to customize the z-index of the popover.
+
+### UiSelect
+
+- Keep dropdown open on scroll
 
 ### UiTooltip
 

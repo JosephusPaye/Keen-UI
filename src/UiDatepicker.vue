@@ -55,6 +55,7 @@
                     open-on="manual"
                     ref="popover"
 
+                    :close-on-scroll="false"
                     :append-to-body="appendDropdownToBody"
                     :z-index="dropdownZIndex"
 

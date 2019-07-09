@@ -55,6 +55,7 @@
                     class="ui-select__dropdown"
                     ref="dropdown"
 
+                    :close-on-scroll="false"
                     :constrain-to-scroll-parent="false"
                     :disabled="disabled"
 
