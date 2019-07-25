@@ -80,6 +80,8 @@ import UiCalendarMonth from './UiCalendarMonth.vue';
 import dateUtils from './helpers/date';
 import { scrollIntoView } from './helpers/element-scroll';
 
+const views = ['date', 'year'];
+
 export default {
     name: 'ui-datepicker-calendar',
 
@@ -118,6 +120,11 @@ export default {
         orientation: {
             type: String,
             default: 'portrait' // 'portrait' or 'landscape'
+        },
+        defaultView: {
+            type: String,
+            default: views[0],
+            validator: view => views.indexOf(view) !== -1 // 'date' or 'year'
         }
     },
 
@@ -125,7 +132,7 @@ export default {
         return {
             today: new Date(),
             dateInView: this.getDateInRange(this.value, new Date()),
-            showYearPicker: false
+            showYearPicker: this.isYearDefaultView()
         };
     },
 
@@ -244,6 +251,14 @@ export default {
         onMonthChange(newDate) {
             this.dateInView = newDate;
             this.$emit('month-change', newDate);
+        },
+
+        isYearDefaultView() {
+            return this.defaultView === views[1];
+        },
+
+        reinitialize() {
+            this.showYearPicker = this.isYearDefaultView;
         }
     },
 

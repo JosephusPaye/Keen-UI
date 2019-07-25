@@ -66,12 +66,14 @@
                     v-show="!disabled"
                 >
                     <ui-datepicker-calendar
+                        ref="datepickerCalendar"
                         :color="color"
                         :date-filter="dateFilter"
                         :lang="lang"
                         :max-date="maxDate"
                         :min-date="minDate"
                         :orientation="orientation"
+                        :default-view="defaultView"
                         :value="date"
                         :start-of-week="startOfWeek"
                         :year-range="yearRange"
@@ -102,12 +104,14 @@
             v-if="usesModal && !disabled"
         >
             <ui-datepicker-calendar
+                ref="datepickerCalendar"
                 :color="color"
                 :date-filter="dateFilter"
                 :lang="lang"
                 :max-date="maxDate"
                 :min-date="minDate"
                 :orientation="orientation"
+                :default-view="defaultView"
                 :value="date"
                 :start-of-week="startOfWeek"
                 :year-range="yearRange"
@@ -160,6 +164,9 @@ export default {
         pickerType: {
             type: String,
             default: 'popover' // 'popover' or 'modal'
+        },
+        defaultView: {
+            type: String
         },
         appendDropdownToBody: Boolean,
         dropdownZIndex: Number,
@@ -301,6 +308,7 @@ export default {
                 return;
             }
 
+            this.$refs.datepickerCalendar.reinitialize();
             this.getPicker().open();
         },
 
