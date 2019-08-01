@@ -7,8 +7,8 @@
 
                 :class="{ 'is-active': showYearPicker }"
 
-                @click="showYearPicker = true"
-                @keydown.enter="showYearPicker = true"
+                @click="$emit('update:currentView', 'year')"
+                @keydown.enter="$emit('update:currentView', 'year')"
             >{{ headerYear }}</div>
 
             <div
@@ -17,8 +17,8 @@
 
                 :class="{ 'is-active': !showYearPicker }"
 
-                @click="showYearPicker = false"
-                @keydown.enter="showYearPicker = false"
+                @click="$emit('update:currentView', 'date')"
+                @keydown.enter="$emit('update:currentView', 'date')"
             >
                 <span class="ui-datepicker-calendar__header-weekday">{{ headerWeekday }}, </span>
                 <span class="ui-datepicker-calendar__header-day">{{ headerDay }}</span>
@@ -80,8 +80,6 @@ import UiCalendarMonth from './UiCalendarMonth.vue';
 import dateUtils from './helpers/date';
 import { scrollIntoView } from './helpers/element-scroll';
 
-const views = ['date', 'year'];
-
 export default {
     name: 'ui-datepicker-calendar',
 
@@ -92,6 +90,10 @@ export default {
         startOfWeek: {
             type: Number,
             default: 0
+        },
+        currentView: {
+            type: String,
+            validator: c => ['date', 'year'].indexOf(c) >= 1
         },
         lang: {
             type: Object,
@@ -120,19 +122,13 @@ export default {
         orientation: {
             type: String,
             default: 'portrait' // 'portrait' or 'landscape'
-        },
-        defaultView: {
-            type: String,
-            default: views[0],
-            validator: view => views.indexOf(view) !== -1 // 'date' or 'year'
         }
     },
 
     data() {
         return {
             today: new Date(),
-            dateInView: this.getDateInRange(this.value, new Date()),
-            showYearPicker: this.isYearDefaultView()
+            dateInView: this.getDateInRange(this.value, new Date())
         };
     },
 
@@ -159,6 +155,14 @@ export default {
 
             return dateUtils.getMonthAbbreviated(date, this.lang) + ' ' +
                 dateUtils.getDayOfMonth(date, this.lang);
+        },
+
+        showYearPicker() {
+            return this.currentView === 'year'
+        },
+
+        showDatePicker() {
+            return this.currentView === 'date'
         }
     },
 
@@ -169,7 +173,7 @@ export default {
             }
         },
 
-        showYearPicker() {
+        currentView() {
             if (this.showYearPicker) {
                 this.$nextTick(() => {
                     const el = this.$refs.years.querySelector('.is-selected') ||
@@ -187,7 +191,7 @@ export default {
             newDate.setFullYear(year);
 
             this.dateInView = this.getDateInRange(newDate);
-            this.showYearPicker = false;
+            this.$emit('update:currentView', 'date')
         },
 
         getDateInRange(date, fallback) {
@@ -251,14 +255,6 @@ export default {
         onMonthChange(newDate) {
             this.dateInView = newDate;
             this.$emit('month-change', newDate);
-        },
-
-        isYearDefaultView() {
-            return this.defaultView === views[1];
-        },
-
-        reinitialize() {
-            this.showYearPicker = this.isYearDefaultView;
         }
     },
 

@@ -66,14 +66,13 @@
                     v-show="!disabled"
                 >
                     <ui-datepicker-calendar
-                        ref="datepickerCalendar"
                         :color="color"
                         :date-filter="dateFilter"
                         :lang="lang"
                         :max-date="maxDate"
                         :min-date="minDate"
                         :orientation="orientation"
-                        :default-view="defaultView"
+                        :current-view.sync="calendarView"
                         :value="date"
                         :start-of-week="startOfWeek"
                         :year-range="yearRange"
@@ -104,14 +103,13 @@
             v-if="usesModal && !disabled"
         >
             <ui-datepicker-calendar
-                ref="datepickerCalendar"
                 :color="color"
                 :date-filter="dateFilter"
                 :lang="lang"
                 :max-date="maxDate"
                 :min-date="minDate"
                 :orientation="orientation"
-                :default-view="defaultView"
+                :current-view.sync="calendarView"
                 :value="date"
                 :start-of-week="startOfWeek"
                 :year-range="yearRange"
@@ -166,7 +164,8 @@ export default {
             default: 'popover' // 'popover' or 'modal'
         },
         defaultView: {
-            type: String
+            type: String,
+            default: 'date'
         },
         appendDropdownToBody: Boolean,
         dropdownZIndex: Number,
@@ -197,7 +196,8 @@ export default {
         return {
             isActive: false,
             isTouched: false,
-            initialValue: JSON.stringify(this.value)
+            initialValue: JSON.stringify(this.value),
+            calendarView: this.defaultView
         };
     },
 
@@ -308,12 +308,13 @@ export default {
                 return;
             }
 
-            this.$refs.datepickerCalendar.reinitialize();
             this.getPicker().open();
         },
 
         closePicker(options = { returnFocus: true }) {
             this.getPicker().close();
+
+            this.calendarView = this.defaultView;
 
             if (options.returnFocus) {
                 this.$refs.label.focus();
