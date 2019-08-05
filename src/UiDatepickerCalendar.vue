@@ -191,7 +191,7 @@ export default {
             newDate.setFullYear(year);
 
             this.dateInView = this.getDateInRange(newDate);
-            this.$emit('update:currentView', 'date')
+            this.$emit('update:currentView', 'date');
         },
 
         getDateInRange(date, fallback) {
