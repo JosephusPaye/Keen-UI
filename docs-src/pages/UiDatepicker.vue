@@ -158,6 +158,7 @@
             >A Special Day</ui-datepicker>
 
             <h4 class="page__demo-title">With year picker as a default view</h4>
+
             <ui-datepicker
                 icon="events"
                 default-view="year"
@@ -321,11 +322,12 @@
                                 <td><code>"portrait"</code></td>
                                 <td>The orientation of the datepicker calendar. One of <code>portrait</code> or <code>landscape</code>.</td>
                             </tr>
+
                             <tr>
                                 <td>defaultView</td>
                                 <td>String</td>
                                 <td><code>"date"</code></td>
-                                <td>The default view of the datepicker calendar. One of <code>date</code> or <code>year</code>. When value is equal to <code>year</code>, then datepicker opens with year selector each time.</td>
+                                <td>The default view of the datepicker calendar. One of <code>date</code> or <code>year</code>. When set to <code>year</code>, the datepicker will open with year selector.</td>
                             </tr>
 
                             <tr>

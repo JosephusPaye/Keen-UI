@@ -93,7 +93,7 @@ export default {
         },
         currentView: {
             type: String,
-            validator: c => ['date', 'year'].indexOf(c) >= 1
+            validator: value => value === 'date' || value === 'year'
         },
         lang: {
             type: Object,
@@ -158,11 +158,11 @@ export default {
         },
 
         showYearPicker() {
-            return this.currentView === 'year'
+            return this.currentView === 'year';
         },
 
         showDatePicker() {
-            return this.currentView === 'date'
+            return this.currentView === 'date';
         }
     },
 
