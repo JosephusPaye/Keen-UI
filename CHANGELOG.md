@@ -4,6 +4,11 @@
 
 - Add new prop `defaultView` to set the default datepicker view: `date` or `year`. See [#454](https://github.com/JosephusPaye/Keen-UI/pull/454).
 
+
+### UiTextbox
+
+- Add new prop `minlength` to set the `minlength` attribute on the textbox input or textarea.
+
 # v1.2.0
 
 ### UiCalendar (new)

@@ -334,7 +334,7 @@
                                     <p>Only applicable when the <code>type</code> prop is <code>"number"</code>.</p>
                                 </td>
                             </tr>
-                            
+
                             <tr>
                                 <td>minlength</td>
                                 <td>Number</td>
