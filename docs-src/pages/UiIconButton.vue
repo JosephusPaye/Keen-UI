@@ -298,7 +298,7 @@
                                 <td></td>
                                 <td>
                                     <p>The icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
-                                    <p>You can set a custom or SVG icon using the <code>icon</code> slot.</p>
+                                    <p>You can set a custom or SVG icon using the <code>default</code> slot.</p>
                                 </td>
                             </tr>
 
