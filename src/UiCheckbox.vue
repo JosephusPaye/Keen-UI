@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import { looseEqual } from './helpers/util';
-
 export default {
     name: 'ui-checkbox',
 
@@ -69,8 +67,7 @@ export default {
 
     data() {
         return {
-            isActive: false,
-            isChecked: looseEqual(this.value, this.trueValue) || this.checked
+            isActive: false
         };
     },
 
@@ -83,12 +80,10 @@ export default {
                 { 'is-active': this.isActive },
                 { 'is-disabled': this.disabled }
             ];
-        }
-    },
+        },
 
-    watch: {
-        value() {
-            this.isChecked = looseEqual(this.value, this.trueValue);
+        isChecked() {
+            return this.value === this.trueValue || this.checked;
         }
     },
 
