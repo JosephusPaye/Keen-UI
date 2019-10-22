@@ -290,7 +290,7 @@
                             </tr>
 
                             <tr>
-                                <td>highlightFirstMatch</td>
+                                <td>highlightOnFirstMatch</td>
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>
