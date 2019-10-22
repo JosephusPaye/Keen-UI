@@ -409,8 +409,8 @@ export default {
         reset() {
             // Blur input before resetting to avoid "required" errors
             // when the input is blurred after reset
-            if (document.isActiveElement === this.$refs.input) {
-                document.isActiveElement.blur();
+            if (document.activeElement === this.$refs.input) {
+                document.activeElement.blur();
             }
 
             // Reset state
