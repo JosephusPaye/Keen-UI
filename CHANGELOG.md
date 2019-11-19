@@ -1,5 +1,9 @@
 # v1.2.1 (to be released)
 
+### UiSelectOption
+
+- Allow a `Number` as option. See [#472](https://github.com/JosephusPaye/Keen-UI/issues/472).
+
 ### UiCheckbox, UiRadio, UiRadioGroup
 
 - Change selected check to use strict equals (`===`) instead of loose equal (`==`). This allows an empty string `''` to be used as the radio or checkbox's value. See [#465](https://github.com/JosephusPaye/Keen-UI/issues/465).

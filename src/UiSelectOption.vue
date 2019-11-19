@@ -38,7 +38,7 @@ export default {
 
     props: {
         option: {
-            type: [String, Object],
+            type: [String, Number, Object],
             required: true
         },
         type: {
