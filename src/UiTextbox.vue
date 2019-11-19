@@ -392,8 +392,9 @@ export default {
     &.has-floating-label {
         .ui-textbox__label-text {
             // Behaves like a block, but width is the width of its content.
-            // Needed here so label doesn't overflow parent when scaled.
+            // Needed here so label doesn't overflow parent when scaled up (to appear inline).
             display: table;
+            width: fit-content;
 
             &.is-inline {
                 color: $ui-input-label-color; // So the hover styles don't override it

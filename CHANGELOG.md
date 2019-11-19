@@ -20,6 +20,7 @@
 
 - Add new prop `minlength` to set the `minlength` attribute on the textbox input or textarea.
 - Allow a `Number` for `step` prop. See [#460](https://github.com/JosephusPaye/Keen-UI/issues/460).
+- Ensure floating label doesn't overflow parent when scaling up. See [#447](https://github.com/JosephusPaye/Keen-UI/issues/447).
 
 # v1.2.0
 
