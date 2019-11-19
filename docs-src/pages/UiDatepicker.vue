@@ -162,7 +162,7 @@
             <ui-datepicker
                 icon="events"
                 default-view="year"
-
+                placeholder="Select a date"
                 v-model="picker1202"
             >A Special Day</ui-datepicker>
 
