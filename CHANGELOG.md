@@ -1,5 +1,9 @@
 # v1.2.1 (to be released)
 
+### UiCheckbox, UiRadio, UiRadioGroup
+
+- Change selected check to use strict equals (`===`) instead of loose equal (`==`). This allows an empty string `''` to be used as the radio or checkbox's value. See [#465](https://github.com/JosephusPaye/Keen-UI/issues/465)
+
 ### UiDatepicker
 
 - Add new prop `defaultView` to set the default datepicker view: `date` or `year`. See [#454](https://github.com/JosephusPaye/Keen-UI/pull/454).
