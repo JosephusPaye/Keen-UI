@@ -157,6 +157,15 @@
                 v-model="picker1201"
             >A Special Day</ui-datepicker>
 
+            <h4 class="page__demo-title">With year picker as a default view</h4>
+
+            <ui-datepicker
+                icon="events"
+                default-view="year"
+                placeholder="Select a date"
+                v-model="picker1202"
+            >A Special Day</ui-datepicker>
+
             <h4 class="page__demo-title">With validation: required</h4>
 
             <ui-datepicker
@@ -312,6 +321,13 @@
                                 <td>String</td>
                                 <td><code>"portrait"</code></td>
                                 <td>The orientation of the datepicker calendar. One of <code>portrait</code> or <code>landscape</code>.</td>
+                            </tr>
+
+                            <tr>
+                                <td>defaultView</td>
+                                <td>String</td>
+                                <td><code>"date"</code></td>
+                                <td>The default view of the datepicker calendar. One of <code>date</code> or <code>year</code>. When set to <code>year</code>, the datepicker will open with year selector.</td>
                             </tr>
 
                             <tr>
@@ -623,6 +639,7 @@ export default {
             picker12: null,
             picker12Lang: languageFr,
             picker1201: null,
+            picker1202: null,
             picker13: null,
             picker1301: null,
             picker14: null,

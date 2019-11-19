@@ -1,3 +1,27 @@
+# v1.2.1
+
+### UiSelectOption
+
+- Allow a `Number` as option. See [#472](https://github.com/JosephusPaye/Keen-UI/issues/472).
+
+### UiCheckbox, UiRadio, UiRadioGroup
+
+- Change selected check to use strict equals (`===`) instead of loose equal (`==`). This allows an empty string `''` to be used as the radio or checkbox's value. See [#465](https://github.com/JosephusPaye/Keen-UI/issues/465).
+
+### UiCheckbox
+
+- Apply `border-radius` to checkmark background. Also switch background from `::before` pseudo element to an actual element: `.ui-checkbox__checkmark-background`. This avoids visual artifacts that appear when applying `border-radius` to a pseudo element. See [#471](https://github.com/JosephusPaye/Keen-UI/issues/471).
+
+### UiDatepicker
+
+- Add new prop `defaultView` to set the default datepicker view: `date` or `year`. See [#454](https://github.com/JosephusPaye/Keen-UI/pull/454).
+
+### UiTextbox
+
+- Add new prop `minlength` to set the `minlength` attribute on the textbox input or textarea.
+- Allow a `Number` for `step` prop. See [#460](https://github.com/JosephusPaye/Keen-UI/issues/460).
+- Ensure floating label doesn't overflow parent when scaling up. See [#447](https://github.com/JosephusPaye/Keen-UI/issues/447).
+
 # v1.2.0
 
 ### UiCalendar (new)

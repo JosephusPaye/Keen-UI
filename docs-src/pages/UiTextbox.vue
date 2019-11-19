@@ -336,6 +336,15 @@
                             </tr>
 
                             <tr>
+                                <td>minlength</td>
+                                <td>Number</td>
+                                <td></td>
+                                <td>
+                                    <p>The <code>minlength</code> attribute of the input and textarea elements.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>maxlength</td>
                                 <td>Number</td>
                                 <td></td>

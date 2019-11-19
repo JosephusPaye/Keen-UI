@@ -17,7 +17,7 @@
                 :key="option[keys.id]"
                 :name="name"
                 :tabindex="tabindex"
-                :true-value="option[keys.value] || option"
+                :true-value="getTrueValue(option)"
 
                 @blur="onBlur"
                 @focus="onFocus"
@@ -150,6 +150,21 @@ export default {
             // eslint-disable-next-line eqeqeq
             return this.initialValue == option[this.keys.value] || this.initialValue == option ||
                 option[this.keys.checked];
+        },
+
+        getTrueValue(option) {
+            if (typeof option === 'string' || typeof option === 'number') {
+                return option;
+            }
+
+            const value = option[this.keys.value];
+
+            if (value === undefined) {
+                console.warn('[UiRadioGroup] option has no `value`: ', option);
+                return option;
+            }
+
+            return value;
         },
 
         onFocus(e) {

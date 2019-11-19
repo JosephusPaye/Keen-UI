@@ -72,6 +72,7 @@
                         :max-date="maxDate"
                         :min-date="minDate"
                         :orientation="orientation"
+                        :current-view.sync="calendarView"
                         :value="date"
                         :start-of-week="startOfWeek"
                         :year-range="yearRange"
@@ -108,6 +109,7 @@
                 :max-date="maxDate"
                 :min-date="minDate"
                 :orientation="orientation"
+                :current-view.sync="calendarView"
                 :value="date"
                 :start-of-week="startOfWeek"
                 :year-range="yearRange"
@@ -161,6 +163,10 @@ export default {
             type: String,
             default: 'popover' // 'popover' or 'modal'
         },
+        defaultView: {
+            type: String,
+            default: 'date'
+        },
         appendDropdownToBody: Boolean,
         dropdownZIndex: Number,
         placeholder: String,
@@ -190,7 +196,8 @@ export default {
         return {
             isActive: false,
             isTouched: false,
-            initialValue: JSON.stringify(this.value)
+            initialValue: JSON.stringify(this.value),
+            calendarView: this.defaultView
         };
     },
 
@@ -306,6 +313,8 @@ export default {
 
         closePicker(options = { returnFocus: true }) {
             this.getPicker().close();
+
+            this.calendarView = this.defaultView;
 
             if (options.returnFocus) {
                 this.$refs.label.focus();

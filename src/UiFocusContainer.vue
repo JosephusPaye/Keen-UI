@@ -52,7 +52,7 @@ export default {
         },
         lazy: {
             type: Boolean,
-            defualt: false // When true, the focus redirectors are not rendered until containFocus is true
+            default: false // When true, the focus redirectors are not rendered until containFocus is true
         }
     },
 

@@ -16,6 +16,7 @@
                     :disabled="disabled"
                     :max="maxValue"
                     :maxlength="enforceMaxlength ? maxlength : null"
+                    :minlength="minlength"
                     :min="minValue"
                     :name="name"
                     :number="type === 'number' ? true : null"
@@ -45,6 +46,7 @@
                     :autocomplete="autocomplete ? autocomplete : null"
                     :disabled="disabled"
                     :maxlength="enforceMaxlength ? maxlength : null"
+                    :minlength="minlength"
                     :name="name"
                     :placeholder="hasFloatingLabel ? null : placeholder"
                     :readonly="readonly"
@@ -141,10 +143,11 @@ export default {
         min: Number,
         max: Number,
         step: {
-            type: String,
+            type: [String, Number],
             default: 'any'
         },
         maxlength: Number,
+        minlength: Number,
         enforceMaxlength: {
             type: Boolean,
             default: false
@@ -389,8 +392,9 @@ export default {
     &.has-floating-label {
         .ui-textbox__label-text {
             // Behaves like a block, but width is the width of its content.
-            // Needed here so label doesn't overflow parent when scaled.
+            // Needed here so label doesn't overflow parent when scaled up (to appear inline).
             display: table;
+            width: fit-content;
 
             &.is-inline {
                 color: $ui-input-label-color; // So the hover styles don't override it

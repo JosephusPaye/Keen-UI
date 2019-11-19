@@ -1,5 +1,5 @@
 /*!
- * Keen UI v1.2.0 (https://github.com/JosephusPaye/keen-ui)
+ * Keen UI v1.2.1 (https://github.com/JosephusPaye/keen-ui)
  * (c) 2019 Josephus Paye II
  * Released under the MIT License.
  */
@@ -417,41 +417,6 @@ function isAfter(date1, date2) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export isObject */
-/* harmony export (immutable) */ __webpack_exports__["b"] = looseEqual;
-/* harmony export (immutable) */ __webpack_exports__["c"] = looseIndexOf;
-/* harmony export (immutable) */ __webpack_exports__["a"] = startsWith;
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-function isObject(obj) {
-    return obj !== null && (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object';
-}
-
-function looseEqual(a, b) {
-    return a == b || (isObject(a) && isObject(b) ? JSON.stringify(a) === JSON.stringify(b) : false);
-}
-
-function looseIndexOf(arr, val) {
-    for (var i = 0; i < arr.length; i++) {
-        if (looseEqual(arr[i], val)) {
-            return i;
-        }
-    }
-
-    return -1;
-}
-
-function startsWith(string, query) {
-    var position = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-
-    return string.substr(position, query.length) === query;
-}
-
-/***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_UiPopover_vue__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_48582497_hasScoped_false_node_modules_vue_loader_lib_selector_type_template_index_0_UiPopover_vue__ = __webpack_require__(161);
 var disposed = false
@@ -501,7 +466,7 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -580,6 +545,41 @@ function isElementObject(o) {
     set: set,
     get: classes
 };
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export isObject */
+/* harmony export (immutable) */ __webpack_exports__["b"] = looseEqual;
+/* harmony export (immutable) */ __webpack_exports__["c"] = looseIndexOf;
+/* harmony export (immutable) */ __webpack_exports__["a"] = startsWith;
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+function isObject(obj) {
+    return obj !== null && (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object';
+}
+
+function looseEqual(a, b) {
+    return a == b || (isObject(a) && isObject(b) ? JSON.stringify(a) === JSON.stringify(b) : false);
+}
+
+function looseIndexOf(arr, val) {
+    for (var i = 0; i < arr.length; i++) {
+        if (looseEqual(arr[i], val)) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+function startsWith(string, query) {
+    var position = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
+    return string.substr(position, query.length) === query;
+}
 
 /***/ }),
 /* 7 */
@@ -5258,8 +5258,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             }
         },
         reset: function reset() {
-            if (document.isActiveElement === this.$refs.input) {
-                document.isActiveElement.blur();
+            if (document.activeElement === this.$refs.input) {
+                document.activeElement.blur();
             }
 
             this.updateValue(this.initialValue);
@@ -5326,7 +5326,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UiIcon_vue__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UiPopover_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UiPopover_vue__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__UiProgressCircular_vue__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__UiRippleInk_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__UiTooltip_vue__ = __webpack_require__(9);
@@ -5816,9 +5816,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_util__ = __webpack_require__(4);
-
-
 
 
 /* harmony default export */ __webpack_exports__["a"] = {
@@ -5859,7 +5856,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     data: function data() {
         return {
             isActive: false,
-            isChecked: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers_util__["b" /* looseEqual */])(this.value, this.trueValue) || this.checked
+            isChecked: this.value === this.trueValue || this.checked
         };
     },
 
@@ -5872,7 +5869,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     watch: {
         value: function value() {
-            this.isChecked = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers_util__["b" /* looseEqual */])(this.value, this.trueValue);
+            this.isChecked = this.value === this.trueValue;
         }
     },
 
@@ -5912,7 +5909,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UiCheckbox_vue__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_util__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_util__ = __webpack_require__(6);
 
 
 
@@ -6201,7 +6198,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UiButton_vue__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UiModal_vue__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_classlist__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_classlist__ = __webpack_require__(5);
 
 
 
@@ -6337,7 +6334,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UiDatepickerCalendar_vue__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__UiIcon_vue__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__UiModal_vue__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__UiPopover_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__UiPopover_vue__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_RespondsToExternalClick__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__helpers_date__ = __webpack_require__(3);
 
@@ -6382,6 +6379,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         pickerType: {
             type: String,
             default: 'popover' },
+        defaultView: {
+            type: String,
+            default: 'date'
+        },
         appendDropdownToBody: Boolean,
         dropdownZIndex: Number,
         placeholder: String,
@@ -6410,7 +6411,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         return {
             isActive: false,
             isTouched: false,
-            initialValue: JSON.stringify(this.value)
+            initialValue: JSON.stringify(this.value),
+            calendarView: this.defaultView
         };
     },
 
@@ -6499,6 +6501,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { returnFocus: true };
 
             this.getPicker().close();
+
+            this.calendarView = this.defaultView;
 
             if (options.returnFocus) {
                 this.$refs.label.focus();
@@ -6594,6 +6598,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             type: Number,
             default: 0
         },
+        currentView: {
+            type: String,
+            validator: function validator(value) {
+                return value === 'date' || value === 'year';
+            }
+        },
         lang: {
             type: Object,
             default: function _default() {
@@ -6622,8 +6632,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     data: function data() {
         return {
             today: new Date(),
-            dateInView: this.getDateInRange(this.value, new Date()),
-            showYearPicker: false
+            dateInView: this.getDateInRange(this.value, new Date())
         };
     },
 
@@ -6642,6 +6651,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             var date = this.value ? this.value : this.today;
 
             return __WEBPACK_IMPORTED_MODULE_2__helpers_date__["a" /* default */].getMonthAbbreviated(date, this.lang) + ' ' + __WEBPACK_IMPORTED_MODULE_2__helpers_date__["a" /* default */].getDayOfMonth(date, this.lang);
+        },
+        showYearPicker: function showYearPicker() {
+            return this.currentView === 'year';
+        },
+        showDatePicker: function showDatePicker() {
+            return this.currentView === 'date';
         }
     },
 
@@ -6651,7 +6666,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 this.dateInView = __WEBPACK_IMPORTED_MODULE_2__helpers_date__["a" /* default */].clone(this.value);
             }
         },
-        showYearPicker: function showYearPicker() {
+        currentView: function currentView() {
             var _this = this;
 
             if (this.showYearPicker) {
@@ -6670,7 +6685,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             newDate.setFullYear(year);
 
             this.dateInView = this.getDateInRange(newDate);
-            this.showYearPicker = false;
+            this.$emit('update:currentView', 'date');
         },
         getDateInRange: function getDateInRange(date, fallback) {
             date = date || fallback;
@@ -6951,7 +6966,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         },
         lazy: {
             type: Boolean,
-            defualt: false }
+            default: false }
     },
 
     computed: {
@@ -7024,7 +7039,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UiIcon_vue__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UiPopover_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UiPopover_vue__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__UiProgressCircular_vue__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__UiRippleInk_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__UiTooltip_vue__ = __webpack_require__(9);
@@ -7306,7 +7321,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UiCloseButton_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UiFocusContainer_vue__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_classlist__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_classlist__ = __webpack_require__(5);
 
 
 
@@ -7504,7 +7519,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tippy_js_esm__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_classlist__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_classlist__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_element_ref__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__helpers_events__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__UiFocusContainer_vue__ = __webpack_require__(14);
@@ -7953,7 +7968,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             return ['ui-radio--color-' + this.color, 'ui-radio--button-position-' + this.buttonPosition, { 'is-active': this.isActive }, { 'is-checked': this.isChecked }, { 'is-disabled': this.disabled }];
         },
         isChecked: function isChecked() {
-            return String(this.value).length > 0 && this.value == this.trueValue;
+            return this.value === this.trueValue;
         }
     },
 
@@ -8091,6 +8106,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         isOptionCheckedByDefault: function isOptionCheckedByDefault(option) {
             return this.initialValue == option[this.keys.value] || this.initialValue == option || option[this.keys.checked];
         },
+        getTrueValue: function getTrueValue(option) {
+            if (typeof option === 'string' || typeof option === 'number') {
+                return option;
+            }
+
+            var value = option[this.keys.value];
+
+            if (value === undefined) {
+                console.warn('[UiRadioGroup] option has no `value`: ', option);
+                return option;
+            }
+
+            return value;
+        },
         onFocus: function onFocus(e) {
             this.isActive = true;
             this.$emit('focus', e);
@@ -8111,7 +8140,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_classlist__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_classlist__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_element_ref__ = __webpack_require__(13);
 
 
@@ -8255,11 +8284,11 @@ var handleTouchStart = function handleTouchStart(e) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UiIcon_vue__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UiPopover_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UiPopover_vue__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__UiProgressCircular_vue__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__UiSelectOption_vue__ = __webpack_require__(146);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_RespondsToExternalClick__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__helpers_util__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__helpers_util__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__helpers_element_scroll__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_fuzzysearch__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_fuzzysearch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_fuzzysearch__);
@@ -8706,7 +8735,7 @@ var handleTouchStart = function handleTouchStart(e) {
 
     props: {
         option: {
-            type: [String, Object],
+            type: [String, Number, Object],
             required: true
         },
         type: {
@@ -8756,7 +8785,7 @@ var handleTouchStart = function handleTouchStart(e) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UiIcon_vue__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_classlist__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_classlist__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_RespondsToWindowResize_js__ = __webpack_require__(96);
 
 
@@ -9224,7 +9253,7 @@ var handleTouchStart = function handleTouchStart(e) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_util__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_util__ = __webpack_require__(6);
 
 
 
@@ -9677,10 +9706,11 @@ var handleTouchStart = function handleTouchStart(e) {
         min: Number,
         max: Number,
         step: {
-            type: String,
+            type: [String, Number],
             default: 'any'
         },
         maxlength: Number,
+        minlength: Number,
         enforceMaxlength: {
             type: Boolean,
             default: false
@@ -13746,7 +13776,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
         "id": option[_vm.keys.id],
         "name": _vm.name,
         "tabindex": _vm.tabindex,
-        "true-value": option[_vm.keys.value] || option
+        "true-value": _vm.getTrueValue(option)
       },
       on: {
         "blur": _vm.onBlur,
@@ -15371,11 +15401,15 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "max-date": _vm.maxDate,
       "min-date": _vm.minDate,
       "orientation": _vm.orientation,
+      "current-view": _vm.calendarView,
       "value": _vm.date,
       "start-of-week": _vm.startOfWeek,
       "year-range": _vm.yearRange
     },
     on: {
+      "update:currentView": function($event) {
+        _vm.calendarView = $event
+      },
       "date-select": _vm.onDateSelect
     }
   })], 1) : _vm._e()], 1), _vm._v(" "), (_vm.hasFeedback) ? _c('div', {
@@ -15402,11 +15436,15 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "max-date": _vm.maxDate,
       "min-date": _vm.minDate,
       "orientation": _vm.orientation,
+      "current-view": _vm.calendarView,
       "value": _vm.date,
       "start-of-week": _vm.startOfWeek,
       "year-range": _vm.yearRange
     },
     on: {
+      "update:currentView": function($event) {
+        _vm.calendarView = $event
+      },
       "date-select": _vm.onDateSelect
     }
   })], 1) : _vm._e()], 1)
@@ -15457,6 +15495,8 @@ var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _
   return _c('div', {
     staticClass: "ui-checkbox__checkmark"
   }, [_c('div', {
+    staticClass: "ui-checkbox__checkmark-background"
+  }), _vm._v(" "), _c('div', {
     staticClass: "ui-checkbox__focus-ring"
   })])
 }]
@@ -16035,6 +16075,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "disabled": _vm.disabled,
       "max": _vm.maxValue,
       "maxlength": _vm.enforceMaxlength ? _vm.maxlength : null,
+      "minlength": _vm.minlength,
       "min": _vm.minValue,
       "name": _vm.name,
       "number": _vm.type === 'number' ? true : null,
@@ -16073,6 +16114,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "autocomplete": _vm.autocomplete ? _vm.autocomplete : null,
       "disabled": _vm.disabled,
       "maxlength": _vm.enforceMaxlength ? _vm.maxlength : null,
+      "minlength": _vm.minlength,
       "name": _vm.name,
       "placeholder": _vm.hasFloatingLabel ? null : _vm.placeholder,
       "readonly": _vm.readonly,
@@ -16200,11 +16242,11 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     },
     on: {
       "click": function($event) {
-        _vm.showYearPicker = true
+        _vm.$emit('update:currentView', 'year')
       },
       "keydown": function($event) {
         if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) { return null; }
-        _vm.showYearPicker = true
+        _vm.$emit('update:currentView', 'year')
       }
     }
   }, [_vm._v(_vm._s(_vm.headerYear))]), _vm._v(" "), _c('div', {
@@ -16217,11 +16259,11 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     },
     on: {
       "click": function($event) {
-        _vm.showYearPicker = false
+        _vm.$emit('update:currentView', 'date')
       },
       "keydown": function($event) {
         if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) { return null; }
-        _vm.showYearPicker = false
+        _vm.$emit('update:currentView', 'date')
       }
     }
   }, [_c('span', {
@@ -16495,7 +16537,7 @@ if (false) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bootstrap__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__configure__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_util__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_util__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__UiAlert_vue__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__UiAutocomplete_vue__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__UiButton_vue__ = __webpack_require__(7);
@@ -16513,7 +16555,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__UiIconButton_vue__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__UiMenu_vue__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__UiModal_vue__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__UiPopover_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__UiPopover_vue__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__UiPreloader_vue__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__UiProgressCircular_vue__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__UiProgressLinear_vue__ = __webpack_require__(17);

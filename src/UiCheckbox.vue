@@ -17,6 +17,7 @@
         >
 
         <div class="ui-checkbox__checkmark">
+            <div class="ui-checkbox__checkmark-background"></div>
             <div class="ui-checkbox__focus-ring"></div>
         </div>
 
@@ -27,8 +28,6 @@
 </template>
 
 <script>
-import { looseEqual } from './helpers/util';
-
 export default {
     name: 'ui-checkbox',
 
@@ -70,7 +69,7 @@ export default {
     data() {
         return {
             isActive: false,
-            isChecked: looseEqual(this.value, this.trueValue) || this.checked
+            isChecked: this.value === this.trueValue || this.checked
         };
     },
 
@@ -88,7 +87,7 @@ export default {
 
     watch: {
         value() {
-            this.isChecked = looseEqual(this.value, this.trueValue);
+            this.isChecked = this.value === this.trueValue;
         }
     },
 
@@ -147,7 +146,7 @@ $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
 
     &:not(.is-disabled):not(.is-checked):hover,
     &:not(.is-disabled):not(.is-checked).is-active {
-        .ui-checkbox__checkmark::before {
+        .ui-checkbox__checkmark-background {
             border-color: rgba(black, 0.6);
         }
     }
@@ -167,12 +166,12 @@ $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
             cursor: default;
         }
 
-        .ui-checkbox__checkmark::before {
+        .ui-checkbox__checkmark-background {
             border-color: rgba(black, 0.26);
         }
 
         &.is-checked {
-            .ui-checkbox__checkmark::before {
+            .ui-checkbox__checkmark-background {
                 background-color: rgba(black, 0.26);
                 border: none;
             }
@@ -193,21 +192,7 @@ $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
     height: $ui-checkbox-size;
     position: relative;
     width: $ui-checkbox-size;
-
-    // Background
-    &::before {
-        border-radius: $ui-default-border-radius;
-        border: $ui-checkbox-border-width solid $hint-text-color;
-        box-sizing: border-box;
-        content: "";
-        display: block;
-        height: 100%;
-        left: 0;
-        position: absolute;
-        top: 0;
-        transition: all 0.3s ease;
-        width: 100%;
-    }
+    border-radius: $ui-default-border-radius;
 
     // Checkmark
     &::after {
@@ -224,6 +209,20 @@ $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
         transition: opacity 0.3s ease;
         width: rem(6px);
     }
+}
+
+.ui-checkbox__checkmark-background {
+    border-radius: $ui-default-border-radius;
+    border: $ui-checkbox-border-width solid $hint-text-color;
+    box-sizing: border-box;
+    content: "";
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: all 0.3s ease;
+    width: 100%;
 }
 
 .ui-checkbox__input {
@@ -272,14 +271,14 @@ $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
 .ui-checkbox--color-primary {
     &:not(.is-disabled).is-checked:hover,
     &:not(.is-disabled).is-checked.is-active {
-        .ui-checkbox__checkmark::before {
+        .ui-checkbox__checkmark-background {
             background-color: darken($brand-primary-color, 5%);
             border-color: darken($brand-primary-color, 5%);
         }
     }
 
     &.is-checked {
-        .ui-checkbox__checkmark::before {
+        .ui-checkbox__checkmark-background {
             background-color: $brand-primary-color;
             border-color: $brand-primary-color;
         }
@@ -293,14 +292,14 @@ $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
 .ui-checkbox--color-accent {
     &:not(.is-disabled).is-checked:hover,
     &:not(.is-disabled).is-checked.is-active {
-        .ui-checkbox__checkmark::before {
+        .ui-checkbox__checkmark-background {
             background-color: darken($brand-accent-color, 5%);
             border-color: darken($brand-accent-color, 5%);
         }
     }
 
     &.is-checked {
-        .ui-checkbox__checkmark::before {
+        .ui-checkbox__checkmark-background {
             background-color: $brand-accent-color;
             border-color: $brand-accent-color;
         }

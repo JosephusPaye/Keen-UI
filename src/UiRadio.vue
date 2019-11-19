@@ -6,7 +6,7 @@
                 ref="input"
                 type="radio"
 
-                :checked="checked"
+                :checked.prop="checked"
                 :disabled="disabled"
                 :name="name"
                 :tabindex="tabindex"
@@ -81,8 +81,7 @@ export default {
         },
 
         isChecked() {
-            // eslint-disable-next-line eqeqeq
-            return (String(this.value).length > 0) && (this.value == this.trueValue);
+            return this.value === this.trueValue;
         }
     },
 

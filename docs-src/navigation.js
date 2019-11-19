@@ -52,16 +52,16 @@ const menu = [
                 sourceUrl: 'src/UiButton.vue'
             },
             {
-                path: '/ui-checkbox',
-                component: UiCheckbox,
-                title: 'UiCheckbox',
-                sourceUrl: 'src/UiCheckbox.vue'
-            },
-            {
                 path: '/ui-calendar',
                 component: UiCalendar,
                 title: 'UiCalendar',
                 sourceUrl: 'src/UiCalendar.vue'
+            },
+            {
+                path: '/ui-checkbox',
+                component: UiCheckbox,
+                title: 'UiCheckbox',
+                sourceUrl: 'src/UiCheckbox.vue'
             },
             {
                 path: '/ui-checkbox-group',

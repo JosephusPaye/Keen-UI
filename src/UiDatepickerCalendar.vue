@@ -7,8 +7,8 @@
 
                 :class="{ 'is-active': showYearPicker }"
 
-                @click="showYearPicker = true"
-                @keydown.enter="showYearPicker = true"
+                @click="$emit('update:currentView', 'year')"
+                @keydown.enter="$emit('update:currentView', 'year')"
             >{{ headerYear }}</div>
 
             <div
@@ -17,8 +17,8 @@
 
                 :class="{ 'is-active': !showYearPicker }"
 
-                @click="showYearPicker = false"
-                @keydown.enter="showYearPicker = false"
+                @click="$emit('update:currentView', 'date')"
+                @keydown.enter="$emit('update:currentView', 'date')"
             >
                 <span class="ui-datepicker-calendar__header-weekday">{{ headerWeekday }}, </span>
                 <span class="ui-datepicker-calendar__header-day">{{ headerDay }}</span>
@@ -91,6 +91,10 @@ export default {
             type: Number,
             default: 0
         },
+        currentView: {
+            type: String,
+            validator: value => value === 'date' || value === 'year'
+        },
         lang: {
             type: Object,
             default() {
@@ -124,8 +128,7 @@ export default {
     data() {
         return {
             today: new Date(),
-            dateInView: this.getDateInRange(this.value, new Date()),
-            showYearPicker: false
+            dateInView: this.getDateInRange(this.value, new Date())
         };
     },
 
@@ -152,6 +155,14 @@ export default {
 
             return dateUtils.getMonthAbbreviated(date, this.lang) + ' ' +
                 dateUtils.getDayOfMonth(date, this.lang);
+        },
+
+        showYearPicker() {
+            return this.currentView === 'year';
+        },
+
+        showDatePicker() {
+            return this.currentView === 'date';
         }
     },
 
@@ -162,7 +173,7 @@ export default {
             }
         },
 
-        showYearPicker() {
+        currentView() {
             if (this.showYearPicker) {
                 this.$nextTick(() => {
                     const el = this.$refs.years.querySelector('.is-selected') ||
@@ -180,7 +191,7 @@ export default {
             newDate.setFullYear(year);
 
             this.dateInView = this.getDateInRange(newDate);
-            this.showYearPicker = false;
+            this.$emit('update:currentView', 'date');
         },
 
         getDateInRange(date, fallback) {
