@@ -6,7 +6,7 @@
                 ref="input"
                 type="radio"
 
-                :checked="isChecked"
+                :checked.prop="checked"
                 :disabled="disabled"
                 :name="name"
                 :tabindex="tabindex"
@@ -81,7 +81,7 @@ export default {
         },
 
         isChecked() {
-            return this.value === this.trueValue || this.checked;
+            return this.value === this.trueValue;
         }
     },
 

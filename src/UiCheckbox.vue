@@ -67,7 +67,8 @@ export default {
 
     data() {
         return {
-            isActive: false
+            isActive: false,
+            isChecked: this.value === this.trueValue || this.checked
         };
     },
 
@@ -80,10 +81,12 @@ export default {
                 { 'is-active': this.isActive },
                 { 'is-disabled': this.disabled }
             ];
-        },
+        }
+    },
 
-        isChecked() {
-            return this.value === this.trueValue || this.checked;
+    watch: {
+        value() {
+            this.isChecked = this.value === this.trueValue;
         }
     },
 
