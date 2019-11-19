@@ -143,7 +143,7 @@ export default {
         min: Number,
         max: Number,
         step: {
-            type: String,
+            type: [String, Number],
             default: 'any'
         },
         maxlength: Number,

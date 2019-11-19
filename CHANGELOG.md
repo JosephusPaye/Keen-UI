@@ -19,6 +19,7 @@
 ### UiTextbox
 
 - Add new prop `minlength` to set the `minlength` attribute on the textbox input or textarea.
+- Allow a `Number` for `step` prop. See [#460](https://github.com/JosephusPaye/Keen-UI/issues/460).
 
 # v1.2.0
 
