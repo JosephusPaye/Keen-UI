@@ -2,12 +2,15 @@
 
 ### UiCheckbox, UiRadio, UiRadioGroup
 
-- Change selected check to use strict equals (`===`) instead of loose equal (`==`). This allows an empty string `''` to be used as the radio or checkbox's value. See [#465](https://github.com/JosephusPaye/Keen-UI/issues/465)
+- Change selected check to use strict equals (`===`) instead of loose equal (`==`). This allows an empty string `''` to be used as the radio or checkbox's value. See [#465](https://github.com/JosephusPaye/Keen-UI/issues/465).
+
+### UiCheckbox
+
+- Apply `border-radius` to checkmark background. Also switch background from `::before` pseudo element to an actual element: `.ui-checkbox__checkmark-background`. This avoids visual artifacts that appear when applying `border-radius` to a pseudo element. See [#471](https://github.com/JosephusPaye/Keen-UI/issues/471).
 
 ### UiDatepicker
 
 - Add new prop `defaultView` to set the default datepicker view: `date` or `year`. See [#454](https://github.com/JosephusPaye/Keen-UI/pull/454).
-
 
 ### UiTextbox
 
