@@ -1,4 +1,4 @@
-# v1.2.1 (to be released)
+# v1.2.1
 
 ### UiSelectOption
 
