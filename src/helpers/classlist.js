@@ -7,12 +7,16 @@ const trim = /^\s+|\s+$/g;
 const whitespace = /\s+/g;
 
 function interpret(input) {
-    return typeof input === 'string' ? input.replace(trim, '').split(whitespace) : input;
+    return typeof input === 'string'
+        ? input.replace(trim, '').split(whitespace)
+        : input;
 }
 
 function classes(el) {
     if (isElement(el)) {
-        return (el.getAttribute('class') || '').replace(trim, '').split(whitespace);
+        return (el.getAttribute('class') || '')
+            .replace(trim, '')
+            .split(whitespace);
     }
 
     return [];
@@ -65,10 +69,12 @@ function isElement(o) {
 }
 
 function isElementObject(o) {
-    return o &&
+    return (
+        o &&
         typeof o === 'object' &&
         typeof o.nodeName === 'string' &&
-        o.nodeType === 1;
+        o.nodeType === 1
+    );
 }
 
 export default {
@@ -77,5 +83,5 @@ export default {
     contains,
     has: contains,
     set,
-    get: classes
+    get: classes,
 };

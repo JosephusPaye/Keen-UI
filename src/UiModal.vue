@@ -1,39 +1,41 @@
 <template>
-    <transition :name="toggleTransition" @after-enter="onEnter" @after-leave="onLeave">
+    <transition
+        :name="toggleTransition"
+        @after-enter="onEnter"
+        @after-leave="onLeave"
+    >
         <div
+            v-show="isOpen"
             class="ui-modal ui-modal__mask"
-
             :class="classes"
             :role="role"
-
             @click.self="onBackdropClick"
-
-            v-show="isOpen"
         >
             <div
                 class="ui-modal__wrapper"
-
                 :class="{ 'has-dummy-scrollbar': preventShift }"
                 :style="alignTopStyle"
-
                 @click.self="onBackdropClick"
             >
                 <ui-focus-container
-                    class="ui-modal__container"
                     ref="focusContainer"
+                    class="ui-modal__container"
                     tabindex="-1"
-
                     @keydown.native.stop.esc="onEsc"
                 >
-                    <div class="ui-modal__header" v-if="!removeHeader">
+                    <div v-if="!removeHeader" class="ui-modal__header">
                         <slot name="header">
                             <h1 class="ui-modal__header-text">{{ title }}</h1>
                         </slot>
 
                         <div class="ui-modal__close-button">
                             <ui-close-button
+                                v-if="
+                                    dismissOnCloseButton &&
+                                        !removeCloseButton &&
+                                        dismissible
+                                "
                                 @click="close"
-                                v-if="dismissOnCloseButton && !removeCloseButton && dismissible"
                             ></ui-close-button>
                         </div>
                     </div>
@@ -42,7 +44,7 @@
                         <slot></slot>
                     </div>
 
-                    <div class="ui-modal__footer" v-if="hasFooter">
+                    <div v-if="hasFooter" class="ui-modal__footer">
                         <slot name="footer"></slot>
                     </div>
                 </ui-focus-container>
@@ -58,59 +60,64 @@ import UiFocusContainer from './UiFocusContainer.vue';
 import classlist from './helpers/classlist';
 
 export default {
-    name: 'ui-modal',
+    name: 'UiModal',
+
+    components: {
+        UiCloseButton,
+        UiFocusContainer,
+    },
 
     props: {
         title: {
             type: String,
-            default: 'UiModal title'
+            default: 'UiModal title',
         },
         alignTop: {
             type: Boolean,
-            default: false
+            default: false,
         },
         alignTopMargin: {
             type: Number,
-            default: 60
+            default: 60,
         },
         size: {
             type: String,
-            default: 'normal' // 'small', 'normal', 'large', 'fullscreen', or 'auto'
+            default: 'normal', // 'small', 'normal', 'large', 'fullscreen', or 'auto'
         },
         role: {
             type: String,
-            default: 'dialog' // 'dialog' or 'alertdialog'
+            default: 'dialog', // 'dialog' or 'alertdialog'
         },
         transition: {
             type: String,
-            default: 'scale-down' // 'scale-up', 'scale-down', or 'fade'
+            default: 'scale-down', // 'scale-up', 'scale-down', or 'fade'
         },
         removeHeader: {
             type: Boolean,
-            default: false
+            default: false,
         },
         removeCloseButton: {
             type: Boolean,
-            default: false
+            default: false,
         },
         preventShift: {
             type: Boolean,
-            default: false
+            default: false,
         },
         dismissible: {
             type: Boolean,
-            default: true
+            default: true,
         },
         dismissOn: {
             type: String,
-            default: 'backdrop esc close-button'
-        }
+            default: 'backdrop esc close-button',
+        },
     },
 
     data() {
         return {
             isOpen: false,
-            lastFocusedElement: null
+            lastFocusedElement: null,
         };
     },
 
@@ -120,7 +127,7 @@ export default {
                 `ui-modal--size-${this.size}`,
                 { 'has-footer': this.hasFooter },
                 { 'is-open': this.isOpen },
-                { 'is-aligned-top': this.alignTop }
+                { 'is-aligned-top': this.alignTop },
             ];
         },
 
@@ -150,7 +157,7 @@ export default {
 
         dismissOnEsc() {
             return this.dismissOn.indexOf('esc') > -1;
-        }
+        },
     },
 
     watch: {
@@ -158,7 +165,7 @@ export default {
             this.$nextTick(() => {
                 this[this.isOpen ? 'onOpen' : 'onClose']();
             });
-        }
+        },
     },
 
     beforeDestroy() {
@@ -243,7 +250,10 @@ export default {
             if (normalizedCount === 0) {
                 document.body.removeAttribute('data-ui-open-modals');
             } else {
-                document.body.setAttribute('data-ui-open-modals', normalizedCount);
+                document.body.setAttribute(
+                    'data-ui-open-modals',
+                    normalizedCount
+                );
             }
 
             return normalizedCount;
@@ -255,26 +265,21 @@ export default {
 
         decrementOpenModalCount() {
             return this.setOpenModalCount(this.getOpenModalCount() - 1);
-        }
+        },
     },
-
-    components: {
-        UiCloseButton,
-        UiFocusContainer
-    }
 };
 </script>
 
 <style lang="scss">
 @import './styles/imports';
 
-$ui-modal-transition-duration   : 0.3s !default;
-$ui-modal-mask-background       : rgba(black, 0.5) !default;
-$ui-modal-header-height         : rem(56px);
-$ui-modal-footer-height         : rem(70px);
+$ui-modal-transition-duration: 0.3s !default;
+$ui-modal-mask-background: rgba(black, 0.5) !default;
+$ui-modal-header-height: rem(56px);
+$ui-modal-footer-height: rem(70px);
 
-$ui-modal-font-size             : rem(14px);
-$ui-modal-header-font-size      : rem(18px);
+$ui-modal-font-size: rem(14px);
+$ui-modal-header-font-size: rem(18px);
 
 .ui-modal {
     font-family: $font-stack;
@@ -286,13 +291,17 @@ $ui-modal-header-font-size      : rem(18px);
         }
 
         &.has-footer .ui-modal__body {
-            max-height: calc(100vh - #{$ui-modal-header-height + $ui-modal-footer-height});
+            max-height: calc(
+                100vh - #{$ui-modal-header-height + $ui-modal-footer-height}
+            );
         }
     }
 
     &.has-footer {
         .ui-modal__body {
-            max-height: calc(100vh - #{$ui-modal-header-height + $ui-modal-footer-height});
+            max-height: calc(
+                100vh - #{$ui-modal-header-height + $ui-modal-footer-height}
+            );
         }
     }
 
@@ -348,7 +357,7 @@ $ui-modal-header-font-size      : rem(18px);
 
 .ui-modal__header {
     align-items: center;
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
     box-shadow: 0 1px 1px rgba(black, 0.16);
     display: flex;
     height: $ui-modal-header-height;
@@ -397,7 +406,7 @@ $ui-modal-header-font-size      : rem(18px);
 // Sizes
 // ================================================
 
-.ui-modal--size-small  {
+.ui-modal--size-small {
     // Using immediate child selector so size doesn't affect a nested modal
     & > .ui-modal__wrapper > .ui-modal__container {
         width: rem-calc(320px);

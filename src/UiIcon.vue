@@ -1,7 +1,10 @@
 <template>
     <span class="ui-icon" :class="[iconSet, icon]" :aria-label="ariaLabel">
-        <svg class="ui-icon__svg" v-if="useSvg">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="'#' + icon"></use>
+        <svg v-if="useSvg" class="ui-icon__svg">
+            <use
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                :xlink:href="'#' + icon"
+            ></use>
         </svg>
 
         <slot v-else>{{ removeText ? null : icon }}</slot>
@@ -10,32 +13,32 @@
 
 <script>
 export default {
-    name: 'ui-icon',
+    name: 'UiIcon',
 
     props: {
         icon: String,
         iconSet: {
             type: String,
-            default: 'material-icons'
+            default: 'material-icons',
         },
         ariaLabel: String,
         removeText: {
             type: Boolean,
-            default: false
+            default: false,
         },
         useSvg: {
             type: Boolean,
-            default: false
-        }
-    }
+            default: false,
+        },
+    },
 };
 </script>
 
 <style lang="scss">
 @import './styles/imports';
 
-$ui-icon-font-size  : rem(24px) !default;
-$ui-icon-size       : 1em !default;
+$ui-icon-font-size: rem(24px) !default;
+$ui-icon-size: 1em !default;
 
 .ui-icon {
     cursor: inherit;

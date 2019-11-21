@@ -1,13 +1,11 @@
 <template>
     <button
         class="ui-fab"
-
         :aria-label="ariaLabel || tooltip"
         :class="classes"
-
         @click="onClick"
     >
-        <div class="ui-fab__icon" v-if="icon || $slots.default">
+        <div v-if="icon || $slots.default" class="ui-fab__icon">
             <slot>
                 <ui-icon :icon="icon"></ui-icon>
             </slot>
@@ -18,11 +16,11 @@
         <ui-ripple-ink v-if="!disableRipple"></ui-ripple-ink>
 
         <ui-tooltip
+            v-if="tooltip"
             :open-on="openTooltipOn"
             :position="tooltipPosition"
-
-            v-if="tooltip"
-        >{{ tooltip }}</ui-tooltip>
+            >{{ tooltip }}</ui-tooltip
+        >
     </button>
 </template>
 
@@ -32,16 +30,22 @@ import UiRippleInk from './UiRippleInk.vue';
 import UiTooltip from './UiTooltip.vue';
 
 export default {
-    name: 'ui-fab',
+    name: 'UiFab',
+
+    components: {
+        UiIcon,
+        UiRippleInk,
+        UiTooltip,
+    },
 
     props: {
         size: {
             type: String,
-            default: 'normal' // 'normal' or 'small'
+            default: 'normal', // 'normal' or 'small'
         },
         color: {
             type: String,
-            default: 'default' // 'default', primary', or 'accent'
+            default: 'default', // 'default', primary', or 'accent'
         },
         icon: String,
         ariaLabel: String,
@@ -50,38 +54,29 @@ export default {
         tooltipPosition: String,
         disableRipple: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     computed: {
         classes() {
-            return [
-                `ui-fab--color-${this.color}`,
-                `ui-fab--size-${this.size}`
-            ];
-        }
+            return [`ui-fab--color-${this.color}`, `ui-fab--size-${this.size}`];
+        },
     },
 
     methods: {
         onClick(e) {
             this.$emit('click', e);
-        }
+        },
     },
-
-    components: {
-        UiIcon,
-        UiRippleInk,
-        UiTooltip
-    }
 };
 </script>
 
 <style lang="scss">
 @import './styles/imports';
 
-$ui-fab-size--normal    : rem(56px) !default;
-$ui-fab-size--small     : rem(40px) !default;
+$ui-fab-size--normal: rem(56px) !default;
+$ui-fab-size--small: rem(40px) !default;
 
 .ui-fab {
     align-items: center;
@@ -102,11 +97,12 @@ $ui-fab-size--small     : rem(40px) !default;
     }
 
     &:hover,
-    body[modality="keyboard"] &:focus {
-        box-shadow: 0 8px 17px 0 rgba(black, 0.25), 0 6px 20px 0 rgba(black, 0.2);
+    body[modality='keyboard'] &:focus {
+        box-shadow: 0 8px 17px 0 rgba(black, 0.25),
+            0 6px 20px 0 rgba(black, 0.2);
     }
 
-    body[modality="keyboard"] &:focus {
+    body[modality='keyboard'] &:focus {
         .ui-fab__focus-ring {
             opacity: 1;
             transform: scale(1);

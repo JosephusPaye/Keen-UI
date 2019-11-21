@@ -3,5 +3,5 @@ export default {
         if (value) {
             el.focus();
         }
-    }
+    },
 };

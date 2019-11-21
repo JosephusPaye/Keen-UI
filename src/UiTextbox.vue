@@ -1,6 +1,6 @@
 <template>
     <div class="ui-textbox" :class="classes">
-        <div class="ui-textbox__icon-wrapper" v-if="icon || $slots.icon">
+        <div v-if="icon || $slots.icon" class="ui-textbox__icon-wrapper">
             <slot name="icon">
                 <ui-icon :icon="icon"></ui-icon>
             </slot>
@@ -9,9 +9,10 @@
         <div class="ui-textbox__content">
             <label class="ui-textbox__label">
                 <input
-                    class="ui-textbox__input"
+                    v-if="!multiLine"
                     ref="input"
-
+                    v-autofocus="autofocus"
+                    class="ui-textbox__input"
                     :autocomplete="autocomplete ? autocomplete : null"
                     :disabled="disabled"
                     :max="maxValue"
@@ -27,22 +28,19 @@
                     :tabindex="tabindex"
                     :type="type"
                     :value="value"
-
                     @blur="onBlur"
                     @change="onChange"
                     @focus="onFocus"
                     @input="updateValue($event.target.value)"
                     @keydown.enter="onKeydownEnter"
                     @keydown="onKeydown"
-
-                    v-autofocus="autofocus"
-                    v-if="!multiLine"
-                >
+                />
 
                 <textarea
-                    class="ui-textbox__textarea"
+                    v-else
                     ref="textarea"
-
+                    v-autofocus="autofocus"
+                    class="ui-textbox__textarea"
                     :autocomplete="autocomplete ? autocomplete : null"
                     :disabled="disabled"
                     :maxlength="enforceMaxlength ? maxlength : null"
@@ -54,37 +52,33 @@
                     :rows="rows"
                     :tabindex="tabindex"
                     :value="value"
-
                     @blur="onBlur"
                     @change="onChange"
                     @focus="onFocus"
                     @input="updateValue($event.target.value)"
                     @keydown.enter="onKeydownEnter"
                     @keydown="onKeydown"
-
-                    v-autofocus="autofocus"
-                    v-else
                 ></textarea>
 
                 <div
+                    v-if="label || $slots.default"
                     class="ui-textbox__label-text"
                     :class="labelClasses"
-                    v-if="label || $slots.default"
                 >
                     <slot>{{ label }}</slot>
                 </div>
             </label>
 
-            <div class="ui-textbox__feedback" v-if="hasFeedback || maxlength">
-                <div class="ui-textbox__feedback-text" v-if="showError">
+            <div v-if="hasFeedback || maxlength" class="ui-textbox__feedback">
+                <div v-if="showError" class="ui-textbox__feedback-text">
                     <slot name="error">{{ error }}</slot>
                 </div>
 
-                <div class="ui-textbox__feedback-text" v-else-if="showHelp">
+                <div v-else-if="showHelp" class="ui-textbox__feedback-text">
                     <slot name="help">{{ help }}</slot>
                 </div>
 
-                <div class="ui-textbox__counter" v-if="maxlength">
+                <div v-if="maxlength" class="ui-textbox__counter">
                     {{ valueLength + '/' + maxlength }}
                 </div>
             </div>
@@ -99,7 +93,15 @@ import UiIcon from './UiIcon.vue';
 import autosize from 'autosize';
 
 export default {
-    name: 'ui-textbox',
+    name: 'UiTextbox',
+
+    components: {
+        UiIcon,
+    },
+
+    directives: {
+        autofocus,
+    },
 
     props: {
         name: String,
@@ -107,69 +109,69 @@ export default {
         tabindex: [String, Number],
         value: {
             type: [String, Number],
-            default: ''
+            default: '',
         },
         icon: String,
         iconPosition: {
             type: String,
-            default: 'left' // 'left' or 'right'
+            default: 'left', // 'left' or 'right'
         },
         label: String,
         floatingLabel: {
             type: Boolean,
-            default: false
+            default: false,
         },
         type: {
             type: String,
-            default: 'text' // all the possible HTML5 input types, except those that have a special UI
+            default: 'text', // all the possible HTML5 input types, except those that have a special UI
         },
         multiLine: {
             type: Boolean,
-            default: false
+            default: false,
         },
         rows: {
             type: Number,
-            default: 2
+            default: 2,
         },
         autocomplete: String,
         autofocus: {
             type: Boolean,
-            default: false
+            default: false,
         },
         autosize: {
             type: Boolean,
-            default: true
+            default: true,
         },
         min: Number,
         max: Number,
         step: {
             type: [String, Number],
-            default: 'any'
+            default: 'any',
         },
         maxlength: Number,
         minlength: Number,
         enforceMaxlength: {
             type: Boolean,
-            default: false
+            default: false,
         },
         required: {
             type: Boolean,
-            default: false
+            default: false,
         },
         readonly: {
             type: Boolean,
-            default: false
+            default: false,
         },
         help: String,
         error: String,
         invalid: {
             type: Boolean,
-            default: false
+            default: false,
         },
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     data() {
@@ -177,7 +179,7 @@ export default {
             isActive: false,
             isTouched: false,
             initialValue: this.value,
-            autosizeInitialized: false
+            autosizeInitialized: false,
         };
     },
 
@@ -192,14 +194,14 @@ export default {
                 { 'has-counter': this.maxlength },
                 { 'is-disabled': this.disabled },
                 { 'has-label': this.hasLabel },
-                { 'has-floating-label': this.hasFloatingLabel }
+                { 'has-floating-label': this.hasFloatingLabel },
             ];
         },
 
         labelClasses() {
             return {
                 'is-inline': this.hasFloatingLabel && this.isLabelInline,
-                'is-floating': this.hasFloatingLabel && !this.isLabelInline
+                'is-floating': this.hasFloatingLabel && !this.isLabelInline,
             };
         },
 
@@ -244,12 +246,15 @@ export default {
         },
 
         showError() {
-            return this.invalid && (Boolean(this.error) || Boolean(this.$slots.error));
+            return (
+                this.invalid &&
+                (Boolean(this.error) || Boolean(this.$slots.error))
+            );
         },
 
         showHelp() {
             return Boolean(this.help) || Boolean(this.$slots.help);
-        }
+        },
     },
 
     created() {
@@ -331,16 +336,8 @@ export default {
 
         focus() {
             (this.$refs.input || this.$refs.textarea).focus();
-        }
+        },
     },
-
-    components: {
-        UiIcon
-    },
-
-    directives: {
-        autofocus
-    }
 };
 </script>
 
@@ -412,7 +409,9 @@ export default {
         // The webkit-autofill value will only be propagated on first click into the viewport.
         // Before that .is-inline will be wrongly set and cause the auto filled input value and the label to overlap.
         // This fix will style the wrong .is-inline like an .is-floating in case :-webkit-autofill is set.
-        .ui-textbox__label > input:-webkit-autofill + .ui-textbox__label-text.is-inline {
+        .ui-textbox__label
+            > input:-webkit-autofill
+            + .ui-textbox__label-text.is-inline {
             transform: translateY(0) scale(1);
         }
     }

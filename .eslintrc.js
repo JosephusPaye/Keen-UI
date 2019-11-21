@@ -15,6 +15,7 @@ module.exports = {
                 trailingComma: 'es5',
             },
         ],
+        'vue/require-default-prop': 'off',
     },
     parserOptions: {
         parser: 'babel-eslint',

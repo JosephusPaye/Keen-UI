@@ -2,20 +2,18 @@
     <label class="ui-switch" :class="classes">
         <div class="ui-switch__input-wrapper">
             <input
-                class="ui-switch__input"
                 ref="input"
+                class="ui-switch__input"
                 type="checkbox"
-
                 :checked.prop="isChecked"
                 :disabled="disabled"
                 :name="name"
                 :tabindex="tabindex"
                 :value="submittedValue"
-
                 @blur="onBlur"
                 @click="onClick"
                 @focus="onFocus"
-            >
+            />
 
             <div class="ui-switch__thumb">
                 <div class="ui-switch__focus-ring"></div>
@@ -24,7 +22,7 @@
             <div class="ui-switch__track"></div>
         </div>
 
-        <div class="ui-switch__label-text" v-if="label || $slots.default">
+        <div v-if="label || $slots.default" class="ui-switch__label-text">
             <slot>{{ label }}</slot>
         </div>
     </label>
@@ -34,48 +32,50 @@
 import { looseEqual } from './helpers/util';
 
 export default {
-    name: 'ui-switch',
+    name: 'UiSwitch',
 
     props: {
         name: String,
         label: String,
         tabindex: [String, Number],
         value: {
-            required: true
+            type: undefined, // any
         },
         trueValue: {
-            default: true
+            type: undefined, // any
+            default: true,
         },
         falseValue: {
-            default: false
+            type: undefined, // any
+            default: false,
         },
         submittedValue: {
             type: String,
-            default: 'on' // HTML default
+            default: 'on', // HTML default
         },
         checked: {
             type: Boolean,
-            default: false
+            default: false,
         },
         color: {
             type: String,
-            default: 'primary' // 'primary' or 'accent'
+            default: 'primary', // 'primary' or 'accent'
         },
         switchPosition: {
             type: String,
-            default: 'left' // 'left' or 'right'
+            default: 'left', // 'left' or 'right'
         },
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     data() {
         return {
             isActive: false,
             isChecked: looseEqual(this.value, this.trueValue) || this.checked,
-            initialValue: this.value
+            initialValue: this.value,
         };
     },
 
@@ -86,15 +86,15 @@ export default {
                 `ui-switch--switch-position-${this.switchPosition}`,
                 { 'is-active': this.isActive },
                 { 'is-checked': this.isChecked },
-                { 'is-disabled': this.disabled }
+                { 'is-disabled': this.disabled },
             ];
-        }
+        },
     },
 
     watch: {
         value() {
             this.isChecked = looseEqual(this.value, this.trueValue);
-        }
+        },
     },
 
     created() {
@@ -110,10 +110,18 @@ export default {
             const isCheckedPrevious = this.isChecked;
             const isChecked = e.target.checked;
 
-            this.$emit('input', isChecked ? this.trueValue : this.falseValue, e);
+            this.$emit(
+                'input',
+                isChecked ? this.trueValue : this.falseValue,
+                e
+            );
 
             if (isCheckedPrevious !== isChecked) {
-                this.$emit('change', isChecked ? this.trueValue : this.falseValue, e);
+                this.$emit(
+                    'change',
+                    isChecked ? this.trueValue : this.falseValue,
+                    e
+                );
             }
         },
 
@@ -125,23 +133,23 @@ export default {
         onBlur(e) {
             this.isActive = false;
             this.$emit('blur', e);
-        }
-    }
+        },
+    },
 };
 </script>
 
 <style lang="scss">
 @import './styles/imports';
 
-$ui-switch-height           : rem(32px) !default;
+$ui-switch-height: rem(32px) !default;
 
-$ui-switch-thumb-size       : rem(20px) !default;
-$ui-switch-thumb-color      : $md-grey-50 !default;
+$ui-switch-thumb-size: rem(20px) !default;
+$ui-switch-thumb-color: $md-grey-50 !default;
 
-$ui-switch-track-width      : rem(34px) !default;
-$ui-switch-track-height     : rem(14px) !default;
+$ui-switch-track-width: rem(34px) !default;
+$ui-switch-track-height: rem(14px) !default;
 
-$ui-switch-focus-ring-size  : $ui-switch-thumb-size * 2.1 !default;
+$ui-switch-focus-ring-size: $ui-switch-thumb-size * 2.1 !default;
 
 .ui-switch {
     align-items: center;
@@ -152,7 +160,9 @@ $ui-switch-focus-ring-size  : $ui-switch-thumb-size * 2.1 !default;
 
     &.is-checked {
         .ui-switch__thumb {
-            transform: translateX($ui-switch-track-width - $ui-switch-thumb-size);
+            transform: translateX(
+                $ui-switch-track-width - $ui-switch-thumb-size
+            );
         }
     }
 
@@ -185,7 +195,7 @@ $ui-switch-focus-ring-size  : $ui-switch-thumb-size * 2.1 !default;
     opacity: 0;
     position: absolute;
 
-    body[modality="keyboard"] &:focus + .ui-switch__thumb {
+    body[modality='keyboard'] &:focus + .ui-switch__thumb {
         .ui-switch__focus-ring {
             opacity: 1;
             transform: scale(1);
@@ -225,7 +235,8 @@ $ui-switch-focus-ring-size  : $ui-switch-thumb-size * 2.1 !default;
     position: absolute;
     top: -(($ui-switch-focus-ring-size - $ui-switch-thumb-size) / 2);
     transform: scale(0);
-    transition: background-color 0.2s ease, transform 0.15s ease, opacity 0.15s ease;
+    transition: background-color 0.2s ease, transform 0.15s ease,
+        opacity 0.15s ease;
     width: $ui-switch-focus-ring-size;
     z-index: -1;
 }

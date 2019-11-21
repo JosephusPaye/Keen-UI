@@ -1,27 +1,25 @@
 <template>
     <label class="ui-checkbox" :class="classes">
         <input
-            class="ui-checkbox__input"
             ref="input"
+            class="ui-checkbox__input"
             type="checkbox"
-
             :checked.prop="isChecked"
             :disabled="disabled"
             :name="name"
             :tabindex="tabindex"
             :value="submittedValue"
-
             @blur="onBlur"
             @click="onClick"
             @focus="onFocus"
-        >
+        />
 
         <div class="ui-checkbox__checkmark">
             <div class="ui-checkbox__checkmark-background"></div>
             <div class="ui-checkbox__focus-ring"></div>
         </div>
 
-        <div class="ui-checkbox__label-text" v-if="label || $slots.default">
+        <div v-if="label || $slots.default" class="ui-checkbox__label-text">
             <slot>{{ label }}</slot>
         </div>
     </label>
@@ -29,47 +27,49 @@
 
 <script>
 export default {
-    name: 'ui-checkbox',
+    name: 'UiCheckbox',
 
     props: {
         name: String,
         label: String,
         tabindex: [String, Number],
         value: {
-            required: true
+            type: undefined, // any
         },
         trueValue: {
-            default: true
+            type: undefined, // any
+            default: true,
         },
         falseValue: {
-            default: false
+            type: undefined, // any
+            default: false,
         },
         submittedValue: {
             type: String,
-            default: 'on' // HTML default
+            default: 'on', // HTML default
         },
         checked: {
             type: Boolean,
-            default: false
+            default: false,
         },
         boxPosition: {
             type: String,
-            default: 'left' // 'left' or 'right'
+            default: 'left', // 'left' or 'right'
         },
         color: {
             type: String,
-            default: 'primary' // 'primary' or 'accent'
+            default: 'primary', // 'primary' or 'accent'
         },
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     data() {
         return {
             isActive: false,
-            isChecked: this.value === this.trueValue || this.checked
+            isChecked: this.value === this.trueValue || this.checked,
         };
     },
 
@@ -80,15 +80,15 @@ export default {
                 `ui-checkbox--box-position-${this.boxPosition}`,
                 { 'is-checked': this.isChecked },
                 { 'is-active': this.isActive },
-                { 'is-disabled': this.disabled }
+                { 'is-disabled': this.disabled },
             ];
-        }
+        },
     },
 
     watch: {
         value() {
             this.isChecked = this.value === this.trueValue;
-        }
+        },
     },
 
     created() {
@@ -104,10 +104,18 @@ export default {
             const isCheckedPrevious = this.isChecked;
             const isChecked = e.target.checked;
 
-            this.$emit('input', isChecked ? this.trueValue : this.falseValue, e);
+            this.$emit(
+                'input',
+                isChecked ? this.trueValue : this.falseValue,
+                e
+            );
 
             if (isCheckedPrevious !== isChecked) {
-                this.$emit('change', isChecked ? this.trueValue : this.falseValue, e);
+                this.$emit(
+                    'change',
+                    isChecked ? this.trueValue : this.falseValue,
+                    e
+                );
             }
         },
 
@@ -119,21 +127,21 @@ export default {
         onBlur(e) {
             this.isActive = false;
             this.$emit('blur', e);
-        }
-    }
+        },
+    },
 };
 </script>
 
 <style lang="scss">
 @import './styles/imports';
 
-$ui-checkbox-border-width           : rem(2px) !default;
-$ui-checkbox-checkmark-width        : rem(2px) !default;
-$ui-checkbox-transition-duration    : 0.15s !default;
-$ui-checkbox-label-font-size        : rem(16px) !default;
+$ui-checkbox-border-width: rem(2px) !default;
+$ui-checkbox-checkmark-width: rem(2px) !default;
+$ui-checkbox-transition-duration: 0.15s !default;
+$ui-checkbox-label-font-size: rem(16px) !default;
 
-$ui-checkbox-size                   : rem(20px); // no !default as it shouldn't be overridden
-$ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
+$ui-checkbox-size: rem(20px); // no !default as it shouldn't be overridden
+$ui-checkbox-focus-ring-size: $ui-checkbox-size * 2.1;
 
 .ui-checkbox {
     align-items: center;
@@ -198,7 +206,7 @@ $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
     &::after {
         bottom: rem(5px);
         box-sizing: border-box;
-        content: "";
+        content: '';
         display: block;
         height: rem(13px);
         left: rem(7px);
@@ -215,7 +223,7 @@ $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
     border-radius: $ui-default-border-radius;
     border: $ui-checkbox-border-width solid $hint-text-color;
     box-sizing: border-box;
-    content: "";
+    content: '';
     display: block;
     height: 100%;
     left: 0;
@@ -229,7 +237,7 @@ $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
     position: absolute;
     opacity: 0;
 
-    body[modality="keyboard"] &:focus + .ui-checkbox__checkmark {
+    body[modality='keyboard'] &:focus + .ui-checkbox__checkmark {
         .ui-checkbox__focus-ring {
             opacity: 1;
             transform: scale(1);

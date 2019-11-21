@@ -1,13 +1,11 @@
 <template>
     <ui-focus-container
-        class="ui-popover"
         ref="focusContainer"
+        class="ui-popover"
         role="dialog"
-
         :class="{ 'is-raised': raised }"
         :contain-focus="containFocus"
         :focus-redirector="focusRedirector"
-
         @focus-overflow="close()"
     >
         <slot></slot>
@@ -23,45 +21,49 @@ import events from './helpers/events';
 import UiFocusContainer from './UiFocusContainer.vue';
 
 export default {
-    name: 'ui-popover',
+    name: 'UiPopover',
+
+    components: {
+        UiFocusContainer,
+    },
 
     props: {
         animation: {
             type: String,
-            default: 'fade' // 'fade', 'shift-away', 'scale', or 'none'
+            default: 'fade', // 'fade', 'shift-away', 'scale', or 'none'
         },
         appendToBody: {
             type: Boolean,
-            default: true
+            default: true,
         },
         closeOnScroll: {
             type: Boolean,
-            default: true
+            default: true,
         },
         constrainToScrollParent: {
             type: Boolean,
-            default: true
+            default: true,
         },
         containFocus: {
             type: Boolean,
-            default: false
+            default: false,
         },
         disabled: {
             type: Boolean,
-            default: false
+            default: false,
         },
         focusRedirector: Function,
         openOn: {
             type: String,
-            default: 'click' // 'click', 'mouseenter', 'focus', or 'manual', plus 'hover' (compat)
+            default: 'click', // 'click', 'mouseenter', 'focus', or 'manual', plus 'hover' (compat)
         },
         position: {
             type: String,
-            default: 'bottom-start'
+            default: 'bottom-start',
         },
         raised: {
             type: Boolean,
-            default: true
+            default: true,
         },
         trigger: {
             validator(value) {
@@ -69,14 +71,14 @@ export default {
                     value,
                     '[UiPopover]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string which matches an existing element.'
                 );
-            }
+            },
         },
-        zIndex: Number
+        zIndex: Number,
     },
 
     data() {
         return {
-            returnFocus: true
+            returnFocus: true,
         };
     },
 
@@ -89,7 +91,7 @@ export default {
                     this.tip.enable();
                 }
             }
-        }
+        },
     },
 
     created() {
@@ -106,7 +108,10 @@ export default {
 
     methods: {
         setupPopover() {
-            this.triggerEl = elementRef.resolve(this.trigger, this.$el.parentElement);
+            this.triggerEl = elementRef.resolve(
+                this.trigger,
+                this.$el.parentElement
+            );
 
             if (!this.triggerEl) {
                 console.error('[UiPopover]: Trigger element not found.');
@@ -118,7 +123,9 @@ export default {
                 // Use 'fade' when animation is 'none', as 'none' it's not a valid Tippy.js option.
                 // The effect of no transition is achieved by `duration: 0` below.
                 animation: this.animation === 'none' ? 'fade' : this.animation,
-                appendTo: this.appendToBody ? document.body : this.triggerEl.parentElement,
+                appendTo: this.appendToBody
+                    ? document.body
+                    : this.triggerEl.parentElement,
                 arrow: false,
                 content: this.$el,
                 delay: [0, 0],
@@ -144,14 +151,19 @@ export default {
                         computeStyle: {
                             // Disable GPU acceleration to fix blurry text in popover on Windows (Chrome)
                             // https://github.com/twbs/bootstrap/issues/23590
-                            gpuAcceleration: !(window.devicePixelRatio < 1.5 && /Win/.test(navigator.platform))
-                        }
-                    }
-                }
+                            gpuAcceleration: !(
+                                window.devicePixelRatio < 1.5 &&
+                                /Win/.test(navigator.platform)
+                            ),
+                        },
+                    },
+                },
             };
 
             if (!this.constrainToScrollParent) {
-                options.popperOptions.modifiers.preventOverflow = { enabled: false };
+                options.popperOptions.modifiers.preventOverflow = {
+                    enabled: false,
+                };
                 options.popperOptions.modifiers.hide = { enabled: false };
             }
 
@@ -244,18 +256,26 @@ export default {
 
             // Add event listeners in the next tick, otherwise they're triggered immediately
             setTimeout(() => {
-                this.removeExternalClickListener = events.on('click', document, e => {
-                    this.closeOnExternal(e, { returnFocus: false });
-                });
+                this.removeExternalClickListener = events.on(
+                    'click',
+                    document,
+                    e => {
+                        this.closeOnExternal(e, { returnFocus: false });
+                    }
+                );
 
                 this.removeEscListener = events.onKeydown(27, document, () => {
                     this.close({ returnFocus: true });
                 });
 
                 if (this.closeOnScroll) {
-                    this.removeScrollListener = events.on('scroll', document, e => {
-                        this.closeOnExternal(e, { returnFocus: true });
-                    });
+                    this.removeScrollListener = events.on(
+                        'scroll',
+                        document,
+                        e => {
+                            this.closeOnExternal(e, { returnFocus: true });
+                        }
+                    );
                 }
             }, 0);
         },
@@ -275,12 +295,8 @@ export default {
                 this.removeScrollListener();
                 this.removeScrollListener = null;
             }
-        }
+        },
     },
-
-    components: {
-        UiFocusContainer
-    }
 };
 </script>
 
@@ -291,8 +307,7 @@ export default {
 .ui-popover {
     &.is-raised {
         box-shadow: 0 2px 4px -1px rgba(black, 0.2),
-                    0 4px 5px 0 rgba(black, 0.14),
-                    0 1px 10px 0 rgba(black, 0.12);
+            0 4px 5px 0 rgba(black, 0.14), 0 1px 10px 0 rgba(black, 0.12);
     }
 
     .ui-menu {

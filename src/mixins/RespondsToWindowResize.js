@@ -3,7 +3,7 @@ import debounce from 'lodash.debounce';
 export default {
     data() {
         return {
-            windowResizeListener: null
+            windowResizeListener: null,
         };
     },
 
@@ -17,5 +17,5 @@ export default {
 
     beforeDestroy() {
         window.removeEventListener('resize', this.windowResizeListener);
-    }
+    },
 };

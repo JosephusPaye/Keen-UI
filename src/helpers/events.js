@@ -8,15 +8,20 @@ export function on(event, target, callback, options = { passive: true }) {
 
 // eslint-disable-next-line max-params
 function onKey(key, event, target, callback, options) {
-    return on(event, target, e => {
-        if (!key) {
-            // We call back for every key if there's no specific key
-            callback(e);
-        } else if (key === e.key || key === e.keyCode) {
-            // Otherwise we call back only if the key matches
-            callback(e);
-        }
-    }, options);
+    return on(
+        event,
+        target,
+        e => {
+            if (!key) {
+                // We call back for every key if there's no specific key
+                callback(e);
+            } else if (key === e.key || key === e.keyCode) {
+                // Otherwise we call back only if the key matches
+                callback(e);
+            }
+        },
+        options
+    );
 }
 
 export function onKeydown(keys, target, callback, options) {
@@ -35,5 +40,5 @@ export default {
     on,
     onKeydown,
     onKeyup,
-    onKeypress
+    onKeypress,
 };

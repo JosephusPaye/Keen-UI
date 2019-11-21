@@ -1,30 +1,31 @@
 <template>
     <div class="ui-toolbar" :class="classes">
         <div class="ui-toolbar__left">
-            <div class="ui-toolbar__nav-icon" v-if="!removeNavIcon">
+            <div v-if="!removeNavIcon" class="ui-toolbar__nav-icon">
                 <slot name="icon">
                     <ui-icon-button
                         size="large"
                         type="secondary"
-
                         :color="textColor"
                         :icon="navIcon"
-
                         @click="navIconClick"
                     ></ui-icon-button>
                 </slot>
             </div>
 
-            <div class="ui-toolbar__brand" v-if="brand || $slots.brand">
+            <div v-if="brand || $slots.brand" class="ui-toolbar__brand">
                 <slot name="brand">
                     <div class="ui-toolbar__brand-text">{{ brand }}</div>
                 </slot>
             </div>
         </div>
 
-        <div class="ui-toolbar__body" :class="{ 'has-brand-divider': hasBrandDivider }">
+        <div
+            class="ui-toolbar__body"
+            :class="{ 'has-brand-divider': hasBrandDivider }"
+        >
             <slot>
-                <div class="ui-toolbar__title" v-if="title">{{ title }}</div>
+                <div v-if="title" class="ui-toolbar__title">{{ title }}</div>
             </slot>
         </div>
 
@@ -33,9 +34,9 @@
         </div>
 
         <ui-progress-linear
+            v-show="loading"
             class="ui-toolbar__progress"
             :color="progressColor"
-            v-show="loading"
         ></ui-progress-linear>
     </div>
 </template>
@@ -45,43 +46,48 @@ import UiIconButton from './UiIconButton.vue';
 import UiProgressLinear from './UiProgressLinear.vue';
 
 export default {
-    name: 'ui-toolbar',
+    name: 'UiToolbar',
+
+    components: {
+        UiIconButton,
+        UiProgressLinear,
+    },
 
     props: {
         type: {
             type: String,
-            default: 'default' // 'default', 'colored' or 'clear' - colored is brand primary color
+            default: 'default', // 'default', 'colored' or 'clear' - colored is brand primary color
         },
         textColor: {
             type: String,
-            default: 'black' // 'black' or 'white'
+            default: 'black', // 'black' or 'white'
         },
         title: String,
         brand: String,
         removeBrandDivider: {
             type: Boolean,
-            default: false
+            default: false,
         },
         navIcon: {
             type: String,
-            default: 'menu'
+            default: 'menu',
         },
         removeNavIcon: {
             type: Boolean,
-            default: false
+            default: false,
         },
         raised: {
             type: Boolean,
-            default: true
+            default: true,
         },
         progressPosition: {
             type: String,
-            default: 'bottom' // 'top' or 'bottom'
+            default: 'bottom', // 'top' or 'bottom'
         },
         loading: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     computed: {
@@ -90,37 +96,34 @@ export default {
                 `ui-toolbar--type-${this.type}`,
                 `ui-toolbar--text-color-${this.textColor}`,
                 `ui-toolbar--progress-position-${this.progressPosition}`,
-                { 'is-raised': this.raised }
+                { 'is-raised': this.raised },
             ];
         },
 
         progressColor() {
-            return (this.textColor === 'black') ? 'primary' : 'white';
+            return this.textColor === 'black' ? 'primary' : 'white';
         },
 
         hasBrandDivider() {
-            return this.removeBrandDivider ? false : (this.brand || this.$slots.brand);
-        }
+            return this.removeBrandDivider
+                ? false
+                : this.brand || this.$slots.brand;
+        },
     },
 
     methods: {
         navIconClick() {
             this.$emit('nav-icon-click');
-        }
+        },
     },
-
-    components: {
-        UiIconButton,
-        UiProgressLinear
-    }
 };
 </script>
 
 <style lang="scss">
 @import './styles/imports';
 
-$ui-toolbar-font-size   : rem(18px) !default;
-$ui-toolbar-height      : rem(56px) !default;
+$ui-toolbar-font-size: rem(18px) !default;
+$ui-toolbar-height: rem(56px) !default;
 
 .ui-toolbar {
     align-items: center;

@@ -1,36 +1,38 @@
 <template>
     <component
+        :is="isAnchor ? 'a' : 'li'"
         class="ui-menu-option"
         role="menu-item"
-
         :class="classes"
         :href="isAnchor ? (disabled ? null : href) : null"
-        :is="isAnchor ? 'a' : 'li'"
-        :tabindex="(isDivider || isAnchor || disabled) ? null : '0'"
+        :tabindex="isDivider || isAnchor || disabled ? null : '0'"
         :target="isAnchor ? (disabled ? null : target) : null"
     >
         <slot v-if="!isDivider">
             <div class="ui-menu-option__content">
                 <ui-icon
+                    v-if="icon"
                     class="ui-menu-option__icon"
-
                     :icon-set="iconProps.iconSet"
                     :icon="icon"
                     :remove-text="iconProps.removeText"
                     :use-svg="iconProps.useSvg"
-
-                    v-if="icon"
                 ></ui-icon>
 
                 <div class="ui-menu-option__text">{{ label }}</div>
 
-                <div class="ui-menu-option__secondary-text" v-if="secondaryText">
+                <div
+                    v-if="secondaryText"
+                    class="ui-menu-option__secondary-text"
+                >
                     {{ secondaryText }}
                 </div>
             </div>
         </slot>
 
-        <ui-ripple-ink v-if="!disabled && !isDivider && !disableRipple"></ui-ripple-ink>
+        <ui-ripple-ink
+            v-if="!disabled && !isDivider && !disableRipple"
+        ></ui-ripple-ink>
     </component>
 </template>
 
@@ -39,7 +41,12 @@ import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
 
 export default {
-    name: 'ui-menu-option',
+    name: 'UiMenuOption',
+
+    components: {
+        UiIcon,
+        UiRippleInk,
+    },
 
     props: {
         type: String,
@@ -51,17 +58,17 @@ export default {
             type: Object,
             default() {
                 return {};
-            }
+            },
         },
         secondaryText: String,
         disableRipple: {
             type: Boolean,
-            default: false
+            default: false,
         },
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     computed: {
@@ -69,7 +76,7 @@ export default {
             return {
                 'is-divider': this.isDivider,
                 'is-disabled': this.disabled,
-                'is-anchor': this.isAnchor
+                'is-anchor': this.isAnchor,
             };
         },
 
@@ -79,13 +86,8 @@ export default {
 
         isAnchor() {
             return !this.isDivider && this.href !== undefined;
-        }
+        },
     },
-
-    components: {
-        UiIcon,
-        UiRippleInk
-    }
 };
 </script>
 
@@ -117,7 +119,7 @@ export default {
         text-decoration: none;
 
         &:hover:not(.is-disabled),
-        body[modality="keyboard"] &:focus {
+        body[modality='keyboard'] &:focus {
             background-color: $ui-menu-item-hover-color;
         }
 

@@ -1,12 +1,10 @@
 <template>
     <tr class="ui-calendar-week" :class="classes">
-        <td :key="date.toString()" v-for="date in dates">
+        <td v-for="date in dates" :key="date.toString()">
             <button
                 class="ui-calendar-week__date"
-
                 :class="getDateClasses(date)"
                 :disabled="isDateDisabled(date)"
-
                 @click="selectDate(date)"
             >
                 <slot :date="date">{{ date.getDate() }}</slot>
@@ -19,7 +17,7 @@
 import dateUtils from './helpers/date';
 
 export default {
-    name: 'ui-calendar-week',
+    name: 'UiCalendarWeek',
 
     props: {
         month: Number,
@@ -30,17 +28,17 @@ export default {
         dateFilter: Function,
         color: {
             type: String,
-            default: 'primary'
+            default: 'primary',
         },
         squareCells: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     data() {
         return {
-            today: new Date()
+            today: new Date(),
         };
     },
 
@@ -52,9 +50,9 @@ export default {
         classes() {
             return [
                 `ui-calendar-week--color-${this.color}`,
-                { 'ui-calendar-week--has-square-cells': this.squareCells }
+                { 'ui-calendar-week--has-square-cells': this.squareCells },
             ];
-        }
+        },
     },
 
     methods: {
@@ -76,8 +74,12 @@ export default {
             return [
                 { 'is-today': dateUtils.isSameDay(date, this.today) },
                 { 'is-in-other-month': this.isDateInOtherMonth(date) },
-                { 'is-selected': this.selected && dateUtils.isSameDay(date, this.selected) },
-                { 'is-disabled': this.isDateDisabled(date) }
+                {
+                    'is-selected':
+                        this.selected &&
+                        dateUtils.isSameDay(date, this.selected),
+                },
+                { 'is-disabled': this.isDateDisabled(date) },
             ];
         },
 
@@ -94,7 +96,8 @@ export default {
         },
 
         isDateDisabled(date) {
-            const isDisabled = (this.minDate && dateUtils.isBefore(date, this.minDate)) ||
+            const isDisabled =
+                (this.minDate && dateUtils.isBefore(date, this.minDate)) ||
                 (this.maxDate && dateUtils.isAfter(date, this.maxDate));
 
             if (isDisabled) {
@@ -102,8 +105,8 @@ export default {
             }
 
             return this.dateFilter ? !this.dateFilter(date) : false;
-        }
-    }
+        },
+    },
 };
 </script>
 
@@ -126,7 +129,7 @@ export default {
         // This makes the <td> square, while keeping it responsive
         &::before {
             box-sizing: border-box;
-            content:'';
+            content: '';
             display: block;
             padding-top: 100%;
             min-height: $ui-calendar-cell-size;
@@ -162,7 +165,7 @@ export default {
     padding: 0;
 
     &:hover,
-    body[modality="keyboard"] &:focus {
+    body[modality='keyboard'] &:focus {
         background-color: rgba(black, 0.1);
     }
 
@@ -196,7 +199,7 @@ export default {
         }
 
         &.is-selected,
-        body[modality="keyboard"] &.is-selected {
+        body[modality='keyboard'] &.is-selected {
             background-color: $brand-primary-color;
             color: white;
         }
@@ -214,7 +217,7 @@ export default {
         }
 
         &.is-selected,
-        body[modality="keyboard"] &.is-selected {
+        body[modality='keyboard'] &.is-selected {
             background-color: $brand-accent-color;
             color: white;
         }

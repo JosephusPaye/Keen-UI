@@ -13,7 +13,10 @@ export function inView(element, container) {
     return top >= parentTop && bottom <= parentBottom;
 }
 
-export function scrollIntoView(element, options = { container: null, marginTop: 0 }) {
+export function scrollIntoView(
+    element,
+    options = { container: null, marginTop: 0 }
+) {
     if (!element) {
         return;
     }
@@ -38,5 +41,5 @@ export function resetScroll(element) {
 export default {
     inView,
     scrollIntoView,
-    resetScroll
+    resetScroll,
 };

@@ -1,16 +1,14 @@
 <template>
     <div class="ui-select" :class="classes">
         <input
+            v-if="name"
             class="ui-select__hidden-input"
             type="hidden"
-
             :name="name"
             :value="submittedValue"
+        />
 
-            v-if="name"
-        >
-
-        <div class="ui-select__icon-wrapper" v-if="icon || $slots.icon">
+        <div v-if="icon || $slots.icon" class="ui-select__icon-wrapper">
             <slot name="icon">
                 <ui-icon :icon="icon"></ui-icon>
             </slot>
@@ -18,22 +16,18 @@
 
         <div class="ui-select__content">
             <div
-                class="ui-select__label"
                 ref="label"
-
-                :tabindex="disabled ? null : (tabindex || '0')"
-
+                class="ui-select__label"
+                :tabindex="disabled ? null : tabindex || '0'"
                 @focus="onFocus"
                 @keydown.enter.prevent="openDropdown"
                 @keydown.space.prevent="openDropdown"
                 @keydown.tab="onBlur"
             >
                 <div
-                    class="ui-select__label-text"
-
-                    :class="labelClasses"
-
                     v-if="label || $slots.default"
+                    class="ui-select__label-text"
+                    :class="labelClasses"
                 >
                     <slot>{{ label }}</slot>
                 </div>
@@ -43,92 +37,109 @@
                         class="ui-select__display-value"
                         :class="{ 'is-placeholder': !hasDisplayText }"
                     >
-                        {{ hasDisplayText ? displayText : (hasFloatingLabel && isLabelInline) ? null : placeholder }}
+                        {{
+                            hasDisplayText
+                                ? displayText
+                                : hasFloatingLabel && isLabelInline
+                                ? null
+                                : placeholder
+                        }}
                     </div>
 
                     <ui-icon class="ui-select__dropdown-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6.984 9.984h10.03L12 15z"/></svg>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M6.984 9.984h10.03L12 15z" />
+                        </svg>
                     </ui-icon>
                 </div>
 
                 <ui-popover
-                    class="ui-select__dropdown"
                     ref="dropdown"
-
+                    class="ui-select__dropdown"
                     :close-on-scroll="false"
                     :constrain-to-scroll-parent="false"
                     :disabled="disabled"
-
                     @close="onClose"
                     @open="onOpen"
                     @reveal="onReveal"
                 >
                     <div
-                        class="ui-select__dropdown-content"
                         ref="dropdownContent"
+                        class="ui-select__dropdown-content"
                         tabindex="-1"
-
-                        @keydown.down.prevent="highlightOption(highlightedIndex + 1)"
-                        @keydown.enter.prevent.stop="selectHighlighted(highlightedIndex, $event)"
+                        @keydown.down.prevent="
+                            highlightOption(highlightedIndex + 1)
+                        "
+                        @keydown.enter.prevent.stop="
+                            selectHighlighted(highlightedIndex, $event)
+                        "
                         @keydown.esc.prevent="closeDropdown()"
                         @keydown.tab="onBlur"
-                        @keydown.up.prevent="highlightOption(highlightedIndex - 1)"
+                        @keydown.up.prevent="
+                            highlightOption(highlightedIndex - 1)
+                        "
                     >
                         <div
+                            v-if="hasSearch"
                             class="ui-select__search"
-
                             @click.stop
                             @keydown.space.stop
-
-                            v-if="hasSearch"
                         >
                             <input
+                                ref="searchInput"
+                                v-model="query"
                                 autocomplete="off"
                                 class="ui-select__search-input"
-                                ref="searchInput"
                                 type="text"
-
                                 :placeholder="searchPlaceholder"
-
-                                v-model="query"
-                            >
+                            />
 
                             <ui-icon class="ui-select__search-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                    <path d="M9.516 14.016c2.484 0 4.5-2.016 4.5-4.5s-2.016-4.5-4.5-4.5-4.5 2.016-4.5 4.5 2.016 4.5 4.5 4.5zm6 0l4.97 4.97-1.5 1.5-4.97-4.97v-.797l-.28-.282c-1.126.984-2.626 1.547-4.22 1.547-3.61 0-6.516-2.86-6.516-6.47S5.906 3 9.516 3s6.47 2.906 6.47 6.516c0 1.594-.564 3.094-1.548 4.22l.28.28h.798z"/>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        d="M9.516 14.016c2.484 0 4.5-2.016 4.5-4.5s-2.016-4.5-4.5-4.5-4.5 2.016-4.5 4.5 2.016 4.5 4.5 4.5zm6 0l4.97 4.97-1.5 1.5-4.97-4.97v-.797l-.28-.282c-1.126.984-2.626 1.547-4.22 1.547-3.61 0-6.516-2.86-6.516-6.47S5.906 3 9.516 3s6.47 2.906 6.47 6.516c0 1.594-.564 3.094-1.548 4.22l.28.28h.798z"
+                                    />
                                 </svg>
                             </ui-icon>
 
                             <ui-progress-circular
+                                v-if="loading"
                                 class="ui-select__search-progress"
-
                                 :size="20"
                                 :stroke="4"
-
-                                v-if="loading"
                             ></ui-progress-circular>
                         </div>
 
-                        <ul class="ui-select__options" ref="optionsList">
+                        <ul ref="optionsList" class="ui-select__options">
                             <ui-select-option
+                                v-for="(option, index) in filteredOptions"
                                 ref="options"
-
+                                :key="index"
                                 :highlighted="highlightedIndex === index"
                                 :keys="keys"
-                                :key="index"
                                 :multiple="multiple"
                                 :option="option"
                                 :selected="isOptionSelected(option)"
                                 :type="type"
-
                                 @click.native.stop="selectOption(option, index)"
-                                @mouseover.native.stop="highlightOption(index, { autoScroll: false })"
-
-                                v-for="(option, index) in filteredOptions"
+                                @mouseover.native.stop="
+                                    highlightOption(index, {
+                                        autoScroll: false,
+                                    })
+                                "
                             >
                                 <slot
                                     name="option"
-
                                     :highlighted="highlightedIndex === index"
                                     :index="index"
                                     :option="option"
@@ -136,7 +147,10 @@
                                 ></slot>
                             </ui-select-option>
 
-                            <div class="ui-select__no-results" v-show="hasNoResults">
+                            <div
+                                v-show="hasNoResults"
+                                class="ui-select__no-results"
+                            >
                                 <slot name="no-results">No results found</slot>
                             </div>
                         </ul>
@@ -144,12 +158,12 @@
                 </ui-popover>
             </div>
 
-            <div class="ui-select__feedback" v-if="hasFeedback">
-                <div class="ui-select__feedback-text" v-if="showError">
+            <div v-if="hasFeedback" class="ui-select__feedback">
+                <div v-if="showError" class="ui-select__feedback-text">
                     <slot name="error">{{ error }}</slot>
                 </div>
 
-                <div class="ui-select__feedback-text" v-else-if="showHelp">
+                <div v-else-if="showHelp" class="ui-select__feedback-text">
                     <slot name="help">{{ help }}</slot>
                 </div>
             </div>
@@ -170,64 +184,73 @@ import { scrollIntoView, resetScroll } from './helpers/element-scroll';
 import fuzzysearch from 'fuzzysearch';
 
 export default {
-    name: 'ui-select',
+    name: 'UiSelect',
+
+    components: {
+        UiIcon,
+        UiPopover,
+        UiProgressCircular,
+        UiSelectOption,
+    },
+
+    mixins: [RespondsToExternalClick],
 
     props: {
         name: String,
         tabindex: [String, Number],
         value: {
             type: [String, Number, Object, Array],
-            required: true
+            required: true,
         },
         options: {
             type: Array,
             default() {
                 return [];
-            }
+            },
         },
         placeholder: String,
         icon: String,
         iconPosition: {
             type: String,
-            default: 'left' // 'left' or 'right'
+            default: 'left', // 'left' or 'right'
         },
         label: String,
         floatingLabel: {
             type: Boolean,
-            default: false
+            default: false,
         },
         type: {
             type: String,
-            default: 'basic' // 'basic' or 'image'
+            default: 'basic', // 'basic' or 'image'
         },
         multiple: {
             type: Boolean,
-            default: false
+            default: false,
         },
         multipleDelimiter: {
             type: String,
-            default: ', '
+            default: ', ',
         },
         hasSearch: {
             type: Boolean,
-            default: false
+            default: false,
         },
         searchPlaceholder: {
             type: String,
-            default: 'Search'
+            default: 'Search',
         },
         filter: Function,
         disableFilter: {
             type: Boolean,
-            default: false
+            default: false,
         },
         loading: {
             type: Boolean,
-            default: false
+            default: false,
         },
         noResults: {
             type: Boolean,
-            default: false
+            default: false,
         },
         keys: {
             type: Object,
@@ -236,20 +259,20 @@ export default {
                     class: 'class',
                     label: 'label',
                     value: 'value',
-                    image: 'image'
+                    image: 'image',
                 };
-            }
+            },
         },
         invalid: {
             type: Boolean,
-            default: false
+            default: false,
         },
         help: String,
         error: String,
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     data() {
@@ -259,7 +282,7 @@ export default {
             isTouched: false,
             selectedIndex: -1,
             highlightedIndex: -1,
-            initialValue: JSON.stringify(this.value)
+            initialValue: JSON.stringify(this.value),
         };
     },
 
@@ -274,14 +297,14 @@ export default {
                 { 'is-disabled': this.disabled },
                 { 'is-multiple': this.multiple },
                 { 'has-label': this.hasLabel },
-                { 'has-floating-label': this.hasFloatingLabel }
+                { 'has-floating-label': this.hasFloatingLabel },
             ];
         },
 
         labelClasses() {
             return {
                 'is-inline': this.hasFloatingLabel && this.isLabelInline,
-                'is-floating': this.hasFloatingLabel && !this.isLabelInline
+                'is-floating': this.hasFloatingLabel && !this.isLabelInline,
             };
         },
 
@@ -302,7 +325,10 @@ export default {
         },
 
         showError() {
-            return this.invalid && (Boolean(this.error) || Boolean(this.$slots.error));
+            return (
+                this.invalid &&
+                (Boolean(this.error) || Boolean(this.$slots.error))
+            );
         },
 
         showHelp() {
@@ -333,14 +359,14 @@ export default {
             if (this.multiple) {
                 if (this.value.length > 0) {
                     return this.value
-                            .map(value => value[this.keys.label] || value)
-                            .join(this.multipleDelimiter);
+                        .map(value => value[this.keys.label] || value)
+                        .join(this.multipleDelimiter);
                 }
 
                 return '';
             }
 
-            return this.value ? (this.value[this.keys.label] || this.value) : '';
+            return this.value ? this.value[this.keys.label] || this.value : '';
         },
 
         hasDisplayText() {
@@ -352,7 +378,9 @@ export default {
                 return false;
             }
 
-            return this.disableFilter ? this.noResults : this.filteredOptions.length === 0;
+            return this.disableFilter
+                ? this.noResults
+                : this.filteredOptions.length === 0;
         },
 
         submittedValue() {
@@ -369,7 +397,7 @@ export default {
             }
 
             return this.value[this.keys.value] || this.value;
-        }
+        },
     },
 
     watch: {
@@ -388,7 +416,7 @@ export default {
             } else {
                 this.removeExternalClickListener();
             }
-        }
+        },
     },
 
     created() {
@@ -406,7 +434,10 @@ export default {
         },
 
         highlightOption(index, options = { autoScroll: true }) {
-            if (this.highlightedIndex === index || this.$refs.options.length === 0) {
+            if (
+                this.highlightedIndex === index ||
+                this.$refs.options.length === 0
+            ) {
                 return;
             }
 
@@ -434,7 +465,8 @@ export default {
         },
 
         selectOption(option, index, options = { autoClose: true }) {
-            const shouldSelect = this.multiple && !this.isOptionSelected(option);
+            const shouldSelect =
+                this.multiple && !this.isOptionSelected(option);
 
             if (this.multiple) {
                 this.updateOption(option, { select: shouldSelect });
@@ -444,7 +476,7 @@ export default {
             }
 
             this.$emit('select', option, {
-                selected: this.multiple ? shouldSelect : true
+                selected: this.multiple ? shouldSelect : true,
             });
 
             this.highlightedIndex = index;
@@ -556,17 +588,22 @@ export default {
         onOpen() {
             this.isActive = true;
 
-            this.$refs.dropdown.$el.style.width = this.$refs.label.getBoundingClientRect().width + 'px';
+            this.$refs.dropdown.$el.style.width =
+                this.$refs.label.getBoundingClientRect().width + 'px';
 
             this.$nextTick(() => {
-                this.scrollOptionIntoView(this.$refs.optionsList.querySelector('.is-selected'));
+                this.scrollOptionIntoView(
+                    this.$refs.optionsList.querySelector('.is-selected')
+                );
             });
 
             this.$emit('dropdown-open');
         },
 
         onReveal() {
-            this.$refs[this.hasSearch ? 'searchInput' : 'dropdownContent'].focus();
+            this.$refs[
+                this.hasSearch ? 'searchInput' : 'dropdownContent'
+            ].focus();
         },
 
         onClose() {
@@ -585,7 +622,7 @@ export default {
         scrollOptionIntoView(optionEl) {
             scrollIntoView(optionEl, {
                 container: this.$refs.optionsList,
-                marginTop: 180
+                marginTop: 180,
             });
         },
 
@@ -600,19 +637,8 @@ export default {
 
         resetTouched(options = { touched: false }) {
             this.isTouched = options.touched;
-        }
+        },
     },
-
-    components: {
-        UiIcon,
-        UiPopover,
-        UiProgressCircular,
-        UiSelectOption
-    },
-
-    mixins: [
-        RespondsToExternalClick
-    ]
 };
 </script>
 
@@ -843,7 +869,6 @@ export default {
     &:focus + .ui-select__search-icon {
         color: $ui-input-label-color--active;
     }
-
 }
 
 .ui-select__search {

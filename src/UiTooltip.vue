@@ -9,28 +9,28 @@ import tippy from 'tippy.js/esm';
 import elementRef from './helpers/element-ref';
 
 export default {
-    name: 'ui-tooltip',
+    name: 'UiTooltip',
 
     props: {
         animation: {
             type: String,
-            default: 'fade' // 'fade', 'shift-away', or 'none'
+            default: 'fade', // 'fade', 'shift-away', or 'none'
         },
         appendToBody: {
             type: Boolean,
-            default: true
+            default: true,
         },
         openDelay: {
             type: Number,
-            default: 0
+            default: 0,
         },
         openOn: {
             type: String,
-            default: 'mouseenter focus' // 'mouseenter', 'focus', 'click', or 'manual', plus 'hover' (compat)
+            default: 'mouseenter focus', // 'mouseenter', 'focus', 'click', or 'manual', plus 'hover' (compat)
         },
         position: {
             type: String,
-            default: 'bottom' // 'top', 'right', 'bottom', 'left', 'top-{start|end}', 'right-{start|end}', etc.
+            default: 'bottom', // 'top', 'right', 'bottom', 'left', 'top-{start|end}', 'right-{start|end}', etc.
         },
         trigger: {
             validator(value) {
@@ -38,13 +38,16 @@ export default {
                     value,
                     '[UiTooltip]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string.'
                 );
-            }
+            },
         },
-        zIndex: Number
+        zIndex: Number,
     },
 
     mounted() {
-        this.triggerEl = elementRef.resolve(this.trigger, this.$el.parentElement);
+        this.triggerEl = elementRef.resolve(
+            this.trigger,
+            this.$el.parentElement
+        );
 
         if (!this.triggerEl) {
             console.error('[UiTooltip]: Trigger element not found.');
@@ -74,10 +77,13 @@ export default {
                     computeStyle: {
                         // Disable GPU acceleration to fix blurry text in popover on Windows (Chrome)
                         // https://github.com/twbs/bootstrap/issues/23590
-                        gpuAcceleration: !(window.devicePixelRatio < 1.5 && /Win/.test(navigator.platform))
-                    }
-                }
-            }
+                        gpuAcceleration: !(
+                            window.devicePixelRatio < 1.5 &&
+                            /Win/.test(navigator.platform)
+                        ),
+                    },
+                },
+            },
         };
 
         if (!this.appendToBody) {
@@ -92,7 +98,7 @@ export default {
             this.tip.destroy();
             this.tip = null;
         }
-    }
+    },
 };
 </script>
 

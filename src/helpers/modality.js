@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'input[type=datetime]',
         'textarea',
         '[role=textbox]',
-        '[supports-modality=keyboard]'
+        '[supports-modality=keyboard]',
     ].join(',');
 
     let isHandlingKeyboardThrottle;
@@ -37,10 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return el.msMatchesSelector;
         }
 
-        console.error('Couldn\'t find any matchesSelector method on document.body.');
+        console.error(
+            "Couldn't find any matchesSelector method on document.body."
+        );
     })();
 
-    const disableFocusRingByDefault = function () {
+    const disableFocusRingByDefault = function() {
         const css = 'body:not([modality=keyboard]) :focus { outline: none; }';
         const head = document.head || document.getElementsByTagName('head')[0];
         const style = document.createElement('style');
@@ -57,11 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
         head.insertBefore(style, head.firstChild);
     };
 
-    const focusTriggersKeyboardModality = function (el) {
+    const focusTriggersKeyboardModality = function(el) {
         let triggers = false;
 
         if (matcher) {
-            triggers = matcher.call(el, keyboardModalityWhitelist) &&
+            triggers =
+                matcher.call(el, keyboardModalityWhitelist) &&
                 matcher.call(el, ':not([readonly])');
         }
 
@@ -70,25 +73,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     disableFocusRingByDefault();
 
-    document.body.addEventListener('keydown', () => {
-        hadKeyboardEvent = true;
+    document.body.addEventListener(
+        'keydown',
+        () => {
+            hadKeyboardEvent = true;
 
-        if (isHandlingKeyboardThrottle) {
-            clearTimeout(isHandlingKeyboardThrottle);
-        }
+            if (isHandlingKeyboardThrottle) {
+                clearTimeout(isHandlingKeyboardThrottle);
+            }
 
-        isHandlingKeyboardThrottle = setTimeout(() => {
-            hadKeyboardEvent = false;
-        }, 100);
-    }, true);
+            isHandlingKeyboardThrottle = setTimeout(() => {
+                hadKeyboardEvent = false;
+            }, 100);
+        },
+        true
+    );
 
-    document.body.addEventListener('focus', e => {
-        if (hadKeyboardEvent || focusTriggersKeyboardModality(e.target)) {
-            document.body.setAttribute('modality', 'keyboard');
-        }
-    }, true);
+    document.body.addEventListener(
+        'focus',
+        e => {
+            if (hadKeyboardEvent || focusTriggersKeyboardModality(e.target)) {
+                document.body.setAttribute('modality', 'keyboard');
+            }
+        },
+        true
+    );
 
-    document.body.addEventListener('blur', () => {
-        document.body.removeAttribute('modality');
-    }, true);
+    document.body.addEventListener(
+        'blur',
+        () => {
+            document.body.removeAttribute('modality');
+        },
+        true
+    );
 });

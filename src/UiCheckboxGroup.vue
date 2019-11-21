@@ -1,37 +1,38 @@
 <template>
     <div class="ui-checkbox-group" :class="classes">
-        <div class="ui-checkbox-group__label-text" v-if="label || $slots.default">
+        <div
+            v-if="label || $slots.default"
+            class="ui-checkbox-group__label-text"
+        >
             <slot>{{ label }}</slot>
         </div>
 
         <div class="ui-checkbox-group__checkboxes">
             <ui-checkbox
+                v-for="(option, index) in options"
+                :id="option[keys.id]"
+                :key="option[keys.id]"
+                v-model="checkboxValues[index]"
                 class="ui-checkbox-group__checkbox"
-
                 :box-position="boxPosition"
                 :checked="isOptionCheckedByDefault(option)"
                 :class="option[keys.class]"
                 :color="color"
                 :disabled="disabled || option[keys.disabled]"
-                :id="option[keys.id]"
-                :key="option[keys.id]"
                 :name="name || option[keys.name]"
-
                 @blur="onBlur"
                 @change="onChange(arguments, option)"
                 @focus="onFocus"
-
-                v-for="(option, index) in options"
-                v-model="checkboxValues[index]"
-            >{{ option[keys.label] || option }}</ui-checkbox>
+                >{{ option[keys.label] || option }}</ui-checkbox
+            >
         </div>
 
-        <div class="ui-checkbox-group__feedback" v-if="hasFeedback">
-            <div class="ui-checkbox-group__feedback-text" v-if="showError">
+        <div v-if="hasFeedback" class="ui-checkbox-group__feedback">
+            <div v-if="showError" class="ui-checkbox-group__feedback-text">
                 <slot name="error">{{ error }}</slot>
             </div>
 
-            <div class="ui-checkbox-group__feedback-text" v-else-if="showHelp">
+            <div v-else-if="showHelp" class="ui-checkbox-group__feedback-text">
                 <slot name="help">{{ help }}</slot>
             </div>
         </div>
@@ -44,17 +45,21 @@ import UiCheckbox from './UiCheckbox.vue';
 import { looseIndexOf } from './helpers/util';
 
 export default {
-    name: 'ui-checkbox-group',
+    name: 'UiCheckboxGroup',
+
+    components: {
+        UiCheckbox,
+    },
 
     props: {
         name: String,
         options: {
             type: Array,
-            required: true
+            required: true,
         },
         value: {
             type: Array,
-            required: true
+            required: true,
         },
         keys: {
             type: Object,
@@ -65,33 +70,33 @@ export default {
                     class: 'class',
                     label: 'label',
                     value: 'value',
-                    disabled: 'disabled'
+                    disabled: 'disabled',
                 };
-            }
+            },
         },
         label: String,
         color: {
             type: String,
-            default: 'primary' // 'primary' or 'accent'
+            default: 'primary', // 'primary' or 'accent'
         },
         boxPosition: {
             type: String,
-            default: 'left' // 'left' or 'right'
+            default: 'left', // 'left' or 'right'
         },
         vertical: {
             type: Boolean,
-            default: false
+            default: false,
         },
         help: String,
         error: String,
         invalid: {
             type: Boolean,
-            default: false
+            default: false,
         },
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     data() {
@@ -99,7 +104,7 @@ export default {
             isActive: false,
             ignoreChange: false,
             checkboxValues: [],
-            initialValue: JSON.parse(JSON.stringify(this.value))
+            initialValue: JSON.parse(JSON.stringify(this.value)),
         };
     },
 
@@ -111,7 +116,7 @@ export default {
                 { 'is-vertical': this.vertical },
                 { 'is-active': this.isActive },
                 { 'is-invalid': this.invalid },
-                { 'is-disabled': this.disabled }
+                { 'is-disabled': this.disabled },
             ];
         },
 
@@ -120,27 +125,40 @@ export default {
         },
 
         showError() {
-            return this.invalid && (Boolean(this.error) || Boolean(this.$slots.error));
+            return (
+                this.invalid &&
+                (Boolean(this.error) || Boolean(this.$slots.error))
+            );
         },
 
         showHelp() {
             return Boolean(this.help) || Boolean(this.$slots.help);
-        }
+        },
     },
 
     methods: {
         reset() {
             this.ignoreChange = true;
             this.options.forEach((option, index) => {
-                this.checkboxValues[index] = this.isOptionCheckedByDefault(option);
+                this.checkboxValues[index] = this.isOptionCheckedByDefault(
+                    option
+                );
             });
             this.ignoreChange = false;
 
-            this.$emit('input', (this.initialValue.length > 0) ? [].concat(this.initialValue) : []);
+            this.$emit(
+                'input',
+                this.initialValue.length > 0 ? [].concat(this.initialValue) : []
+            );
         },
 
         isOptionCheckedByDefault(option) {
-            return looseIndexOf(this.initialValue, option[this.keys.value] || option) > -1;
+            return (
+                looseIndexOf(
+                    this.initialValue,
+                    option[this.keys.value] || option
+                ) > -1
+            );
         },
 
         onFocus(e) {
@@ -175,12 +193,8 @@ export default {
 
             this.$emit('input', value);
             this.$emit('change', value, e);
-        }
+        },
     },
-
-    components: {
-        UiCheckbox
-    }
 };
 </script>
 

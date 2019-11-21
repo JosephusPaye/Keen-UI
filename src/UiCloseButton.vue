@@ -3,16 +3,21 @@
         aria-label="Close"
         class="ui-close-button"
         type="button"
-
         :class="classes"
         :disabled="disabled"
-
         @click="onClick"
     >
         <div class="ui-close-button__icon">
             <ui-icon>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M18.984 6.422L13.406 12l5.578 5.578-1.406 1.406L12 13.406l-5.578 5.578-1.406-1.406L10.594 12 5.016 6.422l1.406-1.406L12 10.594l5.578-5.578z"/>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        d="M18.984 6.422L13.406 12l5.578 5.578-1.406 1.406L12 13.406l-5.578 5.578-1.406-1.406L10.594 12 5.016 6.422l1.406-1.406L12 10.594l5.578-5.578z"
+                    />
                 </svg>
             </ui-icon>
         </div>
@@ -28,25 +33,30 @@ import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
 
 export default {
-    name: 'ui-close-button',
+    name: 'UiCloseButton',
+
+    components: {
+        UiIcon,
+        UiRippleInk,
+    },
 
     props: {
         size: {
             type: String,
-            default: 'normal' // 'mini', small', 'normal', or 'large'
+            default: 'normal', // 'mini', small', 'normal', or 'large'
         },
         color: {
             type: String,
-            default: 'black' // 'black', or 'white'
+            default: 'black', // 'black', or 'white'
         },
         disableRipple: {
             type: Boolean,
-            default: false
+            default: false,
         },
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     computed: {
@@ -54,31 +64,26 @@ export default {
             return [
                 `ui-close-button--size-${this.size}`,
                 `ui-close-button--color-${this.color}`,
-                { 'is-disabled': this.disabled || this.loading }
+                { 'is-disabled': this.disabled || this.loading },
             ];
-        }
+        },
     },
 
     methods: {
         onClick(e) {
             this.$emit('click', e);
-        }
+        },
     },
-
-    components: {
-        UiIcon,
-        UiRippleInk
-    }
 };
 </script>
 
 <style lang="scss">
 @import './styles/imports';
 
-$ui-close-button-size            : rem(36px) !default;
-$ui-close-button--size-mini      : rem(24px) !default;
-$ui-close-button--size-small     : rem(32px) !default;
-$ui-close-button--size-large     : rem(48px) !default;
+$ui-close-button-size: rem(36px) !default;
+$ui-close-button--size-mini: rem(24px) !default;
+$ui-close-button--size-small: rem(32px) !default;
+$ui-close-button--size-large: rem(48px) !default;
 
 .ui-close-button {
     align-items: center;
@@ -107,7 +112,7 @@ $ui-close-button--size-large     : rem(48px) !default;
         background-color: rgba(black, 0.1);
     }
 
-    body[modality="keyboard"] &:focus {
+    body[modality='keyboard'] &:focus {
         .ui-close-button__focus-ring {
             opacity: 1;
             transform: scale(1);
@@ -172,8 +177,8 @@ $ui-close-button--size-large     : rem(48px) !default;
 .ui-close-button--size-normal {
     &,
     .ui-close-button__focus-ring {
-        height:$ui-close-button-size;
-        width:$ui-close-button-size;
+        height: $ui-close-button-size;
+        width: $ui-close-button-size;
     }
 
     .ui-icon {
@@ -200,7 +205,7 @@ $ui-close-button--size-large     : rem(48px) !default;
 .ui-close-button--color-black {
     color: rgba(black, 0.38);
 
-    body[modality="keyboard"] &:focus,
+    body[modality='keyboard'] &:focus,
     &:hover:not(.is-disabled) {
         .ui-close-button__icon {
             color: $primary-text-color;

@@ -3,12 +3,11 @@
         <input
             class="ui-datepicker__hidden-input"
             type="hidden"
-
             :name="name"
             :value="submittedValue"
-        >
+        />
 
-        <div class="ui-datepicker__icon-wrapper" v-if="icon || $slots.icon">
+        <div v-if="icon || $slots.icon" class="ui-datepicker__icon-wrapper">
             <slot name="icon">
                 <ui-icon :icon="icon"></ui-icon>
             </slot>
@@ -16,11 +15,9 @@
 
         <div class="ui-datepicker__content">
             <div
-                class="ui-datepicker__label"
                 ref="label"
-
-                :tabindex="disabled ? null : (tabindex || '0')"
-
+                class="ui-datepicker__label"
+                :tabindex="disabled ? null : tabindex || '0'"
                 @focus="onFocus"
                 @click="togglePicker({ returnFocus: false })"
                 @keydown.enter.prevent="togglePicker({ returnFocus: false })"
@@ -28,9 +25,9 @@
                 @keydown.tab="onTabAway"
             >
                 <div
+                    v-if="label || $slots.default"
                     class="ui-datepicker__label-text"
                     :class="labelClasses"
-                    v-if="label || $slots.default"
                 >
                     <slot>{{ label }}</slot>
                 </div>
@@ -40,30 +37,41 @@
                         class="ui-datepicker__display-value"
                         :class="{ 'is-placeholder': !hasDisplayText }"
                     >
-                        {{ hasDisplayText ? displayText : (hasFloatingLabel && isLabelInline) ? null : placeholder }}
+                        {{
+                            hasDisplayText
+                                ? displayText
+                                : hasFloatingLabel && isLabelInline
+                                ? null
+                                : placeholder
+                        }}
                     </div>
 
-                    <ui-icon class="ui-datepicker__dropdown-button" v-if="usesPopover && !disabled">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path d="M6.984 9.984h10.03L12 15z"/>
+                    <ui-icon
+                        v-if="usesPopover && !disabled"
+                        class="ui-datepicker__dropdown-button"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M6.984 9.984h10.03L12 15z" />
                         </svg>
                     </ui-icon>
                 </div>
 
                 <ui-popover
+                    v-if="usesPopover"
+                    v-show="!disabled"
+                    ref="popover"
                     contain-focus
                     open-on="manual"
-                    ref="popover"
-
                     :close-on-scroll="false"
                     :append-to-body="appendDropdownToBody"
                     :z-index="dropdownZIndex"
-
                     @close="onPickerClose"
                     @open="onPickerOpen"
-
-                    v-if="usesPopover"
-                    v-show="!disabled"
                 >
                     <ui-datepicker-calendar
                         :color="color"
@@ -81,26 +89,24 @@
                 </ui-popover>
             </div>
 
-            <div class="ui-datepicker__feedback" v-if="hasFeedback">
-                <div class="ui-datepicker__feedback-text" v-if="showError">
+            <div v-if="hasFeedback" class="ui-datepicker__feedback">
+                <div v-if="showError" class="ui-datepicker__feedback-text">
                     <slot name="error">{{ error }}</slot>
                 </div>
 
-                <div class="ui-datepicker__feedback-text" v-else-if="showHelp">
+                <div v-else-if="showHelp" class="ui-datepicker__feedback-text">
                     <slot name="help">{{ help }}</slot>
                 </div>
             </div>
         </div>
 
         <ui-modal
+            v-if="usesModal && !disabled"
             ref="modal"
             remove-header
             size="auto"
-
             @hidden="onPickerClose"
             @open="onPickerOpen"
-
-            v-if="usesModal && !disabled"
         >
             <ui-datepicker-calendar
                 :color="color"
@@ -120,7 +126,6 @@
 </template>
 
 <script>
-import UiButton from './UiButton.vue';
 import UiDatepickerCalendar from './UiDatepickerCalendar.vue';
 import UiIcon from './UiIcon.vue';
 import UiModal from './UiModal.vue';
@@ -130,7 +135,16 @@ import RespondsToExternalClick from './mixins/RespondsToExternalClick';
 import dateUtils from './helpers/date';
 
 export default {
-    name: 'ui-datepicker',
+    name: 'UiDatepicker',
+
+    components: {
+        UiDatepickerCalendar,
+        UiIcon,
+        UiModal,
+        UiPopover,
+    },
+
+    mixins: [RespondsToExternalClick],
 
     props: {
         name: String,
@@ -138,7 +152,7 @@ export default {
         tabindex: [String, Number],
         startOfWeek: {
             type: Number,
-            default: 0
+            default: 0,
         },
         minDate: Date,
         maxDate: Date,
@@ -147,25 +161,25 @@ export default {
             type: Object,
             default() {
                 return dateUtils.defaultLang;
-            }
+            },
         },
         customFormatter: Function,
         dateFilter: Function,
         color: {
             type: String,
-            default: 'primary' // 'primary' or 'accent'
+            default: 'primary', // 'primary' or 'accent'
         },
         orientation: {
             type: String,
-            default: 'portrait' // 'portrait' or 'landscape'
+            default: 'portrait', // 'portrait' or 'landscape'
         },
         pickerType: {
             type: String,
-            default: 'popover' // 'popover' or 'modal'
+            default: 'popover', // 'popover' or 'modal'
         },
         defaultView: {
             type: String,
-            default: 'date'
+            default: 'date',
         },
         appendDropdownToBody: Boolean,
         dropdownZIndex: Number,
@@ -173,23 +187,23 @@ export default {
         icon: String,
         iconPosition: {
             type: String,
-            default: 'left' // 'left' or 'right'
+            default: 'left', // 'left' or 'right'
         },
         label: String,
         floatingLabel: {
             type: Boolean,
-            default: false
+            default: false,
         },
         invalid: {
             type: Boolean,
-            default: false
+            default: false,
         },
         help: String,
         error: String,
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     data() {
@@ -197,13 +211,15 @@ export default {
             isActive: false,
             isTouched: false,
             initialValue: JSON.stringify(this.value),
-            calendarView: this.defaultView
+            calendarView: this.defaultView,
         };
     },
 
     computed: {
         date() {
-            return typeof this.value === 'string' ? new Date(this.value) : this.value;
+            return typeof this.value === 'string'
+                ? new Date(this.value)
+                : this.value;
         },
 
         classes() {
@@ -215,14 +231,14 @@ export default {
                 { 'is-touched': this.isTouched },
                 { 'is-disabled': this.disabled },
                 { 'has-label': this.hasLabel },
-                { 'has-floating-label': this.hasFloatingLabel }
+                { 'has-floating-label': this.hasFloatingLabel },
             ];
         },
 
         labelClasses() {
             return {
                 'is-inline': this.hasFloatingLabel && this.isLabelInline,
-                'is-floating': this.hasFloatingLabel && !this.isLabelInline
+                'is-floating': this.hasFloatingLabel && !this.isLabelInline,
             };
         },
 
@@ -243,7 +259,10 @@ export default {
         },
 
         showError() {
-            return this.invalid && (Boolean(this.error) || Boolean(this.$slots.error));
+            return (
+                this.invalid &&
+                (Boolean(this.error) || Boolean(this.$slots.error))
+            );
         },
 
         showHelp() {
@@ -255,9 +274,9 @@ export default {
                 return '';
             }
 
-            return this.customFormatter ?
-                this.customFormatter(this.date, this.lang) :
-                dateUtils.humanize(this.date, this.lang);
+            return this.customFormatter
+                ? this.customFormatter(this.date, this.lang)
+                : dateUtils.humanize(this.date, this.lang);
         },
 
         hasDisplayText() {
@@ -265,9 +284,10 @@ export default {
         },
 
         submittedValue() {
-            return this.date ?
-                `${this.date.getFullYear()}-${1 + this.date.getMonth()}-${this.date.getDate()}` :
-                '';
+            return this.date
+                ? `${this.date.getFullYear()}-${1 +
+                      this.date.getMonth()}-${this.date.getDate()}`
+                : '';
         },
 
         usesPopover() {
@@ -276,17 +296,20 @@ export default {
 
         usesModal() {
             return this.pickerType === 'modal';
-        }
+        },
     },
 
     watch: {
         isActive(value) {
             if (value) {
-                this.addExternalClickListener([this.$el, this.getPicker().$el], this.onExternalClick);
+                this.addExternalClickListener(
+                    [this.$el, this.getPicker().$el],
+                    this.onExternalClick
+                );
             } else {
                 this.removeExternalClickListener();
             }
-        }
+        },
     },
 
     methods: {
@@ -296,7 +319,9 @@ export default {
         },
 
         isPickerOpen() {
-            return this.usesModal ? this.$refs.modal.isOpen : this.$refs.popover.isOpen();
+            return this.usesModal
+                ? this.$refs.modal.isOpen
+                : this.$refs.popover.isOpen();
         },
 
         getPicker() {
@@ -374,20 +399,8 @@ export default {
 
         resetTouched(options = { touched: false }) {
             this.isTouched = options.touched;
-        }
+        },
     },
-
-    components: {
-        UiButton,
-        UiDatepickerCalendar,
-        UiIcon,
-        UiModal,
-        UiPopover
-    },
-
-    mixins: [
-        RespondsToExternalClick
-    ]
 };
 </script>
 

@@ -1,13 +1,11 @@
 <template>
     <div
+        v-show="isActive"
+        :id="id"
         class="ui-tab"
         role="tabpanel"
-
         :aria-hidden="!isActive ? 'true' : null"
-        :id="id"
         :tabindex="isActive ? '0' : null"
-
-        v-show="isActive"
     >
         <slot></slot>
     </div>
@@ -17,36 +15,36 @@
 import UUID from './helpers/uuid';
 
 export default {
-    name: 'ui-tab',
+    name: 'UiTab',
 
     props: {
         id: {
             type: String,
             default() {
                 return UUID.short('ui-tab-');
-            }
+            },
         },
         title: String,
         selected: {
             type: Boolean,
-            default: false
+            default: false,
         },
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     data() {
         return {
-            isActive: false
+            isActive: false,
         };
     },
 
     watch: {
         disabled() {
             this.$parent.onTabDisabledChange(this);
-        }
+        },
     },
 
     created() {
@@ -66,8 +64,8 @@ export default {
         deactivate() {
             this.isActive = false;
             this.$emit('deselect', this.id);
-        }
-    }
+        },
+    },
 };
 </script>
 

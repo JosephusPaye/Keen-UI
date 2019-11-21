@@ -12,7 +12,7 @@ export const defaultLang = {
             'September',
             'October',
             'November',
-            'December'
+            'December',
         ],
 
         abbreviated: [
@@ -27,8 +27,8 @@ export const defaultLang = {
             'Sep',
             'Oct',
             'Nov',
-            'Dec'
-        ]
+            'Dec',
+        ],
     },
 
     days: {
@@ -39,29 +39,13 @@ export const defaultLang = {
             'Wednesday',
             'Thursday',
             'Friday',
-            'Saturday'
+            'Saturday',
         ],
 
-        abbreviated: [
-            'Sun',
-            'Mon',
-            'Tue',
-            'Wed',
-            'Thu',
-            'Fri',
-            'Sat'
-        ],
+        abbreviated: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 
-        initials: [
-            'S',
-            'M',
-            'T',
-            'W',
-            'T',
-            'F',
-            'S'
-        ]
-    }
+        initials: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    },
 };
 
 function pad(value, length) {
@@ -101,8 +85,15 @@ export function humanize(date, lang = defaultLang) {
     const days = lang.days.abbreviated;
     const months = lang.months.full;
 
-    return days[date.getDay()] + ', ' + months[date.getMonth()] + ' ' + date.getDate() + ', ' +
-        date.getFullYear();
+    return (
+        days[date.getDay()] +
+        ', ' +
+        months[date.getMonth()] +
+        ' ' +
+        date.getDate() +
+        ', ' +
+        date.getFullYear()
+    );
 }
 
 export function clone(date) {
@@ -118,9 +109,11 @@ export function moveToDayOfWeek(date, dayOfWeek) {
 }
 
 export function isSameDay(date1, date2) {
-    return date1.getFullYear() === date2.getFullYear() &&
+    return (
+        date1.getFullYear() === date2.getFullYear() &&
         date1.getMonth() === date2.getMonth() &&
-        date1.getDate() === date2.getDate();
+        date1.getDate() === date2.getDate()
+    );
 }
 
 export function isBefore(date1, date2) {
@@ -144,5 +137,5 @@ export default {
     moveToDayOfWeek,
     isSameDay,
     isBefore,
-    isAfter
+    isAfter,
 };

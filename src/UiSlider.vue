@@ -2,13 +2,11 @@
     <div
         class="ui-slider"
         role="slider"
-
         :aria-valuemax="moderatedMax"
         :aria-valuemin="moderatedMin"
         :aria-valuenow="localValue"
         :class="classes"
-        :tabindex="disabled ? null : (tabindex || '0')"
-
+        :tabindex="disabled ? null : tabindex || '0'"
         @blur="onBlur"
         @focus="onFocus"
         @keydown.down.prevent="decrementValue"
@@ -17,43 +15,49 @@
         @keydown.up.prevent="incrementValue"
     >
         <input
+            v-if="name"
             class="ui-slider__hidden-input"
             type="hidden"
-
             :name="name"
             :value="value"
+        />
 
-            v-if="name"
-        >
-
-        <div class="ui-slider__icon" v-if="hasIcon">
+        <div v-if="hasIcon" class="ui-slider__icon">
             <slot name="icon">
                 <ui-icon :icon="icon"></ui-icon>
             </slot>
         </div>
 
         <div
-            class="ui-slider__track"
             ref="track"
+            class="ui-slider__track"
             @mousedown="onDragStart"
             @touchstart="onDragStart"
         >
             <div class="ui-slider__track-background">
-                <span
-                    class="ui-slider__snap-point"
-                    :style="{ left: 100 * relativeValue(point) + '%' }"
-
-                    v-if="snapToSteps"
-                    v-for="point in snapPoints"
-                ></span>
+                <template v-if="snapToSteps">
+                    <span
+                        v-for="point in snapPoints"
+                        :key="point"
+                        class="ui-slider__snap-point"
+                        :style="{ left: 100 * relativeValue(point) + '%' }"
+                    ></span>
+                </template>
             </div>
 
             <div class="ui-slider__track-fill" :style="fillStyle"></div>
 
-            <div class="ui-slider__thumb" ref="thumb" :style="thumbStyle">
-                <div class="ui-slider__marker" v-if="showMarker">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
-                        <path d="M11 .5c-1.7.2-3.4.9-4.7 2-1.1.9-2 2-2.5 3.2-1.2 2.4-1.2 5.1-.1 7.7 1.1 2.6 2.8 5 5.3 7.5 1.2 1.2 2.8 2.7 3 2.7 0 0 .3-.2.6-.5 3.2-2.7 5.6-5.6 7.1-8.5.8-1.5 1.1-2.6 1.3-3.8.2-1.4 0-2.9-.5-4.3-1.2-3.2-4.1-5.4-7.5-5.8-.5-.2-1.5-.2-2-.2z"/>
+            <div ref="thumb" class="ui-slider__thumb" :style="thumbStyle">
+                <div v-if="showMarker" class="ui-slider__marker">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="36"
+                        height="36"
+                    >
+                        <path
+                            d="M11 .5c-1.7.2-3.4.9-4.7 2-1.1.9-2 2-2.5 3.2-1.2 2.4-1.2 5.1-.1 7.7 1.1 2.6 2.8 5 5.3 7.5 1.2 1.2 2.8 2.7 3 2.7 0 0 .3-.2.6-.5 3.2-2.7 5.6-5.6 7.1-8.5.8-1.5 1.1-2.6 1.3-3.8.2-1.4 0-2.9-.5-4.3-1.2-3.2-4.1-5.4-7.5-5.8-.5-.2-1.5-.2-2-.2z"
+                        />
                     </svg>
 
                     <span class="ui-slider__marker-text">{{ markerText }}</span>
@@ -70,7 +74,13 @@ import classlist from './helpers/classlist';
 import RespondsToWindowResize from './mixins/RespondsToWindowResize.js';
 
 export default {
-    name: 'ui-slider',
+    name: 'UiSlider',
+
+    components: {
+        UiIcon,
+    },
+
+    mixins: [RespondsToWindowResize],
 
     props: {
         name: String,
@@ -78,33 +88,33 @@ export default {
         icon: String,
         value: {
             type: Number,
-            required: true
+            required: true,
         },
         min: {
             type: Number,
-            default: 0
+            default: 0,
         },
         max: {
             type: Number,
-            default: 100
+            default: 100,
         },
         step: {
             type: Number,
-            default: 10
+            default: 10,
         },
         snapToSteps: {
             type: Boolean,
-            default: false
+            default: false,
         },
         showMarker: {
             type: Boolean,
-            default: false
+            default: false,
         },
         markerValue: [String, Number],
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     data() {
@@ -115,7 +125,7 @@ export default {
             thumbSize: 0,
             trackLength: 0,
             trackOffset: 0,
-            localValue: this.value
+            localValue: this.value,
         };
     },
 
@@ -126,7 +136,7 @@ export default {
                 { 'is-disabled': this.disabled },
                 { 'is-active': this.isActive },
                 { 'has-icon': this.hasIcon },
-                { 'has-marker': this.showMarker }
+                { 'has-marker': this.showMarker },
             ];
         },
 
@@ -135,19 +145,26 @@ export default {
         },
 
         fillStyle() {
-            return { transform: 'scaleX(' + (this.relativeValue(this.localValue)) + ')' };
+            return {
+                transform:
+                    'scaleX(' + this.relativeValue(this.localValue) + ')',
+            };
         },
 
         thumbStyle() {
             return {
-                transform: 'translateX(' + (
-                    (this.relativeValue(this.localValue) * this.trackLength) - (this.thumbSize / 2)
-                ) + 'px)'
+                transform:
+                    'translateX(' +
+                    (this.relativeValue(this.localValue) * this.trackLength -
+                        this.thumbSize / 2) +
+                    'px)',
             };
         },
 
         markerText() {
-            return this.markerValue === undefined ? this.value : this.markerValue;
+            return this.markerValue === undefined
+                ? this.value
+                : this.markerValue;
         },
 
         snapPoints() {
@@ -168,7 +185,7 @@ export default {
 
         moderatedMax() {
             return this.max > this.min ? this.max : 100;
-        }
+        },
     },
 
     watch: {
@@ -179,7 +196,7 @@ export default {
         isDragging() {
             const operation = this.isDragging ? 'add' : 'remove';
             classlist[operation](document.body, 'ui-slider--is-dragging');
-        }
+        },
     },
 
     mounted() {
@@ -259,7 +276,7 @@ export default {
 
         getPointStyle(point) {
             return {
-                left: point + '%'
+                left: point + '%',
             };
         },
 
@@ -318,9 +335,11 @@ export default {
 
         dragUpdate(e) {
             const position = e.touches ? e.touches[0].pageX : e.pageX;
-            const relativeValue = (position - this.trackOffset) / this.trackLength;
+            const relativeValue =
+                (position - this.trackOffset) / this.trackLength;
             const value = this.getEdge(
-                this.moderatedMin + (relativeValue * (this.moderatedMax - this.moderatedMin))
+                this.moderatedMin +
+                    relativeValue * (this.moderatedMax - this.moderatedMin)
             );
 
             if (this.isDragging) {
@@ -361,7 +380,10 @@ export default {
         },
 
         relativeValue(value) {
-            return (value - this.moderatedMin) / (this.moderatedMax - this.moderatedMin);
+            return (
+                (value - this.moderatedMin) /
+                (this.moderatedMax - this.moderatedMin)
+            );
         },
 
         getEdge(a) {
@@ -374,40 +396,32 @@ export default {
             }
 
             return a;
-        }
+        },
     },
-
-    components: {
-        UiIcon
-    },
-
-    mixins: [
-        RespondsToWindowResize
-    ]
 };
 </script>
 
 <style lang="scss">
 @import './styles/imports';
 
-$ui-slider-height                   : rem(18px) !default;
+$ui-slider-height: rem(18px) !default;
 
 // Track line
-$ui-slider-track-height             : rem(3px) !default;
-$ui-slider-track-fill-color         : $brand-primary-color !default;
-$ui-slider-track-background-color   : rgba(black, 0.12) !default;
+$ui-slider-track-height: rem(3px) !default;
+$ui-slider-track-fill-color: $brand-primary-color !default;
+$ui-slider-track-background-color: rgba(black, 0.12) !default;
 
 // Drag thumb
-$ui-track-thumb-size                : rem(14px) !default;
-$ui-track-thumb-fill-color          : $brand-primary-color !default;
+$ui-track-thumb-size: rem(14px) !default;
+$ui-track-thumb-fill-color: $brand-primary-color !default;
 
 // Focus ring
-$ui-track-focus-ring-size                   : rem(36px) !default;
-$ui-track-focus-ring-transition-duration    : 0.2s !default;
-$ui-track-focus-ring-color                  : rgba($ui-track-thumb-fill-color, 0.38) !default;
+$ui-track-focus-ring-size: rem(36px) !default;
+$ui-track-focus-ring-transition-duration: 0.2s !default;
+$ui-track-focus-ring-color: rgba($ui-track-thumb-fill-color, 0.38) !default;
 
 // Marker
-$ui-slider-marker-size                      : rem(36px);
+$ui-slider-marker-size: rem(36px);
 
 .ui-slider {
     align-items: center;
@@ -454,7 +468,7 @@ $ui-slider-marker-size                      : rem(36px);
         }
 
         .ui-slider__thumb {
-            background-color: #DDD;
+            background-color: #ddd;
             border: rem(2px) solid white;
         }
     }
@@ -544,7 +558,7 @@ $ui-slider-marker-size                      : rem(36px);
     margin-top: -($ui-slider-marker-size - $ui-track-thumb-size) / 2;
     opacity: 0;
     position: absolute;
-    transform: scale(0) translateY(0) ;
+    transform: scale(0) translateY(0);
     transition: all $ui-track-focus-ring-transition-duration ease;
     user-select: none;
     width: $ui-slider-marker-size;
@@ -557,7 +571,7 @@ $ui-slider-marker-size                      : rem(36px);
 }
 
 .ui-slider__marker-text {
-    color: $ui-track-thumb-fill-color;;
+    color: $ui-track-thumb-fill-color;
     font-size: rem(13px);
     font-weight: 600;
     left: 0;

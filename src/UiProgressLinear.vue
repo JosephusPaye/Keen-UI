@@ -2,25 +2,21 @@
     <transition name="ui-progress-linear--transition-fade">
         <div class="ui-progress-linear" :class="classes">
             <div
+                v-if="type === 'determinate'"
                 class="ui-progress-linear__progress-bar is-determinate"
                 role="progressbar"
-
                 :aria-valuemax="100"
                 :aria-valuemin="0"
                 :aria-valuenow="moderatedProgress"
-                :style="{ 'transform': `scaleX(${moderatedProgress / 100})` }"
-
-                v-if="type === 'determinate'"
+                :style="{ transform: `scaleX(${moderatedProgress / 100})` }"
             ></div>
 
             <div
+                v-else
                 class="ui-progress-linear__progress-bar is-indeterminate"
                 role="progressbar"
-
                 :aria-valuemax="100"
                 :aria-valuemin="0"
-
-                v-else
             ></div>
         </div>
     </transition>
@@ -28,28 +24,28 @@
 
 <script>
 export default {
-    name: 'ui-progress-linear',
+    name: 'UiProgressLinear',
 
     props: {
         type: {
             type: String,
-            default: 'indeterminate' // 'determinate' or 'indeterminate'
+            default: 'indeterminate', // 'determinate' or 'indeterminate'
         },
         color: {
             type: String,
-            default: 'primary' // 'primary', 'accent', 'black' or 'white'
+            default: 'primary', // 'primary', 'accent', 'black' or 'white'
         },
         progress: {
             type: Number,
-            default: 0
-        }
+            default: 0,
+        },
     },
 
     computed: {
         classes() {
             return [
                 `ui-progress-linear--color-${this.color}`,
-                `ui-progress-linear--type-${this.type}`
+                `ui-progress-linear--type-${this.type}`,
             ];
         },
 
@@ -63,15 +59,15 @@ export default {
             }
 
             return this.progress;
-        }
-    }
+        },
+    },
 };
 </script>
 
 <style lang="scss">
 @import './styles/imports';
 
-$ui-progress-linear-height : rem(4px) !default;
+$ui-progress-linear-height: rem(4px) !default;
 
 .ui-progress-linear {
     display: block;
