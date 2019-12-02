@@ -21,7 +21,7 @@ module.exports = {
                 banner: banner,
                 raw: true,
                 entryOnly: true,
-            })
+            }),
         ],
     },
 };
