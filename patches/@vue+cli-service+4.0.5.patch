@@ -1,0 +1,58 @@
+diff --git a/node_modules/@vue/cli-service/lib/commands/build/resolveLibConfig.js b/node_modules/@vue/cli-service/lib/commands/build/resolveLibConfig.js
+index cea6a23..266e2e7 100644
+--- a/node_modules/@vue/cli-service/lib/commands/build/resolveLibConfig.js
++++ b/node_modules/@vue/cli-service/lib/commands/build/resolveLibConfig.js
+@@ -46,14 +46,15 @@ module.exports = (api, { entry, name, formats, filename, 'inline-vue': inlineVue
+       config
+         .plugin('extract-css')
+           .tap(args => {
+-            args[0].filename = `${filename}.css`
++            args[0].filename = `${filename}${/min/.test(postfix) ? '.min' : ''}.css`
+             return args
+           })
+     }
+ 
+     // only minify min entry
+-    if (!/\.min/.test(postfix)) {
++    if (!/min/.test(postfix)) {
+       config.optimization.minimize(false)
++      config.plugins.delete('optimize-css')
+     }
+ 
+     // inject demo page for umd
+@@ -72,7 +73,7 @@ module.exports = (api, { entry, name, formats, filename, 'inline-vue': inlineVue
+     }
+ 
+     // resolve entry/output
+-    const entryName = `${filename}.${postfix}`
++    const entryName = `${filename}${postfix ? '.' + postfix : ''}`
+     config.resolve
+       .alias
+         .set('~entry', fullEntryPath)
+@@ -134,8 +135,8 @@ module.exports = (api, { entry, name, formats, filename, 'inline-vue': inlineVue
+ 
+   const configMap = {
+     commonjs: genConfig('commonjs2', 'common'),
+-    umd: genConfig('umd', undefined, true),
+-    'umd-min': genConfig('umd', 'umd.min')
++    umd: genConfig('umd', ''),
++    'umd-min': genConfig('umd', 'min')
+   }
+ 
+   const formatArray = (formats + '').split(',')
+diff --git a/node_modules/@vue/cli-service/lib/config/css.js b/node_modules/@vue/cli-service/lib/config/css.js
+index 96db04d..77a571e 100644
+--- a/node_modules/@vue/cli-service/lib/config/css.js
++++ b/node_modules/@vue/cli-service/lib/config/css.js
+@@ -228,7 +228,10 @@ module.exports = (api, rootOptions) => {
+           .use(require('mini-css-extract-plugin'), [extractOptions])
+ 
+       // minify extracted CSS
+-      if (isProd) {
++      if (isProd) { // This isn't quite what we want when we build a non-min library entry.
++                    // We want the output unminified even though NODE_ENV == production.
++                    // We workaround this by deleting (in resolveLibConfig.js:57)
++                    // the plugin added below.
+         webpackConfig
+           .plugin('optimize-css')
+             .use(require('@intervolga/optimize-cssnano-plugin'), [{

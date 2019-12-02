@@ -5,9 +5,10 @@
   "main": "dist/keen-ui.js",
   "scripts": {
     "clean": "rimraf ./dist ./lib ./node_modules/.cache",
-    "build": "vue-cli-service build --target lib --formats umd,umd-min --name KeenUI src/index.js",
+    "build": "vue-cli-service build --target lib --formats umd,umd-min --name KeenUI --filename keen-ui src/index.js",
     "lint": "vue-cli-service lint",
-    "test": "npm run lint"
+    "test": "vue-cli-service lint",
+    "postinstall": "patch-package"
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,8 @@
     "deepmerge": "^2.0.1",
     "fuzzysearch": "^1.0.3",
     "lodash.debounce": "^4.0.8",
+    "patch-package": "^6.2.0",
+    "postinstall-postinstall": "^2.0.0",
     "tippy.js": "^4.2.1"
   },
   "devDependencies": {
@@ -50,7 +53,6 @@
     "@vue/cli-service": "^4.0.0",
     "@vue/eslint-config-prettier": "^5.0.0",
     "babel-eslint": "^10.0.3",
-    "core-js": "^3.3.2",
     "eslint": "^5.16.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^5.0.0",
