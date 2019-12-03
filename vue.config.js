@@ -11,13 +11,11 @@ const banner =
     ' * Released under the MIT License.\n' +
     ' */';
 
-const isBuildingLib = Boolean(process.env.KEEN_UI_BUILD_LIB);
-
 module.exports = {
     css: {
-        extract: isBuildingLib ? false : true,
+        extract: process.env.KEEN_UI_BUILD_LIB ? false : true,
     },
-    productionSourceMap: isBuildingLib ? false : true,
+    productionSourceMap: false,
     configureWebpack: {
         plugins: [
             new BannerPlugin({
