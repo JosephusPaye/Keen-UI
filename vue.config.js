@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+const { BannerPlugin } = require('webpack');
 
 // Hardcoding here (and not reading from package.json) as the files are built
 // before the version is updated in package.json
@@ -11,17 +11,23 @@ const banner =
     ' * Released under the MIT License.\n' +
     ' */';
 
+const isBuildingLib = Boolean(process.env.KEEN_UI_BUILD_LIB);
+
 module.exports = {
     css: {
-        extract: true,
+        extract: isBuildingLib ? false : true,
     },
+    productionSourceMap: isBuildingLib ? false : true,
     configureWebpack: {
         plugins: [
-            new webpack.BannerPlugin({
-                banner: banner,
+            new BannerPlugin({
+                banner,
                 raw: true,
                 entryOnly: true,
             }),
         ],
+        performance: {
+            hints: false,
+        },
     },
 };

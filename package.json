@@ -6,8 +6,10 @@
   "scripts": {
     "clean": "rimraf ./dist ./lib ./node_modules/.cache",
     "build": "vue-cli-service build --target lib --formats umd,umd-min --name KeenUI --filename keen-ui src/index.js",
-    "lint": "vue-cli-service lint",
-    "test": "vue-cli-service lint",
+    "build:lib": "rimraf ./lib && node build-lib.js",
+    "lint": "vue-cli-service lint --no-fix",
+    "format": "vue-cli-service lint",
+    "test": "npm run lint",
     "postinstall": "patch-package"
   },
   "repository": {
@@ -56,6 +58,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^5.0.0",
+    "execa": "^3.4.0",
     "prettier": "^1.18.2",
     "rimraf": "^2.5.4",
     "sass": "^1.19.0",
