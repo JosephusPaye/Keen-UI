@@ -1,46 +1,47 @@
 <template>
-    <transition :name="disableTransition ? null : 'ui-progress-circular--transition-fade'">
+    <transition
+        :name="
+            disableTransition ? null : 'ui-progress-circular--transition-fade'
+        "
+    >
         <div
             class="ui-progress-circular"
-
             :class="classes"
-            :style="{ 'width': size + 'px', 'height': size + 'px' }"
+            :style="{ width: size + 'px', height: size + 'px' }"
         >
             <!-- Alternative circle rendering to explore: http://jsfiddle.net/6e3QJ/29/ -->
             <svg
+                v-if="type === 'determinate'"
                 class="ui-progress-circular__determinate"
                 role="progressbar"
-
                 :aria-valuemax="100"
                 :aria-valuemin="0"
                 :aria-valuenow="progress"
                 :height="size"
                 :width="size"
-
-                v-if="type === 'determinate'"
             >
                 <circle
                     class="ui-progress-circular__determinate-path"
                     fill="transparent"
                     stroke-dashoffset="0"
-
                     :cx="size / 2"
                     :cy="size / 2"
                     :r="radius"
                     :stroke-dasharray="strokeDashArray"
-                    :style="{ 'stroke-dashoffset': strokeDashOffset, 'stroke-width': calculatedStroke }"
+                    :style="{
+                        'stroke-dashoffset': strokeDashOffset,
+                        'stroke-width': calculatedStroke,
+                    }"
                 ></circle>
             </svg>
 
             <svg
+                v-else
                 class="ui-progress-circular__indeterminate"
                 role="progressbar"
                 viewBox="25 25 50 50"
-
                 :aria-valuemax="100"
                 :aria-valuemin="0"
-
-                v-else
             >
                 <circle
                     class="ui-progress-circular__indeterminate-path"
@@ -49,7 +50,6 @@
                     fill="none"
                     r="20"
                     stroke-miterlimit="10"
-
                     :stroke-width="calculatedStroke"
                 ></circle>
             </svg>
@@ -59,41 +59,41 @@
 
 <script>
 export default {
-    name: 'ui-progress-circular',
+    name: 'UiProgressCircular',
 
     props: {
         type: {
             type: String,
-            default: 'indeterminate' // 'indeterminate' or 'determinate'
+            default: 'indeterminate', // 'indeterminate' or 'determinate'
         },
         color: {
             type: String,
-            default: 'primary' // 'primary', 'accent', multi-color', 'black', or 'white'
+            default: 'primary', // 'primary', 'accent', multi-color', 'black', or 'white'
         },
         progress: {
             type: Number,
-            default: 0
+            default: 0,
         },
         size: {
             type: Number,
-            default: 32
+            default: 32,
         },
         stroke: Number,
         autoStroke: {
             type: Boolean,
-            default: true
+            default: true,
         },
         disableTransition: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     computed: {
         classes() {
             return [
                 `ui-progress-circular--color-${this.color}`,
-                `ui-progress-circular--type-${this.type}`
+                `ui-progress-circular--type-${this.type}`,
             ];
         },
 
@@ -126,7 +126,7 @@ export default {
             }
 
             return 4;
-        }
+        },
     },
 
     methods: {
@@ -140,17 +140,17 @@ export default {
             }
 
             return progress;
-        }
-    }
+        },
+    },
 };
 </script>
 
 <style lang="scss">
 @import './styles/imports';
 
-$ui-progress-indeterminate-rotation-duration    : 0.7s !default;
-$ui-progress-indeterminate-color-duration       : 6s !default;
-$ui-progress-determinate-transition-duration    : 0.3s !default;
+$ui-progress-indeterminate-rotation-duration: 0.7s !default;
+$ui-progress-indeterminate-color-duration: 6s !default;
+$ui-progress-determinate-transition-duration: 0.3s !default;
 
 .ui-progress-circular {
     position: relative;
@@ -166,7 +166,8 @@ $ui-progress-determinate-transition-duration    : 0.3s !default;
 }
 
 .ui-progress-circular__indeterminate {
-    animation: ui-progress-circular-rotate $ui-progress-indeterminate-rotation-duration linear infinite;
+    animation: ui-progress-circular-rotate
+        $ui-progress-indeterminate-rotation-duration linear infinite;
     bottom: 0;
     height: 100%;
     left: 0;
@@ -179,7 +180,7 @@ $ui-progress-determinate-transition-duration    : 0.3s !default;
 }
 
 .ui-progress-circular__indeterminate-path {
-    stroke-dasharray: 89,200;
+    stroke-dasharray: 89, 200;
     stroke-dashoffset: -35px;
     stroke-linecap: round;
 }
@@ -194,7 +195,8 @@ $ui-progress-determinate-transition-duration    : 0.3s !default;
     }
 
     .ui-progress-circular__indeterminate-path {
-        animation: ui-progress-circular-color $ui-progress-indeterminate-color-duration ease-in-out infinite;
+        animation: ui-progress-circular-color
+            $ui-progress-indeterminate-color-duration ease-in-out infinite;
     }
 }
 

@@ -2,7 +2,6 @@
     <li
         class="ui-tab-header-item"
         role="tab"
-
         :aria-controls="id"
         :aria-selected="active ? 'true' : null"
         :class="classes"
@@ -10,11 +9,13 @@
         :tabindex="active ? 0 : -1"
     >
         <slot>
-            <div class="ui-tab-header-item__icon" v-if="hasIcon">
+            <div v-if="hasIcon" class="ui-tab-header-item__icon">
                 <slot name="icon"></slot>
             </div>
 
-            <div class="ui-tab-header-item__text" v-if="hasText">{{ title }}</div>
+            <div v-if="hasText" class="ui-tab-header-item__text">
+                {{ title }}
+            </div>
         </slot>
 
         <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
@@ -22,36 +23,34 @@
 </template>
 
 <script>
-import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
 
 export default {
-    name: 'ui-tab-header-item',
+    name: 'UiTabHeaderItem',
 
     components: {
-        UiIcon,
-        UiRippleInk
+        UiRippleInk,
     },
 
     props: {
         id: String,
         type: {
             type: String,
-            default: 'text' // 'text', 'icon', or 'icon-and-text'
+            default: 'text', // 'text', 'icon', or 'icon-and-text'
         },
         title: String,
         active: {
             type: Boolean,
-            default: false
+            default: false,
         },
         disableRipple: {
             type: Boolean,
-            default: false
+            default: false,
         },
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     computed: {
@@ -59,7 +58,7 @@ export default {
             return [
                 `ui-tab-header-item--type-${this.type}`,
                 { 'is-active': this.active },
-                { 'is-disabled': this.disabled }
+                { 'is-disabled': this.disabled },
             ];
         },
 
@@ -69,8 +68,8 @@ export default {
 
         hasText() {
             return this.type === 'text' || this.type === 'icon-and-text';
-        }
-    }
+        },
+    },
 };
 </script>
 

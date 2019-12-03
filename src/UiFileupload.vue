@@ -1,37 +1,43 @@
 <template>
     <label class="ui-fileupload" :class="classes">
         <input
-            class="ui-fileupload__input"
+            v-if="renderInput"
             ref="input"
+            class="ui-fileupload__input"
             type="file"
-
             :accept="accept"
             :disabled="disabled"
             :multiple="multiple"
             :name="name"
             :required="required"
             :tabindex="tabindex"
-
             @blur="onBlur"
             @input="onInput"
             @change="onChange"
             @focus="onFocus"
-
-            v-if="renderInput"
-        >
+        />
 
         <div class="ui-fileupload__content">
             <div class="ui-fileupload__icon">
                 <slot name="icon">
                     <ui-icon>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path d="M5.016 18h13.969v2.016H5.016V18zM9 15.984v-6H5.016L12 3l6.984 6.984H15v6H9z"/>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                d="M5.016 18h13.969v2.016H5.016V18zM9 15.984v-6H5.016L12 3l6.984 6.984H15v6H9z"
+                            />
                         </svg>
                     </ui-icon>
                 </slot>
             </div>
 
-            <span v-if="hasSelection" class="ui-fileupload__display-text">{{ displayText }}</span>
+            <span v-if="hasSelection" class="ui-fileupload__display-text">{{
+                displayText
+            }}</span>
             <slot v-else>{{ placeholder }}</slot>
         </div>
 
@@ -46,52 +52,57 @@ import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
 
 export default {
-    name: 'ui-fileupload',
+    name: 'UiFileupload',
+
+    components: {
+        UiIcon,
+        UiRippleInk,
+    },
 
     props: {
         name: {
             type: String,
-            required: true
+            required: true,
         },
         label: String,
         tabindex: [String, Number],
         accept: String,
         multiple: {
             type: Boolean,
-            default: false
+            default: false,
         },
         required: {
             type: Boolean,
-            default: false
+            default: false,
         },
         type: {
             type: String,
-            default: 'primary' // 'primary' or 'secondary'
+            default: 'primary', // 'primary' or 'secondary'
         },
         color: {
             type: String,
-            default: 'default' // 'default', 'primary', 'accent'
+            default: 'default', // 'default', 'primary', 'accent'
         },
         size: {
             type: String,
-            default: 'normal' // 'small', 'normal', 'large'
+            default: 'normal', // 'small', 'normal', 'large'
         },
         raised: {
             type: Boolean,
-            default: false
+            default: false,
         },
         iconPosition: {
             type: String,
-            default: 'left' // 'left' or 'right'
+            default: 'left', // 'left' or 'right'
         },
         disableRipple: {
             type: Boolean,
-            default: false
+            default: false,
         },
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     data() {
@@ -100,7 +111,7 @@ export default {
             renderInput: true,
             hasSelection: false,
             hasMultiple: false,
-            displayText: ''
+            displayText: '',
         };
     },
 
@@ -114,7 +125,7 @@ export default {
                 { 'is-active': this.isActive },
                 { 'is-multiple': this.hasMultiple },
                 { 'is-raised': this.raised },
-                { 'is-disabled': this.disabled }
+                { 'is-disabled': this.disabled },
             ];
         },
 
@@ -124,7 +135,7 @@ export default {
             }
 
             return this.multiple ? 'Choose files' : 'Choose a file';
-        }
+        },
     },
 
     methods: {
@@ -179,13 +190,8 @@ export default {
             this.$nextTick(() => {
                 this.renderInput = true;
             });
-        }
+        },
     },
-
-    components: {
-        UiIcon,
-        UiRippleInk
-    }
 };
 </script>
 
@@ -213,7 +219,7 @@ export default {
     text-transform: uppercase;
 
     &.has-focus-ring.is-active,
-    body[modality="keyboard"] &.is-active {
+    body[modality='keyboard'] &.is-active {
         .ui-fileupload__focus-ring::before {
             opacity: 1;
             transform: scale(1.1);
@@ -231,7 +237,7 @@ export default {
         transition: box-shadow 0.1s;
 
         &.has-focus-ring.is-active,
-        body[modality="keyboard"] &.is-active {
+        body[modality='keyboard'] &.is-active {
             box-shadow: 0 0 5px rgba(black, 0.22), 0 3px 6px rgba(black, 0.3);
         }
     }
@@ -273,7 +279,7 @@ export default {
 
     &::before {
         border-radius: 50%;
-        content: "";
+        content: '';
         display: block;
         left: 0;
         margin-top: calc(-1 * (50% - #{$ui-button-height / 2}));

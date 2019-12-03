@@ -1,0 +1,16 @@
+diff --git a/node_modules/@vue/babel-preset-app/index.js b/node_modules/@vue/babel-preset-app/index.js
+index da59412..f1905ed 100644
+--- a/node_modules/@vue/babel-preset-app/index.js
++++ b/node_modules/@vue/babel-preset-app/index.js
+@@ -146,6 +146,11 @@ module.exports = (context, options = {}) => {
+     forceAllTransforms
+   }
+ 
++  // Delete `corejs` option to disable babel warning when `useBuiltIns` is false
++  if (useBuiltIns === false) {
++    delete envOptions.corejs
++  }
++
+   // cli-plugin-jest sets this to true because Jest runs without bundling
+   if (process.env.VUE_CLI_BABEL_TRANSPILE_MODULES) {
+     envOptions.modules = 'commonjs'

@@ -1,21 +1,20 @@
 <template>
     <div class="ui-snackbar-container" :class="classes">
         <ui-snackbar
+            v-for="(snackbar, index) in queue"
+            v-show="snackbar.show"
+            :key="index"
             :action-color="snackbar.actionColor"
             :action="snackbar.action"
-            :key="index"
             :message="snackbar.message"
             :transition="transition"
-
             @action-click="onActionClick(snackbar)"
             @click="onClick(snackbar)"
             @hide="onHide(snackbar, index)"
             @show="onShow(snackbar)"
-
-            v-for="(snackbar, index) in queue"
-            v-show="snackbar.show"
         >
-            <div v-html="snackbar.message" v-if="allowHtml"></div>
+            <!-- eslint-disable-next-line vue/no-v-html -->
+            <div v-if="allowHtml" v-html="snackbar.message"></div>
         </ui-snackbar>
     </div>
 </template>
@@ -24,44 +23,46 @@
 import UiSnackbar from './UiSnackbar.vue';
 
 export default {
-    name: 'ui-snackbar-container',
+    name: 'UiSnackbarContainer',
+
+    components: {
+        UiSnackbar,
+    },
 
     props: {
         queueSnackbars: {
             type: Boolean,
-            default: false
+            default: false,
         },
         duration: {
             type: Number,
-            default: 5000
+            default: 5000,
         },
         allowHtml: {
             type: Boolean,
-            default: false
+            default: false,
         },
         position: {
             type: String,
-            default: 'left' // 'left', 'center', 'right'
+            default: 'left', // 'left', 'center', 'right'
         },
         transition: {
             type: String,
-            default: 'slide' // 'slide' or 'fade'
-        }
+            default: 'slide', // 'slide' or 'fade'
+        },
     },
 
     data() {
         return {
             queue: [],
-            snackbarTimeout: null
+            snackbarTimeout: null,
         };
     },
 
     computed: {
         classes() {
-            return [
-                `ui-snackbar-container--position-${this.position}`
-            ];
-        }
+            return [`ui-snackbar-container--position-${this.position}`];
+        },
     },
 
     beforeDestroy() {
@@ -154,12 +155,8 @@ export default {
         resetTimeout() {
             clearTimeout(this.snackbarTimeout);
             this.snackbarTimeout = null;
-        }
+        },
     },
-
-    components: {
-        UiSnackbar
-    }
 };
 </script>
 

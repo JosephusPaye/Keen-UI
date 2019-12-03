@@ -1,15 +1,13 @@
 <template>
     <ui-modal
-        class="ui-confirm"
         ref="modal"
+        class="ui-confirm"
         role="alertdialog"
-
         :dismiss-on="dismissOn"
         :dismissible="!loading"
         :title="title"
         :transition="transition"
         :size="size"
-
         @close="onModalClose"
         @hide="onModalHide"
         @open="onModalOpen"
@@ -19,25 +17,23 @@
             <slot></slot>
         </div>
 
-        <div class="ui-confirm__footer" slot="footer">
+        <div slot="footer" class="ui-confirm__footer">
             <ui-button
                 ref="confirmButton"
-
                 :color="confirmButtonColor"
                 :icon="confirmButtonIcon"
                 :loading="loading"
-
                 @click="confirm"
-            >{{ confirmButtonText }}</ui-button>
+                >{{ confirmButtonText }}</ui-button
+            >
 
             <ui-button
                 ref="denyButton"
-
                 :disabled="loading"
                 :icon="denyButtonIcon"
-
                 @click="deny"
-            >{{ denyButtonText }}</ui-button>
+                >{{ denyButtonText }}</ui-button
+            >
         </div>
     </ui-modal>
 </template>
@@ -49,42 +45,47 @@ import UiModal from './UiModal.vue';
 import classlist from './helpers/classlist';
 
 export default {
-    name: 'ui-confirm',
+    name: 'UiConfirm',
+
+    components: {
+        UiButton,
+        UiModal,
+    },
 
     props: {
         title: {
             type: String,
-            default: 'UiConfirm'
+            default: 'UiConfirm',
         },
         type: {
             type: String,
-            default: 'primary' // any of the color prop values of UiButton
+            default: 'primary', // any of the color prop values of UiButton
         },
         size: String,
         confirmButtonText: {
             type: String,
-            default: 'OK'
+            default: 'OK',
         },
         confirmButtonIcon: String,
         denyButtonText: {
             type: String,
-            default: 'Cancel'
+            default: 'Cancel',
         },
         denyButtonIcon: String,
         autofocus: {
             type: String,
-            default: 'deny-button' // 'confirm-button', 'deny-button' or 'none'
+            default: 'deny-button', // 'confirm-button', 'deny-button' or 'none'
         },
         closeOnConfirm: {
             type: Boolean,
-            default: true
+            default: true,
         },
         dismissOn: String,
         transition: String,
         loading: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     computed: {
@@ -95,11 +96,11 @@ export default {
                 accent: 'accent',
                 success: 'green',
                 warning: 'orange',
-                danger: 'red'
+                danger: 'red',
             };
 
             return typeToColor[this.type];
-        }
+        },
     },
 
     methods: {
@@ -169,13 +170,8 @@ export default {
                 // This listener should run only once
                 button.removeEventListener('blur', this.removeAutoFocus);
             }
-        }
+        },
     },
-
-    components: {
-        UiButton,
-        UiModal
-    }
 };
 </script>
 

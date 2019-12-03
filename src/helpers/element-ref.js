@@ -1,5 +1,8 @@
 export function validate(ref, warning) {
-    const isValid = (ref instanceof Element) || (ref && ref._isVue) || (typeof ref === 'string');
+    const isValid =
+        ref instanceof Element ||
+        (ref && ref._isVue) ||
+        typeof ref === 'string';
 
     if (!isValid && warning) {
         console.warn(warning);
@@ -22,5 +25,5 @@ export function resolve(ref, fallback) {
 
 export default {
     validate,
-    resolve
+    resolve,
 };

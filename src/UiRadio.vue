@@ -2,20 +2,18 @@
     <label class="ui-radio" :class="classes" @click="toggleCheck">
         <div class="ui-radio__input-wrapper">
             <input
-                class="ui-radio__input"
                 ref="input"
+                class="ui-radio__input"
                 type="radio"
-
                 :checked.prop="checked"
                 :disabled="disabled"
                 :name="name"
                 :tabindex="tabindex"
                 :value="trueValue"
-
                 @blur="onBlur"
                 @change="onChange"
                 @focus="onFocus"
-            >
+            />
 
             <div class="ui-radio__focus-ring"></div>
 
@@ -23,7 +21,7 @@
             <span class="ui-radio__inner-circle"></span>
         </div>
 
-        <div class="ui-radio__label-text" v-if="label || $slots.default">
+        <div v-if="label || $slots.default" class="ui-radio__label-text">
             <slot>{{ label }}</slot>
         </div>
     </label>
@@ -31,7 +29,7 @@
 
 <script>
 export default {
-    name: 'ui-radio',
+    name: 'UiRadio',
 
     props: {
         name: String,
@@ -39,33 +37,33 @@ export default {
         tabindex: [String, Number],
         value: {
             type: [Number, String],
-            required: true
+            required: true,
         },
         trueValue: {
             type: [Number, String],
-            required: true
+            required: true,
         },
         checked: {
             type: Boolean,
-            default: false
+            default: false,
         },
         color: {
             type: String,
-            default: 'primary' // 'primary' or 'accent'
+            default: 'primary', // 'primary' or 'accent'
         },
         buttonPosition: {
             type: String,
-            default: 'left' // 'left' or 'right'
+            default: 'left', // 'left' or 'right'
         },
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     data() {
         return {
-            isActive: false
+            isActive: false,
         };
     },
 
@@ -76,13 +74,13 @@ export default {
                 `ui-radio--button-position-${this.buttonPosition}`,
                 { 'is-active': this.isActive },
                 { 'is-checked': this.isChecked },
-                { 'is-disabled': this.disabled }
+                { 'is-disabled': this.disabled },
             ];
         },
 
         isChecked() {
             return this.value === this.trueValue;
-        }
+        },
     },
 
     created() {
@@ -114,19 +112,19 @@ export default {
 
         onChange(e) {
             this.$emit('change', this.isChecked, e);
-        }
-    }
+        },
+    },
 };
 </script>
 
 <style lang="scss">
 @import './styles/imports';
 
-$ui-radio-size                  : rem(20px) !default;
-$ui-radio-stroke                : rem(2px) !default;
-$ui-radio-focus-ring-size       : $ui-radio-size * 2.1 !default;
-$ui-radio-transition-duration   : 0.3s !default;
-$ui-radio-label-font-size       : rem(16px) !default;
+$ui-radio-size: rem(20px) !default;
+$ui-radio-stroke: rem(2px) !default;
+$ui-radio-focus-ring-size: $ui-radio-size * 2.1 !default;
+$ui-radio-transition-duration: 0.3s !default;
+$ui-radio-label-font-size: rem(16px) !default;
 
 .ui-radio {
     align-items: center;
@@ -179,7 +177,7 @@ $ui-radio-label-font-size       : rem(16px) !default;
     top: 0;
     width: 1px;
 
-    body[modality="keyboard"] &:focus + .ui-radio__focus-ring {
+    body[modality='keyboard'] &:focus + .ui-radio__focus-ring {
         opacity: 1;
         transform: scale(1);
     }
@@ -221,7 +219,8 @@ $ui-radio-label-font-size       : rem(16px) !default;
     position: absolute;
     top: -(($ui-radio-focus-ring-size - $ui-radio-size) / 2);
     transform: scale(0);
-    transition: background-color 0.2s ease, transform 0.15s ease, opacity 0.15s ease;
+    transition: background-color 0.2s ease, transform 0.15s ease,
+        opacity 0.15s ease;
     width: $ui-radio-focus-ring-size;
     z-index: -1;
 }

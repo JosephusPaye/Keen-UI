@@ -10,7 +10,7 @@
 import classlist from './helpers/classlist';
 import elementRef from './helpers/element-ref';
 
-const startRipple = function (eventType, event) {
+const startRipple = function(eventType, event) {
     let holder = event.currentTarget || event.target;
 
     if (holder && !classlist.has(holder, 'ui-ripple-ink')) {
@@ -44,10 +44,10 @@ const startRipple = function (eventType, event) {
     if (rect.width === rect.height) {
         max = rect.width * 1.412;
     } else {
-        max = Math.sqrt((rect.width * rect.width) + (rect.height * rect.height));
+        max = Math.sqrt(rect.width * rect.width + rect.height * rect.height);
     }
 
-    const size = (max * 2) + 'px';
+    const size = max * 2 + 'px';
 
     // Position the ripple
     ripple.style.width = size;
@@ -63,9 +63,9 @@ const startRipple = function (eventType, event) {
         classlist.add(ripple, 'is-held');
     }, 0);
 
-    const releaseEvent = (eventType === 'mousedown' ? 'mouseup' : 'touchend');
+    const releaseEvent = eventType === 'mousedown' ? 'mouseup' : 'touchend';
 
-    const handleRelease = function () {
+    const handleRelease = function() {
         document.removeEventListener(releaseEvent, handleRelease);
 
         classlist.add(ripple, 'is-done');
@@ -85,14 +85,14 @@ const startRipple = function (eventType, event) {
     document.addEventListener(releaseEvent, handleRelease);
 };
 
-const handleMouseDown = function (e) {
+const handleMouseDown = function(e) {
     // Trigger on left click only
     if (e.button === 0) {
         startRipple(e.type, e);
     }
 };
 
-const handleTouchStart = function (e) {
+const handleTouchStart = function(e) {
     if (e.changedTouches) {
         for (let i = 0; i < e.changedTouches.length; ++i) {
             startRipple(e.type, e.changedTouches[i]);
@@ -101,7 +101,7 @@ const handleTouchStart = function (e) {
 };
 
 export default {
-    name: 'ui-ripple-ink',
+    name: 'UiRippleInk',
 
     props: {
         trigger: {
@@ -110,14 +110,14 @@ export default {
                     value,
                     '[UiRippleInk]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string.'
                 );
-            }
-        }
+            },
+        },
     },
 
     watch: {
         trigger() {
             this.setupRipple();
-        }
+        },
     },
 
     created() {
@@ -135,7 +135,10 @@ export default {
 
     methods: {
         setupRipple() {
-            this.triggerEl = elementRef.resolve(this.trigger, this.$el.parentElement);
+            this.triggerEl = elementRef.resolve(
+                this.trigger,
+                this.$el.parentElement
+            );
 
             if (!this.triggerEl) {
                 console.error('[UiRippleInk]: Trigger element not found.');
@@ -153,8 +156,8 @@ export default {
 
             this.triggerEl.removeEventListener('mousedown', handleMouseDown);
             this.triggerEl.removeEventListener('touchstart', handleTouchStart);
-        }
-    }
+        },
+    },
 };
 </script>
 
@@ -194,7 +197,7 @@ export default {
     }
 
     &.is-done {
-        opacity: 0!important;
+        opacity: 0 !important;
     }
 }
 </style>

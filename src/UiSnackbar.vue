@@ -1,5 +1,9 @@
 <template>
-    <transition :name="transitionName" @after-enter="onEnter" @after-leave="onLeave">
+    <transition
+        :name="transitionName"
+        @after-enter="onEnter"
+        @after-leave="onLeave"
+    >
         <div class="ui-snackbar" @click="onClick">
             <div class="ui-snackbar__message">
                 <slot>{{ message }}</slot>
@@ -7,15 +11,13 @@
 
             <div class="ui-snackbar__action">
                 <ui-button
+                    v-if="action"
                     class="ui-snackbar__action-button"
                     type="secondary"
-
                     :color="actionColor"
-
                     @click.stop="onActionClick"
-
-                    v-if="action"
-                >{{ action }}</ui-button>
+                    >{{ action }}</ui-button
+                >
             </div>
         </div>
     </transition>
@@ -25,25 +27,29 @@
 import UiButton from './UiButton.vue';
 
 export default {
-    name: 'ui-snackbar',
+    name: 'UiSnackbar',
+
+    components: {
+        UiButton,
+    },
 
     props: {
         message: String,
         action: String,
         actionColor: {
             type: String,
-            default: 'accent' // 'primary' or 'accent'
+            default: 'accent', // 'primary' or 'accent'
         },
         transition: {
             type: String,
-            default: 'slide' // 'slide' or 'fade'
-        }
+            default: 'slide', // 'slide' or 'fade'
+        },
     },
 
     computed: {
         transitionName() {
             return 'ui-snackbar--transition-' + this.transition;
-        }
+        },
     },
 
     methods: {
@@ -61,20 +67,16 @@ export default {
 
         onLeave() {
             this.$emit('hide');
-        }
+        },
     },
-
-    components: {
-        UiButton
-    }
 };
 </script>
 
 <style lang="scss">
 @import './styles/imports';
 
-$ui-snackbar-background-color   : #323232 !default;
-$ui-snackbar-font-size          : rem(14px) !default;
+$ui-snackbar-background-color: #323232 !default;
+$ui-snackbar-font-size: rem(14px) !default;
 
 .ui-snackbar {
     align-items: center;
@@ -113,7 +115,7 @@ $ui-snackbar-font-size          : rem(14px) !default;
         background-color: rgba(white, 0.05);
     }
 
-    body[modality="keyboard"] &:focus {
+    body[modality='keyboard'] &:focus {
         background-color: rgba(white, 0.1);
     }
 }

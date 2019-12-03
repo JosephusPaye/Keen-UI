@@ -1,15 +1,24 @@
 <template>
     <li class="ui-autocomplete-suggestion" :class="classes">
         <slot>
-            <div class="ui-autocomplete-suggestion__simple" v-if="type === 'simple'">
+            <div
+                v-if="type === 'simple'"
+                class="ui-autocomplete-suggestion__simple"
+            >
                 {{ suggestion[keys.label] || suggestion }}
             </div>
 
-            <div class="ui-autocomplete-suggestion__image" v-if="type === 'image'">
-                <div class="ui-autocomplete-suggestion__image-object" :style="imageStyle"></div>
+            <div
+                v-if="type === 'image'"
+                class="ui-autocomplete-suggestion__image"
+            >
                 <div
-                    class="ui-autocomplete-suggestion__image-text"
-                >{{ suggestion[keys.label] }}</div>
+                    class="ui-autocomplete-suggestion__image-object"
+                    :style="imageStyle"
+                ></div>
+                <div class="ui-autocomplete-suggestion__image-text">
+                    {{ suggestion[keys.label] }}
+                </div>
             </div>
         </slot>
     </li>
@@ -17,44 +26,47 @@
 
 <script>
 export default {
-    name: 'ui-autocomplete-suggestion',
+    name: 'UiAutocompleteSuggestion',
 
     props: {
         suggestion: {
             type: [String, Object],
-            required: true
+            required: true,
         },
         type: {
             type: String,
-            default: 'simple' // 'simple' or 'image'
+            default: 'simple', // 'simple' or 'image'
         },
         highlighted: {
             type: Boolean,
-            default: false
+            default: false,
         },
         keys: {
             type: Object,
             default() {
                 return {
                     label: 'label',
-                    image: 'image'
+                    image: 'image',
                 };
-            }
-        }
+            },
+        },
     },
 
     computed: {
         classes() {
             return [
                 'ui-autocomplete-suggestion--type-' + this.type,
-                { 'is-highlighted': this.highlighted }
+                { 'is-highlighted': this.highlighted },
             ];
         },
 
         imageStyle() {
-            return { 'background-image': 'url(' + this.suggestion[this.keys.image] + ')' };
-        }
-    }
+            return {
+                'background-image':
+                    'url(' + this.suggestion[this.keys.image] + ')',
+            };
+        },
+    },
 };
 </script>
 

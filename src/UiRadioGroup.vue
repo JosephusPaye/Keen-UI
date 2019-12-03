@@ -1,38 +1,36 @@
 <template>
     <div class="ui-radio-group" :class="classes">
-        <div class="ui-radio-group__label-text" v-if="label || $slots.default">
+        <div v-if="label || $slots.default" class="ui-radio-group__label-text">
             <slot>{{ label }}</slot>
         </div>
 
         <div class="ui-radio-group__radios">
             <ui-radio
+                v-for="option in options"
+                :id="option[keys.id]"
+                :key="option[keys.id]"
+                v-model="selectedOptionValue"
                 class="ui-radio-group__radio"
-
                 :button-position="buttonPosition"
                 :checked="isOptionCheckedByDefault(option)"
                 :class="option[keys.class]"
                 :color="color"
                 :disabled="disabled || option[keys.disabled]"
-                :id="option[keys.id]"
-                :key="option[keys.id]"
                 :name="name"
                 :tabindex="tabindex"
                 :true-value="getTrueValue(option)"
-
                 @blur="onBlur"
                 @focus="onFocus"
-
-                v-for="option in options"
-                v-model="selectedOptionValue"
-            >{{ option[keys.label] || option }}</ui-radio>
+                >{{ option[keys.label] || option }}</ui-radio
+            >
         </div>
 
-        <div class="ui-radio-group__feedback" v-if="hasFeedback">
-            <div class="ui-radio-group__feedback-text" v-if="showError">
+        <div v-if="hasFeedback" class="ui-radio-group__feedback">
+            <div v-if="showError" class="ui-radio-group__feedback-text">
                 <slot name="error">{{ error }}</slot>
             </div>
 
-            <div class="ui-radio-group__feedback-text" v-else-if="showHelp">
+            <div v-else-if="showHelp" class="ui-radio-group__feedback-text">
                 <slot name="help">{{ help }}</slot>
             </div>
         </div>
@@ -43,22 +41,26 @@
 import UiRadio from './UiRadio.vue';
 
 export default {
-    name: 'ui-radio-group',
+    name: 'UiRadioGroup',
+
+    components: {
+        UiRadio,
+    },
 
     props: {
         name: {
             type: String,
-            required: true
+            required: true,
         },
         tabindex: [String, Number],
         label: String,
         options: {
             type: Array,
-            required: true
+            required: true,
         },
         value: {
             type: [Number, String],
-            required: true
+            required: true,
         },
         keys: {
             type: Object,
@@ -69,39 +71,39 @@ export default {
                     label: 'label',
                     value: 'value',
                     checked: 'checked',
-                    disabled: 'disabled'
+                    disabled: 'disabled',
                 };
-            }
+            },
         },
         color: {
             type: String,
-            default: 'primary' // 'primary' or 'accent'
+            default: 'primary', // 'primary' or 'accent'
         },
         buttonPosition: {
             type: String,
-            default: 'left' // 'left' or 'right'
+            default: 'left', // 'left' or 'right'
         },
         vertical: {
             type: Boolean,
-            default: false
+            default: false,
         },
         help: String,
         error: String,
         invalid: {
             type: Boolean,
-            default: false
+            default: false,
         },
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     data() {
         return {
             isActive: false,
             initialValue: this.value,
-            selectedOptionValue: this.value
+            selectedOptionValue: this.value,
         };
     },
 
@@ -113,7 +115,7 @@ export default {
                 { 'is-vertical': this.vertical },
                 { 'is-active': this.isActive },
                 { 'is-invalid': this.invalid },
-                { 'is-disabled': this.disabled }
+                { 'is-disabled': this.disabled },
             ];
         },
 
@@ -122,12 +124,15 @@ export default {
         },
 
         showError() {
-            return this.invalid && (Boolean(this.error) || Boolean(this.$slots.error));
+            return (
+                this.invalid &&
+                (Boolean(this.error) || Boolean(this.$slots.error))
+            );
         },
 
         showHelp() {
             return Boolean(this.help) || Boolean(this.$slots.help);
-        }
+        },
     },
 
     watch: {
@@ -138,7 +143,7 @@ export default {
 
         value() {
             this.selectedOptionValue = this.value;
-        }
+        },
     },
 
     methods: {
@@ -148,8 +153,11 @@ export default {
 
         isOptionCheckedByDefault(option) {
             // eslint-disable-next-line eqeqeq
-            return this.initialValue == option[this.keys.value] || this.initialValue == option ||
-                option[this.keys.checked];
+            return (
+                this.initialValue == option[this.keys.value] ||
+                this.initialValue == option ||
+                option[this.keys.checked]
+            );
         },
 
         getTrueValue(option) {
@@ -175,12 +183,8 @@ export default {
         onBlur(e) {
             this.isActive = false;
             this.$emit('blur', e);
-        }
+        },
     },
-
-    components: {
-        UiRadio
-    }
 };
 </script>
 
@@ -191,8 +195,8 @@ export default {
     font-family: $font-stack;
 
     &:not(.is-disabled):not(.is-invalid):hover {
-       .ui-radio-group__label-text {
-          color: $ui-input-label-color--hover;
+        .ui-radio-group__label-text {
+            color: $ui-input-label-color--hover;
         }
     }
 
@@ -217,7 +221,7 @@ export default {
 
     &.is-invalid {
         .ui-radio-group__label-text {
-           color: $ui-input-border-color--invalid;
+            color: $ui-input-border-color--invalid;
         }
 
         .ui-radio-group__feedback {

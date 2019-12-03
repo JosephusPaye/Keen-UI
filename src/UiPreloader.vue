@@ -1,9 +1,8 @@
 <template>
-    <div class="ui-preloader" :class="{ 'is-loading' : show }">
+    <div class="ui-preloader" :class="{ 'is-loading': show }">
         <div
             class="ui-preloader__progressbar"
             role="progressbar"
-
             :aria-busy="show ? 'true' : false"
         ></div>
     </div>
@@ -11,27 +10,27 @@
 
 <script>
 export default {
-    name: 'ui-preloader',
+    name: 'UiPreloader',
 
     props: {
         show: {
             type: Boolean,
-            required: true
-        }
-    }
+            required: true,
+        },
+    },
 };
 </script>
 
 <style lang="scss">
 @import './styles/imports';
 
-$ui-preloader-duration  : 3s !default;
-$ui-preloader-height    : rem(3px) !default;
+$ui-preloader-duration: 3s !default;
+$ui-preloader-height: rem(3px) !default;
 
-$ui-preloader-color-1   : #159756 !default; // green
-$ui-preloader-color-2   : #da4733 !default; // red
-$ui-preloader-color-3   : #3b78e7 !default; // blue
-$ui-preloader-color-4   : #fdba2c !default; // orange
+$ui-preloader-color-1: #159756 !default; // green
+$ui-preloader-color-2: #da4733 !default; // red
+$ui-preloader-color-3: #3b78e7 !default; // blue
+$ui-preloader-color-4: #fdba2c !default; // orange
 
 .ui-preloader {
     position: relative;

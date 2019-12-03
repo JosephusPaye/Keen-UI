@@ -3,33 +3,33 @@
         <ui-calendar-controls
             ref="controls"
             class="ui-calendar__header"
-
             :color="color"
             :date-in-view="dateInView"
             :lang="lang"
             :max-date="maxDate"
             :min-date="minDate"
             :year-range="yearRange"
-
             @go-to-date="goToDate"
         ></ui-calendar-controls>
 
         <div class="ui-calendar__body">
             <ui-calendar-month
                 ref="month"
-
                 :color="color"
                 :date-in-view="dateInView"
                 :lang="lang"
                 :selected="value"
                 :start-of-week="startOfWeek"
                 :square-cells="squareCells"
-
                 @change="onMonthChange"
                 @date-select="onDateSelect"
             >
-                <template slot-scope="props" slot="date">
-                    <slot name="date" :date="props.date" v-if="$scopedSlots.date"></slot>
+                <template slot="date" slot-scope="props">
+                    <slot
+                        v-if="$scopedSlots.date"
+                        name="date"
+                        :date="props.date"
+                    ></slot>
                     <template v-else>{{ props.date.getDate() }}</template>
                 </template>
             </ui-calendar-month>
@@ -44,54 +44,58 @@ import UiCalendarMonth from './UiCalendarMonth.vue';
 import dateUtils from './helpers/date';
 
 export default {
-    name: 'ui-calendar',
+    name: 'UiCalendar',
+
+    components: {
+        UiCalendarControls,
+        UiCalendarMonth,
+    },
 
     props: {
         color: {
             type: String,
-            default: 'default' // 'default', 'primary' or 'accent'
+            default: 'default', // 'default', 'primary' or 'accent'
         },
         dateFilter: Function,
         lang: {
             type: Object,
             default() {
                 return dateUtils.defaultLang;
-            }
+            },
         },
         maxDate: Date,
         minDate: Date,
         raised: {
             type: Boolean,
-            default: false
+            default: false,
         },
         startOfWeek: {
             type: Number,
-            default: 0
+            default: 0,
         },
         squareCells: {
             type: Boolean,
-            default: false
+            default: false,
         },
         value: Date,
         yearRange: {
             type: Array,
             default() {
-                const thisYear = (new Date()).getFullYear();
+                const thisYear = new Date().getFullYear();
 
                 // Generates a range of 200 years
                 // (100 years into the past and 100 years into the future, including the current year)
-                return Array.apply(null, Array(200))
-                    .map((item, index) => {
-                        return (thisYear - 100) + index;
-                    });
-            }
-        }
+                return Array.apply(null, Array(200)).map((item, index) => {
+                    return thisYear - 100 + index;
+                });
+            },
+        },
     },
 
     data() {
         return {
             today: new Date(),
-            dateInView: this.value || new Date()
+            dateInView: this.value || new Date(),
         };
     },
 
@@ -99,9 +103,9 @@ export default {
         classes() {
             return [
                 `ui-calendar--color-${this.color}`,
-                { 'is-raised': this.raised }
+                { 'is-raised': this.raised },
             ];
-        }
+        },
     },
 
     watch: {
@@ -109,7 +113,7 @@ export default {
             if (this.value) {
                 this.dateInView = dateUtils.clone(this.value);
             }
-        }
+        },
     },
 
     methods: {
@@ -125,13 +129,8 @@ export default {
 
         goToDate(date) {
             this.$refs.month.goToDate(date);
-        }
+        },
     },
-
-    components: {
-        UiCalendarControls,
-        UiCalendarMonth
-    }
 };
 </script>
 
@@ -168,7 +167,7 @@ $ui-calendar-padding: rem(8px) !default;
     width: 100%;
     padding: rem(8px);
     padding-top: rem(4px);
-    border: 1px solid #EEE;
+    border: 1px solid #eee;
     border-top: 0;
 }
 </style>

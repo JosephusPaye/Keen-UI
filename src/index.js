@@ -71,10 +71,10 @@ const KeenUI = {
     UiTabs,
     UiTextbox,
     UiToolbar,
-    UiTooltip
+    UiTooltip,
 };
 
-KeenUI.install = function (Vue, config = {}) {
+KeenUI.install = function(Vue, config = {}) {
     // Configure the component props
     Object.keys(config).forEach(key => {
         if (startsWith(key, 'Ui')) {
@@ -139,5 +139,5 @@ export {
     UiTabs,
     UiTextbox,
     UiToolbar,
-    UiTooltip
+    UiTooltip,
 };

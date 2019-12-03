@@ -1,6 +1,6 @@
 <template>
     <div class="ui-autocomplete" :class="classes">
-        <div class="ui-autocomplete__icon-wrapper" v-if="icon || $slots.icon">
+        <div v-if="icon || $slots.icon" class="ui-autocomplete__icon-wrapper">
             <slot name="icon">
                 <ui-icon :icon="icon"></ui-icon>
             </slot>
@@ -9,68 +9,70 @@
         <div class="ui-autocomplete__content">
             <label class="ui-autocomplete__label">
                 <div
+                    v-if="label || $slots.default"
                     class="ui-autocomplete__label-text"
                     :class="labelClasses"
-                    v-if="label || $slots.default"
                 >
                     <slot>{{ label }}</slot>
                 </div>
 
                 <ui-icon
+                    v-show="!disabled && valueLength > 0"
                     class="ui-autocomplete__clear-button"
                     title="Clear"
-
                     @click.native="updateValue('')"
-
-                    v-show="!disabled && valueLength > 0"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M18.984 6.422L13.406 12l5.578 5.578-1.406 1.406L12 13.406l-5.578 5.578-1.406-1.406L10.594 12 5.016 6.422l1.406-1.406L12 10.594l5.578-5.578z"/>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            d="M18.984 6.422L13.406 12l5.578 5.578-1.406 1.406L12 13.406l-5.578 5.578-1.406-1.406L10.594 12 5.016 6.422l1.406-1.406L12 10.594l5.578-5.578z"
+                        />
                     </svg>
                 </ui-icon>
 
                 <input
+                    ref="input"
+                    v-autofocus="autofocus"
                     autocomplete="off"
                     class="ui-autocomplete__input"
-                    ref="input"
-
                     :disabled="disabled"
                     :name="name"
                     :placeholder="hasFloatingLabel ? null : placeholder"
                     :readonly="readonly ? readonly : null"
                     :tabindex="tabindex"
                     :value="value"
-
                     @blur="onBlur"
                     @change="onChange"
                     @focus="onFocus"
                     @input="updateValue($event.target.value)"
-                    @keydown.down.prevent="highlightSuggestion(highlightedIndex + 1)"
+                    @keydown.down.prevent="
+                        highlightSuggestion(highlightedIndex + 1)
+                    "
                     @keydown.enter="selectHighlighted(highlightedIndex, $event)"
                     @keydown.esc="closeDropdown"
                     @keydown.tab="closeDropdown"
-                    @keydown.up.prevent="highlightSuggestion(highlightedIndex - 1)"
+                    @keydown.up.prevent="
+                        highlightSuggestion(highlightedIndex - 1)
+                    "
+                />
 
-                    v-autofocus="autofocus"
-                >
-
-                <ul class="ui-autocomplete__suggestions" v-show="showDropdown">
+                <ul v-show="showDropdown" class="ui-autocomplete__suggestions">
                     <ui-autocomplete-suggestion
+                        v-for="(suggestion, index) in matchingSuggestions"
                         ref="suggestions"
-
-                        :highlighted="highlightedIndex === index"
                         :key="index"
+                        :highlighted="highlightedIndex === index"
                         :keys="keys"
                         :suggestion="suggestion"
                         :type="type"
-
                         @click.native="selectSuggestion(suggestion)"
-
-                        v-for="(suggestion, index) in matchingSuggestions"
                     >
                         <slot
                             name="suggestion"
-
                             :highlighted="highlightedIndex === index"
                             :index="index"
                             :suggestion="suggestion"
@@ -79,12 +81,15 @@
                 </ul>
             </label>
 
-            <div class="ui-autocomplete__feedback" v-if="hasFeedback">
-                <div class="ui-autocomplete__feedback-text" v-if="showError">
+            <div v-if="hasFeedback" class="ui-autocomplete__feedback">
+                <div v-if="showError" class="ui-autocomplete__feedback-text">
                     <slot name="error">{{ error }}</slot>
                 </div>
 
-                <div class="ui-autocomplete__feedback-text" v-else-if="showHelp">
+                <div
+                    v-else-if="showHelp"
+                    class="ui-autocomplete__feedback-text"
+                >
                     <slot name="help">{{ help }}</slot>
                 </div>
             </div>
@@ -100,7 +105,16 @@ import UiIcon from './UiIcon.vue';
 import fuzzysearch from 'fuzzysearch';
 
 export default {
-    name: 'ui-autocomplete',
+    name: 'UiAutocomplete',
+
+    components: {
+        UiAutocompleteSuggestion,
+        UiIcon,
+    },
+
+    directives: {
+        autofocus,
+    },
 
     props: {
         name: String,
@@ -108,71 +122,71 @@ export default {
         tabindex: [String, Number],
         value: {
             type: [String, Number],
-            default: ''
+            default: '',
         },
         icon: String,
         iconPosition: {
             type: String,
-            default: 'left' // 'left' or 'right'
+            default: 'left', // 'left' or 'right'
         },
         label: String,
         floatingLabel: {
             type: Boolean,
-            default: false
+            default: false,
         },
         help: String,
         error: String,
         readonly: {
             type: Boolean,
-            default: false
+            default: false,
         },
         disabled: {
             type: Boolean,
-            default: false
+            default: false,
         },
         type: {
             type: String,
-            default: 'simple' // 'simple' or 'image'
+            default: 'simple', // 'simple' or 'image'
         },
         suggestions: {
             type: Array,
             default() {
                 return [];
-            }
+            },
         },
         limit: {
             type: Number,
-            default: 8
+            default: 8,
         },
         append: {
             type: Boolean,
-            default: false
+            default: false,
         },
         appendDelimiter: {
             type: String,
-            default: ', '
+            default: ', ',
         },
         minChars: {
             type: Number,
-            default: 2
+            default: 2,
         },
         showOnUpDown: {
             type: Boolean,
-            default: true
+            default: true,
         },
         autofocus: {
             type: Boolean,
-            default: false
+            default: false,
         },
         filter: Function,
         sort: Function,
         highlightOnFirstMatch: {
             type: Boolean,
-            default: true
+            default: true,
         },
         cycleHighlight: {
             type: Boolean,
-            default: true
+            default: true,
         },
         keys: {
             type: Object,
@@ -180,14 +194,14 @@ export default {
                 return {
                     label: 'label',
                     value: 'value',
-                    image: 'image'
+                    image: 'image',
                 };
-            }
+            },
         },
         invalid: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     data() {
@@ -196,7 +210,7 @@ export default {
             isActive: false,
             isTouched: false,
             showDropdown: false,
-            highlightedIndex: -1
+            highlightedIndex: -1,
         };
     },
 
@@ -210,14 +224,14 @@ export default {
                 { 'is-touched': this.isTouched },
                 { 'is-disabled': this.disabled },
                 { 'has-label': this.hasLabel },
-                { 'has-floating-label': this.hasFloatingLabel }
+                { 'has-floating-label': this.hasFloatingLabel },
             ];
         },
 
         labelClasses() {
             return {
                 'is-inline': this.hasFloatingLabel && this.isLabelInline,
-                'is-floating': this.hasFloatingLabel && !this.isLabelInline
+                'is-floating': this.hasFloatingLabel && !this.isLabelInline,
             };
         },
 
@@ -242,7 +256,10 @@ export default {
         },
 
         showError() {
-            return this.invalid && (Boolean(this.error) || Boolean(this.$slots.error));
+            return (
+                this.invalid &&
+                (Boolean(this.error) || Boolean(this.$slots.error))
+            );
         },
 
         showHelp() {
@@ -250,23 +267,26 @@ export default {
         },
 
         matchingSuggestions() {
-            const suggestions = this.suggestions
-                .filter(suggestion => {
-                    if (this.filter) {
-                        return this.filter(suggestion, this.value, this.defaultFilter);
-                    }
+            const suggestions = this.suggestions.filter(suggestion => {
+                if (this.filter) {
+                    return this.filter(
+                        suggestion,
+                        this.value,
+                        this.defaultFilter
+                    );
+                }
 
-                    const query = this.value === null ? '' : this.value;
+                const query = this.value === null ? '' : this.value;
 
-                    return this.defaultFilter(suggestion, query);
-                });
+                return this.defaultFilter(suggestion, query);
+            });
 
             if (this.sort) {
                 suggestions.sort(this.sort.bind(this));
             }
 
             return suggestions.slice(0, this.limit);
-        }
+        },
     },
 
     watch: {
@@ -276,7 +296,7 @@ export default {
             }
 
             this.highlightedIndex = this.highlightOnFirstMatch ? 0 : -1;
-        }
+        },
     },
 
     created() {
@@ -310,7 +330,9 @@ export default {
             let value;
 
             if (this.append) {
-                value += this.appendDelimiter + (suggestion[this.keys.value] || suggestion);
+                value +=
+                    this.appendDelimiter +
+                    (suggestion[this.keys.value] || suggestion);
             } else {
                 value = suggestion[this.keys.value] || suggestion;
             }
@@ -328,7 +350,8 @@ export default {
             const firstIndex = 0;
             const lastIndex = this.$refs.suggestions.length - 1;
 
-            if (index === -2) { // Allows for cycling from first to last when cycleHighlight is disabled
+            if (index === -2) {
+                // Allows for cycling from first to last when cycleHighlight is disabled
                 index = lastIndex;
             } else if (index < firstIndex) {
                 index = this.cycleHighlight ? lastIndex : index;
@@ -345,7 +368,11 @@ export default {
             if (index < firstIndex || index > lastIndex) {
                 this.$emit('highlight-overflow', index);
             } else {
-                this.$emit('highlight', this.$refs.suggestions[index].suggestion, index);
+                this.$emit(
+                    'highlight',
+                    this.$refs.suggestions[index].suggestion,
+                    index
+                );
             }
         },
 
@@ -416,17 +443,8 @@ export default {
             // Reset state
             this.updateValue(this.initialValue);
             this.isTouched = false;
-        }
+        },
     },
-
-    components: {
-        UiAutocompleteSuggestion,
-        UiIcon
-    },
-
-    directives: {
-        autofocus
-    }
 };
 </script>
 

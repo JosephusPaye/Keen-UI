@@ -3,28 +3,28 @@
         <div class="ui-tabs__header">
             <ul class="ui-tabs__header-items" role="tablist">
                 <ui-tab-header-item
+                    v-for="tab in tabs"
+                    :id="tab.id"
                     ref="tabHeaders"
-
+                    :key="tab.id"
                     :active="activeTabId === tab.id"
                     :disable-ripple="disableRipple"
                     :disabled="tab.disabled"
-                    :id="tab.id"
-                    :key="tab.id"
                     :title="tab.title"
                     :type="type"
-
                     @click.native="onTabClick(tab, $event)"
                     @keydown.left.native="selectPreviousTab"
                     @keydown.right.native="selectNextTab"
-
-                    v-for="tab in tabs"
                 >
-                    <render :nodes="tab.$slots.header" v-if="tab.$slots.header"></render>
+                    <render
+                        v-if="tab.$slots.header"
+                        :nodes="tab.$slots.header"
+                    ></render>
 
                     <render
+                        v-else-if="hasIcon && Boolean(tab.$slots.icon)"
                         slot="icon"
                         :nodes="tab.$slots.icon"
-                        v-else-if="hasIcon && Boolean(tab.$slots.icon)"
                     ></render>
                 </ui-tab-header-item>
             </ul>
@@ -41,54 +41,54 @@ import Render from './render';
 import UiTabHeaderItem from './UiTabHeaderItem.vue';
 
 export default {
-    name: 'ui-tabs',
+    name: 'UiTabs',
 
     components: {
         Render,
-        UiTabHeaderItem
+        UiTabHeaderItem,
     },
 
     props: {
         type: {
             type: String,
-            default: 'text' // 'icon', text', or 'icon-and-text'
+            default: 'text', // 'icon', text', or 'icon-and-text'
         },
         confirmTabChange: Function,
         backgroundColor: {
             type: String,
-            default: 'default' // 'default', 'primary', 'accent', or 'clear'
+            default: 'default', // 'default', 'primary', 'accent', or 'clear'
         },
         textColor: {
             type: String,
-            default: 'black' // 'black', or 'white'
+            default: 'black', // 'black', or 'white'
         },
         textColorActive: {
             type: String,
-            default: 'primary' // 'primary', 'accent', or 'white'
+            default: 'primary', // 'primary', 'accent', or 'white'
         },
         indicatorColor: {
             type: String,
-            default: 'primary' // 'primary', 'accent', or 'white'
+            default: 'primary', // 'primary', 'accent', or 'white'
         },
         fullwidth: {
             type: Boolean,
-            default: false
+            default: false,
         },
         raised: {
             type: Boolean,
-            default: false
+            default: false,
         },
         disableRipple: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     data() {
         return {
             tabs: [],
             activeTabId: null,
-            activeTabIndex: -1
+            activeTabIndex: -1,
         };
     },
 
@@ -101,13 +101,13 @@ export default {
                 `ui-tabs--background-color-${this.backgroundColor}`,
                 `ui-tabs--indicator-color-${this.indicatorColor}`,
                 { 'is-raised': this.raised },
-                { 'is-fullwidth': this.fullwidth }
+                { 'is-fullwidth': this.fullwidth },
             ];
         },
 
         hasIcon() {
             return this.type === 'icon' || this.type === 'icon-and-text';
-        }
+        },
     },
 
     watch: {
@@ -120,7 +120,7 @@ export default {
                     tab.deactivate();
                 }
             });
-        }
+        },
     },
 
     methods: {
@@ -166,7 +166,10 @@ export default {
                 return;
             }
 
-            if (this.confirmTabChange && !this.confirmTabChange(this.tabs[this.activeTabIndex], tab)) {
+            if (
+                this.confirmTabChange &&
+                !this.confirmTabChange(this.tabs[this.activeTabIndex], tab)
+            ) {
                 return;
             }
 
@@ -195,8 +198,15 @@ export default {
         findNextTab() {
             let tab = null;
 
-            for (let i = this.activeTabIndex + 1; i < this.$refs.tabHeaders.length; i++) {
-                if (this.$refs.tabHeaders[i] && !this.$refs.tabHeaders[i].disabled) {
+            for (
+                let i = this.activeTabIndex + 1;
+                i < this.$refs.tabHeaders.length;
+                i++
+            ) {
+                if (
+                    this.$refs.tabHeaders[i] &&
+                    !this.$refs.tabHeaders[i].disabled
+                ) {
                     tab = this.$refs.tabHeaders[i];
                     break;
                 }
@@ -209,7 +219,10 @@ export default {
             let tab = null;
 
             for (let i = this.activeTabIndex - 1; i >= 0; i--) {
-                if (this.$refs.tabHeaders[i] && !this.$refs.tabHeaders[i].disabled) {
+                if (
+                    this.$refs.tabHeaders[i] &&
+                    !this.$refs.tabHeaders[i].disabled
+                ) {
                     tab = this.$refs.tabHeaders[i];
                     break;
                 }
@@ -238,8 +251,8 @@ export default {
             if (tab && !tab.disabled) {
                 this.selectTab(tab);
             }
-        }
-    }
+        },
+    },
 };
 </script>
 
@@ -298,7 +311,7 @@ export default {
     }
 
     .ui-tab-header-item {
-        body[modality="keyboard"] &:focus {
+        body[modality='keyboard'] &:focus {
             outline: 1px solid $brand-primary-color;
         }
     }
@@ -308,7 +321,7 @@ export default {
 .ui-tabs--background-color-accent,
 .ui-tabs--background-color-clear {
     .ui-tab-header-item {
-        body[modality="keyboard"] &:focus {
+        body[modality='keyboard'] &:focus {
             outline: 1px solid white;
         }
     }

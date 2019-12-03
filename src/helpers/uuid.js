@@ -8,14 +8,14 @@
 const lut = [];
 
 for (let i = 0; i < 256; i++) {
-    lut[i] = (i < 16 ? '0' : '') + (i).toString(16);
+    lut[i] = (i < 16 ? '0' : '') + i.toString(16);
 }
 
-const generate = function () {
-    const d0 = Math.random() * 0xffffffff | 0;
-    const d1 = Math.random() * 0xffffffff | 0;
-    const d2 = Math.random() * 0xffffffff | 0;
-    const d3 = Math.random() * 0xffffffff | 0;
+const generate = function() {
+    const d0 = (Math.random() * 0xffffffff) | 0;
+    const d1 = (Math.random() * 0xffffffff) | 0;
+    const d2 = (Math.random() * 0xffffffff) | 0;
+    const d3 = (Math.random() * 0xffffffff) | 0;
 
     /* eslint-disable */
     return lut[d0 & 0xff] + lut[d0 >> 8 & 0xff] + lut[d0 >> 16 & 0xff] + lut[d0 >> 24 & 0xff] + '-' +
@@ -25,7 +25,7 @@ const generate = function () {
     /* eslint-enable */
 };
 
-const short = function (prefix) {
+const short = function(prefix) {
     prefix = prefix || '';
 
     const uuid = generate();
@@ -35,5 +35,5 @@ const short = function (prefix) {
 
 export default {
     generate,
-    short
+    short,
 };

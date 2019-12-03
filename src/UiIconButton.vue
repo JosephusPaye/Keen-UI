@@ -1,17 +1,15 @@
 <template>
     <component
+        :is="isAnchor ? 'a' : 'button'"
         class="ui-icon-button"
-
         :aria-label="ariaLabel || tooltip"
         :class="classes"
         :disabled="disabled || loading"
         :href="isAnchor ? (disabled ? null : href) : null"
-        :is="isAnchor ? 'a' : 'button'"
         :type="isAnchor ? null : buttonType"
-
         @click="onClick"
     >
-        <div class="ui-icon-button__icon" v-if="icon || $slots.default">
+        <div v-if="icon || $slots.default" class="ui-icon-button__icon">
             <slot>
                 <ui-icon :icon="icon"></ui-icon>
             </slot>
@@ -20,40 +18,35 @@
         <div class="ui-icon-button__focus-ring"></div>
 
         <ui-progress-circular
+            v-if="loading"
             class="ui-icon-button__progress"
-
             :color="progressColor"
             :size="size === 'large' ? 24 : 18"
             :stroke="4.5"
-
-            v-if="loading"
         ></ui-progress-circular>
 
         <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
 
         <ui-popover
-            constain-focus
+            v-if="hasDropdown"
             ref="dropdown"
-
+            constain-focus
             :append-to-body="appendDropdownToBody"
             :constrain-to-scroll-parent="constrainDropdownToScrollParent"
             :position="dropdownPosition"
             :open-on="openDropdownOn"
-
             @close="onDropdownClose"
             @open="onDropdownOpen"
-
-            v-if="hasDropdown"
         >
             <slot name="dropdown"></slot>
         </ui-popover>
 
         <ui-tooltip
+            v-if="tooltip"
             :open-on="openTooltipOn"
             :position="tooltipPosition"
-
-            v-if="tooltip"
-        >{{ tooltip }}</ui-tooltip>
+            >{{ tooltip }}</ui-tooltip
+        >
     </component>
 </template>
 
@@ -65,60 +58,68 @@ import UiRippleInk from './UiRippleInk.vue';
 import UiTooltip from './UiTooltip.vue';
 
 export default {
-    name: 'ui-icon-button',
+    name: 'UiIconButton',
+
+    components: {
+        UiIcon,
+        UiPopover,
+        UiProgressCircular,
+        UiRippleInk,
+        UiTooltip,
+    },
 
     props: {
         type: {
             type: String,
-            default: 'primary' // 'primary' or 'secondary'
+            default: 'primary', // 'primary' or 'secondary'
         },
         buttonType: String,
         href: String,
         color: {
             type: String,
-            default: 'default' // 'default', 'primary', 'accent', 'green', 'orange', or 'red'
+            default: 'default', // 'default', 'primary', 'accent', 'green', 'orange', or 'red'
         },
         size: {
             type: String,
-            default: 'normal' // 'mini', 'small', normal', or 'large'
+            default: 'normal', // 'mini', 'small', normal', or 'large'
         },
         icon: String,
         ariaLabel: String,
         loading: {
             type: Boolean,
-            default: false
+            default: false,
         },
         hasDropdown: {
             type: Boolean,
-            default: false
+            default: false,
         },
         dropdownPosition: {
             type: String,
-            default: 'bottom-start'
+            default: 'bottom-start',
         },
         appendDropdownToBody: {
             type: Boolean,
-            default: true
+            default: true,
         },
         constrainDropdownToScrollParent: {
             type: Boolean,
-            default: true
+            default: true,
         },
         openDropdownOn: {
             type: String,
-            default: 'click' // 'click', 'hover', 'focus', or 'always'
+            default: 'click', // 'click', 'hover', 'focus', or 'always'
         },
         tooltip: String,
         openTooltipOn: String,
         tooltipPosition: String,
         disableRipple: {
             type: Boolean,
-            default: false
+            default: false,
         },
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     computed: {
@@ -130,7 +131,7 @@ export default {
                 { 'is-anchor': this.isAnchor },
                 { 'is-loading': this.loading },
                 { 'is-disabled': this.disabled || this.loading },
-                { 'has-dropdown': this.hasDropdown }
+                { 'has-dropdown': this.hasDropdown },
             ];
         },
 
@@ -152,7 +153,7 @@ export default {
             }
 
             return 'black';
-        }
+        },
     },
 
     methods: {
@@ -184,26 +185,18 @@ export default {
             if (this.$refs.dropdown) {
                 this.$refs.dropdown.toggle();
             }
-        }
+        },
     },
-
-    components: {
-        UiIcon,
-        UiPopover,
-        UiProgressCircular,
-        UiRippleInk,
-        UiTooltip
-    }
 };
 </script>
 
 <style lang="scss">
 @import './styles/imports';
 
-$ui-icon-button-size            : rem(36px) !default;
-$ui-icon-button--size-mini      : rem(24px) !default;
-$ui-icon-button--size-small     : rem(32px) !default;
-$ui-icon-button--size-large     : rem(48px) !default;
+$ui-icon-button-size: rem(36px) !default;
+$ui-icon-button--size-mini: rem(24px) !default;
+$ui-icon-button--size-small: rem(32px) !default;
+$ui-icon-button--size-large: rem(48px) !default;
 
 .ui-icon-button {
     align-items: center;
@@ -228,7 +221,7 @@ $ui-icon-button--size-large     : rem(48px) !default;
         width: $ui-icon-button-size;
     }
 
-    body[modality="keyboard"] &:focus {
+    body[modality='keyboard'] &:focus {
         .ui-icon-button__focus-ring {
             opacity: 1;
             transform: scale(1);
@@ -468,7 +461,7 @@ $ui-icon-button--size-large     : rem(48px) !default;
         &:hover:not(.is-disabled),
         &.has-dropdown-open,
         &.has-focus-ring:focus,
-        body[modality="keyboard"] &:focus {
+        body[modality='keyboard'] &:focus {
             color: $primary-text-color;
         }
 

@@ -1,17 +1,15 @@
 <template>
     <component
+        :is="isAnchor ? 'a' : 'button'"
         class="ui-button"
-
         :class="classes"
         :disabled="disabled || loading"
         :href="isAnchor ? (disabled ? null : href) : null"
-        :is="isAnchor ? 'a' : 'button'"
         :type="isAnchor ? null : buttonType"
-
         @click="onClick"
     >
         <div class="ui-button__content">
-            <div class="ui-button__icon" v-if="icon || $slots.icon">
+            <div v-if="icon || $slots.icon" class="ui-button__icon">
                 <slot name="icon">
                     <ui-icon :icon="icon"></ui-icon>
                 </slot>
@@ -20,11 +18,16 @@
             <slot></slot>
 
             <ui-icon
-                class="ui-button__dropdown-icon"
                 v-if="hasDropdown && iconPosition !== 'right'"
+                class="ui-button__dropdown-icon"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M6.984 9.984h10.03L12 15z"/>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                >
+                    <path d="M6.984 9.984h10.03L12 15z" />
                 </svg>
             </ui-icon>
         </div>
@@ -32,41 +35,36 @@
         <div class="ui-button__focus-ring"></div>
 
         <ui-progress-circular
+            v-if="loading"
             class="ui-button__progress"
             disable-transition
-
             :color="progressColor"
             :size="18"
             :stroke="4.5"
-
-            v-if="loading"
         ></ui-progress-circular>
 
         <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
 
         <ui-popover
-            contain-focus
+            v-if="hasDropdown"
             ref="dropdown"
-
+            contain-focus
             :append-to-body="appendDropdownToBody"
             :constrain-to-scroll-parent="constrainDropdownToScrollParent"
             :position="dropdownPosition"
             :open-on="openDropdownOn"
-
             @close="onDropdownClose"
             @open="onDropdownOpen"
-
-            v-if="hasDropdown"
         >
             <slot name="dropdown"></slot>
         </ui-popover>
 
         <ui-tooltip
+            v-if="tooltip"
             :open-on="openTooltipOn"
             :position="tooltipPosition"
-
-            v-if="tooltip"
-        >{{ tooltip }}</ui-tooltip>
+            >{{ tooltip }}</ui-tooltip
+        >
     </component>
 </template>
 
@@ -78,67 +76,75 @@ import UiRippleInk from './UiRippleInk.vue';
 import UiTooltip from './UiTooltip.vue';
 
 export default {
-    name: 'ui-button',
+    name: 'UiButton',
+
+    components: {
+        UiIcon,
+        UiPopover,
+        UiProgressCircular,
+        UiRippleInk,
+        UiTooltip,
+    },
 
     props: {
         type: {
             type: String,
-            default: 'primary' // 'primary' or 'secondary'
+            default: 'primary', // 'primary' or 'secondary'
         },
         buttonType: String,
         href: String,
         color: {
             type: String,
-            default: 'default' // 'default', 'primary', 'accent', 'green', 'orange', or 'red'
+            default: 'default', // 'default', 'primary', 'accent', 'green', 'orange', or 'red'
         },
         size: {
             type: String,
-            default: 'normal' // 'small', 'normal', 'large'
+            default: 'normal', // 'small', 'normal', 'large'
         },
         raised: {
             type: Boolean,
-            default: false
+            default: false,
         },
         icon: String,
         iconPosition: {
             type: String,
-            default: 'left' // 'left' or 'right'
+            default: 'left', // 'left' or 'right'
         },
         loading: {
             type: Boolean,
-            default: false
+            default: false,
         },
         hasDropdown: {
             type: Boolean,
-            default: false
+            default: false,
         },
         dropdownPosition: {
             type: String,
-            default: 'bottom-start'
+            default: 'bottom-start',
         },
         appendDropdownToBody: {
             type: Boolean,
-            default: true
+            default: true,
         },
         constrainDropdownToScrollParent: {
             type: Boolean,
-            default: true
+            default: true,
         },
         openDropdownOn: {
             type: String,
-            default: 'click' // 'click', 'hover', 'focus', or 'always'
+            default: 'click', // 'click', 'hover', 'focus', or 'always'
         },
         tooltip: String,
         openTooltipOn: String,
         tooltipPosition: String,
         disableRipple: {
             type: Boolean,
-            default: false
+            default: false,
         },
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     computed: {
@@ -152,7 +158,7 @@ export default {
                 { 'is-raised': this.raised },
                 { 'is-loading': this.loading },
                 { 'is-disabled': this.disabled || this.loading },
-                { 'has-dropdown': this.hasDropdown }
+                { 'has-dropdown': this.hasDropdown },
             ];
         },
 
@@ -166,7 +172,7 @@ export default {
             }
 
             return 'white';
-        }
+        },
     },
 
     methods: {
@@ -198,16 +204,8 @@ export default {
             if (this.$refs.dropdown) {
                 this.$refs.dropdown.toggle();
             }
-        }
+        },
     },
-
-    components: {
-        UiIcon,
-        UiPopover,
-        UiProgressCircular,
-        UiRippleInk,
-        UiTooltip
-    }
 };
 </script>
 
@@ -244,7 +242,7 @@ export default {
     }
 
     &.has-focus-ring:focus,
-    body[modality="keyboard"] &:focus {
+    body[modality='keyboard'] &:focus {
         .ui-button__focus-ring::before {
             opacity: 1;
             transform: scale(1.1);
@@ -265,7 +263,7 @@ export default {
         transition: box-shadow 0.3s ease;
 
         &.has-focus-ring:focus,
-        body[modality="keyboard"] &:focus {
+        body[modality='keyboard'] &:focus {
             box-shadow: 0 0 5px rgba(black, 0.22), 0 3px 6px rgba(black, 0.3);
         }
     }
@@ -310,7 +308,7 @@ export default {
 
     &::before {
         border-radius: 50%;
-        content: "";
+        content: '';
         display: block;
         left: 0;
         margin-top: calc(-1 * (50% - #{$ui-button-height / 2}));

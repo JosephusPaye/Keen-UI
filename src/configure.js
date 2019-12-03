@@ -9,7 +9,10 @@ export default function configure(Component, props) {
         const defaultValue = Component.props[propName].default;
 
         if (typeof defaultValue === 'object') {
-            Component.props[propName].default = merge(defaultValue, props[propName]);
+            Component.props[propName].default = merge(
+                defaultValue,
+                props[propName]
+            );
             return;
         }
 

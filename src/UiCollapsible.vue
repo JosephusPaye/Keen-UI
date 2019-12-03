@@ -2,11 +2,9 @@
     <div class="ui-collapsible" :class="classes">
         <div
             class="ui-collapsible__header"
-
             :aria-controls="id"
             :aria-expanded="isOpen ? 'true' : 'false'"
             :tabindex="disabled ? null : 0"
-
             @click="toggleCollapsible"
             @keydown.enter.prevent="toggleCollapsible"
             @keydown.space.prevent="toggleCollapsible"
@@ -15,9 +13,16 @@
                 <slot name="header">{{ title }}</slot>
             </div>
 
-            <ui-icon class="ui-collapsible__header-icon" v-if="!removeIcon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M7.406 7.828L12 12.422l4.594-4.594L18 9.234l-6 6-6-6z"/>
+            <ui-icon v-if="!removeIcon" class="ui-collapsible__header-icon">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        d="M7.406 7.828L12 12.422l4.594-4.594L18 9.234l-6 6-6-6z"
+                    />
                 </svg>
             </ui-icon>
 
@@ -31,13 +36,11 @@
             @leave="onLeave"
         >
             <div
-                class="ui-collapsible__body-wrapper"
-                ref="bodyWrapper"
-
-                :aria-hidden="isOpen ? null : 'true'"
-                :id="id"
-
                 v-show="isOpen"
+                :id="id"
+                ref="bodyWrapper"
+                class="ui-collapsible__body-wrapper"
+                :aria-hidden="isOpen ? null : 'true'"
             >
                 <div class="ui-collapsible__body">
                     <slot></slot>
@@ -53,32 +56,37 @@ import UiRippleInk from './UiRippleInk.vue';
 import UUID from './helpers/uuid';
 
 export default {
-    name: 'ui-collapsible',
+    name: 'UiCollapsible',
+
+    components: {
+        UiIcon,
+        UiRippleInk,
+    },
 
     props: {
         open: {
             type: Boolean,
-            default: false
+            default: false,
         },
         title: String,
         removeIcon: {
             type: Boolean,
-            default: false
+            default: false,
         },
         disableRipple: {
             type: Boolean,
-            default: false
+            default: false,
         },
         disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
 
     data() {
         return {
             isOpen: this.open,
-            id: UUID.short('ui-collapsible-')
+            id: UUID.short('ui-collapsible-'),
         };
     },
 
@@ -86,9 +94,9 @@ export default {
         classes() {
             return [
                 { 'is-open': this.isOpen },
-                { 'is-disabled': this.disabled }
+                { 'is-disabled': this.disabled },
             ];
-        }
+        },
     },
 
     watch: {
@@ -96,7 +104,7 @@ export default {
             if (this.isOpen !== this.open) {
                 this.isOpen = this.open;
             }
-        }
+        },
     },
 
     mounted() {
@@ -136,21 +144,16 @@ export default {
         onLeave(el) {
             el.style.maxHeight = 0;
             this.$emit('close');
-        }
+        },
     },
-
-    components: {
-        UiIcon,
-        UiRippleInk
-    }
 };
 </script>
 
 <style lang="scss">
 @import './styles/imports';
 
-$ui-collapsible-header-background           : $md-grey-200 !default;
-$ui-collapsible-header-background-hover     : $md-grey-300 !default;
+$ui-collapsible-header-background: $md-grey-200 !default;
+$ui-collapsible-header-background-hover: $md-grey-300 !default;
 
 .ui-collapsible {
     font-family: $font-stack;
@@ -160,7 +163,7 @@ $ui-collapsible-header-background-hover     : $md-grey-300 !default;
     &:not(.is-disabled) {
         .ui-collapsible__header {
             &:hover,
-            body[modality="keyboard"] &:focus {
+            body[modality='keyboard'] &:focus {
                 background-color: $ui-collapsible-header-background-hover;
             }
         }
