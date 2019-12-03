@@ -15,7 +15,7 @@ module.exports = {
     css: {
         extract: process.env.KEEN_UI_BUILD_LIB ? false : true,
     },
-    productionSourceMap: false,
+    productionSourceMap: true,
     configureWebpack: {
         plugins: [
             new BannerPlugin({

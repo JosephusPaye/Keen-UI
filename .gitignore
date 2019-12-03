@@ -6,4 +6,5 @@ _reminder
 /node_modules
 Thumbs.db
 npm-debug.log
-dist/demo.html
+dist
+lib
