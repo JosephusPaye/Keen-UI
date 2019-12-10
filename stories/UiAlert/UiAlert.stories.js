@@ -9,6 +9,7 @@ import WithoutIcon from './WithoutIcon.story.vue';
 import Dismissable from './Dismissable.story.vue';
 import DismissableWithoutAnimation from './DismissableWithoutAnimation.story.vue';
 import Persistent from './Persistent.story.vue';
+import InteractiveExample from './InteractiveExample.story.vue';
 
 export default {
     title: 'UiAlert',
@@ -25,3 +26,4 @@ export const withoutIcon = () => WithoutIcon;
 export const dismissible = () => Dismissable;
 export const dismissableWithoutAnimation = () => DismissableWithoutAnimation;
 export const persistent = () => Persistent;
+export const interactiveExample = () => InteractiveExample;

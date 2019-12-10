@@ -77,6 +77,7 @@
 <script>
 import UiCloseButton from './UiCloseButton.vue';
 import UiIcon from './UiIcon.vue';
+import { oneOf } from './prop-validation';
 
 export default {
     name: 'UiAlert',
@@ -89,7 +90,8 @@ export default {
     props: {
         type: {
             type: String,
-            default: 'info', // 'info', 'success', 'warning', or 'error'
+            default: 'info',
+            ...oneOf('info', 'success', 'warning', 'error'),
         },
         removeIcon: {
             type: Boolean,

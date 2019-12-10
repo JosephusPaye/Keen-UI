@@ -118,7 +118,7 @@ $ui-select-option-checkbox-color: rgba(black, 0.38) !default;
     align-items: center;
     cursor: pointer;
     display: flex;
-    font-family: inherit;
+    font-family: $font-stack;
     font-size: $ui-dropdown-item-font-size;
     user-select: none;
 
