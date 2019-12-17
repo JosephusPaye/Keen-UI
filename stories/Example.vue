@@ -48,6 +48,13 @@ import Prism from 'vue-prism-component';
 import UiSelect from '../src/UiSelect.vue';
 import UiSwitch from '../src/UiSwitch.vue';
 
+/**
+ * Convert a component's props definition to an options object for use
+ * in the interactive example options section.
+ *
+ * @param  {Object} Component    A component options object
+ * @param  {Array}  includeProps Array of props to include. Includes all props when empty.
+ */
 export function makeComponentOptions(Component, includeProps = []) {
     const options = {};
 
@@ -75,6 +82,13 @@ export function makeComponentOptions(Component, includeProps = []) {
     return options;
 }
 
+/**
+ * Convert a single prop definition to an option object for use
+ * in the interactive example options section.
+ *
+ * @param  {Object} prop            The prop definition
+ * @param  {String} defaultFallback The default value to use if the prop has no default
+ */
 export function propToOption(prop, defaultFallback = '') {
     if (prop.type === String || prop.type === Number || prop.type === Boolean) {
         return {
@@ -136,7 +150,6 @@ export default {
     },
 
     mounted() {
-        console.log();
         this.clipboard = new Clipboard(this.$refs.copyButton);
         this.clipboard.on('success', () => {
             this.setCopyButtonLabel('Copied!');
