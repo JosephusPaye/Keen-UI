@@ -1,4 +1,4 @@
-import { attachSource } from '../story-util';
+import { story } from '../story';
 
 import TypeInfo from './TypeInfo.story.vue';
 import TypeSuccess from './TypeSuccess.story.vue';
@@ -17,37 +17,18 @@ export default {
     title: 'UiAlert',
 };
 
-export const info = () => TypeInfo;
-attachSource(info, TypeInfo);
+export const info = story(TypeInfo);
+export const success = story(TypeSuccess);
+export const warning = story(TypeWarning);
+export const error = story(TypeError_);
+export const withMultilineContent = story(WithMultilineContent);
+export const withHTML = story(WithHtml);
+export const withCustomIcon = story(WithCustomIcon);
+export const withoutIcon = story(WithoutIcon);
+export const dismissible = story(Dismissable);
+export const dismissableWithoutAnimation = story(DismissableWithoutAnimation);
+export const persistent = story(Persistent);
 
-export const success = () => TypeSuccess;
-attachSource(success, TypeSuccess);
-
-export const warning = () => TypeWarning;
-attachSource(warning, TypeWarning);
-
-export const error = () => TypeError_;
-attachSource(error, TypeError_);
-
-export const withMultilineContent = () => WithMultilineContent;
-attachSource(withMultilineContent, WithMultilineContent);
-
-export const withHTML = () => WithHtml;
-attachSource(withHTML, WithHtml);
-
-export const withCustomIcon = () => WithCustomIcon;
-attachSource(withCustomIcon, WithCustomIcon);
-
-export const withoutIcon = () => WithoutIcon;
-attachSource(withoutIcon, WithoutIcon);
-
-export const dismissible = () => Dismissable;
-attachSource(dismissible, Dismissable);
-
-export const dismissableWithoutAnimation = () => DismissableWithoutAnimation;
-attachSource(dismissableWithoutAnimation, DismissableWithoutAnimation);
-
-export const persistent = () => Persistent;
-attachSource(persistent, Persistent);
-
-export const interactiveExample = () => InteractiveExample;
+export const interactiveExample = story(InteractiveExample, {
+    withSource: false,
+});
