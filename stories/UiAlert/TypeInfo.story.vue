@@ -16,3 +16,5 @@ export default {
     },
 };
 </script>
+
+<include-source>stories/UiAlert/TypeInfo.story.vue</include-source>

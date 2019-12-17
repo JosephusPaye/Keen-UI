@@ -1,3 +1,5 @@
+import { attachSource } from '../story-util';
+
 import TypeInfo from './TypeInfo.story.vue';
 import TypeSuccess from './TypeSuccess.story.vue';
 import TypeWarning from './TypeWarning.story.vue';
@@ -16,6 +18,8 @@ export default {
 };
 
 export const info = () => TypeInfo;
+attachSource(info, TypeInfo);
+
 export const success = () => TypeSuccess;
 export const warning = () => TypeWarning;
 export const error = () => TypeError_;
