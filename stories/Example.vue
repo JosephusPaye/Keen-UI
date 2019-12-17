@@ -163,7 +163,9 @@ export default {
                 Object.assign({}, this.extraOptions, this.options)
             );
 
-            const codeOpener = `<${this.name} ${attrs.join(' ')}>`;
+            const codeOpener = `<${this.name}${
+                attrs.length > 0 ? ' ' + attrs.join(' ') : ''
+            }>`;
             const indent = '    ';
             const inner = this.children
                 ? `\n${indent}${this.children

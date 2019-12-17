@@ -105,7 +105,7 @@ export default {
                 ),
                 error: propToOption(
                     UiAutocomplete.props.help,
-                    'Invalid input. Try again.'
+                    'Your input is invalid. Please try again.'
                 ),
                 label: propToOption(
                     UiAutocomplete.props.label,
