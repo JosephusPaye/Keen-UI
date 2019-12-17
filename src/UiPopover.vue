@@ -16,9 +16,10 @@
 import tippy from 'tippy.js/esm';
 
 import classlist from './helpers/classlist';
-import elementRef from './helpers/element-ref';
+import { resolveRef } from './helpers/element-ref';
 import events from './helpers/events';
 import UiFocusContainer from './UiFocusContainer.vue';
+import { oneOf, tippyPosition, tippyTrigger, ref } from './prop-validation';
 
 export default {
     name: 'UiPopover',
@@ -30,7 +31,8 @@ export default {
     props: {
         animation: {
             type: String,
-            default: 'fade', // 'fade', 'shift-away', 'scale', or 'none'
+            default: 'fade',
+            ...oneOf('fade', 'shift-away', 'scale', 'none'),
         },
         appendToBody: {
             type: Boolean,
@@ -55,23 +57,21 @@ export default {
         focusRedirector: Function,
         openOn: {
             type: String,
-            default: 'click', // 'click', 'mouseenter', 'focus', or 'manual', plus 'hover' (compat)
+            default: 'click',
+            ...tippyTrigger(),
         },
         position: {
             type: String,
             default: 'bottom-start',
+            ...tippyPosition(),
         },
         raised: {
             type: Boolean,
             default: true,
         },
+        // eslint-disable-next-line vue/require-prop-types
         trigger: {
-            validator(value) {
-                return elementRef.validate(
-                    value,
-                    '[UiPopover]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string which matches an existing element.'
-                );
-            },
+            ...ref('UiPopover'),
         },
         zIndex: Number,
     },
@@ -92,6 +92,32 @@ export default {
                 }
             }
         },
+
+        animation(newAnimation) {
+            if (this.tip) {
+                this.tip.set({
+                    // See comment in setupPopover()
+                    animation: newAnimation === 'none' ? 'fade' : newAnimation,
+                    duration: newAnimation === 'none' ? 0 : [250, 200],
+                });
+            }
+        },
+
+        position(newPosition) {
+            if (this.tip) {
+                this.tip.set({
+                    placement: newPosition,
+                });
+            }
+        },
+
+        openOn(newOpenOn) {
+            if (this.tip) {
+                this.tip.set({
+                    trigger: newOpenOn.replace('hover', 'mouseenter'),
+                });
+            }
+        },
     },
 
     created() {
@@ -108,10 +134,7 @@ export default {
 
     methods: {
         setupPopover() {
-            this.triggerEl = elementRef.resolve(
-                this.trigger,
-                this.$el.parentElement
-            );
+            this.triggerEl = resolveRef(this.trigger, this.$el.parentElement);
 
             if (!this.triggerEl) {
                 console.error('[UiPopover]: Trigger element not found.');

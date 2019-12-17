@@ -21,9 +21,24 @@
 - `tooltipPosition` prop is now validated to ensure it's one of `top`, `bottom`, `left`, `right`, `top-{start|end}`, `bottom-{start|end}`, etc.
 - `openTooltipOn` prop is now validated to ensure it's one of 'mouseenter', 'focus', 'click', or 'manual'
 
+### UiPopover
+
+- `animation` prop is now validated to ensure it's one of `fade`, `shift-away`, `scale`, or `none`
+- `openOn` prop is now validated to ensure it's one of 'mouseenter', 'focus', 'click', or 'manual'
+- `position` prop is now validated to ensure it's one of `top`, `bottom`, `left`, `right`, `top-{start|end}`, `bottom-{start|end}`, etc.
+- Make `animation`, `position`, and `openOn` props reactive
+
 ### UiRadio
 
 - Fix issue with `z-index` on focus ring that made it not visible
+
+### UiTooltip
+
+- Add default font stack
+- `animation` prop is now validated to ensure it's one of `fade`, `shift-away`, or `none`
+- `openOn` prop is now validated to ensure it's one of 'mouseenter', 'focus', 'click', or 'manual'
+- `position` prop is now validated to ensure it's one of `top`, `bottom`, `left`, `right`, `top-{start|end}`, `bottom-{start|end}`, etc.
+- Make `animation`, `position`, and `openOn` props reactive
 
 # v1.2.1
 

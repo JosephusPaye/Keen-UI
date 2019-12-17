@@ -6,7 +6,8 @@
 
 <script>
 import tippy from 'tippy.js/esm';
-import elementRef from './helpers/element-ref';
+import { resolveRef } from './helpers/element-ref';
+import { oneOf, tippyTrigger, tippyPosition, ref } from './prop-validation';
 
 export default {
     name: 'UiTooltip',
@@ -14,7 +15,8 @@ export default {
     props: {
         animation: {
             type: String,
-            default: 'fade', // 'fade', 'shift-away', or 'none'
+            default: 'fade',
+            ...oneOf('fade', 'shift-away', 'none'),
         },
         appendToBody: {
             type: Boolean,
@@ -26,28 +28,51 @@ export default {
         },
         openOn: {
             type: String,
-            default: 'mouseenter focus', // 'mouseenter', 'focus', 'click', or 'manual', plus 'hover' (compat)
+            default: 'mouseenter focus',
+            ...tippyTrigger(),
         },
         position: {
             type: String,
-            default: 'bottom', // 'top', 'right', 'bottom', 'left', 'top-{start|end}', 'right-{start|end}', etc.
+            default: 'bottom',
+            ...tippyPosition(),
         },
+        // eslint-disable-next-line vue/require-prop-types
         trigger: {
-            validator(value) {
-                return elementRef.validate(
-                    value,
-                    '[UiTooltip]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string.'
-                );
-            },
+            ...ref('UiTooltip'),
         },
         zIndex: Number,
     },
 
+    watch: {
+        animation(newAnimation) {
+            if (this.tip) {
+                this.tip.set({
+                    // See comment in setupPopover()
+                    animation: newAnimation === 'none' ? 'fade' : newAnimation,
+                    duration: newAnimation === 'none' ? 0 : [250, 200],
+                });
+            }
+        },
+
+        position(newPosition) {
+            if (this.tip) {
+                this.tip.set({
+                    placement: newPosition,
+                });
+            }
+        },
+
+        openOn(newOpenOn) {
+            if (this.tip) {
+                this.tip.set({
+                    trigger: newOpenOn.replace('hover', 'mouseenter'),
+                });
+            }
+        },
+    },
+
     mounted() {
-        this.triggerEl = elementRef.resolve(
-            this.trigger,
-            this.$el.parentElement
-        );
+        this.triggerEl = resolveRef(this.trigger, this.$el.parentElement);
 
         if (!this.triggerEl) {
             console.error('[UiTooltip]: Trigger element not found.');
@@ -114,6 +139,7 @@ export default {
     line-height: 1.4;
     padding: 0.3rem rem(8px);
     text-align: center;
+    font-family: $font-stack;
 
     .tippy-backdrop {
         background-color: rgba($md-grey-900, 0.9);

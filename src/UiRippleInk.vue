@@ -8,7 +8,8 @@
  * removed jQuery, converted to ES6
  */
 import classlist from './helpers/classlist';
-import elementRef from './helpers/element-ref';
+import { resolveRef } from './helpers/element-ref';
+import { ref } from './prop-validation';
 
 const startRipple = function(eventType, event) {
     let holder = event.currentTarget || event.target;
@@ -104,13 +105,9 @@ export default {
     name: 'UiRippleInk',
 
     props: {
+        // eslint-disable-next-line vue/require-prop-types
         trigger: {
-            validator(value) {
-                return elementRef.validate(
-                    value,
-                    '[UiRippleInk]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string.'
-                );
-            },
+            ...ref('UiRippleInk'),
         },
     },
 
@@ -135,10 +132,7 @@ export default {
 
     methods: {
         setupRipple() {
-            this.triggerEl = elementRef.resolve(
-                this.trigger,
-                this.$el.parentElement
-            );
+            this.triggerEl = resolveRef(this.trigger, this.$el.parentElement);
 
             if (!this.triggerEl) {
                 console.error('[UiRippleInk]: Trigger element not found.');
