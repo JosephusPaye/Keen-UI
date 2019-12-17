@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ui-alert v-show="showAlert" @dismiss="onDismiss">
+        <ui-alert v-show="showAlert" @dismiss="showAlert = false">
             You can dismiss this alert.
         </ui-alert>
         <button @click="showAlert = true">Reset</button>
@@ -8,10 +8,7 @@
 </template>
 
 <script>
-import { action } from '@storybook/addon-actions';
 import UiAlert from '../../src/UiAlert.vue';
-
-const logDismiss = action('dismiss');
 
 export default {
     name: 'Dismissible',
@@ -20,12 +17,6 @@ export default {
         return {
             showAlert: true,
         };
-    },
-    methods: {
-        onDismiss() {
-            this.showAlert = false;
-            logDismiss();
-        },
     },
 };
 </script>

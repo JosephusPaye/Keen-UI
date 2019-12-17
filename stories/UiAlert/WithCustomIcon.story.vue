@@ -1,5 +1,5 @@
 <template>
-    <ui-alert type="warning" @dismiss="onDismiss">
+    <ui-alert type="warning">
         <ui-icon slot="icon">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -18,16 +18,12 @@
 </template>
 
 <script>
-import { action } from '@storybook/addon-actions';
 import UiAlert from '../../src/UiAlert.vue';
 import UiIcon from '../../src/UiIcon.vue';
 
 export default {
     name: 'WithCustomIcon',
     components: { UiAlert, UiIcon },
-    methods: {
-        onDismiss: action('dismiss'),
-    },
 };
 </script>
 
