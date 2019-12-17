@@ -1,3 +1,15 @@
+# 1.2.2 (to be released)
+
+### UiAutocomplete
+
+- `iconPosition` prop is now validated to be one of `left`, or `right`
+- `type` prop is now validated to be one of `simple`, or `image`
+- Fix bug in handling of `append` prop
+
+# UiRadio
+
+- Fix issue with `z-index` on focus ring that made it not visible
+
 # v1.2.1
 
 ### UiSelectOption

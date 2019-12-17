@@ -101,6 +101,7 @@
 import autofocus from './directives/autofocus';
 import UiAutocompleteSuggestion from './UiAutocompleteSuggestion.vue';
 import UiIcon from './UiIcon.vue';
+import { oneOf } from './prop-validation';
 
 import fuzzysearch from 'fuzzysearch';
 
@@ -127,7 +128,8 @@ export default {
         icon: String,
         iconPosition: {
             type: String,
-            default: 'left', // 'left' or 'right'
+            default: 'left',
+            ...oneOf('left', 'right'),
         },
         label: String,
         floatingLabel: {
@@ -146,7 +148,8 @@ export default {
         },
         type: {
             type: String,
-            default: 'simple', // 'simple' or 'image'
+            default: 'simple',
+            ...oneOf('simple', 'image'),
         },
         suggestions: {
             type: Array,
@@ -329,8 +332,13 @@ export default {
         selectSuggestion(suggestion) {
             let value;
 
-            if (this.append) {
-                value +=
+            if (
+                this.append &&
+                typeof this.value === 'string' &&
+                this.value.length > 0
+            ) {
+                value =
+                    this.value +
                     this.appendDelimiter +
                     (suggestion[this.keys.value] || suggestion);
             } else {

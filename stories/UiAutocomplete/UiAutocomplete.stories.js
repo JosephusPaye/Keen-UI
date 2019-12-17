@@ -8,6 +8,7 @@ import WithSuggestionImage from './WithSuggestionImage.story.vue';
 import DynamicSuggestions from './DynamicSuggestions.story.vue';
 import WithCustomTemplate from './WithCustomTemplate.story.vue';
 import Disabled from './Disabled.story.vue';
+import InteractiveExample from './InteractiveExample.story.vue';
 
 const containedStory = (StoryComponent, options) => {
     return story(
@@ -41,3 +42,7 @@ export const withCustomTemplate = containedStory(WithCustomTemplate, {
 });
 
 export const disabled = containedStory(Disabled);
+
+export const interactiveExample = story(InteractiveExample, {
+    withSource: false,
+});

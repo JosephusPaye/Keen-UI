@@ -17,13 +17,37 @@
                     >
                         {{ prettyName(optionName) }}
                     </ui-switch>
-                    <ui-select
-                        v-else-if="option.type === 'one-of'"
+                    <template v-else-if="option.type === 'one-of'">
+                        <ui-radio-group
+                            v-if="option.options.length < 4"
+                            v-model="options[optionName].value"
+                            :name="optionName"
+                            :label="prettyName(optionName)"
+                            :options="option.options"
+                        ></ui-radio-group>
+
+                        <ui-select
+                            v-else
+                            v-model="options[optionName].value"
+                            :label="prettyName(optionName)"
+                            :options="option.options"
+                        ></ui-select>
+                    </template>
+
+                    <ui-textbox
+                        v-else-if="option.type === String"
                         v-model="options[optionName].value"
                         :label="prettyName(optionName)"
-                        :options="option.options"
-                    ></ui-select>
-                    <div v-else>Unknown prop type</div>
+                    ></ui-textbox>
+
+                    <ui-textbox
+                        v-else-if="option.type === Number"
+                        v-model.number="options[optionName].value"
+                        :label="prettyName(optionName)"
+                        type="number"
+                    ></ui-textbox>
+
+                    <div v-else>Unknown type: {{ optionName }}</div>
                 </div>
             </div>
             <div class="example__code">
@@ -45,8 +69,10 @@ import 'prismjs';
 import Clipboard from 'clipboard';
 import Prism from 'vue-prism-component';
 
+import UiRadioGroup from '../src/UiRadioGroup.vue';
 import UiSelect from '../src/UiSelect.vue';
 import UiSwitch from '../src/UiSwitch.vue';
+import UiTextbox from '../src/UiTextbox.vue';
 
 /**
  * Convert a component's props definition to an options object for use
@@ -90,21 +116,27 @@ export function makeComponentOptions(Component, includeProps = []) {
  * @param  {String} defaultFallback The default value to use if the prop has no default
  */
 export function propToOption(prop, defaultFallback = '') {
-    if (prop.type === String || prop.type === Number || prop.type === Boolean) {
+    const propDef = typeof prop === 'object' ? prop : { type: prop };
+
+    if (
+        propDef.type === String ||
+        propDef.type === Number ||
+        propDef.type === Boolean
+    ) {
         return {
-            type: prop.type,
-            value: prop.default || defaultFallback,
-            prop,
+            type: propDef.type,
+            value: propDef.default || defaultFallback,
+            prop: propDef,
         };
     } else {
-        throw new Error('Unhandled prop type:', prop.type, prop);
+        throw new Error('Unhandled prop type: ' + propDef.type);
     }
 }
 
 export default {
     name: 'Example',
 
-    components: { UiSelect, UiSwitch, Prism },
+    components: { UiRadioGroup, UiSelect, UiSwitch, UiTextbox, Prism },
 
     props: {
         name: {
@@ -133,17 +165,19 @@ export default {
 
             const codeOpener = `<${this.name} ${attrs.join(' ')}>`;
             const indent = '    ';
+            const inner = this.children
+                ? `\n${indent}${this.children
+                      .split('\n')
+                      .join('\n' + indent)}\n`
+                : '';
 
             if (codeOpener.length <= 80) {
-                const inner = this.children
-                    ? `\n${indent}${this.children}`
-                    : '';
-                return `${codeOpener}${inner}\n</${this.name}>`;
+                return `${codeOpener}${inner}</${this.name}>`;
             } else {
                 return (
                     `<${this.name}\n` +
                     attrs.map(attr => indent + attr).join('\n') +
-                    `\n>${this.children}</${this.name}>`
+                    `\n>${inner}</${this.name}>`
                 );
             }
         },
@@ -196,14 +230,12 @@ export default {
         optionToPropCode(option, name) {
             const kebabName = this.camelToSnakeCase(name, '-');
 
+            if (option.value === option.prop.default) {
+                return '';
+            }
+
             if (option.type === Boolean) {
-                if (option.value === option.prop.default) {
-                    return '';
-                } else {
-                    return option.value
-                        ? `${kebabName}`
-                        : `:${kebabName}="false"`;
-                }
+                return option.value ? `${kebabName}` : `:${kebabName}="false"`;
             } else if (option.type === String || option.type === 'one-of') {
                 return `${kebabName}="${option.value}"`;
             } else if (option.type === Number) {
@@ -220,8 +252,9 @@ export default {
 
         camelToSnakeCase(text, delimiter) {
             return text
-                .replace(/(.)([A-Z][a-z]+)/, '$1' + delimiter + '$2')
-                .replace(/([a-z0-9])([A-Z])/, '$1' + delimiter + '$2')
+                .replace(/[\w]([A-Z])/g, function(match) {
+                    return match[0] + delimiter + match[1];
+                })
                 .toLowerCase();
         },
     },
@@ -266,7 +299,7 @@ export default {
     overflow-y: auto;
 
     @media (min-width: 768px) {
-        max-height: 300px;
+        max-height: 50vh;
     }
 }
 
@@ -295,11 +328,13 @@ export default {
         max-width: rem(216px);
     }
 
+    .ui-radio-group,
     .ui-switch {
         margin-bottom: rem(8px);
     }
 
     &:last-child {
+        .ui-radio-group,
         .ui-select,
         .ui-switch {
             margin-bottom: 0;

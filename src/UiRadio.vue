@@ -222,7 +222,6 @@ $ui-radio-label-font-size: rem(16px) !default;
     transition: background-color 0.2s ease, transform 0.15s ease,
         opacity 0.15s ease;
     width: $ui-radio-focus-ring-size;
-    z-index: -1;
 }
 
 .ui-radio__label-text {
