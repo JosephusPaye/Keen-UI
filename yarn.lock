@@ -9033,7 +9033,7 @@ pretty-hrtime@^1.0.3:
   resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
   integrity sha1-t+PqQkNaTJsnWdmeDyAesZWALuE=
 
-prismjs@^1.8.4, prismjs@~1.17.0:
+prismjs@^1.17.1, prismjs@^1.8.4, prismjs@~1.17.0:
   version "1.17.1"
   resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.17.1.tgz#e669fcbd4cdd873c35102881c33b14d0d68519be"
   integrity sha512-PrEDJAFdUGbOP6xK/UsfkC5ghJsPJviKgnQOoxaDbBjwc8op68Quupwt1DeAFoG8GImPhiKXAvvsH7wDSLsu1Q==
@@ -11265,6 +11265,11 @@ vue-loader@^15.7.0:
     loader-utils "^1.1.0"
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
+
+vue-prism-component@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vue-prism-component/-/vue-prism-component-1.1.1.tgz#df0e375f7f9b367b069b2d54e6ed86facde96030"
+  integrity sha512-M4wM7gMIagWgf3YNS5Hrq7YDYu0pYbqMaJOhkVDfCfJ1col4ZCv+uyWpW/gkYZCuG3ic8UF3EAV22asm4pWjMA==
 
 vue-style-loader@^4.1.0:
   version "4.1.2"
