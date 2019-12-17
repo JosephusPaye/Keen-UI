@@ -11,6 +11,8 @@
 import { action } from '@storybook/addon-actions';
 import UiAlert from '../../src/UiAlert.vue';
 
+const logDismiss = action('dismiss');
+
 export default {
     name: 'Dismissible',
     components: { UiAlert },
@@ -21,8 +23,8 @@ export default {
     },
     methods: {
         onDismiss() {
-            action('dismiss')();
             this.showAlert = false;
+            logDismiss();
         },
     },
 };
