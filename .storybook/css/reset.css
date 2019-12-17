@@ -7,3 +7,11 @@
 html {
     font-size: 100%;
 }
+
+body {
+    margin: 1rem;
+}
+
+p {
+    margin: 0;
+}

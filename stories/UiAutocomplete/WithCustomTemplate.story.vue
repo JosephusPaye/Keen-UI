@@ -6,18 +6,22 @@
         name="favourite_month"
         placeholder="Enter your favourite month"
         :suggestions="months"
-    ></ui-autocomplete>
+    >
+        <template slot="suggestion" slot-scope="props">
+            <code>{{ props }}</code>
+        </template>
+    </ui-autocomplete>
 </template>
 
 <script>
 import UiAutocomplete from '../../src/UiAutocomplete.vue';
 
 export default {
-    name: 'Basic',
+    name: 'WithCustomTemplate',
     components: { UiAutocomplete },
     data() {
         return {
-            value: null,
+            value: '',
             months: [
                 'January',
                 'February',
@@ -37,4 +41,4 @@ export default {
 };
 </script>
 
-<include-source>stories/UiAutocomplete/Basic.story.vue</include-source>
+<include-source>stories/UiAutocomplete/WithCustomTemplate.story.vue</include-source>

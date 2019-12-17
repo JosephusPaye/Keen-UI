@@ -1,6 +1,7 @@
 <template>
     <ui-autocomplete
         v-model="value"
+        floating-label
         help="Pick your favourite month of the year"
         label="Favourite month"
         name="favourite_month"
@@ -13,7 +14,7 @@
 import UiAutocomplete from '../../src/UiAutocomplete.vue';
 
 export default {
-    name: 'Basic',
+    name: 'FloatingLabel',
     components: { UiAutocomplete },
     data() {
         return {
@@ -37,4 +38,4 @@ export default {
 };
 </script>
 
-<include-source>stories/UiAutocomplete/Basic.story.vue</include-source>
+<include-source>stories/UiAutocomplete/FloatingLabel.story.vue</include-source>

@@ -1,7 +1,10 @@
 import { configure } from '@storybook/vue';
 
 // CSS reset expected by Keen UI
-import './reset.css';
+import './css/reset.css';
+
+// Utilities for use in global decorators
+import './css/utilities.css';
 
 // Bootstrap modality
 import '../src/bootstrap';

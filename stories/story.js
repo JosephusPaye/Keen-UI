@@ -1,24 +1,19 @@
-const smallContainer = () => ({
-    template: `<div style="max-width: 28rem; padding: 1rem"><story /></div>`,
-});
-
-const mediumContainer = () => ({
-    template: `<div style="max-width: 36rem; padding: 1rem"><story /></div>`,
-});
-
-const largeContainer = () => ({
-    template: `<div style="max-width: 48em; padding: 1rem"><story /></div>`,
-});
+import {
+    smallContainer,
+    mediumContainer,
+    largeContainer,
+    notesDecorator,
+} from './decorators';
 
 export function story(StoryComponent, options = {}) {
-    const { withSource, withContainer } = Object.assign(
+    const { withSource, withContainer, withNotes } = Object.assign(
         { withSource: true, withContainer: false },
         options
     );
 
     const storyExport = () => StoryComponent;
 
-    if (withSource || withContainer) {
+    if (withSource || withContainer || withNotes) {
         storyExport.story = {};
 
         if (withSource) {
@@ -34,6 +29,10 @@ export function story(StoryComponent, options = {}) {
                     ? mediumContainer
                     : largeContainer
             );
+        }
+
+        if (withNotes) {
+            attachNotes(storyExport, withNotes);
         }
     }
 
@@ -53,4 +52,14 @@ function attachSource(storyExport, StoryComponent) {
 function decorate(storyExport, decorator) {
     storyExport.story.decorators = storyExport.story.decorators || [];
     storyExport.story.decorators.push(decorator);
+}
+
+function attachNotes(storyExport, notes) {
+    decorate(storyExport, notesDecorator(notes));
+
+    storyExport.story.parameters = Object.assign(
+        {},
+        storyExport.story.parameters,
+        { notes }
+    );
 }
