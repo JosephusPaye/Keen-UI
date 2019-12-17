@@ -17,3 +17,5 @@ export default {
     },
 };
 </script>
+
+<include-source>stories/UiAlert/TypeError.story.vue</include-source>

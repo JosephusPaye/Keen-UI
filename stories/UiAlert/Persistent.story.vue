@@ -12,3 +12,5 @@ export default {
     components: { UiAlert },
 };
 </script>
+
+<include-source>stories/UiAlert/Persistent.story.vue</include-source>

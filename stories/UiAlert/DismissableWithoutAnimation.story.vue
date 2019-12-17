@@ -27,3 +27,5 @@ export default {
     },
 };
 </script>
+
+<include-source>stories/UiAlert/DismissableWithoutAnimation.story.vue</include-source>

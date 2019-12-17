@@ -20,3 +20,5 @@ export default {
     },
 };
 </script>
+
+<include-source>stories/UiAlert/WithMultilineContent.story.vue</include-source>

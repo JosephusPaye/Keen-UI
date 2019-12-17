@@ -27,3 +27,5 @@ export default {
     },
 };
 </script>
+
+<include-source>stories/UiAlert/Dismissable.story.vue</include-source>

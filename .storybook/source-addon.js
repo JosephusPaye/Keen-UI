@@ -25,7 +25,7 @@ const SourcePanel = ({ active }) => {
         : null;
 };
 
-addons.register(ADDON_ID, api => {
+addons.register(ADDON_ID, () => {
     const render = ({ active, key }) =>
         React.createElement(
             AddonPanel,

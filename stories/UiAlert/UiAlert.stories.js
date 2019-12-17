@@ -21,13 +21,33 @@ export const info = () => TypeInfo;
 attachSource(info, TypeInfo);
 
 export const success = () => TypeSuccess;
+attachSource(success, TypeSuccess);
+
 export const warning = () => TypeWarning;
+attachSource(warning, TypeWarning);
+
 export const error = () => TypeError_;
+attachSource(error, TypeError_);
+
 export const withMultilineContent = () => WithMultilineContent;
+attachSource(withMultilineContent, WithMultilineContent);
+
 export const withHTML = () => WithHtml;
+attachSource(withHTML, WithHtml);
+
 export const withCustomIcon = () => WithCustomIcon;
+attachSource(withCustomIcon, WithCustomIcon);
+
 export const withoutIcon = () => WithoutIcon;
+attachSource(withoutIcon, WithoutIcon);
+
 export const dismissible = () => Dismissable;
+attachSource(dismissible, Dismissable);
+
 export const dismissableWithoutAnimation = () => DismissableWithoutAnimation;
+attachSource(dismissableWithoutAnimation, DismissableWithoutAnimation);
+
 export const persistent = () => Persistent;
+attachSource(persistent, Persistent);
+
 export const interactiveExample = () => InteractiveExample;

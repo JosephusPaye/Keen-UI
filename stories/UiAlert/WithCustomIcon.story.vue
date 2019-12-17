@@ -30,3 +30,5 @@ export default {
     },
 };
 </script>
+
+<include-source>stories/UiAlert/WithCustomIcon.story.vue</include-source>
