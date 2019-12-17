@@ -6,6 +6,10 @@
     font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+.font-semibold {
+    font-weight: 600;
+}
+
 .text-xs {
     font-size: 0.75rem;
 }
@@ -90,6 +94,22 @@
     margin-bottom: 1rem;
 }
 
+.mb-5 {
+    margin-bottom: 1.25rem;
+}
+
+.mb-6 {
+    margin-bottom: 1.5rem;
+}
+
+.mb-8 {
+    margin-bottom: 2rem;
+}
+
+.mb-10 {
+    margin-bottom: 2.5rem;
+}
+
 .p-0 {
     padding: 0;
 }
@@ -108,4 +128,72 @@
 
 .p-4 {
     padding: 1rem;
+}
+
+.block {
+    display: block;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-col {
+    flex-shrink: column;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.distribute-items {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.distribute-items > * {
+    margin: 0.25rem;
+}
+
+/* Medium (md) */
+@media (min-width: 768px) {
+    .md\:block {
+        display: block;
+    }
+
+    .md\:inline-block {
+        display: inline-block;
+    }
+
+    .md\:flex {
+        display: flex;
+    }
+
+    .md\:flex-row {
+        flex-direction: row;
+    }
+
+    .md\:flex-col {
+        flex-shrink: column;
+    }
+
+    .md\:items-center {
+        align-items: center;
+    }
+
+    .md\:justify-center {
+        justify-content: center;
+    }
 }

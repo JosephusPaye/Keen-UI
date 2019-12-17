@@ -314,7 +314,7 @@ export default {
         border-bottom: 0;
         border-right: 1px solid $divider-color;
         padding: rem(24px);
-        width: 25%;
+        width: 30%;
     }
 }
 
@@ -349,7 +349,7 @@ export default {
     overflow: hidden;
 
     @media (min-width: 768px) {
-        width: 75%;
+        width: 70%;
     }
 
     pre {

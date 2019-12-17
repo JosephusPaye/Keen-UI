@@ -74,6 +74,7 @@ import UiPopover from './UiPopover.vue';
 import UiProgressCircular from './UiProgressCircular.vue';
 import UiRippleInk from './UiRippleInk.vue';
 import UiTooltip from './UiTooltip.vue';
+import { oneOf, tippyPosition, tippyTrigger } from './prop-validation';
 
 export default {
     name: 'UiButton',
@@ -89,17 +90,20 @@ export default {
     props: {
         type: {
             type: String,
-            default: 'primary', // 'primary' or 'secondary'
+            default: 'primary',
+            ...oneOf('primary', 'secondary'),
         },
         buttonType: String,
         href: String,
         color: {
             type: String,
-            default: 'default', // 'default', 'primary', 'accent', 'green', 'orange', or 'red'
+            default: 'default',
+            ...oneOf('default', 'primary', 'accent', 'green', 'orange', 'red'),
         },
         size: {
             type: String,
-            default: 'normal', // 'small', 'normal', 'large'
+            default: 'normal',
+            ...oneOf('small', 'normal', 'large'),
         },
         raised: {
             type: Boolean,
@@ -108,11 +112,8 @@ export default {
         icon: String,
         iconPosition: {
             type: String,
-            default: 'left', // 'left' or 'right'
-        },
-        loading: {
-            type: Boolean,
-            default: false,
+            default: 'left',
+            ...oneOf('left', 'right'),
         },
         hasDropdown: {
             type: Boolean,
@@ -121,6 +122,12 @@ export default {
         dropdownPosition: {
             type: String,
             default: 'bottom-start',
+            ...tippyPosition(),
+        },
+        openDropdownOn: {
+            type: String,
+            default: 'click',
+            ...tippyTrigger(),
         },
         appendDropdownToBody: {
             type: Boolean,
@@ -130,13 +137,21 @@ export default {
             type: Boolean,
             default: true,
         },
-        openDropdownOn: {
-            type: String,
-            default: 'click', // 'click', 'hover', 'focus', or 'always'
-        },
         tooltip: String,
-        openTooltipOn: String,
-        tooltipPosition: String,
+        tooltipPosition: {
+            type: String,
+            default: 'bottom',
+            ...tippyPosition(),
+        },
+        openTooltipOn: {
+            type: String,
+            default: 'mouseenter focus',
+            ...tippyTrigger(),
+        },
+        loading: {
+            type: Boolean,
+            default: false,
+        },
         disableRipple: {
             type: Boolean,
             default: false,

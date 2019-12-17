@@ -2,15 +2,26 @@
 
 ### UiAlert
 
-- `type` prop is now validated to be one of `info`, `success`, `warning`, or `error`
+- `type` prop is now validated to ensure it's one of `info`, `success`, `warning`, or `error`
 
 ### UiAutocomplete
 
-- `iconPosition` prop is now validated to be one of `left`, or `right`
-- `type` prop is now validated to be one of `simple`, or `image`
+- `iconPosition` prop is now validated to ensure it's one of `left`, or `right`
+- `type` prop is now validated to ensure it's one of `simple`, or `image`
 - Fix bug in handling of `append` prop
 
-# UiRadio
+### UiButton
+
+- `type` prop is now validated to ensure it's one of `primary`, or `secondary`
+- `color` prop is now validated to ensure it's one of `default`, `primary`, `secondary`, `green`, `orange`, or `red`
+- `size` prop is now validated to ensure it's one of `small`, `normal`, or `large`
+- `iconPosition` prop is now validated to ensure it's one of `left`, or `right`
+- `dropdownPosition` prop is now validated to ensure it's one of `top`, `bottom`, `left`, `right`, `top-{start|end}`, `bottom-{start|end}`, etc.
+- `openDropdownOn` prop is now validated to ensure it's one of 'mouseenter', 'focus', 'click', or 'manual'
+- `tooltipPosition` prop is now validated to ensure it's one of `top`, `bottom`, `left`, `right`, `top-{start|end}`, `bottom-{start|end}`, etc.
+- `openTooltipOn` prop is now validated to ensure it's one of 'mouseenter', 'focus', 'click', or 'manual'
+
+### UiRadio
 
 - Fix issue with `z-index` on focus ring that made it not visible
 
