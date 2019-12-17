@@ -1,5 +1,9 @@
 # 1.2.2 (to be released)
 
+### UiAlert
+
+- `type` prop is now validated to be one of `info`, `success`, `warning`, or `error`
+
 ### UiAutocomplete
 
 - `iconPosition` prop is now validated to be one of `left`, or `right`
