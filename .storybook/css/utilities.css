@@ -134,6 +134,10 @@
     padding: 2rem;
 }
 
+.p-16 {
+    padding: 4rem;
+}
+
 .block {
     display: block;
 }
@@ -144,6 +148,10 @@
 
 .flex {
     display: flex;
+}
+
+.relative {
+    position: relative;
 }
 
 .flex-row {
