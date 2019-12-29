@@ -16,7 +16,7 @@ export default {
         animation: {
             type: String,
             default: 'fade',
-            ...oneOf('fade', 'shift-away', 'none'),
+            ...oneOf('fade', 'shift-away', 'scale', 'none'),
         },
         appendToBody: {
             type: Boolean,

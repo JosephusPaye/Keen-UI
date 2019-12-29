@@ -149,6 +149,7 @@ export default {
             type: String,
             default: '',
         },
+        wrapper: String,
     },
 
     data() {
@@ -173,15 +174,23 @@ export default {
                       .join('\n' + indent)}\n`
                 : '';
 
+            let code = '';
+
             if (codeOpener.length <= 80) {
-                return `${codeOpener}${inner}</${this.name}>`;
+                code = `${codeOpener}${inner}</${this.name}>`;
             } else {
-                return (
+                code =
                     `<${this.name}\n` +
                     attrs.map(attr => indent + attr).join('\n') +
-                    `\n>${inner}</${this.name}>`
-                );
+                    `\n>${inner}</${this.name}>`;
             }
+
+            return this.wrapper
+                ? this.wrapper.replace(
+                      '{{ slot }}',
+                      code.split('\n').join('\n' + indent)
+                  )
+                : code;
         },
     },
 

@@ -130,6 +130,10 @@
     padding: 1rem;
 }
 
+.p-8 {
+    padding: 2rem;
+}
+
 .block {
     display: block;
 }
