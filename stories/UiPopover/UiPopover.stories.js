@@ -10,6 +10,7 @@ import AnimationScale from './AnimationScale.story.vue';
 import AnimationNone from './AnimationNone.story.vue';
 import InsideModal from './InsideModal.story.vue';
 import ControlProgrammatically from './ControlProgrammatically.story.vue';
+import InteractiveExample from './InteractiveExample.story.vue';
 
 export default {
     title: 'UiPopover',
@@ -25,3 +26,7 @@ export const animationShiftAway = story(AnimationShiftAway);
 export const animationNone = story(AnimationNone);
 export const insideModal = story(InsideModal);
 export const controlProgrammatically = story(ControlProgrammatically);
+
+export const interactiveExample = story(InteractiveExample, {
+    withSource: false,
+});
