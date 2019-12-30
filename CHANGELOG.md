@@ -32,6 +32,10 @@
 
 - Fix issue with `z-index` on focus ring that made it not visible
 
+### UiRippleInk
+
+- Add new props `color` and `opacity` to style ripple ink without overriding styles in CSS
+
 ### UiTooltip
 
 - Add default font stack

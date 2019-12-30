@@ -5,106 +5,18 @@
 <script>
 /**
  * Adapted from rippleJS (https://github.com/samthor/rippleJS, version 1.0.3)
- * removed jQuery, converted to ES6
+ * removed jQuery, converted to ES6, Vue
  */
 import classlist from './helpers/classlist';
 import { resolveRef } from './helpers/element-ref';
 import { ref } from './prop-validation';
 
-const startRipple = function(eventType, event) {
-    let holder = event.currentTarget || event.target;
-
-    if (holder && !classlist.has(holder, 'ui-ripple-ink')) {
-        holder = holder.querySelector('.ui-ripple-ink');
-    }
-
-    if (!holder) {
-        return;
-    }
-
-    // Store the event use to generate this ripple on the holder: don't allow
-    // further events of different types until we're done. Prevents double
-    // ripples from mousedown/touchstart.
-    const prev = holder.getAttribute('data-ui-event');
-
-    if (prev && prev !== eventType) {
-        return;
-    }
-
-    holder.setAttribute('data-ui-event', eventType);
-
-    // Get ripple position
-    const rect = holder.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-
-    // Create the ripple
-    const ripple = document.createElement('div');
-    let max;
-
-    if (rect.width === rect.height) {
-        max = rect.width * 1.412;
-    } else {
-        max = Math.sqrt(rect.width * rect.width + rect.height * rect.height);
-    }
-
-    const size = max * 2 + 'px';
-
-    // Position the ripple
-    ripple.style.width = size;
-    ripple.style.height = size;
-    ripple.style.marginLeft = -max + x + 'px';
-    ripple.style.marginTop = -max + y + 'px';
-
-    // Add the ripple element
-    ripple.className = 'ui-ripple-ink__ink';
-    holder.appendChild(ripple);
-
-    setTimeout(() => {
-        classlist.add(ripple, 'is-held');
-    }, 0);
-
-    const releaseEvent = eventType === 'mousedown' ? 'mouseup' : 'touchend';
-
-    const handleRelease = function() {
-        document.removeEventListener(releaseEvent, handleRelease);
-
-        classlist.add(ripple, 'is-done');
-
-        // Larger than the animation duration in CSS
-        const timeout = 650;
-
-        setTimeout(() => {
-            holder.removeChild(ripple);
-
-            if (holder.children.length === 0) {
-                holder.removeAttribute('data-ui-event');
-            }
-        }, timeout);
-    };
-
-    document.addEventListener(releaseEvent, handleRelease);
-};
-
-const handleMouseDown = function(e) {
-    // Trigger on left click only
-    if (e.button === 0) {
-        startRipple(e.type, e);
-    }
-};
-
-const handleTouchStart = function(e) {
-    if (e.changedTouches) {
-        for (let i = 0; i < e.changedTouches.length; ++i) {
-            startRipple(e.type, e.changedTouches[i]);
-        }
-    }
-};
-
 export default {
     name: 'UiRippleInk',
 
     props: {
+        color: String,
+        opacity: [String, Number],
         // eslint-disable-next-line vue/require-prop-types
         trigger: {
             ...ref('UiRippleInk'),
@@ -139,8 +51,11 @@ export default {
                 return;
             }
 
-            this.triggerEl.addEventListener('touchstart', handleTouchStart);
-            this.triggerEl.addEventListener('mousedown', handleMouseDown);
+            this.triggerEl.addEventListener(
+                'touchstart',
+                this.handleTouchStart
+            );
+            this.triggerEl.addEventListener('mousedown', this.handleMouseDown);
         },
 
         destroyRipple() {
@@ -148,8 +63,123 @@ export default {
                 return;
             }
 
-            this.triggerEl.removeEventListener('mousedown', handleMouseDown);
-            this.triggerEl.removeEventListener('touchstart', handleTouchStart);
+            this.triggerEl.removeEventListener(
+                'mousedown',
+                this.handleMouseDown
+            );
+            this.triggerEl.removeEventListener(
+                'touchstart',
+                this.handleTouchStart
+            );
+        },
+
+        handleMouseDown(e) {
+            // Trigger on left click only
+            if (e.button === 0) {
+                this.startRipple(e.type, e, {
+                    opacity: this.opacity,
+                    color: this.color,
+                });
+            }
+        },
+
+        handleTouchStart(e) {
+            if (e.changedTouches) {
+                for (let i = 0; i < e.changedTouches.length; ++i) {
+                    this.startRipple(e.type, e.changedTouches[i], {
+                        opacity: this.opacity,
+                        color: this.color,
+                    });
+                }
+            }
+        },
+
+        startRipple(eventType, event, { color, opacity }) {
+            let holder = event.currentTarget || event.target;
+
+            if (holder && !classlist.has(holder, 'ui-ripple-ink')) {
+                holder = holder.querySelector('.ui-ripple-ink');
+            }
+
+            if (!holder) {
+                return;
+            }
+
+            // Store the event use to generate this ripple on the holder: don't allow
+            // further events of different types until we're done. Prevents double
+            // ripples from mousedown/touchstart.
+            const prev = holder.getAttribute('data-ui-event');
+
+            if (prev && prev !== eventType) {
+                return;
+            }
+
+            holder.setAttribute('data-ui-event', eventType);
+
+            // Get ripple position
+            const rect = holder.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            // Create the ripple
+            const ripple = document.createElement('div');
+            let max;
+
+            if (rect.width === rect.height) {
+                max = rect.width * 1.412;
+            } else {
+                max = Math.sqrt(
+                    rect.width * rect.width + rect.height * rect.height
+                );
+            }
+
+            const size = max * 2 + 'px';
+
+            // Position the ripple
+            ripple.style.width = size;
+            ripple.style.height = size;
+            ripple.style.marginLeft = -max + x + 'px';
+            ripple.style.marginTop = -max + y + 'px';
+
+            // Style the ripple
+            ripple.className = 'ui-ripple-ink__ink';
+
+            if (color) {
+                ripple.style.backgroundColor = color;
+            }
+
+            if (opacity) {
+                ripple.style.opacity = opacity;
+            }
+
+            // Add the ripple element
+            holder.appendChild(ripple);
+
+            setTimeout(() => {
+                classlist.add(ripple, 'is-held');
+            }, 0);
+
+            const releaseEvent =
+                eventType === 'mousedown' ? 'mouseup' : 'touchend';
+
+            const handleRelease = function() {
+                document.removeEventListener(releaseEvent, handleRelease);
+
+                classlist.add(ripple, 'is-done');
+
+                // Larger than the animation duration in CSS
+                const timeout = 650;
+
+                setTimeout(() => {
+                    holder.removeChild(ripple);
+
+                    if (holder.children.length === 0) {
+                        holder.removeAttribute('data-ui-event');
+                    }
+                }, timeout);
+            };
+
+            document.addEventListener(releaseEvent, handleRelease);
         },
     },
 };
