@@ -54,7 +54,7 @@ export default {
                 'position',
             ]),
             wrapper: dedent(`
-                <button style="position: relative">
+                <button>
                     My button label
                     {{ slot }}
                 </button>
@@ -66,7 +66,6 @@ export default {
 
 <style scoped>
 .image-pane {
-    position: relative;
     background-color: #eee;
     background-position: center;
     background-size: cover;

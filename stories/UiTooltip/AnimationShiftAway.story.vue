@@ -15,7 +15,6 @@ export default {
 
 <style scoped>
 .image-button {
-    position: relative;
     background-image: url('https://i.imgur.com/eK26qtK.jpg');
     background-color: #eee;
     background-position: center;
