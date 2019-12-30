@@ -4,7 +4,7 @@
             <slot></slot>
         </div>
         <div class="example__details">
-            <div class="example__options">
+            <div v-if="options" class="example__options">
                 <div class="example__options-header">Options</div>
                 <div
                     v-for="(option, optionName) in options"
@@ -116,12 +116,16 @@ export function makeComponentOptions(Component, includeProps = []) {
  * @param  {String} defaultFallback The default value to use if the prop has no default
  */
 export function propToOption(prop, defaultFallback = '') {
-    const propDef = typeof prop === 'object' ? prop : { type: prop };
+    const propDef =
+        typeof prop === 'object' && !Array.isArray(prop)
+            ? prop
+            : { type: prop };
 
     if (
         propDef.type === String ||
         propDef.type === Number ||
-        propDef.type === Boolean
+        propDef.type === Boolean ||
+        Array.isArray(propDef.type)
     ) {
         return {
             type: propDef.type,
@@ -245,15 +249,38 @@ export default {
                 return '';
             }
 
-            if (option.type === Boolean) {
-                return option.value ? `${kebabName}` : `:${kebabName}="false"`;
-            } else if (option.type === String || option.type === 'one-of') {
-                return `${kebabName}="${option.value}"`;
-            } else if (option.type === Number) {
-                return `:${kebabName}="${option.value}"`;
-            } else {
-                return `[unhandled type: ${option.type} (${kebabName})`;
+            return this.optionToPropDeclaration(
+                kebabName,
+                option.type,
+                option.value
+            );
+        },
+
+        optionToPropDeclaration(name, type, value) {
+            if (type === Boolean) {
+                return value ? `${name}` : `:${name}="false"`;
+            } else if (type === String || type === 'one-of') {
+                return `${name}="${value}"`;
+            } else if (type === Number) {
+                return `:${name}="${value}"`;
+            } else if (Array.isArray(type)) {
+                for (let i = 0; i < type.length; i++) {
+                    const innerType = type[i];
+
+                    if (innerType === Boolean) {
+                        return value ? `${name}` : `:${name}="false"`;
+                    } else if (
+                        innerType === Number &&
+                        typeof value === Number
+                    ) {
+                        return `:${name}="${value}"`;
+                    } else if (innerType === String) {
+                        return `${name}="${value}"`;
+                    }
+                }
             }
+
+            return `(${name} prop): unhandled type: ${type} for value ${value}`;
         },
 
         prettyName(name) {
@@ -318,6 +345,7 @@ export default {
     border-bottom: 1px solid $divider-color;
     min-width: rem(300px);
     padding: rem(16px);
+    flex-shrink: 0;
 
     @media (min-width: 768px) {
         border-bottom: 0;
@@ -356,6 +384,7 @@ export default {
 .example__code {
     position: relative;
     overflow: hidden;
+    flex-grow: 1;
 
     @media (min-width: 768px) {
         width: 70%;
@@ -369,6 +398,11 @@ export default {
 
         @media (min-width: 768px) {
             padding: rem(24px) !important;
+        }
+
+        &,
+        code {
+            text-shadow: none;
         }
     }
 }
