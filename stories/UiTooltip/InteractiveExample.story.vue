@@ -10,7 +10,7 @@
                 v-for="simpson in theSimpsons"
                 :key="simpson.name"
                 :style="{ backgroundImage: `url(${simpson.picture})` }"
-                class="image-pane"
+                class="image-button"
             >
                 <ui-tooltip
                     :animation="options.animation.value"
@@ -65,7 +65,7 @@ export default {
 </script>
 
 <style scoped>
-.image-pane {
+.image-button {
     background-color: #eee;
     background-position: center;
     background-size: cover;
