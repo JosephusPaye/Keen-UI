@@ -1,3 +1,9 @@
+# v1.2.2 (to be released)
+
+### UiPopover
+
+- Change Tippy's `hideOnClick` prop to `true` to close popover on external click
+
 # v1.2.1
 
 ### UiSelectOption
