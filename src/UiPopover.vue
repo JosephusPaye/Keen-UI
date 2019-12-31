@@ -124,7 +124,7 @@ export default {
                 delay: [0, 0],
                 distance: 0,
                 duration: this.animation === 'none' ? 0 : [250, 200],
-                hideOnClick: false,
+                hideOnClick: true,
                 ignoreAttributes: true,
                 interactive: true,
                 lazy: true,
