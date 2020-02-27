@@ -112,7 +112,6 @@ export default {
             initialValue: this.value,
             isActive: false,
             isDragging: false,
-            thumbSize: 0,
             trackLength: 0,
             trackOffset: 0,
             localValue: this.value
@@ -140,9 +139,7 @@ export default {
 
         thumbStyle() {
             return {
-                transform: 'translateX(' + (
-                    (this.relativeValue(this.localValue) * this.trackLength) - (this.thumbSize / 2)
-                ) + 'px)'
+                left: this.relativeValue(this.localValue) * 100 + '%'
             };
         },
 
@@ -264,7 +261,6 @@ export default {
         },
 
         refreshSize() {
-            this.thumbSize = this.$refs.thumb.offsetWidth;
             this.trackLength = this.$refs.track.offsetWidth;
             this.trackOffset = this.getTrackOffset(this.$refs.track);
         },
@@ -520,6 +516,7 @@ $ui-slider-marker-size                      : rem(36px);
     position: relative;
     width: $ui-track-thumb-size;
     z-index: 1;
+    margin-left: -$ui-track-thumb-size / 2;
 
     // Focus ring
     &::before {
