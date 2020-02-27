@@ -5236,8 +5236,6 @@ var handleTouchStart = function handleTouchStart(e) {
             initialValue: this.value,
             isActive: false,
             isDragging: false,
-            trackLength: 0,
-            trackOffset: 0,
             localValue: this.value
         };
     },
@@ -5360,10 +5358,6 @@ var handleTouchStart = function handleTouchStart(e) {
                 left: point + '%'
             };
         },
-        refreshSize: function refreshSize() {
-            this.trackLength = this.$refs.track.offsetWidth;
-            this.trackOffset = this.getTrackOffset(this.$refs.track);
-        },
         initializeSlider: function initializeSlider() {
             var _this = this;
 
@@ -5372,11 +5366,9 @@ var handleTouchStart = function handleTouchStart(e) {
             document.addEventListener('click', this.onExternalClick);
 
             this.$on('window-resize', function () {
-                _this.refreshSize();
                 _this.isDragging = false;
             });
 
-            this.refreshSize();
             this.initializeDrag();
         },
         teardownSlider: function teardownSlider() {
@@ -5408,9 +5400,12 @@ var handleTouchStart = function handleTouchStart(e) {
         onDragMove: function onDragMove(e) {
             this.dragUpdate(e);
         },
+        getTrackLength: function getTrackLength() {
+            return this.$refs.track.offsetWidth;
+        },
         dragUpdate: function dragUpdate(e) {
             var position = e.touches ? e.touches[0].pageX : e.pageX;
-            var relativeValue = (position - this.trackOffset) / this.trackLength;
+            var relativeValue = (position - this.getTrackOffset(this.$refs.track)) / this.getTrackLength();
             var value = this.getEdge(this.moderatedMin + relativeValue * (this.moderatedMax - this.moderatedMin));
 
             if (this.isDragging) {

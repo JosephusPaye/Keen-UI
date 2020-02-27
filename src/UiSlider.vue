@@ -112,8 +112,6 @@ export default {
             initialValue: this.value,
             isActive: false,
             isDragging: false,
-            trackLength: 0,
-            trackOffset: 0,
             localValue: this.value
         };
     },
@@ -260,22 +258,15 @@ export default {
             };
         },
 
-        refreshSize() {
-            this.trackLength = this.$refs.track.offsetWidth;
-            this.trackOffset = this.getTrackOffset(this.$refs.track);
-        },
-
         initializeSlider() {
             document.addEventListener('touchend', this.onDragStop);
             document.addEventListener('mouseup', this.onDragStop);
             document.addEventListener('click', this.onExternalClick);
 
             this.$on('window-resize', () => {
-                this.refreshSize();
                 this.isDragging = false;
             });
 
-            this.refreshSize();
             this.initializeDrag();
         },
 
@@ -312,9 +303,13 @@ export default {
             this.dragUpdate(e);
         },
 
+        getTrackLength() {
+            return this.$refs.track.offsetWidth;
+        },
+
         dragUpdate(e) {
             const position = e.touches ? e.touches[0].pageX : e.pageX;
-            const relativeValue = (position - this.trackOffset) / this.trackLength;
+            const relativeValue = (position - this.getTrackOffset(this.$refs.track)) / this.getTrackLength();
             const value = this.getEdge(
                 this.moderatedMin + (relativeValue * (this.moderatedMax - this.moderatedMin))
             );
