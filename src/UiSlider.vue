@@ -67,7 +67,6 @@
 import UiIcon from './UiIcon.vue';
 
 import classlist from './helpers/classlist';
-import RespondsToWindowResize from './mixins/RespondsToWindowResize.js';
 
 export default {
     name: 'ui-slider',
@@ -262,11 +261,6 @@ export default {
             document.addEventListener('touchend', this.onDragStop);
             document.addEventListener('mouseup', this.onDragStop);
             document.addEventListener('click', this.onExternalClick);
-
-            this.$on('window-resize', () => {
-                this.isDragging = false;
-            });
-
             this.initializeDrag();
         },
 
@@ -370,11 +364,7 @@ export default {
 
     components: {
         UiIcon
-    },
-
-    mixins: [
-        RespondsToWindowResize
-    ]
+    }
 };
 </script>
 
