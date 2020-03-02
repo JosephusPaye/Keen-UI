@@ -303,7 +303,7 @@ export default {
 
         dragUpdate(e) {
             const position = e.touches ? e.touches[0].pageX : e.pageX;
-            const relativeValue = (position - this.getTrackOffset(this.$refs.track)) / this.getTrackLength();
+            const relativeValue = (position - this.getTrackOffset()) / this.getTrackLength();
             const value = this.getEdge(
                 this.moderatedMin + (relativeValue * (this.moderatedMax - this.moderatedMin))
             );
