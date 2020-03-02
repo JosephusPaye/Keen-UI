@@ -38,7 +38,15 @@
             <h4 class="page__demo-title">Disabled</h4>
             <ui-slider icon="volume_up" v-model="slider6" disabled></ui-slider>
 
-            <ui-button @click="resetSliders">Reset Sliders</ui-button>
+            <h4 class="page__demo-title">In a modal</h4>
+            <ui-button @click="openModal">Open modal</ui-button>
+            <ui-modal ref="modal" title="Slider in a modal">
+                <ui-slider v-model="slider7"></ui-slider>
+            </ui-modal>
+
+            <div class="reset-sliders">
+                <ui-button @click="resetSliders">Reset Sliders</ui-button>
+            </div>
         </div>
 
         <h3 class="page__section-title">API</h3>
@@ -270,6 +278,7 @@ import UiButton from 'src/UiButton.vue';
 import UiSlider from 'src/UiSlider.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
+import UiModal from 'src/UiModal.vue';
 
 export default {
     data() {
@@ -279,7 +288,8 @@ export default {
             slider3: 60,
             slider4: 8,
             slider5: 40,
-            slider6: 75
+            slider6: 75,
+            slider7: 6
         };
     },
 
@@ -290,10 +300,16 @@ export default {
             this.slider3 = 60;
             this.slider4 = 7;
             this.slider5 = 40;
+            this.slider6 = 75;
+            this.slider7 = 6;
+        },
+        openModal() {
+            this.$refs.modal.open();
         }
     },
 
     components: {
+        UiModal,
         UiButton,
         UiSlider,
         UiTab,
@@ -314,8 +330,10 @@ export default {
         margin-bottom: rem(8px);
     }
 
-    .ui-button {
-        margin-top: rem(24px);
+    .reset-sliders {
+        .ui-button {
+            margin-top: rem(36px);
+        }
     }
 }
 </style>
