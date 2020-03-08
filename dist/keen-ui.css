@@ -1,6 +1,6 @@
 /*!
- * Keen UI v1.2.1 (https://github.com/JosephusPaye/keen-ui)
- * (c) 2019 Josephus Paye II
+ * Keen UI v1.3.0 (https://github.com/JosephusPaye/keen-ui)
+ * (c) 2020 Josephus Paye II
  * Released under the MIT License.
  */
 
@@ -3832,6 +3832,7 @@ body[modality="keyboard"] .ui-radio__input:focus + .ui-radio__focus-ring {
   position: relative;
   width: 0.875rem;
   z-index: 1;
+  margin-left: -0.4375rem;
 }
 .ui-slider__thumb::before {
     background-color: rgba(33, 150, 243, 0.38);

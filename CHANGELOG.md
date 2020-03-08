@@ -1,4 +1,4 @@
-# v1.2.2 (to be released)
+# v1.3.0
 
 ### UiSlider
 
