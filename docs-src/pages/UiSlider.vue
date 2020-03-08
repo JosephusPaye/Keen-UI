@@ -35,14 +35,14 @@
                 v-model="slider5"
             ></ui-slider>
 
-            <h4 class="page__demo-title">Disabled</h4>
-            <ui-slider icon="volume_up" v-model="slider6" disabled></ui-slider>
-
             <h4 class="page__demo-title">In a modal</h4>
             <ui-button @click="openModal">Open modal</ui-button>
-            <ui-modal ref="modal" title="Slider in a modal">
+            <ui-modal ref="modal" title="Slider in a modal" dismiss-on="close-button esc">
                 <ui-slider v-model="slider7"></ui-slider>
             </ui-modal>
+
+            <h4 class="page__demo-title">Disabled</h4>
+            <ui-slider icon="volume_up" v-model="slider6" disabled></ui-slider>
 
             <div class="reset-sliders">
                 <ui-button @click="resetSliders">Reset Sliders</ui-button>
@@ -275,10 +275,10 @@
 
 <script>
 import UiButton from 'src/UiButton.vue';
+import UiModal from 'src/UiModal.vue';
 import UiSlider from 'src/UiSlider.vue';
 import UiTab from 'src/UiTab.vue';
 import UiTabs from 'src/UiTabs.vue';
-import UiModal from 'src/UiModal.vue';
 
 export default {
     data() {
@@ -289,7 +289,7 @@ export default {
             slider4: 8,
             slider5: 40,
             slider6: 75,
-            slider7: 6
+            slider7: 30
         };
     },
 
@@ -301,16 +301,17 @@ export default {
             this.slider4 = 7;
             this.slider5 = 40;
             this.slider6 = 75;
-            this.slider7 = 6;
+            this.slider7 = 30;
         },
+
         openModal() {
             this.$refs.modal.open();
         }
     },
 
     components: {
-        UiModal,
         UiButton,
+        UiModal,
         UiSlider,
         UiTab,
         UiTabs
@@ -330,10 +331,8 @@ export default {
         margin-bottom: rem(8px);
     }
 
-    .reset-sliders {
-        .ui-button {
-            margin-top: rem(36px);
-        }
+    .reset-sliders .ui-button {
+        margin-top: rem(36px);
     }
 }
 </style>

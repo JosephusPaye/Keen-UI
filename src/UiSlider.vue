@@ -136,7 +136,7 @@ export default {
 
         thumbStyle() {
             return {
-                left: this.relativeValue(this.localValue) * 100 + '%'
+                left: (this.relativeValue(this.localValue) * 100) + '%'
             };
         },
 
@@ -210,7 +210,7 @@ export default {
         },
 
         setValueWithSnap(value) {
-            value = this.getEdge(value);
+            value = this.moderateValue(value);
 
             if (this.snapToSteps) {
                 value = this.getNearestSnapPoint(value);
@@ -220,7 +220,7 @@ export default {
         },
 
         setValue(value) {
-            value = this.getEdge(value);
+            value = this.moderateValue(value);
 
             if (value === this.localValue) {
                 return;
@@ -271,7 +271,7 @@ export default {
         },
 
         initializeDrag() {
-            const value = this.getEdge(this.localValue ? this.localValue : 0);
+            const value = this.moderateValue(this.localValue ? this.localValue : 0);
             this.setValue(value);
         },
 
@@ -297,14 +297,11 @@ export default {
             this.dragUpdate(e);
         },
 
-        getTrackLength() {
-            return this.$refs.track.offsetWidth;
-        },
-
         dragUpdate(e) {
             const position = e.touches ? e.touches[0].pageX : e.pageX;
-            const relativeValue = (position - this.getTrackOffset()) / this.getTrackLength();
-            const value = this.getEdge(
+            const trackLength = this.$refs.track.offsetWidth;
+            const relativeValue = (position - this.getTrackOffset()) / trackLength;
+            const value = this.moderateValue(
                 this.moderatedMin + (relativeValue * (this.moderatedMax - this.moderatedMin))
             );
 
@@ -349,16 +346,16 @@ export default {
             return (value - this.moderatedMin) / (this.moderatedMax - this.moderatedMin);
         },
 
-        getEdge(a) {
-            if (a < this.moderatedMin) {
+        moderateValue(value) {
+            if (value < this.moderatedMin) {
                 return this.moderatedMin;
             }
 
-            if (a > this.moderatedMax) {
+            if (value > this.moderatedMax) {
                 return this.moderatedMax;
             }
 
-            return a;
+            return value;
         }
     },
 

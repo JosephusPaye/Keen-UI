@@ -1,5 +1,9 @@
 # v1.2.2 (to be released)
 
+### UiSlider
+
+- **Potentially Breaking**: Update slider to work when initially-hidden, e.g. in a tab or modal. The `refreshSize()` method is no longer needed and has been removed. See [#489](https://github.com/JosephusPaye/Keen-UI/pull/489).
+
 ### UiPopover
 
 - Change Tippy's `hideOnClick` prop to `true` to close popover on external click
