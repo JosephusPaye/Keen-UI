@@ -92,11 +92,13 @@ export default {
         nextMonthDisabled() {
             const firstDayOfNextMonth = dateUtils.clone(this.dateInView);
 
+            const sortedYearRange = this.yearRange.sort((a, b) => a - b);
+
             // Set the month to next month, and the day to the first day
             // If the month overflows, it increments the year
             firstDayOfNextMonth.setMonth(this.dateInView.getMonth() + 1, 1);
 
-            const outsideYearRange = firstDayOfNextMonth.getFullYear() > this.yearRange[this.yearRange.length - 1];
+            const outsideYearRange = firstDayOfNextMonth.getFullYear() > sortedYearRange[sortedYearRange.length - 1];
 
             if (this.maxDate) {
                 return outsideYearRange || firstDayOfNextMonth.getTime() > this.maxDate.getTime();
