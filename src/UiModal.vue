@@ -6,7 +6,8 @@
             :class="classes"
             :role="role"
 
-            @click.self="onBackdropClick"
+            @mousedown.self="onBackdropMouseDown"
+            @mouseup.self="onBackdropMouseUp"
 
             v-show="isOpen"
         >
@@ -16,7 +17,8 @@
                 :class="{ 'has-dummy-scrollbar': preventShift }"
                 :style="alignTopStyle"
 
-                @click.self="onBackdropClick"
+                @mousedown.self="onBackdropMouseDown"
+                @mouseup.self="onBackdropMouseUp"
             >
                 <ui-focus-container
                     class="ui-modal__container"
@@ -190,12 +192,17 @@ export default {
             }
         },
 
-        onBackdropClick() {
-            if (this.dismissOnBackdrop) {
+        onBackdropMouseDown() {
+            this.backdropMouseDown = true;
+        },
+
+        onBackdropMouseUp() {
+            if (this.dismissOnBackdrop && this.backdropMouseDown) {
                 this.close();
             } else {
                 this.redirectFocus();
             }
+            this.backdropMouseDown = false;
         },
 
         onEsc() {
