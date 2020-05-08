@@ -206,7 +206,8 @@ export default {
             } else {
                 this.redirectFocus();
             }
-            this.backdropMouseDown = false;
+
+            this.mouseDownSource = undefined;
         },
 
         onEsc() {
