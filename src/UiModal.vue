@@ -179,7 +179,9 @@ export default {
             if (!this.dismissible) {
                 return;
             }
-            if(this.beforeClose && !this.beforeClose(this)) return;
+            if (this.beforeClose && this.beforeClose(this) === false) {
+                return;
+            }
 
             this.isOpen = false;
         },
