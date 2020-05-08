@@ -197,7 +197,7 @@ export default {
         },
 
         onBackdropMouseDown() {
-            this.backdropMouseDown = true;
+            this.mouseDownSource = 'backdrop';
         },
 
         onBackdropMouseUp() {
