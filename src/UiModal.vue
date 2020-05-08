@@ -106,7 +106,8 @@ export default {
         dismissOn: {
             type: String,
             default: 'backdrop esc close-button'
-        }
+        },
+        beforeClose: Function,
     },
 
     data() {
@@ -178,6 +179,7 @@ export default {
             if (!this.dismissible) {
                 return;
             }
+            if(this.beforeClose && !this.beforeClose(this)) return;
 
             this.isOpen = false;
         },
