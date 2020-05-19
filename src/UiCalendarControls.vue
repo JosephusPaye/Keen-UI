@@ -92,7 +92,7 @@ export default {
         nextMonthDisabled() {
             const firstDayOfNextMonth = dateUtils.clone(this.dateInView);
 
-            const sortedYearRange = this.yearRange.sort((a, b) => a - b);
+            const sortedYearRange = this.yearRange.concat().sort((a, b) => a - b);
 
             // Set the month to next month, and the day to the first day
             // If the month overflows, it increments the year
