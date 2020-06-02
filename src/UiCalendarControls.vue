@@ -80,7 +80,8 @@ export default {
             // Setting the date to zero goes to the last day in previous month
             lastDayOfPreviousMonth.setDate(0);
 
-            const outsideYearRange = lastDayOfPreviousMonth.getFullYear() < this.yearRange[0];
+            const firstYear = Math.min(this.yearRange[0], this.yearRange[this.yearRange.length - 1]);
+            const outsideYearRange = lastDayOfPreviousMonth.getFullYear() < firstYear;
 
             if (this.minDate) {
                 return outsideYearRange || lastDayOfPreviousMonth.getTime() < this.minDate.getTime();
@@ -92,13 +93,12 @@ export default {
         nextMonthDisabled() {
             const firstDayOfNextMonth = dateUtils.clone(this.dateInView);
 
-            const sortedYearRange = this.yearRange.concat().sort((a, b) => a - b);
-
             // Set the month to next month, and the day to the first day
             // If the month overflows, it increments the year
             firstDayOfNextMonth.setMonth(this.dateInView.getMonth() + 1, 1);
 
-            const outsideYearRange = firstDayOfNextMonth.getFullYear() > sortedYearRange[sortedYearRange.length - 1];
+            const lastYear = Math.max(this.yearRange[0], this.yearRange[this.yearRange.length - 1]);
+            const outsideYearRange = firstDayOfNextMonth.getFullYear() > lastYear;
 
             if (this.maxDate) {
                 return outsideYearRange || firstDayOfNextMonth.getTime() > this.maxDate.getTime();
