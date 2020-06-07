@@ -166,6 +166,32 @@
 
                 v-model="textbox15"
             ></ui-textbox>
+
+            <h4 class="page__demo-title">Type: text, autocapitalize: none</h4>
+
+            <ui-textbox
+                help="Enter some (case-specific) machine-generated text, which should not be capitalized accidentally on touch-screen devices"
+                label="Content"
+                placeholder="Content to be entered"
+                type="text"
+
+                autocapitalize="none"
+
+                v-model.number="textbox16"
+            ></ui-textbox>
+
+            <h4 class="page__demo-title">Multi-line text, autocapitalize: none</h4>
+
+            <ui-textbox
+                help="Enter some (case-specific) machine-generated text, which should not be capitalized accidentally on touch-screen devices"
+                label="Content"
+                placeholder="Content to be entered"
+
+                :multi-line="true"
+                autocapitalize="none"
+
+                v-model.number="textbox17"
+            ></ui-textbox>
         </div>
 
         <h3 class="page__section-title">API</h3>
@@ -639,7 +665,9 @@ export default {
             textbox12: 0,
             textbox13: '',
             textbox14: '',
-            textbox15: 'My name is Jane Doe...'
+            textbox15: 'My name is Jane Doe...',
+            textbox16: '',
+            textbox17: ''
         };
     },
 
