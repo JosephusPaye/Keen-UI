@@ -1,3 +1,9 @@
+# v1.3.1
+
+### UiFileupload
+
+- **Potentially Breaking**: Update UiFileupload's `clear()` method to reset the placeholder. See [#510](https://github.com/JosephusPaye/Keen-UI/pull/510).
+
 # v1.3.0
 
 ### UiSlider
