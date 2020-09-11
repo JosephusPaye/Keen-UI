@@ -4,7 +4,7 @@ const path = require('path');
 
 // Hardcoding here (and not reading from package.json) as the files are built
 // before the version is updated in package.json
-const version = '1.3.0';
+const version = '1.3.1';
 
 const banner =
   '/*!\n' +

@@ -54,7 +54,7 @@ export default {
         return {
             isMobile: false,
             sidebarOpen: false,
-            version: '1.3.0',
+            version: '1.3.1',
             repoUrl: 'https://github.com/JosephusPaye/Keen-UI',
             description: 'Keen UI is a Vue.js UI library with a simple API, inspired by Google\'s Material Design.',
             mobileMediaQuery: null
