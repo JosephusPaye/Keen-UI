@@ -1,5 +1,5 @@
 /*!
- * Keen UI v1.3.0 (https://github.com/JosephusPaye/keen-ui)
+ * Keen UI v1.3.1 (https://github.com/JosephusPaye/keen-ui)
  * (c) 2020 Josephus Paye II
  * Released under the MIT License.
  */
@@ -6898,6 +6898,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         },
         clear: function clear() {
             var _this = this;
+
+            this.hasSelection = false;
 
             this.renderInput = false;
 
