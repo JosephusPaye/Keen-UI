@@ -236,7 +236,10 @@ export default {
         },
 
         valueLength() {
-            return this.value ? this.value.length : 0;
+            if (this.value == null) {
+                return 0;
+            }
+            return (`${this.value}`).length;
         },
 
         hasFeedback() {
