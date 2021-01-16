@@ -113,12 +113,14 @@ export default {
                 return;
             }
 
+            const body = this.triggerEl.getRootNode() === document ? document.body : this.triggerEl.getRootNode();
+
             const options = {
                 animateFill: false,
                 // Use 'fade' when animation is 'none', as 'none' it's not a valid Tippy.js option.
                 // The effect of no transition is achieved by `duration: 0` below.
                 animation: this.animation === 'none' ? 'fade' : this.animation,
-                appendTo: this.appendToBody ? document.body : this.triggerEl.parentElement,
+                appendTo: this.appendToBody ? body : this.triggerEl.parentElement,
                 arrow: false,
                 content: this.$el,
                 delay: [0, 0],
