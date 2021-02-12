@@ -236,10 +236,7 @@ export default {
         },
 
         valueLength() {
-            if (this.value == null) {
-                return 0;
-            }
-            return (`${this.value}`).length;
+            return this.value === null ? 0 : String(this.value).length;
         },
 
         hasFeedback() {
