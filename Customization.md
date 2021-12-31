@@ -83,6 +83,8 @@ All other variables in [`keen-ui/src/styles/variables.scss`](.../src/styles/vari
 
 Some components also have component-specific variables that can be found in their source files. Those can be overridden as well.
 
+You can also override the `rem` function by defining a `rem-custom` function to be used instead for calculating the size of components, as described below. Please refer to the original function in [`src/styles/utils.scss`](./src/styles/utils.scss).
+
 ## Component sizing
 
 All components use the `rem` CSS unit for properties with length values (e.g. `font-size`, `margin`, `padding`, `width`, `height`, etc). This allows you to customize the size of all components by setting `font-size` on the root (`<html>`) element.

@@ -8,6 +8,10 @@
 
 // Converts one or more pixel values into matching rem values.
 @function rem($values, $base: null) {
+    @if function-exists(rem-custom) {
+        @return rem-custom($values, $base);
+    }
+
     $rem-values: ();
     $count: length($values);
 
