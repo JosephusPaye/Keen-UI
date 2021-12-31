@@ -8,63 +8,65 @@
 
         <div class="ui-textbox__content">
             <label class="ui-textbox__label">
-                <input
-                    class="ui-textbox__input"
-                    ref="input"
+                <div class="ui-textbox__input-wrapper">
+                    <input
+                        class="ui-textbox__input"
+                        ref="input"
 
-                    :autocomplete="autocomplete ? autocomplete : null"
-                    :disabled="disabled"
-                    :max="maxValue"
-                    :maxlength="enforceMaxlength ? maxlength : null"
-                    :minlength="minlength"
-                    :min="minValue"
-                    :name="name"
-                    :number="type === 'number' ? true : null"
-                    :placeholder="hasFloatingLabel ? null : placeholder"
-                    :readonly="readonly"
-                    :required="required"
-                    :step="stepValue"
-                    :tabindex="tabindex"
-                    :type="type"
-                    :value="value"
+                        :autocomplete="autocomplete ? autocomplete : null"
+                        :disabled="disabled"
+                        :max="maxValue"
+                        :maxlength="enforceMaxlength ? maxlength : null"
+                        :minlength="minlength"
+                        :min="minValue"
+                        :name="name"
+                        :number="type === 'number' ? true : null"
+                        :placeholder="hasFloatingLabel ? null : placeholder"
+                        :readonly="readonly"
+                        :required="required"
+                        :step="stepValue"
+                        :tabindex="tabindex"
+                        :type="type"
+                        :value="value"
 
-                    @blur="onBlur"
-                    @change="onChange"
-                    @focus="onFocus"
-                    @input="updateValue($event.target.value)"
-                    @keydown.enter="onKeydownEnter"
-                    @keydown="onKeydown"
+                        @blur="onBlur"
+                        @change="onChange"
+                        @focus="onFocus"
+                        @input="updateValue($event.target.value)"
+                        @keydown.enter="onKeydownEnter"
+                        @keydown="onKeydown"
 
-                    v-autofocus="autofocus"
-                    v-if="!multiLine"
-                >
+                        v-autofocus="autofocus"
+                        v-if="!multiLine"
+                    >
 
-                <textarea
-                    class="ui-textbox__textarea"
-                    ref="textarea"
+                    <textarea
+                        class="ui-textbox__textarea"
+                        ref="textarea"
 
-                    :autocomplete="autocomplete ? autocomplete : null"
-                    :disabled="disabled"
-                    :maxlength="enforceMaxlength ? maxlength : null"
-                    :minlength="minlength"
-                    :name="name"
-                    :placeholder="hasFloatingLabel ? null : placeholder"
-                    :readonly="readonly"
-                    :required="required"
-                    :rows="rows"
-                    :tabindex="tabindex"
-                    :value="value"
+                        :autocomplete="autocomplete ? autocomplete : null"
+                        :disabled="disabled"
+                        :maxlength="enforceMaxlength ? maxlength : null"
+                        :minlength="minlength"
+                        :name="name"
+                        :placeholder="hasFloatingLabel ? null : placeholder"
+                        :readonly="readonly"
+                        :required="required"
+                        :rows="rows"
+                        :tabindex="tabindex"
+                        :value="value"
 
-                    @blur="onBlur"
-                    @change="onChange"
-                    @focus="onFocus"
-                    @input="updateValue($event.target.value)"
-                    @keydown.enter="onKeydownEnter"
-                    @keydown="onKeydown"
+                        @blur="onBlur"
+                        @change="onChange"
+                        @focus="onFocus"
+                        @input="updateValue($event.target.value)"
+                        @keydown.enter="onKeydownEnter"
+                        @keydown="onKeydown"
 
-                    v-autofocus="autofocus"
-                    v-else
-                ></textarea>
+                        v-autofocus="autofocus"
+                        v-else
+                    ></textarea>
+                </div>
 
                 <div
                     class="ui-textbox__label-text"
