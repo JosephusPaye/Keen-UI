@@ -217,8 +217,12 @@ $ui-collapsible-header-background-hover     : $md-grey-300 !default;
 
 .ui-collapsible__body-wrapper {
     max-height: 0;
-    overflow: hidden;
     transition: max-height 0.3s ease;
+
+    &.v-enter-active,
+    &.v-leave-active {
+        overflow: hidden;
+    }
 }
 
 .ui-collapsible__body {
