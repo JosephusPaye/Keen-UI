@@ -316,6 +316,17 @@
                                     <p>One or more of <code>backdrop</code>, <code>close-button</code>, or <code>esc</code>. Separate multiple events with a space.</p>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td>beforeClose</td>
+                                <td>Function</td>
+                                <td class="no-wrap"></td>
+                                <td>
+                                    <p>Defines a function to call for confirmation before closing the modal when the backdrop is clicked.</p>
+                                    <p>The function is called with the current <code>UiModal</code> component instance as the only parameter.</p>
+                                    <p>Return <code>false</code> from the function to keep the modal open.</p>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

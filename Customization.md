@@ -83,7 +83,7 @@ All other variables in [`keen-ui/src/styles/variables.scss`](.../src/styles/vari
 
 Some components also have component-specific variables that can be found in their source files. Those can be overridden as well.
 
-You can also override the `rem` function by defining a `rem-custom` function to be used instead for calculating the size of components, as described below. Please refer to the original function in [`src/styles/utils.scss`](./src/styles/utils.scss).
+You can also override the `rem()` Sass function by defining a `rem-custom()` function to be used instead for calculating the size of components, as described below. Please refer to the original function in [`src/styles/utils.scss`](./src/styles/utils.scss).
 
 ## Component sizing
 

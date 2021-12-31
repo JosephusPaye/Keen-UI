@@ -325,7 +325,7 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>
-                                    <p>The type of autocapitalize behaviour the browser should offer for the input. Most useful for touch-screen UI.</p>
+                                    <p>The type of autocapitalize behaviour the browser should offer for the input. Most useful for on-screen keyboards.</p>
 
                                     <p>See the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize" target="_blank" rel="noopener">autocapitalize attribute docs</a> for more info.</p>
 
