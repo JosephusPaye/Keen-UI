@@ -201,7 +201,7 @@ export default {
         },
 
         onBackdropMouseUp() {
-            if (this.dismissOnBackdrop && this.backdropMouseDown) {
+            if (this.dismissOnBackdrop && this.mouseDownSource === 'backdrop') {
                 this.close();
             } else {
                 this.redirectFocus();
