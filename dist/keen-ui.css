@@ -1,6 +1,6 @@
 /*!
- * Keen UI v1.3.1 (https://github.com/JosephusPaye/keen-ui)
- * (c) 2020 Josephus Paye II
+ * Keen UI v1.3.2 (https://github.com/JosephusPaye/keen-ui)
+ * (c) 2021 Josephus Paye II
  * Released under the MIT License.
  */
 
@@ -2078,9 +2078,11 @@ body[modality="keyboard"] .ui-checkbox__input:focus + .ui-checkbox__checkmark .u
 }
 .ui-collapsible__body-wrapper {
   max-height: 0;
-  overflow: hidden;
   -webkit-transition: max-height 0.3s ease;
   transition: max-height 0.3s ease;
+}
+.ui-collapsible__body-wrapper.v-enter-active, .ui-collapsible__body-wrapper.v-leave-active {
+    overflow: hidden;
 }
 .ui-collapsible__body {
   border: 1px solid #eeeeee;
@@ -4050,7 +4052,6 @@ body[modality="keyboard"] .ui-switch__input:focus + .ui-switch__thumb .ui-switch
   -webkit-transition-timing-function: ease;
           transition-timing-function: ease;
   width: 1.25rem;
-  z-index: 1;
 }
 .ui-switch__focus-ring {
   background-color: rgba(0, 0, 0, 0.1);

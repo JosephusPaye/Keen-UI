@@ -1,6 +1,6 @@
 /*!
- * Keen UI v1.3.1 (https://github.com/JosephusPaye/keen-ui)
- * (c) 2020 Josephus Paye II
+ * Keen UI v1.3.2 (https://github.com/JosephusPaye/keen-ui)
+ * (c) 2021 Josephus Paye II
  * Released under the MIT License.
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -5564,7 +5564,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
             lastDayOfPreviousMonth.setDate(0);
 
-            var outsideYearRange = lastDayOfPreviousMonth.getFullYear() < this.yearRange[0];
+            var firstYear = Math.min(this.yearRange[0], this.yearRange[this.yearRange.length - 1]);
+            var outsideYearRange = lastDayOfPreviousMonth.getFullYear() < firstYear;
 
             if (this.minDate) {
                 return outsideYearRange || lastDayOfPreviousMonth.getTime() < this.minDate.getTime();
@@ -5577,7 +5578,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
             firstDayOfNextMonth.setMonth(this.dateInView.getMonth() + 1, 1);
 
-            var outsideYearRange = firstDayOfNextMonth.getFullYear() > this.yearRange[this.yearRange.length - 1];
+            var lastYear = Math.max(this.yearRange[0], this.yearRange[this.yearRange.length - 1]);
+            var outsideYearRange = firstDayOfNextMonth.getFullYear() > lastYear;
 
             if (this.maxDate) {
                 return outsideYearRange || firstDayOfNextMonth.getTime() > this.maxDate.getTime();
@@ -7348,7 +7350,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         dismissOn: {
             type: String,
             default: 'backdrop esc close-button'
-        }
+        },
+        beforeClose: Function
     },
 
     data: function data() {
@@ -7413,6 +7416,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 return;
             }
 
+            if (this.beforeClose && this.beforeClose(this) === false) {
+                return;
+            }
+
             this.isOpen = false;
         },
         redirectFocus: function redirectFocus() {
@@ -7423,12 +7430,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 this.lastFocusedElement.focus();
             }
         },
-        onBackdropClick: function onBackdropClick() {
-            if (this.dismissOnBackdrop) {
+        onBackdropMouseDown: function onBackdropMouseDown() {
+            this.mouseDownSource = 'backdrop';
+        },
+        onBackdropMouseUp: function onBackdropMouseUp() {
+            if (this.dismissOnBackdrop && this.mouseDownSource === 'backdrop') {
                 this.close();
             } else {
                 this.redirectFocus();
             }
+
+            this.mouseDownSource = undefined;
         },
         onEsc: function onEsc() {
             if (this.dismissOnEsc) {
@@ -7593,11 +7605,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 return;
             }
 
+            var body = this.triggerEl.getRootNode() === document ? document.body : this.triggerEl.getRootNode();
+
             var options = {
                 animateFill: false,
 
                 animation: this.animation === 'none' ? 'fade' : this.animation,
-                appendTo: this.appendToBody ? document.body : this.triggerEl.parentElement,
+                appendTo: this.appendToBody ? body : this.triggerEl.parentElement,
                 arrow: false,
                 content: this.$el,
                 delay: [0, 0],
@@ -9650,6 +9664,7 @@ var handleTouchStart = function handleTouchStart(e) {
             default: 2
         },
         autocomplete: String,
+        autocapitalize: String,
         autofocus: {
             type: Boolean,
             default: false
@@ -9737,7 +9752,7 @@ var handleTouchStart = function handleTouchStart(e) {
             return this.type === 'number' ? this.step : null;
         },
         valueLength: function valueLength() {
-            return this.value ? this.value.length : 0;
+            return this.value === null ? 0 : String(this.value).length;
         },
         hasFeedback: function hasFeedback() {
             return this.showError || this.showHelp;
@@ -14532,9 +14547,13 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "role": _vm.role
     },
     on: {
-      "click": function($event) {
+      "mousedown": function($event) {
         if ($event.target !== $event.currentTarget) { return null; }
-        return _vm.onBackdropClick($event)
+        return _vm.onBackdropMouseDown($event)
+      },
+      "mouseup": function($event) {
+        if ($event.target !== $event.currentTarget) { return null; }
+        return _vm.onBackdropMouseUp($event)
       }
     }
   }, [_c('div', {
@@ -14544,9 +14563,13 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     },
     style: (_vm.alignTopStyle),
     on: {
-      "click": function($event) {
+      "mousedown": function($event) {
         if ($event.target !== $event.currentTarget) { return null; }
-        return _vm.onBackdropClick($event)
+        return _vm.onBackdropMouseDown($event)
+      },
+      "mouseup": function($event) {
+        if ($event.target !== $event.currentTarget) { return null; }
+        return _vm.onBackdropMouseUp($event)
       }
     }
   }, [_c('ui-focus-container', {
@@ -15614,6 +15637,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     staticClass: "ui-textbox__input",
     attrs: {
       "autocomplete": _vm.autocomplete ? _vm.autocomplete : null,
+      "autocapitalize": _vm.autocapitalize ? _vm.autocapitalize : null,
       "disabled": _vm.disabled,
       "max": _vm.maxValue,
       "maxlength": _vm.enforceMaxlength ? _vm.maxlength : null,
@@ -15654,6 +15678,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     staticClass: "ui-textbox__textarea",
     attrs: {
       "autocomplete": _vm.autocomplete ? _vm.autocomplete : null,
+      "autocapitalize": _vm.autocapitalize ? _vm.autocapitalize : null,
       "disabled": _vm.disabled,
       "maxlength": _vm.enforceMaxlength ? _vm.maxlength : null,
       "minlength": _vm.minlength,
@@ -15917,9 +15942,9 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "click": _vm.onClick,
       "focus": _vm.onFocus
     }
-  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('div', {
     staticClass: "ui-switch__track"
-  })]), _vm._v(" "), (_vm.label || _vm.$slots.default) ? _c('div', {
+  }), _vm._v(" "), _vm._m(0)]), _vm._v(" "), (_vm.label || _vm.$slots.default) ? _c('div', {
     staticClass: "ui-switch__label-text"
   }, [_vm._t("default", [_vm._v(_vm._s(_vm.label))])], 2) : _vm._e()])
 }
