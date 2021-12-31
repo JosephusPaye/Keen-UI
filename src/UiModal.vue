@@ -6,7 +6,8 @@
             :class="classes"
             :role="role"
 
-            @click.self="onBackdropClick"
+            @mousedown.self="onBackdropMouseDown"
+            @mouseup.self="onBackdropMouseUp"
 
             v-show="isOpen"
         >
@@ -16,7 +17,8 @@
                 :class="{ 'has-dummy-scrollbar': preventShift }"
                 :style="alignTopStyle"
 
-                @click.self="onBackdropClick"
+                @mousedown.self="onBackdropMouseDown"
+                @mouseup.self="onBackdropMouseUp"
             >
                 <ui-focus-container
                     class="ui-modal__container"
@@ -104,7 +106,8 @@ export default {
         dismissOn: {
             type: String,
             default: 'backdrop esc close-button'
-        }
+        },
+        beforeClose: Function,
     },
 
     data() {
@@ -176,6 +179,9 @@ export default {
             if (!this.dismissible) {
                 return;
             }
+            if (this.beforeClose && this.beforeClose(this) === false) {
+                return;
+            }
 
             this.isOpen = false;
         },
@@ -190,12 +196,18 @@ export default {
             }
         },
 
-        onBackdropClick() {
-            if (this.dismissOnBackdrop) {
+        onBackdropMouseDown() {
+            this.mouseDownSource = 'backdrop';
+        },
+
+        onBackdropMouseUp() {
+            if (this.dismissOnBackdrop && this.mouseDownSource === 'backdrop') {
                 this.close();
             } else {
                 this.redirectFocus();
             }
+
+            this.mouseDownSource = undefined;
         },
 
         onEsc() {
