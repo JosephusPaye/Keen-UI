@@ -1,2 +1,2 @@
 [core]
-	autocrlf = input
+autocrlf=input
