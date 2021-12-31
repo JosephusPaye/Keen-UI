@@ -1,2 +1,6 @@
 [core]
-autocrlf=input
+*.js text eol=lf
+*.vue text eol=lf
+*.scss text eol=lf
+*.css text eol=lf
+*.json text eol=lf

@@ -107,7 +107,7 @@ export default {
             type: String,
             default: 'backdrop esc close-button'
         },
-        beforeClose: Function,
+        beforeClose: Function
     },
 
     data() {
@@ -179,6 +179,7 @@ export default {
             if (!this.dismissible) {
                 return;
             }
+
             if (this.beforeClose && this.beforeClose(this) === false) {
                 return;
             }
