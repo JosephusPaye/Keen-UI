@@ -166,6 +166,32 @@
 
                 v-model="textbox15"
             ></ui-textbox>
+
+            <h4 class="page__demo-title">Type: text, autocapitalize: none</h4>
+
+            <ui-textbox
+                help="Enter some (case-specific) machine-generated text, which should not be capitalized accidentally on touch-screen devices"
+                label="Content"
+                placeholder="Content to be entered"
+                type="text"
+
+                autocapitalize="none"
+
+                v-model.number="textbox16"
+            ></ui-textbox>
+
+            <h4 class="page__demo-title">Multi-line text, autocapitalize: none</h4>
+
+            <ui-textbox
+                help="Enter some (case-specific) machine-generated text, which should not be capitalized accidentally on touch-screen devices"
+                label="Content"
+                placeholder="Content to be entered"
+
+                :multi-line="true"
+                autocapitalize="none"
+
+                v-model.number="textbox17"
+            ></ui-textbox>
         </div>
 
         <h3 class="page__section-title">API</h3>
@@ -291,6 +317,19 @@
                                     <p>See the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-autocomplete" target="_blank" rel="noopener">autocomplete attribute docs</a> for more info.</p>
 
                                     <p>Set to <code>"off"</code> to disable the browser autocomplete.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>autocapitalize</td>
+                                <td>String</td>
+                                <td></td>
+                                <td>
+                                    <p>The type of autocapitalize behaviour the browser should offer for the input. Most useful for touch-screen UI.</p>
+
+                                    <p>See the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize" target="_blank" rel="noopener">autocapitalize attribute docs</a> for more info.</p>
+
+                                    <p>Set to <code>"none"</code> to ensure that text input elements do not start using sentence casing.</p>
                                 </td>
                             </tr>
 
@@ -626,7 +665,9 @@ export default {
             textbox12: 0,
             textbox13: '',
             textbox14: '',
-            textbox15: 'My name is Jane Doe...'
+            textbox15: 'My name is Jane Doe...',
+            textbox16: '',
+            textbox17: ''
         };
     },
 

@@ -13,6 +13,7 @@
                     ref="input"
 
                     :autocomplete="autocomplete ? autocomplete : null"
+                    :autocapitalize="autocapitalize ? autocapitalize : null"
                     :disabled="disabled"
                     :max="maxValue"
                     :maxlength="enforceMaxlength ? maxlength : null"
@@ -44,6 +45,7 @@
                     ref="textarea"
 
                     :autocomplete="autocomplete ? autocomplete : null"
+                    :autocapitalize="autocapitalize ? autocapitalize : null"
                     :disabled="disabled"
                     :maxlength="enforceMaxlength ? maxlength : null"
                     :minlength="minlength"
@@ -132,6 +134,7 @@ export default {
             default: 2
         },
         autocomplete: String,
+        autocapitalize: String,
         autofocus: {
             type: Boolean,
             default: false
