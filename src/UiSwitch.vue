@@ -17,11 +17,11 @@
                 @focus="onFocus"
             >
 
+            <div class="ui-switch__track"></div>
+
             <div class="ui-switch__thumb">
                 <div class="ui-switch__focus-ring"></div>
             </div>
-
-            <div class="ui-switch__track"></div>
         </div>
 
         <div class="ui-switch__label-text" v-if="label || $slots.default">
@@ -213,7 +213,6 @@ $ui-switch-focus-ring-size  : $ui-switch-thumb-size * 2.1 !default;
     transition-property: background-color, transform;
     transition-timing-function: ease;
     width: $ui-switch-thumb-size;
-    z-index: 1;
 }
 
 .ui-switch__focus-ring {
