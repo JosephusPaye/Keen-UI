@@ -1,3 +1,35 @@
+# v1.3.2
+
+### Sass customisation
+
+- Add the ability to define a custom `rem()` function to override Keen UI's default. See [#520](https://github.com/JosephusPaye/Keen-UI/pull/520).
+
+### UiCalendar
+
+- Fix the prev/next month buttons being incorrectly disabled when `yearRange` is a list of years in descending order. See [#491](https://github.com/JosephusPaye/Keen-UI/pull/491).
+
+### UiCollapsible
+
+- Hide collapsible content overflow only the during open/close animation. See [#519](https://github.com/JosephusPaye/Keen-UI/pull/519).
+
+### UiModal
+
+- Close on backdrop click only if the backdrop also got a `mousedown` event. This avoids closing the modal when selecting text and releasing the mouse with the cursor over the backdrop. See [#497](https://github.com/JosephusPaye/Keen-UI/pull/497).
+- Added a new prop `beforeClose` that can be used to dynamically allow or reject closing of the modal on backdrop clicks. See the docs for details.
+
+### UiPopover
+
+- Support rendering inside a Shadow DOM. See [#518](https://github.com/JosephusPaye/Keen-UI/pull/518).
+
+### UiSwitch
+
+- Fix UiSwitch thumb overlapping open modals in certain cases due to z-index. See [#514](https://github.com/JosephusPaye/Keen-UI/pull/514).
+
+### UiTextbox
+
+- Add `autocapitalize` prop. See [#501](https://github.com/JosephusPaye/Keen-UI/pull/501).
+- Fix a value of zero being treated as falsy in UiTextbox value length calculation. Previously, when the value was the number `0`, the textbox would be considered empty. See [#516](https://github.com/JosephusPaye/Keen-UI/pull/516).
+
 # v1.3.1
 
 ### UiFileupload
