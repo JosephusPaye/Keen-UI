@@ -9,6 +9,9 @@ module.exports = {
     rules: {
         indent: ['error', 4],
 
+        // Allow CRLF on Windows. Git should be used to ensure commits are LF only.
+        'linebreak-style': [2, "windows"],
+
         // Need PascalCase for components and kebab-case for everything else
         'unicorn/filename-case': ['off'],
 
