@@ -38,6 +38,14 @@ export default {
             type: Boolean,
             default: true
         },
+        closeOnExternalClick: {
+            type: Boolean,
+            default: true
+        },
+        closeOnEsc: {
+            type: Boolean,
+            default: true
+        },
         constrainToScrollParent: {
             type: Boolean,
             default: true
@@ -127,7 +135,7 @@ export default {
                 delay: [0, 0],
                 distance: 0,
                 duration: this.animation === 'none' ? 0 : [250, 200],
-                hideOnClick: true,
+                hideOnClick: this.closeOnExternalClick,
                 ignoreAttributes: true,
                 interactive: true,
                 lazy: true,
@@ -247,13 +255,17 @@ export default {
 
             // Add event listeners in the next tick, otherwise they're triggered immediately
             setTimeout(() => {
-                this.removeExternalClickListener = events.on('click', document, e => {
-                    this.closeOnExternal(e, { returnFocus: false });
-                });
+                if (this.closeOnExternalClick) {
+                    this.removeExternalClickListener = events.on('click', document, e => {
+                        this.closeOnExternal(e, { returnFocus: false });
+                    });
+                }
 
-                this.removeEscListener = events.onKeydown(27, document, () => {
-                    this.close({ returnFocus: true });
-                });
+                if (this.closeOnEsc) {
+                    this.removeEscListener = events.onKeydown(27, document, () => {
+                        this.close({ returnFocus: true });
+                    });
+                }
 
                 if (this.closeOnScroll) {
                     this.removeScrollListener = events.on('scroll', document, e => {

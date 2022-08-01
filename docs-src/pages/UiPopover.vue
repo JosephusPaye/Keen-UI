@@ -200,6 +200,27 @@
                             </tr>
 
                             <tr>
+                                <td>closeOnEsc</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td>
+                                    <p>Whether or not the popover should be closed when the escape key is pressed
+                                        while it's open.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>closeOnExternalClick</td>
+                                <td>Boolean</td>
+                                <td><code>true</code></td>
+                                <td>
+                                    <p>Whether or not the popover should be closed when the user click outside of it
+                                        while it's open.</p>
+                                    <p>Set to <code>false</code> to keep the popover open when the user clicks outside of the popover.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td>constrainToScrollParent</td>
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
