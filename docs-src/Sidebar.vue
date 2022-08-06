@@ -92,11 +92,12 @@ export default {
                 { label: '1.0.x', value: '1.0.1' },
                 { label: '1.1.x', value: '1.1.2' },
                 { label: '1.2.x', value: '1.2.1' },
-                { label: '1.3.x', value: '1.3.2' }
+                { label: '1.3.x', value: '1.3.2' },
+                { label: '1.4.x', value: '1.4.0' },
             ],
             selectedVersion: {
-                label: '1.3.x',
-                value: '1.3.2'
+                label: '1.4.x',
+                value: '1.4.0'
             },
             menu
         };
