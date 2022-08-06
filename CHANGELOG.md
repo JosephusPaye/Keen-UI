@@ -6,8 +6,8 @@ If you import Keen UI components from the source folder (e.g. `import UiButton f
 
 1. If you don't need [Sass customisation](./Customization.md#sass-customization), import from the compiled components instead of the source components. The compiled components come with plain CSS instead of Sass. Example change from a source component import to a compiled component import:
     ```diff
--   import UiButton from 'keen-ui/src/UiButton.vue'
-+   import { UiButton } from 'keen-ui'
+   -import UiButton from 'keen-ui/src/UiButton.vue'
+   +import { UiButton } from 'keen-ui'
     ```
 
 2. Upgrade to `sass` in your project, and replace all usage of `/` for division in your Sass files with the new [`math.div()` function](https://sass-lang.com/documentation/breaking-changes/slash-div).
