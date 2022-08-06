@@ -59,7 +59,7 @@
                         ref="suggestions"
 
                         :highlighted="highlightedIndex === index"
-                        :key="index"
+                        :key="JSON.stringify(suggestion)"
                         :keys="keys"
                         :suggestion="suggestion"
                         :type="type"
