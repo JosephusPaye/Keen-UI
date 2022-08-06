@@ -4,7 +4,7 @@
 
 If you import Keen UI components from the source folder (e.g. `import UiButton from 'keen-ui/src/UiButton.vue`), this release might break your project due to the switch from `node-sass` to `sass`. There are a few options to fix this:
 
-1. If you don't need [Sass customisation](./Customization.md#sass-customization), import from the compiled components instead of the source components. The compiled components come with plain CSS instead of Sass. Example change from a source component import to a compiled component import:
+1. If you don't need [Sass customisation](./Customization.md#sass-customization), import from the compiled components instead of the source components. The compiled components come with plain CSS instead of Sass. Here's an example of changing from a source component import to a compiled component import:
     ```diff
    -import UiButton from 'keen-ui/src/UiButton.vue'
    +import { UiButton } from 'keen-ui'
@@ -16,7 +16,7 @@ If you import Keen UI components from the source folder (e.g. `import UiButton f
 
 ### UiPopover
 
-- Add new props `closeOnEsc` and `closeOnExternalClick` for more control on when the popover should close. See [#536](https://github.com/JosephusPaye/Keen-UI/pull/536).
+- Add new props `closeOnEsc` and `closeOnExternalClick` for more control over when the popover closes. See [#536](https://github.com/JosephusPaye/Keen-UI/pull/536).
 
 # v1.3.2
 
