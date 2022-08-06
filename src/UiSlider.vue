@@ -366,6 +366,7 @@ export default {
 </script>
 
 <style lang="scss">
+@use 'sass:math';
 @import './styles/imports';
 
 $ui-slider-height                   : rem(18px) !default;
@@ -464,7 +465,7 @@ $ui-slider-marker-size                      : rem(36px);
     height: $ui-slider-track-height;
     left: 0;
     position: absolute;
-    top: ($ui-slider-height - $ui-slider-track-height) / 2;
+    top: math.div($ui-slider-height - $ui-slider-track-height, 2);
 }
 
 .ui-slider__track-background {
@@ -498,7 +499,7 @@ $ui-slider-marker-size                      : rem(36px);
     position: relative;
     width: $ui-track-thumb-size;
     z-index: 1;
-    margin-left: -$ui-track-thumb-size / 2;
+    margin-left: -(math.div($ui-track-thumb-size, 2));
 
     // Focus ring
     &::before {
@@ -507,8 +508,8 @@ $ui-slider-marker-size                      : rem(36px);
         content: '';
         display: block;
         height: $ui-track-focus-ring-size;
-        margin-left: -($ui-track-focus-ring-size - $ui-track-thumb-size) / 2;
-        margin-top: -($ui-track-focus-ring-size - $ui-track-thumb-size) / 2;
+        margin-left: -(math.div($ui-track-focus-ring-size - $ui-track-thumb-size, 2));
+        margin-top: -(math.div($ui-track-focus-ring-size - $ui-track-thumb-size, 2));
         position: absolute;
         transform-origin: center;
         transform: scale(0);
@@ -519,8 +520,8 @@ $ui-slider-marker-size                      : rem(36px);
 
 .ui-slider__marker {
     height: $ui-slider-marker-size;
-    margin-left: -($ui-slider-marker-size - $ui-track-thumb-size) / 2;
-    margin-top: -($ui-slider-marker-size - $ui-track-thumb-size) / 2;
+    margin-left: -(math.div($ui-slider-marker-size - $ui-track-thumb-size, 2));
+    margin-top: -(math.div($ui-slider-marker-size - $ui-track-thumb-size, 2));
     opacity: 0;
     position: absolute;
     transform: scale(0) translateY(0) ;

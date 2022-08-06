@@ -120,6 +120,7 @@ export default {
 </script>
 
 <style lang="scss">
+@use 'sass:math';
 @import './styles/imports';
 
 $ui-radio-size                  : rem(20px) !default;
@@ -216,10 +217,10 @@ $ui-radio-label-font-size       : rem(16px) !default;
     background-color: rgba(black, 0.1);
     border-radius: 50%;
     height: $ui-radio-focus-ring-size;
-    left: -(($ui-radio-focus-ring-size - $ui-radio-size) / 2);
+    left: -(math.div($ui-radio-focus-ring-size - $ui-radio-size, 2));
     opacity: 0;
     position: absolute;
-    top: -(($ui-radio-focus-ring-size - $ui-radio-size) / 2);
+    top: -(math.div($ui-radio-focus-ring-size - $ui-radio-size, 2));
     transform: scale(0);
     transition: background-color 0.2s ease, transform 0.15s ease, opacity 0.15s ease;
     width: $ui-radio-focus-ring-size;

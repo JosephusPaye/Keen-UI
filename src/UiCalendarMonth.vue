@@ -116,6 +116,7 @@ export default {
 </script>
 
 <style lang="scss">
+@use 'sass:math';
 @import './styles/imports';
 
 .ui-calendar-month {
@@ -134,7 +135,7 @@ export default {
         text-align: center;
         text-transform: uppercase;
         vertical-align: middle;
-        width: (100% / 7);
+        width: math.div(100%, 7);
     }
 }
 

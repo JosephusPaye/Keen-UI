@@ -125,6 +125,7 @@ export default {
 </script>
 
 <style lang="scss">
+@use 'sass:math';
 @import './styles/imports';
 
 $ui-checkbox-border-width           : rem(2px) !default;
@@ -240,8 +241,8 @@ $ui-checkbox-focus-ring-size        : $ui-checkbox-size * 2.1;
 .ui-checkbox__focus-ring {
     border-radius: 50%;
     height: $ui-checkbox-focus-ring-size;
-    margin-left: -($ui-checkbox-focus-ring-size - $ui-checkbox-size) / 2;
-    margin-top: -($ui-checkbox-focus-ring-size - $ui-checkbox-size) / 2;
+    margin-left: -(math.div($ui-checkbox-focus-ring-size - $ui-checkbox-size, 2));
+    margin-top: -(math.div($ui-checkbox-focus-ring-size - $ui-checkbox-size, 2));
     opacity: 0;
     position: absolute;
     transform: scale(0);

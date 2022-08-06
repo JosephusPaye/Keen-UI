@@ -131,6 +131,7 @@ export default {
 </script>
 
 <style lang="scss">
+@use 'sass:math';
 @import './styles/imports';
 
 $ui-switch-height           : rem(32px) !default;
@@ -198,7 +199,7 @@ $ui-switch-focus-ring-size  : $ui-switch-thumb-size * 2.1 !default;
     border-radius: rem(8px);
     height: $ui-switch-track-height;
     position: absolute;
-    top: (($ui-switch-thumb-size - $ui-switch-track-height) / 2);
+    top: math.div($ui-switch-thumb-size - $ui-switch-track-height, 2);
     transition: background-color 0.1s linear;
     width: $ui-switch-track-width;
 }
@@ -219,10 +220,10 @@ $ui-switch-focus-ring-size  : $ui-switch-thumb-size * 2.1 !default;
     background-color: rgba(black, 0.1);
     border-radius: 50%;
     height: $ui-switch-focus-ring-size;
-    left: -(($ui-switch-focus-ring-size - $ui-switch-thumb-size) / 2);
+    left: -(math.div($ui-switch-focus-ring-size - $ui-switch-thumb-size, 2));
     opacity: 0;
     position: absolute;
-    top: -(($ui-switch-focus-ring-size - $ui-switch-thumb-size) / 2);
+    top: -(math.div($ui-switch-focus-ring-size - $ui-switch-thumb-size, 2));
     transform: scale(0);
     transition: background-color 0.2s ease, transform 0.15s ease, opacity 0.15s ease;
     width: $ui-switch-focus-ring-size;

@@ -108,6 +108,7 @@ export default {
 </script>
 
 <style lang="scss">
+@use 'sass:math';
 @import './styles/imports';
 
 .ui-calendar-week {
@@ -115,7 +116,7 @@ export default {
     width: 100%;
 
     td {
-        width: (100% / 7);
+        width: math.div(100%, 7);
         min-width: $ui-calendar-cell-size;
         position: relative;
     }
