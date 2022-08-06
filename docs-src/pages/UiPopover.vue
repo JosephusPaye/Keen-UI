@@ -204,8 +204,8 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>
-                                    <p>Whether or not the popover should be closed when the escape key is pressed
-                                        while it's open.</p>
+                                    <p>Whether or not the popover should be closed when the escape key is pressed while it's open.</p>
+                                    <p>Set to <code>false</code> to keep the popover open when escape is pressed while it's open.</p>
                                 </td>
                             </tr>
 
@@ -214,8 +214,7 @@
                                 <td>Boolean</td>
                                 <td><code>true</code></td>
                                 <td>
-                                    <p>Whether or not the popover should be closed when the user click outside of it
-                                        while it's open.</p>
+                                    <p>Whether or not the popover should be closed when the user click outside of it while it's open.</p>
                                     <p>Set to <code>false</code> to keep the popover open when the user clicks outside of the popover.</p>
                                 </td>
                             </tr>
