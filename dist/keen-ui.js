@@ -1,6 +1,6 @@
 /*!
- * Keen UI v1.3.2 (https://github.com/JosephusPaye/keen-ui)
- * (c) 2021 Josephus Paye II
+ * Keen UI v1.4.0 (https://github.com/JosephusPaye/keen-ui)
+ * (c) 2022 Josephus Paye II
  * Released under the MIT License.
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -7534,6 +7534,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             type: Boolean,
             default: true
         },
+        closeOnExternalClick: {
+            type: Boolean,
+            default: true
+        },
+        closeOnEsc: {
+            type: Boolean,
+            default: true
+        },
         constrainToScrollParent: {
             type: Boolean,
             default: true
@@ -7617,7 +7625,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 delay: [0, 0],
                 distance: 0,
                 duration: this.animation === 'none' ? 0 : [250, 200],
-                hideOnClick: true,
+                hideOnClick: this.closeOnExternalClick,
                 ignoreAttributes: true,
                 interactive: true,
                 lazy: true,
@@ -7727,13 +7735,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             this.removeCloseEventListeners();
 
             setTimeout(function () {
-                _this.removeExternalClickListener = __WEBPACK_IMPORTED_MODULE_3__helpers_events__["a" /* default */].on('click', document, function (e) {
-                    _this.closeOnExternal(e, { returnFocus: false });
-                });
+                if (_this.closeOnExternalClick) {
+                    _this.removeExternalClickListener = __WEBPACK_IMPORTED_MODULE_3__helpers_events__["a" /* default */].on('click', document, function (e) {
+                        _this.closeOnExternal(e, { returnFocus: false });
+                    });
+                }
 
-                _this.removeEscListener = __WEBPACK_IMPORTED_MODULE_3__helpers_events__["a" /* default */].onKeydown(27, document, function () {
-                    _this.close({ returnFocus: true });
-                });
+                if (_this.closeOnEsc) {
+                    _this.removeEscListener = __WEBPACK_IMPORTED_MODULE_3__helpers_events__["a" /* default */].onKeydown(27, document, function () {
+                        _this.close({ returnFocus: true });
+                    });
+                }
 
                 if (_this.closeOnScroll) {
                     _this.removeScrollListener = __WEBPACK_IMPORTED_MODULE_3__helpers_events__["a" /* default */].on('scroll', document, function (e) {
