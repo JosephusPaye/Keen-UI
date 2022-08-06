@@ -1,3 +1,23 @@
+# v1.4.0
+
+**Potentially Breaking Change**: Upgraded from [`node-sass`](https://npmjs.com/package/node-sass) to [`sass`](https://npmjs.com/package/sass), and fixed warnings about `/` division (see [#529](https://github.com/JosephusPaye/Keen-UI/pull/529)). `node-sass` is now deprecated, and `sass` [no longer uses the `/` operator for division](https://sass-lang.com/documentation/breaking-changes/slash-div).
+
+If you import Keen UI components from the source folder (e.g. `import UiButton from 'keen-ui/src/UiButton.vue`), this release might break your project due to the switch from `node-sass` to `sass`. There are a few options to fix this:
+
+1. If you don't need [Sass customisation](./Customization.md#sass-customization), import from the compiled components instead of the source components. The compiled components come with plain CSS instead of Sass. Example change from a source component import to a compiled component import:
+    ```diff
+-   import UiButton from 'keen-ui/src/UiButton.vue'
++   import { UiButton } from 'keen-ui'
+    ```
+
+2. Upgrade to `sass` in your project, and replace all usage of `/` for division in your Sass files with the new [`math.div()` function](https://sass-lang.com/documentation/breaking-changes/slash-div).
+
+3. Pin your version of Keen UI to the previous release (`1.3.2`) to avoid getting the new version with the breaking change until you're ready to upgrade to `sass`.
+
+### UiPopover
+
+- Add new props `closeOnEsc` and `closeOnExternalClick` for more control on when the popover should close. See [#536](https://github.com/JosephusPaye/Keen-UI/pull/536).
+
 # v1.3.2
 
 ### Sass customisation
