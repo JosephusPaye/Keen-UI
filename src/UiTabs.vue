@@ -13,19 +13,16 @@
                     :title="tab.title"
                     :type="type"
 
-                    @click.native="onTabClick(tab, $event)"
-                    @keydown.left.native="selectPreviousTab"
-                    @keydown.right.native="selectNextTab"
+                    @click="onTabClick(tab, $event)"
+                    @keydown.left="selectPreviousTab"
+                    @keydown.right="selectNextTab"
 
                     v-for="tab in tabs"
                 >
-                    <render :nodes="tab.$slots.header" v-if="tab.$slots.header"></render>
-
-                    <render
-                        slot="icon"
-                        :nodes="tab.$slots.icon"
-                        v-else-if="hasIcon && Boolean(tab.$slots.icon)"
-                    ></render>
+                    <render :nodes="tab.$slots.header()" v-if="tab.$slots.header"></render>
+                    <template v-if="!tab.$slots.header && hasIcon && Boolean(tab.$slots.icon)" #icon>
+                        <render :nodes="tab.$slots.icon()"></render>
+                    </template>
                 </ui-tab-header-item>
             </ul>
         </div>
@@ -42,6 +39,8 @@ import UiTabHeaderItem from './UiTabHeaderItem.vue';
 
 export default {
     name: 'ui-tabs',
+
+    emits: ['tab-click', 'tab-change'],
 
     components: {
         Render,

@@ -87,7 +87,7 @@ export default {
         this.tip = tippy(this.triggerEl, options);
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         if (this.tip) {
             this.tip.destroy();
             this.tip = null;

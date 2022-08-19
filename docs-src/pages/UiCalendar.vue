@@ -34,9 +34,11 @@
             <p>This could be used to add things like events to the calendar.</p>
 
             <ui-calendar>
-                <code slot-scope="props" slot="date">
-                    D{{ props.date.getDate() }}
-                </code>
+                <template #date="props">
+                    <code>
+                        D{{ props.date.getDate() }}
+                    </code>
+                </template>
             </ui-calendar>
         </div>
 
@@ -152,7 +154,7 @@
                                 <td></td>
                                 <td>
                                     <p>The model the selected calendar date syncs to.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>value</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>modelValue</code>.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -207,11 +209,11 @@
                         </tr>
 
                         <tr>
-                            <td>input</td>
+                            <td>update:modelValue</td>
                             <td>
                                 <p>Emitted when a date is selected in the calendar. The handler is called with the date selected.</p>
-                                <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>value</code> prop.</p>
-                                <p>Listen for it using <code>@input</code>.</p>
+                                <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>modelValue</code> prop.</p>
+                                <p>Listen for it using <code>@update:modelValue</code>.</p>
                             </td>
                         </tr>
 
@@ -252,11 +254,11 @@
 </template>
 
 <script>
-import UiCalendar from 'src/UiCalendar.vue';
-import UiCheckbox from 'src/UiCheckbox.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
-import UiRadioGroup from 'src/UiRadioGroup.vue';
+import UiCalendar from '@/UiCalendar.vue';
+import UiCheckbox from '@/UiCheckbox.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
+import UiRadioGroup from '@/UiRadioGroup.vue';
 
 export default {
     data() {
@@ -279,7 +281,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-calendar {
     .ui-calendar {

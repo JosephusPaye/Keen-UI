@@ -1,12 +1,11 @@
 'use strict';
 
-const merge = require('deepmerge');
 const webpack = require('webpack');
 
 const options = require('./options');
 const base = require('./webpack.base.js');
 
-const config = merge(base, {
+const config = base({
     entry: {
         UiAlert: ['./src/UiAlert.vue'],
         UiAutocomplete: ['./src/UiAutocomplete.vue'],
@@ -58,33 +57,6 @@ const config = merge(base, {
             entryOnly: true
         })
     ]
-}, { clone: false });
-
-// First item in module.rules array is Vue
-config.module.rules[0].options.loaders = {
-    scss: 'vue-style-loader!css-loader!sass-loader'
-};
-
-if (options.isProduction) {
-    config.plugins = config.plugins.concat([
-        new webpack.LoaderOptionsPlugin({
-            minimize: true
-        }),
-
-        // Set the production environment
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: '"production"'
-            }
-        }),
-
-        // Minify with dead-code elimination
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        })
-    ]);
-}
+}, false);
 
 module.exports = config;

@@ -54,9 +54,11 @@
 
                 <ui-button @click="openModal('modal5')">Custom header</ui-button>
                 <ui-modal ref="modal5">
-                    <div slot="header">
-                        <b>Custom</b> header has <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener">HTML</a>
-                    </div>
+                    <template #header>
+                        <div>
+                            <b>Custom</b> header has <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener">HTML</a>
+                        </div>
+                    </template>
 
                     Hey, some <b>nice</b> text here.
                 </ui-modal>
@@ -65,10 +67,12 @@
                 <ui-modal ref="modal6" title="With footer">
                     Hello, World. What's happening?
 
-                    <div slot="footer">
-                        <ui-button color="primary">Say Hi</ui-button>
-                        <ui-button @click="closeModal('modal6')">Close</ui-button>
-                    </div>
+                    <template #footer>
+                        <div>
+                            <ui-button color="primary">Say Hi</ui-button>
+                            <ui-button @click="closeModal('modal6')">Close</ui-button>
+                        </div>
+                    </template>
                 </ui-modal>
             </div>
 
@@ -79,20 +83,24 @@
                 <ui-modal ref="modal601" title="Aligned top" align-top>
                     Hello, World. What's happening?
 
-                    <div slot="footer">
-                        <ui-button color="primary">Say Hi</ui-button>
-                        <ui-button @click="closeModal('modal601')">Close</ui-button>
-                    </div>
+                    <template #footer>
+                        <div>
+                            <ui-button color="primary">Say Hi</ui-button>
+                            <ui-button @click="closeModal('modal601')">Close</ui-button>
+                        </div>
+                    </template>
                 </ui-modal>
 
                 <ui-button @click="openModal('modal602')">Aligned top, custom margin</ui-button>
                 <ui-modal ref="modal602" title="Aligned top" align-top :align-top-margin="200">
                     This is aligned top, with a custom top margin of 200px.
 
-                    <div slot="footer">
-                        <ui-button color="primary">Say Hi</ui-button>
-                        <ui-button @click="closeModal('modal602')">Close</ui-button>
-                    </div>
+                    <template #footer>
+                        <div>
+                            <ui-button color="primary">Say Hi</ui-button>
+                            <ui-button @click="closeModal('modal602')">Close</ui-button>
+                        </div>
+                    </template>
                 </ui-modal>
             </div>
 
@@ -177,11 +185,13 @@
                             Level 3 modal contents here
 
                             <ui-button color="primary" has-dropdown :constrain-dropdown-to-scroll-parent="false">
-                                <div class="keen-docs__custom-popover-content" slot="dropdown">
-                                    <p><b>Hey</b> there!</p>
-                                    <p>Button dropdowns can have any content, not just menus. <button>A button</button></p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit dolor eos, earum repudiandae magnam sunt vitae officiis. Quae recusandae ut quisquam saepe odit consequuntur dolore, inventore quia. Mollitia, in, culpa. <button>Another button</button></p>
-                                </div>
+                                <template #dropdown>
+                                    <div class="keen-docs__custom-popover-content">
+                                        <p><b>Hey</b> there!</p>
+                                        <p>Button dropdowns can have any content, not just menus. <button>A button</button></p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit dolor eos, earum repudiandae magnam sunt vitae officiis. Quae recusandae ut quisquam saepe odit consequuntur dolore, inventore quia. Mollitia, in, culpa. <button>Another button</button></p>
+                                    </div>
+                                </template>
 
                                 Dropdown
                             </ui-button>
@@ -442,10 +452,10 @@
 </template>
 
 <script>
-import UiButton from 'src/UiButton.vue';
-import UiModal from 'src/UiModal.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiButton from '@/UiButton.vue';
+import UiModal from '@/UiModal.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 export default {
     data() {

@@ -20,14 +20,13 @@
                     :minlength="minlength"
                     :min="minValue"
                     :name="name"
-                    :number="type === 'number' ? true : null"
                     :placeholder="hasFloatingLabel ? null : placeholder"
                     :readonly="readonly"
                     :required="required"
                     :step="stepValue"
                     :tabindex="tabindex"
                     :type="type"
-                    :value="value"
+                    :value="modelValue"
 
                     @blur="onBlur"
                     @change="onChange"
@@ -55,7 +54,7 @@
                     :required="required"
                     :rows="rows"
                     :tabindex="tabindex"
-                    :value="value"
+                    :value="modelValue"
 
                     @blur="onBlur"
                     @change="onChange"
@@ -103,11 +102,13 @@ import autosize from 'autosize';
 export default {
     name: 'ui-textbox',
 
+    emits: ['update:modelValue', 'focus', 'blur', 'change', 'touch', 'keydown', 'keydown-enter'],
+
     props: {
         name: String,
         placeholder: String,
         tabindex: [String, Number],
-        value: {
+        modelValue: {
             type: [String, Number],
             default: ''
         },
@@ -179,7 +180,7 @@ export default {
         return {
             isActive: false,
             isTouched: false,
-            initialValue: this.value,
+            initialValue: this.modelValue,
             autosizeInitialized: false
         };
     },
@@ -239,7 +240,7 @@ export default {
         },
 
         valueLength() {
-            return this.value === null ? 0 : String(this.value).length;
+            return this.modelValue === null ? 0 : String(this.modelValue).length;
         },
 
         hasFeedback() {
@@ -257,7 +258,7 @@ export default {
 
     created() {
         // Normalize the value to an empty string if it's null
-        if (this.value === null) {
+        if (this.modelValue === null) {
             this.initialValue = '';
             this.updateValue('');
         }
@@ -270,7 +271,7 @@ export default {
         }
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         if (this.autosizeInitialized) {
             autosize.destroy(this.$refs.textarea);
         }
@@ -278,11 +279,11 @@ export default {
 
     methods: {
         updateValue(value) {
-            this.$emit('input', value);
+            this.$emit('update:modelValue', value);
         },
 
         onChange(e) {
-            this.$emit('change', this.value, e);
+            this.$emit('change', this.modelValue, e);
         },
 
         onFocus(e) {

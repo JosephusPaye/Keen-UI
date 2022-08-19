@@ -47,6 +47,8 @@ import UiIcon from './UiIcon.vue';
 export default {
     name: 'ui-alert',
 
+    emits: ['dismiss'],
+
     props: {
         type: {
             type: String,

@@ -47,6 +47,8 @@ import dateUtils from './helpers/date';
 export default {
     name: 'ui-calendar-controls',
 
+    emits: ['go-to-date'],
+
     props: {
         color: {
             type: String,

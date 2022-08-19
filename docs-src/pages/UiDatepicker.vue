@@ -232,7 +232,7 @@
                                 <td></td>
                                 <td>
                                     <p>The model the selected date syncs to. Can be set initially for a default value.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>value</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>modelValue</code>.</p>
                                 </td>
                             </tr>
 
@@ -511,11 +511,11 @@
 
                     <tbody>
                         <tr>
-                            <td>input</td>
+                            <td>update:modelValue</td>
                             <td>
                                 <p>Emitted when the datepicker value is changed. The handler is called with the new value.</p>
-                                <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>value</code> prop.</p>
-                                <p>Listen for it using <code>@input</code>.</p>
+                                <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>modelValue</code> prop.</p>
+                                <p>Listen for it using <code>@update:modelValue</code>.</p>
                             </td>
                         </tr>
 
@@ -607,11 +607,11 @@
 </template>
 
 <script>
-import UiButton from 'src/UiButton.vue';
-import UiDatepicker from 'src/UiDatepicker.vue';
-import UiModal from 'src/UiModal.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiButton from '@/UiButton.vue';
+import UiDatepicker from '@/UiDatepicker.vue';
+import UiModal from '@/UiModal.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 import languageFr from '../data/date-picker-lang.fr.js';
 
@@ -672,7 +672,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-datepicker {
     .ui-datepicker {

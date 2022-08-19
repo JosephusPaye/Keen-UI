@@ -40,8 +40,8 @@
 
 <script>
 import Brand from './Brand.vue';
-import UiIcon from 'src/UiIcon.vue';
-import UiIconButton from 'src/UiIconButton.vue';
+import UiIcon from '@/UiIcon.vue';
+import UiIconButton from '@/UiIconButton.vue';
 
 export default {
     components: {

@@ -13,7 +13,7 @@
             :tabindex="tabindex"
 
             @blur="onBlur"
-            @input="onInput"
+            @update:modelValue="onInput"
             @change="onChange"
             @focus="onFocus"
 
@@ -47,6 +47,8 @@ import UiRippleInk from './UiRippleInk.vue';
 
 export default {
     name: 'ui-fileupload',
+
+    emits: ['update:modelValue', 'focus', 'blur', 'change'],
 
     props: {
         name: {
@@ -139,7 +141,7 @@ export default {
         },
 
         onInput(e) {
-            this.$emit('input', this.$refs.input.files, e);
+            this.$emit('update:modelValue', this.$refs.input.files, e);
         },
 
         onChange(e) {

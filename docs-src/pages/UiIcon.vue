@@ -181,9 +181,9 @@
 </template>
 
 <script>
-import UiIcon from 'src/UiIcon.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiIcon from '@/UiIcon.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 export default {
     components: {
@@ -195,7 +195,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-icon {
     .ui-icon {

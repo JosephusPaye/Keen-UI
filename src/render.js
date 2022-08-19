@@ -1,11 +1,9 @@
-export default {
-    name: 'render',
+import { h } from 'vue';
 
-    functional: true,
-
-    props: ['nodes'],
-
-    render(createElement, context) {
-        return createElement('div', { class: 'ui-render' }, context.props.nodes);
-    }
+const UiRender = props => {
+    return h('div', { class: 'ui-render' }, props.nodes);
 };
+
+UiRender.props = ['nodes'];
+
+export default UiRender;

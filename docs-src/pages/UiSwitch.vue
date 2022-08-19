@@ -2,7 +2,7 @@
     <section class="page page--ui-switch">
         <h2 class="page__title">UiSwitch</h2>
 
-        <p>UiSwitch shows a switch that allows the user to toggle between two states. It supports keyboard focus and a disabled state.
+        <p>UiSwitch shows a switch that allows the user to toggle between two states. It supports keyboard focus and a disabled state.</p>
 
         <p>The position of the switch relative to the label can be customized.</p>
 
@@ -81,7 +81,7 @@
                                 <td>
                                     <p>The model that the switch value syncs to.</p>
                                     <p>The <code>trueValue</code> prop will be written to this model when the switch is turned on and the <code>falseValue</code> prop will be written to it when the switch is turned off.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>value</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>modelValue</code>.</p>
                                 </td>
                             </tr>
 
@@ -110,7 +110,7 @@
                                 <td>submittedValue</td>
                                 <td></td>
                                 <td><code>"on"</code></td>
-                                <td>The value that will be submitted for the switch when it is turned on. Applied as the <code>value</code> attribute of the switch's input element.</td>
+                                <td>The value that will be submitted for the switch when it is turned on. Applied as the <code>modelValue</code> attribute of the switch's input element.</td>
                             </tr>
 
                             <tr>
@@ -201,11 +201,11 @@
                             </tr>
 
                             <tr>
-                                <td>input</td>
+                                <td>update:modelValue</td>
                                 <td>
                                     <p>Emitted when the switch value is changed. The handler is called with the new value.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>value</code> prop.</p>
-                                    <p>Listen for it using <code>@input</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>modelValue</code> prop.</p>
+                                    <p>Listen for it using <code>@update:modelValue</code>.</p>
                                 </td>
                             </tr>
 
@@ -248,9 +248,9 @@
 </template>
 
 <script>
-import UiSwitch from 'src/UiSwitch.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiSwitch from '@/UiSwitch.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 export default {
     data() {
@@ -272,7 +272,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-switch {
     .ui-switch {

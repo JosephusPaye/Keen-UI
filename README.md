@@ -51,60 +51,26 @@ You can add the reset to your stylesheet (before other styles). If you are using
 Use as a Vue plugin (globally registers all components):
 
 ```js
-import Vue from 'vue';
+import { createApp } from 'vue';
 import KeenUI from 'keen-ui';
 import 'keen-ui/dist/keen-ui.css';
 
-Vue.use(KeenUI);
-
-new Vue({
-    components: {
-        // all Keen UI components already registered
-    }
-});
+const app = createApp();
+app.use(KeenUI);
 ```
 
 Use individual components:
 
 ```js
-import Vue from 'vue';
+import { createVue } from 'vue';
 import { UiAlert, UiButton } from 'keen-ui';
 
-new Vue({
+const app = createApp({
     components: {
         UiAlert,
         UiButton
     }
 });
-```
-
-### Script tag
-
-First, add a stylesheet link to the Keen UI CSS file in `dist/keen-ui.min.css`. Then, add a script tag pointing to `dist/keen-ui.min.js` _**after**_ adding Vue.
-
-If Keen UI detects the global `Vue` object, all components will be registered automatically. The components will also be made available globally via `window.KeenUI`.
-
-Example:
-
-```html
-<!-- Place this in <head> -->
-<link rel="stylesheet" href="path/to/keen-ui.min.css">
-
-<!-- Place this in <body> -->
-<div id="app">
-    <ui-button>Hello world!</ui-button>
-</div>
-
-<script src="path/to/vue.js"></script>
-<script src="path/to/keen-ui.min.js"></script>
-<script>
-    new Vue({
-        el: '#app',
-        components: {
-            // all Keen UI components already registered
-        }
-    });
-</script>
 ```
 
 ## Customization
@@ -120,20 +86,20 @@ Each component is built into a standalone file with the necessary CSS included. 
 **NOTE**: Standalone component files each contain their own dependencies, and many contain overlapping dependencies. As a result, using multiple standalone files may increase the size of your bundle due to duplicate code.
 
 ```js
-import Vue from 'vue';
+import { createVue } from 'vue';
 import 'keen-ui/src/bootstrap'; // Required when using standalone components, should be imported only once in your project
 import UiButton from 'keen-ui/lib/UiButton';
 
-new Vue({
+const app = createVue({
     components: {
         UiButton
     }
 });
 ```
 
-## Licence
+## License
 
-Keen UI is open source and released under the [MIT Licence](LICENCE).
+Keen UI is open source and released under the [MIT License](LICENSE).
 
 Copyright (c) 2019 [Josephus Paye II](https://twitter.com/JosephusPaye).
 

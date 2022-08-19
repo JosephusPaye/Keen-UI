@@ -47,11 +47,11 @@
                     </ul>
                 </li>
 
-                <li class="keen-docs-sidebar__menu-section" v-for="section in menu" :key="section.title">
-                    <div class="keen-docs-sidebar__menu-section-header">{{ section.title }}</div>
+                <li class="keen-docs-sidebar__menu-section">
+                    <div class="keen-docs-sidebar__menu-section-header">Components</div>
 
                     <ul class="keen-docs-sidebar__menu-section-links">
-                        <li v-for="item in section.menu" :key="item.path">
+                        <li v-for="item in menu" :key="item.path">
                             <router-link
                                 class="keen-docs-sidebar__menu-item" exact
                                 :to="item.path"
@@ -67,10 +67,10 @@
 </template>
 
 <script>
-import { menu } from './navigation.js';
+import { menu } from './router';
 import Brand from './Brand.vue';
-import UiIcon from 'src/UiIcon.vue';
-import UiSelect from 'src/UiSelect.vue';
+import UiIcon from '@/UiIcon.vue';
+import UiSelect from '@/UiSelect.vue';
 
 export default {
     components: {

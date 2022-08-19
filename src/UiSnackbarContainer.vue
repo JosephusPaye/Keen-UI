@@ -26,6 +26,8 @@ import UiSnackbar from './UiSnackbar.vue';
 export default {
     name: 'ui-snackbar-container',
 
+    emits: ['queue-end', 'snackbar-show', 'snackbar-hide'],
+
     props: {
         queueSnackbars: {
             type: Boolean,
@@ -64,7 +66,7 @@ export default {
         }
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         this.resetTimeout();
     },
 

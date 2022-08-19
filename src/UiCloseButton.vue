@@ -6,8 +6,6 @@
 
         :class="classes"
         :disabled="disabled"
-
-        @click="onClick"
     >
         <div class="ui-close-button__icon">
             <ui-icon>
@@ -56,12 +54,6 @@ export default {
                 `ui-close-button--color-${this.color}`,
                 { 'is-disabled': this.disabled || this.loading }
             ];
-        }
-    },
-
-    methods: {
-        onClick(e) {
-            this.$emit('click', e);
         }
     },
 

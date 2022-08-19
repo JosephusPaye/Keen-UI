@@ -143,9 +143,9 @@
 </template>
 
 <script>
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
-import UiTooltip from 'src/UiTooltip.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
+import UiTooltip from '@/UiTooltip.vue';
 
 export default {
     data() {
@@ -182,7 +182,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-tooltip {
     .page__demo-group {

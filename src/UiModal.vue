@@ -25,7 +25,7 @@
                     ref="focusContainer"
                     tabindex="-1"
 
-                    @keydown.native.stop.esc="onEsc"
+                    @keydown.stop.esc="onEsc"
                 >
                     <div class="ui-modal__header" v-if="!removeHeader">
                         <slot name="header">
@@ -61,6 +61,8 @@ import classlist from './helpers/classlist';
 
 export default {
     name: 'ui-modal',
+
+    emits: ['open', 'close', 'reveal', 'hide'],
 
     props: {
         title: {
@@ -164,7 +166,7 @@ export default {
         }
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         if (this.isOpen) {
             this.returnFocus();
         }

@@ -36,6 +36,8 @@
 export default {
     name: 'ui-focus-container',
 
+    emits: ['focus-overflow'],
+
     props: {
         containFocus: {
             type: Boolean,

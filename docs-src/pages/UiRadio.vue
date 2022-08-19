@@ -6,7 +6,7 @@
 
         <p>UiRadio supports two colors: <code>primary</code> and <code>accent</code>.</p>
 
-        <p>To show a group of mutually exclusive radio buttons, use <a href="#/ui-radio-group">UiRadioGroup</a> or use multiple UiRadios with a shared <code>v-model</code>/<code>value</code> and <code>name</code> prop.</p>
+        <p>To show a group of mutually exclusive radio buttons, use <a href="#/ui-radio-group">UiRadioGroup</a> or use multiple UiRadios with a shared <code>v-model</code>/<code>modelValue</code> and <code>name</code> prop.</p>
 
         <h3 class="page__section-title">
             Examples <a href="https://github.com/JosephusPaye/Keen-UI/blob/master/docs-src/pages/UiRadio.vue" target="_blank" rel="noopener">View Source</a>
@@ -81,7 +81,7 @@
                                 <td>Required</td>
                                 <td>
                                     <p>The model the radio value syncs to.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>value</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>modelValue</code>.</p>
                                 </td>
                             </tr>
 
@@ -184,11 +184,11 @@
                             </tr>
 
                             <tr>
-                                <td>input</td>
+                                <td>update:modelValue</td>
                                 <td>
                                     <p>Emitted when the radio value is changed. The handler is called with the new value.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>value</code> prop.</p>
-                                    <p>Listen for it using <code>@input</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>modelValue</code> prop.</p>
+                                    <p>Listen for it using <code>@update:modelValue</code>.</p>
                                 </td>
                             </tr>
 
@@ -232,9 +232,9 @@
 </template>
 
 <script>
-import UiRadio from 'src/UiRadio.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiRadio from '@/UiRadio.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 export default {
     data() {
@@ -260,7 +260,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-radio {
     .page__demo-group.has-button-right {

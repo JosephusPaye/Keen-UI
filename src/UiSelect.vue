@@ -33,7 +33,7 @@
 
                     :class="labelClasses"
 
-                    v-if="label || $slots.default"
+                    v-if="label || $slots.default()"
                 >
                     <slot>{{ label }}</slot>
                 </div>
@@ -121,8 +121,8 @@
                                 :selected="isOptionSelected(option)"
                                 :type="type"
 
-                                @click.native.stop="selectOption(option, index)"
-                                @mouseover.native.stop="highlightOption(index, { autoScroll: false })"
+                                @click.stop="selectOption(option, index)"
+                                @mouseover.stop="highlightOption(index, { autoScroll: false })"
 
                                 v-for="(option, index) in filteredOptions"
                             >
@@ -172,10 +172,12 @@ import fuzzysearch from 'fuzzysearch';
 export default {
     name: 'ui-select',
 
+    emits: ['update:modelValue', 'query-change', 'change', 'select', 'touch', 'focus', 'blur', 'dropdown-open', 'dropdown-close'],
+
     props: {
         name: String,
         tabindex: [String, Number],
-        value: {
+        modelValue: {
             type: [String, Number, Object, Array],
             required: true
         },
@@ -259,7 +261,7 @@ export default {
             isTouched: false,
             selectedIndex: -1,
             highlightedIndex: -1,
-            initialValue: JSON.stringify(this.value)
+            initialValue: JSON.stringify(this.modelValue)
         };
     },
 
@@ -294,7 +296,7 @@ export default {
         },
 
         isLabelInline() {
-            return this.value.length === 0 && !this.isActive;
+            return this.modelValue.length === 0 && !this.isActive;
         },
 
         hasFeedback() {
@@ -331,8 +333,8 @@ export default {
 
         displayText() {
             if (this.multiple) {
-                if (this.value.length > 0) {
-                    return this.value
+                if (this.modelValue.length > 0) {
+                    return this.modelValue
                             .map(value => value[this.keys.label] || value)
                             .join(this.multipleDelimiter);
                 }
@@ -340,7 +342,7 @@ export default {
                 return '';
             }
 
-            return this.value ? (this.value[this.keys.label] || this.value) : '';
+            return this.modelValue ? (this.modelValue[this.keys.label] || this.modelValue) : '';
         },
 
         hasDisplayText() {
@@ -358,17 +360,17 @@ export default {
         submittedValue() {
             // Assuming that if there is no name or no value,
             // then there's no need to compute the submittedValue
-            if (!this.name || !this.value) {
+            if (!this.name || !this.modelValue) {
                 return;
             }
 
-            if (Array.isArray(this.value)) {
-                return this.value
+            if (Array.isArray(this.modelValue)) {
+                return this.modelValue
                     .map(option => option[this.keys.value] || option)
                     .join(',');
             }
 
-            return this.value[this.keys.value] || this.value;
+            return this.modelValue[this.keys.value] || this.modelValue;
         }
     },
 
@@ -392,7 +394,7 @@ export default {
     },
 
     created() {
-        if (!this.value || this.value === '') {
+        if (!this.modelValue || this.modelValue === '') {
             this.setValue(null);
         }
     },
@@ -401,7 +403,7 @@ export default {
         setValue(value) {
             value = value ? value : this.multiple ? [] : '';
 
-            this.$emit('input', value);
+            this.$emit('update:modelValue', value);
             this.$emit('change', value);
         },
 
@@ -460,24 +462,24 @@ export default {
 
         isOptionSelected(option) {
             if (this.multiple) {
-                return looseIndexOf(this.value, option) > -1;
+                return looseIndexOf(this.modelValue, option) > -1;
             }
 
-            return looseEqual(this.value, option);
+            return looseEqual(this.modelValue, option);
         },
 
         updateOption(option, options = { select: true }) {
             let value = [];
             let updated = false;
-            const i = looseIndexOf(this.value, option);
+            const i = looseIndexOf(this.modelValue, option);
 
             if (options.select && i < 0) {
-                value = this.value.concat(option);
+                value = this.modelValue.concat(option);
                 updated = true;
             }
 
             if (!options.select && i > -1) {
-                value = this.value.slice(0, i).concat(this.value.slice(i + 1));
+                value = this.modelValue.slice(0, i).concat(this.modelValue.slice(i + 1));
                 updated = true;
             }
 

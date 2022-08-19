@@ -21,7 +21,7 @@
             type="hidden"
 
             :name="name"
-            :value="value"
+            :value="modelValue"
 
             v-if="name"
         >
@@ -71,11 +71,13 @@ import classlist from './helpers/classlist';
 export default {
     name: 'ui-slider',
 
+    emits: ['update:modelValue', 'focus', 'blur', 'change', 'dragstart', 'dragend'],
+
     props: {
         name: String,
         tabindex: [String, Number],
         icon: String,
-        value: {
+        modelValue: {
             type: Number,
             required: true
         },
@@ -108,10 +110,10 @@ export default {
 
     data() {
         return {
-            initialValue: this.value,
+            initialValue: this.modelValue,
             isActive: false,
             isDragging: false,
-            localValue: this.value
+            localValue: this.modelValue
         };
     },
 
@@ -141,7 +143,7 @@ export default {
         },
 
         markerText() {
-            return this.markerValue === undefined ? this.value : this.markerValue;
+            return this.markerValue === undefined ? this.modelValue : this.markerValue;
         },
 
         snapPoints() {
@@ -166,8 +168,8 @@ export default {
     },
 
     watch: {
-        value() {
-            this.setValue(this.value);
+        modelValue() {
+            this.setValue(this.modelValue);
         },
 
         isDragging() {
@@ -180,7 +182,7 @@ export default {
         this.initializeSlider();
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         this.teardownSlider();
     },
 
@@ -227,7 +229,7 @@ export default {
             }
 
             this.localValue = value;
-            this.$emit('input', value);
+            this.$emit('update:modelValue', value);
             this.$emit('change', value);
         },
 
@@ -314,8 +316,8 @@ export default {
             if (this.isDragging) {
                 this.isDragging = false;
 
-                if (this.snapToSteps && this.value % this.step !== 0) {
-                    this.setValueWithSnap(this.value);
+                if (this.snapToSteps && this.modelValue % this.step !== 0) {
+                    this.setValueWithSnap(this.modelValue);
                 }
 
                 document.removeEventListener('touchmove', this.onDragMove);

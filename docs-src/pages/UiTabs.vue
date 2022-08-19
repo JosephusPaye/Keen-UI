@@ -35,7 +35,9 @@
 
                     v-for="tab in demoTabs"
                 >
-                    <ui-icon slot="icon" :icon="tab.icon"></ui-icon>
+                    <template #icon>
+                        <ui-icon :icon="tab.icon"></ui-icon>
+                    </template>
                     <p>{{ tab.title }}: A link to <a href="https://github.com/JosephusPaye/Keen-UI" target="_blank" rel="noopener">Github</a>.</p>
                 </ui-tab>
             </ui-tabs>
@@ -65,9 +67,16 @@
 
             <ui-tabs fullwidth>
                 <ui-tab :key="tab.title" v-for="tab in demoTabs">
-                    <div slot="header" class="my-custom-tab-header">
-                        <ui-icon slot="icon" :icon="tab.icon"></ui-icon> <span>{{ tab.title }}: <i>HTML</i></span>
-                    </div>
+                    <template #header>
+                        <div class="my-custom-tab-header">
+                            <ui-icon :icon="tab.icon"></ui-icon>
+                            <span>{{ tab.title }}: <i>HTML</i></span>
+                        </div>
+                    </template>
+
+                    <template #icon>
+                        <ui-icon :icon="tab.icon"></ui-icon>
+                    </template>
 
                     <p>{{ tab.title }}</p>
                 </ui-tab>
@@ -83,7 +92,9 @@
                     :title="tab.title"
                     v-for="tab in controlTabs"
                 >
-                    <ui-icon :icon="tab.icon" slot="icon"></ui-icon>
+                    <template #icon>
+                        <ui-icon :icon="tab.icon"></ui-icon>
+                    </template>
                     <div>{{ tab.title }}</div>
                 </ui-tab>
             </ui-tabs>
@@ -411,12 +422,12 @@
 </template>
 
 <script>
-import UiButton from 'src/UiButton.vue';
-import UiCheckbox from 'src/UiCheckbox.vue';
-import UiIcon from 'src/UiIcon.vue';
-import UiRadioGroup from 'src/UiRadioGroup.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiButton from '@/UiButton.vue';
+import UiCheckbox from '@/UiCheckbox.vue';
+import UiIcon from '@/UiIcon.vue';
+import UiRadioGroup from '@/UiRadioGroup.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 export default {
     components: {
@@ -535,7 +546,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-tabs {
     .ui-tab p {

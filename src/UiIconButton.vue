@@ -67,6 +67,8 @@ import UiTooltip from './UiTooltip.vue';
 export default {
     name: 'ui-icon-button',
 
+    emits: ['dropdown-open', 'dropdown-close'],
+
     props: {
         type: {
             type: String,

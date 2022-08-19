@@ -7,9 +7,7 @@
         </thead>
 
         <tbody class="ui-calendar-month__body">
-            <tr
-                is="ui-calendar-week"
-
+            <ui-calendar-week
                 :color="color"
                 :date-filter="dateFilter"
                 :key="date.toString()"
@@ -24,10 +22,10 @@
 
                 v-for="date in currentWeekStartDates"
             >
-                <template slot-scope="props" v-if="$scopedSlots.date">
+                <template #default="props" v-if="$slots.date">
                     <slot name="date" :date="props.date"></slot>
                 </template>
-            </tr>
+            </ui-calendar-week>
         </tbody>
     </table>
 </template>
@@ -39,6 +37,8 @@ import dateUtils from './helpers/date';
 
 export default {
     name: 'ui-calendar-month',
+
+    emits: ['date-select', 'change'],
 
     props: {
         lang: Object,

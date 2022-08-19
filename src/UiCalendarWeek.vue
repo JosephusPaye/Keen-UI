@@ -21,6 +21,8 @@ import dateUtils from './helpers/date';
 export default {
     name: 'ui-calendar-week',
 
+    emits: ['date-select'],
+
     props: {
         month: Number,
         weekStart: Date,

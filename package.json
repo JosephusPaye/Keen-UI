@@ -4,7 +4,7 @@
   "description": "Keen UI is a Vue.js UI library with a simple API, inspired by Google's Material Design.",
   "main": "dist/keen-ui.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.js --inline --hot",
+    "dev": "vite serve --config build/vite.config.js docs-src",
     "build": "webpack --config build/webpack.dist.js",
     "build:docs": "webpack --config build/webpack.docs.js",
     "build:lib": "webpack --config build/webpack.lib.js",
@@ -50,11 +50,12 @@
     "tippy.js": "^4.2.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@vitejs/plugin-vue": "^3.0.1",
     "autoprefixer": "^6.5.4",
-    "babel-core": "^6.0.0",
-    "babel-loader": "^6.0.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "babel-loader": "^8.2.5",
     "cross-env": "^3.0.0",
     "css-loader": "^0.25.0",
     "eslint": "^3.12.0",
@@ -64,15 +65,18 @@
     "eslint-plugin-no-use-extend-native": "^0.3.12",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-unicorn": "^1.0.0",
-    "extract-text-webpack-plugin": "2.0.0-beta.5",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "mini-css-extract-plugin": "^2.6.1",
     "rimraf": "^2.5.4",
     "sass": "^1.41.0",
     "sass-loader": "^7.3.1",
-    "vue": "^2.5.0",
-    "vue-loader": "^13.0.4",
-    "vue-router": "^2.7.0",
-    "vue-template-compiler": "^2.5.0",
-    "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0"
+    "terser-webpack-plugin": "^5.3.5",
+    "vite": "^3.0.4",
+    "vue": "^3.2.37",
+    "vue-loader": "^16.8.3",
+    "vue-router": "^4.0.0",
+    "vue-style-loader": "^4.1.3",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^4.10.0"
   }
 }

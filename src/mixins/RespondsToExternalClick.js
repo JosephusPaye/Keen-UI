@@ -1,7 +1,9 @@
 import events from '../helpers/events';
 
 export default {
-    beforeDestroy() {
+    emits: ['external-click'],
+
+    beforeUnmount() {
         if (typeof this.destroyExternalClickListener === 'function') {
             this.removeExternalClickListener();
         }

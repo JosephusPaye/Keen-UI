@@ -1,6 +1,8 @@
 import debounce from 'lodash.debounce';
 
 export default {
+    emits: ['window-resize'],
+
     data() {
         return {
             windowResizeListener: null
@@ -15,7 +17,7 @@ export default {
         window.addEventListener('resize', this.windowResizeListener);
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         window.removeEventListener('resize', this.windowResizeListener);
     }
 };

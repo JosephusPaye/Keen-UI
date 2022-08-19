@@ -15,38 +15,41 @@
 
             <div class="page__demo-group">
                 <ui-toolbar title="Inbox">
-                    <div slot="actions">
-                        <ui-icon-button
-                            color="black"
-                            icon="refresh"
-                            size="large"
-                            type="secondary"
-                        ></ui-icon-button>
+                    <template #actions>
+                        <div>
+                            <ui-icon-button
+                                color="black"
+                                icon="refresh"
+                                size="large"
+                                type="secondary"
+                            ></ui-icon-button>
 
-                        <ui-icon-button
-                            color="black"
-                            icon="search"
-                            size="large"
-                            type="secondary"
-                        ></ui-icon-button>
+                            <ui-icon-button
+                                color="black"
+                                icon="search"
+                                size="large"
+                                type="secondary"
+                            ></ui-icon-button>
 
-                        <ui-icon-button
-                            color="black"
-                            has-dropdown
-                            icon="more_vert"
-                            ref="dropdownButton1"
-                            size="large"
-                            type="secondary"
-                        >
-                            <ui-menu
-                                contain-focus
-                                has-icons
-                                slot="dropdown"
-                                :options="menuOptions"
-                                @close="$refs.dropdownButton1.closeDropdown()"
-                            ></ui-menu>
-                        </ui-icon-button>
-                    </div>
+                            <ui-icon-button
+                                color="black"
+                                has-dropdown
+                                icon="more_vert"
+                                ref="dropdownButton1"
+                                size="large"
+                                type="secondary"
+                            >
+                                <template #dropdown>
+                                    <ui-menu
+                                        contain-focus
+                                        has-icons
+                                        :options="menuOptions"
+                                        @close="$refs.dropdownButton1.closeDropdown()"
+                                    ></ui-menu>
+                                </template>
+                            </ui-icon-button>
+                        </div>
+                    </template>
                 </ui-toolbar>
             </div>
 
@@ -54,38 +57,41 @@
 
             <div class="page__demo-group">
                 <ui-toolbar title="Inbox" :raised="false">
-                    <div slot="actions">
-                        <ui-icon-button
-                            color="black"
-                            icon="refresh"
-                            size="large"
-                            type="secondary"
-                        ></ui-icon-button>
+                    <template #actions>
+                        <div>
+                            <ui-icon-button
+                                color="black"
+                                icon="refresh"
+                                size="large"
+                                type="secondary"
+                            ></ui-icon-button>
 
-                        <ui-icon-button
-                            color="black"
-                            icon="search"
-                            size="large"
-                            type="secondary"
-                        ></ui-icon-button>
+                            <ui-icon-button
+                                color="black"
+                                icon="search"
+                                size="large"
+                                type="secondary"
+                            ></ui-icon-button>
 
-                        <ui-icon-button
-                            color="black"
-                            has-dropdown
-                            icon="more_vert"
-                            ref="dropdownButton2"
-                            size="large"
-                            type="secondary"
-                        >
-                            <ui-menu
-                                contain-focus
-                                has-icons
-                                slot="dropdown"
-                                :options="menuOptions"
-                                @close="$refs.dropdownButton2.closeDropdown()"
-                            ></ui-menu>
-                        </ui-icon-button>
-                    </div>
+                            <ui-icon-button
+                                color="black"
+                                has-dropdown
+                                icon="more_vert"
+                                ref="dropdownButton2"
+                                size="large"
+                                type="secondary"
+                            >
+                                <template #dropdown>
+                                    <ui-menu
+                                        contain-focus
+                                        has-icons
+                                        :options="menuOptions"
+                                        @close="$refs.dropdownButton2.closeDropdown()"
+                                    ></ui-menu>
+                                </template>
+                            </ui-icon-button>
+                        </div>
+                    </template>
                 </ui-toolbar>
             </div>
 
@@ -93,38 +99,41 @@
 
             <div class="page__demo-group">
                 <ui-toolbar brand="Mail App" title="Inbox">
-                    <div slot="actions">
-                        <ui-icon-button
-                            color="black"
-                            icon="refresh"
-                            size="large"
-                            type="secondary"
-                        ></ui-icon-button>
+                    <template #actions>
+                        <div>
+                            <ui-icon-button
+                                color="black"
+                                icon="refresh"
+                                size="large"
+                                type="secondary"
+                            ></ui-icon-button>
 
-                        <ui-icon-button
-                            color="black"
-                            icon="search"
-                            size="large"
-                            type="secondary"
-                        ></ui-icon-button>
+                            <ui-icon-button
+                                color="black"
+                                icon="search"
+                                size="large"
+                                type="secondary"
+                            ></ui-icon-button>
 
-                        <ui-icon-button
-                            color="black"
-                            has-dropdown
-                            icon="more_vert"
-                            ref="dropdownButton3"
-                            size="large"
-                            type="secondary"
-                        >
-                            <ui-menu
-                                contain-focus
-                                has-icons
-                                slot="dropdown"
-                                :options="menuOptions"
-                                @close="$refs.dropdownButton3.closeDropdown()"
-                            ></ui-menu>
-                        </ui-icon-button>
-                    </div>
+                            <ui-icon-button
+                                color="black"
+                                has-dropdown
+                                icon="more_vert"
+                                ref="dropdownButton3"
+                                size="large"
+                                type="secondary"
+                            >
+                                <template #dropdown>
+                                    <ui-menu
+                                        contain-focus
+                                        has-icons
+                                        :options="menuOptions"
+                                        @close="$refs.dropdownButton3.closeDropdown()"
+                                    ></ui-menu>
+                                </template>
+                            </ui-icon-button>
+                        </div>
+                    </template>
                 </ui-toolbar>
             </div>
 
@@ -132,38 +141,41 @@
 
             <div class="page__demo-group">
                 <ui-toolbar type="colored" text-color="white" title="Inbox">
-                    <div slot="actions">
-                        <ui-icon-button
-                            color="white"
-                            icon="refresh"
-                            size="large"
-                            type="secondary"
-                        ></ui-icon-button>
+                    <template #actions>
+                        <div>
+                            <ui-icon-button
+                                color="white"
+                                icon="refresh"
+                                size="large"
+                                type="secondary"
+                            ></ui-icon-button>
 
-                        <ui-icon-button
-                            color="white"
-                            icon="search"
-                            size="large"
-                            type="secondary"
-                        ></ui-icon-button>
+                            <ui-icon-button
+                                color="white"
+                                icon="search"
+                                size="large"
+                                type="secondary"
+                            ></ui-icon-button>
 
-                        <ui-icon-button
-                            color="white"
-                            has-dropdown
-                            icon="more_vert"
-                            ref="dropdownButton4"
-                            size="large"
-                            type="secondary"
-                        >
-                            <ui-menu
-                                contain-focus
-                                has-icons
-                                slot="dropdown"
-                                :options="menuOptions"
-                                @close="$refs.dropdownButton4.closeDropdown()"
-                            ></ui-menu>
-                        </ui-icon-button>
-                    </div>
+                            <ui-icon-button
+                                color="white"
+                                has-dropdown
+                                icon="more_vert"
+                                ref="dropdownButton4"
+                                size="large"
+                                type="secondary"
+                            >
+                                <template #dropdown>
+                                    <ui-menu
+                                        contain-focus
+                                        has-icons
+                                        :options="menuOptions"
+                                        @close="$refs.dropdownButton4.closeDropdown()"
+                                    ></ui-menu>
+                                </template>
+                            </ui-icon-button>
+                        </div>
+                    </template>
                 </ui-toolbar>
             </div>
 
@@ -176,38 +188,41 @@
                     title="Inbox"
                     type="colored"
                 >
-                    <div slot="actions">
-                        <ui-icon-button
-                            color="white"
-                            icon="refresh"
-                            size="large"
-                            type="secondary"
-                        ></ui-icon-button>
+                    <template #actions>
+                        <div>
+                            <ui-icon-button
+                                color="white"
+                                icon="refresh"
+                                size="large"
+                                type="secondary"
+                            ></ui-icon-button>
 
-                        <ui-icon-button
-                            color="white"
-                            icon="search"
-                            size="large"
-                            type="secondary"
-                        ></ui-icon-button>
+                            <ui-icon-button
+                                color="white"
+                                icon="search"
+                                size="large"
+                                type="secondary"
+                            ></ui-icon-button>
 
-                        <ui-icon-button
-                            color="white"
-                            has-dropdown
-                            icon="more_vert"
-                            ref="dropdownButton6"
-                            size="large"
-                            type="secondary"
-                        >
-                            <ui-menu
-                                contain-focus
-                                has-icons
-                                slot="dropdown"
-                                :options="menuOptions"
-                                @close="$refs.dropdownButton6.closeDropdown()"
-                            ></ui-menu>
-                        </ui-icon-button>
-                    </div>
+                            <ui-icon-button
+                                color="white"
+                                has-dropdown
+                                icon="more_vert"
+                                ref="dropdownButton6"
+                                size="large"
+                                type="secondary"
+                            >
+                                <template #dropdown>
+                                    <ui-menu
+                                        contain-focus
+                                        has-icons
+                                        :options="menuOptions"
+                                        @close="$refs.dropdownButton6.closeDropdown()"
+                                    ></ui-menu>
+                                </template>
+                            </ui-icon-button>
+                        </div>
+                    </template>
                 </ui-toolbar>
             </div>
 
@@ -215,38 +230,41 @@
 
             <div class="page__demo-group">
                 <ui-toolbar loading text-color="white" type="colored">
-                    <div slot="actions">
-                        <ui-icon-button
-                            color="white"
-                            icon="refresh"
-                            size="large"
-                            type="secondary"
-                        ></ui-icon-button>
+                    <template #actions>
+                        <div>
+                            <ui-icon-button
+                                color="white"
+                                icon="refresh"
+                                size="large"
+                                type="secondary"
+                            ></ui-icon-button>
 
-                        <ui-icon-button
-                            color="white"
-                            icon="search"
-                            size="large"
-                            type="secondary"
-                        ></ui-icon-button>
+                            <ui-icon-button
+                                color="white"
+                                icon="search"
+                                size="large"
+                                type="secondary"
+                            ></ui-icon-button>
 
-                        <ui-icon-button
-                            color="white"
-                            has-dropdown
-                            icon="more_vert"
-                            ref="dropdownButton5"
-                            size="large"
-                            type="secondary"
-                        >
-                            <ui-menu
-                                contain-focus
-                                has-icons
-                                slot="dropdown"
-                                :options="menuOptions"
-                                @close="$refs.dropdownButton5.closeDropdown()"
-                            ></ui-menu>
-                        </ui-icon-button>
-                    </div>
+                            <ui-icon-button
+                                color="white"
+                                has-dropdown
+                                icon="more_vert"
+                                ref="dropdownButton5"
+                                size="large"
+                                type="secondary"
+                            >
+                                <template #dropdown>
+                                    <ui-menu
+                                        contain-focus
+                                        has-icons
+                                        :options="menuOptions"
+                                        @close="$refs.dropdownButton5.closeDropdown()"
+                                    ></ui-menu>
+                                </template>
+                            </ui-icon-button>
+                        </div>
+                    </template>
 
                     Inbox
                 </ui-toolbar>
@@ -262,38 +280,41 @@
                     type="clear"
                     :raised="false"
                 >
-                    <div slot="actions">
-                        <ui-icon-button
-                            color="white"
-                            icon="arrow_back"
-                            size="large"
-                            type="secondary"
-                        ></ui-icon-button>
+                    <template #actions>
+                        <div>
+                            <ui-icon-button
+                                color="white"
+                                icon="arrow_back"
+                                size="large"
+                                type="secondary"
+                            ></ui-icon-button>
 
-                        <ui-icon-button
-                            color="white"
-                            icon="search"
-                            size="large"
-                            type="secondary"
-                        ></ui-icon-button>
+                            <ui-icon-button
+                                color="white"
+                                icon="search"
+                                size="large"
+                                type="secondary"
+                            ></ui-icon-button>
 
-                        <ui-icon-button
-                            color="white"
-                            has-dropdown
-                            icon="more_vert"
-                            ref="dropdownButton7"
-                            size="large"
-                            type="secondary"
-                        >
-                            <ui-menu
-                                contain-focus
-                                has-icons
-                                slot="dropdown"
-                                :options="menuOptions"
-                                @close="$refs.dropdownButton7.closeDropdown()"
-                            ></ui-menu>
-                        </ui-icon-button>
-                    </div>
+                            <ui-icon-button
+                                color="white"
+                                has-dropdown
+                                icon="more_vert"
+                                ref="dropdownButton7"
+                                size="large"
+                                type="secondary"
+                            >
+                                <template #dropdown>
+                                    <ui-menu
+                                        contain-focus
+                                        has-icons
+                                        :options="menuOptions"
+                                        @close="$refs.dropdownButton7.closeDropdown()"
+                                    ></ui-menu>
+                                </template>
+                            </ui-icon-button>
+                        </div>
+                    </template>
                 </ui-toolbar>
             </div>
 
@@ -308,38 +329,41 @@
                     type="clear"
                     :raised="false"
                 >
-                    <div slot="actions">
-                        <ui-icon-button
-                            color="black"
-                            icon="arrow_back"
-                            size="large"
-                            type="secondary"
-                        ></ui-icon-button>
+                    <template #actions>
+                        <div>
+                            <ui-icon-button
+                                color="black"
+                                icon="arrow_back"
+                                size="large"
+                                type="secondary"
+                            ></ui-icon-button>
 
-                        <ui-icon-button
-                            color="black"
-                            icon="search"
-                            size="large"
-                            type="secondary"
-                        ></ui-icon-button>
+                            <ui-icon-button
+                                color="black"
+                                icon="search"
+                                size="large"
+                                type="secondary"
+                            ></ui-icon-button>
 
-                        <ui-icon-button
-                            color="black"
-                            has-dropdown
-                            icon="more_vert"
-                            ref="dropdownButton8"
-                            size="large"
-                            type="secondary"
-                        >
-                            <ui-menu
-                                contain-focus
-                                has-icons
-                                slot="dropdown"
-                                :options="menuOptions"
-                                @close="$refs.dropdownButton8.closeDropdown()"
-                            ></ui-menu>
-                        </ui-icon-button>
-                    </div>
+                            <ui-icon-button
+                                color="black"
+                                has-dropdown
+                                icon="more_vert"
+                                ref="dropdownButton8"
+                                size="large"
+                                type="secondary"
+                            >
+                                <template #dropdown>
+                                    <ui-menu
+                                        contain-focus
+                                        has-icons
+                                        :options="menuOptions"
+                                        @close="$refs.dropdownButton8.closeDropdown()"
+                                    ></ui-menu>
+                                </template>
+                            </ui-icon-button>
+                        </div>
+                    </template>
                 </ui-toolbar>
             </div>
         </div>
@@ -354,31 +378,34 @@
                 type="colored"
                 :raised="false"
             >
-                <div slot="actions">
-                    <ui-icon-button
-                        color="white"
-                        icon="search"
-                        size="large"
-                        type="secondary"
-                    ></ui-icon-button>
+                <template #actions>
+                    <div slot="actions">
+                        <ui-icon-button
+                            color="white"
+                            icon="search"
+                            size="large"
+                            type="secondary"
+                        ></ui-icon-button>
 
-                    <ui-icon-button
-                        color="white"
-                        has-dropdown
-                        icon="more_vert"
-                        ref="dropdownButton8"
-                        size="large"
-                        type="secondary"
-                    >
-                        <ui-menu
-                            contain-focus
-                            has-icons
-                            slot="dropdown"
-                            :options="menuOptions"
-                            @close="$refs.dropdownButton8.closeDropdown()"
-                        ></ui-menu>
-                    </ui-icon-button>
-                </div>
+                        <ui-icon-button
+                            color="white"
+                            has-dropdown
+                            icon="more_vert"
+                            ref="dropdownButton8"
+                            size="large"
+                            type="secondary"
+                        >
+                            <template #dropdown>
+                                <ui-menu
+                                    contain-focus
+                                    has-icons
+                                    :options="menuOptions"
+                                    @close="$refs.dropdownButton8.closeDropdown()"
+                                ></ui-menu>
+                            </template>
+                        </ui-icon-button>
+                    </div>
+                </template>
             </ui-toolbar>
 
             <ui-tabs
@@ -564,11 +591,11 @@
 </template>
 
 <script>
-import UiIconButton from 'src/UiIconButton.vue';
-import UiMenu from 'src/UiMenu.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
-import UiToolbar from 'src/UiToolbar.vue';
+import UiIconButton from '@/UiIconButton.vue';
+import UiMenu from '@/UiMenu.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
+import UiToolbar from '@/UiToolbar.vue';
 
 const menuOptions = [
     {
@@ -600,7 +627,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-toolbar {
     .page__demo-group {
