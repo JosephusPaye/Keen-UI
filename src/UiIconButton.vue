@@ -8,8 +8,6 @@
         :href="isAnchor ? (disabled ? null : href) : null"
         :is="isAnchor ? 'a' : 'button'"
         :type="isAnchor ? null : buttonType"
-
-        @click="onClick"
     >
         <div class="ui-icon-button__icon" v-if="icon || $slots.default">
             <slot>
@@ -158,10 +156,6 @@ export default {
     },
 
     methods: {
-        onClick(e) {
-            this.$emit('click', e);
-        },
-
         onDropdownOpen() {
             this.$emit('dropdown-open');
         },

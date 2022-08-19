@@ -50,6 +50,8 @@ export default {
         UiIconButton
     },
 
+    emits: ['toggle-sidebar'],
+
     props: {
         version: String,
         versionUrl: String,
