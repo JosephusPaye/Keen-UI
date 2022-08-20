@@ -8,7 +8,7 @@ const options = require('./options');
 
 const mode = options.isProduction ? 'production' : 'development'
 
-module.exports = function({ entry, output, plugins }, extractCss = true) {
+module.exports = function({ entry, output, plugins }, { extractCss = true }) {
     const scssLoaders = extractCss
         ? [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
         : ['vue-style-loader', 'css-loader', 'sass-loader']

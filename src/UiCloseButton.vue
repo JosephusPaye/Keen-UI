@@ -52,7 +52,7 @@ export default {
             return [
                 `ui-close-button--size-${this.size}`,
                 `ui-close-button--color-${this.color}`,
-                { 'is-disabled': this.disabled || this.loading }
+                { 'is-disabled': this.disabled }
             ];
         }
     },

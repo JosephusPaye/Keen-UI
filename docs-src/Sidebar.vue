@@ -133,7 +133,6 @@ export default {
     flex-direction: column;
     flex-shrink: 0;
     height: 100vh;
-    height: 100vh;
     left: 0;
     position: fixed;
     top: 0;
@@ -238,7 +237,7 @@ export default {
     transition: opacity 0.2s ease-out;
 }
 
-.transition-fade-enter,
+.transition-fade-enter-from,
 .transition-fade-leave-active {
     opacity: 0;
 }
@@ -248,7 +247,7 @@ export default {
     transition: transform 0.2s ease-out;
 }
 
-.transition-slide-enter,
+.transition-slide-enter-from,
 .transition-slide-leave-active {
     transform: translateX(-$sidebar-width-mobile);
 }

@@ -62,7 +62,7 @@ app.use(KeenUI);
 Use individual components:
 
 ```js
-import { createVue } from 'vue';
+import { createApp } from 'vue';
 import { UiAlert, UiButton } from 'keen-ui';
 
 const app = createApp({
@@ -71,6 +71,36 @@ const app = createApp({
         UiButton
     }
 });
+```
+
+First, add a stylesheet link to the Keen UI CSS file in `dist/keen-ui.min.css`. Then, add a script tag pointing to `dist/keen-ui.min.js`.
+
+The library is made available globally via `window.KeenUI` so that you can use it on your app instance.
+
+Example:
+
+```html
+<!-- Place this in <head> -->
+<link rel="stylesheet" href="path/to/keen-ui.min.css">
+
+<!-- Place this in <body> -->
+<div id="app">
+    <ui-button>{{ message }}</ui-button>
+</div>
+
+<script src="path/to/vue.global.prod.js"></script>
+<script src="path/to/keen-ui.min.js"></script>
+<script>
+    const app = Vue.createApp({
+        data () {
+            return {
+                message: 'Hello world!'
+            }
+        }
+    });
+    app.use(KeenUI);
+    app.mount('#app');
+</script>
 ```
 
 ## Customization
@@ -86,11 +116,11 @@ Each component is built into a standalone file with the necessary CSS included. 
 **NOTE**: Standalone component files each contain their own dependencies, and many contain overlapping dependencies. As a result, using multiple standalone files may increase the size of your bundle due to duplicate code.
 
 ```js
-import { createVue } from 'vue';
+import { createApp } from 'vue';
 import 'keen-ui/src/bootstrap'; // Required when using standalone components, should be imported only once in your project
 import UiButton from 'keen-ui/lib/UiButton';
 
-const app = createVue({
+const app = createApp({
     components: {
         UiButton
     }

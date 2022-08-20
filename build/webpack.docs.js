@@ -18,6 +18,6 @@ const config = base({
             filename: 'docs.bundle.css'
         }),
     ]
-}, true);
+}, { extractCss: true });
 
 module.exports = config;

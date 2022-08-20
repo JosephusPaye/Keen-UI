@@ -57,6 +57,6 @@ const config = base({
             entryOnly: true
         })
     ]
-}, false);
+}, { extractCss: false });
 
 module.exports = config;

@@ -220,12 +220,12 @@
                             </tr>
 
                             <tr>
-                                <td class="no-wrap">value, v-model</td>
+                                <td class="no-wrap">modelValue, v-model</td>
                                 <td>String, Number</td>
                                 <td></td>
                                 <td>
                                     <p>The model that the textbox value syncs to. Can be set initially as a default value.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>modelValue</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>update:modelValue</code> event and update <code>modelValue</code>.</p>
                                 </td>
                             </tr>
 

@@ -225,12 +225,12 @@
                             </tr>
 
                             <tr>
-                                <td class="no-wrap">value, v-model *</td>
+                                <td class="no-wrap">modelValue, v-model *</td>
                                 <td>String, Number, Object or Array</td>
                                 <td></td>
                                 <td>
                                     <p>The model the selected value or values sync to. Can be set initially for default value/values.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>modelValue</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>update:modelValue</code> event and update <code>modelValue</code>.</p>
                                 </td>
                             </tr>
 
