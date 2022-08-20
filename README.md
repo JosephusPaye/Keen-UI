@@ -127,7 +127,7 @@ const app = createApp({
 });
 ```
 
-## License
+## Licence
 
 Keen UI is open source and released under the [MIT License](LICENSE).
 
