@@ -120,6 +120,9 @@ export default {
 @import './styles/imports';
 
 .ui-calendar-month {
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: transparent;
     table-layout: fixed;
     width: 100%;
 }

@@ -57,6 +57,7 @@
 
                     :close-on-scroll="false"
                     :constrain-to-scroll-parent="false"
+                    :close-on-external-click="false"
                     :disabled="disabled"
 
                     @close="onClose"

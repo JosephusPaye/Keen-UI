@@ -30,7 +30,7 @@
         <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
 
         <ui-popover
-            constain-focus
+            contain-focus
             ref="dropdown"
 
             :append-to-body="appendDropdownToBody"

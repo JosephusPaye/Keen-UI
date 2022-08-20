@@ -27,6 +27,9 @@
 
         <ul class="ui-datepicker-calendar__years" ref="years" v-show="showYearPicker">
             <li
+                v-for="year in yearRangeFiltered"
+                :key="year"
+
                 class="ui-datepicker-calendar__year"
                 tabindex="0"
 
@@ -34,9 +37,6 @@
 
                 @click="selectYear(year)"
                 @keydown.enter="selectYear(year)"
-
-                v-for="year in yearRange"
-                v-if="!isYearOutOfRange(year)"
             >{{ year }}</li>
         </ul>
 
@@ -165,6 +165,10 @@ export default {
 
         showDatePicker() {
             return this.currentView === 'date';
+        },
+
+        yearRangeFiltered() {
+            return this.yearRange.filter(year => !this.isYearOutOfRange(year));
         }
     },
 
@@ -234,11 +238,11 @@ export default {
                 return true;
             }
 
-            if (this.year < this.yearRange[0]) {
+            if (year < this.yearRange[0]) {
                 return true;
             }
 
-            if (this.year > this.yearRange[this.yearRange.length - 1]) {
+            if (year > this.yearRange[this.yearRange.length - 1]) {
                 return true;
             }
 
