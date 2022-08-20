@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { menu } from './router';
+import { menu } from './navigation';
 import Brand from './Brand.vue';
 import UiIcon from '@/UiIcon.vue';
 import UiSelect from '@/UiSelect.vue';

@@ -539,7 +539,7 @@
                             <tr>
                                 <td>update:modelValue</td>
                                 <td>
-                                    <p>Emitted when the select value is changed. The handler is called with the new value.</p>
+                                    <p>Emitted when the textbox value is changed. The handler is called with the new value.</p>
                                     <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>modelValue</code> prop.</p>
                                     <p>Listen for it using <code>@update:modelValue</code>.</p>
                                 </td>

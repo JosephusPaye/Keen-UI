@@ -22,7 +22,7 @@
             :type="option[keys.type]"
 
             @click="selectOption(option)"
-            @keydown="selectOption(option)"
+            @keydown.enter="selectOption(option)"
             @keydown.esc="closeMenu"
 
             v-for="(option, index) in options"

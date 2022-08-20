@@ -149,12 +149,12 @@
                             </tr>
 
                             <tr>
-                                <td class="no-wrap">value, v-model</td>
+                                <td class="no-wrap">modelValue, v-model</td>
                                 <td>Date, String</td>
                                 <td></td>
                                 <td>
                                     <p>The model the selected calendar date syncs to.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>modelValue</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>update:modelValue</code> event and update <code>modelValue</code>.</p>
                                 </td>
                             </tr>
                         </tbody>

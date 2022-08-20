@@ -13,7 +13,7 @@
             :tabindex="tabindex"
 
             @blur="onBlur"
-            @update:modelValue="onInput"
+            @input="onInput"
             @change="onChange"
             @focus="onFocus"
 

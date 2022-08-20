@@ -31,7 +31,7 @@
 export default {
     name: 'ui-checkbox',
 
-    emits: ['update:modelValue', 'changes', 'focus', 'blur', 'change'],
+    emits: ['update:modelValue', 'change', 'focus', 'blur', 'change'],
 
     props: {
         name: String,

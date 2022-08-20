@@ -1,35 +1,35 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router';
 
-import UiAlert from '../pages/UiAlert.vue';
-import UiAutocomplete from '../pages/UiAutocomplete.vue';
-import UiButton from '../pages/UiButton.vue';
-import UiCalendar from '../pages/UiCalendar.vue';
-import UiCheckbox from '../pages/UiCheckbox.vue';
-import UiCheckboxGroup from '../pages/UiCheckboxGroup.vue';
-import UiCollapsible from '../pages/UiCollapsible.vue';
-import UiConfirm from '../pages/UiConfirm.vue';
-import UiDatepicker from '../pages/UiDatepicker.vue';
-import UiFab from '../pages/UiFab.vue';
-import UiFileupload from '../pages/UiFileupload.vue';
-import UiIcon from '../pages/UiIcon.vue';
-import UiIconButton from '../pages/UiIconButton.vue';
-import UiMenu from '../pages/UiMenu.vue';
-import UiModal from '../pages/UiModal.vue';
-import UiPopover from '../pages/UiPopover.vue';
-import UiPreloader from '../pages/UiPreloader.vue';
-import UiProgressCircular from '../pages/UiProgressCircular.vue';
-import UiProgressLinear from '../pages/UiProgressLinear.vue';
-import UiRadio from '../pages/UiRadio.vue';
-import UiRadioGroup from '../pages/UiRadioGroup.vue';
-import UiRippleInk from '../pages/UiRippleInk.vue';
-import UiSelect from '../pages/UiSelect.vue';
-import UiSlider from '../pages/UiSlider.vue';
-import UiSnackbar from '../pages/UiSnackbar.vue';
-import UiSwitch from '../pages/UiSwitch.vue';
-import UiTabs from '../pages/UiTabs.vue';
-import UiTextbox from '../pages/UiTextbox.vue';
-import UiToolbar from '../pages/UiToolbar.vue';
-import UiTooltip from '../pages/UiTooltip.vue';
+import UiAlert from './pages/UiAlert.vue';
+import UiAutocomplete from './pages/UiAutocomplete.vue';
+import UiButton from './pages/UiButton.vue';
+import UiCalendar from './pages/UiCalendar.vue';
+import UiCheckbox from './pages/UiCheckbox.vue';
+import UiCheckboxGroup from './pages/UiCheckboxGroup.vue';
+import UiCollapsible from './pages/UiCollapsible.vue';
+import UiConfirm from './pages/UiConfirm.vue';
+import UiDatepicker from './pages/UiDatepicker.vue';
+import UiFab from './pages/UiFab.vue';
+import UiFileupload from './pages/UiFileupload.vue';
+import UiIcon from './pages/UiIcon.vue';
+import UiIconButton from './pages/UiIconButton.vue';
+import UiMenu from './pages/UiMenu.vue';
+import UiModal from './pages/UiModal.vue';
+import UiPopover from './pages/UiPopover.vue';
+import UiPreloader from './pages/UiPreloader.vue';
+import UiProgressCircular from './pages/UiProgressCircular.vue';
+import UiProgressLinear from './pages/UiProgressLinear.vue';
+import UiRadio from './pages/UiRadio.vue';
+import UiRadioGroup from './pages/UiRadioGroup.vue';
+import UiRippleInk from './pages/UiRippleInk.vue';
+import UiSelect from './pages/UiSelect.vue';
+import UiSlider from './pages/UiSlider.vue';
+import UiSnackbar from './pages/UiSnackbar.vue';
+import UiSwitch from './pages/UiSwitch.vue';
+import UiTabs from './pages/UiTabs.vue';
+import UiTextbox from './pages/UiTextbox.vue';
+import UiToolbar from './pages/UiToolbar.vue';
+import UiTooltip from './pages/UiTooltip.vue';
 
 const menu = [
     {
@@ -228,6 +228,7 @@ const routes = menu.map(menuItem => {
 
 const router = createRouter({
     history: createWebHashHistory(),
+    linkActiveClass: 'is-active',
     routes: [
         {
             path: '/',
@@ -235,11 +236,11 @@ const router = createRouter({
         },
         ...routes,
         {
+            // Catch all route to redirect 404s
             path: '/.*',
             redirect: routes[0].path
         }
     ]
 });
 
-export { menu };
-export default router;
+export { menu, router };
