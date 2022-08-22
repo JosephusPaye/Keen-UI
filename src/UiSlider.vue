@@ -539,7 +539,7 @@ $ui-slider-marker-size                      : rem(36px);
 .ui-slider__marker-text {
     color: $ui-track-thumb-fill-color;;
     font-size: rem(13px);
-    font-weight: 600;
+    font-weight: $font-weight--bold;
     left: 0;
     position: absolute;
     text-align: center;

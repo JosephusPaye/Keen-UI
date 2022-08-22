@@ -224,7 +224,7 @@ export default {
     display: inline-flex;
     font-family: $font-stack;
     font-size: $ui-button-font-size;
-    font-weight: 600;
+    font-weight: $ui-button-font-weight;
     height: $ui-button-height;
     justify-content: center;
     letter-spacing: 0.02em;
