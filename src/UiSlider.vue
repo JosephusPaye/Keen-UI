@@ -543,7 +543,7 @@ $ui-slider-marker-size                      : rem(36px);
     left: 0;
     position: absolute;
     text-align: center;
-    top: rem(4px);
+    line-height: 2.3;
     transition: color $ui-track-focus-ring-transition-duration ease;
     width: $ui-slider-marker-size;
 }
