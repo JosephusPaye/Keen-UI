@@ -129,7 +129,7 @@ const app = createApp({
 
 ## Licence
 
-Keen UI is open source and released under the [MIT License](LICENSE).
+Keen UI is open source and released under the [MIT Licence](LICENCE).
 
 Copyright (c) 2019 [Josephus Paye II](https://twitter.com/JosephusPaye).
 
