@@ -307,7 +307,7 @@ $ui-datepicker-calendar-padding : rem(8px) !default;
 
 .ui-datepicker-calendar__header-year {
     font-size: rem(15px);
-    font-weight: 600;
+    font-weight: $font-weight--bold;
     margin-bottom: rem(8px);
 }
 
@@ -352,7 +352,7 @@ $ui-datepicker-calendar-padding : rem(8px) !default;
 
     &.is-selected {
         font-size: rem(24px);
-        font-weight: 600;
+        font-weight: $font-weight--bold;
         height: rem(40px);
     }
 }

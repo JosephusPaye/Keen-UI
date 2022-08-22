@@ -174,7 +174,7 @@ export default {
     }
 
     &.is-today {
-        font-weight: bold;
+        font-weight: $font-weight--bold;
     }
 
     &.is-disabled {
