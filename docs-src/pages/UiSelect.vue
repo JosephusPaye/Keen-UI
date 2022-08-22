@@ -700,7 +700,7 @@ export default {
             select4: '',
             select5: {
                 label: 'Lavender',
-                image: 'https://placehold.it/64/e6e6fa/e6e6fa',
+                image: 'https://via.placeholder.com/64/e6e6fa/e6e6fa',
                 value: 'lavender'
             },
             select6: '',
@@ -708,12 +708,12 @@ export default {
             select8: [
                 {
                     label: 'Orange',
-                    image: 'https://placehold.it/64/ffa500/ffa500',
+                    image: 'https://via.placeholder.com/64/ffa500/ffa500',
                     value: 'orange'
                 },
                 {
                     label: 'Lime',
-                    image: 'https://placehold.it/64/00ff00/00ff00',
+                    image: 'https://via.placeholder.com/64/00ff00/00ff00',
                     value: 'lime'
                 }
             ],
