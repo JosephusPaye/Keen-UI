@@ -48,7 +48,7 @@ import UiRippleInk from './UiRippleInk.vue';
 export default {
     name: 'ui-fileupload',
 
-    emits: ['update:modelValue', 'focus', 'blur', 'change'],
+    emits: ['input', 'focus', 'blur', 'change'],
 
     props: {
         name: {
@@ -141,7 +141,7 @@ export default {
         },
 
         onInput(e) {
-            this.$emit('update:modelValue', this.$refs.input.files, e);
+            this.$emit('input', this.$refs.input.files, e);
         },
 
         onChange(e) {
