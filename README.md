@@ -73,6 +73,8 @@ const app = createApp({
 });
 ```
 
+### Script tag
+
 First, add a stylesheet link to the Keen UI CSS file in `dist/keen-ui.min.css`. Then, add a script tag pointing to `dist/keen-ui.min.js`.
 
 The library is made available globally via `window.KeenUI` so that you can use it on your app instance.
