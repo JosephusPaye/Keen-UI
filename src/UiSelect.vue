@@ -33,7 +33,7 @@
 
                     :class="labelClasses"
 
-                    v-if="label || $slots.default()"
+                    v-if="label || $slots.default"
                 >
                     <slot>{{ label }}</slot>
                 </div>
