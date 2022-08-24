@@ -447,12 +447,12 @@ $ui-modal-header-font-size      : rem(18px);
 // Transitions
 // ================================================
 
-.ui-modal--transition-fade-enter,
+.ui-modal--transition-fade-enter-from,
 .ui-modal--transition-fade-leave-active {
     opacity: 0;
 }
 
-.ui-modal--transition-scale-down-enter,
+.ui-modal--transition-scale-down-enter-from,
 .ui-modal--transition-scale-down-leave-active {
     opacity: 0;
 
@@ -461,7 +461,7 @@ $ui-modal-header-font-size      : rem(18px);
     }
 }
 
-.ui-modal--transition-scale-up-enter,
+.ui-modal--transition-scale-up-enter-from,
 .ui-modal--transition-scale-up-leave-active {
     opacity: 0;
 

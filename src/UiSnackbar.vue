@@ -121,7 +121,7 @@ $ui-snackbar-font-size          : rem(14px) !default;
     transition: transform 0.4s ease;
 }
 
-.ui-snackbar--transition-slide-enter,
+.ui-snackbar--transition-slide-enter-from,
 .ui-snackbar--transition-slide-leave-active {
     transform: translateY(rem(84px));
 }
@@ -131,7 +131,7 @@ $ui-snackbar-font-size          : rem(14px) !default;
     transition: opacity 0.4s ease;
 }
 
-.ui-snackbar--transition-fade-enter,
+.ui-snackbar--transition-fade-enter-from,
 .ui-snackbar--transition-fade-leave-active {
     opacity: 0;
 }

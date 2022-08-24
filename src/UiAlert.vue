@@ -221,7 +221,7 @@ $ui-alert-margin-bottom     : rem(16px) !default;
 // Transition
 // ================================================
 
-.ui-alert--transition-toggle-enter,
+.ui-alert--transition-toggle-enter-from,
 .ui-alert--transition-toggle-leave-active {
     margin-bottom: 0;
 

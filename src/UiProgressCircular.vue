@@ -235,7 +235,7 @@ $ui-progress-determinate-transition-duration    : 0.3s !default;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.ui-progress-circular--transition-fade-enter,
+.ui-progress-circular--transition-fade-enter-from,
 .ui-progress-circular--transition-fade-leave-active {
     opacity: 0;
     transform: scale(0);
