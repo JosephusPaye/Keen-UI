@@ -29,6 +29,7 @@ export default {
             }
         },
         title: String,
+        icon: String,
         selected: {
             type: Boolean,
             default: false

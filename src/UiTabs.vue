@@ -11,6 +11,7 @@
                     :id="tab.id"
                     :key="tab.id"
                     :title="tab.title"
+                    :icon="tab.icon"
                     :type="type"
 
                     @click="onTabClick(tab, $event)"
@@ -20,7 +21,7 @@
                     v-for="tab in tabs"
                 >
                     <render :nodes="tab.$slots.header()" v-if="tab.$slots.header"></render>
-                    <template v-if="!tab.$slots.header && hasIcon && Boolean(tab.$slots.icon)" #icon>
+                    <template v-if="!tab.$slots.header && tab.$slots.icon && hasIcon" #icon>
                         <render :nodes="tab.$slots.icon()"></render>
                     </template>
                 </ui-tab-header-item>
