@@ -222,7 +222,7 @@ export default {
         }, 500);
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         clearInterval(this.progressInterval);
     },
 

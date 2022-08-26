@@ -39,13 +39,14 @@
             @touchstart="onDragStart"
         >
             <div class="ui-slider__track-background">
-                <span
-                    class="ui-slider__snap-point"
-                    :style="{ left: 100 * relativeValue(point) + '%' }"
+                <template v-if="snapToSteps">
+                    <span
+                        class="ui-slider__snap-point"
+                        :style="{ left: 100 * relativeValue(point) + '%' }"
 
-                    v-if="snapToSteps"
-                    v-for="point in snapPoints"
-                ></span>
+                        v-for="point in snapPoints"
+                    ></span>
+                </template>
             </div>
 
             <div class="ui-slider__track-fill" :style="fillStyle"></div>

@@ -2,7 +2,7 @@
     <table class="ui-calendar-month">
         <thead class="ui-calendar-month__header">
             <tr>
-                <th v-for="day in daysOfWeek">{{ day }}</th>
+                <th :key="day" v-for="day in daysOfWeek">{{ day }}</th>
             </tr>
         </thead>
 

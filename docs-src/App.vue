@@ -105,7 +105,7 @@ export default {
         this.onResize(this.mobileMediaQuery);
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         if (this.mobileMediaQuery) {
             this.mobileMediaQuery.removeListener(this.onResize);
         }
