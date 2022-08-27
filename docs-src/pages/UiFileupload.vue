@@ -32,7 +32,9 @@
 
             <h4 class="page__demo-title">Custom icon</h4>
             <ui-fileupload name="file8">
-                <ui-icon slot="icon">cloud_upload</ui-icon>
+                <template #icon>
+                    <ui-icon>cloud_upload</ui-icon>
+                </template>
             </ui-fileupload>
 
             <h4 class="page__demo-title">Custom accept</h4>
@@ -317,11 +319,11 @@
 </template>
 
 <script>
-import UiFileupload from 'src/UiFileupload.vue';
-import UiIcon from 'src/UiIcon.vue';
-import UiRadioGroup from 'src/UiRadioGroup.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiFileupload from '@/UiFileupload.vue';
+import UiIcon from '@/UiIcon.vue';
+import UiRadioGroup from '@/UiRadioGroup.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 export default {
     data() {
@@ -348,7 +350,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-fileupload {
     .ui-radio-group {

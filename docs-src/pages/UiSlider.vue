@@ -75,12 +75,12 @@
                             </tr>
 
                             <tr>
-                                <td class="no-wrap">value, v-model *</td>
+                                <td class="no-wrap">modelValue, v-model *</td>
                                 <td>Number</td>
                                 <td>(required)</td>
                                 <td>
                                     <p>The model that the slider value syncs to. Changing this value will update the slider.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>value</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>update:modelValue</code> event and update <code>modelValue</code>.</p>
                                 </td>
                             </tr>
 
@@ -207,11 +207,11 @@
                             </tr>
 
                             <tr>
-                                <td>input</td>
+                                <td>update:modelValue</td>
                                 <td>
                                     <p>Emitted when the slider value is changed. The handler is called with the new value.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>value</code> prop.</p>
-                                    <p>Listen for it using <code>@input</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>modelValue</code> prop.</p>
+                                    <p>Listen for it using <code>@update:modelValue</code>.</p>
                                 </td>
                             </tr>
 
@@ -274,11 +274,11 @@
 </template>
 
 <script>
-import UiButton from 'src/UiButton.vue';
-import UiModal from 'src/UiModal.vue';
-import UiSlider from 'src/UiSlider.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiButton from '@/UiButton.vue';
+import UiModal from '@/UiModal.vue';
+import UiSlider from '@/UiSlider.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 export default {
     data() {
@@ -320,7 +320,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-slider {
     .page__examples {

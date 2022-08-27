@@ -25,6 +25,8 @@ import UiFocusContainer from './UiFocusContainer.vue';
 export default {
     name: 'ui-popover',
 
+    emits: ['open', 'close', 'reveal', 'hide'],
+
     props: {
         animation: {
             type: String,
@@ -108,7 +110,7 @@ export default {
         this.setupPopover();
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         this.destroyPopover();
     },
 

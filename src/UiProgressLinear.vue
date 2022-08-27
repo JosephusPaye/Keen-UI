@@ -144,7 +144,7 @@ $ui-progress-linear-height : rem(4px) !default;
     transition: opacity 0.3s ease;
 }
 
-.ui-progress-linear--transition-fade-enter,
+.ui-progress-linear--transition-fade-enter-from,
 .ui-progress-linear--transition-fade-leave-active {
     opacity: 0;
 }

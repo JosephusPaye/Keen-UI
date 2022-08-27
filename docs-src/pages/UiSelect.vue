@@ -174,7 +174,7 @@
                 :options="colourStrings"
                 v-model="select12o5"
             >
-                <template slot-scope="props" slot="option">
+                <template #option="props">
                     <code>{{ props }}</code>
                 </template>
             </ui-select>
@@ -225,12 +225,12 @@
                             </tr>
 
                             <tr>
-                                <td class="no-wrap">value, v-model *</td>
+                                <td class="no-wrap">modelValue, v-model *</td>
                                 <td>String, Number, Object or Array</td>
                                 <td></td>
                                 <td>
                                     <p>The model the selected value or values sync to. Can be set initially for default value/values.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>value</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>update:modelValue</code> event and update <code>modelValue</code>.</p>
                                 </td>
                             </tr>
 
@@ -243,7 +243,7 @@
                                     <p>Can be a plain array, e.g. <code>['Red', 'Blue', 'Green']</code> as well as an array of objects.</p>
                                     <p>For a plain array, the option is shown to the user and it is used for filtering.</p>
 
-                                    <p>For an array of objects, the <code>label</code> is shown to the user and is used for filtering, and the <code>value</code> is submitted to the server. If provided, <code>class</code>, will be applied to the option element's <code>class</code> attribute. You can redefine these keys to fit your data using the <code>keys</code> prop.</p>
+                                    <p>For an array of objects, the <code>label</code> is shown to the user and is used for filtering, and the <code>modelValue</code> is submitted to the server. If provided, <code>class</code>, will be applied to the option element's <code>class</code> attribute. You can redefine these keys to fit your data using the <code>keys</code> prop.</p>
 
                                     <p>The entire option is written to the model when the user makes a selection.</p>
                                 </td>
@@ -569,11 +569,11 @@
                         </tr>
 
                         <tr>
-                            <td>input</td>
+                            <td>update:modelValue</td>
                             <td>
                                 <p>Emitted when the select value is changed. The handler is called with the new value.</p>
-                                <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>value</code> prop.</p>
-                                <p>Listen for it using <code>@input</code>.</p>
+                                <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>modelValue</code> prop.</p>
+                                <p>Listen for it using <code>@update:modelValue</code>.</p>
                             </td>
                         </tr>
 
@@ -680,12 +680,12 @@
 </template>
 
 <script>
-import UiSelect from 'src/UiSelect.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiSelect from '@/UiSelect.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 import debounce from 'lodash.debounce';
-import { startsWith } from 'helpers/util';
+import { startsWith } from '@/helpers/util';
 
 import countries from '../data/countries';
 import { colourStrings, colours, redShades, blueShades } from '../data/colours';
@@ -700,7 +700,7 @@ export default {
             select4: '',
             select5: {
                 label: 'Lavender',
-                image: 'https://placehold.it/64/e6e6fa/e6e6fa',
+                image: 'https://via.placeholder.com/64/e6e6fa/e6e6fa',
                 value: 'lavender'
             },
             select6: '',
@@ -708,12 +708,12 @@ export default {
             select8: [
                 {
                     label: 'Orange',
-                    image: 'https://placehold.it/64/ffa500/ffa500',
+                    image: 'https://via.placeholder.com/64/ffa500/ffa500',
                     value: 'orange'
                 },
                 {
                     label: 'Lime',
-                    image: 'https://placehold.it/64/00ff00/00ff00',
+                    image: 'https://via.placeholder.com/64/00ff00/00ff00',
                     value: 'lime'
                 }
             ],
@@ -784,7 +784,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-select {
     .ui-select {

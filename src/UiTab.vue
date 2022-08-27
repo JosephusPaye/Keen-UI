@@ -19,6 +19,8 @@ import UUID from './helpers/uuid';
 export default {
     name: 'ui-tab',
 
+    emits: ['select', 'deselect'],
+
     props: {
         id: {
             type: String,
@@ -53,7 +55,7 @@ export default {
         this.$parent.addTab(this);
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         this.$parent.removeTab(this);
     },
 

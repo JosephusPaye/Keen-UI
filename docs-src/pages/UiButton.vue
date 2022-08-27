@@ -202,16 +202,17 @@
 
             <div class="page__demo-group">
                 <ui-button color="primary" has-dropdown ref="dropdownButton" :size="size">
-                    <ui-menu
-                        contain-focus
-                        has-icons
-                        has-secondary-text
-                        slot="dropdown"
+                    <template #dropdown>
+                        <ui-menu
+                            contain-focus
+                            has-icons
+                            has-secondary-text
 
-                        :options="menuOptions"
+                            :options="menuOptions"
 
-                        @close="$refs.dropdownButton.closeDropdown()"
-                    ></ui-menu>
+                            @close="$refs.dropdownButton.closeDropdown()"
+                        ></ui-menu>
+                    </template>
                     Click for Menu
                 </ui-button>
             </div>
@@ -220,10 +221,12 @@
 
             <div class="page__demo-group">
                 <ui-button has-dropdown :size="size">
-                    <div class="keen-docs__custom-popover-content" slot="dropdown">
-                        <p><b>Hey</b> there!</p>
-                        <p>Button dropdowns can have any content, not just menus.</p>
-                    </div>
+                    <template #dropdown>
+                        <div class="keen-docs__custom-popover-content">
+                            <p><b>Hey</b> there!</p>
+                            <p>Button dropdowns can have any content, not just menus.</p>
+                        </div>
+                    </template>
 
                     Click for custom dropdown
                 </ui-button>
@@ -537,12 +540,12 @@
 </template>
 
 <script>
-import UiButton from 'src/UiButton.vue';
-import UiMenu from 'src/UiMenu.vue';
-import UiRadioGroup from 'src/UiRadioGroup.vue';
-import UiSwitch from 'src/UiSwitch.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiButton from '@/UiButton.vue';
+import UiMenu from '@/UiMenu.vue';
+import UiRadioGroup from '@/UiRadioGroup.vue';
+import UiSwitch from '@/UiSwitch.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 const menuOptions = [
     {
@@ -597,7 +600,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-button {
     .ui-radio-group,

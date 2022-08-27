@@ -20,7 +20,7 @@
                     class="ui-autocomplete__clear-button"
                     title="Clear"
 
-                    @click.native="updateValue('')"
+                    @click="updateValue('')"
 
                     v-show="!disabled && valueLength > 0"
                 >
@@ -39,7 +39,7 @@
                     :placeholder="hasFloatingLabel ? null : placeholder"
                     :readonly="readonly ? readonly : null"
                     :tabindex="tabindex"
-                    :value="value"
+                    :value="modelValue"
 
                     @blur="onBlur"
                     @change="onChange"
@@ -64,7 +64,7 @@
                         :suggestion="suggestion"
                         :type="type"
 
-                        @click.native="selectSuggestion(suggestion)"
+                        @click="selectSuggestion(suggestion)"
 
                         v-for="(suggestion, index) in matchingSuggestions"
                     >
@@ -102,11 +102,13 @@ import fuzzysearch from 'fuzzysearch';
 export default {
     name: 'ui-autocomplete',
 
+    emits: ['update:modelValue', 'select', 'highlight-overflow', 'highlight', 'dropdown-open', 'dropdown-close', 'focus', 'change', 'blur', 'touch'],
+
     props: {
         name: String,
         placeholder: String,
         tabindex: [String, Number],
-        value: {
+        modelValue: {
             type: [String, Number],
             default: ''
         },
@@ -192,7 +194,7 @@ export default {
 
     data() {
         return {
-            initialValue: this.value,
+            initialValue: this.modelValue,
             isActive: false,
             isTouched: false,
             showDropdown: false,
@@ -234,7 +236,7 @@ export default {
         },
 
         valueLength() {
-            return this.value ? this.value.length : 0;
+            return this.modelValue ? this.modelValue.length : 0;
         },
 
         hasFeedback() {
@@ -253,10 +255,10 @@ export default {
             const suggestions = this.suggestions
                 .filter(suggestion => {
                     if (this.filter) {
-                        return this.filter(suggestion, this.value, this.defaultFilter);
+                        return this.filter(suggestion, this.modelValue, this.defaultFilter);
                     }
 
-                    const query = this.value === null ? '' : this.value;
+                    const query = this.modelValue === null ? '' : this.modelValue;
 
                     return this.defaultFilter(suggestion, query);
                 });
@@ -270,7 +272,7 @@ export default {
     },
 
     watch: {
-        value() {
+        modelValue() {
             if (this.isActive && this.valueLength >= this.minChars) {
                 this.openDropdown();
             }
@@ -281,7 +283,7 @@ export default {
 
     created() {
         // Normalize the value to an empty string if it's null
-        if (this.value === null) {
+        if (this.modelValue === null) {
             this.initialValue = '';
             this.updateValue('');
         }
@@ -291,7 +293,7 @@ export default {
         document.addEventListener('click', this.onExternalClick);
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         document.removeEventListener('click', this.onExternalClick);
     },
 
@@ -378,7 +380,7 @@ export default {
         },
 
         updateValue(value) {
-            this.$emit('input', value);
+            this.$emit('update:modelValue', value);
         },
 
         onFocus(e) {
@@ -387,7 +389,7 @@ export default {
         },
 
         onChange(e) {
-            this.$emit('change', this.value, e);
+            this.$emit('change', this.modelValue, e);
         },
 
         onBlur(e) {

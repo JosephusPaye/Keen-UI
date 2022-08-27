@@ -7,8 +7,6 @@
         :href="isAnchor ? (disabled ? null : href) : null"
         :is="isAnchor ? 'a' : 'button'"
         :type="isAnchor ? null : buttonType"
-
-        @click="onClick"
     >
         <div class="ui-button__content">
             <div class="ui-button__icon" v-if="icon || $slots.icon">
@@ -79,6 +77,8 @@ import UiTooltip from './UiTooltip.vue';
 
 export default {
     name: 'ui-button',
+
+    emits: ['dropdown-open', 'dropdown-close'],
 
     props: {
         type: {
@@ -170,9 +170,6 @@ export default {
     },
 
     methods: {
-        onClick(e) {
-            this.$emit('click', e);
-        },
 
         onDropdownOpen() {
             this.$emit('dropdown-open');

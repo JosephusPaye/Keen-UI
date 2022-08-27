@@ -198,10 +198,10 @@
 </template>
 
 <script>
-import UiButton from 'src/UiButton.vue';
-import UiProgressCircular from 'src/UiProgressCircular.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiButton from '@/UiButton.vue';
+import UiProgressCircular from '@/UiProgressCircular.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 export default {
     data() {
@@ -222,7 +222,7 @@ export default {
         }, 500);
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         clearInterval(this.progressInterval);
     },
 
@@ -236,7 +236,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-progress-circular {
     .page__demo-group {

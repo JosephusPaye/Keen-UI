@@ -47,11 +47,11 @@
                     </ul>
                 </li>
 
-                <li class="keen-docs-sidebar__menu-section" v-for="section in menu" :key="section.title">
-                    <div class="keen-docs-sidebar__menu-section-header">{{ section.title }}</div>
+                <li class="keen-docs-sidebar__menu-section">
+                    <div class="keen-docs-sidebar__menu-section-header">Components</div>
 
                     <ul class="keen-docs-sidebar__menu-section-links">
-                        <li v-for="item in section.menu" :key="item.path">
+                        <li v-for="item in menu" :key="item.path">
                             <router-link
                                 class="keen-docs-sidebar__menu-item" exact
                                 :to="item.path"
@@ -67,10 +67,10 @@
 </template>
 
 <script>
-import { menu } from './navigation.js';
+import { menu } from './navigation';
 import Brand from './Brand.vue';
-import UiIcon from 'src/UiIcon.vue';
-import UiSelect from 'src/UiSelect.vue';
+import UiIcon from '@/UiIcon.vue';
+import UiSelect from '@/UiSelect.vue';
 
 export default {
     components: {
@@ -132,7 +132,6 @@ export default {
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-    height: 100vh;
     height: 100vh;
     left: 0;
     position: fixed;
@@ -238,7 +237,7 @@ export default {
     transition: opacity 0.2s ease-out;
 }
 
-.transition-fade-enter,
+.transition-fade-enter-from,
 .transition-fade-leave-active {
     opacity: 0;
 }
@@ -248,7 +247,7 @@ export default {
     transition: transform 0.2s ease-out;
 }
 
-.transition-slide-enter,
+.transition-slide-enter-from,
 .transition-slide-leave-active {
     transform: translateX(-$sidebar-width-mobile);
 }

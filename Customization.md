@@ -114,10 +114,11 @@ Component props which have default values can be changed globally when installin
 ### Configure all components
 
 ```js
-import Vue from 'vue';
+import { createApp } from 'vue';
 import KeenUI from 'keen-ui';
 
-Vue.use(KeenUI, {
+const app = createApp();
+app.use(KeenUI, {
     UiButton: {
         disableRipple: true
     },

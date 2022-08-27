@@ -26,17 +26,21 @@
             </ui-collapsible>
 
             <ui-collapsible>
-                <div slot="header">
-                    HTML <b>supported</b> in header
-                </div>
+                <template #header>
+                    <div>
+                        HTML <b>supported</b> in header
+                    </div>
+                </template>
 
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!
             </ui-collapsible>
 
             <ui-collapsible>
-                <div slot="header">
-                    Multiline header: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id cupiditate, nihil magni accusantium. Suscipit natus provident ab vitae, ad tenetur.
-                </div>
+                <template #header>
+                    <div>
+                        Multiline header: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id cupiditate, nihil magni accusantium. Suscipit natus provident ab vitae, ad tenetur.
+                    </div>
+                </template>
 
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur nemo suscipit ipsa molestias, tempora dolor natus modi et incidunt tenetur!
             </ui-collapsible>
@@ -204,10 +208,10 @@
 </template>
 
 <script>
-import UiCollapsible from 'src/UiCollapsible.vue';
-import UiSelect from 'src/UiSelect.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiCollapsible from '@/UiCollapsible.vue';
+import UiSelect from '@/UiSelect.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 export default {
     data() {

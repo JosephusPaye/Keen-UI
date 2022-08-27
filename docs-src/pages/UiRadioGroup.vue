@@ -110,12 +110,12 @@
                             </tr>
 
                             <tr>
-                                <td class="no-wrap">value, v-model *</td>
+                                <td class="no-wrap">modelValue, v-model *</td>
                                 <td>Number, String</td>
                                 <td></td>
                                 <td>
                                     <p>The model that the selected value in the radio group syncs to. Can be set initially for a default selection.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>value</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>update:modelValue</code> event and update <code>modelValue</code>.</p>
                                 </td>
                             </tr>
 
@@ -131,8 +131,8 @@
                                         <li><code>id</code>: Applied as the <code>id</code> attribute of the option's root element.</li>
                                         <li><code>class</code>: Applied as the <code>class</code> attribute of the option's root element.</li>
                                         <li><code>label</code>*: The option's label - shown to the user.</li>
-                                        <li><code>value</code>*: The option's value - written to the model when the option is selected.</li>
-                                        <li><code>checked</code>: Whether or not the option is selected by default. This is overridden by the radio group's initial <code>value</code> if it's non-empty.</li>
+                                        <li><code>modelValue</code>*: The option's value - written to the model when the option is selected.</li>
+                                        <li><code>checked</code>: Whether or not the option is selected by default. This is overridden by the radio group's initial <code>modelValue</code> if it's non-empty.</li>
                                         <li><code>disabled</code>: Whether or not the option is disabled.</li>
                                     </ul>
 
@@ -298,11 +298,11 @@
                             </tr>
 
                             <tr>
-                                <td>input</td>
+                                <td>update:modelValue</td>
                                 <td>
                                     <p>Emitted when the radio group value is changed. The handler is called with the new value.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>value</code> prop.</p>
-                                    <p>Listen for it using <code>@input</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>modelValue</code> prop.</p>
+                                    <p>Listen for it using <code>@update:modelValue</code>.</p>
                                 </td>
                             </tr>
 
@@ -344,9 +344,9 @@
 </template>
 
 <script>
-import UiRadioGroup from 'src/UiRadioGroup.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiRadioGroup from '@/UiRadioGroup.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 const defaultGroup = [
     {

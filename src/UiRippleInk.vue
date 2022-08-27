@@ -129,7 +129,7 @@ export default {
         this.setupRipple();
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         this.destroyRipple();
     },
 

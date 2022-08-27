@@ -25,7 +25,7 @@
                     ref="focusContainer"
                     tabindex="-1"
 
-                    @keydown.native.stop.esc="onEsc"
+                    @keydown.stop.esc="onEsc"
                 >
                     <div class="ui-modal__header" v-if="!removeHeader">
                         <slot name="header">
@@ -61,6 +61,8 @@ import classlist from './helpers/classlist';
 
 export default {
     name: 'ui-modal',
+
+    emits: ['open', 'close', 'reveal', 'hide'],
 
     props: {
         title: {
@@ -164,7 +166,7 @@ export default {
         }
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         if (this.isOpen) {
             this.returnFocus();
         }
@@ -445,12 +447,12 @@ $ui-modal-header-font-size      : rem(18px);
 // Transitions
 // ================================================
 
-.ui-modal--transition-fade-enter,
+.ui-modal--transition-fade-enter-from,
 .ui-modal--transition-fade-leave-active {
     opacity: 0;
 }
 
-.ui-modal--transition-scale-down-enter,
+.ui-modal--transition-scale-down-enter-from,
 .ui-modal--transition-scale-down-leave-active {
     opacity: 0;
 
@@ -459,7 +461,7 @@ $ui-modal-header-font-size      : rem(18px);
     }
 }
 
-.ui-modal--transition-scale-up-enter,
+.ui-modal--transition-scale-up-enter-from,
 .ui-modal--transition-scale-up-leave-active {
     opacity: 0;
 

@@ -7,3 +7,4 @@ _reminder
 /node_modules
 Thumbs.db
 npm-debug.log
+.DS_Store

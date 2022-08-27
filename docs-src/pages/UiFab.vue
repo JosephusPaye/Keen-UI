@@ -180,10 +180,10 @@
 </template>
 
 <script>
-import UiFab from 'src/UiFab.vue';
-import UiRadioGroup from 'src/UiRadioGroup.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiFab from '@/UiFab.vue';
+import UiRadioGroup from '@/UiRadioGroup.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 export default {
     data() {
@@ -202,7 +202,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-fab {
     .ui-radio-group {

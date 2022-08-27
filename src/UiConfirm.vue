@@ -19,26 +19,28 @@
             <slot></slot>
         </div>
 
-        <div class="ui-confirm__footer" slot="footer">
-            <ui-button
-                ref="confirmButton"
+        <template #footer>
+            <div class="ui-confirm__footer">
+                <ui-button
+                    ref="confirmButton"
 
-                :color="confirmButtonColor"
-                :icon="confirmButtonIcon"
-                :loading="loading"
+                    :color="confirmButtonColor"
+                    :icon="confirmButtonIcon"
+                    :loading="loading"
 
-                @click="confirm"
-            >{{ confirmButtonText }}</ui-button>
+                    @click="confirm"
+                >{{ confirmButtonText }}</ui-button>
 
-            <ui-button
-                ref="denyButton"
+                <ui-button
+                    ref="denyButton"
 
-                :disabled="loading"
-                :icon="denyButtonIcon"
+                    :disabled="loading"
+                    :icon="denyButtonIcon"
 
-                @click="deny"
-            >{{ denyButtonText }}</ui-button>
-        </div>
+                    @click="deny"
+                >{{ denyButtonText }}</ui-button>
+            </div>
+        </template>
     </ui-modal>
 </template>
 
@@ -50,6 +52,8 @@ import classlist from './helpers/classlist';
 
 export default {
     name: 'ui-confirm',
+
+    emits: ['confirm', 'deny', 'open', 'reveal', 'close', 'hide'],
 
     props: {
         title: {

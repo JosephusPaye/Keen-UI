@@ -27,6 +27,9 @@
 
         <ul class="ui-datepicker-calendar__years" ref="years" v-show="showYearPicker">
             <li
+                v-for="year in yearRangeFiltered"
+                :key="year"
+
                 class="ui-datepicker-calendar__year"
                 tabindex="0"
 
@@ -34,9 +37,6 @@
 
                 @click="selectYear(year)"
                 @keydown.enter="selectYear(year)"
-
-                v-for="year in yearRange"
-                v-if="!isYearOutOfRange(year)"
             >{{ year }}</li>
         </ul>
 
@@ -63,7 +63,7 @@
                 :lang="lang"
                 :max-date="maxDate"
                 :min-date="minDate"
-                :selected="value"
+                :selected="modelValue"
                 :start-of-week="startOfWeek"
 
                 @change="onMonthChange"
@@ -83,8 +83,10 @@ import { scrollIntoView } from './helpers/element-scroll';
 export default {
     name: 'ui-datepicker-calendar',
 
+    emits: ['update:modelValue', 'update:currentView', 'date-select', 'month-change'],
+
     props: {
-        value: Date,
+        modelValue: Date,
         minDate: Date,
         maxDate: Date,
         startOfWeek: {
@@ -128,7 +130,7 @@ export default {
     data() {
         return {
             today: new Date(),
-            dateInView: this.getDateInRange(this.value, new Date())
+            dateInView: this.getDateInRange(this.modelValue, new Date())
         };
     },
 
@@ -141,17 +143,17 @@ export default {
         },
 
         headerYear() {
-            return this.value ? this.value.getFullYear() : this.today.getFullYear();
+            return this.modelValue ? this.modelValue.getFullYear() : this.today.getFullYear();
         },
 
         headerWeekday() {
-            return this.value ?
-                dateUtils.getDayAbbreviated(this.value, this.lang) :
+            return this.modelValue ?
+                dateUtils.getDayAbbreviated(this.modelValue, this.lang) :
                 dateUtils.getDayAbbreviated(this.today, this.lang);
         },
 
         headerDay() {
-            const date = this.value ? this.value : this.today;
+            const date = this.modelValue ? this.modelValue : this.today;
 
             return dateUtils.getMonthAbbreviated(date, this.lang) + ' ' +
                 dateUtils.getDayOfMonth(date, this.lang);
@@ -163,13 +165,17 @@ export default {
 
         showDatePicker() {
             return this.currentView === 'date';
+        },
+
+        yearRangeFiltered() {
+            return this.yearRange.filter(year => !this.isYearOutOfRange(year));
         }
     },
 
     watch: {
-        value() {
-            if (this.value) {
-                this.dateInView = dateUtils.clone(this.value);
+        modelValue() {
+            if (this.modelValue) {
+                this.dateInView = dateUtils.clone(this.modelValue);
             }
         },
 
@@ -220,7 +226,7 @@ export default {
         },
 
         isYearSelected(year) {
-            return this.value && year === this.value.getFullYear();
+            return this.modelValue && year === this.modelValue.getFullYear();
         },
 
         isYearOutOfRange(year) {
@@ -232,11 +238,11 @@ export default {
                 return true;
             }
 
-            if (this.year < this.yearRange[0]) {
+            if (year < this.yearRange[0]) {
                 return true;
             }
 
-            if (this.year > this.yearRange[this.yearRange.length - 1]) {
+            if (year > this.yearRange[this.yearRange.length - 1]) {
                 return true;
             }
 
@@ -244,7 +250,7 @@ export default {
         },
 
         onDateSelect(date) {
-            this.$emit('input', date);
+            this.$emit('update:modelValue', date);
             this.$emit('date-select', date);
         },
 

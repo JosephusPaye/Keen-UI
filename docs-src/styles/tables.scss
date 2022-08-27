@@ -1,12 +1,14 @@
-// From Bootstrap: http://getbootstrap.com/customize/?id=e516e5d6e28288745392
-table {
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: rem(20px);
     border-collapse: collapse;
     border-spacing: 0;
     background-color: transparent;
 }
 
-td,
-th {
+.table td,
+.table th {
     padding: 0;
 
     &.fixed-width {
@@ -14,21 +16,15 @@ th {
     }
 }
 
-caption {
+.table th {
+    text-align: left;
+}
+
+.table caption {
     padding-top: rem(8px);
     padding-bottom: rem(8px);
     color: #777777;
     text-align: left;
-}
-
-th {
-    text-align: left;
-}
-
-.table {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: rem(20px);
 }
 
 .table > thead > tr > th,
@@ -100,14 +96,14 @@ th {
     background-color: #f5f5f5;
 }
 
-table col[class*="col-"] {
+.table col[class*="col-"] {
     position: static;
     float: none;
     display: table-column;
 }
 
-table td[class*="col-"],
-table th[class*="col-"] {
+.table td[class*="col-"],
+.table th[class*="col-"] {
     position: static;
     float: none;
     display: table-cell;

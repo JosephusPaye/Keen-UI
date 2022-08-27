@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import UiIcon from 'src/UiIcon.vue';
+import UiIcon from '@/UiIcon.vue';
 
 export default {
     name: 'Brand',

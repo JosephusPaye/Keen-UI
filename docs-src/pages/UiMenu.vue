@@ -36,7 +36,7 @@
 
             <h4 class="page__demo-title">Custom template</h4>
             <ui-menu has-icons has-secondary-text :options="menuOptions" raised>
-                <template slot-scope="props" slot="option">
+                <template #option="props">
                     <code>Label: {{ props.option.label }}, Icon: {{ props.option.icon }}</code>
                 </template>
             </ui-menu>
@@ -248,10 +248,10 @@
 </template>
 
 <script>
-import UiMenu from 'src/UiMenu.vue';
-import UiPopover from 'src/UiPopover';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiMenu from '@/UiMenu.vue';
+import UiPopover from '@/UiPopover.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 const menuOptions = [
     {
@@ -328,7 +328,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-menu {
     .popover-trigger {

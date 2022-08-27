@@ -1,5 +1,5 @@
 export default {
-    inserted(el, { value }) {
+    mounted(el, { value }) {
         if (value) {
             el.focus();
         }

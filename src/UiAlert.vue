@@ -47,6 +47,8 @@ import UiIcon from './UiIcon.vue';
 export default {
     name: 'ui-alert',
 
+    emits: ['dismiss'],
+
     props: {
         type: {
             type: String,
@@ -219,7 +221,7 @@ $ui-alert-margin-bottom     : rem(16px) !default;
 // Transition
 // ================================================
 
-.ui-alert--transition-toggle-enter,
+.ui-alert--transition-toggle-enter-from,
 .ui-alert--transition-toggle-leave-active {
     margin-bottom: 0;
 

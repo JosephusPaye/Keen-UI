@@ -39,8 +39,8 @@
 <script>
 import Navbar from './Navbar.vue';
 import Sidebar from './Sidebar.vue';
-import UiIcon from 'src/UiIcon.vue';
-import UiIconButton from 'src/UiIconButton.vue';
+import UiIcon from '@/UiIcon.vue';
+import UiIconButton from '@/UiIconButton.vue';
 
 export default {
     components: {
@@ -105,7 +105,7 @@ export default {
         this.onResize(this.mobileMediaQuery);
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         if (this.mobileMediaQuery) {
             this.mobileMediaQuery.removeListener(this.onResize);
         }

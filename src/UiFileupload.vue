@@ -48,6 +48,8 @@ import UiRippleInk from './UiRippleInk.vue';
 export default {
     name: 'ui-fileupload',
 
+    emits: ['input', 'focus', 'blur', 'change'],
+
     props: {
         name: {
             type: String,

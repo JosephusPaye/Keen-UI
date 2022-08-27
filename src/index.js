@@ -74,7 +74,7 @@ const KeenUI = {
     UiTooltip
 };
 
-KeenUI.install = function (Vue, config = {}) {
+KeenUI.install = function (app, config = {}) {
     // Configure the component props
     Object.keys(config).forEach(key => {
         if (startsWith(key, 'Ui')) {
@@ -93,14 +93,14 @@ KeenUI.install = function (Vue, config = {}) {
     Object.keys(KeenUI).forEach(key => {
         if (startsWith(key, 'Ui')) {
             const Component = KeenUI[key];
-            Vue.component(Component.name, Component);
+            app.component(Component.name, Component);
         }
     });
 };
 
-// Automatically install Keen UI if Vue is available globally
-if (typeof window !== 'undefined' && window.Vue) {
-    window.Vue.use(KeenUI, window.KeenUiConfig);
+// Make Keen UI available globally when in a browser environment
+if (typeof window !== 'undefined') {
+    window.KeenUI = KeenUI;
 }
 
 export default KeenUI;

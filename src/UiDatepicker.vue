@@ -72,7 +72,7 @@
                         :max-date="maxDate"
                         :min-date="minDate"
                         :orientation="orientation"
-                        :current-view.sync="calendarView"
+                        v-model:currentView="calendarView"
                         :value="date"
                         :start-of-week="startOfWeek"
                         :year-range="yearRange"
@@ -109,7 +109,7 @@
                 :max-date="maxDate"
                 :min-date="minDate"
                 :orientation="orientation"
-                :current-view.sync="calendarView"
+                v-model:currentView="calendarView"
                 :value="date"
                 :start-of-week="startOfWeek"
                 :year-range="yearRange"
@@ -132,9 +132,11 @@ import dateUtils from './helpers/date';
 export default {
     name: 'ui-datepicker',
 
+    emits: ['update:modelValue', 'focus', 'blur', 'open', 'close', 'touch'],
+
     props: {
         name: String,
-        value: [Date, String],
+        modelValue: [Date, String],
         tabindex: [String, Number],
         startOfWeek: {
             type: Number,
@@ -196,14 +198,14 @@ export default {
         return {
             isActive: false,
             isTouched: false,
-            initialValue: JSON.stringify(this.value),
+            initialValue: JSON.stringify(this.modelValue),
             calendarView: this.defaultView
         };
     },
 
     computed: {
         date() {
-            return typeof this.value === 'string' ? new Date(this.value) : this.value;
+            return typeof this.modelValue === 'string' ? new Date(this.modelValue) : this.modelValue;
         },
 
         classes() {
@@ -291,7 +293,7 @@ export default {
 
     methods: {
         onDateSelect(date) {
-            this.$emit('input', date);
+            this.$emit('update:modelValue', date);
             this.closePicker();
         },
 
@@ -365,11 +367,11 @@ export default {
         },
 
         clear() {
-            this.$emit('input', null);
+            this.$emit('update:modelValue', null);
         },
 
         reset() {
-            this.$emit('input', JSON.parse(this.initialValue));
+            this.$emit('update:modelValue', JSON.parse(this.initialValue));
         },
 
         resetTouched(options = { touched: false }) {

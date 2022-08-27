@@ -349,15 +349,15 @@
 </template>
 
 <script>
-import UiSnackbar from 'src/UiSnackbar.vue';
-import UiSnackbarContainer from 'src/UiSnackbarContainer.vue';
+import UiSnackbar from '@/UiSnackbar.vue';
+import UiSnackbarContainer from '@/UiSnackbarContainer.vue';
 
-import UiButton from 'src/UiButton.vue';
-import UiRadioGroup from 'src/UiRadioGroup.vue';
-import UiSwitch from 'src/UiSwitch.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
-import UiTextbox from 'src/UiTextbox.vue';
+import UiButton from '@/UiButton.vue';
+import UiRadioGroup from '@/UiRadioGroup.vue';
+import UiSwitch from '@/UiSwitch.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
+import UiTextbox from '@/UiTextbox.vue';
 
 export default {
     data() {
@@ -397,7 +397,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-snackbar {
     .preview-controls {

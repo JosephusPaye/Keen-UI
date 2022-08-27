@@ -55,6 +55,8 @@ import UUID from './helpers/uuid';
 export default {
     name: 'ui-collapsible',
 
+    emits: ['open', 'close'],
+
     props: {
         open: {
             type: Boolean,

@@ -2,14 +2,12 @@
     <table class="ui-calendar-month">
         <thead class="ui-calendar-month__header">
             <tr>
-                <th v-for="day in daysOfWeek">{{ day }}</th>
+                <th :key="day" v-for="day in daysOfWeek">{{ day }}</th>
             </tr>
         </thead>
 
         <tbody class="ui-calendar-month__body">
-            <tr
-                is="ui-calendar-week"
-
+            <ui-calendar-week
                 :color="color"
                 :date-filter="dateFilter"
                 :key="date.toString()"
@@ -24,10 +22,10 @@
 
                 v-for="date in currentWeekStartDates"
             >
-                <template slot-scope="props" v-if="$scopedSlots.date">
+                <template #default="props" v-if="$slots.date">
                     <slot name="date" :date="props.date"></slot>
                 </template>
-            </tr>
+            </ui-calendar-week>
         </tbody>
     </table>
 </template>
@@ -39,6 +37,8 @@ import dateUtils from './helpers/date';
 
 export default {
     name: 'ui-calendar-month',
+
+    emits: ['date-select', 'change'],
 
     props: {
         lang: Object,
@@ -120,6 +120,9 @@ export default {
 @import './styles/imports';
 
 .ui-calendar-month {
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: transparent;
     table-layout: fixed;
     width: 100%;
 }

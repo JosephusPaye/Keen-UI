@@ -1,6 +1,6 @@
 <template>
     <transition :name="transitionName" @after-enter="onEnter" @after-leave="onLeave">
-        <div class="ui-snackbar" @click="onClick">
+        <div class="ui-snackbar">
             <div class="ui-snackbar__message">
                 <slot>{{ message }}</slot>
             </div>
@@ -27,6 +27,8 @@ import UiButton from './UiButton.vue';
 export default {
     name: 'ui-snackbar',
 
+    emits: ['action-click', 'show', 'hide'],
+
     props: {
         message: String,
         action: String,
@@ -47,10 +49,6 @@ export default {
     },
 
     methods: {
-        onClick() {
-            this.$emit('click');
-        },
-
         onActionClick() {
             this.$emit('action-click');
         },
@@ -123,7 +121,7 @@ $ui-snackbar-font-size          : rem(14px) !default;
     transition: transform 0.4s ease;
 }
 
-.ui-snackbar--transition-slide-enter,
+.ui-snackbar--transition-slide-enter-from,
 .ui-snackbar--transition-slide-leave-active {
     transform: translateY(rem(84px));
 }
@@ -133,7 +131,7 @@ $ui-snackbar-font-size          : rem(14px) !default;
     transition: opacity 0.4s ease;
 }
 
-.ui-snackbar--transition-fade-enter,
+.ui-snackbar--transition-fade-enter-from,
 .ui-snackbar--transition-fade-leave-active {
     opacity: 0;
 }

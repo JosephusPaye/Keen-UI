@@ -21,15 +21,15 @@
                 :color="color"
                 :date-in-view="dateInView"
                 :lang="lang"
-                :selected="value"
+                :selected="modelValue"
                 :start-of-week="startOfWeek"
                 :square-cells="squareCells"
 
                 @change="onMonthChange"
                 @date-select="onDateSelect"
             >
-                <template slot-scope="props" slot="date">
-                    <slot name="date" :date="props.date" v-if="$scopedSlots.date"></slot>
+                <template #date="props">
+                    <slot name="date" :date="props.date" v-if="$slots.date"></slot>
                     <template v-else>{{ props.date.getDate() }}</template>
                 </template>
             </ui-calendar-month>
@@ -45,6 +45,8 @@ import dateUtils from './helpers/date';
 
 export default {
     name: 'ui-calendar',
+
+    emits: ['update:modelValue', 'date-select', 'month-change'],
 
     props: {
         color: {
@@ -72,7 +74,7 @@ export default {
             type: Boolean,
             default: false
         },
-        value: Date,
+        modelValue: Date,
         yearRange: {
             type: Array,
             default() {
@@ -91,7 +93,7 @@ export default {
     data() {
         return {
             today: new Date(),
-            dateInView: this.value || new Date()
+            dateInView: this.modelValue || new Date()
         };
     },
 
@@ -105,16 +107,16 @@ export default {
     },
 
     watch: {
-        value() {
-            if (this.value) {
-                this.dateInView = dateUtils.clone(this.value);
+        modelValue() {
+            if (this.modelValue) {
+                this.dateInView = dateUtils.clone(this.modelValue);
             }
         }
     },
 
     methods: {
         onDateSelect(date) {
-            this.$emit('input', date);
+            this.$emit('update:modelValue', date);
             this.$emit('date-select', date);
         },
 

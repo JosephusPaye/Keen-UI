@@ -67,9 +67,9 @@
 </template>
 
 <script>
-import UiRippleInk from 'src/UiRippleInk.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiRippleInk from '@/UiRippleInk.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 const tvShows = [
     {
@@ -143,7 +143,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-ripple-ink {
     .page__demo-group {

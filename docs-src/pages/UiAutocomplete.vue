@@ -104,7 +104,7 @@
                 :suggestions="months"
                 v-model="autocomplete6"
             >
-                <template slot-scope="props" slot="suggestion">
+                <template #suggestion="props">
                     <code>{{ props }}</code>
                 </template>
             </ui-autocomplete>
@@ -146,12 +146,12 @@
                             </tr>
 
                             <tr>
-                                <td class="no-wrap">value, v-model</td>
+                                <td class="no-wrap">modelValue, v-model</td>
                                 <td>String</td>
                                 <td></td>
                                 <td>
                                     <p>The model the autocomplete value syncs to.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>value</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>update:modelValue</code> event and update <code>modelValue</code>.</p>
                                 </td>
                             </tr>
 
@@ -162,9 +162,9 @@
                                 <td>
                                     <p>An array of suggestions to show to the user. The array can either be of strings or objects (but not both).</p>
 
-                                    <p>For an array of objects, each object should have <code>label</code> and <code>value</code> properties. The <code>label</code> is shown to the user and the <code>value</code> is written to the model when the user makes a selection.</p>
+                                    <p>For an array of objects, each object should have <code>label</code> and <code>modelValue</code> properties. The <code>label</code> is shown to the user and the <code>modelValue</code> is written to the model when the user makes a selection.</p>
 
-                                    <p>You can redefine the <code>label</code> and <code>value</code> keys to fit your data using the <code>keys</code> prop.</p>
+                                    <p>You can redefine the <code>label</code> and <code>modelValue</code> keys to fit your data using the <code>keys</code> prop.</p>
 
                                     <p>For an array of strings, each string is used as both the label and the value.</p>
                                 </td>
@@ -479,11 +479,11 @@
                         </tr>
 
                         <tr>
-                            <td>input</td>
+                            <td>update:modelValue</td>
                             <td>
                                 <p>Emitted when the autocomplete input value is changed. The handler is called with the new value.</p>
-                                <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>value</code> prop.</p>
-                                <p>Listen for it using <code>@input</code>.</p>
+                                <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>modelValue</code> prop.</p>
+                                <p>Listen for it using <code>@update:modelValue</code>.</p>
                             </td>
                         </tr>
 
@@ -602,10 +602,10 @@
 </template>
 
 <script>
-import UiAutocomplete from 'src/UiAutocomplete.vue';
-import UiButton from 'src/UiButton.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiAutocomplete from '@/UiAutocomplete.vue';
+import UiButton from '@/UiButton.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 const months = [
     'January',
@@ -697,7 +697,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-autocomplete {
     .page__examples {

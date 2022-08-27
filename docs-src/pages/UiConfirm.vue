@@ -398,10 +398,10 @@
 </template>
 
 <script>
-import UiButton from 'src/UiButton.vue';
-import UiConfirm from 'src/UiConfirm.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiButton from '@/UiButton.vue';
+import UiConfirm from '@/UiConfirm.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 export default {
     data() {

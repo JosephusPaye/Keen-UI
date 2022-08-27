@@ -21,9 +21,9 @@
             :target="option[keys.target]"
             :type="option[keys.type]"
 
-            @click.native="selectOption(option)"
-            @keydown.enter.native="selectOption(option)"
-            @keydown.esc.native.esc="closeMenu"
+            @click="selectOption(option)"
+            @keydown.enter="selectOption(option)"
+            @keydown.esc="closeMenu"
 
             v-for="(option, index) in options"
         >
@@ -38,6 +38,8 @@ import UiMenuOption from './UiMenuOption.vue';
 
 export default {
     name: 'ui-menu',
+
+    emits: ['select', 'close'],
 
     props: {
         options: {

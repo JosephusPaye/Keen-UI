@@ -47,6 +47,8 @@ import UiProgressLinear from './UiProgressLinear.vue';
 export default {
     name: 'ui-toolbar',
 
+    emits: ['nav-icon-click'],
+
     props: {
         type: {
             type: String,

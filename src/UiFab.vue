@@ -4,8 +4,6 @@
 
         :aria-label="ariaLabel || tooltip"
         :class="classes"
-
-        @click="onClick"
     >
         <div class="ui-fab__icon" v-if="icon || $slots.default">
             <slot>
@@ -60,12 +58,6 @@ export default {
                 `ui-fab--color-${this.color}`,
                 `ui-fab--size-${this.size}`
             ];
-        }
-    },
-
-    methods: {
-        onClick(e) {
-            this.$emit('click', e);
         }
     },
 

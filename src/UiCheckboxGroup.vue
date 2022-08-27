@@ -46,13 +46,15 @@ import { looseIndexOf } from './helpers/util';
 export default {
     name: 'ui-checkbox-group',
 
+    emits: ['update:modelValue', 'focus', 'blur', 'change'],
+
     props: {
         name: String,
         options: {
             type: Array,
             required: true
         },
-        value: {
+        modelValue: {
             type: Array,
             required: true
         },
@@ -99,7 +101,7 @@ export default {
             isActive: false,
             ignoreChange: false,
             checkboxValues: [],
-            initialValue: JSON.parse(JSON.stringify(this.value))
+            initialValue: JSON.parse(JSON.stringify(this.modelValue))
         };
     },
 
@@ -136,7 +138,7 @@ export default {
             });
             this.ignoreChange = false;
 
-            this.$emit('input', (this.initialValue.length > 0) ? [].concat(this.initialValue) : []);
+            this.$emit('update:modelValue', (this.initialValue.length > 0) ? [].concat(this.initialValue) : []);
         },
 
         isOptionCheckedByDefault(option) {
@@ -163,17 +165,17 @@ export default {
 
             let value = [];
             const optionValue = option[this.keys.value] || option;
-            const i = looseIndexOf(this.value, optionValue);
+            const i = looseIndexOf(this.modelValue, optionValue);
 
             if (checked && i < 0) {
-                value = this.value.concat(optionValue);
+                value = this.modelValue.concat(optionValue);
             }
 
             if (!checked && i > -1) {
-                value = this.value.slice(0, i).concat(this.value.slice(i + 1));
+                value = this.modelValue.slice(0, i).concat(this.modelValue.slice(i + 1));
             }
 
-            this.$emit('input', value);
+            this.$emit('update:modelValue', value);
             this.$emit('change', value, e);
         }
     },

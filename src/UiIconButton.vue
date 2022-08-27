@@ -8,8 +8,6 @@
         :href="isAnchor ? (disabled ? null : href) : null"
         :is="isAnchor ? 'a' : 'button'"
         :type="isAnchor ? null : buttonType"
-
-        @click="onClick"
     >
         <div class="ui-icon-button__icon" v-if="icon || $slots.default">
             <slot>
@@ -32,7 +30,7 @@
         <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
 
         <ui-popover
-            constain-focus
+            contain-focus
             ref="dropdown"
 
             :append-to-body="appendDropdownToBody"
@@ -66,6 +64,8 @@ import UiTooltip from './UiTooltip.vue';
 
 export default {
     name: 'ui-icon-button',
+
+    emits: ['dropdown-open', 'dropdown-close'],
 
     props: {
         type: {
@@ -156,10 +156,6 @@ export default {
     },
 
     methods: {
-        onClick(e) {
-            this.$emit('click', e);
-        },
-
         onDropdownOpen() {
             this.$emit('dropdown-open');
         },

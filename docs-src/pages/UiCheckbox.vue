@@ -83,13 +83,13 @@
                             </tr>
 
                             <tr>
-                                <td class="no-wrap">value, v-model *</td>
+                                <td class="no-wrap">modelValue, v-model *</td>
                                 <td></td>
                                 <td></td>
                                 <td>
                                     <p>The model that the checkbox value syncs to.</p>
                                     <p>The <code>trueValue</code> prop will be written to this model when the checkbox is checked and the <code>falseValue</code> prop will be written to it when the checkbox is unchecked.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>input</code> event and update <code>value</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for the <code>update:modelValue</code> event and update <code>modelValue</code>.</p>
                                 </td>
                             </tr>
 
@@ -118,7 +118,7 @@
                                 <td>submittedValue</td>
                                 <td></td>
                                 <td><code>"on"</code></td>
-                                <td>The value that will be submitted for the checkbox when it is checked. Applied as the <code>value</code> attribute of the checkbox input element.</td>
+                                <td>The value that will be submitted for the checkbox when it is checked. Applied as the <code>modelValue</code> attribute of the checkbox input element.</td>
                             </tr>
 
                             <tr>
@@ -206,11 +206,11 @@
                             </tr>
 
                             <tr>
-                                <td>input</td>
+                                <td>update:modelValue</td>
                                 <td>
                                     <p>Emitted when the checkbox value is changed. The handler is called with the new value.</p>
-                                    <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>value</code> prop.</p>
-                                    <p>Listen for it using <code>@input</code>.</p>
+                                    <p>If you are not using <code>v-model</code>, you should listen for this event and update the <code>modelValue</code> prop.</p>
+                                    <p>Listen for it using <code>@update:modelValue</code>.</p>
                                 </td>
                             </tr>
 
@@ -254,9 +254,9 @@
 </template>
 
 <script>
-import UiCheckbox from 'src/UiCheckbox.vue';
-import UiTab from 'src/UiTab.vue';
-import UiTabs from 'src/UiTabs.vue';
+import UiCheckbox from '@/UiCheckbox.vue';
+import UiTab from '@/UiTab.vue';
+import UiTabs from '@/UiTabs.vue';
 
 export default {
     data() {
@@ -278,7 +278,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~styles/imports';
+@import '@/styles/imports';
 
 .page--ui-checckbox {
     .page__demo-group {
