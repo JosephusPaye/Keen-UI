@@ -272,7 +272,7 @@ export default {
                 if (this.closeOnScroll) {
                     this.removeScrollListener = events.on('scroll', document, e => {
                         this.closeOnExternal(e, { returnFocus: true });
-                    }, { passive: true });
+                    });
                 }
             }, 0);
         },

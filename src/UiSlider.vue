@@ -291,7 +291,7 @@ export default {
             this.dragUpdate(e);
 
             document.addEventListener('touchmove', this.onDragMove, { passive: true });
-            document.addEventListener('mousemove', this.onDragMove, { passive: true });
+            document.addEventListener('mousemove', this.onDragMove);
 
             this.$emit('dragstart', this.localValue, e);
         },
