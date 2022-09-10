@@ -389,7 +389,8 @@ $ui-track-focus-ring-transition-duration    : 0.2s !default;
 $ui-track-focus-ring-color                  : rgba($ui-track-thumb-fill-color, 0.38) !default;
 
 // Marker
-$ui-slider-marker-size                      : rem(36px);
+$ui-slider-marker-size                      : rem(36px) !default;
+$ui-slider-marker-font-size                 : rem(13px) !default;
 
 .ui-slider {
     align-items: center;
@@ -540,13 +541,13 @@ $ui-slider-marker-size                      : rem(36px);
 }
 
 .ui-slider__marker-text {
-    color: $ui-track-thumb-fill-color;;
-    font-size: rem(13px);
+    color: $ui-track-thumb-fill-color;
+    font-size: $ui-slider-marker-font-size;
     font-weight: 600;
     left: 0;
     position: absolute;
     text-align: center;
-    top: rem(4px);
+    line-height: $ui-slider-marker-size * 0.8; // 0.8 is the aspect ratio of the width of the svg marker against its height
     transition: color $ui-track-focus-ring-transition-duration ease;
     width: $ui-slider-marker-size;
 }
