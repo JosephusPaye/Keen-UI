@@ -36,7 +36,7 @@
             class="ui-slider__track"
             ref="track"
             @mousedown="onDragStart"
-            @touchstart="onDragStart"
+            @touchstart.passive="onDragStart"
         >
             <div class="ui-slider__track-background">
                 <template v-if="snapToSteps">
@@ -290,7 +290,7 @@ export default {
             this.isDragging = true;
             this.dragUpdate(e);
 
-            document.addEventListener('touchmove', this.onDragMove);
+            document.addEventListener('touchmove', this.onDragMove, { passive: true });
             document.addEventListener('mousemove', this.onDragMove);
 
             this.$emit('dragstart', this.localValue, e);

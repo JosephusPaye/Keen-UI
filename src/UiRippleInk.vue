@@ -142,7 +142,7 @@ export default {
                 return;
             }
 
-            this.triggerEl.addEventListener('touchstart', handleTouchStart);
+            this.triggerEl.addEventListener('touchstart', handleTouchStart, { passive: true });
             this.triggerEl.addEventListener('mousedown', handleMouseDown);
         },
 
