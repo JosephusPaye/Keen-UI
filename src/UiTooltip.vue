@@ -51,12 +51,16 @@ export default {
             return;
         }
 
+        // When the element is placed inside a shadow DOM node we need to attach the popover to its root instead of the document root
+        const body = this.triggerEl.getRootNode() === document ? document.body : this.triggerEl.getRootNode();
+
         const options = {
             // `animateFill: true` makes the backdrop animate, making the fade look like a shift-away
             animateFill: this.animation !== 'fade',
             // Use 'fade' when animation is 'none', as 'none' it's not a valid Tippy.js option.
             // The effect of no transition is achieved by `duration: 0` below.
             animation: this.animation === 'none' ? 'fade' : this.animation,
+            appendTo: this.appendToBody ? body : this.triggerEl.parentElement,
             arrow: false,
             content: this.$el,
             delay: [this.openDelay, 0],
@@ -79,10 +83,6 @@ export default {
                 }
             }
         };
-
-        if (!this.appendToBody) {
-            options.appendTo = this.triggerEl.parentElement;
-        }
 
         this.tip = tippy(this.triggerEl, options);
     },
