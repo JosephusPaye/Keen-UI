@@ -3,7 +3,8 @@
 
 // The UI font stack
 $font-stack             : -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
-$font-weight--bold       : 600 !default;
+$font-weight--semibold  : 600 !default;
+$font-weight--bold      : 700 !default;
 
 // Base font size
 $base-font-size         : 100% !default; // typically 16px in most browsers
@@ -92,7 +93,7 @@ $ui-button-font-size--large         : rem(16px) !default;
 $ui-button-height                   : rem(36px) !default;
 $ui-button-height--small            : rem(32px) !default;
 $ui-button-height--large            : rem(48px) !default;
-$ui-button-font-weight              : $font-weight--bold !default;
+$ui-button-font-weight              : $font-weight--semibold !default;
 
 // ================================================
 // Dropdowns (UiAutocomplete, UiPopover, UiMenu, UiSelect)
