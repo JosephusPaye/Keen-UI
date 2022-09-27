@@ -2,7 +2,7 @@ const vue = require('@vitejs/plugin-vue');
 const banner = require('vite-plugin-banner');
 const options = require('./options');
 
-module.exports = ({ entry, mode = 'development' }) => {
+module.exports = ({ entry, mode }) => {
     return {
         plugins: [
             vue(),
