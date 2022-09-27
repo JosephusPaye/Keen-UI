@@ -106,7 +106,7 @@ $ui-select-option-checkbox-color: rgba(black, 0.38) !default;
     &.is-selected {
         background-color: rgba(black, 0.05);
         color: $brand-primary-color;
-        font-weight: 600;
+        font-weight: $font-weight--semibold;
 
         .ui-select-option__checkbox {
             color: $brand-primary-color;

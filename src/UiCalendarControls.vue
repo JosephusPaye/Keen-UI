@@ -155,7 +155,7 @@ export default {
 
 .ui-calendar-controls__month-and-year {
     font-size: rem(15px);
-    font-weight: 600;
+    font-weight: $font-weight--semibold;
 }
 
 // ================================================
