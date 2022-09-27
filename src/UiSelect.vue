@@ -399,7 +399,9 @@ export default {
     },
 
     created() {
-        if ((this.multiple && !Array.isArray(this.modelValue)) || (!this.modelValue && this.modelValue !== '')) {
+        const invalidMultipleValue = this.multiple && !Array.isArray(this.modelValue);
+        const invalidEmptyValue = !this.modelValue && this.modelValue !== '';
+        if (invalidMultipleValue || invalidEmptyValue) {
             this.$emit('update:modelValue', this.emptyValue);
             this.initialValue = JSON.stringify(this.emptyValue);
         }
