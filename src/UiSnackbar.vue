@@ -1,5 +1,5 @@
 <template>
-    <transition :name="transitionName" @after-enter="onEnter" @after-leave="onLeave">
+    <transition :name="transitionName" @after-enter="onEnter" @after-leave="onLeave" appear>
         <div class="ui-snackbar">
             <div class="ui-snackbar__message">
                 <slot>{{ message }}</slot>
