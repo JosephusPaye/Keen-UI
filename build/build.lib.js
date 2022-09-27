@@ -35,9 +35,9 @@ const entries = [
     'UiTabs',
     'UiTextbox',
     'UiToolbar',
-    'UiTooltip',
-]
+    'UiTooltip'
+];
 
 entries.forEach(async entry => {
-    await build(profileLibConfig({ entry, mode: process.env.NODE_ENV || 'development' }))
-})
+    await build(profileLibConfig({ entry, mode: process.env.NODE_ENV || 'development' }));
+});

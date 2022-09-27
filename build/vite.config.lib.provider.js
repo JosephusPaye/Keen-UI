@@ -1,6 +1,6 @@
-const vue = require('@vitejs/plugin-vue')
-const banner = require('vite-plugin-banner')
-const options = require('./options')
+const vue = require('@vitejs/plugin-vue');
+const banner = require('vite-plugin-banner');
+const options = require('./options');
 
 module.exports = ({ entry, mode = 'development' }) => {
     return {
@@ -24,5 +24,5 @@ module.exports = ({ entry, mode = 'development' }) => {
             outDir: options.paths.output.lib,
             cssCodeSplit: true
         }
-    }
+    };
 };

@@ -4,7 +4,7 @@ const banner = require('vite-plugin-banner');
 const options = require('./options');
 
 export default defineConfig(({ mode }) => {
-    const filename = mode === 'production' ? 'keen-ui.min' : 'keen-ui'
+    const filename = mode === 'production' ? 'keen-ui.min' : 'keen-ui';
 
     return {
         plugins: [
@@ -33,5 +33,5 @@ export default defineConfig(({ mode }) => {
                 }
             }
         }
-    }
+    };
 });
