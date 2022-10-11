@@ -82,6 +82,18 @@
                 </ui-tab>
             </ui-tabs>
 
+            <h4 class="page__demo-title">Tabs with tooltips</h4>
+
+            <ui-tabs type="icon">
+                <ui-tab :key="tab.title" v-for="tab in demoTabs" :tooltip="tab.title">
+                    <template #icon>
+                        <ui-icon :icon="tab.icon"></ui-icon>
+                    </template>
+
+                    <p>{{ tab.title }}</p>
+                </ui-tab>
+            </ui-tabs>
+
             <h4 class="page__demo-title">Control programmatically</h4>
 
             <ui-tabs type="icon-and-text" fullwidth ref="controlTabs">
@@ -346,6 +358,35 @@
                                     <p>Whether or not the tab is disabled.</p>
                                     <p>Set to <code>true</code> to disable the tab and prevent user interaction.</p>
                                     <p>If a tab is selected when its <code>disabled</code> prop is changed to <code>true</code>, the nearest available tab is automatically selected.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>tooltip</td>
+                                <td>String</td>
+                                <td></td>
+                                <td>
+                                    <p>The tab tooltip (text only).</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>tooltipPosition</td>
+                                <td>String</td>
+                                <td class="no-wrap"><code>"top"</code></td>
+                                <td>
+                                    <p>The position of the tooltip relative to the tab.</p>
+                                    <p>One of <code>top</code>, <code>top-start</code>, <code>top-end</code>, <code>right</code>, <code>right-start</code>, <code>right-end</code>, <code>bottom</code>, <code>bottom-start</code>, <code>bottom-end</code>, <code>left</code>, <code>left-start</code>, <code>left-end</code>.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>openTooltipOn</td>
+                                <td>String</td>
+                                <td><code>"mouseenter focus"</code></td>
+                                <td>
+                                    <p>The type of event or events that will cause the tooltip to open.</p>
+                                    <p>One or more of <code>click</code>, <code>hover</code>/<code>mouseenter</code>, or <code>focus</code>. Separate multiple events with a space.</p>
                                 </td>
                             </tr>
                         </tbody>

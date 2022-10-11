@@ -6,7 +6,7 @@
         :aria-controls="id"
         :aria-selected="active ? 'true' : null"
         :class="classes"
-        :disabled="disabled"
+        :disabled="disabled ? 'true' : null"
         :tabindex="active ? 0 : -1"
     >
         <slot>
@@ -18,19 +18,28 @@
         </slot>
 
         <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
+
+        <ui-tooltip
+            :open-on="openTooltipOn"
+            :position="tooltipPosition"
+
+            v-if="tooltip"
+        >{{ tooltip }}</ui-tooltip>
     </li>
 </template>
 
 <script>
 import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
+import UiTooltip from './UiTooltip.vue';
 
 export default {
     name: 'ui-tab-header-item',
 
     components: {
         UiIcon,
-        UiRippleInk
+        UiRippleInk,
+        UiTooltip
     },
 
     props: {
@@ -51,7 +60,10 @@ export default {
         disabled: {
             type: Boolean,
             default: false
-        }
+        },
+        tooltip: String,
+        openTooltipOn: String,
+        tooltipPosition: String
     },
 
     computed: {

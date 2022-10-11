@@ -12,6 +12,9 @@
                     :key="tab.id"
                     :title="tab.title"
                     :type="type"
+                    :tooltip="tab.tooltip"
+                    :open-tooltip-on="tab.openTooltipOn"
+                    :tooltip-position="tab.tooltipPosition"
 
                     @click="onTabClick(tab, $event)"
                     @keydown.left="selectPreviousTab"

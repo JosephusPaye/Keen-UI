@@ -36,6 +36,12 @@ export default {
         disabled: {
             type: Boolean,
             default: false
+        },
+        tooltip: String,
+        openTooltipOn: String,
+        tooltipPosition: {
+            type: String,
+            default: 'top'
         }
     },
 
