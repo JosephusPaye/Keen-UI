@@ -372,6 +372,10 @@ export default {
             }
 
             return this.modelValue[this.keys.value] || this.modelValue;
+        },
+
+        emptyValue() {
+            return this.multiple ? [] : '';
         }
     },
 
@@ -395,15 +399,16 @@ export default {
     },
 
     created() {
-        if (!this.modelValue || this.modelValue === '') {
-            this.setValue(null);
+        const invalidMultipleValue = this.multiple && !Array.isArray(this.modelValue);
+        const invalidEmptyValue = !this.modelValue && this.modelValue !== '';
+        if (invalidMultipleValue || invalidEmptyValue) {
+            this.$emit('update:modelValue', this.emptyValue);
+            this.initialValue = JSON.stringify(this.emptyValue);
         }
     },
 
     methods: {
         setValue(value) {
-            value = value ? value : this.multiple ? [] : '';
-
             this.$emit('update:modelValue', value);
             this.$emit('change', value);
         },
@@ -500,7 +505,7 @@ export default {
         },
 
         clearSelection() {
-            this.setValue(null);
+            this.setValue(this.emptyValue);
         },
 
         clearQuery() {

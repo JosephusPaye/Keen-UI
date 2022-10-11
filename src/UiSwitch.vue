@@ -100,7 +100,10 @@ export default {
     },
 
     created() {
-        this.$emit('update:modelValue', this.isChecked ? this.trueValue : this.falseValue);
+        const value = this.isChecked ? this.trueValue : this.falseValue;
+        if (this.modelValue !== value) {
+            this.$emit('update:modelValue', value);
+        }
     },
 
     methods: {

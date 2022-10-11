@@ -102,8 +102,7 @@ export default {
     data() {
         return {
             isActive: false,
-            initialValue: this.modelValue,
-            selectedOptionValue: this.modelValue
+            initialValue: this.modelValue
         };
     },
 
@@ -129,17 +128,16 @@ export default {
 
         showHelp() {
             return Boolean(this.help) || Boolean(this.$slots.help);
-        }
-    },
-
-    watch: {
-        selectedOptionValue() {
-            this.$emit('update:modelValue', this.selectedOptionValue);
-            this.$emit('change', this.selectedOptionValue);
         },
 
-        modelValue() {
-            this.selectedOptionValue = this.modelValue;
+        selectedOptionValue: {
+            get() {
+                return this.modelValue;
+            },
+            set(value) {
+                this.$emit('update:modelValue', value);
+                this.$emit('change', value);
+            }
         }
     },
 

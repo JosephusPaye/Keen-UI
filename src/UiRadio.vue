@@ -88,7 +88,7 @@ export default {
     },
 
     created() {
-        if (this.checked) {
+        if (this.checked && !this.isChecked) {
             this.$emit('update:modelValue', this.trueValue);
         }
     },
