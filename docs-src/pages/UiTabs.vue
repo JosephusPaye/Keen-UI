@@ -74,10 +74,6 @@
                         </div>
                     </template>
 
-                    <template #icon>
-                        <ui-icon :icon="tab.icon"></ui-icon>
-                    </template>
-
                     <p>{{ tab.title }}</p>
                 </ui-tab>
             </ui-tabs>
@@ -102,11 +98,10 @@
                     :id="tab.id"
                     :key="tab.id"
                     :title="tab.title"
+                    :icon="tab.icon"
+
                     v-for="tab in controlTabs"
                 >
-                    <template #icon>
-                        <ui-icon :icon="tab.icon"></ui-icon>
-                    </template>
                     <div>{{ tab.title }}</div>
                 </ui-tab>
             </ui-tabs>
@@ -341,6 +336,16 @@
                                 <td>String</td>
                                 <td></td>
                                 <td>The tab title (text only).</td>
+                            </tr>
+
+                            <tr>
+                                <td>icon</td>
+                                <td>String</td>
+                                <td></td>
+                                <td>
+                                    <p>The tab icon. Can be any of the <a href="https://design.google.com/icons/" target="_blank" rel="noopener">Material Icons</a>.</p>
+                                    <p>You can set a custom or SVG icon using the <code>icon</code> slot.</p>
+                                </td>
                             </tr>
 
                             <tr>

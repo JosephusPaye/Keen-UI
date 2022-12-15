@@ -11,7 +11,8 @@
     >
         <slot>
             <div class="ui-tab-header-item__icon" v-if="hasIcon">
-                <slot name="icon"></slot>
+                <slot name="icon" v-if="$slots.icon"></slot>
+                <ui-icon :icon="icon" v-else-if="icon"/>
             </div>
 
             <div class="ui-tab-header-item__text" v-if="hasText">{{ title }}</div>
@@ -49,6 +50,7 @@ export default {
             default: 'text' // 'text', 'icon', or 'icon-and-text'
         },
         title: String,
+        icon: String,
         active: {
             type: Boolean,
             default: false
