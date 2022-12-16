@@ -2,27 +2,38 @@ const vue = require('@vitejs/plugin-vue');
 const banner = require('vite-plugin-banner');
 const options = require('./options');
 
-module.exports = ({ entry, mode }) => {
+module.exports = ({ entry, minify }) => {
+    const outDir = options.paths.output.lib;
+
     return {
-        plugins: [
+        plugins: [,
             vue(),
-            banner(options.banner)
+            banner({ content: options.banner, outDir })
         ],
         resolve: {
             alias: {
-                '@': options.paths.src.main,
-                vue: 'vue/dist/vue.esm-bundler.js'
+                '@': options.paths.src.main
             }
         },
         build: {
+            minify: minify ? 'esbuild' : false,
             lib: {
                 entry: options.paths.resolve(`src/${entry}.vue`),
                 formats: ['umd'],
-                fileName: () => `[name]${ mode === 'production' ? '.min' : '' }.js`,
+                fileName: () => `[name]${ minify ? '.min' : '' }.js`,
                 name: `KeenUI.${entry}`
             },
-            outDir: options.paths.output.lib,
-            cssCodeSplit: true
+            outDir,
+            emptyOutDir: false,
+            cssCodeSplit: true,
+            rollupOptions: {
+                external: [/^vue/],
+                output: {
+                    globals: {
+                        vue: 'Vue'
+                    }
+                },
+            }
         }
     };
 };

@@ -1,5 +1,5 @@
 const { build } = require('vite');
-const profileLibConfig = require('./vite.config.lib.provider');
+const getLibConfig = require('./vite.config.lib.provider');
 
 const entries = [
     'UiAlert',
@@ -39,5 +39,9 @@ const entries = [
 ];
 
 entries.forEach(async entry => {
-    await build(profileLibConfig({ entry, mode: process.env.NODE_ENV || 'development' }));
+    if (process.env.NODE_ENV === 'production') {
+        await build(getLibConfig({ entry, minify: true }));
+    }
+
+    await build(getLibConfig({ entry, minify: false }));
 });

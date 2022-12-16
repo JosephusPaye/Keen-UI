@@ -5,11 +5,12 @@ const options = require('./options');
 
 export default defineConfig(({ mode }) => {
     const filename = mode === 'production' ? 'keen-ui.min' : 'keen-ui';
+    const outDir = options.paths.output.main;
 
     return {
         plugins: [
             vue(),
-            banner(options.banner),
+            banner({ content: options.banner, outDir }),
         ],
         resolve: {
             alias: {
@@ -18,7 +19,8 @@ export default defineConfig(({ mode }) => {
             }
         },
         build: {
-            outDir: options.paths.output.main,
+            minify: mode === 'production' ? 'esbuild' : false,
+            outDir,
             chunkSizeWarningLimit: 600,
             cssCodeSplit: false,
             lib: {
