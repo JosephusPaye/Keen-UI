@@ -12,6 +12,8 @@
     "prod": "cross-env NODE_ENV=production npm run build && cross-env NODE_ENV=production npm run build:lib && cross-env NODE_ENV=production npm run build:docs",
     "clean": "rimraf ./dist ./lib ./docs/docs.bundle.css ./docs/docs.bundle.js",
     "lint": "eslint --format=node_modules/eslint-formatter-pretty --ext .js,.vue,.html ./",
+    "format": "prettier --write \"*.{js,json,md}\" \"{build,src,docs-src}/*.{js,css,scss,vue,html}\"",
+    "format:check": "prettier --check \"*.{js,json,md}\" \"{build,src,docs-src}/*.{js,css,scss,vue,html}\"",
     "test": "npm run lint"
   },
   "repository": {
@@ -67,6 +69,7 @@
     "eslint-plugin-unicorn": "^1.0.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "mini-css-extract-plugin": "^2.6.1",
+    "prettier": "^2.8.1",
     "rimraf": "^2.5.4",
     "sass": "^1.41.0",
     "sass-loader": "^7.3.1",
