@@ -6,7 +6,7 @@ module.exports = ({ entry, minify }) => {
     const outDir = options.paths.output.lib;
 
     return {
-        plugins: [,
+        plugins: [
             vue(),
             banner({ content: options.banner, outDir })
         ],
