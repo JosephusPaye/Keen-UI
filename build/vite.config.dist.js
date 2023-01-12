@@ -39,6 +39,7 @@ export default defineConfig(({ mode }) => {
                 fileName: () => filename + '.js'
             },
             rollupOptions: {
+                external: [/^vue/],
                 output: {
                     assetFileNames: (assetInfo) => assetInfo.name === 'style.css' ? filename + '.css' : assetInfo.name
                 }

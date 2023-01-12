@@ -28,7 +28,7 @@ module.exports = ({ entry, mode }) => {
             lib: {
                 entry: options.paths.resolve(`src/${entry}.vue`),
                 formats: ['umd'],
-                fileName: () => `[name]${ minify ? '.min' : '' }.js`,
+                fileName: () => `[name]${ mode === 'production' ? '.min' : '' }.js`,
                 name: `KeenUI.${entry}`
             },
             outDir,
