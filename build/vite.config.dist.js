@@ -2,6 +2,7 @@ const { defineConfig } = require('vite');
 const vue = require('@vitejs/plugin-vue');
 const banner = require('vite-plugin-banner');
 const options = require('./options');
+const autoprefixer = require('autoprefixer');
 
 export default defineConfig(({ mode }) => {
     const filename = mode === 'production' ? 'keen-ui.min' : 'keen-ui';
@@ -18,9 +19,17 @@ export default defineConfig(({ mode }) => {
                 vue: 'vue/dist/vue.esm-bundler.js'
             }
         },
+        css: {
+            postcss: {
+                plugins: [
+                    autoprefixer()
+                ]
+            }
+        },
         build: {
             minify: mode === 'production' ? 'esbuild' : false,
             outDir,
+            emptyOutDir: false,
             chunkSizeWarningLimit: 600,
             cssCodeSplit: false,
             lib: {

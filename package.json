@@ -5,11 +5,13 @@
   "main": "dist/keen-ui.js",
   "scripts": {
     "dev": "vite serve --config build/vite.config.docs.js docs-src",
-    "build": "vite build --config build/vite.config.dist.js",
+    "build:dist": "vite build --config build/vite.config.dist.js --mode development",
+    "build:dist:prod": "vite build --config build/vite.config.dist.js",
+    "build:lib": "cross-env NODE_ENV=development node build/build.lib.js",
+    "build:lib:prod": "node build/build.lib.js",
     "build:docs": "vite build --config build/vite.config.docs.js docs-src",
-    "build:lib": "node build/build.lib.js",
-    "build:all": "npm run build && npm run build:lib && npm run build:docs",
-    "prod": "npm run build && cross-env NODE_ENV=production npm run build:lib && npm run build:docs",
+    "build:all": "npm run build:dist && npm run build:lib && npm run build:docs",
+    "build:all:prod": "npm run build:dist:prod && npm run build:lib:prod && npm run build:docs",
     "clean": "rimraf ./dist ./lib ./docs",
     "lint": "eslint --format=node_modules/eslint-formatter-pretty --ext .js,.vue,.html ./",
     "test": "npm run lint"

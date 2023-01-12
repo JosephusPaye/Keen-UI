@@ -39,9 +39,5 @@ const entries = [
 ];
 
 entries.forEach(async entry => {
-    if (process.env.NODE_ENV === 'production') {
-        await build(getLibConfig({ entry, minify: true }));
-    }
-
-    await build(getLibConfig({ entry, minify: false }));
+    await build(getLibConfig({ entry, mode: process.env.NODE_ENV || 'production' }));
 });

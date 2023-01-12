@@ -1,8 +1,9 @@
 const vue = require('@vitejs/plugin-vue');
 const banner = require('vite-plugin-banner');
 const options = require('./options');
+const autoprefixer = require('autoprefixer');
 
-module.exports = ({ entry, minify }) => {
+module.exports = ({ entry, mode }) => {
     const outDir = options.paths.output.lib;
 
     return {
@@ -15,8 +16,15 @@ module.exports = ({ entry, minify }) => {
                 '@': options.paths.src.main
             }
         },
+        css: {
+            postcss: {
+                plugins: [
+                    autoprefixer()
+                ]
+            }
+        },
         build: {
-            minify: minify ? 'esbuild' : false,
+            minify: mode === 'production' ? 'esbuild' : false,
             lib: {
                 entry: options.paths.resolve(`src/${entry}.vue`),
                 formats: ['umd'],
