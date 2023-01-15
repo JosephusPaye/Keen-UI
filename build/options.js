@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 
 // Hardcoding here (and not reading from package.json) as the files are built
@@ -16,11 +14,7 @@ const banner =
 module.exports = {
     banner,
 
-    isProduction: process.env.NODE_ENV === 'production',
-
     paths: {
-        root: path.join(__dirname, '..'),
-
         src: {
             main: path.join(__dirname, '..', 'src'),
             docs: path.join(__dirname, '..', 'docs-src')

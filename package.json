@@ -4,13 +4,15 @@
   "description": "Keen UI is a Vue.js UI library with a simple API, inspired by Google's Material Design.",
   "main": "dist/keen-ui.js",
   "scripts": {
-    "dev": "vite serve --config build/vite.config.js docs-src",
-    "build": "webpack --config build/webpack.dist.js",
-    "build:docs": "webpack --config build/webpack.docs.js",
-    "build:lib": "webpack --config build/webpack.lib.js",
-    "build:all": "npm run build && npm run build:lib && npm run build:docs",
-    "prod": "cross-env NODE_ENV=production npm run build && cross-env NODE_ENV=production npm run build:lib && cross-env NODE_ENV=production npm run build:docs",
-    "clean": "rimraf ./dist ./lib ./docs/docs.bundle.css ./docs/docs.bundle.js",
+    "dev": "vite serve --config build/vite.config.docs.js docs-src",
+    "build:dist": "vite build --config build/vite.config.dist.js --mode development",
+    "build:dist:prod": "vite build --config build/vite.config.dist.js",
+    "build:lib": "cross-env NODE_ENV=development node build/build.lib.js",
+    "build:lib:prod": "node build/build.lib.js",
+    "build:docs": "vite build --config build/vite.config.docs.js docs-src",
+    "build:all": "npm run build:dist && npm run build:lib && npm run build:docs",
+    "build:all:prod": "npm run build:dist:prod && npm run build:lib:prod && npm run build:docs",
+    "clean": "rimraf ./dist ./lib ./docs",
     "lint": "eslint --format=node_modules/eslint-formatter-pretty --ext .js,.vue,.html ./",
     "test": "npm run lint"
   },
@@ -50,14 +52,9 @@
     "tippy.js": "^4.2.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
     "@vitejs/plugin-vue": "^3.0.1",
     "autoprefixer": "^6.5.4",
-    "babel-loader": "^8.2.5",
     "cross-env": "^3.0.0",
-    "css-loader": "^0.25.0",
     "eslint": "^3.12.0",
     "eslint-config-xo": "^0.17.0",
     "eslint-formatter-pretty": "^1.1.0",
@@ -65,18 +62,11 @@
     "eslint-plugin-no-use-extend-native": "^0.3.12",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-unicorn": "^1.0.0",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "mini-css-extract-plugin": "^2.6.1",
     "rimraf": "^2.5.4",
     "sass": "^1.41.0",
-    "sass-loader": "^7.3.1",
-    "terser-webpack-plugin": "^5.3.5",
     "vite": "^3.0.4",
+    "vite-plugin-banner": "^0.7.0",
     "vue": "^3.2.37",
-    "vue-loader": "^16.8.3",
-    "vue-router": "^4.0.0",
-    "vue-style-loader": "^4.1.3",
-    "webpack": "^5.0.0",
-    "webpack-cli": "^4.10.0"
+    "vue-router": "^4.0.0"
   }
 }
