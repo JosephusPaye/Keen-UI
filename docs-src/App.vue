@@ -38,6 +38,8 @@
 import DocsNavbar from "./DocsNavbar.vue";
 import DocsSidebar from "./DocsSidebar.vue";
 
+import version from "../build/version";
+
 export default {
   components: {
     DocsNavbar,
@@ -48,7 +50,7 @@ export default {
     return {
       isMobile: false,
       sidebarOpen: false,
-      version: "1.4.0",
+      version: version,
       repoUrl: "https://github.com/JosephusPaye/Keen-UI",
       description:
         "Keen UI is a Vue.js UI library with a simple API, inspired by Google's Material Design.",
