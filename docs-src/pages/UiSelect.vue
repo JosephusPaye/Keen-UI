@@ -691,6 +691,12 @@ import countries from '../data/countries';
 import { colourStrings, colours, redShades, blueShades } from '../data/colours';
 
 export default {
+    components: {
+        UiSelect,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
             select1: '',
@@ -774,12 +780,6 @@ export default {
             }, 1200);
         }, 500)
     },
-
-    components: {
-        UiSelect,
-        UiTab,
-        UiTabs
-    }
 };
 </script>
 

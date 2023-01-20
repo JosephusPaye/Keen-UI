@@ -379,7 +379,7 @@
                 :raised="false"
             >
                 <template #actions>
-                    <div slot="actions">
+                    <div>
                         <ui-icon-button
                             color="white"
                             icon="search"

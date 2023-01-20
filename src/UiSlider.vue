@@ -42,8 +42,8 @@
                 <template v-if="snapToSteps">
                     <span
                         v-for="point in snapPoints"
+                        :key="point"
                         class="ui-slider__snap-point"
-
                         :style="{ left: 100 * relativeValue(point) + '%' }"
                     ></span>
                 </template>

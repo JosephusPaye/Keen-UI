@@ -35,12 +35,15 @@ export default {
         name: String,
         label: String,
         tabindex: [String, Number],
+        // eslint-disable-next-line vue/require-prop-types
         modelValue: {
             required: true
         },
+        // eslint-disable-next-line vue/require-prop-types
         trueValue: {
             default: true
         },
+        // eslint-disable-next-line vue/require-prop-types
         falseValue: {
             default: false
         },

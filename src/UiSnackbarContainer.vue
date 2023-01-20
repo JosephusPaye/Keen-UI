@@ -15,6 +15,7 @@
             @hide="onHide(snackbar, index)"
             @show="onShow(snackbar)"
         >
+            <!-- eslint-disable-next-line vue/no-v-html -->
             <div v-if="allowHtml" v-html="snackbar.message"></div>
         </ui-snackbar>
     </div>
