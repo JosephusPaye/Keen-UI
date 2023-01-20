@@ -1,12 +1,12 @@
 <template>
     <aside class="keen-docs-sidebar">
-        <brand
+        <docs-brand
             class="keen-docs-sidebar__header"
 
             :repo-url="repoUrl"
             :version-url="versionUrl"
             :version="version"
-        ></brand>
+        ></docs-brand>
 
         <div class="keen-docs-sidebar__scrollable">
             <div class="keen-docs-sidebar__description">
@@ -68,13 +68,13 @@
 
 <script>
 import { menu } from './navigation';
-import Brand from './Brand.vue';
+import DocsBrand from './DocsBrand.vue';
 import UiIcon from '@/UiIcon.vue';
 import UiSelect from '@/UiSelect.vue';
 
 export default {
     components: {
-        Brand,
+        DocsBrand,
         UiIcon,
         UiSelect
     },

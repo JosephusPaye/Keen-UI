@@ -1,12 +1,12 @@
 <template>
     <nav class="keen-docs-navbar">
-        <brand
+        <docs-brand
             class="keen-docs-navbar__left"
 
             :repo-url="repoUrl"
             :version-url="versionUrl"
             :version="version"
-        ></brand>
+        ></docs-brand>
 
         <div class="keen-docs-navbar__right">
             <div class="keen-docs-navbar__right-container">
@@ -37,13 +37,15 @@
 </template>
 
 <script>
-import Brand from './Brand.vue';
+import DocsBrand from './DocsBrand.vue';
 import UiIcon from '@/UiIcon.vue';
 import UiIconButton from '@/UiIconButton.vue';
 
 export default {
+    name: "DocsNavbar",
+
     components: {
-        Brand,
+        DocsBrand,
         UiIcon,
         UiIconButton
     },

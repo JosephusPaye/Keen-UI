@@ -30,7 +30,7 @@
 import UiIcon from '@/UiIcon.vue';
 
 export default {
-    name: 'Brand',
+    name: 'DocsBrand',
 
     components: {
         UiIcon

@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="keen-docs">
-        <navbar
+        <docs-navbar
             :repo-url="repoUrl"
             :source-url="pageSourceUrl"
             :title="pageTitle"
@@ -8,7 +8,7 @@
             :version-url="versionUrl"
 
             @toggle-sidebar="sidebarOpen = !sidebarOpen"
-        ></navbar>
+        ></docs-navbar>
 
         <transition name="transition-fade">
             <div
@@ -20,12 +20,12 @@
 
         <section class="keen-docs-content">
             <transition name="transition-slide">
-                <sidebar
+                <docs-sidebar
                     v-show="showSidebar"
                     :version="version"
                     :version-url="versionUrl"
                     :repo-url="repoUrl"
-                ></sidebar>
+                ></docs-sidebar>
             </transition>
 
             <div ref="pageContent" class="keen-docs-content__page-content">
@@ -36,13 +36,13 @@
 </template>
 
 <script>
-import Navbar from './Navbar.vue';
-import Sidebar from './Sidebar.vue';
+import DocsNavbar from './DocsNavbar.vue';
+import DocsSidebar from './DocsSidebar.vue';
 
 export default {
     components: {
-        Navbar,
-        Sidebar,
+        DocsNavbar,
+        DocsSidebar,
     },
 
     data() {
