@@ -1,323 +1,321 @@
 <template>
-    <ui-focus-container
-        ref="focusContainer"
-        class="ui-popover"
-        role="dialog"
-
-        :class="{ 'is-raised': raised }"
-        :contain-focus="containFocus"
-        :focus-redirector="focusRedirector"
-
-        @focus-overflow="close()"
-    >
-        <slot></slot>
-    </ui-focus-container>
+  <ui-focus-container
+    ref="focusContainer"
+    class="ui-popover"
+    role="dialog"
+    :class="{ 'is-raised': raised }"
+    :contain-focus="containFocus"
+    :focus-redirector="focusRedirector"
+    @focus-overflow="close()"
+  >
+    <slot></slot>
+  </ui-focus-container>
 </template>
 
 <script>
-import tippy from 'tippy.js/esm';
+import tippy from "tippy.js/esm";
 
-import classlist from './helpers/classlist';
-import elementRef from './helpers/element-ref';
-import events from './helpers/events';
-import UiFocusContainer from './UiFocusContainer.vue';
+import classlist from "./helpers/classlist";
+import elementRef from "./helpers/element-ref";
+import events from "./helpers/events";
+import UiFocusContainer from "./UiFocusContainer.vue";
 
 export default {
-    name: 'UiPopover',
+  name: "UiPopover",
 
-    components: {
-        UiFocusContainer
+  components: {
+    UiFocusContainer,
+  },
+
+  props: {
+    animation: {
+      type: String,
+      default: "fade", // 'fade', 'shift-away', 'scale', or 'none'
     },
-
-    props: {
-        animation: {
-            type: String,
-            default: 'fade' // 'fade', 'shift-away', 'scale', or 'none'
-        },
-        appendToBody: {
-            type: Boolean,
-            default: true
-        },
-        closeOnScroll: {
-            type: Boolean,
-            default: true
-        },
-        closeOnExternalClick: {
-            type: Boolean,
-            default: true
-        },
-        closeOnEsc: {
-            type: Boolean,
-            default: true
-        },
-        constrainToScrollParent: {
-            type: Boolean,
-            default: true
-        },
-        containFocus: {
-            type: Boolean,
-            default: false
-        },
-        disabled: {
-            type: Boolean,
-            default: false
-        },
-        focusRedirector: Function,
-        openOn: {
-            type: String,
-            default: 'click' // 'click', 'mouseenter', 'focus', or 'manual', plus 'hover' (compat)
-        },
-        position: {
-            type: String,
-            default: 'bottom-start'
-        },
-        raised: {
-            type: Boolean,
-            default: true
-        },
-        trigger: {
-            validator(value) {
-                return elementRef.validate(
-                    value,
-                    '[UiPopover]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string which matches an existing element.'
-                );
-            }
-        },
-        zIndex: Number
+    appendToBody: {
+      type: Boolean,
+      default: true,
     },
-
-    emits: ['open', 'close', 'reveal', 'hide'],
-
-    data() {
-        return {
-            returnFocus: true
-        };
+    closeOnScroll: {
+      type: Boolean,
+      default: true,
     },
+    closeOnExternalClick: {
+      type: Boolean,
+      default: true,
+    },
+    closeOnEsc: {
+      type: Boolean,
+      default: true,
+    },
+    constrainToScrollParent: {
+      type: Boolean,
+      default: true,
+    },
+    containFocus: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    focusRedirector: Function,
+    openOn: {
+      type: String,
+      default: "click", // 'click', 'mouseenter', 'focus', or 'manual', plus 'hover' (compat)
+    },
+    position: {
+      type: String,
+      default: "bottom-start",
+    },
+    raised: {
+      type: Boolean,
+      default: true,
+    },
+    trigger: {
+      validator(value) {
+        return elementRef.validate(
+          value,
+          '[UiPopover]: Invalid prop: "trigger". Expected Element, VueComponent or CSS selector string which matches an existing element.'
+        );
+      },
+    },
+    zIndex: Number,
+  },
 
-    watch: {
-        disabled(value) {
-            if (this.tip) {
-                if (value === true) {
-                    this.tip.disable();
-                } else {
-                    this.tip.enable();
-                }
-            }
+  emits: ["open", "close", "reveal", "hide"],
+
+  data() {
+    return {
+      returnFocus: true,
+    };
+  },
+
+  watch: {
+    disabled(value) {
+      if (this.tip) {
+        if (value === true) {
+          this.tip.disable();
+        } else {
+          this.tip.enable();
         }
+      }
+    },
+  },
+
+  created() {
+    this.tip = null;
+  },
+
+  mounted() {
+    this.setupPopover();
+  },
+
+  beforeUnmount() {
+    this.destroyPopover();
+  },
+
+  methods: {
+    setupPopover() {
+      this.triggerEl = elementRef.resolve(this.trigger, this.$el.parentElement);
+
+      if (!this.triggerEl) {
+        console.error("[UiPopover]: Trigger element not found.");
+        return;
+      }
+
+      // When the element is placed inside a shadow DOM node we need to attach the popover to its root instead of the document root
+      const body =
+        this.triggerEl.getRootNode() === document ? document.body : this.triggerEl.getRootNode();
+
+      const options = {
+        animateFill: false,
+        // Use 'fade' when animation is 'none', as 'none' it's not a valid Tippy.js option.
+        // The effect of no transition is achieved by `duration: 0` below.
+        animation: this.animation === "none" ? "fade" : this.animation,
+        appendTo: this.appendToBody ? body : this.triggerEl.parentElement,
+        arrow: false,
+        content: this.$el,
+        delay: [0, 0],
+        distance: 0,
+        duration: this.animation === "none" ? 0 : [250, 200],
+        hideOnClick: this.closeOnExternalClick,
+        ignoreAttributes: true,
+        interactive: true,
+        lazy: true,
+        maxWidth: "100%",
+        multiple: true,
+        onHidden: this.onHidden,
+        onHide: this.onClose,
+        onShow: this.onOpen,
+        onShown: this.onShown,
+        placement: this.position,
+        role: "dialog",
+        theme: "ui-popover",
+        trigger: this.openOn.replace("hover", "mouseenter"),
+        zIndex: this.zIndex,
+        popperOptions: {
+          modifiers: {
+            computeStyle: {
+              // Disable GPU acceleration to fix blurry text in popover on Windows (Chrome)
+              // https://github.com/twbs/bootstrap/issues/23590
+              gpuAcceleration: !(window.devicePixelRatio < 1.5 && /Win/.test(navigator.platform)),
+            },
+          },
+        },
+      };
+
+      if (!this.constrainToScrollParent) {
+        options.popperOptions.modifiers.preventOverflow = { enabled: false };
+        options.popperOptions.modifiers.hide = { enabled: false };
+      }
+
+      this.tip = tippy(this.triggerEl, options);
+
+      if (this.disabled) {
+        this.tip.disable();
+      }
     },
 
-    created() {
+    destroyPopover() {
+      if (this.tip) {
+        this.removeCloseEventListeners();
+        this.tip.destroy();
         this.tip = null;
+      }
     },
 
-    mounted() {
-        this.setupPopover();
+    isOpen() {
+      return this.tip && this.tip.state.isVisible;
     },
 
-    beforeUnmount() {
-        this.destroyPopover();
+    open() {
+      if (this.tip) {
+        this.tip.show();
+      }
     },
 
-    methods: {
-        setupPopover() {
-            this.triggerEl = elementRef.resolve(this.trigger, this.$el.parentElement);
+    close(options = { returnFocus: true }) {
+      if (this.tip) {
+        this.returnFocus = options.returnFocus;
+        this.tip.hide();
+      }
+    },
 
-            if (!this.triggerEl) {
-                console.error('[UiPopover]: Trigger element not found.');
-                return;
-            }
+    toggle(options = { returnFocus: true }) {
+      if (this.tip) {
+        this.returnFocus = options.returnFocus;
+        this.tip[this.isOpen() ? "hide" : "show"]();
+      }
+    },
 
-            // When the element is placed inside a shadow DOM node we need to attach the popover to its root instead of the document root
-            const body = this.triggerEl.getRootNode() === document ? document.body : this.triggerEl.getRootNode();
+    scheduleUpdate() {
+      if (this.tip) {
+        this.tip.popperInstance.scheduleUpdate();
+      }
+    },
 
-            const options = {
-                animateFill: false,
-                // Use 'fade' when animation is 'none', as 'none' it's not a valid Tippy.js option.
-                // The effect of no transition is achieved by `duration: 0` below.
-                animation: this.animation === 'none' ? 'fade' : this.animation,
-                appendTo: this.appendToBody ? body : this.triggerEl.parentElement,
-                arrow: false,
-                content: this.$el,
-                delay: [0, 0],
-                distance: 0,
-                duration: this.animation === 'none' ? 0 : [250, 200],
-                hideOnClick: this.closeOnExternalClick,
-                ignoreAttributes: true,
-                interactive: true,
-                lazy: true,
-                maxWidth: '100%',
-                multiple: true,
-                onHidden: this.onHidden,
-                onHide: this.onClose,
-                onShow: this.onOpen,
-                onShown: this.onShown,
-                placement: this.position,
-                role: 'dialog',
-                theme: 'ui-popover',
-                trigger: this.openOn.replace('hover', 'mouseenter'),
-                zIndex: this.zIndex,
-                popperOptions: {
-                    modifiers: {
-                        computeStyle: {
-                            // Disable GPU acceleration to fix blurry text in popover on Windows (Chrome)
-                            // https://github.com/twbs/bootstrap/issues/23590
-                            gpuAcceleration: !(window.devicePixelRatio < 1.5 && /Win/.test(navigator.platform))
-                        }
-                    }
-                }
-            };
+    onOpen() {
+      this.addCloseEventListeners();
 
-            if (!this.constrainToScrollParent) {
-                options.popperOptions.modifiers.preventOverflow = { enabled: false };
-                options.popperOptions.modifiers.hide = { enabled: false };
-            }
+      classlist.add(this.triggerEl, "has-dropdown-open");
 
-            this.tip = tippy(this.triggerEl, options);
+      this.$emit("open");
+    },
 
-            if (this.disabled) {
-                this.tip.disable();
-            }
-        },
+    onClose() {
+      if (this.returnFocus && this.lastFocusedElement) {
+        this.lastFocusedElement.focus();
+      }
 
-        destroyPopover() {
-            if (this.tip) {
-                this.removeCloseEventListeners();
-                this.tip.destroy();
-                this.tip = null;
-            }
-        },
+      this.removeCloseEventListeners();
 
-        isOpen() {
-            return this.tip && this.tip.state.isVisible;
-        },
+      classlist.remove(this.triggerEl, "has-dropdown-open");
 
-        open() {
-            if (this.tip) {
-                this.tip.show();
-            }
-        },
+      this.$emit("close");
 
-        close(options = { returnFocus: true }) {
-            if (this.tip) {
-                this.returnFocus = options.returnFocus;
-                this.tip.hide();
-            }
-        },
+      // Reset return focus
+      this.returnFocus = true;
+    },
 
-        toggle(options = { returnFocus: true }) {
-            if (this.tip) {
-                this.returnFocus = options.returnFocus;
-                this.tip[this.isOpen() ? 'hide' : 'show']();
-            }
-        },
+    onShown() {
+      this.lastFocusedElement = document.activeElement;
+      this.$refs.focusContainer.focus();
+      this.$emit("reveal");
+    },
 
-        scheduleUpdate() {
-            if (this.tip) {
-                this.tip.popperInstance.scheduleUpdate();
-            }
-        },
+    onHidden() {
+      this.$emit("hide");
+    },
 
-        onOpen() {
-            this.addCloseEventListeners();
+    closeOnExternal(event, closeOptions) {
+      if (!this.$el.contains(event.target)) {
+        this.close(closeOptions);
+      }
+    },
 
-            classlist.add(this.triggerEl, 'has-dropdown-open');
+    addCloseEventListeners() {
+      this.removeCloseEventListeners();
 
-            this.$emit('open');
-        },
-
-        onClose() {
-            if (this.returnFocus && this.lastFocusedElement) {
-                this.lastFocusedElement.focus();
-            }
-
-            this.removeCloseEventListeners();
-
-            classlist.remove(this.triggerEl, 'has-dropdown-open');
-
-            this.$emit('close');
-
-            // Reset return focus
-            this.returnFocus = true;
-        },
-
-        onShown() {
-            this.lastFocusedElement = document.activeElement;
-            this.$refs.focusContainer.focus();
-            this.$emit('reveal');
-        },
-
-        onHidden() {
-            this.$emit('hide');
-        },
-
-        closeOnExternal(event, closeOptions) {
-            if (!this.$el.contains(event.target)) {
-                this.close(closeOptions);
-            }
-        },
-
-        addCloseEventListeners() {
-            this.removeCloseEventListeners();
-
-            // Add event listeners in the next tick, otherwise they're triggered immediately
-            setTimeout(() => {
-                if (this.closeOnExternalClick) {
-                    this.removeExternalClickListener = events.on('click', document, e => {
-                        this.closeOnExternal(e, { returnFocus: false });
-                    });
-                }
-
-                if (this.closeOnEsc) {
-                    this.removeEscListener = events.onKeydown(27, document, () => {
-                        this.close({ returnFocus: true });
-                    });
-                }
-
-                if (this.closeOnScroll) {
-                    this.removeScrollListener = events.on('scroll', document, e => {
-                        this.closeOnExternal(e, { returnFocus: true });
-                    });
-                }
-            }, 0);
-        },
-
-        removeCloseEventListeners() {
-            if (this.removeExternalClickListener) {
-                this.removeExternalClickListener();
-                this.removeExternalClickListener = null;
-            }
-
-            if (this.removeEscListener) {
-                this.removeEscListener();
-                this.removeEscListener = null;
-            }
-
-            if (this.removeScrollListener) {
-                this.removeScrollListener();
-                this.removeScrollListener = null;
-            }
+      // Add event listeners in the next tick, otherwise they're triggered immediately
+      setTimeout(() => {
+        if (this.closeOnExternalClick) {
+          this.removeExternalClickListener = events.on("click", document, (e) => {
+            this.closeOnExternal(e, { returnFocus: false });
+          });
         }
-    }
+
+        if (this.closeOnEsc) {
+          this.removeEscListener = events.onKeydown(27, document, () => {
+            this.close({ returnFocus: true });
+          });
+        }
+
+        if (this.closeOnScroll) {
+          this.removeScrollListener = events.on("scroll", document, (e) => {
+            this.closeOnExternal(e, { returnFocus: true });
+          });
+        }
+      }, 0);
+    },
+
+    removeCloseEventListeners() {
+      if (this.removeExternalClickListener) {
+        this.removeExternalClickListener();
+        this.removeExternalClickListener = null;
+      }
+
+      if (this.removeEscListener) {
+        this.removeEscListener();
+        this.removeEscListener = null;
+      }
+
+      if (this.removeScrollListener) {
+        this.removeScrollListener();
+        this.removeScrollListener = null;
+      }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-@import './styles/imports';
-@import './styles/tippy/tippy';
+@import "./styles/imports";
+@import "./styles/tippy/tippy";
 
 .ui-popover {
-    &.is-raised {
-        box-shadow: 0 2px 4px -1px rgba(black, 0.2),
-                    0 4px 5px 0 rgba(black, 0.14),
-                    0 1px 10px 0 rgba(black, 0.12);
-    }
+  &.is-raised {
+    box-shadow: 0 2px 4px -1px rgba(black, 0.2), 0 4px 5px 0 rgba(black, 0.14),
+      0 1px 10px 0 rgba(black, 0.12);
+  }
 
-    .ui-menu {
-        border: none;
-    }
+  .ui-menu {
+    border: none;
+  }
 }
 
 .ui-popover-theme {
-    background-color: white;
+  background-color: white;
 }
 </style>

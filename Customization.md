@@ -8,38 +8,40 @@ If you use Sass with [`webpack`](https://webpack.js.org) and [`vue-loader`](http
 
 1. Create a `variables.scss` file somewhere in your project, for example, at `src/styles/variables.scss`.
 
-    **Note**: since this file will be imported into every Sass file, make sure it doesn't contain any CSS rules. It should contain only Sass variables, functions or mixins.
+   **Note**: since this file will be imported into every Sass file, make sure it doesn't contain any CSS rules. It should contain only Sass variables, functions or mixins.
 
 2. If you are **not** using Vue CLI:
-    - Install [`sass-resources-loader`](https://github.com/shakacode/sass-resources-loader).
 
-        ```
-        npm install sass-resources-loader --save-dev
-        ```
+   - Install [`sass-resources-loader`](https://github.com/shakacode/sass-resources-loader).
 
-    - Add the following rule to your webpack config file:
+     ```
+     npm install sass-resources-loader --save-dev
+     ```
 
-        ```js
-        {
-            loader: 'sass-resources-loader',
-            options: {
-                resources: path.resolve(__dirname, './src/styles/variables.scss')
-            }
-        }
-        ```
+   - Add the following rule to your webpack config file:
+
+     ```js
+     {
+         loader: 'sass-resources-loader',
+         options: {
+             resources: path.resolve(__dirname, './src/styles/variables.scss')
+         }
+     }
+     ```
+
 3. If you are using Vue CLI, add the following to `vue.config.js` ([details](https://cli.vuejs.org/guide/css.html#passing-options-to-pre-processor-loaders)):
 
-    ```js
-    module.exports = {
-        css: {
-            loaderOptions: {
-                sass: {
-                    data: `@import "@/styles/variables.scss";`
-                }
-            }
-        }
-    }
-    ```
+   ```js
+   module.exports = {
+     css: {
+       loaderOptions: {
+         sass: {
+           data: `@import "@/styles/variables.scss";`,
+         },
+       },
+     },
+   };
+   ```
 
 4. Now you can customize the component styles by overriding Keen UI variables in the `variables.scss` file you created.
 
@@ -49,33 +51,33 @@ The `primary` and `accent` theme colors can be customized using the `$brand-prim
 
 1. Add the following to your `variables.scss` file:
 
-    ```scss
-    $brand-primary-color: #673AB7;
-    $brand-accent-color: #FF4081;
-    ```
+   ```scss
+   $brand-primary-color: #673ab7;
+   $brand-accent-color: #ff4081;
+   ```
 
 2. Import and use the components from `keen-ui/src`. Example:
 
-    ```html
-    <!-- App.vue -->
-    <template>
-        <div>
-            <ui-button color="primary">Primary button</ui-button>
-            <ui-button color="accent">Accent button</ui-button>
-        </div>
-    </template>
+   ```html
+   <!-- App.vue -->
+   <template>
+     <div>
+       <ui-button color="primary">Primary button</ui-button>
+       <ui-button color="accent">Accent button</ui-button>
+     </div>
+   </template>
 
-    <script>
-    import 'keen-ui/src/bootstrap'; // Required to setup Keen UI, should be imported only once in your project
-    import UiButton from 'keen-ui/src/UiButton.vue';
+   <script>
+     import "keen-ui/src/bootstrap"; // Required to setup Keen UI, should be imported only once in your project
+     import UiButton from "keen-ui/src/UiButton.vue";
 
-    export default {
-        components: {
-            UiButton
-        }
-    }
-    </script>
-    ```
+     export default {
+       components: {
+         UiButton,
+       },
+     };
+   </script>
+   ```
 
 ### Other variables
 
@@ -95,7 +97,7 @@ To scale the size of components up, set a font size higher than `100%` on the ro
 
 ```css
 html {
-    font-size: 110%;
+  font-size: 110%;
 }
 ```
 
@@ -103,7 +105,7 @@ To scale the size of components down, set a font size lower than `100%` on the r
 
 ```css
 html {
-    font-size: 90%;
+  font-size: 90%;
 }
 ```
 
@@ -114,28 +116,28 @@ Component props which have default values can be changed globally when installin
 ### Configure all components
 
 ```js
-import { createApp } from 'vue';
-import KeenUI from 'keen-ui';
+import { createApp } from "vue";
+import KeenUI from "keen-ui";
 
 const app = createApp();
 app.use(KeenUI, {
-    UiButton: {
-        disableRipple: true
-    },
-    UiTooltip: {
-        position: 'top'
-    }
+  UiButton: {
+    disableRipple: true,
+  },
+  UiTooltip: {
+    position: "top",
+  },
 });
 ```
 
 ### Configure individual components
 
 ```js
-import { UiButton } from 'keen-ui';
-import configure from 'keen-ui/src/configure'
+import { UiButton } from "keen-ui";
+import configure from "keen-ui/src/configure";
 
 configure(UiButton, {
-    disableRipple: true
+  disableRipple: true,
 });
 
 // UiButton's disableRipple prop is now true by default

@@ -10,11 +10,11 @@ Keen UI is a [Vue.js](http://vuejs.org) UI library with a simple API, inspired b
 
 ## Requirements
 
-* [Vue.js](http://vuejs.org/) (^v2.1.4) - use [keen-ui@0.8.9](http://josephuspaye.github.io/Keen-UI/0.8.9/) for Vue 1.x support.
+- [Vue.js](http://vuejs.org/) (^v2.1.4) - use [keen-ui@0.8.9](http://josephuspaye.github.io/Keen-UI/0.8.9/) for Vue 1.x support.
 
 Optional
 
-* [Material Icons font](http://google.github.io/material-design-icons/#icon-font-for-the-web)
+- [Material Icons font](http://google.github.io/material-design-icons/#icon-font-for-the-web)
 
 ## Browser support
 
@@ -36,11 +36,11 @@ Before using Keen UI, ensure that the following CSS resets are applied to your s
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-    font-size: 100%;
+  font-size: 100%;
 }
 ```
 
@@ -51,9 +51,9 @@ You can add the reset to your stylesheet (before other styles). If you are using
 Use as a Vue plugin (globally registers all components):
 
 ```js
-import { createApp } from 'vue';
-import KeenUI from 'keen-ui';
-import 'keen-ui/dist/keen-ui.css';
+import { createApp } from "vue";
+import KeenUI from "keen-ui";
+import "keen-ui/dist/keen-ui.css";
 
 const app = createApp();
 app.use(KeenUI);
@@ -62,14 +62,14 @@ app.use(KeenUI);
 Use individual components:
 
 ```js
-import { createApp } from 'vue';
-import { UiAlert, UiButton } from 'keen-ui';
+import { createApp } from "vue";
+import { UiAlert, UiButton } from "keen-ui";
 
 const app = createApp({
-    components: {
-        UiAlert,
-        UiButton
-    }
+  components: {
+    UiAlert,
+    UiButton,
+  },
 });
 ```
 
@@ -83,25 +83,25 @@ Example:
 
 ```html
 <!-- Place this in <head> -->
-<link rel="stylesheet" href="path/to/keen-ui.min.css">
+<link rel="stylesheet" href="path/to/keen-ui.min.css" />
 
 <!-- Place this in <body> -->
 <div id="app">
-    <ui-button>{{ message }}</ui-button>
+  <ui-button>{{ message }}</ui-button>
 </div>
 
 <script src="path/to/vue.global.prod.js"></script>
 <script src="path/to/keen-ui.min.js"></script>
 <script>
-    const app = Vue.createApp({
-        data () {
-            return {
-                message: 'Hello world!'
-            }
-        }
-    });
-    app.use(KeenUI);
-    app.mount('#app');
+  const app = Vue.createApp({
+    data() {
+      return {
+        message: "Hello world!",
+      };
+    },
+  });
+  app.use(KeenUI);
+  app.mount("#app");
 </script>
 ```
 
@@ -118,14 +118,14 @@ Each component is built into a standalone file with the necessary CSS included. 
 **NOTE**: Standalone component files each contain their own dependencies, and many contain overlapping dependencies. As a result, using multiple standalone files may increase the size of your bundle due to duplicate code.
 
 ```js
-import { createApp } from 'vue';
-import 'keen-ui/src/bootstrap'; // Required when using standalone components, should be imported only once in your project
-import UiButton from 'keen-ui/lib/UiButton';
+import { createApp } from "vue";
+import "keen-ui/src/bootstrap"; // Required when using standalone components, should be imported only once in your project
+import UiButton from "keen-ui/lib/UiButton";
 
 const app = createApp({
-    components: {
-        UiButton
-    }
+  components: {
+    UiButton,
+  },
 });
 ```
 
@@ -135,4 +135,4 @@ Keen UI is open source and released under the [MIT Licence](LICENCE).
 
 Copyright (c) 2019 [Josephus Paye II](https://twitter.com/JosephusPaye).
 
-> *PS: Made something cool with Keen UI? I would love to know! Tweet to me at [@JosephusPaye](https://twitter.com/JosephusPaye)*.
+> _PS: Made something cool with Keen UI? I would love to know! Tweet to me at [@JosephusPaye](https://twitter.com/JosephusPaye)_.

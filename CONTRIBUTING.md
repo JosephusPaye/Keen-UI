@@ -12,19 +12,19 @@ Please take care to observe the following when you contribute code to Keen UI:
 
 5. For HTML, use the following formatting guide:
 
-    For tags that cross the max line limit (100 characters), open the tag, then drop down to an indented line and place each attribute on a new line, sorted alphabetically and grouped (new line separating groups) according to the following order:
+   For tags that cross the max line limit (100 characters), open the tag, then drop down to an indented line and place each attribute on a new line, sorted alphabetically and grouped (new line separating groups) according to the following order:
 
-    - normal attributes
-    - `v-bind` attributes (`:` shorthand only)
-    - `v-on` attributes (`@` shorthand only)
-    - directives
+   - normal attributes
+   - `v-bind` attributes (`:` shorthand only)
+   - `v-on` attributes (`@` shorthand only)
+   - directives
 
-    After all attributes, drop down to a new line with the same indent as opening tag, add the closing `>` and then close the tag.
+   After all attributes, drop down to a new line with the same indent as opening tag, add the closing `>` and then close the tag.
 
-    **Note**: This doesn't apply to content (e.g. text inside `div`, `p`, `span`, etc.) and tags that don't cross the 100 character per line limit.
+   **Note**: This doesn't apply to content (e.g. text inside `div`, `p`, `span`, etc.) and tags that don't cross the 100 character per line limit.
 
-    **Example**:
+   **Example**:
 
-    ![Example of HTML formatting](https://i.imgur.com/8v4vkRK.png)
+   ![Example of HTML formatting](https://i.imgur.com/8v4vkRK.png)
 
 6. For CSS, all selectors must follow the [BEM naming guidelines](http://getbem.com/naming/).

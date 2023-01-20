@@ -5,10 +5,11 @@
 If you import Keen UI components from the source folder (e.g. `import UiButton from 'keen-ui/src/UiButton.vue`), this release might break your project due to the switch from `node-sass` to `sass`. There are a few options to fix this:
 
 1. If you don't need [Sass customisation](./Customization.md#sass-customization), import from the compiled components instead of the source components. The compiled components come with plain CSS instead of Sass. Here's an example of changing from a source component import to a compiled component import:
-    ```diff
+
+   ```diff
    -import UiButton from 'keen-ui/src/UiButton.vue'
    +import { UiButton } from 'keen-ui'
-    ```
+   ```
 
 2. Upgrade to `sass` in your project, and replace all usage of `/` for division in your Sass files with the new [`math.div()` function](https://sass-lang.com/documentation/breaking-changes/slash-div).
 
@@ -174,11 +175,11 @@ There are breaking changes in this release. Read through and update your usage w
 - Make focus ring transition to fill the button. Previously, it stopped halfway. Fixes [#205](https://github.com/JosephusPaye/Keen-UI/issues/205).
 - Remove UiProgressCircular from the DOM when `loading` is false. Previously, it was hidden with `display: none`.
 - Remove pointer cursor, to match default HTML buttons. If you want the hand pointer on buttons by default, add:
-    ```css
-    .ui-button {
-        cursor: pointer;
-    }
-    ```
+  ```css
+  .ui-button {
+    cursor: pointer;
+  }
+  ```
 - For secondary buttons, use button color as background for hover and focus.
 - Add new prop `href`. Setting this prop will render an anchor tag.
 
@@ -234,17 +235,17 @@ There are breaking changes in this release. Read through and update your usage w
 ### UiPopover
 
 - **Breaking**: Switch positioning library to Tippy.js, which uses Popper.js.
-- **Breaking**: `trigger` prop is now a DOM Element, VueComponent instance,  or selector string. If no trigger is provided or the selector doesn't match any element, the popover's immediate parent element is used as the trigger.
-    ```html
-    <!-- Instead of: ref + trigger -->
-    <button ref="button">My Button</button>
-    <ui-popover trigger="button">My Popover</ui-popover>
+- **Breaking**: `trigger` prop is now a DOM Element, VueComponent instance, or selector string. If no trigger is provided or the selector doesn't match any element, the popover's immediate parent element is used as the trigger.
 
-    <!-- Use: nested <ui-popover> in target element -->
-    <button>
-        My Button <ui-popover>My Popover</ui-popover>
-    </button>
-    ```
+  ```html
+  <!-- Instead of: ref + trigger -->
+  <button ref="button">My Button</button>
+  <ui-popover trigger="button">My Popover</ui-popover>
+
+  <!-- Use: nested <ui-popover> in target element -->
+  <button>My Button <ui-popover>My Popover</ui-popover></button>
+  ```
+
 - **Breaking**: Rename `dropdownPosition` prop to `position`, to match UiTooltip. Accepted values have changed to match Tippy.js. See docs for new values.
 - Remove prop `removeOnClose`, no longer needed. All popovers are now removed from the DOM on close.
 - Add new prop `animation` to choose animation style.
@@ -284,17 +285,18 @@ There are breaking changes in this release. Read through and update your usage w
 ### UiTabs and UiTab
 
 - UiTabs
-    - **Breaking**: argument passed to `tab-change` event handler is now the tab instance, not the id. To get the id, use `tab.id`.
-    - **Breaking**: Remove `refreshIndicator` method, no longer needed.
-    - Change active tab indicator animation, to fix issues related to window resizing and initially hidden tabs. Fixes [#328](https://github.com/JosephusPaye/Keen-UI/issues/328).
-    - Add new event `tab-click`, emitted when a tab is clicked, whether or not the tab is selected.
-    - Add new prop `confirmTabChange`, A function that will be called for confirmation when the user attempts to change tabs.
+
+  - **Breaking**: argument passed to `tab-change` event handler is now the tab instance, not the id. To get the id, use `tab.id`.
+  - **Breaking**: Remove `refreshIndicator` method, no longer needed.
+  - Change active tab indicator animation, to fix issues related to window resizing and initially hidden tabs. Fixes [#328](https://github.com/JosephusPaye/Keen-UI/issues/328).
+  - Add new event `tab-click`, emitted when a tab is clicked, whether or not the tab is selected.
+  - Add new prop `confirmTabChange`, A function that will be called for confirmation when the user attempts to change tabs.
 
 - UiTab
-    - **Breaking**: Remove `show` prop, use `v-for` with a filtered array of tabs instead.
-    - **Breaking**: Remove `icon` (string) and `iconProps` (object) props, use the `header` slot instead.
-    - Tabs can now be created using `v-for`. Fixes [#349](https://github.com/JosephusPaye/Keen-UI/issues/349).
-    - HTML can now be used in tab headers, using the `header` slot.
+  - **Breaking**: Remove `show` prop, use `v-for` with a filtered array of tabs instead.
+  - **Breaking**: Remove `icon` (string) and `iconProps` (object) props, use the `header` slot instead.
+  - Tabs can now be created using `v-for`. Fixes [#349](https://github.com/JosephusPaye/Keen-UI/issues/349).
+  - HTML can now be used in tab headers, using the `header` slot.
 
 ### UiTextbox
 
@@ -303,33 +305,33 @@ There are breaking changes in this release. Read through and update your usage w
 ### UiTooltip
 
 - **Breaking**: Switch positioning library to Tippy.js, which uses Popper.js.
-- **Breaking**: `trigger` prop is now a DOM Element, VueComponent instance,  or selector string. If no trigger is provided or the selector doesn't match any element, the tooltip's immediate parent element is used as the trigger.
-    ```html
-    <!-- Instead of: ref + trigger -->
-    <button ref="button">My Button</button>
-    <ui-tooltip trigger="button">My Tooltip</ui-tooltip>
+- **Breaking**: `trigger` prop is now a DOM Element, VueComponent instance, or selector string. If no trigger is provided or the selector doesn't match any element, the tooltip's immediate parent element is used as the trigger.
 
-    <!-- Use: nested <ui-tooltip> in target element -->
-    <button>
-        My Button <ui-tooltip>My Tooltip</ui-tooltip>
-    </button>
-    ```
+  ```html
+  <!-- Instead of: ref + trigger -->
+  <button ref="button">My Button</button>
+  <ui-tooltip trigger="button">My Tooltip</ui-tooltip>
+
+  <!-- Use: nested <ui-tooltip> in target element -->
+  <button>My Button <ui-tooltip>My Tooltip</ui-tooltip></button>
+  ```
+
 - **Breaking**: `position` prop accepted values have changed to match Tippy.js. See docs for new values.
 - Add new prop `animation` to choose animation style.
 - Add new prop `appendToBody`, to choose between appending tooltip to `document.body` or the local parent element.
 
 ## v1.0.1
 
-* Upgrade Vue to `v2.4.2` and fix template warnings. See [#268](https://github.com/JosephusPaye/Keen-UI/issues/268).
-* Add `aria-describedby` attribute to UiTooltip.
-* Fix bug where help and error content provided via slot isn't shown unless the `help` or `error` props are set. Affects UiAutocomplete, UiCheckboxGroup, UiDatepicker, UiRadioGroup, UiSelect, and UiTextbox. See [#204](https://github.com/JosephusPaye/Keen-UI/issues/301).
-* Allow `null` for UiAutocomplete and UiTextbox `value` prop. See [#253](https://github.com/JosephusPaye/Keen-UI/issues/253).
-* Allow UiTooltip `trigger` prop to be a VueComponent instance. See [#204](https://github.com/JosephusPaye/Keen-UI/issues/204).
-* Add `checked` attribute to the `input` element for UiRadio. See [#207](https://github.com/JosephusPaye/Keen-UI/issues/207).
-* Fix error being thrown when using UiRippleInk with SVG elements on touch devices. See [#236](https://github.com/JosephusPaye/Keen-UI/issues/236).
-* Fix minor errors and dead links in the docs.
-* Remove Material Icons webfont and use inline SVG icons in the docs.
-* Update [contributing guidelines](https://github.com/JosephusPaye/Keen-UI/blob/v1.0.1/CONTRIBUTING.md) with information about linting, BEM and using the `next` branch.
+- Upgrade Vue to `v2.4.2` and fix template warnings. See [#268](https://github.com/JosephusPaye/Keen-UI/issues/268).
+- Add `aria-describedby` attribute to UiTooltip.
+- Fix bug where help and error content provided via slot isn't shown unless the `help` or `error` props are set. Affects UiAutocomplete, UiCheckboxGroup, UiDatepicker, UiRadioGroup, UiSelect, and UiTextbox. See [#204](https://github.com/JosephusPaye/Keen-UI/issues/301).
+- Allow `null` for UiAutocomplete and UiTextbox `value` prop. See [#253](https://github.com/JosephusPaye/Keen-UI/issues/253).
+- Allow UiTooltip `trigger` prop to be a VueComponent instance. See [#204](https://github.com/JosephusPaye/Keen-UI/issues/204).
+- Add `checked` attribute to the `input` element for UiRadio. See [#207](https://github.com/JosephusPaye/Keen-UI/issues/207).
+- Fix error being thrown when using UiRippleInk with SVG elements on touch devices. See [#236](https://github.com/JosephusPaye/Keen-UI/issues/236).
+- Fix minor errors and dead links in the docs.
+- Remove Material Icons webfont and use inline SVG icons in the docs.
+- Update [contributing guidelines](https://github.com/JosephusPaye/Keen-UI/blob/v1.0.1/CONTRIBUTING.md) with information about linting, BEM and using the `next` branch.
 
 ## v1.0.0
 
@@ -339,12 +341,12 @@ Please consult the [docs](https://josephuspaye.github.io/Keen-UI/1.0.0/) for com
 
 ### Highlights
 
-* New components: [UiCheckboxGroup](https://josephuspaye.github.io/Keen-UI/1.0.0/#/ui-checkbox-group), [UiDatepicker](https://josephuspaye.github.io/Keen-UI/1.0.0/#/ui-datepicker) and [UiFileupload](https://josephuspaye.github.io/Keen-UI/1.0.0/#/ui-fileupload)
-* [Documentation](https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md) for customizing the components
-* [Global configuration](https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#global-config) now available for certain component props
-* CSS switched from Stylus to Sass, adopting the [BEM](http://getbem.com/naming/) naming convention
-* Component sizing switched from `px` to `rem`, using a root font size of `16px`. [Changing](https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#component-sizing) this font size will scale the components up/down appropriately.
-* Component event names switched from past tense to present to be more in line with the native DOM events
-* Remove [validatorjs](https://github.com/skaterdav85/validatorjs) and [draggabilly](http://draggabilly.desandro.com) dependencies
-* Now shipping both minified and unminified versions of standalone component files in `lib/`
-* Fix several issues and unnecessary API limitations
+- New components: [UiCheckboxGroup](https://josephuspaye.github.io/Keen-UI/1.0.0/#/ui-checkbox-group), [UiDatepicker](https://josephuspaye.github.io/Keen-UI/1.0.0/#/ui-datepicker) and [UiFileupload](https://josephuspaye.github.io/Keen-UI/1.0.0/#/ui-fileupload)
+- [Documentation](https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md) for customizing the components
+- [Global configuration](https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#global-config) now available for certain component props
+- CSS switched from Stylus to Sass, adopting the [BEM](http://getbem.com/naming/) naming convention
+- Component sizing switched from `px` to `rem`, using a root font size of `16px`. [Changing](https://github.com/JosephusPaye/Keen-UI/blob/master/Customization.md#component-sizing) this font size will scale the components up/down appropriately.
+- Component event names switched from past tense to present to be more in line with the native DOM events
+- Remove [validatorjs](https://github.com/skaterdav85/validatorjs) and [draggabilly](http://draggabilly.desandro.com) dependencies
+- Now shipping both minified and unminified versions of standalone component files in `lib/`
+- Fix several issues and unnecessary API limitations

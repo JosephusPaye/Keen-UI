@@ -1,1 +1,1 @@
-import './helpers/modality';
+import "./helpers/modality";

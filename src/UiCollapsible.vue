@@ -1,237 +1,230 @@
 <template>
-    <div class="ui-collapsible" :class="classes">
-        <div
-            class="ui-collapsible__header"
+  <div class="ui-collapsible" :class="classes">
+    <div
+      class="ui-collapsible__header"
+      :aria-controls="id"
+      :aria-expanded="isOpen ? 'true' : 'false'"
+      :tabindex="disabled ? null : 0"
+      @click="toggleCollapsible"
+      @keydown.enter.prevent="toggleCollapsible"
+      @keydown.space.prevent="toggleCollapsible"
+    >
+      <div class="ui-collapsible__header-content">
+        <slot name="header">{{ title }}</slot>
+      </div>
 
-            :aria-controls="id"
-            :aria-expanded="isOpen ? 'true' : 'false'"
-            :tabindex="disabled ? null : 0"
+      <ui-icon v-if="!removeIcon" class="ui-collapsible__header-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M7.406 7.828L12 12.422l4.594-4.594L18 9.234l-6 6-6-6z" />
+        </svg>
+      </ui-icon>
 
-            @click="toggleCollapsible"
-            @keydown.enter.prevent="toggleCollapsible"
-            @keydown.space.prevent="toggleCollapsible"
-        >
-            <div class="ui-collapsible__header-content">
-                <slot name="header">{{ title }}</slot>
-            </div>
-
-            <ui-icon v-if="!removeIcon" class="ui-collapsible__header-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M7.406 7.828L12 12.422l4.594-4.594L18 9.234l-6 6-6-6z"/>
-                </svg>
-            </ui-icon>
-
-            <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
-        </div>
-
-        <transition
-            @enter="onEnter"
-            @after-enter="afterEnter"
-            @before-leave="beforeLeave"
-            @leave="onLeave"
-        >
-            <div
-                v-show="isOpen"
-                :id="id"
-
-                ref="bodyWrapper"
-                class="ui-collapsible__body-wrapper"
-
-                :aria-hidden="isOpen ? null : 'true'"
-            >
-                <div class="ui-collapsible__body">
-                    <slot></slot>
-                </div>
-            </div>
-        </transition>
+      <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
     </div>
+
+    <transition
+      @enter="onEnter"
+      @after-enter="afterEnter"
+      @before-leave="beforeLeave"
+      @leave="onLeave"
+    >
+      <div
+        v-show="isOpen"
+        :id="id"
+        ref="bodyWrapper"
+        class="ui-collapsible__body-wrapper"
+        :aria-hidden="isOpen ? null : 'true'"
+      >
+        <div class="ui-collapsible__body">
+          <slot></slot>
+        </div>
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script>
-import UiIcon from './UiIcon.vue';
-import UiRippleInk from './UiRippleInk.vue';
-import UUID from './helpers/uuid';
+import UiIcon from "./UiIcon.vue";
+import UiRippleInk from "./UiRippleInk.vue";
+import UUID from "./helpers/uuid";
 
 export default {
-    name: 'UiCollapsible',
+  name: "UiCollapsible",
 
-    components: {
-        UiIcon,
-        UiRippleInk
+  components: {
+    UiIcon,
+    UiRippleInk,
+  },
+
+  props: {
+    open: {
+      type: Boolean,
+      default: false,
     },
-
-    props: {
-        open: {
-            type: Boolean,
-            default: false
-        },
-        title: String,
-        removeIcon: {
-            type: Boolean,
-            default: false
-        },
-        disableRipple: {
-            type: Boolean,
-            default: false
-        },
-        disabled: {
-            type: Boolean,
-            default: false
-        }
+    title: String,
+    removeIcon: {
+      type: Boolean,
+      default: false,
     },
-
-    emits: ['open', 'close'],
-
-    data() {
-        return {
-            isOpen: this.open,
-            id: UUID.short('ui-collapsible-')
-        };
+    disableRipple: {
+      type: Boolean,
+      default: false,
     },
-
-    computed: {
-        classes() {
-            return [
-                { 'is-open': this.isOpen },
-                { 'is-disabled': this.disabled }
-            ];
-        }
+    disabled: {
+      type: Boolean,
+      default: false,
     },
+  },
 
-    watch: {
-        open() {
-            if (this.isOpen !== this.open) {
-                this.isOpen = this.open;
-            }
-        }
+  emits: ["open", "close"],
+
+  data() {
+    return {
+      isOpen: this.open,
+      id: UUID.short("ui-collapsible-"),
+    };
+  },
+
+  computed: {
+    classes() {
+      return [{ "is-open": this.isOpen }, { "is-disabled": this.disabled }];
     },
+  },
 
-    mounted() {
-        // Remove the max-height to allow the element to grow if it's open initially
-        if (this.isOpen) {
-            this.$refs.bodyWrapper.style.maxHeight = 'none';
-        }
+  watch: {
+    open() {
+      if (this.isOpen !== this.open) {
+        this.isOpen = this.open;
+      }
     },
+  },
 
-    methods: {
-        toggleCollapsible() {
-            if (this.disabled) {
-                return;
-            }
-
-            this.isOpen = !this.isOpen;
-        },
-
-        onEnter(el) {
-            this.$emit('open');
-            el.style.maxHeight = el.scrollHeight + 'px';
-        },
-
-        afterEnter(el) {
-            // Remove the max-height to allow the element to grow
-            el.style.maxHeight = 'none';
-        },
-
-        beforeLeave(el) {
-            // Restore max-height for the leave transition
-            el.style.maxHeight = el.scrollHeight + 'px';
-
-            // Force repaint
-            el.offsetHeight; // eslint-disable-line no-unused-expressions
-        },
-
-        onLeave(el) {
-            el.style.maxHeight = 0;
-            this.$emit('close');
-        }
+  mounted() {
+    // Remove the max-height to allow the element to grow if it's open initially
+    if (this.isOpen) {
+      this.$refs.bodyWrapper.style.maxHeight = "none";
     }
+  },
+
+  methods: {
+    toggleCollapsible() {
+      if (this.disabled) {
+        return;
+      }
+
+      this.isOpen = !this.isOpen;
+    },
+
+    onEnter(el) {
+      this.$emit("open");
+      el.style.maxHeight = el.scrollHeight + "px";
+    },
+
+    afterEnter(el) {
+      // Remove the max-height to allow the element to grow
+      el.style.maxHeight = "none";
+    },
+
+    beforeLeave(el) {
+      // Restore max-height for the leave transition
+      el.style.maxHeight = el.scrollHeight + "px";
+
+      // Force repaint
+      el.offsetHeight; // eslint-disable-line no-unused-expressions
+    },
+
+    onLeave(el) {
+      el.style.maxHeight = 0;
+      this.$emit("close");
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-@import './styles/imports';
+@import "./styles/imports";
 
-$ui-collapsible-header-background           : $md-grey-200 !default;
-$ui-collapsible-header-background-hover     : $md-grey-300 !default;
+$ui-collapsible-header-background: $md-grey-200 !default;
+$ui-collapsible-header-background-hover: $md-grey-300 !default;
 
 .ui-collapsible {
-    font-family: $font-stack;
-    margin-bottom: rem(8px);
-    width: 100%;
+  font-family: $font-stack;
+  margin-bottom: rem(8px);
+  width: 100%;
 
-    &:not(.is-disabled) {
-        .ui-collapsible__header {
-            &:hover,
-            body[modality="keyboard"] &:focus {
-                background-color: $ui-collapsible-header-background-hover;
-            }
-        }
+  &:not(.is-disabled) {
+    .ui-collapsible__header {
+      &:hover,
+      body[modality="keyboard"] &:focus {
+        background-color: $ui-collapsible-header-background-hover;
+      }
+    }
+  }
+
+  &.is-open {
+    .ui-collapsible__header-icon {
+      transform: rotate(-180deg);
+    }
+  }
+
+  &.is-disabled {
+    .ui-collapsible__header {
+      cursor: default;
+      opacity: 0.6;
     }
 
-    &.is-open {
-        .ui-collapsible__header-icon {
-            transform: rotate(-180deg);
-        }
+    .ui-collapsible__header-icon {
+      cursor: default;
     }
-
-    &.is-disabled {
-        .ui-collapsible__header {
-            cursor: default;
-            opacity: 0.6;
-        }
-
-        .ui-collapsible__header-icon {
-            cursor: default;
-        }
-    }
+  }
 }
 
 .ui-collapsible__header {
-    align-items: center;
-    background-color: $ui-collapsible-header-background;
-    cursor: pointer;
-    display: flex;
-    font-size: rem(15px);
-    line-height: 1.5;
-    margin: 0;
-    min-height: rem(48px);
-    padding: rem(12px 16px);
-    position: relative;
-    touch-action: manipulation; // IE
-    width: 100%;
+  align-items: center;
+  background-color: $ui-collapsible-header-background;
+  cursor: pointer;
+  display: flex;
+  font-size: rem(15px);
+  line-height: 1.5;
+  margin: 0;
+  min-height: rem(48px);
+  padding: rem(12px 16px);
+  position: relative;
+  touch-action: manipulation; // IE
+  width: 100%;
 
-    .ui-ripple-ink__ink {
-        opacity: 0.1;
-    }
+  .ui-ripple-ink__ink {
+    opacity: 0.1;
+  }
 }
 
 .ui-collapsible__header-content {
-    padding-right: rem(8px);
+  padding-right: rem(8px);
 }
 
 .ui-collapsible__header-icon {
-    color: $secondary-text-color;
-    cursor: pointer;
-    margin-left: auto;
-    margin-right: rem(-4px);
-    transition: transform 0.3s ease;
+  color: $secondary-text-color;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: rem(-4px);
+  transition: transform 0.3s ease;
 }
 
 .ui-collapsible__body-wrapper {
-    max-height: 0;
-    transition: max-height 0.3s ease;
+  max-height: 0;
+  transition: max-height 0.3s ease;
 
-    &.v-enter-active,
-    &.v-leave-active {
-        overflow: hidden;
-    }
+  &.v-enter-active,
+  &.v-leave-active {
+    overflow: hidden;
+  }
 }
 
 .ui-collapsible__body {
-    border: 1px solid $md-grey-200;
-    border-top: 0;
-    display: block;
-    padding: rem(16px);
-    width: 100%;
+  border: 1px solid $md-grey-200;
+  border-top: 0;
+  display: block;
+  padding: rem(16px);
+  width: 100%;
 }
 </style>

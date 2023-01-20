@@ -1,196 +1,188 @@
 <template>
-    <ui-modal
-        ref="modal"
-        class="ui-confirm"
-        role="alertdialog"
+  <ui-modal
+    ref="modal"
+    class="ui-confirm"
+    role="alertdialog"
+    :dismiss-on="dismissOn"
+    :dismissible="!loading"
+    :title="title"
+    :transition="transition"
+    :size="size"
+    @close="onModalClose"
+    @hide="onModalHide"
+    @open="onModalOpen"
+    @reveal="onModalReveal"
+  >
+    <div class="ui-confirm__message">
+      <slot></slot>
+    </div>
 
-        :dismiss-on="dismissOn"
-        :dismissible="!loading"
-        :title="title"
-        :transition="transition"
-        :size="size"
+    <template #footer>
+      <div class="ui-confirm__footer">
+        <ui-button
+          ref="confirmButton"
+          :color="confirmButtonColor"
+          :icon="confirmButtonIcon"
+          :loading="loading"
+          @click="confirm"
+          >{{ confirmButtonText }}</ui-button
+        >
 
-        @close="onModalClose"
-        @hide="onModalHide"
-        @open="onModalOpen"
-        @reveal="onModalReveal"
-    >
-        <div class="ui-confirm__message">
-            <slot></slot>
-        </div>
-
-        <template #footer>
-            <div class="ui-confirm__footer">
-                <ui-button
-                    ref="confirmButton"
-
-                    :color="confirmButtonColor"
-                    :icon="confirmButtonIcon"
-                    :loading="loading"
-
-                    @click="confirm"
-                >{{ confirmButtonText }}</ui-button>
-
-                <ui-button
-                    ref="denyButton"
-
-                    :disabled="loading"
-                    :icon="denyButtonIcon"
-
-                    @click="deny"
-                >{{ denyButtonText }}</ui-button>
-            </div>
-        </template>
-    </ui-modal>
+        <ui-button ref="denyButton" :disabled="loading" :icon="denyButtonIcon" @click="deny">{{
+          denyButtonText
+        }}</ui-button>
+      </div>
+    </template>
+  </ui-modal>
 </template>
 
 <script>
-import UiButton from './UiButton.vue';
-import UiModal from './UiModal.vue';
+import UiButton from "./UiButton.vue";
+import UiModal from "./UiModal.vue";
 
-import classlist from './helpers/classlist';
+import classlist from "./helpers/classlist";
 
 export default {
-    name: 'UiConfirm',
+  name: "UiConfirm",
 
-    components: {
-        UiButton,
-        UiModal
+  components: {
+    UiButton,
+    UiModal,
+  },
+
+  props: {
+    title: {
+      type: String,
+      default: "UiConfirm",
+    },
+    type: {
+      type: String,
+      default: "primary", // any of the color prop values of UiButton
+    },
+    size: String,
+    confirmButtonText: {
+      type: String,
+      default: "OK",
+    },
+    confirmButtonIcon: String,
+    denyButtonText: {
+      type: String,
+      default: "Cancel",
+    },
+    denyButtonIcon: String,
+    autofocus: {
+      type: String,
+      default: "deny-button", // 'confirm-button', 'deny-button' or 'none'
+    },
+    closeOnConfirm: {
+      type: Boolean,
+      default: true,
+    },
+    dismissOn: String,
+    transition: String,
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
+  emits: ["confirm", "deny", "open", "reveal", "close", "hide"],
+
+  computed: {
+    confirmButtonColor() {
+      const typeToColor = {
+        default: "default",
+        primary: "primary",
+        accent: "accent",
+        success: "green",
+        warning: "orange",
+        danger: "red",
+      };
+
+      return typeToColor[this.type];
+    },
+  },
+
+  methods: {
+    open() {
+      this.$refs.modal.open();
     },
 
-    props: {
-        title: {
-            type: String,
-            default: 'UiConfirm'
-        },
-        type: {
-            type: String,
-            default: 'primary' // any of the color prop values of UiButton
-        },
-        size: String,
-        confirmButtonText: {
-            type: String,
-            default: 'OK'
-        },
-        confirmButtonIcon: String,
-        denyButtonText: {
-            type: String,
-            default: 'Cancel'
-        },
-        denyButtonIcon: String,
-        autofocus: {
-            type: String,
-            default: 'deny-button' // 'confirm-button', 'deny-button' or 'none'
-        },
-        closeOnConfirm: {
-            type: Boolean,
-            default: true
-        },
-        dismissOn: String,
-        transition: String,
-        loading: {
-            type: Boolean,
-            default: false
-        }
+    close() {
+      this.$refs.modal.close();
     },
 
-    emits: ['confirm', 'deny', 'open', 'reveal', 'close', 'hide'],
+    confirm() {
+      this.$emit("confirm");
 
-    computed: {
-        confirmButtonColor() {
-            const typeToColor = {
-                default: 'default',
-                primary: 'primary',
-                accent: 'accent',
-                success: 'green',
-                warning: 'orange',
-                danger: 'red'
-            };
-
-            return typeToColor[this.type];
-        }
+      if (this.closeOnConfirm) {
+        this.$refs.modal.close();
+      }
     },
 
-    methods: {
-        open() {
-            this.$refs.modal.open();
-        },
+    deny() {
+      this.$refs.modal.close();
+      this.$emit("deny");
+    },
 
-        close() {
-            this.$refs.modal.close();
-        },
+    onModalOpen() {
+      let button;
 
-        confirm() {
-            this.$emit('confirm');
+      if (this.autofocus === "confirm-button") {
+        button = this.$refs.confirmButton.$el;
+      } else if (this.autofocus === "deny-button") {
+        button = this.$refs.denyButton.$el;
+      }
 
-            if (this.closeOnConfirm) {
-                this.$refs.modal.close();
-            }
-        },
+      if (button) {
+        classlist.add(button, "has-focus-ring");
+        button.addEventListener("blur", this.removeAutoFocus);
+        button.focus();
+      }
 
-        deny() {
-            this.$refs.modal.close();
-            this.$emit('deny');
-        },
+      this.$emit("open");
+    },
 
-        onModalOpen() {
-            let button;
+    onModalReveal() {
+      this.$emit("reveal");
+    },
 
-            if (this.autofocus === 'confirm-button') {
-                button = this.$refs.confirmButton.$el;
-            } else if (this.autofocus === 'deny-button') {
-                button = this.$refs.denyButton.$el;
-            }
+    onModalClose() {
+      this.$emit("close");
+    },
 
-            if (button) {
-                classlist.add(button, 'has-focus-ring');
-                button.addEventListener('blur', this.removeAutoFocus);
-                button.focus();
-            }
+    onModalHide() {
+      this.$emit("hide");
+    },
 
-            this.$emit('open');
-        },
+    removeAutoFocus() {
+      let button;
 
-        onModalReveal() {
-            this.$emit('reveal');
-        },
+      if (this.autofocus === "confirm-button") {
+        button = this.$refs.confirmButton.$el;
+      } else if (this.autofocus === "deny-button") {
+        button = this.$refs.denyButton.$el;
+      }
 
-        onModalClose() {
-            this.$emit('close');
-        },
+      if (button) {
+        classlist.remove(button, "has-focus-ring");
 
-        onModalHide() {
-            this.$emit('hide');
-        },
-
-        removeAutoFocus() {
-            let button;
-
-            if (this.autofocus === 'confirm-button') {
-                button = this.$refs.confirmButton.$el;
-            } else if (this.autofocus === 'deny-button') {
-                button = this.$refs.denyButton.$el;
-            }
-
-            if (button) {
-                classlist.remove(button, 'has-focus-ring');
-
-                // This listener should run only once
-                button.removeEventListener('blur', this.removeAutoFocus);
-            }
-        }
-    }
+        // This listener should run only once
+        button.removeEventListener("blur", this.removeAutoFocus);
+      }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-@import './styles/imports';
+@import "./styles/imports";
 
 .ui-confirm__message {
-    font-size: rem(15px);
+  font-size: rem(15px);
 }
 
 .ui-confirm__footer {
-    display: flex;
+  display: flex;
 }
 </style>
