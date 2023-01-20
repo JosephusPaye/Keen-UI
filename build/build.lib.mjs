@@ -1,5 +1,5 @@
-const { build } = require("vite");
-const getLibConfig = require("./vite.config.lib.provider");
+import { build } from "vite";
+import getLibConfig from "./vite.config.lib.provider.mjs";
 
 const entries = [
   "UiAlert",

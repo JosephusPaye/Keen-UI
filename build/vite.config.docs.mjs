@@ -1,8 +1,9 @@
-const { fileURLToPath, URL } = require("url");
-const { defineConfig } = require("vite");
-const vue = require("@vitejs/plugin-vue");
-const options = require("./options");
-const autoprefixer = require("autoprefixer");
+import { fileURLToPath, URL } from "url";
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import autoprefixer from "autoprefixer";
+
+import options from "./options.mjs";
 
 export default defineConfig({
   plugins: [vue()],

@@ -1,8 +1,9 @@
-const { defineConfig } = require("vite");
-const vue = require("@vitejs/plugin-vue");
-const banner = require("vite-plugin-banner");
-const options = require("./options");
-const autoprefixer = require("autoprefixer");
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import banner from "vite-plugin-banner";
+import autoprefixer from "autoprefixer";
+
+import options from "./options.mjs";
 
 export default defineConfig(({ mode }) => {
   const filename = mode === "production" ? "keen-ui.min" : "keen-ui";

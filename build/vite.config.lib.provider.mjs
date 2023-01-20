@@ -1,9 +1,10 @@
-const vue = require("@vitejs/plugin-vue");
-const banner = require("vite-plugin-banner");
-const options = require("./options");
-const autoprefixer = require("autoprefixer");
+import vue from "@vitejs/plugin-vue";
+import banner from "vite-plugin-banner";
+import autoprefixer from "autoprefixer";
 
-module.exports = ({ entry, mode }) => {
+import options from "./options.mjs";
+
+export default ({ entry, mode }) => {
   const outDir = options.paths.output.lib;
 
   return {

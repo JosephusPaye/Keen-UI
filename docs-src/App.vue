@@ -38,7 +38,7 @@
 import DocsNavbar from "./DocsNavbar.vue";
 import DocsSidebar from "./DocsSidebar.vue";
 
-import version from "../build/version";
+import version from "../build/version.mjs";
 
 export default {
   components: {
