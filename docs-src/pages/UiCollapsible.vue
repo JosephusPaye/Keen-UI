@@ -55,11 +55,11 @@
 
             <ui-collapsible title="With content popping out">
                 <ui-select
+                    v-model="select"
                     class="mb-0"
                     label="Favourite colour"
                     placeholder="Select a colour"
                     :options="colors"
-                    v-model="select"
                 ></ui-select>
             </ui-collapsible>
 
@@ -214,6 +214,13 @@ import UiTab from '@/UiTab.vue';
 import UiTabs from '@/UiTabs.vue';
 
 export default {
+    components: {
+        UiCollapsible,
+        UiSelect,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
             select: '',
@@ -243,13 +250,6 @@ export default {
         onAccordionClose(key) {
             this.accordions[key] = false;
         }
-    },
-
-    components: {
-        UiCollapsible,
-        UiSelect,
-        UiTab,
-        UiTabs
     }
 };
 </script>

@@ -20,7 +20,7 @@
             <div
                 class="page__demo-group page__demo-group--tv-shows page__demo-group--color-blue has-custom-color"
             >
-                <image-pane :image="show.image" :key="index" v-for="(show, index) in tvShows"></image-pane>
+                <image-pane v-for="(show, index) in tvShows" :key="index" :image="show.image"></image-pane>
             </div>
 
             <h4 class="page__demo-title">Color: orange, Opacity: 0.95</h4>
@@ -28,7 +28,7 @@
             <div
                 class="page__demo-group page__demo-group--the-simpsons page__demo-group--color-orange has-custom-color has-custom-opacity
             ">
-                <image-pane :image="simpson.image" :key="index" v-for="(simpson, index) in theSimpsons"></image-pane>
+                <image-pane v-for="(simpson, index) in theSimpsons" :key="index" :image="simpson.image"></image-pane>
             </div>
         </div>
 
@@ -110,6 +110,11 @@ const theSimpsons = [
 
 const ImagePane = {
     name: 'image-pane',
+
+    components: {
+        UiRippleInk
+    },
+
     template: `
         <div class="image-pane" :style="{ 'background-image': 'url(' + image + ')' }">
             <ui-ripple-ink></ui-ripple-ink>
@@ -119,25 +124,20 @@ const ImagePane = {
     props: {
         image: String
     },
-
-    components: {
-        UiRippleInk
-    }
 };
 
 export default {
+    components: {
+        ImagePane,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
             tvShows,
             theSimpsons
         };
-    },
-
-    components: {
-        ImagePane,
-        UiRippleInk,
-        UiTab,
-        UiTabs
     }
 };
 </script>

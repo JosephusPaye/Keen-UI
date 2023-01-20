@@ -29,7 +29,7 @@
                 @date-select="onDateSelect"
             >
                 <template #date="props">
-                    <slot name="date" :date="props.date" v-if="$slots.date"></slot>
+                    <slot v-if="$slots.date" name="date" :date="props.date"></slot>
                     <template v-else>{{ props.date.getDate() }}</template>
                 </template>
             </ui-calendar-month>
@@ -44,9 +44,12 @@ import UiCalendarMonth from './UiCalendarMonth.vue';
 import dateUtils from './helpers/date';
 
 export default {
-    name: 'ui-calendar',
+    name: 'UiCalendar',
 
-    emits: ['update:modelValue', 'date-select', 'month-change'],
+    components: {
+        UiCalendarControls,
+        UiCalendarMonth
+    },
 
     props: {
         color: {
@@ -90,6 +93,8 @@ export default {
         }
     },
 
+    emits: ['update:modelValue', 'date-select', 'month-change'],
+
     data() {
         return {
             today: new Date(),
@@ -128,11 +133,6 @@ export default {
         goToDate(date) {
             this.$refs.month.goToDate(date);
         }
-    },
-
-    components: {
-        UiCalendarControls,
-        UiCalendarMonth
     }
 };
 </script>

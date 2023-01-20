@@ -2,27 +2,27 @@
     <table class="ui-calendar-month">
         <thead class="ui-calendar-month__header">
             <tr>
-                <th :key="day" v-for="day in daysOfWeek">{{ day }}</th>
+                <th v-for="day in daysOfWeek" :key="day">{{ day }}</th>
             </tr>
         </thead>
 
         <tbody class="ui-calendar-month__body">
             <ui-calendar-week
+                v-for="date in currentWeekStartDates"
+                :key="date.toString()"
                 :color="color"
                 :date-filter="dateFilter"
-                :key="date.toString()"
                 :max-date="maxDate"
                 :min-date="minDate"
                 :month="currentWeekStartDates[1].getMonth()"
                 :selected="selected"
                 :square-cells="squareCells"
+
                 :week-start="date"
 
                 @date-select="onDateSelect"
-
-                v-for="date in currentWeekStartDates"
             >
-                <template #default="props" v-if="$slots.date">
+                <template v-if="$slots.date" #default="props">
                     <slot name="date" :date="props.date"></slot>
                 </template>
             </ui-calendar-week>
@@ -36,9 +36,11 @@ import UiCalendarWeek from './UiCalendarWeek.vue';
 import dateUtils from './helpers/date';
 
 export default {
-    name: 'ui-calendar-month',
+    name: 'UiCalendarMonth',
 
-    emits: ['date-select', 'change'],
+    components: {
+        UiCalendarWeek
+    },
 
     props: {
         lang: Object,
@@ -60,6 +62,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['date-select', 'change'],
 
     computed: {
         daysOfWeek() {
@@ -107,10 +111,6 @@ export default {
         onDateSelect(date) {
             this.$emit('date-select', date);
         }
-    },
-
-    components: {
-        UiCalendarWeek
     }
 };
 </script>

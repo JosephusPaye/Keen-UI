@@ -1,6 +1,6 @@
 <template>
     <div class="ui-textbox" :class="classes">
-        <div class="ui-textbox__icon-wrapper" v-if="icon || $slots.icon">
+        <div v-if="icon || $slots.icon" class="ui-textbox__icon-wrapper">
             <slot name="icon">
                 <ui-icon :icon="icon"></ui-icon>
             </slot>
@@ -9,8 +9,8 @@
         <div class="ui-textbox__content">
             <label class="ui-textbox__label">
                 <input
-                    class="ui-textbox__input"
                     ref="input"
+                    class="ui-textbox__input"
 
                     :autocomplete="autocomplete ? autocomplete : null"
                     :autocapitalize="autocapitalize ? autocapitalize : null"
@@ -23,25 +23,25 @@
                     :placeholder="hasFloatingLabel ? null : placeholder"
                     :readonly="readonly"
                     :required="required"
+                    v-autofocus="autofocus"
                     :step="stepValue"
+                    v-if="!multiLine"
                     :tabindex="tabindex"
+
                     :type="type"
                     :value="modelValue"
-
                     @blur="onBlur"
                     @change="onChange"
                     @focus="onFocus"
                     @input="updateValue($event.target.value)"
+
                     @keydown.enter="onKeydownEnter"
                     @keydown="onKeydown"
-
-                    v-autofocus="autofocus"
-                    v-if="!multiLine"
                 >
 
                 <textarea
-                    class="ui-textbox__textarea"
                     ref="textarea"
+                    class="ui-textbox__textarea"
 
                     :autocomplete="autocomplete ? autocomplete : null"
                     :autocapitalize="autocapitalize ? autocapitalize : null"
@@ -51,41 +51,41 @@
                     :name="name"
                     :placeholder="hasFloatingLabel ? null : placeholder"
                     :readonly="readonly"
+                    v-autofocus="autofocus"
                     :required="required"
+                    v-else
                     :rows="rows"
+
                     :tabindex="tabindex"
                     :value="modelValue"
-
                     @blur="onBlur"
                     @change="onChange"
                     @focus="onFocus"
                     @input="updateValue($event.target.value)"
+
                     @keydown.enter="onKeydownEnter"
                     @keydown="onKeydown"
-
-                    v-autofocus="autofocus"
-                    v-else
                 ></textarea>
 
                 <div
+                    v-if="label || $slots.default"
                     class="ui-textbox__label-text"
                     :class="labelClasses"
-                    v-if="label || $slots.default"
                 >
                     <slot>{{ label }}</slot>
                 </div>
             </label>
 
-            <div class="ui-textbox__feedback" v-if="hasFeedback || maxlength">
-                <div class="ui-textbox__feedback-text" v-if="showError">
+            <div v-if="hasFeedback || maxlength" class="ui-textbox__feedback">
+                <div v-if="showError" class="ui-textbox__feedback-text">
                     <slot name="error">{{ error }}</slot>
                 </div>
 
-                <div class="ui-textbox__feedback-text" v-else-if="showHelp">
+                <div v-else-if="showHelp" class="ui-textbox__feedback-text">
                     <slot name="help">{{ help }}</slot>
                 </div>
 
-                <div class="ui-textbox__counter" v-if="maxlength">
+                <div v-if="maxlength" class="ui-textbox__counter">
                     {{ valueLength + '/' + maxlength }}
                 </div>
             </div>
@@ -100,9 +100,15 @@ import UiIcon from './UiIcon.vue';
 import autosize from 'autosize';
 
 export default {
-    name: 'ui-textbox',
+    name: 'UiTextbox',
 
-    emits: ['update:modelValue', 'focus', 'blur', 'change', 'touch', 'keydown', 'keydown-enter'],
+    components: {
+        UiIcon
+    },
+
+    directives: {
+        autofocus
+    },
 
     props: {
         name: String,
@@ -175,6 +181,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['update:modelValue', 'focus', 'blur', 'change', 'touch', 'keydown', 'keydown-enter'],
 
     data() {
         return {
@@ -336,14 +344,6 @@ export default {
         focus() {
             (this.$refs.input || this.$refs.textarea).focus();
         }
-    },
-
-    components: {
-        UiIcon
-    },
-
-    directives: {
-        autofocus
     }
 };
 </script>

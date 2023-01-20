@@ -45,9 +45,12 @@ import UiIconButton from './UiIconButton.vue';
 import dateUtils from './helpers/date';
 
 export default {
-    name: 'ui-calendar-controls',
+    name: 'UiCalendarControls',
 
-    emits: ['go-to-date'],
+    components: {
+        UiIcon,
+        UiIconButton
+    },
 
     props: {
         color: {
@@ -63,6 +66,8 @@ export default {
             required: true
         }
     },
+
+    emits: ['go-to-date'],
 
     computed: {
         classes() {
@@ -134,11 +139,6 @@ export default {
         goToDate(date) {
             this.$emit('go-to-date', date);
         }
-    },
-
-    components: {
-        UiIcon,
-        UiIconButton
     }
 };
 </script>

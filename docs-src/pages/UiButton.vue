@@ -23,15 +23,15 @@
 
         <div class="page__examples">
             <ui-radio-group
+                v-model="size"
                 name="size"
                 :options="['small', 'normal', 'large']"
-                v-model="size"
             >Button Size</ui-radio-group>
 
             <ui-radio-group
+                v-model="iconPosition"
                 name="icon_position"
                 :options="['left', 'right']"
-                v-model="iconPosition"
             >Icon Position</ui-radio-group>
 
             <ui-switch v-model="loading">
@@ -201,7 +201,7 @@
             <h4 class="page__demo-title">Has dropdown, with menu</h4>
 
             <div class="page__demo-group">
-                <ui-button color="primary" has-dropdown ref="dropdownButton" :size="size">
+                <ui-button ref="dropdownButton" color="primary" has-dropdown :size="size">
                     <template #dropdown>
                         <ui-menu
                             contain-focus
@@ -579,14 +579,6 @@ const menuOptions = [
 ];
 
 export default {
-    data() {
-        return {
-            size: 'normal',
-            iconPosition: 'left',
-            loading: true,
-            menuOptions
-        };
-    },
 
     components: {
         UiButton,
@@ -595,6 +587,15 @@ export default {
         UiSwitch,
         UiTab,
         UiTabs
+    },
+
+    data() {
+        return {
+            size: 'normal',
+            iconPosition: 'left',
+            loading: true,
+            menuOptions
+        };
     }
 };
 </script>

@@ -2,8 +2,8 @@
     <label class="ui-radio" :class="classes" @click="toggleCheck">
         <div class="ui-radio__input-wrapper">
             <input
-                class="ui-radio__input"
                 ref="input"
+                class="ui-radio__input"
                 type="radio"
 
                 :checked.prop="checked"
@@ -23,7 +23,7 @@
             <span class="ui-radio__inner-circle"></span>
         </div>
 
-        <div class="ui-radio__label-text" v-if="label || $slots.default">
+        <div v-if="label || $slots.default" class="ui-radio__label-text">
             <slot>{{ label }}</slot>
         </div>
     </label>
@@ -31,9 +31,7 @@
 
 <script>
 export default {
-    name: 'ui-radio',
-
-    emits: ['update:modelValue', 'focus', 'blur', 'change'],
+    name: 'UiRadio',
 
     props: {
         name: String,
@@ -64,6 +62,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['update:modelValue', 'focus', 'blur', 'change'],
 
     data() {
         return {

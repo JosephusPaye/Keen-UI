@@ -1,21 +1,21 @@
 <template>
     <div class="ui-snackbar-container" :class="classes">
         <ui-snackbar
-            :action-color="snackbar.actionColor"
-            :action="snackbar.action"
-            :key="index"
-            :message="snackbar.message"
-            :transition="transition"
-
-            @action-click="onActionClick(snackbar)"
-            @click="onClick(snackbar)"
-            @hide="onHide(snackbar, index)"
-            @show="onShow(snackbar)"
-
             v-for="(snackbar, index) in queue"
             v-show="snackbar.show"
+            :key="index"
+            :action-color="snackbar.actionColor"
+            :action="snackbar.action"
+
+            :message="snackbar.message"
+            :transition="transition"
+            @action-click="onActionClick(snackbar)"
+            @click="onClick(snackbar)"
+
+            @hide="onHide(snackbar, index)"
+            @show="onShow(snackbar)"
         >
-            <div v-html="snackbar.message" v-if="allowHtml"></div>
+            <div v-if="allowHtml" v-html="snackbar.message"></div>
         </ui-snackbar>
     </div>
 </template>
@@ -24,9 +24,11 @@
 import UiSnackbar from './UiSnackbar.vue';
 
 export default {
-    name: 'ui-snackbar-container',
+    name: 'UiSnackbarContainer',
 
-    emits: ['queue-end', 'snackbar-show', 'snackbar-hide'],
+    components: {
+        UiSnackbar
+    },
 
     props: {
         queueSnackbars: {
@@ -50,6 +52,8 @@ export default {
             default: 'slide' // 'slide' or 'fade'
         }
     },
+
+    emits: ['queue-end', 'snackbar-show', 'snackbar-hide'],
 
     data() {
         return {
@@ -157,10 +161,6 @@ export default {
             clearTimeout(this.snackbarTimeout);
             this.snackbarTimeout = null;
         }
-    },
-
-    components: {
-        UiSnackbar
     }
 };
 </script>

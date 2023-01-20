@@ -25,13 +25,11 @@
                 <h1 class="keen-docs-navbar__title">{{ title }}</h1>
 
                 <a
+                    v-if="sourceUrl"
                     class="keen-docs-navbar__action"
                     rel="noopener"
                     target="_blank"
-
                     :href="sourceUrl"
-
-                    v-if="sourceUrl"
                 >View Source</a>
             </div>
         </div>
@@ -50,15 +48,15 @@ export default {
         UiIconButton
     },
 
-    emits: ['toggle-sidebar'],
-
     props: {
         version: String,
         versionUrl: String,
         repoUrl: String,
         title: String,
         sourceUrl: String
-    }
+    },
+
+    emits: ['toggle-sidebar']
 };
 </script>
 

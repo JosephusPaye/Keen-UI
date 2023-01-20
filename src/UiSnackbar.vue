@@ -1,5 +1,5 @@
 <template>
-    <transition :name="transitionName" @after-enter="onEnter" @after-leave="onLeave" appear>
+    <transition :name="transitionName" appear @after-enter="onEnter" @after-leave="onLeave">
         <div class="ui-snackbar">
             <div class="ui-snackbar__message">
                 <slot>{{ message }}</slot>
@@ -7,14 +7,14 @@
 
             <div class="ui-snackbar__action">
                 <ui-button
+                    v-if="action"
                     class="ui-snackbar__action-button"
+
                     type="secondary"
 
                     :color="actionColor"
 
                     @click.stop="onActionClick"
-
-                    v-if="action"
                 >{{ action }}</ui-button>
             </div>
         </div>
@@ -25,9 +25,11 @@
 import UiButton from './UiButton.vue';
 
 export default {
-    name: 'ui-snackbar',
+    name: 'UiSnackbar',
 
-    emits: ['action-click', 'show', 'hide'],
+    components: {
+        UiButton
+    },
 
     props: {
         message: String,
@@ -41,6 +43,8 @@ export default {
             default: 'slide' // 'slide' or 'fade'
         }
     },
+
+    emits: ['action-click', 'show', 'hide'],
 
     computed: {
         transitionName() {
@@ -60,10 +64,6 @@ export default {
         onLeave() {
             this.$emit('hide');
         }
-    },
-
-    components: {
-        UiButton
     }
 };
 </script>

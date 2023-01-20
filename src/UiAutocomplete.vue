@@ -1,6 +1,6 @@
 <template>
     <div class="ui-autocomplete" :class="classes">
-        <div class="ui-autocomplete__icon-wrapper" v-if="icon || $slots.icon">
+        <div v-if="icon || $slots.icon" class="ui-autocomplete__icon-wrapper">
             <slot name="icon">
                 <ui-icon :icon="icon"></ui-icon>
             </slot>
@@ -9,20 +9,20 @@
         <div class="ui-autocomplete__content">
             <label class="ui-autocomplete__label">
                 <div
+                    v-if="label || $slots.default"
                     class="ui-autocomplete__label-text"
                     :class="labelClasses"
-                    v-if="label || $slots.default"
                 >
                     <slot>{{ label }}</slot>
                 </div>
 
                 <ui-icon
+                    v-show="!disabled && valueLength > 0"
                     class="ui-autocomplete__clear-button"
+
                     title="Clear"
 
                     @click="updateValue('')"
-
-                    v-show="!disabled && valueLength > 0"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path d="M18.984 6.422L13.406 12l5.578 5.578-1.406 1.406L12 13.406l-5.578 5.578-1.406-1.406L10.594 12 5.016 6.422l1.406-1.406L12 10.594l5.578-5.578z"/>
@@ -30,17 +30,18 @@
                 </ui-icon>
 
                 <input
+                    ref="input"
                     autocomplete="off"
                     class="ui-autocomplete__input"
-                    ref="input"
 
                     :disabled="disabled"
                     :name="name"
                     :placeholder="hasFloatingLabel ? null : placeholder"
                     :readonly="readonly ? readonly : null"
                     :tabindex="tabindex"
-                    :value="modelValue"
+                    v-autofocus="autofocus"
 
+                    :value="modelValue"
                     @blur="onBlur"
                     @change="onChange"
                     @focus="onFocus"
@@ -49,24 +50,23 @@
                     @keydown.enter="selectHighlighted(highlightedIndex, $event)"
                     @keydown.esc="closeDropdown"
                     @keydown.tab="closeDropdown"
-                    @keydown.up.prevent="highlightSuggestion(highlightedIndex - 1)"
 
-                    v-autofocus="autofocus"
+                    @keydown.up.prevent="highlightSuggestion(highlightedIndex - 1)"
                 >
 
-                <ul class="ui-autocomplete__suggestions" v-show="showDropdown">
+                <ul v-show="showDropdown" class="ui-autocomplete__suggestions">
                     <ui-autocomplete-suggestion
-                        ref="suggestions"
+                        v-for="(suggestion, index) in matchingSuggestions"
 
-                        :highlighted="highlightedIndex === index"
+                        ref="suggestions"
                         :key="index"
+                        :highlighted="highlightedIndex === index"
                         :keys="keys"
                         :suggestion="suggestion"
+
                         :type="type"
 
                         @click="selectSuggestion(suggestion)"
-
-                        v-for="(suggestion, index) in matchingSuggestions"
                     >
                         <slot
                             name="suggestion"
@@ -79,12 +79,12 @@
                 </ul>
             </label>
 
-            <div class="ui-autocomplete__feedback" v-if="hasFeedback">
-                <div class="ui-autocomplete__feedback-text" v-if="showError">
+            <div v-if="hasFeedback" class="ui-autocomplete__feedback">
+                <div v-if="showError" class="ui-autocomplete__feedback-text">
                     <slot name="error">{{ error }}</slot>
                 </div>
 
-                <div class="ui-autocomplete__feedback-text" v-else-if="showHelp">
+                <div v-else-if="showHelp" class="ui-autocomplete__feedback-text">
                     <slot name="help">{{ help }}</slot>
                 </div>
             </div>
@@ -100,9 +100,16 @@ import UiIcon from './UiIcon.vue';
 import fuzzysearch from 'fuzzysearch';
 
 export default {
-    name: 'ui-autocomplete',
+    name: 'UiAutocomplete',
 
-    emits: ['update:modelValue', 'select', 'highlight-overflow', 'highlight', 'dropdown-open', 'dropdown-close', 'focus', 'change', 'blur', 'touch'],
+    components: {
+        UiAutocompleteSuggestion,
+        UiIcon
+    },
+
+    directives: {
+        autofocus
+    },
 
     props: {
         name: String,
@@ -191,6 +198,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['update:modelValue', 'select', 'highlight-overflow', 'highlight', 'dropdown-open', 'dropdown-close', 'focus', 'change', 'blur', 'touch'],
 
     data() {
         return {
@@ -419,15 +428,6 @@ export default {
             this.updateValue(this.initialValue);
             this.isTouched = false;
         }
-    },
-
-    components: {
-        UiAutocompleteSuggestion,
-        UiIcon
-    },
-
-    directives: {
-        autofocus
     }
 };
 </script>

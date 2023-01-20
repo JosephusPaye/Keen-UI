@@ -1,15 +1,15 @@
 <template>
     <component
-        class="ui-icon-button"
+        :is="isAnchor ? 'a' : 'button'"
 
+        class="ui-icon-button"
         :aria-label="ariaLabel || tooltip"
         :class="classes"
         :disabled="disabled || loading"
         :href="isAnchor ? (disabled ? null : href) : null"
-        :is="isAnchor ? 'a' : 'button'"
         :type="isAnchor ? null : buttonType"
     >
-        <div class="ui-icon-button__icon" v-if="icon || $slots.default">
+        <div v-if="icon || $slots.default" class="ui-icon-button__icon">
             <slot>
                 <ui-icon :icon="icon"></ui-icon>
             </slot>
@@ -18,39 +18,39 @@
         <div class="ui-icon-button__focus-ring"></div>
 
         <ui-progress-circular
-            class="ui-icon-button__progress"
+            v-if="loading"
 
+            class="ui-icon-button__progress"
             :color="progressColor"
             :size="size === 'large' ? 24 : 18"
-            :stroke="4.5"
 
-            v-if="loading"
+            :stroke="4.5"
         ></ui-progress-circular>
 
         <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
 
         <ui-popover
-            contain-focus
+            v-if="hasDropdown"
             ref="dropdown"
 
+            contain-focus
             :append-to-body="appendDropdownToBody"
             :constrain-to-scroll-parent="constrainDropdownToScrollParent"
             :position="dropdownPosition"
+
             :open-on="openDropdownOn"
-
             @close="onDropdownClose"
-            @open="onDropdownOpen"
 
-            v-if="hasDropdown"
+            @open="onDropdownOpen"
         >
             <slot name="dropdown"></slot>
         </ui-popover>
 
         <ui-tooltip
-            :open-on="openTooltipOn"
-            :position="tooltipPosition"
-
             v-if="tooltip"
+            :open-on="openTooltipOn"
+
+            :position="tooltipPosition"
         >{{ tooltip }}</ui-tooltip>
     </component>
 </template>
@@ -63,9 +63,15 @@ import UiRippleInk from './UiRippleInk.vue';
 import UiTooltip from './UiTooltip.vue';
 
 export default {
-    name: 'ui-icon-button',
+    name: 'UiIconButton',
 
-    emits: ['dropdown-open', 'dropdown-close'],
+    components: {
+        UiIcon,
+        UiPopover,
+        UiProgressCircular,
+        UiRippleInk,
+        UiTooltip
+    },
 
     props: {
         type: {
@@ -120,6 +126,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['dropdown-open', 'dropdown-close'],
 
     computed: {
         classes() {
@@ -181,14 +189,6 @@ export default {
                 this.$refs.dropdown.toggle();
             }
         }
-    },
-
-    components: {
-        UiIcon,
-        UiPopover,
-        UiProgressCircular,
-        UiRippleInk,
-        UiTooltip
     }
 };
 </script>

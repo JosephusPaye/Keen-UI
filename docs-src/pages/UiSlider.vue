@@ -15,24 +15,24 @@
             <ui-slider v-model="slider1"></ui-slider>
 
             <h4 class="page__demo-title">With icon</h4>
-            <ui-slider icon="volume_up" v-model="slider2"></ui-slider>
+            <ui-slider v-model="slider2" icon="volume_up"></ui-slider>
 
             <h4 class="page__demo-title">With marker</h4>
-            <ui-slider show-marker v-model="slider3"></ui-slider>
+            <ui-slider v-model="slider3" show-marker></ui-slider>
 
             <h4 class="page__demo-title">With custom min and max: [1, 15]</h4>
 
-            <ui-slider show-marker :min="1" :max="15" :step="1" v-model="slider4"></ui-slider>
+            <ui-slider v-model="slider4" show-marker :min="1" :max="15" :step="1"></ui-slider>
 
             <h4 class="page__demo-title">Snap to steps: 20</h4>
 
             <ui-slider
+                v-model="slider5"
                 show-marker
+
                 snap-to-steps
 
                 :step="20"
-
-                v-model="slider5"
             ></ui-slider>
 
             <h4 class="page__demo-title">In a modal</h4>
@@ -42,7 +42,7 @@
             </ui-modal>
 
             <h4 class="page__demo-title">Disabled</h4>
-            <ui-slider icon="volume_up" v-model="slider6" disabled></ui-slider>
+            <ui-slider v-model="slider6" icon="volume_up" disabled></ui-slider>
 
             <div class="reset-sliders">
                 <ui-button @click="resetSliders">Reset Sliders</ui-button>
@@ -281,6 +281,14 @@ import UiTab from '@/UiTab.vue';
 import UiTabs from '@/UiTabs.vue';
 
 export default {
+    components: {
+        UiButton,
+        UiModal,
+        UiSlider,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
             slider1: 25,
@@ -307,14 +315,6 @@ export default {
         openModal() {
             this.$refs.modal.open();
         }
-    },
-
-    components: {
-        UiButton,
-        UiModal,
-        UiSlider,
-        UiTab,
-        UiTabs
     }
 };
 </script>

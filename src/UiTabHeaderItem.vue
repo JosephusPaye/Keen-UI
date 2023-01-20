@@ -10,21 +10,21 @@
         :tabindex="active ? 0 : -1"
     >
         <slot>
-            <div class="ui-tab-header-item__icon" v-if="hasIcon">
-                <slot name="icon" v-if="$slots.icon"></slot>
-                <ui-icon :icon="icon" v-else-if="icon"/>
+            <div v-if="hasIcon" class="ui-tab-header-item__icon">
+                <slot v-if="$slots.icon" name="icon"></slot>
+                <ui-icon v-else-if="icon" :icon="icon"/>
             </div>
 
-            <div class="ui-tab-header-item__text" v-if="hasText">{{ title }}</div>
+            <div v-if="hasText" class="ui-tab-header-item__text">{{ title }}</div>
         </slot>
 
         <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
 
         <ui-tooltip
-            :open-on="openTooltipOn"
-            :position="tooltipPosition"
-
             v-if="tooltip"
+            :open-on="openTooltipOn"
+
+            :position="tooltipPosition"
         >{{ tooltip }}</ui-tooltip>
     </li>
 </template>
@@ -35,7 +35,7 @@ import UiRippleInk from './UiRippleInk.vue';
 import UiTooltip from './UiTooltip.vue';
 
 export default {
-    name: 'ui-tab-header-item',
+    name: 'UiTabHeaderItem',
 
     components: {
         UiIcon,

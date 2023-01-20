@@ -32,15 +32,15 @@
 
         <div class="preview-controls">
             <ui-radio-group
+                v-model="position"
                 name="position"
                 :options="['left', 'center', 'right']"
-                v-model="position"
             >Position</ui-radio-group>
 
             <ui-radio-group
+                v-model="transition"
                 name="transition"
                 :options="['slide', 'fade']"
-                v-model="transition"
             >Transition</ui-radio-group>
 
             <ui-switch v-model="queueSnackbars">
@@ -48,25 +48,25 @@
             </ui-switch>
 
             <ui-textbox
-                placeholder="Enter a message"
                 v-model="message"
+                placeholder="Enter a message"
             >Snackbar message</ui-textbox>
 
             <ui-textbox
-                placeholder="Enter action button text"
                 v-model="action"
+                placeholder="Enter action button text"
             >Action text</ui-textbox>
 
             <ui-radio-group
+                v-model="actionColor"
                 name="action_color"
                 :options="['accent', 'primary']"
-                v-model="actionColor"
             >Action color</ui-radio-group>
 
             <ui-textbox
+                v-model.number="duration"
                 placeholder="Enter the duration in seconds"
                 type="number"
-                v-model.number="duration"
             >Duration (seconds)</ui-textbox>
 
             <ui-button @click="createSnackbar">Create snackbar</ui-button>
@@ -360,6 +360,17 @@ import UiTabs from '@/UiTabs.vue';
 import UiTextbox from '@/UiTextbox.vue';
 
 export default {
+    components: {
+        UiButton,
+        UiRadioGroup,
+        UiSnackbar,
+        UiSnackbarContainer,
+        UiSwitch,
+        UiTab,
+        UiTabs,
+        UiTextbox
+    },
+
     data() {
         return {
             position: 'left',
@@ -381,17 +392,6 @@ export default {
                 duration: this.duration * 1000
             });
         }
-    },
-
-    components: {
-        UiButton,
-        UiRadioGroup,
-        UiSnackbar,
-        UiSnackbarContainer,
-        UiSwitch,
-        UiTab,
-        UiTabs,
-        UiTextbox
     }
 };
 </script>

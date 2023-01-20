@@ -1,15 +1,15 @@
 <template>
     <transition :name="toggleTransition" @after-enter="onEnter" @after-leave="onLeave">
         <div
-            class="ui-modal ui-modal__mask"
-
-            :class="classes"
-            :role="role"
-
-            @mousedown.self="onBackdropMouseDown"
-            @mouseup.self="onBackdropMouseUp"
-
             v-show="isOpen"
+
+            class="ui-modal ui-modal__mask"
+            :class="classes"
+
+            :role="role"
+            @mousedown.self="onBackdropMouseDown"
+
+            @mouseup.self="onBackdropMouseUp"
         >
             <div
                 class="ui-modal__wrapper"
@@ -21,21 +21,21 @@
                 @mouseup.self="onBackdropMouseUp"
             >
                 <ui-focus-container
-                    class="ui-modal__container"
                     ref="focusContainer"
+                    class="ui-modal__container"
                     tabindex="-1"
 
                     @keydown.stop.esc="onEsc"
                 >
-                    <div class="ui-modal__header" v-if="!removeHeader">
+                    <div v-if="!removeHeader" class="ui-modal__header">
                         <slot name="header">
                             <h1 class="ui-modal__header-text">{{ title }}</h1>
                         </slot>
 
                         <div class="ui-modal__close-button">
                             <ui-close-button
-                                @click="close"
                                 v-if="dismissOnCloseButton && !removeCloseButton && dismissible"
+                                @click="close"
                             ></ui-close-button>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                         <slot></slot>
                     </div>
 
-                    <div class="ui-modal__footer" v-if="hasFooter">
+                    <div v-if="hasFooter" class="ui-modal__footer">
                         <slot name="footer"></slot>
                     </div>
                 </ui-focus-container>
@@ -60,9 +60,12 @@ import UiFocusContainer from './UiFocusContainer.vue';
 import classlist from './helpers/classlist';
 
 export default {
-    name: 'ui-modal',
+    name: 'UiModal',
 
-    emits: ['open', 'close', 'reveal', 'hide'],
+    components: {
+        UiCloseButton,
+        UiFocusContainer
+    },
 
     props: {
         title: {
@@ -111,6 +114,8 @@ export default {
         },
         beforeClose: Function
     },
+
+    emits: ['open', 'close', 'reveal', 'hide'],
 
     data() {
         return {
@@ -271,11 +276,6 @@ export default {
         decrementOpenModalCount() {
             return this.setOpenModalCount(this.getOpenModalCount() - 1);
         }
-    },
-
-    components: {
-        UiCloseButton,
-        UiFocusContainer
     }
 };
 </script>

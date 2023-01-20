@@ -1,15 +1,15 @@
 <template>
     <component
-        class="ui-button"
+        :is="isAnchor ? 'a' : 'button'"
 
+        class="ui-button"
         :class="classes"
         :disabled="disabled || loading"
         :href="isAnchor ? (disabled ? null : href) : null"
-        :is="isAnchor ? 'a' : 'button'"
         :type="isAnchor ? null : buttonType"
     >
         <div class="ui-button__content">
-            <div class="ui-button__icon" v-if="icon || $slots.icon">
+            <div v-if="icon || $slots.icon" class="ui-button__icon">
                 <slot name="icon">
                     <ui-icon :icon="icon"></ui-icon>
                 </slot>
@@ -18,8 +18,8 @@
             <slot></slot>
 
             <ui-icon
-                class="ui-button__dropdown-icon"
                 v-if="hasDropdown && iconPosition !== 'right'"
+                class="ui-button__dropdown-icon"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path d="M6.984 9.984h10.03L12 15z"/>
@@ -30,40 +30,40 @@
         <div class="ui-button__focus-ring"></div>
 
         <ui-progress-circular
+            v-if="loading"
             class="ui-button__progress"
-            disable-transition
 
+            disable-transition
             :color="progressColor"
             :size="18"
-            :stroke="4.5"
 
-            v-if="loading"
+            :stroke="4.5"
         ></ui-progress-circular>
 
         <ui-ripple-ink v-if="!disableRipple && !disabled"></ui-ripple-ink>
 
         <ui-popover
-            contain-focus
+            v-if="hasDropdown"
             ref="dropdown"
 
+            contain-focus
             :append-to-body="appendDropdownToBody"
             :constrain-to-scroll-parent="constrainDropdownToScrollParent"
             :position="dropdownPosition"
+
             :open-on="openDropdownOn"
-
             @close="onDropdownClose"
-            @open="onDropdownOpen"
 
-            v-if="hasDropdown"
+            @open="onDropdownOpen"
         >
             <slot name="dropdown"></slot>
         </ui-popover>
 
         <ui-tooltip
-            :open-on="openTooltipOn"
-            :position="tooltipPosition"
-
             v-if="tooltip"
+            :open-on="openTooltipOn"
+
+            :position="tooltipPosition"
         >{{ tooltip }}</ui-tooltip>
     </component>
 </template>
@@ -76,9 +76,15 @@ import UiRippleInk from './UiRippleInk.vue';
 import UiTooltip from './UiTooltip.vue';
 
 export default {
-    name: 'ui-button',
+    name: 'UiButton',
 
-    emits: ['dropdown-open', 'dropdown-close'],
+    components: {
+        UiIcon,
+        UiPopover,
+        UiProgressCircular,
+        UiRippleInk,
+        UiTooltip
+    },
 
     props: {
         type: {
@@ -141,6 +147,8 @@ export default {
         }
     },
 
+    emits: ['dropdown-open', 'dropdown-close'],
+
     computed: {
         classes() {
             return [
@@ -196,14 +204,6 @@ export default {
                 this.$refs.dropdown.toggle();
             }
         }
-    },
-
-    components: {
-        UiIcon,
-        UiPopover,
-        UiProgressCircular,
-        UiRippleInk,
-        UiTooltip
     }
 };
 </script>

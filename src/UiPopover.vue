@@ -1,7 +1,7 @@
 <template>
     <ui-focus-container
-        class="ui-popover"
         ref="focusContainer"
+        class="ui-popover"
         role="dialog"
 
         :class="{ 'is-raised': raised }"
@@ -23,9 +23,11 @@ import events from './helpers/events';
 import UiFocusContainer from './UiFocusContainer.vue';
 
 export default {
-    name: 'ui-popover',
+    name: 'UiPopover',
 
-    emits: ['open', 'close', 'reveal', 'hide'],
+    components: {
+        UiFocusContainer
+    },
 
     props: {
         animation: {
@@ -83,6 +85,8 @@ export default {
         },
         zIndex: Number
     },
+
+    emits: ['open', 'close', 'reveal', 'hide'],
 
     data() {
         return {
@@ -293,10 +297,6 @@ export default {
                 this.removeScrollListener = null;
             }
         }
-    },
-
-    components: {
-        UiFocusContainer
     }
 };
 </script>

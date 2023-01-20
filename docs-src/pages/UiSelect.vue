@@ -14,165 +14,165 @@
             <h4 class="page__demo-title">Basic</h4>
 
             <ui-select
+                v-model="select1"
                 label="Favourite colour"
                 placeholder="Select a colour"
                 :options="colourStrings"
-                v-model="select1"
             ></ui-select>
 
             <h4 class="page__demo-title">With floating label</h4>
 
             <ui-select
+                v-model="select2"
                 floating-label
                 label="Favourite colour"
                 placeholder="Select a colour"
                 :options="colourStrings"
-                v-model="select2"
             ></ui-select>
 
             <h4 class="page__demo-title">With icon</h4>
 
             <ui-select
+                v-model="select2o5"
                 icon="colorize"
                 label="Favourite colour"
                 placeholder="Select a colour"
                 :options="colourStrings"
-                v-model="select2o5"
             ></ui-select>
 
             <h4 class="page__demo-title">With a default selection</h4>
 
             <ui-select
+                v-model="select3"
                 label="Favourite colour"
                 placeholder="Select a colour"
                 :options="colourStrings"
-                v-model="select3"
             ></ui-select>
 
             <h4 class="page__demo-title">Type: image</h4>
 
             <ui-select
+                v-model="select4"
                 label="Favourite colour"
                 placeholder="Select a colour"
                 type="image"
                 :options="colours"
-                v-model="select4"
             ></ui-select>
 
             <h4 class="page__demo-title">Type: image, with a default selection</h4>
 
             <ui-select
+                v-model="select5"
                 label="Favourite colour"
                 placeholder="Select a colour"
                 type="image"
                 :options="colours"
-                v-model="select5"
             ></ui-select>
 
             <h4 class="page__demo-title">With help</h4>
 
             <ui-select
+                v-model="select6"
                 help="You favourite colour will be used on your profile page"
                 label="Favourite colour"
                 placeholder="Select a colour"
                 type="image"
                 :options="colours"
-                v-model="select6"
             ></ui-select>
 
             <h4 class="page__demo-title">Multiple selection</h4>
 
             <ui-select
+                v-model="select7"
                 label="Favourite colours"
                 multiple
                 placeholder="Select some colours"
                 type="image"
                 :options="colours"
-                v-model="select7"
             ></ui-select>
 
             <h4 class="page__demo-title">Multiple selection with defaults</h4>
 
             <ui-select
+                v-model="select8"
                 label="Favourite colours"
                 multiple
                 placeholder="Select some colours"
                 type="image"
                 :options="colours"
-                v-model="select8"
             ></ui-select>
 
             <h4 class="page__demo-title">With search</h4>
 
             <ui-select
+                v-model="select9"
                 has-search
                 label="Favourite colours"
                 multiple
                 placeholder="Select some colours"
                 type="image"
                 :options="colours"
-                v-model="select9"
             ></ui-select>
 
             <h4 class="page__demo-title">With validation</h4>
 
             <ui-select
+                v-model="select10"
                 error="You must select at least 2 colours"
                 has-search
                 help="Select 2 or more colours"
                 label="Favourite colours"
                 multiple
                 placeholder="Select some colours"
+
                 type="image"
-
                 :invalid="select10Touched && select10.length < 2"
-                :options="colours"
 
+                :options="colours"
                 @touch="select10Touched = true"
-                v-model="select10"
             ></ui-select>
 
             <h4 class="page__demo-title">With dynamic options (remote search)</h4>
 
             <ui-select
+                v-model="select11"
                 disable-filter
                 has-search
                 label="Favourite colours"
                 placeholder="Select a colour"
                 search-placeholder="Type &quot;red&quot; or &quot;blue&quot;"
-                type="image"
 
+                type="image"
                 :loading="select11Loading"
                 :no-results="select11NoResults"
+
                 :options="select11Options"
 
                 @query-change="onQueryChange"
-
-                v-model="select11"
             ></ui-select>
 
             <h4 class="page__demo-title">With many options (248)</h4>
 
             <ui-select
+                v-model="select12"
                 has-search
                 label="Country"
+
                 placeholder="Select your country"
-
                 :keys="{ label: 'name', value: 'code' }"
-                :options="countries"
 
-                v-model="select12"
+                :options="countries"
             ></ui-select>
 
             <h4 class="page__demo-title">With custom template</h4>
 
             <ui-select
+                v-model="select12o5"
                 has-search
                 label="Favourite colours"
                 multiple
                 placeholder="Select some colours"
                 :options="colourStrings"
-                v-model="select12o5"
             >
                 <template #option="props">
                     <code>{{ props }}</code>
@@ -182,20 +182,20 @@
             <h4 class="page__demo-title">Disabled</h4>
 
             <ui-select
+                v-model="select13"
                 disabled
                 label="Favourite colour"
                 placeholder="Select a colour"
-                v-model="select13"
             ></ui-select>
 
             <h4 class="page__demo-title">Disabled with a selection</h4>
 
             <ui-select
+                v-model="select14"
                 disabled
                 label="Favourite colour"
                 placeholder="Select a colour"
                 :options="colourStrings"
-                v-model="select14"
             ></ui-select>
         </div>
 

@@ -15,13 +15,13 @@
         <div class="page__examples">
             <div class="page__demo-group page__demo-group--the-simpsons">
                 <div
+                    v-for="(simpson, index) in theSimpsons"
+                    :key="index"
+
                     class="image-pane"
                     tabindex="0"
 
-                    :key="index"
                     :style="{ 'background-image': 'url(' + simpson.image + ')' }"
-
-                    v-for="(simpson, index) in theSimpsons"
                 >
                     <ui-tooltip :position="simpson.position" :animation="simpson.animation">{{ simpson.name }}</ui-tooltip>
                 </div>
@@ -148,6 +148,12 @@ import UiTabs from '@/UiTabs.vue';
 import UiTooltip from '@/UiTooltip.vue';
 
 export default {
+    components: {
+        UiTab,
+        UiTabs,
+        UiTooltip
+    },
+
     data() {
         return {
             theSimpsons: [
@@ -171,12 +177,6 @@ export default {
                 }
             ]
         };
-    },
-
-    components: {
-        UiTab,
-        UiTabs,
-        UiTooltip
     }
 };
 </script>

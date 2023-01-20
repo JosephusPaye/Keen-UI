@@ -1,8 +1,8 @@
 <template>
     <label class="ui-checkbox" :class="classes">
         <input
-            class="ui-checkbox__input"
             ref="input"
+            class="ui-checkbox__input"
             type="checkbox"
 
             :checked.prop="isChecked"
@@ -21,7 +21,7 @@
             <div class="ui-checkbox__focus-ring"></div>
         </div>
 
-        <div class="ui-checkbox__label-text" v-if="label || $slots.default">
+        <div v-if="label || $slots.default" class="ui-checkbox__label-text">
             <slot>{{ label }}</slot>
         </div>
     </label>
@@ -29,9 +29,7 @@
 
 <script>
 export default {
-    name: 'ui-checkbox',
-
-    emits: ['update:modelValue', 'change', 'focus', 'blur', 'change'],
+    name: 'UiCheckbox',
 
     props: {
         name: String,
@@ -67,6 +65,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['update:modelValue', 'change', 'focus', 'blur', 'change'],
 
     data() {
         return {

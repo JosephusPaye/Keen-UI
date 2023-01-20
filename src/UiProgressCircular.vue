@@ -8,16 +8,16 @@
         >
             <!-- Alternative circle rendering to explore: http://jsfiddle.net/6e3QJ/29/ -->
             <svg
+                v-if="type === 'determinate'"
                 class="ui-progress-circular__determinate"
-                role="progressbar"
 
+                role="progressbar"
                 :aria-valuemax="100"
                 :aria-valuemin="0"
                 :aria-valuenow="progress"
                 :height="size"
-                :width="size"
 
-                v-if="type === 'determinate'"
+                :width="size"
             >
                 <circle
                     class="ui-progress-circular__determinate-path"
@@ -33,14 +33,14 @@
             </svg>
 
             <svg
+                v-else
                 class="ui-progress-circular__indeterminate"
                 role="progressbar"
+
                 viewBox="25 25 50 50"
-
                 :aria-valuemax="100"
-                :aria-valuemin="0"
 
-                v-else
+                :aria-valuemin="0"
             >
                 <circle
                     class="ui-progress-circular__indeterminate-path"
@@ -59,7 +59,7 @@
 
 <script>
 export default {
-    name: 'ui-progress-circular',
+    name: 'UiProgressCircular',
 
     props: {
         type: {

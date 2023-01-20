@@ -16,167 +16,167 @@
             <h4 class="page__demo-title">Basic</h4>
 
             <ui-datepicker
-                placeholder="Select a date"
                 v-model="picker1"
+                placeholder="Select a date"
             >Your Birthday</ui-datepicker>
 
             <h4 class="page__demo-title">Floating label</h4>
 
             <ui-datepicker
+                v-model="picker2"
                 floating-label
                 placeholder="Select a date"
-                v-model="picker2"
             >Your Birthday</ui-datepicker>
 
             <h4 class="page__demo-title">With icon</h4>
 
             <ui-datepicker
+                v-model="picker3"
                 icon="events"
                 placeholder="Select a date"
-                v-model="picker3"
             >Your Birthday</ui-datepicker>
 
             <h4 class="page__demo-title">With default value</h4>
 
             <ui-datepicker
+                v-model="picker4"
                 icon="events"
                 placeholder="Select a date"
-                v-model="picker4"
             >Christmas Day</ui-datepicker>
 
             <h4 class="page__demo-title">With ISO 8601 string as value</h4>
 
             <ui-datepicker
+                v-model="picker401"
                 icon="events"
                 placeholder="Select a date"
-                v-model="picker401"
             >Your Birthday</ui-datepicker>
 
             <h4 class="page__demo-title">Color: accent</h4>
 
             <ui-datepicker
+                v-model="picker5"
                 color="accent"
                 icon="events"
                 placeholder="Select a date"
-                v-model="picker5"
             >Your Birthday</ui-datepicker>
 
             <h4 class="page__demo-title">Orientation: landscape</h4>
 
             <ui-datepicker
+                v-model="picker6"
                 icon="events"
                 orientation="landscape"
                 placeholder="Select a date"
-                v-model="picker6"
             >Your Birthday</ui-datepicker>
 
             <h4 class="page__demo-title">Picker type: modal</h4>
 
             <ui-datepicker
+                v-model="picker7"
                 icon="events"
                 picker-type="modal"
                 placeholder="Select a date"
-                v-model="picker7"
             >Your Birthday</ui-datepicker>
 
             <h4 class="page__demo-title">Picker type: modal, orientation: landscape</h4>
 
             <ui-datepicker
+                v-model="picker8"
                 icon="events"
                 orientation="landscape"
                 picker-type="modal"
                 placeholder="Select a date"
-                v-model="picker8"
             >Your Birthday</ui-datepicker>
 
             <h4 class="page__demo-title">With different start of week: Monday</h4>
 
             <ui-datepicker
+                v-model="picker801"
                 placeholder="Select a date"
                 :start-of-week="1"
-                v-model="picker801"
             >Your Birthday</ui-datepicker>
 
             <h4 class="page__demo-title">With custom formatter</h4>
 
             <ui-datepicker
+                v-model="picker9"
                 icon="events"
                 orientation="landscape"
+
                 placeholder="Select a date"
 
                 :custom-formatter="picker9Formatter"
-
-                v-model="picker9"
             >A Special Day</ui-datepicker>
 
             <h4 class="page__demo-title">With min and max date</h4>
 
             <ui-datepicker
+                v-model="picker10"
                 help="Pick a date within the next two weeks"
                 icon="events"
                 orientation="landscape"
+
                 placeholder="Select a date"
-
                 :max-date="picker10Max"
-                :min-date="picker10Min"
 
-                v-model="picker10"
+                :min-date="picker10Min"
             >A Special Day</ui-datepicker>
 
             <h4 class="page__demo-title">With date filter: weekends disabled</h4>
 
             <ui-datepicker
+                v-model="picker11"
                 icon="events"
                 orientation="landscape"
+
                 placeholder="Select a date"
 
                 :date-filter="picker11Filter"
-
-                v-model="picker11"
             >A Special Day</ui-datepicker>
 
             <h4 class="page__demo-title">With custom lang: French</h4>
 
             <ui-datepicker
+                v-model="picker12"
                 icon="events"
                 orientation="landscape"
+
                 placeholder="Select a date"
 
                 :lang="picker12Lang"
-
-                v-model="picker12"
             >A Special Day</ui-datepicker>
 
             <h4 class="page__demo-title">With custom year range</h4>
 
             <ui-datepicker
+                v-model="picker1201"
                 icon="events"
                 orientation="landscape"
                 placeholder="Select a date from this year"
-                :yearRange="[(new Date).getFullYear()]"
-                v-model="picker1201"
+                :year-range="[(new Date).getFullYear()]"
             >A Special Day</ui-datepicker>
 
             <h4 class="page__demo-title">With year picker as a default view</h4>
 
             <ui-datepicker
+                v-model="picker1202"
                 icon="events"
                 default-view="year"
                 placeholder="Select a date"
-                v-model="picker1202"
             >A Special Day</ui-datepicker>
 
             <h4 class="page__demo-title">With validation: required</h4>
 
             <ui-datepicker
+                v-model="picker13"
                 error="This field is required"
                 icon="events"
                 orientation="landscape"
+
                 placeholder="Select a date"
 
                 :invalid="!picker13"
-
-                v-model="picker13"
             >A Special Day</ui-datepicker>
 
             <h4 class="page__demo-title">In a modal, appending to <code>&lt;body&gt;</code></h4>
@@ -186,27 +186,27 @@
                 <div>Modal content: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus et id, provident culpa vel accusantium possimus fugiat libero tenetur labore!</div>
                 <br>
                 <ui-datepicker
+                    v-model="picker1301"
                     placeholder="Select a date"
                     append-dropdown-to-body
-                    v-model="picker1301"
                 >Your Birthday</ui-datepicker>
             </ui-modal>
 
             <h4 class="page__demo-title">Disabled</h4>
 
             <ui-datepicker
+                v-model="picker14"
                 disabled
                 icon="events"
                 placeholder="Select a date"
-                v-model="picker14"
             >A Special Day</ui-datepicker>
 
             <h4 class="page__demo-title">Disabled with a selection</h4>
 
             <ui-datepicker
+                v-model="picker15"
                 disabled
                 placeholder="Select a date"
-                v-model="picker15"
             >A Special Day</ui-datepicker>
         </div>
 
@@ -616,6 +616,14 @@ import UiTabs from '@/UiTabs.vue';
 import languageFr from '../data/date-picker-lang.fr.js';
 
 export default {
+    components: {
+        UiButton,
+        UiDatepicker,
+        UiModal,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         const twoWeeksFromNow = new Date();
         twoWeeksFromNow.setDate(twoWeeksFromNow.getDate() + 14);
@@ -659,14 +667,6 @@ export default {
         openModal() {
             this.$refs.modal.open();
         }
-    },
-
-    components: {
-        UiButton,
-        UiDatepicker,
-        UiModal,
-        UiTab,
-        UiTabs
     }
 };
 </script>

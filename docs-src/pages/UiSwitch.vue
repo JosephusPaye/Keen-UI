@@ -253,6 +253,12 @@ import UiTab from '@/UiTab.vue';
 import UiTabs from '@/UiTabs.vue';
 
 export default {
+    components: {
+        UiSwitch,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
             switch1: true,
@@ -261,12 +267,6 @@ export default {
             switch4: false,
             switch5: true
         };
-    },
-
-    components: {
-        UiSwitch,
-        UiTab,
-        UiTabs
     }
 };
 </script>

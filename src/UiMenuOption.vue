@@ -1,30 +1,30 @@
 <template>
     <component
+        :is="isAnchor ? 'a' : 'li'"
         class="ui-menu-option"
-        role="menu-item"
 
+        role="menu-item"
         :class="classes"
         :href="isAnchor ? (disabled ? null : href) : null"
-        :is="isAnchor ? 'a' : 'li'"
         :tabindex="(isDivider || isAnchor || disabled) ? null : '0'"
         :target="isAnchor ? (disabled ? null : target) : null"
     >
         <slot v-if="!isDivider">
             <div class="ui-menu-option__content">
                 <ui-icon
-                    class="ui-menu-option__icon"
+                    v-if="icon"
 
+                    class="ui-menu-option__icon"
                     :icon-set="iconProps.iconSet"
                     :icon="icon"
                     :remove-text="iconProps.removeText"
-                    :use-svg="iconProps.useSvg"
 
-                    v-if="icon"
+                    :use-svg="iconProps.useSvg"
                 ></ui-icon>
 
                 <div class="ui-menu-option__text">{{ label }}</div>
 
-                <div class="ui-menu-option__secondary-text" v-if="secondaryText">
+                <div v-if="secondaryText" class="ui-menu-option__secondary-text">
                     {{ secondaryText }}
                 </div>
             </div>
@@ -39,7 +39,12 @@ import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
 
 export default {
-    name: 'ui-menu-option',
+    name: 'UiMenuOption',
+
+    components: {
+        UiIcon,
+        UiRippleInk
+    },
 
     props: {
         type: String,
@@ -80,11 +85,6 @@ export default {
         isAnchor() {
             return !this.isDivider && this.href !== undefined;
         }
-    },
-
-    components: {
-        UiIcon,
-        UiRippleInk
     }
 };
 </script>

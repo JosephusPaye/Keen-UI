@@ -56,17 +56,17 @@ import UiTab from '@/UiTab.vue';
 import UiTabs from '@/UiTabs.vue';
 
 export default {
-    data() {
-        return {
-            loading: true
-        };
-    },
-
     components: {
         UiButton,
         UiPreloader,
         UiTab,
         UiTabs
+    },
+
+    data() {
+        return {
+            loading: true
+        };
     }
 };
 </script>

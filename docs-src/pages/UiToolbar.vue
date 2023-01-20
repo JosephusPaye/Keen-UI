@@ -32,10 +32,10 @@
                             ></ui-icon-button>
 
                             <ui-icon-button
+                                ref="dropdownButton1"
                                 color="black"
                                 has-dropdown
                                 icon="more_vert"
-                                ref="dropdownButton1"
                                 size="large"
                                 type="secondary"
                             >
@@ -74,10 +74,10 @@
                             ></ui-icon-button>
 
                             <ui-icon-button
+                                ref="dropdownButton2"
                                 color="black"
                                 has-dropdown
                                 icon="more_vert"
-                                ref="dropdownButton2"
                                 size="large"
                                 type="secondary"
                             >
@@ -116,10 +116,10 @@
                             ></ui-icon-button>
 
                             <ui-icon-button
+                                ref="dropdownButton3"
                                 color="black"
                                 has-dropdown
                                 icon="more_vert"
-                                ref="dropdownButton3"
                                 size="large"
                                 type="secondary"
                             >
@@ -158,10 +158,10 @@
                             ></ui-icon-button>
 
                             <ui-icon-button
+                                ref="dropdownButton4"
                                 color="white"
                                 has-dropdown
                                 icon="more_vert"
-                                ref="dropdownButton4"
                                 size="large"
                                 type="secondary"
                             >
@@ -205,10 +205,10 @@
                             ></ui-icon-button>
 
                             <ui-icon-button
+                                ref="dropdownButton6"
                                 color="white"
                                 has-dropdown
                                 icon="more_vert"
-                                ref="dropdownButton6"
                                 size="large"
                                 type="secondary"
                             >
@@ -247,10 +247,10 @@
                             ></ui-icon-button>
 
                             <ui-icon-button
+                                ref="dropdownButton5"
                                 color="white"
                                 has-dropdown
                                 icon="more_vert"
-                                ref="dropdownButton5"
                                 size="large"
                                 type="secondary"
                             >
@@ -297,10 +297,10 @@
                             ></ui-icon-button>
 
                             <ui-icon-button
+                                ref="dropdownButton7"
                                 color="white"
                                 has-dropdown
                                 icon="more_vert"
-                                ref="dropdownButton7"
                                 size="large"
                                 type="secondary"
                             >
@@ -346,10 +346,10 @@
                             ></ui-icon-button>
 
                             <ui-icon-button
+                                ref="dropdownButton8"
                                 color="black"
                                 has-dropdown
                                 icon="more_vert"
-                                ref="dropdownButton8"
                                 size="large"
                                 type="secondary"
                             >
@@ -388,10 +388,10 @@
                         ></ui-icon-button>
 
                         <ui-icon-button
+                            ref="dropdownButton8"
                             color="white"
                             has-dropdown
                             icon="more_vert"
-                            ref="dropdownButton8"
                             size="large"
                             type="secondary"
                         >
@@ -610,18 +610,18 @@ const menuOptions = [
 ];
 
 export default {
-    data() {
-        return {
-            menuOptions
-        };
-    },
-
     components: {
         UiIconButton,
         UiMenu,
         UiTab,
         UiTabs,
         UiToolbar
+    },
+
+    data() {
+        return {
+            menuOptions
+        };
     }
 };
 </script>

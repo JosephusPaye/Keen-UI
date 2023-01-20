@@ -12,24 +12,23 @@
 
         <transition name="transition-fade">
             <div
+                v-show="showSidebar"
                 class="keen-docs-mobile-sidebar__backdrop"
                 @click="sidebarOpen = false"
-                v-show="showSidebar"
             ></div>
         </transition>
 
         <section class="keen-docs-content">
             <transition name="transition-slide">
                 <sidebar
+                    v-show="showSidebar"
                     :version="version"
                     :version-url="versionUrl"
                     :repo-url="repoUrl"
-
-                    v-show="showSidebar"
                 ></sidebar>
             </transition>
 
-            <div class="keen-docs-content__page-content" ref="pageContent">
+            <div ref="pageContent" class="keen-docs-content__page-content">
                 <router-view></router-view>
             </div>
         </section>
@@ -39,15 +38,11 @@
 <script>
 import Navbar from './Navbar.vue';
 import Sidebar from './Sidebar.vue';
-import UiIcon from '@/UiIcon.vue';
-import UiIconButton from '@/UiIconButton.vue';
 
 export default {
     components: {
         Navbar,
         Sidebar,
-        UiIcon,
-        UiIconButton
     },
 
     data() {

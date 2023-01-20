@@ -101,7 +101,7 @@ const handleTouchStart = function (e) {
 };
 
 export default {
-    name: 'ui-ripple-ink',
+    name: 'UiRippleInk',
 
     props: {
         trigger: {

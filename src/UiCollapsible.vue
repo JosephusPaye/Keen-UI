@@ -15,7 +15,7 @@
                 <slot name="header">{{ title }}</slot>
             </div>
 
-            <ui-icon class="ui-collapsible__header-icon" v-if="!removeIcon">
+            <ui-icon v-if="!removeIcon" class="ui-collapsible__header-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path d="M7.406 7.828L12 12.422l4.594-4.594L18 9.234l-6 6-6-6z"/>
                 </svg>
@@ -31,13 +31,13 @@
             @leave="onLeave"
         >
             <div
-                class="ui-collapsible__body-wrapper"
-                ref="bodyWrapper"
-
-                :aria-hidden="isOpen ? null : 'true'"
+                v-show="isOpen"
                 :id="id"
 
-                v-show="isOpen"
+                ref="bodyWrapper"
+                class="ui-collapsible__body-wrapper"
+
+                :aria-hidden="isOpen ? null : 'true'"
             >
                 <div class="ui-collapsible__body">
                     <slot></slot>
@@ -53,9 +53,12 @@ import UiRippleInk from './UiRippleInk.vue';
 import UUID from './helpers/uuid';
 
 export default {
-    name: 'ui-collapsible',
+    name: 'UiCollapsible',
 
-    emits: ['open', 'close'],
+    components: {
+        UiIcon,
+        UiRippleInk
+    },
 
     props: {
         open: {
@@ -76,6 +79,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['open', 'close'],
 
     data() {
         return {
@@ -139,11 +144,6 @@ export default {
             el.style.maxHeight = 0;
             this.$emit('close');
         }
-    },
-
-    components: {
-        UiIcon,
-        UiRippleInk
     }
 };
 </script>

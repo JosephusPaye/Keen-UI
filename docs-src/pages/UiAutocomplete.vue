@@ -14,75 +14,75 @@
             <h4 class="page__demo-title">Basic</h4>
 
             <ui-autocomplete
+                v-model="autocomplete1"
                 help="Pick your favourite month of the year"
                 label="Favourite Month"
                 name="favourite_month"
+
                 placeholder="Enter your favourite month"
 
                 :suggestions="months"
-
-                v-model="autocomplete1"
             ></ui-autocomplete>
 
             <h4 class="page__demo-title">Floating label</h4>
 
             <ui-autocomplete
+                v-model="autocomplete2"
                 floating-label
                 help="Pick your favourite month of the year"
                 label="Favourite Month"
                 name="favourite_month"
+
                 placeholder="Enter your favourite month"
 
                 :suggestions="months"
-
-                v-model="autocomplete2"
             ></ui-autocomplete>
 
             <h4 class="page__demo-title">With icon</h4>
 
             <ui-autocomplete
+                v-model="autocomplete3"
                 help="Pick your favourite month of the year"
                 icon="events"
                 label="Favourite Month"
                 name="favourite_month"
+
                 placeholder="Enter your favourite month"
 
                 :suggestions="months"
-
-                v-model="autocomplete3"
             ></ui-autocomplete>
 
             <h4 class="page__demo-title">Validation: required</h4>
 
             <ui-autocomplete
+                v-model="autocomplete4"
                 error="This field is required"
                 help="Pick your favourite month of the year"
                 label="Favourite Month"
                 name="favourite_month"
-                placeholder="Enter your favourite month"
 
+                placeholder="Enter your favourite month"
                 :invalid="autocomplete4Touched && !autocomplete4.length > 0"
+
                 :suggestions="months"
 
                 @touch="autocomplete4Touched = true"
-
-                v-model="autocomplete4"
             ></ui-autocomplete>
 
             <h4 class="page__demo-title">Type: image, minChars: 0</h4>
 
             <ui-autocomplete
+                v-model="autocomplete5"
                 help="Pick your favourite member of the Simpsons family"
                 label="Favourite Simpson"
                 name="favourite_simpson"
                 placeholder="Choose your favourite Simpson"
-                type="image"
 
+                type="image"
                 :keys="{ label: 'label', value: 'label', image: 'image' }"
                 :min-chars="0"
-                :suggestions="theSimpsons"
 
-                v-model="autocomplete5"
+                :suggestions="theSimpsons"
             ></ui-autocomplete>
 
             <p>Suggestions are updated dynamically when the suggestions array changes.</p>
@@ -96,13 +96,13 @@
             <p>The following simply renders the prop passed to the custom template for each suggestion.</p>
 
             <ui-autocomplete
+                v-model="autocomplete6"
                 help="Pick your favourite month of the year"
                 label="Favourite Month"
                 name="favourite_month"
-                placeholder="Enter your favourite month"
 
+                placeholder="Enter your favourite month"
                 :suggestions="months"
-                v-model="autocomplete6"
             >
                 <template #suggestion="props">
                     <code>{{ props }}</code>
@@ -112,11 +112,11 @@
             <h4 class="page__demo-title">Disabled</h4>
 
             <ui-autocomplete
+                v-model="autocomplete7"
                 disabled
                 label="Favourite Colour"
-                placeholder="You can't interact with this"
 
-                v-model="autocomplete7"
+                placeholder="You can't interact with this"
             ></ui-autocomplete>
         </div>
 
@@ -664,6 +664,13 @@ const grannies = [
 ];
 
 export default {
+    components: {
+        UiAutocomplete,
+        UiButton,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
             months,
@@ -685,13 +692,6 @@ export default {
             this.theSimpsons = this.theSimpsons.concat(grannies);
             this.addedGrannies = true;
         }
-    },
-
-    components: {
-        UiAutocomplete,
-        UiButton,
-        UiTab,
-        UiTabs
     }
 };
 </script>

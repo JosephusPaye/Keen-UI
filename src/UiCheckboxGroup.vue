@@ -1,37 +1,37 @@
 <template>
     <div class="ui-checkbox-group" :class="classes">
-        <div class="ui-checkbox-group__label-text" v-if="label || $slots.default">
+        <div v-if="label || $slots.default" class="ui-checkbox-group__label-text">
             <slot>{{ label }}</slot>
         </div>
 
         <div class="ui-checkbox-group__checkboxes">
             <ui-checkbox
-                class="ui-checkbox-group__checkbox"
+                :id="option[keys.id]"
 
+                :key="option[keys.id]"
+                v-for="(option, index) in options"
+                class="ui-checkbox-group__checkbox"
+                v-model="checkboxValues[index]"
                 :box-position="boxPosition"
                 :checked="isOptionCheckedByDefault(option)"
                 :class="option[keys.class]"
                 :color="color"
-                :disabled="disabled || option[keys.disabled]"
-                :id="option[keys.id]"
-                :key="option[keys.id]"
-                :name="name || option[keys.name]"
 
+                :disabled="disabled || option[keys.disabled]"
+                :name="name || option[keys.name]"
                 @blur="onBlur"
+
                 @change="onChange(arguments, option)"
                 @focus="onFocus"
-
-                v-for="(option, index) in options"
-                v-model="checkboxValues[index]"
             >{{ option[keys.label] || option }}</ui-checkbox>
         </div>
 
-        <div class="ui-checkbox-group__feedback" v-if="hasFeedback">
-            <div class="ui-checkbox-group__feedback-text" v-if="showError">
+        <div v-if="hasFeedback" class="ui-checkbox-group__feedback">
+            <div v-if="showError" class="ui-checkbox-group__feedback-text">
                 <slot name="error">{{ error }}</slot>
             </div>
 
-            <div class="ui-checkbox-group__feedback-text" v-else-if="showHelp">
+            <div v-else-if="showHelp" class="ui-checkbox-group__feedback-text">
                 <slot name="help">{{ help }}</slot>
             </div>
         </div>
@@ -44,9 +44,11 @@ import UiCheckbox from './UiCheckbox.vue';
 import { looseIndexOf } from './helpers/util';
 
 export default {
-    name: 'ui-checkbox-group',
+    name: 'UiCheckboxGroup',
 
-    emits: ['update:modelValue', 'focus', 'blur', 'change'],
+    components: {
+        UiCheckbox
+    },
 
     props: {
         name: String,
@@ -95,6 +97,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['update:modelValue', 'focus', 'blur', 'change'],
 
     data() {
         return {
@@ -178,10 +182,6 @@ export default {
             this.$emit('update:modelValue', value);
             this.$emit('change', value, e);
         }
-    },
-
-    components: {
-        UiCheckbox
     }
 };
 </script>

@@ -2,25 +2,25 @@
     <transition name="ui-progress-linear--transition-fade">
         <div class="ui-progress-linear" :class="classes">
             <div
+                v-if="type === 'determinate'"
                 class="ui-progress-linear__progress-bar is-determinate"
-                role="progressbar"
 
+                role="progressbar"
                 :aria-valuemax="100"
                 :aria-valuemin="0"
                 :aria-valuenow="moderatedProgress"
-                :style="{ 'transform': `scaleX(${moderatedProgress / 100})` }"
 
-                v-if="type === 'determinate'"
+                :style="{ 'transform': `scaleX(${moderatedProgress / 100})` }"
             ></div>
 
             <div
-                class="ui-progress-linear__progress-bar is-indeterminate"
-                role="progressbar"
-
-                :aria-valuemax="100"
-                :aria-valuemin="0"
-
                 v-else
+                class="ui-progress-linear__progress-bar is-indeterminate"
+
+                role="progressbar"
+                :aria-valuemax="100"
+
+                :aria-valuemin="0"
             ></div>
         </div>
     </transition>
@@ -28,7 +28,7 @@
 
 <script>
 export default {
-    name: 'ui-progress-linear',
+    name: 'UiProgressLinear',
 
     props: {
         type: {

@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    name: 'ui-preloader',
+    name: 'UiPreloader',
 
     props: {
         show: {

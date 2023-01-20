@@ -1,7 +1,7 @@
 <template>
     <ui-focus-container
-        class="ui-menu"
         ref="focusContainer"
+        class="ui-menu"
         role="menu"
         tag="ul"
         lazy
@@ -10,22 +10,22 @@
         :contain-focus="containFocus"
     >
         <ui-menu-option
+            :key="index"
             :disable-ripple="disableRipple"
             :disabled="option[keys.disabled]"
+            v-for="(option, index) in options"
             :href="option[keys.href]"
             :icon-props="iconProps || option[keys.iconProps]"
             :icon="hasIcons ? option[keys.icon] : null"
-            :key="index"
             :label="option[keys.type] === 'divider' ? null : option[keys.label] || option"
             :secondary-text="hasSecondaryText ? option[keys.secondaryText] : null"
             :target="option[keys.target]"
-            :type="option[keys.type]"
 
+            :type="option[keys.type]"
             @click="selectOption(option)"
             @keydown.enter="selectOption(option)"
-            @keydown.esc="closeMenu"
 
-            v-for="(option, index) in options"
+            @keydown.esc="closeMenu"
         >
             <slot name="option" :option="option"></slot>
         </ui-menu-option>
@@ -37,9 +37,12 @@ import UiFocusContainer from './UiFocusContainer.vue';
 import UiMenuOption from './UiMenuOption.vue';
 
 export default {
-    name: 'ui-menu',
+    name: 'UiMenu',
 
-    emits: ['select', 'close'],
+    components: {
+        UiFocusContainer,
+        UiMenuOption
+    },
 
     props: {
         options: {
@@ -86,6 +89,8 @@ export default {
         }
     },
 
+    emits: ['select', 'close'],
+
     computed: {
         classes() {
             return {
@@ -109,11 +114,6 @@ export default {
         closeMenu() {
             this.$emit('close');
         }
-    },
-
-    components: {
-        UiFocusContainer,
-        UiMenuOption
     }
 };
 </script>

@@ -11,23 +11,23 @@
         </h3>
 
         <div class="page__examples">
-            <ui-alert @dismiss="showAlert1 = false" v-show="showAlert1">
+            <ui-alert v-show="showAlert1" @dismiss="showAlert1 = false">
                 Hi everybody! This is the default alert.
             </ui-alert>
 
-            <ui-alert @dismiss="showAlert2 = false" type="success" v-show="showAlert2">
+            <ui-alert v-show="showAlert2" type="success" @dismiss="showAlert2 = false">
                 Okilly dokilly, your account was updated successfully.
             </ui-alert>
 
-            <ui-alert @dismiss="showAlert3 = false" type="warning" v-show="showAlert3">
+            <ui-alert v-show="showAlert3" type="warning" @dismiss="showAlert3 = false">
                 Ay caramba! Alerts can also contain HTML. <a href="https://google.com" target="_blank" rel="noopener">Click here</a> for Google.com.
             </ui-alert>
 
-            <ui-alert @dismiss="showAlert4 = false" type="error" v-show="showAlert4">
+            <ui-alert v-show="showAlert4" type="error" @dismiss="showAlert4 = false">
                 D'oh! Something went wrong and we cannot process your request at this time. Try again later.
             </ui-alert>
 
-            <ui-alert @dismiss="showAlert5 = false" type="warning" v-show="showAlert5">
+            <ui-alert v-show="showAlert5" type="warning" @dismiss="showAlert5 = false">
                 <template #icon>
                     <ui-icon>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12.984 14.016V9h-1.97v5.016h1.97zm0 3.984v-2.016h-1.97V18h1.97zm2.672-14.016c.75 0 1.36.61 1.36 1.36V20.67c0 .75-.61 1.314-1.36 1.314H8.343c-.75 0-1.36-.563-1.36-1.313V5.344c0-.75.61-1.36 1.36-1.36h1.64V2.016h4.032v1.97h1.64z"/></svg>
@@ -37,15 +37,15 @@
                 This alert has a custom icon.
             </ui-alert>
 
-            <ui-alert @dismiss="showAlert6 = false" v-show="showAlert6">
+            <ui-alert v-show="showAlert6" @dismiss="showAlert6 = false">
                 This is a multi-line alert. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor suscipit facilis explicabo officiis consectetur, ipsam voluptate excepturi quas quae. Dolorem. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, autem.
             </ui-alert>
 
-            <ui-alert @dismiss="showAlert7 = false" remove-icon v-show="showAlert7">
+            <ui-alert v-show="showAlert7" remove-icon @dismiss="showAlert7 = false">
                 The icon for this alert has been removed.
             </ui-alert>
 
-            <ui-alert @dismiss="showAlert8 = false" type="warning" disable-animation v-show="showAlert8">
+            <ui-alert v-show="showAlert8" type="warning" disable-animation @dismiss="showAlert8 = false">
                 Animations for this alert are disabled.
             </ui-alert>
 
@@ -180,6 +180,14 @@ import UiTab from '@/UiTab.vue';
 import UiTabs from '@/UiTabs.vue';
 
 export default {
+    components: {
+        UiAlert,
+        UiButton,
+        UiIcon,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
             showAlert1: true,
@@ -204,14 +212,6 @@ export default {
             this.showAlert7 = true;
             this.showAlert8 = true;
         }
-    },
-
-    components: {
-        UiAlert,
-        UiButton,
-        UiIcon,
-        UiTab,
-        UiTabs
     }
 };
 </script>

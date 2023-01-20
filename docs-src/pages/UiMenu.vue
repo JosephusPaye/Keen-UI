@@ -311,18 +311,18 @@ const menuOptionsWithHref = [
 ];
 
 export default {
-    data() {
-        return {
-            menuOptions,
-            menuOptionsWithHref
-        };
-    },
-
     components: {
         UiMenu,
         UiPopover,
         UiTab,
         UiTabs
+    },
+
+    data() {
+        return {
+            menuOptions,
+            menuOptionsWithHref
+        };
     }
 };
 </script>

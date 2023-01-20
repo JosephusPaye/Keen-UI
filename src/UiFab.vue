@@ -5,7 +5,7 @@
         :aria-label="ariaLabel || tooltip"
         :class="classes"
     >
-        <div class="ui-fab__icon" v-if="icon || $slots.default">
+        <div v-if="icon || $slots.default" class="ui-fab__icon">
             <slot>
                 <ui-icon :icon="icon"></ui-icon>
             </slot>
@@ -16,10 +16,10 @@
         <ui-ripple-ink v-if="!disableRipple"></ui-ripple-ink>
 
         <ui-tooltip
-            :open-on="openTooltipOn"
-            :position="tooltipPosition"
-
             v-if="tooltip"
+            :open-on="openTooltipOn"
+
+            :position="tooltipPosition"
         >{{ tooltip }}</ui-tooltip>
     </button>
 </template>
@@ -30,7 +30,13 @@ import UiRippleInk from './UiRippleInk.vue';
 import UiTooltip from './UiTooltip.vue';
 
 export default {
-    name: 'ui-fab',
+    name: 'UiFab',
+
+    components: {
+        UiIcon,
+        UiRippleInk,
+        UiTooltip
+    },
 
     props: {
         size: {
@@ -59,12 +65,6 @@ export default {
                 `ui-fab--size-${this.size}`
             ];
         }
-    },
-
-    components: {
-        UiIcon,
-        UiRippleInk,
-        UiTooltip
     }
 };
 </script>

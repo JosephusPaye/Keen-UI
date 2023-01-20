@@ -1,42 +1,40 @@
 <template>
-    <component class="ui-focus-container" :is="tag">
+    <component :is="tag" class="ui-focus-container">
         <span
+            v-if="renderRedirector"
             class="ui-focus-container__focus-redirector"
+
             tabindex="0"
 
             @focus="redirectFocus($event, { isTabbingForward: false })"
-
-            v-if="renderRedirector"
         ></span>
 
-        <div class="ui-focus-container__content" ref="content" tabindex="-1">
+        <div ref="content" class="ui-focus-container__content" tabindex="-1">
             <slot></slot>
         </div>
 
         <span
-            class="ui-focus-container__last-focusable"
-            ref="lastFocusable"
-            tabindex="-1"
-
             v-if="!disabled && containFocus"
+            ref="lastFocusable"
+            class="ui-focus-container__last-focusable"
+
+            tabindex="-1"
         ></span>
 
         <span
+            v-if="renderRedirector"
             class="ui-focus-container__focus-redirector"
+
             tabindex="0"
 
             @focus="redirectFocus($event, { isTabbingForward: true })"
-
-            v-if="renderRedirector"
         ></span>
     </component>
 </template>
 
 <script>
 export default {
-    name: 'ui-focus-container',
-
-    emits: ['focus-overflow'],
+    name: 'UiFocusContainer',
 
     props: {
         containFocus: {
@@ -57,6 +55,8 @@ export default {
             default: false // When true, the focus redirectors are not rendered until containFocus is true
         }
     },
+
+    emits: ['focus-overflow'],
 
     computed: {
         renderRedirector() {

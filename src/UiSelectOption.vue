@@ -1,11 +1,11 @@
 <template>
     <li class="ui-select-option" :class="classes">
         <slot>
-            <div class="ui-select-option__basic" v-if="type === 'basic'">
+            <div v-if="type === 'basic'" class="ui-select-option__basic">
                 {{ option[keys.label] || option }}
             </div>
 
-            <div class="ui-select-option__image" v-if="type === 'image'">
+            <div v-if="type === 'image'" class="ui-select-option__image">
                 <div class="ui-select-option__image-object" :style="imageStyle"></div>
 
                 <div
@@ -13,7 +13,7 @@
                 >{{ option[keys.label] }}</div>
             </div>
 
-            <div class="ui-select-option__checkbox" v-if="multiple">
+            <div v-if="multiple" class="ui-select-option__checkbox">
                 <ui-icon v-if="selected">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path d="M9.984 17.016l9-9-1.406-1.453-7.594 7.594-3.563-3.563L5.016 12zm9-14.016C20.11 3 21 3.938 21 5.016v13.97C21 20.062 20.11 21 18.984 21H5.014C3.89 21 3 20.064 3 18.986V5.015C3 3.94 3.89 3 5.014 3h13.97z"/>
@@ -34,7 +34,11 @@
 import UiIcon from './UiIcon.vue';
 
 export default {
-    name: 'ui-select-option',
+    name: 'UiSelectOption',
+
+    components: {
+        UiIcon
+    },
 
     props: {
         option: {
@@ -82,10 +86,6 @@ export default {
         imageStyle() {
             return { 'background-image': 'url(' + this.option[this.keys.image] + ')' };
         }
-    },
-
-    components: {
-        UiIcon
     }
 };
 </script>

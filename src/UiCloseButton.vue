@@ -26,7 +26,12 @@ import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
 
 export default {
-    name: 'ui-close-button',
+    name: 'UiCloseButton',
+
+    components: {
+        UiIcon,
+        UiRippleInk
+    },
 
     props: {
         size: {
@@ -55,11 +60,6 @@ export default {
                 { 'is-disabled': this.disabled }
             ];
         }
-    },
-
-    components: {
-        UiIcon,
-        UiRippleInk
     }
 };
 </script>

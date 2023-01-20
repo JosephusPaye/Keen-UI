@@ -1,11 +1,11 @@
 <template>
     <li class="ui-autocomplete-suggestion" :class="classes">
         <slot>
-            <div class="ui-autocomplete-suggestion__simple" v-if="type === 'simple'">
+            <div v-if="type === 'simple'" class="ui-autocomplete-suggestion__simple">
                 {{ suggestion[keys.label] || suggestion }}
             </div>
 
-            <div class="ui-autocomplete-suggestion__image" v-if="type === 'image'">
+            <div v-if="type === 'image'" class="ui-autocomplete-suggestion__image">
                 <div class="ui-autocomplete-suggestion__image-object" :style="imageStyle"></div>
                 <div
                     class="ui-autocomplete-suggestion__image-text"
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-    name: 'ui-autocomplete-suggestion',
+    name: 'UiAutocompleteSuggestion',
 
     props: {
         suggestion: {

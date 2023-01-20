@@ -14,63 +14,63 @@
             <h4 class="page__demo-title">Basic</h4>
 
             <ui-radio-group
+                v-model="group1"
                 name="group1"
                 :options="['Ned', 'Rod', 'Todd']"
-                v-model="group1"
             >Favourite Flanders</ui-radio-group>
 
             <h4 class="page__demo-title">With default selection</h4>
 
             <ui-radio-group
+                v-model="group2"
                 name="group2"
                 :options="options.defaultGroup"
-                v-model="group2"
             >Favourite Flanders</ui-radio-group>
 
             <h4 class="page__demo-title">With help</h4>
 
             <ui-radio-group
+                v-model="group3"
                 help="Choose your favourite neighbor-eeno"
                 name="group3"
                 :options="options.defaultGroup"
-                v-model="group3"
             >Favourite Flanders</ui-radio-group>
 
             <h4 class="page__demo-title">With error</h4>
 
             <ui-radio-group
+                v-model="group4"
                 error="You must choose Rod"
                 help="Choose your favourite neighbor-eeno"
                 name="group4"
                 :options="options.defaultGroup"
                 :invalid="group4 !== 'rod'"
-                v-model="group4"
             >Favourite Flanders</ui-radio-group>
 
             <h4 class="page__demo-title">Vertical</h4>
 
             <ui-radio-group
+                v-model="group5"
                 name="group5"
                 vertical
                 :options="options.defaultGroup"
-                v-model="group5"
             >Favourite Flanders</ui-radio-group>
 
             <h4 class="page__demo-title">Individual option disabled</h4>
 
             <ui-radio-group
+                v-model="group6"
                 name="group6"
                 :options="options.secondGroup"
-                v-model="group6"
             >Favourite Flanders</ui-radio-group>
 
             <h4 class="page__demo-title">Group disabled</h4>
 
             <ui-radio-group
+                v-model="group7"
                 name="group7"
                 disabled
                 :options="options.defaultGroup"
-                v-model="group7"
             >Favourite Flanders</ui-radio-group>
         </div>
 
@@ -384,6 +384,12 @@ const secondGroup = [
 ];
 
 export default {
+    components: {
+        UiRadioGroup,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
             group1: '',
@@ -398,12 +404,6 @@ export default {
                 secondGroup
             }
         };
-    },
-
-    components: {
-        UiRadioGroup,
-        UiTab,
-        UiTabs
     }
 };
 </script>

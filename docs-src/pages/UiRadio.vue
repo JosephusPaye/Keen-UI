@@ -237,6 +237,12 @@ import UiTab from '@/UiTab.vue';
 import UiTabs from '@/UiTabs.vue';
 
 export default {
+    components: {
+        UiRadio,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
             radio1: '',
@@ -249,12 +255,6 @@ export default {
             radio8: '',
             radio9: ''
         };
-    },
-
-    components: {
-        UiRadio,
-        UiTab,
-        UiTabs
     }
 };
 </script>

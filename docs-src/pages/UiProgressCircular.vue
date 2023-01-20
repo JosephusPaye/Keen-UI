@@ -17,40 +17,40 @@
 
             <div class="page__demo-group">
                 <ui-progress-circular
+                    v-show="loading"
                     color="primary"
+
                     type="determinate"
 
                     :progress="progress"
-
-                    v-show="loading"
                 ></ui-progress-circular>
 
                 <ui-progress-circular
+                    v-show="loading"
                     color="accent"
+
                     type="determinate"
 
                     :progress="progress"
-
-                    v-show="loading"
                 ></ui-progress-circular>
 
                 <ui-progress-circular
+                    v-show="loading"
                     color="black"
+
                     type="determinate"
 
                     :progress="progress"
-
-                    v-show="loading"
                 ></ui-progress-circular>
 
-                <div class="has-white-progress" v-show="loading">
+                <div v-show="loading" class="has-white-progress">
                     <ui-progress-circular
+                        v-show="loading"
                         color="white"
+
                         type="determinate"
 
                         :progress="progress"
-
-                        v-show="loading"
                     ></ui-progress-circular>
                 </div>
             </div>
@@ -58,13 +58,13 @@
             <h4 class="page__demo-title">Type: indeterminate</h4>
 
             <div class="page__demo-group">
-                <ui-progress-circular color="multi-color" v-show="loading"></ui-progress-circular>
-                <ui-progress-circular color="primary" v-show="loading"></ui-progress-circular>
-                <ui-progress-circular color="accent" v-show="loading"></ui-progress-circular>
-                <ui-progress-circular color="black" v-show="loading"></ui-progress-circular>
+                <ui-progress-circular v-show="loading" color="multi-color"></ui-progress-circular>
+                <ui-progress-circular v-show="loading" color="primary"></ui-progress-circular>
+                <ui-progress-circular v-show="loading" color="accent"></ui-progress-circular>
+                <ui-progress-circular v-show="loading" color="black"></ui-progress-circular>
 
-                <div class="has-white-progress" v-show="loading">
-                    <ui-progress-circular color="white" v-show="loading"></ui-progress-circular>
+                <div v-show="loading" class="has-white-progress">
+                    <ui-progress-circular v-show="loading" color="white"></ui-progress-circular>
                 </div>
             </div>
 
@@ -72,20 +72,20 @@
 
             <div class="page__demo-group">
                 <ui-progress-circular
-                    type="determinate"
+                    v-show="loading"
 
+                    type="determinate"
                     :auto-stroke="false"
                     :progress="progress"
-                    :size="54"
 
-                    v-show="loading"
+                    :size="54"
                 ></ui-progress-circular>
 
                 <ui-progress-circular
-                    :auto-stroke="false"
-                    :size="54"
-
                     v-show="loading"
+                    :auto-stroke="false"
+
+                    :size="54"
                 ></ui-progress-circular>
             </div>
 
@@ -93,20 +93,20 @@
 
             <div class="page__demo-group">
                 <ui-progress-circular
-                    type="determinate"
+                    v-show="loading"
 
+                    type="determinate"
                     :progress="progress"
                     :size="48"
-                    :stroke="8"
 
-                    v-show="loading"
+                    :stroke="8"
                 ></ui-progress-circular>
 
                 <ui-progress-circular
-                    :size="48"
-                    :stroke="8"
-
                     v-show="loading"
+                    :size="48"
+
+                    :stroke="8"
                 ></ui-progress-circular>
             </div>
 
@@ -204,6 +204,13 @@ import UiTab from '@/UiTab.vue';
 import UiTabs from '@/UiTabs.vue';
 
 export default {
+    components: {
+        UiButton,
+        UiProgressCircular,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
             progress: 0,
@@ -224,13 +231,6 @@ export default {
 
     beforeUnmount() {
         clearInterval(this.progressInterval);
-    },
-
-    components: {
-        UiButton,
-        UiProgressCircular,
-        UiTab,
-        UiTabs
     }
 };
 </script>

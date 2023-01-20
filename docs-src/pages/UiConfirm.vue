@@ -33,10 +33,10 @@
 
             <div class="page__demo-group">
                 <ui-confirm
+                    ref="confirm1"
                     autofocus="confirm-button"
                     confirm-button-text="Confirm"
                     deny-button-text="Deny"
-                    ref="confirm1"
                     title="Confirm this"
 
                     @confirm="onConfirm"
@@ -46,10 +46,10 @@
                 </ui-confirm>
 
                 <ui-confirm
+                    ref="confirm2"
                     autofocus="none"
                     confirm-button-text="Confirm"
                     deny-button-text="Deny"
-                    ref="confirm2"
                     title="Confirm this"
 
                     @confirm="onConfirm"
@@ -66,10 +66,10 @@
 
             <div class="page__demo-group">
                 <ui-confirm
+                    ref="publishConfirm"
                     confirm-button-icon="public"
                     confirm-button-text="Publish"
                     deny-button-text="Cancel"
-                    ref="publishConfirm"
                     title="Publish Post"
                     type="primary"
 
@@ -83,10 +83,10 @@
                 </ui-confirm>
 
                 <ui-confirm
+                    ref="deleteConfirm"
                     confirm-button-icon="delete"
                     confirm-button-text="Delete"
                     deny-button-text="Keep"
-                    ref="deleteConfirm"
                     title="Delete Post"
                     type="danger"
 
@@ -404,6 +404,13 @@ import UiTab from '@/UiTab.vue';
 import UiTabs from '@/UiTabs.vue';
 
 export default {
+    components: {
+        UiButton,
+        UiConfirm,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
             confirmResult: '',
@@ -453,13 +460,6 @@ export default {
         onDenyDelete() {
             this.confirmResult = 'You chose to keep the post.';
         }
-    },
-
-    components: {
-        UiButton,
-        UiConfirm,
-        UiTab,
-        UiTabs
     }
 };
 </script>

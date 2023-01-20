@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <ul class="ui-datepicker-calendar__years" ref="years" v-show="showYearPicker">
+        <ul v-show="showYearPicker" ref="years" class="ui-datepicker-calendar__years">
             <li
                 v-for="year in yearRangeFiltered"
                 :key="year"
@@ -40,7 +40,7 @@
             >{{ year }}</li>
         </ul>
 
-        <div class="ui-datepicker-calendar__body" v-show="!showYearPicker">
+        <div v-show="!showYearPicker" class="ui-datepicker-calendar__body">
             <ui-calendar-controls
                 ref="controls"
 
@@ -81,9 +81,12 @@ import dateUtils from './helpers/date';
 import { scrollIntoView } from './helpers/element-scroll';
 
 export default {
-    name: 'ui-datepicker-calendar',
+    name: 'UiDatepickerCalendar',
 
-    emits: ['update:modelValue', 'update:currentView', 'date-select', 'month-change'],
+    components: {
+        UiCalendarControls,
+        UiCalendarMonth
+    },
 
     props: {
         modelValue: Date,
@@ -126,6 +129,8 @@ export default {
             default: 'portrait' // 'portrait' or 'landscape'
         }
     },
+
+    emits: ['update:modelValue', 'update:currentView', 'date-select', 'month-change'],
 
     data() {
         return {
@@ -262,11 +267,6 @@ export default {
             this.dateInView = newDate;
             this.$emit('month-change', newDate);
         }
-    },
-
-    components: {
-        UiCalendarControls,
-        UiCalendarMonth
     }
 };
 </script>

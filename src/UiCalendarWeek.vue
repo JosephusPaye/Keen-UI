@@ -1,6 +1,6 @@
 <template>
     <tr class="ui-calendar-week" :class="classes">
-        <td :key="date.toString()" v-for="date in dates">
+        <td v-for="date in dates" :key="date.toString()">
             <button
                 class="ui-calendar-week__date"
 
@@ -19,9 +19,7 @@
 import dateUtils from './helpers/date';
 
 export default {
-    name: 'ui-calendar-week',
-
-    emits: ['date-select'],
+    name: 'UiCalendarWeek',
 
     props: {
         month: Number,
@@ -39,6 +37,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['date-select'],
 
     data() {
         return {

@@ -15,40 +15,40 @@
 
             <div class="page__demo-group">
                 <ui-progress-linear
+                    v-show="isLoading"
                     color="primary"
+
                     type="determinate"
 
                     :progress="progress"
-
-                    v-show="isLoading"
                 ></ui-progress-linear>
 
                 <ui-progress-linear
+                    v-show="isLoading"
                     color="accent"
+
                     type="determinate"
 
                     :progress="progress"
-
-                    v-show="isLoading"
                 ></ui-progress-linear>
 
                 <ui-progress-linear
+                    v-show="isLoading"
                     color="black"
+
                     type="determinate"
 
                     :progress="progress"
-
-                    v-show="isLoading"
                 ></ui-progress-linear>
 
                 <div class="has-white-progress">
                     <ui-progress-linear
+                        v-show="isLoading"
                         color="white"
+
                         type="determinate"
 
                         :progress="progress"
-
-                        v-show="isLoading"
                     ></ui-progress-linear>
                 </div>
             </div>
@@ -56,12 +56,12 @@
             <h4 class="page__demo-title">Type: indeterminate</h4>
 
             <div class="page__demo-group">
-                <ui-progress-linear color="primary" v-show="isLoading"></ui-progress-linear>
-                <ui-progress-linear color="accent" v-show="isLoading"></ui-progress-linear>
-                <ui-progress-linear color="black" v-show="isLoading"></ui-progress-linear>
+                <ui-progress-linear v-show="isLoading" color="primary"></ui-progress-linear>
+                <ui-progress-linear v-show="isLoading" color="accent"></ui-progress-linear>
+                <ui-progress-linear v-show="isLoading" color="black"></ui-progress-linear>
 
                 <div class="has-white-progress">
-                    <ui-progress-linear color="white" v-show="isLoading"></ui-progress-linear>
+                    <ui-progress-linear v-show="isLoading" color="white"></ui-progress-linear>
                 </div>
             </div>
 
@@ -122,6 +122,13 @@ import UiTab from '@/UiTab.vue';
 import UiTabs from '@/UiTabs.vue';
 
 export default {
+    components: {
+        UiButton,
+        UiProgressLinear,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
             progress: 0,
@@ -142,13 +149,6 @@ export default {
 
     beforeUnmount() {
         clearInterval(this.progressInterval);
-    },
-
-    components: {
-        UiButton,
-        UiProgressLinear,
-        UiTab,
-        UiTabs
     }
 };
 </script>

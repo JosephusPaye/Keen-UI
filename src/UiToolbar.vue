@@ -1,7 +1,7 @@
 <template>
     <div class="ui-toolbar" :class="classes">
         <div class="ui-toolbar__left">
-            <div class="ui-toolbar__nav-icon" v-if="!removeNavIcon">
+            <div v-if="!removeNavIcon" class="ui-toolbar__nav-icon">
                 <slot name="icon">
                     <ui-icon-button
                         size="large"
@@ -15,7 +15,7 @@
                 </slot>
             </div>
 
-            <div class="ui-toolbar__brand" v-if="brand || $slots.brand">
+            <div v-if="brand || $slots.brand" class="ui-toolbar__brand">
                 <slot name="brand">
                     <div class="ui-toolbar__brand-text">{{ brand }}</div>
                 </slot>
@@ -24,7 +24,7 @@
 
         <div class="ui-toolbar__body" :class="{ 'has-brand-divider': hasBrandDivider }">
             <slot>
-                <div class="ui-toolbar__title" v-if="title">{{ title }}</div>
+                <div v-if="title" class="ui-toolbar__title">{{ title }}</div>
             </slot>
         </div>
 
@@ -33,9 +33,9 @@
         </div>
 
         <ui-progress-linear
+            v-show="loading"
             class="ui-toolbar__progress"
             :color="progressColor"
-            v-show="loading"
         ></ui-progress-linear>
     </div>
 </template>
@@ -45,9 +45,12 @@ import UiIconButton from './UiIconButton.vue';
 import UiProgressLinear from './UiProgressLinear.vue';
 
 export default {
-    name: 'ui-toolbar',
+    name: 'UiToolbar',
 
-    emits: ['nav-icon-click'],
+    components: {
+        UiIconButton,
+        UiProgressLinear
+    },
 
     props: {
         type: {
@@ -86,6 +89,8 @@ export default {
         }
     },
 
+    emits: ['nav-icon-click'],
+
     computed: {
         classes() {
             return [
@@ -109,11 +114,6 @@ export default {
         navIconClick() {
             this.$emit('nav-icon-click');
         }
-    },
-
-    components: {
-        UiIconButton,
-        UiProgressLinear
     }
 };
 </script>

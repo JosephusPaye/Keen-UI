@@ -16,8 +16,8 @@
             <h4 class="page__demo-title">Basic</h4>
 
             <ui-checkbox-group
-                :options="['Red', 'Blue', 'Green']"
                 v-model="group1"
+                :options="['Red', 'Blue', 'Green']"
             >Favourite Colours</ui-checkbox-group>
 
             <p>Model: <code>{{ group1 }}</code></p>
@@ -25,8 +25,8 @@
             <h4 class="page__demo-title">With default selection</h4>
 
             <ui-checkbox-group
-                :options="options.defaultGroup"
                 v-model="group2"
+                :options="options.defaultGroup"
             >Favourite Colours</ui-checkbox-group>
 
             <p>Model: <code>{{ group2 }}</code></p>
@@ -34,50 +34,50 @@
             <h4 class="page__demo-title">With help</h4>
 
             <ui-checkbox-group
+                v-model="group3"
                 help="Choose your favourite colours"
                 :options="options.defaultGroup"
-                v-model="group3"
             >Favourite Colours</ui-checkbox-group>
 
             <h4 class="page__demo-title">With error</h4>
 
             <ui-checkbox-group
+                v-model="group4"
                 error="Choose at least 2 colours"
                 help="Choose your favourite colours"
                 :options="options.defaultGroup"
                 :invalid="group4.length < 2"
-                v-model="group4"
             >Favourite Colours</ui-checkbox-group>
 
             <h4 class="page__demo-title">Box position: right</h4>
 
             <ui-checkbox-group
+                v-model="group5"
                 box-position="right"
                 :options="options.defaultGroup"
-                v-model="group5"
             >Favourite Colours</ui-checkbox-group>
 
             <h4 class="page__demo-title">Vertical</h4>
 
             <ui-checkbox-group
+                v-model="group6"
                 vertical
                 :options="options.defaultGroup"
-                v-model="group6"
             >Favourite Colours</ui-checkbox-group>
 
             <h4 class="page__demo-title">Individual option disabled</h4>
 
             <ui-checkbox-group
-                :options="options.secondGroup"
                 v-model="group7"
+                :options="options.secondGroup"
             >Favourite Colours</ui-checkbox-group>
 
             <h4 class="page__demo-title">Group disabled</h4>
 
             <ui-checkbox-group
+                v-model="group8"
                 disabled
                 :options="options.defaultGroup"
-                v-model="group8"
             >Favourite Colours</ui-checkbox-group>
         </div>
 
@@ -381,6 +381,12 @@ const secondGroup = [
 ];
 
 export default {
+    components: {
+        UiCheckboxGroup,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
             group1: [],
@@ -396,12 +402,6 @@ export default {
                 secondGroup
             }
         };
-    },
-
-    components: {
-        UiCheckboxGroup,
-        UiTab,
-        UiTabs
     }
 };
 </script>

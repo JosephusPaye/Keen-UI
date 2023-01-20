@@ -52,7 +52,7 @@
                 @change="onFile11Change"
             >Select an image</ui-fileupload>
 
-            <div class="page__demo-preview" v-if="file11PreviewImage.length > 0">
+            <div v-if="file11PreviewImage.length > 0" class="page__demo-preview">
                 <img
                     alt="file11PreviewName"
                     class="page__demo-preview-image"
@@ -321,11 +321,17 @@
 <script>
 import UiFileupload from '@/UiFileupload.vue';
 import UiIcon from '@/UiIcon.vue';
-import UiRadioGroup from '@/UiRadioGroup.vue';
 import UiTab from '@/UiTab.vue';
 import UiTabs from '@/UiTabs.vue';
 
 export default {
+    components: {
+        UiFileupload,
+        UiIcon,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
             size: 'normal',
@@ -337,14 +343,6 @@ export default {
         onFile11Change(files) {
             this.file11PreviewImage = URL.createObjectURL(files[0]);
         }
-    },
-
-    components: {
-        UiFileupload,
-        UiIcon,
-        UiRadioGroup,
-        UiTab,
-        UiTabs
     }
 };
 </script>

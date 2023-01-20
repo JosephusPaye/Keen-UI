@@ -17,42 +17,42 @@
         @keydown.up.prevent="incrementValue"
     >
         <input
-            class="ui-slider__hidden-input"
-            type="hidden"
-
-            :name="name"
-            :value="modelValue"
-
             v-if="name"
+            class="ui-slider__hidden-input"
+
+            type="hidden"
+            :name="name"
+
+            :value="modelValue"
         >
 
-        <div class="ui-slider__icon" v-if="hasIcon">
+        <div v-if="hasIcon" class="ui-slider__icon">
             <slot name="icon">
                 <ui-icon :icon="icon"></ui-icon>
             </slot>
         </div>
 
         <div
-            class="ui-slider__track"
             ref="track"
+            class="ui-slider__track"
             @mousedown="onDragStart"
             @touchstart.passive="onDragStart"
         >
             <div class="ui-slider__track-background">
                 <template v-if="snapToSteps">
                     <span
-                        class="ui-slider__snap-point"
-                        :style="{ left: 100 * relativeValue(point) + '%' }"
-
                         v-for="point in snapPoints"
+                        class="ui-slider__snap-point"
+
+                        :style="{ left: 100 * relativeValue(point) + '%' }"
                     ></span>
                 </template>
             </div>
 
             <div class="ui-slider__track-fill" :style="fillStyle"></div>
 
-            <div class="ui-slider__thumb" ref="thumb" :style="thumbStyle">
-                <div class="ui-slider__marker" v-if="showMarker">
+            <div ref="thumb" class="ui-slider__thumb" :style="thumbStyle">
+                <div v-if="showMarker" class="ui-slider__marker">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
                         <path d="M11 .5c-1.7.2-3.4.9-4.7 2-1.1.9-2 2-2.5 3.2-1.2 2.4-1.2 5.1-.1 7.7 1.1 2.6 2.8 5 5.3 7.5 1.2 1.2 2.8 2.7 3 2.7 0 0 .3-.2.6-.5 3.2-2.7 5.6-5.6 7.1-8.5.8-1.5 1.1-2.6 1.3-3.8.2-1.4 0-2.9-.5-4.3-1.2-3.2-4.1-5.4-7.5-5.8-.5-.2-1.5-.2-2-.2z"/>
                     </svg>
@@ -70,9 +70,11 @@ import UiIcon from './UiIcon.vue';
 import classlist from './helpers/classlist';
 
 export default {
-    name: 'ui-slider',
+    name: 'UiSlider',
 
-    emits: ['update:modelValue', 'focus', 'blur', 'change', 'dragstart', 'dragend'],
+    components: {
+        UiIcon
+    },
 
     props: {
         name: String,
@@ -108,6 +110,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['update:modelValue', 'focus', 'blur', 'change', 'dragstart', 'dragend'],
 
     data() {
         return {
@@ -360,10 +364,6 @@ export default {
 
             return value;
         }
-    },
-
-    components: {
-        UiIcon
     }
 };
 </script>

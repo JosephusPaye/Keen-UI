@@ -1,38 +1,38 @@
 <template>
     <div class="ui-radio-group" :class="classes">
-        <div class="ui-radio-group__label-text" v-if="label || $slots.default">
+        <div v-if="label || $slots.default" class="ui-radio-group__label-text">
             <slot>{{ label }}</slot>
         </div>
 
         <div class="ui-radio-group__radios">
             <ui-radio
-                class="ui-radio-group__radio"
+                :id="option[keys.id]"
 
+                :key="option[keys.id]"
+                class="ui-radio-group__radio"
+                v-for="option in options"
                 :button-position="buttonPosition"
+                v-model="selectedOptionValue"
                 :checked="isOptionCheckedByDefault(option)"
                 :class="option[keys.class]"
                 :color="color"
                 :disabled="disabled || option[keys.disabled]"
-                :id="option[keys.id]"
-                :key="option[keys.id]"
                 :name="name"
+
                 :tabindex="tabindex"
                 :true-value="getTrueValue(option)"
 
                 @blur="onBlur"
                 @focus="onFocus"
-
-                v-for="option in options"
-                v-model="selectedOptionValue"
             >{{ option[keys.label] || option }}</ui-radio>
         </div>
 
-        <div class="ui-radio-group__feedback" v-if="hasFeedback">
-            <div class="ui-radio-group__feedback-text" v-if="showError">
+        <div v-if="hasFeedback" class="ui-radio-group__feedback">
+            <div v-if="showError" class="ui-radio-group__feedback-text">
                 <slot name="error">{{ error }}</slot>
             </div>
 
-            <div class="ui-radio-group__feedback-text" v-else-if="showHelp">
+            <div v-else-if="showHelp" class="ui-radio-group__feedback-text">
                 <slot name="help">{{ help }}</slot>
             </div>
         </div>
@@ -43,9 +43,11 @@
 import UiRadio from './UiRadio.vue';
 
 export default {
-    name: 'ui-radio-group',
+    name: 'UiRadioGroup',
 
-    emits: ['update:modelValue', 'focus', 'blur', 'change'],
+    components: {
+        UiRadio
+    },
 
     props: {
         name: {
@@ -98,6 +100,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['update:modelValue', 'focus', 'blur', 'change'],
 
     data() {
         return {
@@ -176,10 +180,6 @@ export default {
             this.isActive = false;
             this.$emit('blur', e);
         }
-    },
-
-    components: {
-        UiRadio
     }
 };
 </script>

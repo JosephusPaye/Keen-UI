@@ -3,27 +3,27 @@
         <div class="ui-tabs__header">
             <ul class="ui-tabs__header-items" role="tablist">
                 <ui-tab-header-item
-                    ref="tabHeaders"
+                    :id="tab.id"
 
+                    ref="tabHeaders"
+                    :key="tab.id"
                     :active="activeTabId === tab.id"
                     :disable-ripple="disableRipple"
+                    v-for="tab in tabs"
                     :disabled="tab.disabled"
-                    :id="tab.id"
-                    :key="tab.id"
                     :title="tab.title"
                     :icon="tab.icon"
                     :type="type"
                     :tooltip="tab.tooltip"
                     :open-tooltip-on="tab.openTooltipOn"
-                    :tooltip-position="tab.tooltipPosition"
 
+                    :tooltip-position="tab.tooltipPosition"
                     @click="onTabClick(tab, $event)"
                     @keydown.left="selectPreviousTab"
-                    @keydown.right="selectNextTab"
 
-                    v-for="tab in tabs"
+                    @keydown.right="selectNextTab"
                 >
-                    <render :nodes="tab.$slots.header()" v-if="tab.$slots.header"></render>
+                    <render v-if="tab.$slots.header" :nodes="tab.$slots.header()"></render>
                     <template v-if="!tab.$slots.header && tab.$slots.icon && hasIcon" #icon>
                         <render :nodes="tab.$slots.icon()"></render>
                     </template>
@@ -42,9 +42,7 @@ import Render from './render';
 import UiTabHeaderItem from './UiTabHeaderItem.vue';
 
 export default {
-    name: 'ui-tabs',
-
-    emits: ['tab-click', 'tab-change'],
+    name: 'UiTabs',
 
     components: {
         Render,
@@ -86,6 +84,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['tab-click', 'tab-change'],
 
     data() {
         return {

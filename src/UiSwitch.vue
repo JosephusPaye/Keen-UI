@@ -2,8 +2,8 @@
     <label class="ui-switch" :class="classes">
         <div class="ui-switch__input-wrapper">
             <input
-                class="ui-switch__input"
                 ref="input"
+                class="ui-switch__input"
                 type="checkbox"
 
                 :checked.prop="isChecked"
@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div class="ui-switch__label-text" v-if="label || $slots.default">
+        <div v-if="label || $slots.default" class="ui-switch__label-text">
             <slot>{{ label }}</slot>
         </div>
     </label>
@@ -34,9 +34,7 @@
 import { looseEqual } from './helpers/util';
 
 export default {
-    name: 'ui-switch',
-
-    emits: ['update:modelValue', 'focus', 'blur', 'change'],
+    name: 'UiSwitch',
 
     props: {
         name: String,
@@ -72,6 +70,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['update:modelValue', 'focus', 'blur', 'change'],
 
     data() {
         return {

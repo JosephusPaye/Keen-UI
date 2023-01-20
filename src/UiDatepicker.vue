@@ -8,7 +8,7 @@
             :value="submittedValue"
         >
 
-        <div class="ui-datepicker__icon-wrapper" v-if="icon || $slots.icon">
+        <div v-if="icon || $slots.icon" class="ui-datepicker__icon-wrapper">
             <slot name="icon">
                 <ui-icon :icon="icon"></ui-icon>
             </slot>
@@ -16,8 +16,8 @@
 
         <div class="ui-datepicker__content">
             <div
-                class="ui-datepicker__label"
                 ref="label"
+                class="ui-datepicker__label"
 
                 :tabindex="disabled ? null : (tabindex || '0')"
 
@@ -28,9 +28,9 @@
                 @keydown.tab="onTabAway"
             >
                 <div
+                    v-if="label || $slots.default"
                     class="ui-datepicker__label-text"
                     :class="labelClasses"
-                    v-if="label || $slots.default"
                 >
                     <slot>{{ label }}</slot>
                 </div>
@@ -43,7 +43,7 @@
                         {{ hasDisplayText ? displayText : (hasFloatingLabel && isLabelInline) ? null : placeholder }}
                     </div>
 
-                    <ui-icon class="ui-datepicker__dropdown-button" v-if="usesPopover && !disabled">
+                    <ui-icon v-if="usesPopover && !disabled" class="ui-datepicker__dropdown-button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path d="M6.984 9.984h10.03L12 15z"/>
                         </svg>
@@ -51,28 +51,28 @@
                 </div>
 
                 <ui-popover
-                    contain-focus
-                    open-on="manual"
+                    v-if="usesPopover"
+                    v-show="!disabled"
                     ref="popover"
 
+                    contain-focus
+                    open-on="manual"
                     :close-on-scroll="false"
+
                     :append-to-body="appendDropdownToBody"
                     :z-index="dropdownZIndex"
 
                     @close="onPickerClose"
                     @open="onPickerOpen"
-
-                    v-if="usesPopover"
-                    v-show="!disabled"
                 >
                     <ui-datepicker-calendar
+                        v-model:currentView="calendarView"
                         :color="color"
                         :date-filter="dateFilter"
                         :lang="lang"
                         :max-date="maxDate"
                         :min-date="minDate"
                         :orientation="orientation"
-                        v-model:currentView="calendarView"
                         :value="date"
                         :start-of-week="startOfWeek"
                         :year-range="yearRange"
@@ -81,35 +81,35 @@
                 </ui-popover>
             </div>
 
-            <div class="ui-datepicker__feedback" v-if="hasFeedback">
-                <div class="ui-datepicker__feedback-text" v-if="showError">
+            <div v-if="hasFeedback" class="ui-datepicker__feedback">
+                <div v-if="showError" class="ui-datepicker__feedback-text">
                     <slot name="error">{{ error }}</slot>
                 </div>
 
-                <div class="ui-datepicker__feedback-text" v-else-if="showHelp">
+                <div v-else-if="showHelp" class="ui-datepicker__feedback-text">
                     <slot name="help">{{ help }}</slot>
                 </div>
             </div>
         </div>
 
         <ui-modal
+            v-if="usesModal && !disabled"
             ref="modal"
             remove-header
+
             size="auto"
-
             @hidden="onPickerClose"
-            @open="onPickerOpen"
 
-            v-if="usesModal && !disabled"
+            @open="onPickerOpen"
         >
             <ui-datepicker-calendar
+                v-model:currentView="calendarView"
                 :color="color"
                 :date-filter="dateFilter"
                 :lang="lang"
                 :max-date="maxDate"
                 :min-date="minDate"
                 :orientation="orientation"
-                v-model:currentView="calendarView"
                 :value="date"
                 :start-of-week="startOfWeek"
                 :year-range="yearRange"
@@ -120,7 +120,6 @@
 </template>
 
 <script>
-import UiButton from './UiButton.vue';
 import UiDatepickerCalendar from './UiDatepickerCalendar.vue';
 import UiIcon from './UiIcon.vue';
 import UiModal from './UiModal.vue';
@@ -130,9 +129,18 @@ import RespondsToExternalClick from './mixins/RespondsToExternalClick';
 import dateUtils from './helpers/date';
 
 export default {
-    name: 'ui-datepicker',
+    name: 'UiDatepicker',
 
-    emits: ['update:modelValue', 'focus', 'blur', 'open', 'close', 'touch'],
+    components: {
+        UiDatepickerCalendar,
+        UiIcon,
+        UiModal,
+        UiPopover
+    },
+
+    mixins: [
+        RespondsToExternalClick
+    ],
 
     props: {
         name: String,
@@ -193,6 +201,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['update:modelValue', 'focus', 'blur', 'open', 'close', 'touch'],
 
     data() {
         return {
@@ -377,19 +387,7 @@ export default {
         resetTouched(options = { touched: false }) {
             this.isTouched = options.touched;
         }
-    },
-
-    components: {
-        UiButton,
-        UiDatepickerCalendar,
-        UiIcon,
-        UiModal,
-        UiPopover
-    },
-
-    mixins: [
-        RespondsToExternalClick
-    ]
+    }
 };
 </script>
 

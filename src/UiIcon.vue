@@ -1,6 +1,6 @@
 <template>
     <span class="ui-icon" :class="[iconSet, icon]" :aria-label="ariaLabel">
-        <svg class="ui-icon__svg" v-if="useSvg">
+        <svg v-if="useSvg" class="ui-icon__svg">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="'#' + icon"></use>
         </svg>
 
@@ -10,7 +10,7 @@
 
 <script>
 export default {
-    name: 'ui-icon',
+    name: 'UiIcon',
 
     props: {
         icon: String,

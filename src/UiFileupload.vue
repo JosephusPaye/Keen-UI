@@ -1,23 +1,23 @@
 <template>
     <label class="ui-fileupload" :class="classes">
         <input
-            class="ui-fileupload__input"
             ref="input"
+            class="ui-fileupload__input"
             type="file"
 
+            v-if="renderInput"
             :accept="accept"
             :disabled="disabled"
             :multiple="multiple"
             :name="name"
             :required="required"
-            :tabindex="tabindex"
 
+            :tabindex="tabindex"
             @blur="onBlur"
             @input="onInput"
             @change="onChange"
-            @focus="onFocus"
 
-            v-if="renderInput"
+            @focus="onFocus"
         >
 
         <div class="ui-fileupload__content">
@@ -46,9 +46,12 @@ import UiIcon from './UiIcon.vue';
 import UiRippleInk from './UiRippleInk.vue';
 
 export default {
-    name: 'ui-fileupload',
+    name: 'UiFileupload',
 
-    emits: ['input', 'focus', 'blur', 'change'],
+    components: {
+        UiIcon,
+        UiRippleInk
+    },
 
     props: {
         name: {
@@ -95,6 +98,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['input', 'focus', 'blur', 'change'],
 
     data() {
         return {
@@ -184,11 +189,6 @@ export default {
                 this.renderInput = true;
             });
         }
-    },
-
-    components: {
-        UiIcon,
-        UiRippleInk
     }
 };
 </script>

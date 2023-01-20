@@ -29,11 +29,11 @@
                 :type="type"
             >
                 <ui-tab
+                    v-for="tab in demoTabs"
                     :key="tab.title"
                     :selected="tab.title === 'Collections'"
-                    :title="tab.title"
 
-                    v-for="tab in demoTabs"
+                    :title="tab.title"
                 >
                     <template #icon>
                         <ui-icon :icon="tab.icon"></ui-icon>
@@ -44,17 +44,17 @@
 
             <div class="page__demo-controls">
                 <ui-radio-group
+                    v-model="type"
                     class="mb-8"
                     name="type"
                     :options="['text', 'icon', 'icon-and-text']"
-                    v-model="type"
                 >Type</ui-radio-group>
 
                 <ui-radio-group
+                    v-model="backgroundColor"
                     class="mb-12"
                     name="color"
                     :options="['default', 'primary', 'accent']"
-                    v-model="backgroundColor"
                 >Background color</ui-radio-group>
 
                 <div class="page__demo-controls-row">
@@ -66,7 +66,7 @@
             <h4 class="page__demo-title">Custom header with HTML</h4>
 
             <ui-tabs fullwidth>
-                <ui-tab :key="tab.title" v-for="tab in demoTabs">
+                <ui-tab v-for="tab in demoTabs" :key="tab.title">
                     <template #header>
                         <div class="my-custom-tab-header">
                             <ui-icon :icon="tab.icon"></ui-icon>
@@ -81,7 +81,7 @@
             <h4 class="page__demo-title">Tabs with tooltips</h4>
 
             <ui-tabs type="icon">
-                <ui-tab :key="tab.title" v-for="tab in demoTabs" :tooltip="tab.title">
+                <ui-tab v-for="tab in demoTabs" :key="tab.title" :tooltip="tab.title">
                     <template #icon>
                         <ui-icon :icon="tab.icon"></ui-icon>
                     </template>
@@ -92,15 +92,15 @@
 
             <h4 class="page__demo-title">Control programmatically</h4>
 
-            <ui-tabs type="icon-and-text" fullwidth ref="controlTabs">
+            <ui-tabs ref="controlTabs" type="icon-and-text" fullwidth>
                 <ui-tab
-                    :disabled="tab.id === 'tab2' && disableTab2"
+                    v-for="tab in controlTabs"
                     :id="tab.id"
                     :key="tab.id"
+                    :disabled="tab.id === 'tab2' && disableTab2"
                     :title="tab.title"
-                    :icon="tab.icon"
 
-                    v-for="tab in controlTabs"
+                    :icon="tab.icon"
                 >
                     <div>{{ tab.title }}</div>
                 </ui-tab>
@@ -109,8 +109,8 @@
             <ui-button @click="toggleTab2">Toggle Tab 2</ui-button>
             <ui-button @click="selectTab3">Select Tab 3</ui-button>
 
-            <ui-button @click="addTab" :disabled="controlTabs.length === 6">Add Tab</ui-button>
-            <ui-button @click="removeTab" :disabled="controlTabs.length === 3">Remove Tab</ui-button>
+            <ui-button :disabled="controlTabs.length === 6" @click="addTab">Add Tab</ui-button>
+            <ui-button :disabled="controlTabs.length === 3" @click="removeTab">Remove Tab</ui-button>
 
             <h4 class="page__demo-title">Confirm tab change</h4>
 

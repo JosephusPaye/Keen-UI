@@ -1,16 +1,16 @@
 <template>
     <div class="ui-select" :class="classes">
         <input
-            class="ui-select__hidden-input"
-            type="hidden"
-
-            :name="name"
-            :value="submittedValue"
-
             v-if="name"
+            class="ui-select__hidden-input"
+
+            type="hidden"
+            :name="name"
+
+            :value="submittedValue"
         >
 
-        <div class="ui-select__icon-wrapper" v-if="icon || $slots.icon">
+        <div v-if="icon || $slots.icon" class="ui-select__icon-wrapper">
             <slot name="icon">
                 <ui-icon :icon="icon"></ui-icon>
             </slot>
@@ -18,8 +18,8 @@
 
         <div class="ui-select__content">
             <div
-                class="ui-select__label"
                 ref="label"
+                class="ui-select__label"
 
                 :tabindex="disabled ? null : (tabindex || '0')"
 
@@ -29,11 +29,11 @@
                 @keydown.tab="onBlur"
             >
                 <div
+                    v-if="label || $slots.default"
+
                     class="ui-select__label-text"
 
                     :class="labelClasses"
-
-                    v-if="label || $slots.default"
                 >
                     <slot>{{ label }}</slot>
                 </div>
@@ -52,8 +52,8 @@
                 </div>
 
                 <ui-popover
-                    class="ui-select__dropdown"
                     ref="dropdown"
+                    class="ui-select__dropdown"
 
                     :close-on-scroll="false"
                     :constrain-to-scroll-parent="false"
@@ -65,8 +65,8 @@
                     @reveal="onReveal"
                 >
                     <div
-                        class="ui-select__dropdown-content"
                         ref="dropdownContent"
+                        class="ui-select__dropdown-content"
                         tabindex="-1"
 
                         @keydown.down.prevent="highlightOption(highlightedIndex + 1)"
@@ -76,22 +76,22 @@
                         @keydown.up.prevent="highlightOption(highlightedIndex - 1)"
                     >
                         <div
-                            class="ui-select__search"
-
-                            @click.stop
-                            @keydown.space.stop
-
                             v-if="hasSearch"
+
+                            class="ui-select__search"
+                            @click.stop
+
+                            @keydown.space.stop
                         >
                             <input
+                                ref="searchInput"
+                                v-model="query"
                                 autocomplete="off"
                                 class="ui-select__search-input"
-                                ref="searchInput"
+
                                 type="text"
 
                                 :placeholder="searchPlaceholder"
-
-                                v-model="query"
                             >
 
                             <ui-icon class="ui-select__search-icon">
@@ -101,31 +101,31 @@
                             </ui-icon>
 
                             <ui-progress-circular
-                                class="ui-select__search-progress"
-
-                                :size="20"
-                                :stroke="4"
-
                                 v-if="loading"
+
+                                class="ui-select__search-progress"
+                                :size="20"
+
+                                :stroke="4"
                             ></ui-progress-circular>
                         </div>
 
-                        <ul class="ui-select__options" ref="optionsList">
+                        <ul ref="optionsList" class="ui-select__options">
                             <ui-select-option
-                                ref="options"
+                                v-for="(option, index) in filteredOptions"
 
+                                ref="options"
+                                :key="index"
                                 :highlighted="highlightedIndex === index"
                                 :keys="keys"
-                                :key="index"
                                 :multiple="multiple"
                                 :option="option"
                                 :selected="isOptionSelected(option)"
+
                                 :type="type"
-
                                 @click.stop="selectOption(option, index)"
-                                @mouseover.stop="highlightOption(index, { autoScroll: false })"
 
-                                v-for="(option, index) in filteredOptions"
+                                @mouseover.stop="highlightOption(index, { autoScroll: false })"
                             >
                                 <slot
                                     name="option"
@@ -137,7 +137,7 @@
                                 ></slot>
                             </ui-select-option>
 
-                            <div class="ui-select__no-results" v-show="hasNoResults">
+                            <div v-show="hasNoResults" class="ui-select__no-results">
                                 <slot name="no-results">No results found</slot>
                             </div>
                         </ul>
@@ -145,12 +145,12 @@
                 </ui-popover>
             </div>
 
-            <div class="ui-select__feedback" v-if="hasFeedback">
-                <div class="ui-select__feedback-text" v-if="showError">
+            <div v-if="hasFeedback" class="ui-select__feedback">
+                <div v-if="showError" class="ui-select__feedback-text">
                     <slot name="error">{{ error }}</slot>
                 </div>
 
-                <div class="ui-select__feedback-text" v-else-if="showHelp">
+                <div v-else-if="showHelp" class="ui-select__feedback-text">
                     <slot name="help">{{ help }}</slot>
                 </div>
             </div>
@@ -171,9 +171,18 @@ import { scrollIntoView, resetScroll } from './helpers/element-scroll';
 import fuzzysearch from 'fuzzysearch';
 
 export default {
-    name: 'ui-select',
+    name: 'UiSelect',
 
-    emits: ['update:modelValue', 'query-change', 'change', 'select', 'touch', 'focus', 'blur', 'dropdown-open', 'dropdown-close'],
+    components: {
+        UiIcon,
+        UiPopover,
+        UiProgressCircular,
+        UiSelectOption
+    },
+
+    mixins: [
+        RespondsToExternalClick
+    ],
 
     props: {
         name: String,
@@ -254,6 +263,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['update:modelValue', 'query-change', 'change', 'select', 'touch', 'focus', 'blur', 'dropdown-open', 'dropdown-close'],
 
     data() {
         return {
@@ -609,18 +620,7 @@ export default {
         resetTouched(options = { touched: false }) {
             this.isTouched = options.touched;
         }
-    },
-
-    components: {
-        UiIcon,
-        UiPopover,
-        UiProgressCircular,
-        UiSelectOption
-    },
-
-    mixins: [
-        RespondsToExternalClick
-    ]
+    }
 };
 </script>
 

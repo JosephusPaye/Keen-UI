@@ -29,8 +29,8 @@
 
                 <ui-button @click="openModal('modal2')">Can't close by clicking backdrop</ui-button>
                 <ui-modal
-                    dismiss-on="close-button esc"
                     ref="modal2"
+                    dismiss-on="close-button esc"
                     title="Can't close by clicking backdrop"
                 >
                     Hello World! What's happening?
@@ -131,7 +131,7 @@
                 <ui-modal ref="modal802" size="auto" title="Auto width modal">
                     <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. {{ modal802Content }}</div>
                     <br>
-                    <input type="text" v-model="modal802Content" placeholder="Type here to make the modal bigger">
+                    <input v-model="modal802Content" type="text" placeholder="Type here to make the modal bigger">
                 </ui-modal>
 
                 <ui-button @click="openModal('modal9')">Scrolling Modal</ui-button>
@@ -458,6 +458,13 @@ import UiTab from '@/UiTab.vue';
 import UiTabs from '@/UiTabs.vue';
 
 export default {
+    components: {
+        UiButton,
+        UiModal,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
             modal802Content: ''
@@ -472,13 +479,6 @@ export default {
         closeModal(ref) {
             this.$refs[ref].close();
         }
-    },
-
-    components: {
-        UiButton,
-        UiModal,
-        UiTab,
-        UiTabs
     }
 };
 </script>

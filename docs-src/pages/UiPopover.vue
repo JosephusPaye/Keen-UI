@@ -20,7 +20,7 @@
 
                 <ui-popover class="my-popover-style" contain-focus>
                     <p>Try tabbing forward and backward and notice that focus is contained in the popover.</p>
-                    <p><input type="text" placeholder="What's your name?" v-model="name"> {{ name ? 'Name: ' + name : '' }}</p>
+                    <p><input v-model="name" type="text" placeholder="What's your name?"> {{ name ? 'Name: ' + name : '' }}</p>
                     <p><button>A Button</button></p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                 </ui-popover>
@@ -138,14 +138,14 @@
 
             <h4 class="page__demo-title">Control programmatically</h4>
 
-            <a @click="openPopover" tabindex="0">Click to open the popover below</a>
+            <a tabindex="0" @click="openPopover">Click to open the popover below</a>
 
             <br><br>
 
             <button class="popover-trigger">
                 Default trigger
 
-                <ui-popover class="my-popover-style" ref="popover">
+                <ui-popover ref="popover" class="my-popover-style">
                     <p>Hey there, some popover content here. <button>Button</button></p>
                     <p>Add <b>whatever</b> content you want here. <button>Another Button</button></p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
@@ -445,6 +445,13 @@ import UiTabs from '@/UiTabs.vue';
 import UiModal from '@/UiModal.vue';
 
 export default {
+    components: {
+        UiPopover,
+        UiTab,
+        UiTabs,
+        UiModal
+    },
+
     data() {
         return {
             name: ''
@@ -459,13 +466,6 @@ export default {
         openModal() {
             this.$refs.modal.open();
         }
-    },
-
-    components: {
-        UiPopover,
-        UiTab,
-        UiTabs,
-        UiModal
     }
 };
 </script>

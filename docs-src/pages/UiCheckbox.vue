@@ -259,6 +259,12 @@ import UiTab from '@/UiTab.vue';
 import UiTabs from '@/UiTabs.vue';
 
 export default {
+    components: {
+        UiCheckbox,
+        UiTab,
+        UiTabs
+    },
+
     data() {
         return {
             check1: true,
@@ -267,12 +273,6 @@ export default {
             check4: false,
             check5: true
         };
-    },
-
-    components: {
-        UiCheckbox,
-        UiTab,
-        UiTabs
     }
 };
 </script>

@@ -17,9 +17,9 @@
 
             <div class="page__demo-controls">
                 <ui-radio-group
+                    v-model="color"
                     name="color"
                     :options="['default', 'primary', 'accent']"
-                    v-model="color"
                 >Color</ui-radio-group>
 
                 <div class="page__demo-controls-row">
@@ -261,6 +261,14 @@ import UiTabs from '@/UiTabs.vue';
 import UiRadioGroup from '@/UiRadioGroup.vue';
 
 export default {
+    components: {
+        UiCalendar,
+        UiCheckbox,
+        UiTab,
+        UiTabs,
+        UiRadioGroup
+    },
+
     data() {
         return {
             calendar1: null,
@@ -268,14 +276,6 @@ export default {
             hasSquareCells: false,
             raised: true
         };
-    },
-
-    components: {
-        UiCalendar,
-        UiCheckbox,
-        UiTab,
-        UiTabs,
-        UiRadioGroup
     }
 };
 </script>

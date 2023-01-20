@@ -16,9 +16,9 @@
 
             <div class="keen-docs-sidebar__version-select">
                 <ui-select
+                    v-model="selectedVersion"
                     :options="versions"
                     @select="onVersionSelect"
-                    v-model="selectedVersion"
                 >Version</ui-select>
             </div>
 

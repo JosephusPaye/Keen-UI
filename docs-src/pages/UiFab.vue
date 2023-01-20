@@ -12,9 +12,9 @@
 
         <div class="page__examples">
             <ui-radio-group
+                v-model="size"
                 name="size"
                 :options="['small', 'normal']"
-                v-model="size"
             >Button Size</ui-radio-group>
 
             <h4 class="page__demo-title">Colors</h4>
@@ -186,17 +186,17 @@ import UiTab from '@/UiTab.vue';
 import UiTabs from '@/UiTabs.vue';
 
 export default {
-    data() {
-        return {
-            size: 'normal'
-        };
-    },
-
     components: {
         UiFab,
         UiRadioGroup,
         UiTab,
         UiTabs
+    },
+
+    data() {
+        return {
+            size: 'normal'
+        };
     }
 };
 </script>

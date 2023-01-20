@@ -1,7 +1,7 @@
 <template>
     <ui-modal
-        class="ui-confirm"
         ref="modal"
+        class="ui-confirm"
         role="alertdialog"
 
         :dismiss-on="dismissOn"
@@ -51,9 +51,12 @@ import UiModal from './UiModal.vue';
 import classlist from './helpers/classlist';
 
 export default {
-    name: 'ui-confirm',
+    name: 'UiConfirm',
 
-    emits: ['confirm', 'deny', 'open', 'reveal', 'close', 'hide'],
+    components: {
+        UiButton,
+        UiModal
+    },
 
     props: {
         title: {
@@ -90,6 +93,8 @@ export default {
             default: false
         }
     },
+
+    emits: ['confirm', 'deny', 'open', 'reveal', 'close', 'hide'],
 
     computed: {
         confirmButtonColor() {
@@ -174,11 +179,6 @@ export default {
                 button.removeEventListener('blur', this.removeAutoFocus);
             }
         }
-    },
-
-    components: {
-        UiButton,
-        UiModal
     }
 };
 </script>

@@ -15,182 +15,182 @@
         <div class="page__examples">
             <h4 class="page__demo-title">Basic</h4>
 
-            <ui-textbox label="Name" placeholder="Enter your name" v-model="textbox1"></ui-textbox>
+            <ui-textbox v-model="textbox1" label="Name" placeholder="Enter your name"></ui-textbox>
 
             <h4 class="page__demo-title">Floating label</h4>
 
             <ui-textbox
+                v-model="textbox2"
                 floating-label
                 label="Name"
-                placeholder="Enter your name"
 
-                v-model="textbox2"
+                placeholder="Enter your name"
             ></ui-textbox>
 
             <h4 class="page__demo-title">Disabled</h4>
 
             <ui-textbox
-                disabled label="Name" placeholder="Enter your name" v-model="textbox3"
+                v-model="textbox3" disabled label="Name" placeholder="Enter your name"
             ></ui-textbox>
 
             <h4 class="page__demo-title">With default value</h4>
 
-            <ui-textbox label="Name" placeholder="Enter your name" v-model="textbox4"></ui-textbox>
+            <ui-textbox v-model="textbox4" label="Name" placeholder="Enter your name"></ui-textbox>
 
             <h4 class="page__demo-title">With default value, disabled</h4>
 
             <ui-textbox
-                disabled label="Name" placeholder="Enter your name" v-model="textbox5"
+                v-model="textbox5" disabled label="Name" placeholder="Enter your name"
             ></ui-textbox>
 
             <h4 class="page__demo-title">With help</h4>
 
             <ui-textbox
+                v-model="textbox6"
                 help="If you have multiple names, enter the one you prefer"
                 label="Name"
                 placeholder="Enter your name"
-                v-model="textbox6"
             ></ui-textbox>
 
             <h4 class="page__demo-title">With icon</h4>
 
             <ui-textbox
+                v-model="textbox7"
                 icon="phone"
                 label="Phone number"
                 placeholder="Enter your phone number"
                 type="tel"
-                v-model="textbox7"
             ></ui-textbox>
 
             <h4 class="page__demo-title">With icon, no label</h4>
 
-            <ui-textbox icon="search" placeholder="Search" v-model="textbox8"></ui-textbox>
+            <ui-textbox v-model="textbox8" icon="search" placeholder="Search"></ui-textbox>
 
             <h4 class="page__demo-title">iconPosition: right, with help</h4>
 
             <ui-textbox
+                v-model="textbox9"
                 help="If you have multiple email addresses, enter the one you use the most"
                 icon-position="right"
                 icon="mail"
                 label="Email address"
                 placeholder="Enter your email address"
                 type="email"
-                v-model="textbox9"
             ></ui-textbox>
 
             <h4 class="page__demo-title">With validation: required</h4>
 
             <ui-textbox
+                v-model="textbox10"
                 autocomplete="off"
                 error="This field is required"
                 help="If you have multiple names, enter the one you prefer"
                 label="Name"
                 placeholder="Enter your name"
+
                 required
-
                 :invalid="textbox10Touched && textbox10.length === 0"
-                @touch="textbox10Touched = true"
 
-                v-model="textbox10"
+                @touch="textbox10Touched = true"
             ></ui-textbox>
 
             <h4 class="page__demo-title">With validation and counter (max length)</h4>
 
             <ui-textbox
+                v-model="textbox11"
                 error="The username may not be more than 16 characters"
                 help="Pick a unique username not more than 16 characters"
                 icon="person"
                 label="Username"
+
                 placeholder="Enter a username"
-
                 :maxlength="16"
-                :invalid="textbox11.length > 16"
 
-                v-model="textbox11"
+                :invalid="textbox11.length > 16"
             ></ui-textbox>
 
             <h4 class="page__demo-title">Type: number, min: 0, max: 99</h4>
 
             <ui-textbox
+                v-model.number="textbox12"
                 help="The ideal number of cats a person should own, minimum 0, maximum 99"
                 label="Number of Cats"
                 placeholder="Enter number of cats"
+
                 type="number"
-
                 :min="0"
-                :max="99"
 
-                v-model.number="textbox12"
+                :max="99"
             ></ui-textbox>
 
             <h4 class="page__demo-title">Multi-line (textarea)</h4>
 
             <ui-textbox
+                v-model="textbox13"
                 enforce-maxlength
                 help="Maximum 256 characters"
                 label="Short bio"
+
                 placeholder="Introduce yourself in a few words"
-
                 :multi-line="true"
-                :maxlength="256"
 
-                v-model="textbox13"
+                :maxlength="256"
             ></ui-textbox>
 
             <h4 class="page__demo-title">Multi-line (textarea) with floating label</h4>
 
             <ui-textbox
+                v-model="textbox14"
                 enforce-maxlength
                 floating-label
                 help="Maximum 256 characters"
                 label="Short bio"
+
                 placeholder="Introduce yourself in a few words"
-
                 :multi-line="true"
-                :maxlength="256"
 
-                v-model="textbox14"
+                :maxlength="256"
             ></ui-textbox>
 
             <h4 class="page__demo-title">Multi-line (textarea) with icon</h4>
 
             <ui-textbox
+                v-model="textbox15"
                 enforce-maxlength
                 help="Maximum 256 characters"
                 icon="face"
                 label="Short bio"
+
                 placeholder="Introduce yourself in a few words"
-
                 :multi-line="true"
-                :maxlength="256"
 
-                v-model="textbox15"
+                :maxlength="256"
             ></ui-textbox>
 
             <h4 class="page__demo-title">Type: text, autocapitalize: none</h4>
 
             <ui-textbox
+                v-model.number="textbox16"
                 help="Enter some (case-specific) machine-generated text, which should not be capitalized accidentally on touch-screen devices"
                 label="Content"
                 placeholder="Content to be entered"
+
                 type="text"
 
                 autocapitalize="none"
-
-                v-model.number="textbox16"
             ></ui-textbox>
 
             <h4 class="page__demo-title">Multi-line text, autocapitalize: none</h4>
 
             <ui-textbox
+                v-model.number="textbox17"
                 help="Enter some (case-specific) machine-generated text, which should not be capitalized accidentally on touch-screen devices"
                 label="Content"
+
                 placeholder="Content to be entered"
-
                 :multi-line="true"
-                autocapitalize="none"
 
-                v-model.number="textbox17"
+                autocapitalize="none"
             ></ui-textbox>
         </div>
 
@@ -648,6 +648,12 @@ import UiTabs from '@/UiTabs.vue';
 import UiTextbox from '@/UiTextbox.vue';
 
 export default {
+    components: {
+        UiTab,
+        UiTabs,
+        UiTextbox
+    },
+
     data() {
         return {
             textbox1: null,
@@ -669,12 +675,6 @@ export default {
             textbox16: '',
             textbox17: ''
         };
-    },
-
-    components: {
-        UiTab,
-        UiTabs,
-        UiTextbox
     }
 };
 </script>

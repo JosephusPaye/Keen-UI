@@ -9,7 +9,7 @@ import tippy from 'tippy.js/esm';
 import elementRef from './helpers/element-ref';
 
 export default {
-    name: 'ui-tooltip',
+    name: 'UiTooltip',
 
     props: {
         animation: {

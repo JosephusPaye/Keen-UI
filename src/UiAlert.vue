@@ -2,7 +2,7 @@
     <transition :name="disableAnimation ? null : 'ui-alert--transition-toggle'">
         <div class="ui-alert" :class="classes" role="alert">
             <div class="ui-alert__body">
-                <div class="ui-alert__icon" v-if="!removeIcon">
+                <div v-if="!removeIcon" class="ui-alert__icon">
                     <slot name="icon">
                         <ui-icon v-if="type === 'info'">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12.984 9V6.984h-1.97V9h1.97zm0 8.016v-6h-1.97v6h1.97zm-.984-15c5.53 0 9.984 4.453 9.984 9.984S17.53 21.984 12 21.984 2.016 17.53 2.016 12 6.47 2.016 12 2.016z"/></svg>
@@ -28,11 +28,11 @@
 
                 <div class="ui-alert__dismiss-button">
                     <ui-close-button
+                        v-if="dismissible"
+
                         size="small"
 
                         @click="dismissAlert"
-
-                        v-if="dismissible"
                     ></ui-close-button>
                 </div>
             </div>
@@ -45,9 +45,12 @@ import UiCloseButton from './UiCloseButton.vue';
 import UiIcon from './UiIcon.vue';
 
 export default {
-    name: 'ui-alert',
+    name: 'UiAlert',
 
-    emits: ['dismiss'],
+    components: {
+        UiCloseButton,
+        UiIcon
+    },
 
     props: {
         type: {
@@ -68,6 +71,8 @@ export default {
         }
     },
 
+    emits: ['dismiss'],
+
     computed: {
         classes() {
             return [
@@ -81,11 +86,6 @@ export default {
         dismissAlert() {
             this.$emit('dismiss');
         }
-    },
-
-    components: {
-        UiCloseButton,
-        UiIcon
     }
 };
 </script>
