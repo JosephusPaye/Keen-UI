@@ -1,11 +1,11 @@
 <template>
     <label class="ui-fileupload" :class="classes">
         <input
+            v-if="renderInput"
             ref="input"
             class="ui-fileupload__input"
-            type="file"
 
-            v-if="renderInput"
+            type="file"
             :accept="accept"
             :disabled="disabled"
             :multiple="multiple"

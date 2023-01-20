@@ -6,12 +6,12 @@
 
         <div class="ui-checkbox-group__checkboxes">
             <ui-checkbox
-                :id="option[keys.id]"
-
-                :key="option[keys.id]"
                 v-for="(option, index) in options"
-                class="ui-checkbox-group__checkbox"
+
+                :id="option[keys.id]"
+                :key="option[keys.id]"
                 v-model="checkboxValues[index]"
+                class="ui-checkbox-group__checkbox"
                 :box-position="boxPosition"
                 :checked="isOptionCheckedByDefault(option)"
                 :class="option[keys.class]"

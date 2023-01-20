@@ -10,10 +10,10 @@
         :contain-focus="containFocus"
     >
         <ui-menu-option
+            v-for="(option, index) in options"
             :key="index"
             :disable-ripple="disableRipple"
             :disabled="option[keys.disabled]"
-            v-for="(option, index) in options"
             :href="option[keys.href]"
             :icon-props="iconProps || option[keys.iconProps]"
             :icon="hasIcons ? option[keys.icon] : null"

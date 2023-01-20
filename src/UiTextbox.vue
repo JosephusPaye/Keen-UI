@@ -9,9 +9,11 @@
         <div class="ui-textbox__content">
             <label class="ui-textbox__label">
                 <input
+                    v-if="!multiLine"
                     ref="input"
-                    class="ui-textbox__input"
 
+                    v-autofocus="autofocus"
+                    class="ui-textbox__input"
                     :autocomplete="autocomplete ? autocomplete : null"
                     :autocapitalize="autocapitalize ? autocapitalize : null"
                     :disabled="disabled"
@@ -23,9 +25,7 @@
                     :placeholder="hasFloatingLabel ? null : placeholder"
                     :readonly="readonly"
                     :required="required"
-                    v-autofocus="autofocus"
                     :step="stepValue"
-                    v-if="!multiLine"
                     :tabindex="tabindex"
 
                     :type="type"
@@ -40,9 +40,11 @@
                 >
 
                 <textarea
+                    v-else
                     ref="textarea"
-                    class="ui-textbox__textarea"
 
+                    v-autofocus="autofocus"
+                    class="ui-textbox__textarea"
                     :autocomplete="autocomplete ? autocomplete : null"
                     :autocapitalize="autocapitalize ? autocapitalize : null"
                     :disabled="disabled"
@@ -51,9 +53,7 @@
                     :name="name"
                     :placeholder="hasFloatingLabel ? null : placeholder"
                     :readonly="readonly"
-                    v-autofocus="autofocus"
                     :required="required"
-                    v-else
                     :rows="rows"
 
                     :tabindex="tabindex"

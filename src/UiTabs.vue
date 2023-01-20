@@ -3,13 +3,13 @@
         <div class="ui-tabs__header">
             <ul class="ui-tabs__header-items" role="tablist">
                 <ui-tab-header-item
-                    :id="tab.id"
+                    v-for="tab in tabs"
 
+                    :id="tab.id"
                     ref="tabHeaders"
                     :key="tab.id"
                     :active="activeTabId === tab.id"
                     :disable-ripple="disableRipple"
-                    v-for="tab in tabs"
                     :disabled="tab.disabled"
                     :title="tab.title"
                     :icon="tab.icon"

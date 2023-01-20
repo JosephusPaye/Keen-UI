@@ -6,13 +6,13 @@
 
         <div class="ui-radio-group__radios">
             <ui-radio
-                :id="option[keys.id]"
-
-                :key="option[keys.id]"
-                class="ui-radio-group__radio"
                 v-for="option in options"
-                :button-position="buttonPosition"
+
+                :id="option[keys.id]"
+                :key="option[keys.id]"
                 v-model="selectedOptionValue"
+                class="ui-radio-group__radio"
+                :button-position="buttonPosition"
                 :checked="isOptionCheckedByDefault(option)"
                 :class="option[keys.class]"
                 :color="color"
