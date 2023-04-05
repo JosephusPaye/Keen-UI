@@ -71,7 +71,6 @@ import UiCalendarControls from "./UiCalendarControls.vue";
 import UiCalendarMonth from "./UiCalendarMonth.vue";
 
 import dateUtils from "./helpers/date";
-import { scrollIntoView } from "./helpers/element-scroll";
 
 export default {
   name: "UiDatepickerCalendar",
@@ -186,7 +185,7 @@ export default {
             this.$refs.years.querySelector(".is-selected") ||
             this.$refs.years.querySelector(".is-current-year");
 
-          scrollIntoView(el, { marginTop: 144 });
+          el.scrollIntoView({ block: "nearest" });
         });
       }
     },
@@ -256,7 +255,7 @@ export default {
     },
 
     onGoToDate(date) {
-      this.$refs.month.goToDate(date);
+      this.dateInView = date;
     },
 
     onMonthChange(newDate) {

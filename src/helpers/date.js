@@ -123,6 +123,11 @@ export function isSameDay(date1, date2) {
         date1.getDate() === date2.getDate();
 }
 
+export function isSameMonth(date1, date2) {
+    return date1.getFullYear() === date2.getFullYear() &&
+        date1.getMonth() === date2.getMonth();
+}
+
 export function isBefore(date1, date2) {
     return date1.getTime() < date2.getTime();
 }
@@ -143,6 +148,7 @@ export default {
     clone,
     moveToDayOfWeek,
     isSameDay,
+    isSameMonth,
     isBefore,
     isAfter
 };

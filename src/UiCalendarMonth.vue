@@ -44,7 +44,7 @@ export default {
     lang: Object,
     dateFilter: Function,
     dateInView: Date,
-    selected: Date,
+    selected: [Date, Array],
     maxDate: Date,
     minDate: Date,
     startOfWeek: {
@@ -61,7 +61,7 @@ export default {
     },
   },
 
-  emits: ["date-select", "change"],
+  emits: ["date-select"],
 
   computed: {
     daysOfWeek() {
@@ -100,10 +100,6 @@ export default {
       }
 
       return starts;
-    },
-
-    goToDate(date) {
-      this.$emit("change", dateUtils.clone(date));
     },
 
     onDateSelect(date) {

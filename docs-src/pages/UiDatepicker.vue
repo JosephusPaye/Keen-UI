@@ -208,6 +208,21 @@
                 disabled
                 placeholder="Select a date"
             >A Special Day</ui-datepicker>
+
+            <h4 class="page__demo-title">Daterange picker</h4>
+
+            <ui-datepicker
+                v-model="picker16"
+                placeholder="Select a date"
+            >A Date Range</ui-datepicker>
+
+            <h4 class="page__demo-title">Daterange picker in a modal</h4>
+
+            <ui-datepicker
+                v-model="picker16"
+                placeholder="Select a date"
+                picker-type="modal"
+            >A Date Range</ui-datepicker>
         </div>
 
         <h3 class="page__section-title">API</h3>
@@ -228,7 +243,7 @@
                         <tbody>
                             <tr>
                                 <td class="no-wrap">modelValue, v-model *</td>
-                                <td>Date, String</td>
+                                <td>Date, String, Array</td>
                                 <td></td>
                                 <td>
                                     <p>The model the selected date syncs to. Can be set initially for a default value.</p>
@@ -651,7 +666,9 @@ export default {
             picker13: null,
             picker1301: null,
             picker14: null,
-            picker15: new Date()
+            picker15: new Date(),
+            picker16: [],
+            picker17: []
         };
     },
 

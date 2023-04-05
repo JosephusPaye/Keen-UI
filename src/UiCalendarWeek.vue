@@ -24,7 +24,7 @@ export default {
     weekStart: Date,
     minDate: Date,
     maxDate: Date,
-    selected: Date,
+    selected: [Date, Array],
     dateFilter: Function,
     color: {
       type: String,
@@ -76,9 +76,24 @@ export default {
       return [
         { "is-today": dateUtils.isSameDay(date, this.today) },
         { "is-in-other-month": this.isDateInOtherMonth(date) },
-        { "is-selected": this.selected && dateUtils.isSameDay(date, this.selected) },
+        { "is-selected": this.isDateSelected(date) },
+        { "is-highlighted": this.isDateHighlighted(date) },
         { "is-disabled": this.isDateDisabled(date) },
       ];
+    },
+
+    isDateSelected(date) {
+      return Array.isArray(this.selected)
+        ? this.selected.some((selection) => dateUtils.isSameDay(date, selection))
+        : this.selected
+        ? dateUtils.isSameDay(date, this.selected)
+        : false;
+    },
+
+    isDateHighlighted(date) {
+      return Array.isArray(this.selected) && this.selected.length === 2
+        ? dateUtils.isAfter(date, this.selected[0]) && dateUtils.isBefore(date, this.selected[1])
+        : false;
     },
 
     selectDate(date) {
@@ -120,6 +135,7 @@ export default {
     width: math.div(100%, 7);
     min-width: $ui-calendar-cell-size;
     position: relative;
+    padding: 0;
   }
 }
 
@@ -197,6 +213,11 @@ export default {
       }
     }
 
+    &.is-highlighted {
+      background-color: transparentize($brand-primary-color, 0.9);
+      color: $brand-primary-color;
+    }
+
     &.is-selected,
     body[modality="keyboard"] &.is-selected {
       background-color: $brand-primary-color;
@@ -213,6 +234,11 @@ export default {
       &.is-selected {
         color: white;
       }
+    }
+
+    &.is-highlighted {
+      background-color: transparentize($brand-accent-color, 0.5);
+      color: white;
     }
 
     &.is-selected,
