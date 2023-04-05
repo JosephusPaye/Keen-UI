@@ -7,7 +7,7 @@
     </div>
 
     <div class="ui-autocomplete__content">
-      <label class="ui-autocomplete__label">
+      <div class="ui-autocomplete__label">
         <div
           v-if="label || $slots.default"
           class="ui-autocomplete__label-text"
@@ -31,7 +31,6 @@
 
         <input
           ref="input"
-          v-autofocus="autofocus"
           autocomplete="off"
           class="ui-autocomplete__input"
           :disabled="disabled"
@@ -39,6 +38,7 @@
           :placeholder="hasFloatingLabel ? null : placeholder"
           :readonly="readonly ? readonly : null"
           :tabindex="tabindex"
+          v-autofocus="autofocus"
           :value="modelValue"
           @blur="onBlur"
           @change="onChange"
@@ -51,26 +51,39 @@
           @keydown.up.prevent="highlightSuggestion(highlightedIndex - 1)"
         />
 
-        <ul v-show="showDropdown" class="ui-autocomplete__suggestions">
-          <ui-autocomplete-suggestion
-            v-for="(suggestion, index) in matchingSuggestions"
-            ref="suggestions"
-            :key="index"
-            :highlighted="highlightedIndex === index"
-            :keys="keys"
-            :suggestion="suggestion"
-            :type="type"
-            @click="selectSuggestion(suggestion)"
-          >
-            <slot
-              name="suggestion"
+        <ui-popover
+          ref="dropdown"
+          class="ui-autocomplete__dropdown"
+          :close-on-scroll="false"
+          :constrain-to-scroll-parent="false"
+          :close-on-external-click="false"
+          :disabled="disabled"
+          open-on="manual"
+          @close="onClose"
+          @open="onOpen"
+          @reveal="onReveal"
+        >
+          <ul ref="suggestionsList" class="ui-autocomplete__suggestions">
+            <ui-autocomplete-suggestion
+              v-for="(suggestion, index) in matchingSuggestions"
+              ref="suggestions"
+              :key="index"
               :highlighted="highlightedIndex === index"
-              :index="index"
+              :keys="keys"
               :suggestion="suggestion"
-            ></slot>
-          </ui-autocomplete-suggestion>
-        </ul>
-      </label>
+              :type="type"
+              @click="selectSuggestion(suggestion)"
+            >
+              <slot
+                name="suggestion"
+                :highlighted="highlightedIndex === index"
+                :index="index"
+                :suggestion="suggestion"
+              ></slot>
+            </ui-autocomplete-suggestion>
+          </ul>
+        </ui-popover>
+      </div>
 
       <div v-if="hasFeedback" class="ui-autocomplete__feedback">
         <div v-if="showError" class="ui-autocomplete__feedback-text">
@@ -87,7 +100,9 @@
 
 <script>
 import autofocus from "./directives/autofocus";
+import RespondsToExternalClick from "./mixins/RespondsToExternalClick";
 import UiAutocompleteSuggestion from "./UiAutocompleteSuggestion.vue";
+import UiPopover from "./UiPopover.vue";
 import UiIcon from "./UiIcon.vue";
 
 import fuzzysearch from "fuzzysearch";
@@ -98,11 +113,14 @@ export default {
   components: {
     UiAutocompleteSuggestion,
     UiIcon,
+    UiPopover,
   },
 
   directives: {
     autofocus,
   },
+
+  mixins: [RespondsToExternalClick],
 
   props: {
     name: String,
@@ -210,7 +228,6 @@ export default {
       initialValue: this.modelValue,
       isActive: false,
       isTouched: false,
-      showDropdown: false,
       highlightedIndex: -1,
     };
   },
@@ -293,20 +310,20 @@ export default {
     },
   },
 
+  mounted() {
+    this.addExternalClickListener(this.$el, this.onExternalClick);
+  },
+
+  beforeUnmount() {
+    this.removeExternalClickListener();
+  },
+
   created() {
     // Normalize the value to an empty string if it's null
     if (this.modelValue === null) {
       this.initialValue = "";
       this.updateValue("");
     }
-  },
-
-  mounted() {
-    document.addEventListener("click", this.onExternalClick);
-  },
-
-  beforeUnmount() {
-    document.removeEventListener("click", this.onExternalClick);
   },
 
   methods: {
@@ -365,9 +382,15 @@ export default {
     },
 
     selectHighlighted(index, e) {
-      if (this.showDropdown && this.$refs.suggestions.length > 0) {
+      if (this.$refs.suggestions.length > 0) {
         e.preventDefault();
         this.selectSuggestion(this.$refs.suggestions[index].suggestion);
+      }
+    },
+
+    scrollSuggestionIntoView(suggestionEl) {
+      if (suggestionEl) {
+        suggestionEl.scrollIntoView({ block: "nearest" });
       }
     },
 
@@ -376,24 +399,38 @@ export default {
     },
 
     openDropdown() {
-      if (!this.showDropdown) {
-        this.showDropdown = true;
-        this.$emit("dropdown-open");
+      if (this.disabled) {
+        return;
       }
+
+      this.$refs.dropdown.open();
     },
 
     closeDropdown() {
-      if (this.showDropdown) {
-        this.$nextTick(() => {
-          this.showDropdown = false;
-          this.highlightedIndex = -1;
-          this.$emit("dropdown-close");
-        });
-      }
+      this.$refs.dropdown.close();
     },
 
     updateValue(value) {
       this.$emit("update:modelValue", value);
+    },
+
+    onOpen() {
+      this.$refs.dropdown.$el.style.width = this.$refs.input.getBoundingClientRect().width + "px";
+
+      this.$nextTick(() => {
+        this.scrollSuggestionIntoView(this.$refs.suggestionsList.querySelector(".is-highlighted"));
+      });
+
+      this.$emit("dropdown-open");
+    },
+
+    onReveal() {
+      this.focus();
+    },
+
+    onClose() {
+      this.highlightedIndex = -1;
+      this.$emit("dropdown-close");
     },
 
     onFocus(e) {
@@ -415,8 +452,8 @@ export default {
       }
     },
 
-    onExternalClick(e) {
-      if (!this.$el.contains(e.target) && this.showDropdown) {
+    onExternalClick() {
+      if (this.$refs.dropdown.isOpen()) {
         this.closeDropdown();
       }
     },
