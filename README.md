@@ -54,8 +54,8 @@ Use as a Vue plugin (globally registers all components):
 
 ```js
 import { createApp } from "vue";
-import * as KeenUI from 'keen-ui';
-import 'keen-ui/keen-ui.css';
+import * as KeenUI from "keen-ui";
+import "keen-ui/keen-ui.css";
 
 const app = createApp();
 app.use(KeenUI);
@@ -66,7 +66,7 @@ Use individual components:
 ```js
 import { createApp } from "vue";
 import { UiAlert, UiButton } from "keen-ui";
-import 'keen-ui/keen-ui.css';
+import "keen-ui/keen-ui.css";
 
 const app = createApp({
   components: {
@@ -124,7 +124,7 @@ Each component is built into a standalone file with all its dependencies include
 import { createApp } from "vue";
 import "keen-ui/src/bootstrap"; // Required when using standalone components, should be imported only once in your project
 import UiButton from "keen-ui/lib/UiButton";
-import 'keen-ui/css/UiButton.css';
+import "keen-ui/css/UiButton.css";
 
 const app = createApp({
   components: {
