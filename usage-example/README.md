@@ -1,10 +1,10 @@
-# Keen UI Usage Example
+# Keen UI Vite usage example
 
 This is an example Vite project to test the usage of Keen UI:
 
-- using Vite with the default export
-- using Vite with lib exports
-- using a global script tag
+- using the default export and named exports
+- using lib exports
+- using the Keen UI `.vue` source files directly
 
 ## Usage
 
@@ -14,6 +14,5 @@ This is an example Vite project to test the usage of Keen UI:
   - Run `yarn link`
 - From this `usage-example` directory:
   - Run `yarn` to install dependencies
-  - Run `yarn link keen-ui`
-  - Run `yarn dev` to start the dev server
-
+  - Run `yarn link keen-ui` to link the local Keen UI build to the example project
+  - Run `yarn dev` to start Vite and visit the URL shown to view the example
