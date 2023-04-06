@@ -7,7 +7,7 @@ import UsesLibExport from './components/UsesLibExport.vue';
 
 <template>
   <div>
-    <p style="color: #fff">The following should be styled Keen UI buttons if the imports are working:</p>
+    <p>The following should be styled Keen UI buttons if the imports are working:</p>
     <br />
     <UsesDefaultExport />
     <br />
