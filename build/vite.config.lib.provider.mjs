@@ -32,7 +32,7 @@ export default ({ entry, mode }) => {
       },
     },
     build: {
-      minify: mode === "production" ? "esbuild" : false,
+      minify: isProduction ? "esbuild" : false,
       lib: {
         entry: options.paths.resolve(`src/${entry}.vue`),
         formats: isProduction ? ["umd"] : ['umd', 'es'],
