@@ -6,8 +6,19 @@ import autoprefixer from "autoprefixer";
 import options from "./options.mjs";
 
 export default defineConfig(({ mode }) => {
-  const filename = mode === "production" ? "keen-ui.min" : "keen-ui";
+  const isProduction = mode === "production";
   const outDir = options.paths.output.main;
+
+  const formatFileNames = {
+    es: {
+      development: "keen-ui.esm.js",
+      production: "keen-ui.esm.min.js",
+    },
+    umd: {
+      development: "keen-ui.js",
+      production: "keen-ui.min.js",
+    },
+  };
 
   return {
     plugins: [vue(), banner({ content: options.banner, outDir })],
@@ -31,14 +42,19 @@ export default defineConfig(({ mode }) => {
       lib: {
         entry: options.paths.resolve("src/index.js"),
         name: "KeenUI",
-        formats: ["umd"],
-        fileName: () => filename + ".js",
+        formats: isProduction ? ["umd"] : ['umd', 'es'],
+        fileName: (format) => {
+          return formatFileNames[format][mode]
+        },
       },
       rollupOptions: {
         external: [/^vue/],
         output: {
+          globals: {
+            vue: "Vue",
+          },
           assetFileNames: (assetInfo) =>
-            assetInfo.name === "style.css" ? filename + ".css" : assetInfo.name,
+            assetInfo.name === "style.css" ? `keen-ui${isProduction ? '.min' : ''}.css` : assetInfo.name,
         },
       },
     },

@@ -2,7 +2,23 @@
   "name": "keen-ui",
   "version": "1.4.0",
   "description": "Keen UI is a Vue.js UI library with a simple API, inspired by Google's Material Design.",
-  "main": "dist/keen-ui.js",
+  "main": "./dist/keen-ui.js",
+  "module": "./dist/keen-ui.esm.js",
+  "exports": {
+    ".": {
+      "import": "./dist/keen-ui.esm.js",
+      "require": "./dist/keen-ui.js"
+    },
+    "./keen-ui.css": "./dist/keen-ui.css",
+    "./src/*": {
+      "import": "./src/*"
+    },
+    "./css/*": "./lib/css/*",
+    "./*": {
+      "import": "./lib/*.esm.js",
+      "require": "./lib/*.js"
+    }
+  },
   "scripts": {
     "dev": "vite serve --config build/vite.config.docs.mjs docs-src",
     "build:dist": "vite build --config build/vite.config.dist.mjs --mode development",
