@@ -27,7 +27,7 @@
           v-show="hasClearButton && !disabled && modelValue"
           class="ui-datepicker__clear-button"
           title="Clear"
-          @click.stop="$emit('update:modelValue', null)"
+          @click.stop="clear"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path
