@@ -8,6 +8,15 @@
     ".": {
       "import": "./dist/keen-ui.esm.js",
       "require": "./dist/keen-ui.js"
+    },
+    "./keen-ui.css": "./dist/keen-ui.css",
+    "./src/*": {
+      "import": "./src/*"
+    },
+    "./css/*": "./lib/css/*",
+    "./*": {
+      "import": "./lib/*.esm.js",
+      "require": "./lib/*.js"
     }
   },
   "scripts": {

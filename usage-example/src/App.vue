@@ -1,8 +1,8 @@
 <script setup>
 import UsesDefaultExport from './components/UsesDefaultExport.vue';
-// import UsesLibExport from './components/UsesLibExport.vue';
 import UsesNamedExport from './components/UsesNamedExport.vue';
-// import UsesSrcExport from './components/UsesSrcExport.vue';
+import UsesSrcExport from './components/UsesSrcExport.vue';
+import UsesLibExport from './components/UsesLibExport.vue';
 </script>
 
 <template>
@@ -10,11 +10,11 @@ import UsesNamedExport from './components/UsesNamedExport.vue';
     <p style="color: #fff">The following should be styled Keen UI button components if this is working:</p>
     <br />
     <UsesDefaultExport />
-    <!-- <br /> -->
-    <!-- <UsesLibExport /> -->
     <br />
     <UsesNamedExport />
-    <!-- <br /> -->
-    <!-- <UsesSrcExport /> -->
+    <br />
+    <UsesSrcExport />
+    <br />
+    <UsesLibExport />
   </div>
 </template>

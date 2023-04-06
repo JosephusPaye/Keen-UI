@@ -98,10 +98,9 @@ export function install(app, config = {}) {
   });
 };
 
-// Make Keen UI available globally when in a browser environment
-if (typeof window !== "undefined") {
-  window.KeenUI = KeenUI;
-}
+export default {
+  install
+};
 
 export {
   UiAlert,
