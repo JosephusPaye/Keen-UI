@@ -145,12 +145,13 @@ export default {
   data() {
     const dateInView = dateUtils.clone(this.end || new Date());
     dateInView.setDate(1);
+    const [start, end] = this.modelValue
 
     return {
       today: new Date(),
       dateInView,
-      start: this.modelValue.length > 0 ? this.modelValue[0] : null,
-      end: this.modelValue.length === 2 ? this.modelValue[1] : null,
+      start: start || null,
+      end: end || null
     };
   },
 
@@ -229,6 +230,13 @@ export default {
           this.dateInView = dateInView;
         }
       }
+    },
+
+    modelValue () {
+      const [start, end] = this.modelValue
+
+      this.start = start
+      this.end = end
     },
 
     currentView() {
