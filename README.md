@@ -118,7 +118,8 @@ See [Customization](Customization.md).
 
 Each component is built into a standalone file with all its dependencies included. You can use these individual standalone components without importing the rest of the library. The standalone components are located in the `lib/` folder.
 
-**NOTE**: Standalone component files each contain their own dependencies, and many contain overlapping dependencies. As a result, using multiple standalone files may increase the size of your bundle due to duplicate code.
+> **Note**
+> Standalone component files each contain their own dependencies, and many contain overlapping dependencies. As a result, using multiple standalone files may increase the size of your bundle due to duplicate code.
 
 ```js
 import { createApp } from "vue";
