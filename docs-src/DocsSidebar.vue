@@ -98,10 +98,7 @@ export default {
         { label: "1.3.x", value: "1.3.2" },
         { label: "1.4.x", value: "1.4.0" },
       ],
-      selectedVersion: {
-        label: "1.4.x",
-        value: "1.4.0",
-      },
+      selectedVersion: "1.4.0",
       menu,
     };
   },

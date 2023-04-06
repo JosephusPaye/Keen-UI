@@ -18,6 +18,7 @@
             <ui-datepicker
                 v-model="picker1"
                 placeholder="Select a date"
+                has-clear-button
             >Your Birthday</ui-datepicker>
 
             <h4 class="page__demo-title">Floating label</h4>

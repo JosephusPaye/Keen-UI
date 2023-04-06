@@ -23,6 +23,19 @@
           <slot>{{ label }}</slot>
         </div>
 
+        <ui-icon
+          v-show="hasClearButton && !disabled && modelValue"
+          class="ui-datepicker__clear-button"
+          title="Clear"
+          @click.stop="$emit('update:modelValue', null)"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              d="M18.984 6.422L13.406 12l5.578 5.578-1.406 1.406L12 13.406l-5.578 5.578-1.406-1.406L10.594 12 5.016 6.422l1.406-1.406L12 10.594l5.578-5.578z"
+            />
+          </svg>
+        </ui-icon>
+
         <div class="ui-datepicker__display">
           <div class="ui-datepicker__display-value" :class="{ 'is-placeholder': !hasDisplayText }">
             {{
@@ -171,6 +184,10 @@ export default {
       default: false,
     },
     invalid: {
+      type: Boolean,
+      default: false,
+    },
+    hasClearButton: {
       type: Boolean,
       default: false,
     },
@@ -431,7 +448,7 @@ export default {
       padding-top: $ui-input-icon-margin-top--with-label;
     }
 
-    .ui-datepicker__dropdown-button {
+    .ui-datepicker__clear-button {
       top: $ui-input-button-margin-top--with-label;
     }
   }
@@ -486,6 +503,19 @@ export default {
   padding: 0;
   position: relative;
   width: 100%;
+}
+
+.ui-datepicker__clear-button {
+  color: $ui-input-button-color;
+  cursor: pointer;
+  font-size: $ui-input-button-size;
+  position: absolute;
+  right: $ui-input-button-margin-top * 2;
+  top: $ui-input-button-margin-top;
+
+  &:hover {
+    color: $ui-input-button-color--hover;
+  }
 }
 
 .ui-datepicker__icon-wrapper {
