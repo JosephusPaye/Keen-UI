@@ -96,11 +96,7 @@ export function install(app, config = {}) {
       app.component(Component.name, Component);
     }
   });
-};
-
-export default {
-  install
-};
+}
 
 export {
   UiAlert,
@@ -137,4 +133,9 @@ export {
   UiTextbox,
   UiToolbar,
   UiTooltip,
+};
+
+export default {
+  ...KeenUI,
+  install,
 };
