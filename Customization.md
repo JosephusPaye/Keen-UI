@@ -107,7 +107,7 @@ The `primary` and `accent` theme colors can be customized using the `$brand-prim
 
 ### Customizing other variables
 
-All other variables in [`keen-ui/src/styles/variables.scss`](.../src/styles/variables.scss) can be overridden to customize other aspects of the components in the same manner as the example above.
+All other variables in [`keen-ui/src/styles/variables.scss`](./src/styles/variables.scss) can be overridden to customize other aspects of the components in the same manner as the example above.
 
 Some components also have component-specific variables that can be found in their source files. Those can be overridden as well.
 
