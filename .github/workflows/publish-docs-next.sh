@@ -44,7 +44,14 @@ echo ""
 echo "Committing the changes..."
 git add next/
 git -c user.name="Josephus Paye II" -c user.email="j.paye96@gmail.com" \
-  commit -m "Add \`next\` docs for commit $NEXT_LAST_COMMIT" || (echo "No changes to built docs, skipping commit" && exit 0)
+  commit -m "Add \`next\` docs for commit $NEXT_LAST_COMMIT"
+
+# Exit if the commit was not successful
+if [[ $? != 0 ]]; then
+  echo ""
+  echo "No changes to built docs, skipping publish"
+  exit 0
+fi
 
 # Push the changes to the `gh-pages` branch
 if [[ $DO_PUSH == true ]]; then
