@@ -38,20 +38,13 @@ git checkout $GH_PAGES_BRANCH
 
 echo ""
 echo "Replacing the existing \`next\` docs with a copy of the new docs..."
-rm -rf next && cp -r docs next
-
-# Exit if there are no changes to the `next` directory
-HAS_NEXT_DIR_CHANGES=$(git diff --quiet --exit-code next)
-if [[ $HAS_NEXT_DIR_CHANGES == 0 ]]; then
-  echo "No changes to built \`next\` docs, skipping publish."
-  exit 0
-fi
+rm -rf next && mv docs/ next/
 
 echo ""
 echo "Committing the changes..."
-git add next
+git add next/
 git -c user.name="Josephus Paye II" -c user.email="j.paye96@gmail.com" \
-  commit -m "Add \`next\` docs for commit $NEXT_LAST_COMMIT"
+  commit -m "Add \`next\` docs for commit $NEXT_LAST_COMMIT" || (echo "No changes to built docs, skipping commit" && exit 0)
 
 # Push the changes to the `gh-pages` branch
 if [[ $DO_PUSH == true ]]; then
