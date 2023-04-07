@@ -25,17 +25,19 @@ You can customize the components by overriding Sass variables and importing the 
 2. If you're using Vite, add the following to `vite.config.js` ([more details here](https://vitejs.dev/config/shared-options.html#css-preprocessoroptions)):
 
    ```js
-   const scssVariablesFile = path.resolve(__dirname, "./src/styles/variables.scss");
+   const scssVariablesFile = path.resolve(__dirname, "./src/styles/variables.scss").replace(/\\/g, "/");
    export default defineConfig({
      css: {
        preprocessorOptions: {
          scss: {
-           additionalData: `@import "${scssVariablesFile}";`,
+           additionalData: `@use "${scssVariablesFile}" as *;`,
          },
        },
      },
    });
    ```
+
+   See [`usage-examples/vite-sass-customization`](./usage-examples/vite-sass-customization) for a complete example.
 
 3. If you are using Vue CLI, add the following to `vue.config.js` ([more details here](https://cli.vuejs.org/guide/css.html#passing-options-to-pre-processor-loaders)):
 
@@ -44,7 +46,7 @@ You can customize the components by overriding Sass variables and importing the 
      css: {
        loaderOptions: {
          sass: {
-           data: `@import "@/styles/variables.scss";`,
+           data: `@use "@/styles/variables.scss" as *;`,
          },
        },
      },
