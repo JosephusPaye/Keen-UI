@@ -1,3 +1,143 @@
+# v2.0.0 (to be released)
+
+This is a breaking release that upgrades Keen UI to work with Vue 3. If you are using Vue 2, you may continue to use the latest version of Keen UI 1.x.
+
+## UiAlert
+
+- TODO: document any API changes
+
+## UiAutocomplete
+
+- TODO: document any API changes
+
+## UiButton
+
+- TODO: document any API changes
+
+## UiCalendar
+
+- TODO: document any API changes
+
+## UiCheckbox
+
+- TODO: document any API changes
+
+## UiCheckboxGroup
+
+- TODO: document any API changes
+
+## UiCloseButton
+
+- TODO: document any API changes
+
+## UiCollapsible
+
+- TODO: document any API changes
+
+## UiConfirm
+
+- TODO: document any API changes
+
+## UiDatepicker
+
+- TODO: document any API changes
+
+## UiDatepickerCalendar
+
+- TODO: document any API changes
+
+## UiFab
+
+- TODO: document any API changes
+
+## UiFileupload
+
+- TODO: document any API changes
+
+## UiIcon
+
+- TODO: document any API changes
+
+## UiIconButton
+
+- TODO: document any API changes
+
+## UiMenu
+
+- TODO: document any API changes
+
+## UiModal
+
+- TODO: document any API changes
+
+## UiPopover
+
+- TODO: document any API changes
+
+## UiPreloader
+
+- TODO: document any API changes
+
+## UiProgressCircular
+
+- TODO: document any API changes
+
+## UiProgressLinear
+
+- TODO: document any API changes
+
+## UiRadio
+
+- TODO: document any API changes
+
+## UiRadioGroup
+
+- TODO: document any API changes
+
+## UiRippleInk
+
+- TODO: document any API changes
+
+## UiSelect
+
+- TODO: document any API changes
+
+## UiSlider
+
+- TODO: document any API changes
+
+## UiSnackbar
+
+- TODO: document any API changes
+
+## UiSnackbarContainer
+
+- TODO: document any API changes
+
+## UiSwitch
+
+- TODO: document any API changes
+
+## UiTab
+
+- TODO: document any API changes
+
+## UiTabs
+
+- TODO: document any API changes
+
+## UiTextbox
+
+- TODO: document any API changes
+
+## UiToolbar
+
+- TODO: document any API changes
+
+## UiTooltip
+
+- TODO: document any API changes
+
 # v1.4.0
 
 **Potentially Breaking Change**: Upgraded from [`node-sass`](https://npmjs.com/package/node-sass) to [`sass`](https://npmjs.com/package/sass), and fixed warnings about `/` division (see [#529](https://github.com/JosephusPaye/Keen-UI/pull/529)). `node-sass` is now deprecated, and `sass` [no longer uses the `/` operator for division](https://sass-lang.com/documentation/breaking-changes/slash-div).
