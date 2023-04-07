@@ -2,7 +2,11 @@
 
 ## Sass customization
 
-If you use Sass with [`webpack`](https://webpack.js.org) and [`vue-loader`](https://github.com/vuejs/vue-loader) in your project, you can customize the components by overriding Sass variables and then importing the `.vue` source files.
+If you use Sass in your project with one of the following setups, you can customize the components by overriding Sass variables and importing the components from source:
+
+- [Vite](https://vitejs.dev)
+- [Vue CLI](https://cli.vuejs.org/)
+- [Webpack](https://webpack.js.org) and [`vue-loader`](https://github.com/vuejs/vue-loader)
 
 ### Setup
 
@@ -10,26 +14,22 @@ If you use Sass with [`webpack`](https://webpack.js.org) and [`vue-loader`](http
 
    **Note**: since this file will be imported into every Sass file, make sure it doesn't contain any CSS rules. It should contain only Sass variables, functions or mixins.
 
-2. If you are **not** using Vue CLI:
+2. If you're using Vite, add the following to `vite.config.js` ([more details here](https://vitejs.dev/config/shared-options.html#css-preprocessoroptions)):
 
-   - Install [`sass-resources-loader`](https://github.com/shakacode/sass-resources-loader).
+   ```js
+   const scssVariablesFile = path.resolve(__dirname, "./src/styles/variables.scss");
+   export default defineConfig({
+     css: {
+       preprocessorOptions: {
+         scss: {
+           additionalData: `@import "${scssVariablesFile}";`,
+         },
+       },
+     },
+   });
+   ```
 
-     ```
-     npm install sass-resources-loader --save-dev
-     ```
-
-   - Add the following rule to your webpack config file:
-
-     ```js
-     {
-         loader: 'sass-resources-loader',
-         options: {
-             resources: path.resolve(__dirname, './src/styles/variables.scss')
-         }
-     }
-     ```
-
-3. If you are using Vue CLI, add the following to `vue.config.js` ([details](https://cli.vuejs.org/guide/css.html#passing-options-to-pre-processor-loaders)):
+3. If you are using Vue CLI, add the following to `vue.config.js` ([more details here](https://cli.vuejs.org/guide/css.html#passing-options-to-pre-processor-loaders)):
 
    ```js
    module.exports = {
@@ -43,7 +43,26 @@ If you use Sass with [`webpack`](https://webpack.js.org) and [`vue-loader`](http
    };
    ```
 
-4. Now you can customize the component styles by overriding Keen UI variables in the `variables.scss` file you created.
+4. If you are using Webpack + `vue-loader` without Vue CLI, do the following:
+
+   - Install [`sass-resources-loader`](https://github.com/shakacode/sass-resources-loader).
+
+     ```
+     npm install sass-resources-loader --save-dev
+     ```
+
+   - Add the following rule to your webpack config file:
+
+     ```js
+     {
+       loader: 'sass-resources-loader',
+       options: {
+         resources: path.resolve(__dirname, './src/styles/variables.scss')
+       }
+     }
+     ```
+
+5. Now you can customize the component styles by overriding Keen UI variables in the `variables.scss` file you created. Read on for more details.
 
 ### Brand colors
 
@@ -68,8 +87,7 @@ The `primary` and `accent` theme colors can be customized using the `$brand-prim
    </template>
 
    <script>
-     import "keen-ui/src/bootstrap"; // Required to setup Keen UI, should be imported only once in your project
-     import UiButton from "keen-ui/src/UiButton.vue";
+     import { UiButton } from "keen-ui/src/index";
 
      export default {
        components: {
@@ -120,6 +138,7 @@ import { createApp } from "vue";
 import KeenUI from "keen-ui";
 
 const app = createApp();
+
 app.use(KeenUI, {
   UiButton: {
     disableRipple: true,
