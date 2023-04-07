@@ -3,5 +3,8 @@ import UiButton from 'keen-ui/src/UiButton.vue';
 </script>
 
 <template>
-  <div><UiButton>Uses Src Export</UiButton></div>
+  <div class="buttons-inline">
+    <UiButton color="primary">Uses Src Export</UiButton>
+    <UiButton color="accent">Uses Src Export</UiButton>
+  </div>
 </template>

@@ -4,7 +4,8 @@ import 'keen-ui/keen-ui.css';
 </script>
 
 <template>
-  <div>
-    <KeenUI.UiButton>Uses Default Export</KeenUI.UiButton>
+  <div class="buttons-inline">
+    <KeenUI.UiButton color="primary">Uses Default Export</KeenUI.UiButton>
+    <KeenUI.UiButton color="accent">Uses Default Export</KeenUI.UiButton>
   </div>
 </template>

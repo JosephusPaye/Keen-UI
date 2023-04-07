@@ -5,7 +5,8 @@ import 'keen-ui/css/UiButton.css';
 </script>
 
 <template>
-  <div>
-    <UiButton>Uses Lib Export</UiButton>
+  <div class="buttons-inline">
+    <UiButton color="primary">Uses Lib Export</UiButton>
+    <UiButton color="accent">Uses Lib Export</UiButton>
   </div>
 </template>
