@@ -53,7 +53,7 @@ export default {
       version: version,
       repoUrl: "https://github.com/JosephusPaye/Keen-UI",
       description:
-        "Keen UI is a Vue.js UI library with a simple API, inspired by Google's Material Design.",
+        "Keen UI is a Vue.js UI library with a simple API, inspired by Google's Material Design [testing publish].",
       mobileMediaQuery: null,
     };
   },
