@@ -1,0 +1,56 @@
+name: Publish docs for `next` branch
+
+on:
+  push:
+    branches: [next]
+
+# Used to ensure only one instance of the workflow is running at a time, cancels existing runs when there's a new one.
+# See https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#concurrency.
+concurrency:
+  # `github.workflow` is workflow name, `github.ref` is current branch/tag identifier
+  group: ${{ format('{0}:{1}', github.workflow, github.ref) }}
+  cancel-in-progress: true
+
+jobs:
+  check_for_changes:
+    name: Check for changes
+    runs-on: ubuntu-22.04
+    outputs:
+      has_workflow_changes: ${{ steps.filter.outputs.workflow_changes }}
+      has_docs_changes: ${{ steps.filter.outputs.docs_changes }}
+      has_src_changes: ${{ steps.filter.outputs.src_changes }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Check for Changes
+        uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            workflow_changes:
+              - '.github/workflows/publish-docs-next*'
+            docs_changes:
+              - 'docs-src/**'
+            src_changes:
+              - 'src/**'
+
+  publish_docs:
+    name: "Build and publish docs to GitHub Pages"
+    runs-on: "ubuntu-latest"
+    needs: ["check_for_changes"]
+    if: |
+      needs.check_for_changes.outputs.has_workflow_changes == 'true' ||
+      needs.check_for_changes.outputs.has_docs_changes == 'true' ||
+      needs.check_for_changes.outputs.has_src_changes == 'true'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: next
+          fetch-depth: 0 # fetch all history so we can switch branches to `gh-pages`
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
+      - run: yarn install --frozen-lockfile
+      - run: bash .github/workflows/publish-docs-next.sh

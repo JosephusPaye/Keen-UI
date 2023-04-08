@@ -6,9 +6,9 @@
       class="keen-docs-brand__version"
       rel="noopener"
       target="_blank"
-      title="View release notes"
-      :href="versionUrl"
-      >v{{ version }}</a
+      :title="displayVersion.title"
+      :href="displayVersion.url"
+      >{{ displayVersion.label }}</a
     >
 
     <a
@@ -44,6 +44,16 @@ export default {
     versionUrl: String,
     repoUrl: String,
   },
+
+  computed: {
+    displayVersion() {
+      return {
+        url: this.versionUrl,
+        title: this.version === "next" ? "View `next` branch on Github" : "View release notes",
+        label: this.version === "next" ? "next" : `v${this.version}`,
+      };
+    },
+  },
 };
 </script>
 
@@ -65,6 +75,7 @@ export default {
   font-size: 0.9rem;
   opacity: 0.7;
   vertical-align: super;
+  padding-left: 0.4rem;
 
   &:hover,
   &:focus {

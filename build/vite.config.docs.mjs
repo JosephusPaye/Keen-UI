@@ -6,6 +6,7 @@ import autoprefixer from "autoprefixer";
 import options from "./options.mjs";
 
 export default defineConfig({
+  base: "./", // Use relative paths for assets in built index.html
   plugins: [vue()],
   server: {
     port: 9000,

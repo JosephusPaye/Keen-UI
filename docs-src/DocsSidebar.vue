@@ -75,6 +75,20 @@ import DocsBrand from "./DocsBrand.vue";
 import UiIcon from "@/UiIcon.vue";
 import UiSelect from "@/UiSelect.vue";
 
+import version from "../build/version.mjs";
+
+const versions = [
+  { label: "0.8.x", value: "0.8.9" },
+  { label: "1.0.x", value: "1.0.1" },
+  { label: "1.1.x", value: "1.1.2" },
+  { label: "1.2.x", value: "1.2.1" },
+  { label: "1.3.x", value: "1.3.2" },
+  { label: "1.4.x", value: "1.4.0" },
+  { label: "next", value: "next" },
+];
+
+const selectedVersion = versions.find((v) => v.value === version) ?? versions[versions.length - 2];
+
 export default {
   components: {
     DocsBrand,
@@ -90,18 +104,8 @@ export default {
 
   data() {
     return {
-      versions: [
-        { label: "0.8.x", value: "0.8.9" },
-        { label: "1.0.x", value: "1.0.1" },
-        { label: "1.1.x", value: "1.1.2" },
-        { label: "1.2.x", value: "1.2.1" },
-        { label: "1.3.x", value: "1.3.2" },
-        { label: "1.4.x", value: "1.4.0" },
-      ],
-      selectedVersion: {
-        label: "1.4.x",
-        value: "1.4.0",
-      },
+      versions,
+      selectedVersion,
       menu,
     };
   },
