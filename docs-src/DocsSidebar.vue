@@ -75,6 +75,8 @@ import DocsBrand from "./DocsBrand.vue";
 import UiIcon from "@/UiIcon.vue";
 import UiSelect from "@/UiSelect.vue";
 
+import version from "../build/version.mjs";
+
 export default {
   components: {
     DocsBrand,
@@ -97,12 +99,18 @@ export default {
         { label: "1.2.x", value: "1.2.1" },
         { label: "1.3.x", value: "1.3.2" },
         { label: "1.4.x", value: "1.4.0" },
-        { label: "next", value: "next" }
+        { label: "next", value: "next" },
       ],
-      selectedVersion: {
-        label: "1.4.x",
-        value: "1.4.0",
-      },
+      selectedVersion:
+        version === "next"
+          ? {
+              label: "next",
+              value: "next",
+            }
+          : {
+              label: "1.4.x",
+              value: "1.4.0",
+            },
       menu,
     };
   },
