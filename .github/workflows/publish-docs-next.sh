@@ -41,7 +41,7 @@ echo "Replacing the existing \`next\` docs with a copy of the new docs..."
 rm -rf next && mv docs/ next/
 
 # If there are changes in the built docs, commit and push them
-if git diff --quiet HEAD $GH_PAGES_BRANCH -- src/; then
+if ! git diff --quiet HEAD $GH_PAGES_BRANCH -- next/; then
   echo ""
   echo "Committing the changes..."
   git add next/
