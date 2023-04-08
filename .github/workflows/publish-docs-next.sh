@@ -42,8 +42,9 @@ rm -rf next && mv docs/ next/
 #   - `/blob/master` with `/blob/$BRANCH_NEXT`
 echo ""
 echo "Replacing links to \`master\` with links to \`$BRANCH_NEXT\`..."
-find next/ -type f -exec sed -i -e "s/\/tree\/master/\/tree\/$BRANCH_NEXT/g" {} \;
-find next/ -type f -exec sed -i -e "s/\/blob\/master/\/blob\/$BRANCH_NEXT/g" {} \;
+BRANCH_NEXT_SLASH_ESCAPED=$(echo "$BRANCH_NEXT" | sed 's/\//\\\//g')
+find next/ -type f -exec sed -i -e "s/\/tree\/master/\/tree\/$BRANCH_NEXT_SLASH_ESCAPED/g" {} \;
+find next/ -type f -exec sed -i -e "s/\/blob\/master/\/blob\/$BRANCH_NEXT_SLASH_ESCAPED/g" {} \;
 
 # If there are changes in the built docs, commit and push them
 if ! git diff --quiet -- next/; then
