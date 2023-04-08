@@ -65,6 +65,7 @@ export default {
   font-size: 0.9rem;
   opacity: 0.7;
   vertical-align: super;
+  padding-left: 0.4rem;
 
   &:hover,
   &:focus {

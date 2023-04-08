@@ -18,6 +18,9 @@ fi
 LAST_COMMIT_ON_NEXT=$(git rev-parse --short HEAD)
 echo "LAST_COMMIT_ON_NEXT: $LAST_COMMIT_ON_NEXT"
 
+# Change the version to "next" before building the docs
+echo "export default \"next\";" > ./build/version.mjs
+
 echo ""
 echo "Building docs..."
 yarn build:docs
