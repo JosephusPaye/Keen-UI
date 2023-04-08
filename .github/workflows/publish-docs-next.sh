@@ -7,16 +7,6 @@ GH_PAGES_BRANCH="gh-pages"
 echo "NEXT_BRANCH: $NEXT_BRANCH"
 echo "GH_PAGES_BRANCH: $GH_PAGES_BRANCH"
 
-# Read --push flag
-DO_PUSH=false
-for arg in "$@"; do
-  if [[ $arg == "--push" ]]; then
-    DO_PUSH=true
-  fi
-done
-
-echo "DO_PUSH: $DO_PUSH"
-
 # Exit if the current branch is not `next`
 if [[ $(git rev-parse --abbrev-ref HEAD) != "$NEXT_BRANCH" ]]; then
   echo "This script can only be run on the $NEXT_BRANCH branch."
@@ -41,22 +31,16 @@ echo "Replacing the existing \`next\` docs with a copy of the new docs..."
 rm -rf next && mv docs/ next/
 
 # If there are changes in the built docs, commit and push them
-if ! git diff --quiet HEAD $GH_PAGES_BRANCH -- next/; then
+if ! git diff --quiet -- next/; then
   echo ""
   echo "Committing the changes..."
   git add next/
   git -c user.name="Josephus Paye II" -c user.email="j.paye96@gmail.com" \
     commit -m "Add \`next\` docs for commit $NEXT_LAST_COMMIT"
 
-  # Push the changes to the `gh-pages` branch
-  if [[ $DO_PUSH == true ]]; then
-    echo ""
-    echo "Pushing the changes to the $GH_PAGES_BRANCH branch..."
-    git push origin $GH_PAGES_BRANCH
-  else
-    echo ""
-    echo "Skipping push to the $GH_PAGES_BRANCH branch, use the --push flag to push."
-  fi
+  echo ""
+  echo "Pushing the changes to the $GH_PAGES_BRANCH branch..."
+  git push origin $GH_PAGES_BRANCH
 else
   echo ""
   echo "No changes to built docs, skipping publish"

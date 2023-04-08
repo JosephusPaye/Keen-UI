@@ -53,4 +53,4 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "yarn"
       - run: yarn install --frozen-lockfile
-      - run: bash .github/workflows/publish-docs-next.sh --push
+      - run: bash .github/workflows/publish-docs-next.sh
