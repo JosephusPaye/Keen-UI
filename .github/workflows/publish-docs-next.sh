@@ -33,6 +33,15 @@ echo ""
 echo "Replacing the existing \`next\` docs with a copy of the new docs..."
 rm -rf next && mv docs/ next/
 
+# The built files have links to the `master` branch on GitHub.
+# Find and replace those links to point to the next branch. Replace:
+#   - `/tree/master` with `/tree/$BRANCH_NEXT`
+#   - `/blob/master` with `/blob/$BRANCH_NEXT`
+echo ""
+echo "Replacing links to \`master\` with links to \`$BRANCH_NEXT\`..."
+find next/ -type f -exec sed -i -e "s/\/tree\/master/\/tree\/$BRANCH_NEXT/g" {} \;
+find next/ -type f -exec sed -i -e "s/\/blob\/master/\/blob\/$BRANCH_NEXT/g" {} \;
+
 # If there are changes in the built docs, commit and push them
 if ! git diff --quiet -- next/; then
   echo ""
