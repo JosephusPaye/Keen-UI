@@ -2,7 +2,7 @@ name: Publish docs for `next` branch
 
 on:
   push:
-    branches: [paye/auto-publish-docs] # TODO: change to `next` when ready
+    branches: [next]
 
 # Used to ensure only one instance of the workflow is running at a time, cancels existing runs when there's a new one.
 # See https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#concurrency.
@@ -45,7 +45,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: paye/auto-publish-docs # TODO: change to `next` when ready
+          ref: next
           fetch-depth: 0 # fetch all history so we can switch branches to `gh-pages`
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3

@@ -1,7 +1,7 @@
 # Exit on first error, treat unset variables as errors
 set -eu
 
-BRANCH_NEXT="paye/auto-publish-docs" # TODO: Change this to `next` before merging
+BRANCH_NEXT="next"
 BRANCH_GH_PAGES="gh-pages"
 
 echo "BRANCH_NEXT: $BRANCH_NEXT"
