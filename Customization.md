@@ -25,7 +25,9 @@ You can customize the components by overriding Sass variables and importing the 
 2. If you're using Vite, add the following to `vite.config.js` ([more details here](https://vitejs.dev/config/shared-options.html#css-preprocessoroptions)):
 
    ```js
-   const scssVariablesFile = path.resolve(__dirname, "./src/styles/variables.scss").replace(/\\/g, "/");
+   const scssVariablesFile = path
+     .resolve(__dirname, "./src/styles/variables.scss")
+     .replace(/\\/g, "/");
    export default defineConfig({
      css: {
        preprocessorOptions: {

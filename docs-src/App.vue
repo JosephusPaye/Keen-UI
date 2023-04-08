@@ -78,8 +78,8 @@ export default {
     },
 
     versionUrl() {
-      return this.version === 'next'
-        ? 'https://github.com/JosephusPaye/Keen-UI/tree/next'
+      return this.version === "next"
+        ? "https://github.com/JosephusPaye/Keen-UI/tree/next"
         : `https://github.com/JosephusPaye/Keen-UI/releases/tag/v${this.version}`;
     },
   },
