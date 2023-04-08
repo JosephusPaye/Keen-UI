@@ -25,6 +25,9 @@ echo ""
 echo "Building docs..."
 yarn build:docs
 
+# Undo the change to the version, to switch branches
+git checkout -- ./build/version.mjs
+
 echo ""
 echo "Switching to the $BRANCH_GH_PAGES branch..."
 git checkout $BRANCH_GH_PAGES
