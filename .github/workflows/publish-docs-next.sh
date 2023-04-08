@@ -40,25 +40,25 @@ echo ""
 echo "Replacing the existing \`next\` docs with a copy of the new docs..."
 rm -rf next && mv docs/ next/
 
-echo ""
-echo "Committing the changes..."
-git add next/
-git -c user.name="Josephus Paye II" -c user.email="j.paye96@gmail.com" \
-  commit -m "Add \`next\` docs for commit $NEXT_LAST_COMMIT"
+# If there are changes in the built docs, commit and push them
+if git diff --quiet HEAD $GH_PAGES_BRANCH -- src/; then
+  echo ""
+  echo "Committing the changes..."
+  git add next/
+  git -c user.name="Josephus Paye II" -c user.email="j.paye96@gmail.com" \
+    commit -m "Add \`next\` docs for commit $NEXT_LAST_COMMIT"
 
-# Exit if the commit was not successful
-if [[ $? != 0 ]]; then
+  # Push the changes to the `gh-pages` branch
+  if [[ $DO_PUSH == true ]]; then
+    echo ""
+    echo "Pushing the changes to the $GH_PAGES_BRANCH branch..."
+    git push origin $GH_PAGES_BRANCH
+  else
+    echo ""
+    echo "Skipping push to the $GH_PAGES_BRANCH branch, use the --push flag to push."
+  fi
+else
   echo ""
   echo "No changes to built docs, skipping publish"
   exit 0
-fi
-
-# Push the changes to the `gh-pages` branch
-if [[ $DO_PUSH == true ]]; then
-  echo ""
-  echo "Pushing the changes to the $GH_PAGES_BRANCH branch..."
-  git push origin $GH_PAGES_BRANCH
-else
-  echo ""
-  echo "Skipping push to the $GH_PAGES_BRANCH branch, use the --push flag to push."
 fi
