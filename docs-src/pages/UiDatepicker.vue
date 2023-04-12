@@ -208,6 +208,30 @@
                 disabled
                 placeholder="Select a date"
             >A Special Day</ui-datepicker>
+
+            <h4 class="page__demo-title">Daterange picker</h4>
+
+            <ui-datepicker
+                v-model="picker16"
+                placeholder="Select a date"
+            >A Date Range</ui-datepicker>
+
+            <h4 class="page__demo-title">Daterange picker in a modal</h4>
+
+            <ui-datepicker
+                v-model="picker17"
+                placeholder="Select a date"
+                picker-type="modal"
+            >A Date Range</ui-datepicker>
+
+            <h4 class="page__demo-title">Daterange picker in a modal with 3 calendars</h4>
+
+            <ui-datepicker
+                v-model="picker18"
+                :calendars-number="3"
+                placeholder="Select a date"
+                picker-type="modal"
+            >A Date Range</ui-datepicker>
         </div>
 
         <h3 class="page__section-title">API</h3>
@@ -228,11 +252,12 @@
                         <tbody>
                             <tr>
                                 <td class="no-wrap">modelValue, v-model *</td>
-                                <td>Date, String</td>
+                                <td>Date, String, Array</td>
                                 <td></td>
                                 <td>
                                     <p>The model the selected date syncs to. Can be set initially for a default value.</p>
                                     <p>If you are not using <code>v-model</code>, you should listen for the <code>update:modelValue</code> event and update <code>modelValue</code>.</p>
+                                    <p>Use an Array with <code>0</code>, <code>1</code> or <code>2</code> Date values for a date range picker, where the first value is the start of the range and the last value is the end of the range.</p>
                                 </td>
                             </tr>
 
@@ -452,6 +477,15 @@
                                     <p>Whether or not the datepicker is disabled. Set to <code>true</code> to disable the datepicker.</p>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td>calendarsNumber</td>
+                                <td>Number</td>
+                                <td><code>2</code></td>
+                                <td>
+                                    <p>The number of calendars to show when using a <strong>date range picker</strong>.</p>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -651,7 +685,10 @@ export default {
             picker13: null,
             picker1301: null,
             picker14: null,
-            picker15: new Date()
+            picker15: new Date(),
+            picker16: [],
+            picker17: [],
+            picker18: []
         };
     },
 

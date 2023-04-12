@@ -50,18 +50,35 @@
           @open="onPickerOpen"
         >
           <ui-datepicker-calendar
-            v-model:currentView="calendarView"
+            v-if="!isRange"
+            v-model:current-view="calendarView"
             :color="color"
             :date-filter="dateFilter"
             :lang="lang"
             :max-date="maxDate"
             :min-date="minDate"
             :orientation="orientation"
-            :value="date"
+            :model-value="value"
             :start-of-week="startOfWeek"
             :year-range="yearRange"
             @date-select="onDateSelect"
           ></ui-datepicker-calendar>
+
+          <ui-daterangepicker-calendar
+            v-else
+            v-model:current-view="calendarView"
+            :color="color"
+            :date-filter="dateFilter"
+            :lang="lang"
+            :max-date="maxDate"
+            :min-date="minDate"
+            :orientation="orientation"
+            :model-value="value"
+            :start-of-week="startOfWeek"
+            :year-range="yearRange"
+            :calendars-number="calendarsNumber"
+            @update:model-value="onDateSelect"
+          ></ui-daterangepicker-calendar>
         </ui-popover>
       </div>
 
@@ -85,24 +102,42 @@
       @open="onPickerOpen"
     >
       <ui-datepicker-calendar
-        v-model:currentView="calendarView"
+        v-if="!isRange"
+        v-model:current-view="calendarView"
         :color="color"
         :date-filter="dateFilter"
         :lang="lang"
         :max-date="maxDate"
         :min-date="minDate"
         :orientation="orientation"
-        :value="date"
+        :model-value="value"
         :start-of-week="startOfWeek"
         :year-range="yearRange"
         @date-select="onDateSelect"
       ></ui-datepicker-calendar>
+
+      <ui-daterangepicker-calendar
+        v-else
+        v-model:current-view="calendarView"
+        :color="color"
+        :date-filter="dateFilter"
+        :lang="lang"
+        :max-date="maxDate"
+        :min-date="minDate"
+        :orientation="orientation"
+        :model-value="value"
+        :start-of-week="startOfWeek"
+        :year-range="yearRange"
+        :calendars-number="calendarsNumber"
+        @update:model-value="onDateSelect"
+      ></ui-daterangepicker-calendar>
     </ui-modal>
   </div>
 </template>
 
 <script>
 import UiDatepickerCalendar from "./UiDatepickerCalendar.vue";
+import UiDaterangepickerCalendar from "./UiDaterangepickerCalendar.vue";
 import UiIcon from "./UiIcon.vue";
 import UiModal from "./UiModal.vue";
 import UiPopover from "./UiPopover.vue";
@@ -115,6 +150,7 @@ export default {
 
   components: {
     UiDatepickerCalendar,
+    UiDaterangepickerCalendar,
     UiIcon,
     UiModal,
     UiPopover,
@@ -124,11 +160,15 @@ export default {
 
   props: {
     name: String,
-    modelValue: [Date, String],
+    modelValue: [Date, String, Array],
     tabindex: [String, Number],
     startOfWeek: {
       type: Number,
       default: 0,
+    },
+    calendarsNumber: {
+      type: Number,
+      default: 2,
     },
     minDate: Date,
     maxDate: Date,
@@ -194,8 +234,13 @@ export default {
   },
 
   computed: {
-    date() {
-      return typeof this.modelValue === "string" ? new Date(this.modelValue) : this.modelValue;
+    value() {
+      const transformer = (value) => (typeof value === "string" ? new Date(value) : value);
+      return this.isRange ? this.modelValue.map(transformer) : transformer(this.modelValue);
+    },
+
+    isRange() {
+      return Array.isArray(this.modelValue);
     },
 
     classes() {
@@ -227,7 +272,8 @@ export default {
     },
 
     isLabelInline() {
-      return !this.date && !this.isActive;
+      const hasValue = this.isRange ? this.modelValue.length > 0 : Boolean(this.value);
+      return !hasValue && !this.isActive;
     },
 
     hasFeedback() {
@@ -243,13 +289,20 @@ export default {
     },
 
     displayText() {
-      if (!this.date) {
+      const formatter = (date) =>
+        this.customFormatter
+          ? this.customFormatter(date, this.lang)
+          : dateUtils.humanize(date, this.lang);
+
+      if (this.isRange) {
+        return this.value.map(formatter).join(" - ");
+      }
+
+      if (!this.value) {
         return "";
       }
 
-      return this.customFormatter
-        ? this.customFormatter(this.date, this.lang)
-        : dateUtils.humanize(this.date, this.lang);
+      return formatter(this.value);
     },
 
     hasDisplayText() {
@@ -257,9 +310,13 @@ export default {
     },
 
     submittedValue() {
-      return this.date
-        ? `${this.date.getFullYear()}-${1 + this.date.getMonth()}-${this.date.getDate()}`
-        : "";
+      const formatter = (date) => `${date.getFullYear()}-${1 + date.getMonth()}-${date.getDate()}`;
+
+      if (this.isRange) {
+        return this.value.map(formatter).join(" - ");
+      }
+
+      return this.value ? formatter(this.value) : "";
     },
 
     usesPopover() {
@@ -284,7 +341,9 @@ export default {
   methods: {
     onDateSelect(date) {
       this.$emit("update:modelValue", date);
-      this.closePicker();
+      if (!this.isRange || date.length === 2) {
+        this.closePicker();
+      }
     },
 
     isPickerOpen() {
@@ -357,7 +416,7 @@ export default {
     },
 
     clear() {
-      this.$emit("update:modelValue", null);
+      this.$emit("update:modelValue", this.isRange ? [] : null);
     },
 
     reset() {

@@ -141,7 +141,7 @@ import UiSelectOption from "./UiSelectOption.vue";
 
 import RespondsToExternalClick from "./mixins/RespondsToExternalClick";
 import { looseIndexOf, looseEqual } from "./helpers/util";
-import { scrollIntoView, resetScroll } from "./helpers/element-scroll";
+import { resetScroll } from "./helpers/element-scroll";
 
 import fuzzysearch from "fuzzysearch";
 
@@ -583,10 +583,9 @@ export default {
     },
 
     scrollOptionIntoView(optionEl) {
-      scrollIntoView(optionEl, {
-        container: this.$refs.optionsList,
-        marginTop: 180,
-      });
+      if (optionEl) {
+        optionEl.scrollIntoView({ block: "nearest" });
+      }
     },
 
     reset() {

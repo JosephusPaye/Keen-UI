@@ -123,6 +123,11 @@ export function isSameDay(date1, date2) {
         date1.getDate() === date2.getDate();
 }
 
+export function isSameMonth(date1, date2) {
+    return date1.getFullYear() === date2.getFullYear() &&
+        date1.getMonth() === date2.getMonth();
+}
+
 export function isBefore(date1, date2) {
     return date1.getTime() < date2.getTime();
 }
@@ -130,6 +135,24 @@ export function isBefore(date1, date2) {
 export function isAfter(date1, date2) {
     return date1.getTime() > date2.getTime();
 }
+
+export function endOfDay (date) {
+  date = clone(date);
+  date.setHours(23);
+  date.setMinutes(59);
+  date.setSeconds(59);
+
+  return date;
+};
+
+export function startOfDay (date) {
+  date = clone(date);
+  date.setHours(0);
+  date.setMinutes(0);
+  date.setSeconds(0);
+
+  return date;
+};
 
 export default {
     defaultLang,
@@ -143,6 +166,9 @@ export default {
     clone,
     moveToDayOfWeek,
     isSameDay,
+    isSameMonth,
+    startOfDay,
+    endOfDay,
     isBefore,
     isAfter
 };

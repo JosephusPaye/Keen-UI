@@ -2,6 +2,7 @@
   <div class="ui-calendar-controls" :class="classes">
     <ui-icon-button
       class="ui-calendar-controls__nav-button"
+      :class="!showPrevious && 'ui-calendar-controls__nav-button--hidden'"
       icon="keyboard_arrow_left"
       type="secondary"
       :color="color === 'default' ? 'default' : 'white'"
@@ -18,6 +19,7 @@
     <div class="ui-calendar-controls__month-and-year">{{ monthAndYear }}</div>
 
     <ui-icon-button
+      :class="!showNext && 'ui-calendar-controls__nav-button--hidden'"
       class="ui-calendar-controls__nav-button"
       icon="keyboard_arrow_right"
       type="secondary"
@@ -55,6 +57,14 @@ export default {
     },
     lang: Object,
     dateInView: Date,
+    showPrevious: {
+      type: Boolean,
+      default: true,
+    },
+    showNext: {
+      type: Boolean,
+      default: true,
+    },
     minDate: Date,
     maxDate: Date,
     yearRange: {
@@ -63,7 +73,7 @@ export default {
     },
   },
 
-  emits: ["go-to-date"],
+  emits: ["go-to-date", "go-to-previous", "go-to-next"],
 
   computed: {
     classes() {
@@ -119,6 +129,7 @@ export default {
       date.setMonth(date.getMonth() - 1);
 
       this.goToDate(date);
+      this.$emit("go-to-previous");
     },
 
     goToNextMonth() {
@@ -129,6 +140,7 @@ export default {
       date.setMonth(date.getMonth() + 1);
 
       this.goToDate(date);
+      this.$emit("go-to-next");
     },
 
     goToDate(date) {
@@ -145,12 +157,19 @@ export default {
   align-items: center;
   display: flex;
   height: $ui-calendar-controls-height;
-  justify-content: space-between;
+
+  &__nav-button {
+    &--hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
 }
 
 .ui-calendar-controls__month-and-year {
   font-size: rem(15px);
   font-weight: $font-weight--semibold;
+  margin: 0 auto;
 }
 
 // ================================================
