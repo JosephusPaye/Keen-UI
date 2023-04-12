@@ -46,7 +46,11 @@
       </li>
     </ul>
     <div v-show="!showYearPicker" class="ui-daterangepicker-calendar__body">
-      <div v-for="(month, index) in calendars" :key="index" class="ui-daterangepicker-calendar__body-part">
+      <div
+        v-for="(month, index) in calendars"
+        :key="index"
+        class="ui-daterangepicker-calendar__body-part"
+      >
         <ui-calendar-controls
           ref="controls"
           :date-in-view="month"
@@ -146,13 +150,13 @@ export default {
   data() {
     const dateInView = dateUtils.clone(this.end || new Date());
     dateInView.setDate(1);
-    const [start, end] = this.modelValue
+    const [start, end] = this.modelValue;
 
     return {
       today: new Date(),
       dateInView, // The date of the last calendar in view
       start: start || null,
-      end: end || null
+      end: end || null,
     };
   },
 
@@ -233,14 +237,14 @@ export default {
       }
     },
 
-    modelValue () {
-      const [start, end] = this.modelValue
+    modelValue() {
+      const [start, end] = this.modelValue;
 
-      this.start = start
-      this.end = end
+      this.start = start;
+      this.end = end;
     },
 
-    dateInView () {
+    dateInView() {
       if (this.showYearPicker) {
         this.scrollYearIntoView(this.dateInView.getFullYear());
       }
@@ -267,7 +271,7 @@ export default {
 
       const dateInView = dateUtils.clone(date);
       dateInView.setDate(1);
-      dateInView.setMonth(dateInView.getMonth() + (index === 0 ? (this.calendarsNumber - 1) : 0));
+      dateInView.setMonth(dateInView.getMonth() + (index === 0 ? this.calendarsNumber - 1 : 0));
       this.dateInView = dateInView;
     },
 
@@ -278,7 +282,7 @@ export default {
         el.scrollIntoView({
           behavior: "auto",
           block: "center",
-          inline: "center"
+          inline: "center",
         });
       });
     },
@@ -352,7 +356,7 @@ export default {
     },
 
     onDateSelect(date) {
-      const { startOfDay, endOfDay } = dateUtils
+      const { startOfDay, endOfDay } = dateUtils;
       if ((this.start && this.end) || (!this.start && !this.end)) {
         this.start = startOfDay(date);
         this.end = null;
@@ -467,9 +471,12 @@ $ui-daterangepicker-calendars-gap: rem(8px) !default;
   list-style: none;
   overflow-y: auto;
   margin: 0;
-  $gaps-number: v-bind('calendarsNumber - 1');
+  $gaps-number: v-bind("calendarsNumber - 1");
   $calendar-part-width: ($ui-calendar-cell-size * 7) + ($ui-daterangepicker-calendar-padding * 2);
-  width: calc($calendar-part-width * v-bind(calendarsNumber) + ($ui-daterangepicker-calendars-gap * $gaps-number));
+  width: calc(
+    $calendar-part-width * v-bind(calendarsNumber) +
+      ($ui-daterangepicker-calendars-gap * $gaps-number)
+  );
 }
 
 .ui-daterangepicker-calendar__year {

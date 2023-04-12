@@ -202,7 +202,7 @@ export default {
         el.scrollIntoView({
           behavior: "auto",
           block: "center",
-          inline: "center"
+          inline: "center",
         });
       });
     },
