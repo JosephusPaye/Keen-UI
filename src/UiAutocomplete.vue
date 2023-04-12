@@ -31,6 +31,7 @@
 
         <input
           ref="input"
+          v-autofocus="autofocus"
           autocomplete="off"
           class="ui-autocomplete__input"
           :disabled="disabled"
@@ -38,7 +39,6 @@
           :placeholder="hasFloatingLabel ? null : placeholder"
           :readonly="readonly ? readonly : null"
           :tabindex="tabindex"
-          v-autofocus="autofocus"
           :value="modelValue"
           @blur="onBlur"
           @change="onChange"
