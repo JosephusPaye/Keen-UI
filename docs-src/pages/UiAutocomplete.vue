@@ -118,6 +118,20 @@
 
                 placeholder="You can't interact with this"
             ></ui-autocomplete>
+
+            <h4 class="page__demo-title">Disabled</h4>
+
+            <ui-button :disabled="addedGrannies" @click="$refs.modal.open()">
+              In a modal
+            </ui-button>
+
+            <ui-modal ref="modal">
+                <ui-autocomplete
+                    v-model="autocomplete8"
+                    label="Favourite Month"
+                    :suggestions="months"
+                ></ui-autocomplete>
+            </ui-modal>
         </div>
 
         <h3 class="page__section-title">API</h3>
@@ -606,6 +620,7 @@ import UiAutocomplete from '@/UiAutocomplete.vue';
 import UiButton from '@/UiButton.vue';
 import UiTab from '@/UiTab.vue';
 import UiTabs from '@/UiTabs.vue';
+import UiModal from '@/UiModal.vue';
 
 const months = [
     'January',
@@ -666,6 +681,7 @@ const grannies = [
 export default {
     components: {
         UiAutocomplete,
+        UiModal,
         UiButton,
         UiTab,
         UiTabs
@@ -683,7 +699,8 @@ export default {
             autocomplete4Touched: false,
             autocomplete5: '',
             autocomplete6: '',
-            autocomplete7: ''
+            autocomplete7: '',
+            autocomplete8: ''
         };
     },
 
