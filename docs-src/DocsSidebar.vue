@@ -75,7 +75,7 @@ import DocsBrand from "./DocsBrand.vue";
 import UiIcon from "@/UiIcon.vue";
 import UiSelect from "@/UiSelect.vue";
 
-import version from "../build/version.mjs";
+import selectedVersion from "../build/version.mjs";
 
 const versions = [
   { label: "0.8.x", value: "0.8.9" },
@@ -86,8 +86,6 @@ const versions = [
   { label: "1.4.x", value: "1.4.0" },
   { label: "next", value: "next" },
 ];
-
-const selectedVersion = versions.find((v) => v.value === version) ?? versions[versions.length - 2];
 
 export default {
   components: {

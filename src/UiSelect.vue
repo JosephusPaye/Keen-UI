@@ -28,6 +28,21 @@
           <slot>{{ label }}</slot>
         </div>
 
+        <ui-icon
+          v-show="
+            hasClearButton && !disabled && (multiple ? modelValue.length > 0 : Boolean(modelValue))
+          "
+          class="ui-select__clear-button"
+          title="Clear"
+          @click.stop="setValue(emptyValue)"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              d="M18.984 6.422L13.406 12l5.578 5.578-1.406 1.406L12 13.406l-5.578 5.578-1.406-1.406L10.594 12 5.016 6.422l1.406-1.406L12 10.594l5.578-5.578z"
+            />
+          </svg>
+        </ui-icon>
+
         <div class="ui-select__display">
           <div class="ui-select__display-value" :class="{ 'is-placeholder': !hasDisplayText }">
             {{
@@ -140,7 +155,6 @@ import UiProgressCircular from "./UiProgressCircular.vue";
 import UiSelectOption from "./UiSelectOption.vue";
 
 import RespondsToExternalClick from "./mixins/RespondsToExternalClick";
-import { looseIndexOf, looseEqual } from "./helpers/util";
 import { scrollIntoView, resetScroll } from "./helpers/element-scroll";
 
 import fuzzysearch from "fuzzysearch";
@@ -161,11 +175,10 @@ export default {
     name: String,
     tabindex: [String, Number],
     modelValue: {
-      type: [String, Number, Object, Array],
-      required: true,
+      type: [String, Number, Boolean, Array],
     },
     options: {
-      type: Array,
+      type: [Array, Object],
       default() {
         return [];
       },
@@ -184,6 +197,10 @@ export default {
     type: {
       type: String,
       default: "basic", // 'basic' or 'image'
+    },
+    hasClearButton: {
+      type: Boolean,
+      default: false,
     },
     multiple: {
       type: Boolean,
@@ -306,12 +323,29 @@ export default {
       return Boolean(this.help) || Boolean(this.$slots.help);
     },
 
-    filteredOptions() {
-      if (this.disableFilter) {
-        return this.options;
+    preparedOptions() {
+      if (Array.isArray(this.options)) {
+        return this.options.map((option) =>
+          typeof option !== "object"
+            ? { [this.keys.label]: option, [this.keys.value]: option }
+            : option
+        );
       }
 
-      const options = this.options.filter((option) => {
+      return Object.keys(this.options).map((value) => {
+        return {
+          label: this.options[value],
+          value,
+        };
+      });
+    },
+
+    filteredOptions() {
+      if (this.disableFilter) {
+        return this.preparedOptions;
+      }
+
+      const options = this.preparedOptions.filter((option) => {
         if (this.filter) {
           return this.filter(option, this.query, this.defaultFilter);
         }
@@ -327,17 +361,22 @@ export default {
     },
 
     displayText() {
+      const getLabel = (value) => {
+        const selectedOption = value
+          ? this.preparedOptions.find((o) => o[this.keys.value] === value)
+          : null;
+        return selectedOption ? selectedOption[this.keys.label] : "";
+      };
+
       if (this.multiple) {
         if (this.modelValue.length > 0) {
-          return this.modelValue
-            .map((value) => value[this.keys.label] || value)
-            .join(this.multipleDelimiter);
+          return this.modelValue.map((value) => getLabel(value)).join(this.multipleDelimiter);
         }
 
         return "";
       }
 
-      return this.modelValue ? this.modelValue[this.keys.label] || this.modelValue : "";
+      return getLabel(this.modelValue);
     },
 
     hasDisplayText() {
@@ -360,14 +399,14 @@ export default {
       }
 
       if (Array.isArray(this.modelValue)) {
-        return this.modelValue.map((option) => option[this.keys.value] || option).join(",");
+        return this.modelValue.join(",");
       }
 
-      return this.modelValue[this.keys.value] || this.modelValue;
+      return this.modelValue;
     },
 
     emptyValue() {
-      return this.multiple ? [] : "";
+      return this.multiple ? [] : null;
     },
   },
 
@@ -392,8 +431,7 @@ export default {
 
   created() {
     const invalidMultipleValue = this.multiple && !Array.isArray(this.modelValue);
-    const invalidEmptyValue = !this.modelValue && this.modelValue !== "";
-    if (invalidMultipleValue || invalidEmptyValue) {
+    if (invalidMultipleValue) {
       this.$emit("update:modelValue", this.emptyValue);
       this.initialValue = JSON.stringify(this.emptyValue);
     }
@@ -439,7 +477,7 @@ export default {
       if (this.multiple) {
         this.updateOption(option, { select: shouldSelect });
       } else {
-        this.setValue(option);
+        this.setValue(option[this.keys.value]);
         this.selectedIndex = index;
       }
 
@@ -460,19 +498,19 @@ export default {
 
     isOptionSelected(option) {
       if (this.multiple) {
-        return looseIndexOf(this.modelValue, option) > -1;
+        return this.modelValue.indexOf(option[this.keys.value]) > -1;
       }
 
-      return looseEqual(this.modelValue, option);
+      return this.modelValue === option[this.keys.value];
     },
 
     updateOption(option, options = { select: true }) {
       let value = [];
       let updated = false;
-      const i = looseIndexOf(this.modelValue, option);
+      const i = this.modelValue.indexOf(option[this.keys.value]);
 
       if (options.select && i < 0) {
-        value = this.modelValue.concat(option);
+        value = this.modelValue.concat(option[this.keys.value]);
         updated = true;
       }
 
@@ -660,12 +698,14 @@ export default {
     }
   }
 
+  $ui-icon-size: 1em !default;
+
   &.has-label {
     .ui-select__icon-wrapper {
       padding-top: $ui-input-icon-margin-top--with-label;
     }
 
-    .ui-select__dropdown-button {
+    .ui-select__clear-button {
       top: $ui-input-button-margin-top--with-label;
     }
   }
@@ -730,6 +770,19 @@ export default {
   outline: none;
   padding: 0;
   width: 100%;
+}
+
+.ui-select__clear-button {
+  color: $ui-input-button-color;
+  cursor: pointer;
+  font-size: $ui-input-button-size;
+  position: absolute;
+  right: $ui-input-button-margin-top * 2;
+  top: $ui-input-button-margin-top;
+
+  &:hover {
+    color: $ui-input-button-color--hover;
+  }
 }
 
 .ui-select__icon-wrapper {

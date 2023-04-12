@@ -197,6 +197,16 @@
                 placeholder="Select a colour"
                 :options="colourStrings"
             ></ui-select>
+
+            <h4 class="page__demo-title">With a clear button</h4>
+
+            <ui-select
+                v-model="select15"
+                label="Favourite colour"
+                placeholder="Select a colour"
+                has-clear-button
+                :options="colourStrings"
+            ></ui-select>
         </div>
 
         <h3 class="page__section-title">API</h3>
@@ -226,7 +236,7 @@
 
                             <tr>
                                 <td class="no-wrap">modelValue, v-model *</td>
-                                <td>String, Number, Object or Array</td>
+                                <td>String, Number, Boolean, or Array</td>
                                 <td></td>
                                 <td>
                                     <p>The model the selected value or values sync to. Can be set initially for default value/values.</p>
@@ -236,14 +246,16 @@
 
                             <tr>
                                 <td>options</td>
-                                <td>Array</td>
+                                <td>Array, Object</td>
                                 <td><code>[]</code></td>
                                 <td>
-                                    <p>An array of options to show to the user.</p>
+                                    <p>An array or object of options to show to the user.</p>
                                     <p>Can be a plain array, e.g. <code>['Red', 'Blue', 'Green']</code> as well as an array of objects.</p>
                                     <p>For a plain array, the option is shown to the user and it is used for filtering.</p>
 
-                                    <p>For an array of objects, the <code>label</code> is shown to the user and is used for filtering, and the <code>modelValue</code> is submitted to the server. If provided, <code>class</code>, will be applied to the option element's <code>class</code> attribute. You can redefine these keys to fit your data using the <code>keys</code> prop.</p>
+                                    <p>For an array of objects, the <code>label</code> is shown to the user and is used for filtering, and the <code>value</code> is submitted to the server. If provided, <code>class</code>, will be applied to the option element's <code>class</code> attribute. You can redefine these keys to fit your data using the <code>keys</code> prop.</p>
+
+                                    <p>For an object, the <code>value</code> is shown to the user and is used for filtering, and the <code>key</code> is submitted to the server. The <code>keys</code> prop is ignored when using an Object.</p>
 
                                     <p>The entire option is written to the model when the user makes a selection.</p>
                                 </td>
@@ -469,6 +481,16 @@
                                 <td>
                                     <p>Whether or not the select is disabled. Set to <code>true</code> to disable the select.</p>
                                 </td>
+                            </tr>
+
+                            <tr>
+                              <td>hasClearButton</td>
+                              <td>Boolean</td>
+                              <td><code>false</code></td>
+                              <td>
+                                <p>Whether or not the select should include a value clear button.</p>
+                                <p>Set to <code>true</code> to show a clear button. Clicking it will set the value to <code>null</code>.</p>
+                              </td>
                             </tr>
                         </tbody>
                     </table>
@@ -704,25 +726,10 @@ export default {
             select2o5: '',
             select3: 'Orange',
             select4: '',
-            select5: {
-                label: 'Lavender',
-                image: 'https://via.placeholder.com/64/e6e6fa/e6e6fa',
-                value: 'lavender'
-            },
+            select5: 'lavender',
             select6: '',
             select7: '',
-            select8: [
-                {
-                    label: 'Orange',
-                    image: 'https://via.placeholder.com/64/ffa500/ffa500',
-                    value: 'orange'
-                },
-                {
-                    label: 'Lime',
-                    image: 'https://via.placeholder.com/64/00ff00/00ff00',
-                    value: 'lime'
-                }
-            ],
+            select8: ['orange', 'lime'],
             select9: [],
             select10: [],
             select10Touched: false,
@@ -731,13 +738,11 @@ export default {
             select11Loading: false,
             select11NoResults: false,
             select11LoadingTimeout: null,
-            select12: {
-                name: 'Australia',
-                code: 'AU'
-            },
+            select12: 'AU',
             select12o5: '',
             select13: '',
             select14: 'Peach',
+            select15: 'Peach',
             colours,
             colourStrings,
             countries
