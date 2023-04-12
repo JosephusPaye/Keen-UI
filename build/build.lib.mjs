@@ -38,6 +38,9 @@ const entries = [
   "UiTooltip",
 ];
 
+// We need to get the env variable here because it later gets polluted by child processes
+const mode = process.env.NODE_ENV || "production";
+
 entries.forEach(async (entry) => {
-  await build(getLibConfig({ entry, mode: process.env.NODE_ENV || "production" }));
+  await build(getLibConfig({ entry, mode }));
 });
