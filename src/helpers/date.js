@@ -136,6 +136,24 @@ export function isAfter(date1, date2) {
     return date1.getTime() > date2.getTime();
 }
 
+export function endOfDay (date) {
+  date = clone(date);
+  date.setHours(23);
+  date.setMinutes(59);
+  date.setSeconds(59);
+
+  return date;
+};
+
+export function startOfDay (date) {
+  date = clone(date);
+  date.setHours(0);
+  date.setMinutes(0);
+  date.setSeconds(0);
+
+  return date;
+};
+
 export default {
     defaultLang,
     getDayFull,
@@ -149,6 +167,8 @@ export default {
     moveToDayOfWeek,
     isSameDay,
     isSameMonth,
+    startOfDay,
+    endOfDay,
     isBefore,
     isAfter
 };

@@ -10,8 +10,8 @@
           class="ui-daterangepicker-calendar__header-year"
           tabindex="0"
           :class="{ 'is-active': showYearPicker }"
-          @click="$emit('update:currentView', 'year')"
-          @keydown.enter="$emit('update:currentView', 'year')"
+          @click="updateCurrentView('year', date, index)"
+          @keydown.enter="updateCurrentView('year', date, index)"
         >
           {{ getHeaderYear(date) }}
         </div>
@@ -20,8 +20,8 @@
           class="ui-daterangepicker-calendar__header-date"
           tabindex="0"
           :class="{ 'is-active': !showYearPicker }"
-          @click="$emit('update:currentView', 'date')"
-          @keydown.enter="$emit('update:currentView', 'date')"
+          @click="updateCurrentView('date', date, index)"
+          @keydown.enter="updateCurrentView('date', date, index)"
         >
           <span class="ui-daterangepicker-calendar__header-weekday"
             >{{ getHeaderWeekday(date) }},
@@ -38,6 +38,7 @@
         class="ui-daterangepicker-calendar__year"
         tabindex="0"
         :class="getYearClasses(year)"
+        :data-year="year"
         @click="selectYear(year)"
         @keydown.enter="selectYear(year)"
       >
@@ -149,7 +150,7 @@ export default {
 
     return {
       today: new Date(),
-      dateInView,
+      dateInView, // The date of the last calendar in view
       start: start || null,
       end: end || null
     };
@@ -239,18 +240,15 @@ export default {
       this.end = end
     },
 
+    dateInView () {
+      if (this.showYearPicker) {
+        this.scrollYearIntoView(this.dateInView.getFullYear());
+      }
+    },
+
     currentView() {
       if (this.showYearPicker) {
-        this.$nextTick(() => {
-          const el =
-            this.$refs.years.querySelector(".is-selected") ||
-            this.$refs.years.querySelector(".is-current-year");
-
-          el.scrollIntoView({
-            block: "nearest",
-            inline: "center",
-          });
-        });
+        this.scrollYearIntoView(this.dateInView.getFullYear());
       }
     },
   },
@@ -262,6 +260,27 @@ export default {
 
       this.dateInView = this.getDateInRange(newDate);
       this.$emit("update:currentView", "date");
+    },
+
+    updateCurrentView(view, date, index) {
+      this.$emit("update:currentView", view);
+
+      const dateInView = dateUtils.clone(date);
+      dateInView.setDate(1);
+      dateInView.setMonth(dateInView.getMonth() + (index === 0 ? (this.calendarsNumber - 1) : 0));
+      this.dateInView = dateInView;
+    },
+
+    scrollYearIntoView(year) {
+      this.$nextTick(() => {
+        const el = this.$refs.years.querySelector(`[data-year="${year}"]`);
+
+        el.scrollIntoView({
+          behavior: "auto",
+          block: "center",
+          inline: "center"
+        });
+      });
     },
 
     getDateInRange(date, fallback) {
@@ -333,24 +352,7 @@ export default {
     },
 
     onDateSelect(date) {
-      const endOfDay = (date) => {
-        date = dateUtils.clone(date);
-        date.setHours(23);
-        date.setMinutes(59);
-        date.setSeconds(59);
-
-        return date;
-      };
-
-      const startOfDay = (date) => {
-        date = dateUtils.clone(date);
-        date.setHours(0);
-        date.setMinutes(0);
-        date.setSeconds(0);
-
-        return date;
-      };
-
+      const { startOfDay, endOfDay } = dateUtils
       if ((this.start && this.end) || (!this.start && !this.end)) {
         this.start = startOfDay(date);
         this.end = null;
@@ -465,6 +467,9 @@ $ui-daterangepicker-calendars-gap: rem(8px) !default;
   list-style: none;
   overflow-y: auto;
   margin: 0;
+  $gaps-number: v-bind('calendarsNumber - 1');
+  $calendar-part-width: ($ui-calendar-cell-size * 7) + ($ui-daterangepicker-calendar-padding * 2);
+  width: calc($calendar-part-width * v-bind(calendarsNumber) + ($ui-daterangepicker-calendars-gap * $gaps-number));
 }
 
 .ui-daterangepicker-calendar__year {

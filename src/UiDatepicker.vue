@@ -76,6 +76,7 @@
             :model-value="value"
             :start-of-week="startOfWeek"
             :year-range="yearRange"
+            :calendars-number="calendarsNumber"
             @update:model-value="onDateSelect"
           ></ui-daterangepicker-calendar>
         </ui-popover>
@@ -127,6 +128,7 @@
         :model-value="value"
         :start-of-week="startOfWeek"
         :year-range="yearRange"
+        :calendars-number="calendarsNumber"
         @update:model-value="onDateSelect"
       ></ui-daterangepicker-calendar>
     </ui-modal>
@@ -163,6 +165,10 @@ export default {
     startOfWeek: {
       type: Number,
       default: 0,
+    },
+    calendarsNumber: {
+      type: Number,
+      default: 2,
     },
     minDate: Date,
     maxDate: Date,

@@ -29,6 +29,7 @@
         :key="year"
         class="ui-datepicker-calendar__year"
         tabindex="0"
+        :data-year="year"
         :class="getYearClasses(year)"
         @click="selectYear(year)"
         @keydown.enter="selectYear(year)"
@@ -180,13 +181,7 @@ export default {
 
     currentView() {
       if (this.showYearPicker) {
-        this.$nextTick(() => {
-          const el =
-            this.$refs.years.querySelector(".is-selected") ||
-            this.$refs.years.querySelector(".is-current-year");
-
-          el.scrollIntoView({ block: "nearest" });
-        });
+        this.scrollYearIntoView(this.dateInView.getFullYear());
       }
     },
   },
@@ -198,6 +193,18 @@ export default {
 
       this.dateInView = this.getDateInRange(newDate);
       this.$emit("update:currentView", "date");
+    },
+
+    scrollYearIntoView(year) {
+      this.$nextTick(() => {
+        const el = this.$refs.years.querySelector(`[data-year="${year}"]`);
+
+        el.scrollIntoView({
+          behavior: "auto",
+          block: "center",
+          inline: "center"
+        });
+      });
     },
 
     getDateInRange(date, fallback) {
