@@ -29,7 +29,9 @@
         </div>
 
         <ui-icon
-          v-show="hasClearButton && !disabled && (multiple ? modelValue.length > 0 : Boolean(modelValue))"
+          v-show="
+            hasClearButton && !disabled && (multiple ? modelValue.length > 0 : Boolean(modelValue))
+          "
           class="ui-select__clear-button"
           title="Clear"
           @click.stop="setValue(emptyValue)"
@@ -173,7 +175,7 @@ export default {
     name: String,
     tabindex: [String, Number],
     modelValue: {
-      type: [String, Number, Boolean, Array]
+      type: [String, Number, Boolean, Array],
     },
     options: {
       type: [Array, Object],
@@ -321,20 +323,21 @@ export default {
       return Boolean(this.help) || Boolean(this.$slots.help);
     },
 
-    preparedOptions () {
+    preparedOptions() {
       if (Array.isArray(this.options)) {
-        return this.options.map(option => typeof option !== 'object'
-          ? { [this.keys.label]: option, [this.keys.value]: option }
-          : option
-        )
+        return this.options.map((option) =>
+          typeof option !== "object"
+            ? { [this.keys.label]: option, [this.keys.value]: option }
+            : option
+        );
       }
 
       return Object.keys(this.options).map((value) => {
         return {
           label: this.options[value],
-          value
-        }
-      })
+          value,
+        };
+      });
     },
 
     filteredOptions() {
@@ -359,15 +362,15 @@ export default {
 
     displayText() {
       const getLabel = (value) => {
-        const selectedOption = value ? this.preparedOptions.find(o => o[this.keys.value] === value) : null;
+        const selectedOption = value
+          ? this.preparedOptions.find((o) => o[this.keys.value] === value)
+          : null;
         return selectedOption ? selectedOption[this.keys.label] : "";
       };
 
       if (this.multiple) {
         if (this.modelValue.length > 0) {
-          return this.modelValue
-            .map(value => getLabel(value))
-            .join(this.multipleDelimiter);
+          return this.modelValue.map((value) => getLabel(value)).join(this.multipleDelimiter);
         }
 
         return "";
