@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Keen UI static usage example</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="../../dist/keen-ui.min.js"></script>
+    <link rel="stylesheet" href="../../dist/keen-ui.min.css" type="text/css" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      :root {
+        font-family: system-ui, sans-serif;
+        font-size: 16px;
+        text-align: center;
+      }
+
+      .buttons-inline {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" style="text-align: center">
+      <div>{{ message }}</div>
+      <br />
+      <ui-button color="primary">Button from usage as plugin</ui-button>
+      <br />
+      <br />
+      <my-button color="primary">Button from usage as component</my-button>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+
+      const app = createApp({
+        data() {
+          return {
+            message: "Hello from Vue!",
+          };
+        },
+      });
+
+      // Use as a plugin
+      app.use(KeenUI);
+
+      // Use separate components
+      app.component("my-button", KeenUI.UiButton);
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>
