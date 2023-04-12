@@ -18,7 +18,6 @@
             <ui-datepicker
                 v-model="picker1"
                 placeholder="Select a date"
-                has-clear-button
             >Your Birthday</ui-datepicker>
 
             <h4 class="page__demo-title">Floating label</h4>
@@ -207,6 +206,14 @@
             <ui-datepicker
                 v-model="picker15"
                 disabled
+                placeholder="Select a date"
+            >A Special Day</ui-datepicker>
+
+            <h4 class="page__demo-title">With a clear button</h4>
+
+            <ui-datepicker
+                v-model="picker16"
+                has-clear-button
                 placeholder="Select a date"
             >A Special Day</ui-datepicker>
         </div>
@@ -453,6 +460,16 @@
                                     <p>Whether or not the datepicker is disabled. Set to <code>true</code> to disable the datepicker.</p>
                                 </td>
                             </tr>
+
+                            <tr>
+                              <td>hasClearButton</td>
+                              <td>Boolean</td>
+                              <td><code>false</code></td>
+                              <td>
+                                <p>Whether or not the datepicker should include a value clear button.</p>
+                                <p>Set to <code>true</code> to show a clear button. Clicking it will set the value to an empty one depending on the datepicker type.</p>
+                              </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -652,7 +669,8 @@ export default {
             picker13: null,
             picker1301: null,
             picker14: null,
-            picker15: new Date()
+            picker15: new Date(),
+            picker16: new Date()
         };
     },
 

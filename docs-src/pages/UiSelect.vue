@@ -16,7 +16,6 @@
             <ui-select
                 v-model="select1"
                 label="Favourite colour"
-                has-clear-button
                 placeholder="Select a colour"
                 :options="colourStrings"
             ></ui-select>
@@ -196,6 +195,16 @@
                 disabled
                 label="Favourite colour"
                 placeholder="Select a colour"
+                :options="colourStrings"
+            ></ui-select>
+
+            <h4 class="page__demo-title">With a clear button</h4>
+
+            <ui-select
+                v-model="select15"
+                label="Favourite colour"
+                placeholder="Select a colour"
+                has-clear-button
                 :options="colourStrings"
             ></ui-select>
         </div>
@@ -473,6 +482,16 @@
                                     <p>Whether or not the select is disabled. Set to <code>true</code> to disable the select.</p>
                                 </td>
                             </tr>
+
+                            <tr>
+                              <td>hasClearButton</td>
+                              <td>Boolean</td>
+                              <td><code>false</code></td>
+                              <td>
+                                <p>Whether or not the select should include a value clear button.</p>
+                                <p>Set to <code>true</code> to show a clear button. Clicking it will set the value to <code>null</code>.</p>
+                              </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -723,6 +742,7 @@ export default {
             select12o5: '',
             select13: '',
             select14: 'Peach',
+            select15: 'Peach',
             colours,
             colourStrings,
             countries
