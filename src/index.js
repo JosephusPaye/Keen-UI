@@ -74,7 +74,7 @@ const KeenUI = {
   UiTooltip,
 };
 
-KeenUI.install = function (app, config = {}) {
+export function install(app, config = {}) {
   // Configure the component props
   Object.keys(config).forEach((key) => {
     if (startsWith(key, "Ui")) {
@@ -96,14 +96,7 @@ KeenUI.install = function (app, config = {}) {
       app.component(Component.name, Component);
     }
   });
-};
-
-// Make Keen UI available globally when in a browser environment
-if (typeof window !== "undefined") {
-  window.KeenUI = KeenUI;
 }
-
-export default KeenUI;
 
 export {
   UiAlert,
@@ -140,4 +133,9 @@ export {
   UiTextbox,
   UiToolbar,
   UiTooltip,
+};
+
+export default {
+  ...KeenUI,
+  install,
 };

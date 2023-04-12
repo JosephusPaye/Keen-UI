@@ -1,16 +1,61 @@
 # Customization
 
+- [Sass customization](#sass-customization)
+  - [Setup](#setup)
+  - [Customizing brand colors](#customizing-brand-colors)
+  - [Customizing other variables](#customizing-other-variables)
+- [Component size customization](#component-size-customization)
+- [Default props customization](#default-props-customization)
+
 ## Sass customization
 
-If you use Sass with [`webpack`](https://webpack.js.org) and [`vue-loader`](https://github.com/vuejs/vue-loader) in your project, you can customize the components by overriding Sass variables and then importing the `.vue` source files.
+You can customize the components by overriding Sass variables and importing the components from `keen-ui/src` if you use Sass in your project with one the following setups:
+
+- [Vite](https://vitejs.dev)
+- [Vue CLI](https://cli.vuejs.org/)
+- [Webpack](https://webpack.js.org) and [`vue-loader`](https://github.com/vuejs/vue-loader)
 
 ### Setup
 
 1. Create a `variables.scss` file somewhere in your project, for example, at `src/styles/variables.scss`.
 
-   **Note**: since this file will be imported into every Sass file, make sure it doesn't contain any CSS rules. It should contain only Sass variables, functions or mixins.
+   > **Note**
+   > Since this file will be imported into every Sass file, make sure it doesn't contain any CSS rules. It should contain only Sass variables, functions or mixins.
 
-2. If you are **not** using Vue CLI:
+2. If you're using Vite, add the following to `vite.config.js` ([more details here](https://vitejs.dev/config/shared-options.html#css-preprocessoroptions)):
+
+   ```js
+   const scssVariablesFile = path
+     .resolve(__dirname, "./src/styles/variables.scss")
+     .replace(/\\/g, "/");
+   export default defineConfig({
+     css: {
+       preprocessorOptions: {
+         scss: {
+           additionalData: `@use "${scssVariablesFile}" as *;`,
+         },
+       },
+     },
+   });
+   ```
+
+   See [`usage-examples/vite-sass-customization`](./usage-examples/vite-sass-customization) for a complete example.
+
+3. If you are using Vue CLI, add the following to `vue.config.js` ([more details here](https://cli.vuejs.org/guide/css.html#passing-options-to-pre-processor-loaders)):
+
+   ```js
+   module.exports = {
+     css: {
+       loaderOptions: {
+         sass: {
+           data: `@use "@/styles/variables.scss" as *;`,
+         },
+       },
+     },
+   };
+   ```
+
+4. If you are using Webpack + `vue-loader` without Vue CLI, do the following:
 
    - Install [`sass-resources-loader`](https://github.com/shakacode/sass-resources-loader).
 
@@ -22,30 +67,16 @@ If you use Sass with [`webpack`](https://webpack.js.org) and [`vue-loader`](http
 
      ```js
      {
-         loader: 'sass-resources-loader',
-         options: {
-             resources: path.resolve(__dirname, './src/styles/variables.scss')
-         }
+       loader: 'sass-resources-loader',
+       options: {
+         resources: path.resolve(__dirname, './src/styles/variables.scss')
+       }
      }
      ```
 
-3. If you are using Vue CLI, add the following to `vue.config.js` ([details](https://cli.vuejs.org/guide/css.html#passing-options-to-pre-processor-loaders)):
+5. Now you can customize the component styles by overriding Keen UI variables in the `variables.scss` file you created, and importing the component from source. Read on for more details.
 
-   ```js
-   module.exports = {
-     css: {
-       loaderOptions: {
-         sass: {
-           data: `@import "@/styles/variables.scss";`,
-         },
-       },
-     },
-   };
-   ```
-
-4. Now you can customize the component styles by overriding Keen UI variables in the `variables.scss` file you created.
-
-### Brand colors
+### Customizing brand colors
 
 The `primary` and `accent` theme colors can be customized using the `$brand-primary-color` and `$brand-accent-color` variables.
 
@@ -68,8 +99,7 @@ The `primary` and `accent` theme colors can be customized using the `$brand-prim
    </template>
 
    <script>
-     import "keen-ui/src/bootstrap"; // Required to setup Keen UI, should be imported only once in your project
-     import UiButton from "keen-ui/src/UiButton.vue";
+     import { UiButton } from "keen-ui/src/index";
 
      export default {
        components: {
@@ -79,15 +109,15 @@ The `primary` and `accent` theme colors can be customized using the `$brand-prim
    </script>
    ```
 
-### Other variables
+### Customizing other variables
 
-All other variables in [`keen-ui/src/styles/variables.scss`](.../src/styles/variables.scss) can be overridden to customize other aspects of the components in the same manner as the example above.
+All other variables in [`keen-ui/src/styles/variables.scss`](./src/styles/variables.scss) can be overridden to customize other aspects of the components in the same manner as the example above.
 
 Some components also have component-specific variables that can be found in their source files. Those can be overridden as well.
 
 You can also override the `rem()` Sass function by defining a `rem-custom()` function to be used instead for calculating the size of components, as described below. Please refer to the original function in [`src/styles/util.scss`](./src/styles/util.scss).
 
-## Component sizing
+## Component size customization
 
 All components use the `rem` CSS unit for properties with length values (e.g. `font-size`, `margin`, `padding`, `width`, `height`, etc). This allows you to customize the size of all components by setting `font-size` on the root (`<html>`) element.
 
@@ -109,7 +139,7 @@ html {
 }
 ```
 
-## Changing default prop values
+## Default props customization
 
 Component props which have default values can be changed globally when installing Keen UI as a Vue plugin, or when using individual components.
 
@@ -120,6 +150,7 @@ import { createApp } from "vue";
 import KeenUI from "keen-ui";
 
 const app = createApp();
+
 app.use(KeenUI, {
   UiButton: {
     disableRipple: true,

@@ -10,7 +10,9 @@ Keen UI is a [Vue.js](http://vuejs.org) UI library with a simple API, inspired b
 
 ## Requirements
 
-- [Vue.js](http://vuejs.org/) (^v2.1.4) - use [keen-ui@0.8.9](http://josephuspaye.github.io/Keen-UI/0.8.9/) for Vue 1.x support.
+- [Vue.js](http://vuejs.org/) (v3)
+  - use [keen-ui@0.8.9](http://josephuspaye.github.io/Keen-UI/0.8.9/) for Vue 1.x support.
+  - use [keen-ui@1.x](http://josephuspaye.github.io/Keen-UI/1.4.0/) for Vue 2.x support.
 
 Optional
 
@@ -18,7 +20,7 @@ Optional
 
 ## Browser support
 
-IE 10+ (due to [Flexbox support](http://caniuse.com/#search=flexbox)).
+Keen UI supports [browsers with native ES2015 support](https://caniuse.com/es6) ([same as Vue 3](https://vuejs.org/about/faq.html#what-browsers-does-vue-support)).
 
 ## Installation
 
@@ -52,8 +54,8 @@ Use as a Vue plugin (globally registers all components):
 
 ```js
 import { createApp } from "vue";
-import KeenUI from "keen-ui";
-import "keen-ui/dist/keen-ui.css";
+import * as KeenUI from "keen-ui";
+import "keen-ui/keen-ui.css";
 
 const app = createApp();
 app.use(KeenUI);
@@ -64,6 +66,7 @@ Use individual components:
 ```js
 import { createApp } from "vue";
 import { UiAlert, UiButton } from "keen-ui";
+import "keen-ui/keen-ui.css";
 
 const app = createApp({
   components: {
@@ -73,7 +76,7 @@ const app = createApp({
 });
 ```
 
-### Script tag
+### Global script tag
 
 First, add a stylesheet link to the Keen UI CSS file in `dist/keen-ui.min.css`. Then, add a script tag pointing to `dist/keen-ui.min.js`.
 
@@ -113,14 +116,16 @@ See [Customization](Customization.md).
 
 ## Using standalone components
 
-Each component is built into a standalone file with the necessary CSS included. You can use these individual standalone components without importing the rest of the library. The standalone components are located in the `lib/` folder.
+Each component is built into a standalone file with all its dependencies included. You can use these individual standalone components without importing the rest of the library. The standalone components are located in the `lib/` folder.
 
-**NOTE**: Standalone component files each contain their own dependencies, and many contain overlapping dependencies. As a result, using multiple standalone files may increase the size of your bundle due to duplicate code.
+> **Note**
+> Standalone component files each contain their own dependencies, and many contain overlapping dependencies. As a result, using multiple standalone files may increase the size of your bundle due to duplicate code.
 
 ```js
 import { createApp } from "vue";
 import "keen-ui/src/bootstrap"; // Required when using standalone components, should be imported only once in your project
 import UiButton from "keen-ui/lib/UiButton";
+import "keen-ui/css/UiButton.css";
 
 const app = createApp({
   components: {
@@ -133,6 +138,6 @@ const app = createApp({
 
 Keen UI is open source and released under the [MIT Licence](LICENCE).
 
-Copyright (c) 2019 [Josephus Paye II](https://twitter.com/JosephusPaye).
+Copyright (c) 2023 [Josephus Paye II](https://twitter.com/JosephusPaye).
 
 > _PS: Made something cool with Keen UI? I would love to know! Tweet to me at [@JosephusPaye](https://twitter.com/JosephusPaye)_.
