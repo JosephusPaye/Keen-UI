@@ -49,10 +49,10 @@
                 Animations for this alert are disabled.
             </ui-alert>
 
-            <ui-alert :dismissible="false">This alert is not dismissible.</ui-alert>
+            <ui-alert :persist="true">This alert is not dismissible.</ui-alert>
 
-            <ui-alert :dismissible="false" remove-icon>
-                This alert has no icon is not dismissible.
+            <ui-alert :persist="true" remove-icon>
+                This alert has no icon and is not dismissible.
             </ui-alert>
 
             <ui-button @click="resetAlerts">Reset Alerts</ui-button>
@@ -105,13 +105,13 @@
                             </tr>
 
                             <tr>
-                                <td>dismissible</td>
+                                <td>persist</td>
                                 <td>Boolean</td>
-                                <td><code>true</code></td>
+                                <td><code>false</code></td>
                                 <td>
                                     <p>Whether or not the alert shows a dismiss button.</p>
                                     <p>You should listen for the <code>dismiss</code> event and hide the alert.</p>
-                                    <p>Set to <code>false</code> to remove the dismiss button.</p>
+                                    <p>Set to <code>true</code> to remove the dismiss button.</p>
                                 </td>
                             </tr>
                         </tbody>

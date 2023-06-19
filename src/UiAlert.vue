@@ -43,7 +43,7 @@
         </div>
 
         <div class="ui-alert__dismiss-button">
-          <ui-close-button v-if="dismissible" size="small" @click="dismissAlert"></ui-close-button>
+          <ui-close-button v-if="!persist" size="small" @click="dismissAlert"></ui-close-button>
         </div>
       </div>
     </div>
@@ -75,9 +75,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    dismissible: {
+    persist: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
 
