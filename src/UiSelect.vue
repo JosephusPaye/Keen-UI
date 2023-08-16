@@ -672,7 +672,7 @@ export default {
 
   &:not(.is-multiple) {
     .ui-select__display {
-      height: $ui-input-height;
+      min-height: $ui-input-height;
       line-height: 1;
     }
   }
